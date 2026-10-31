@@ -1,0 +1,72 @@
+{
+  "package": "dist/wrr_process_experiments_20261029.zip",
+  "package_sha256": "25da3d5226b1e4a83197f978543cc79660a95e6eff08fabd7dd9cf483b2910cf",
+  "files_compared": 3313,
+  "changed_files": [
+    {
+      "path": "paper/wrr_tr/process_gap_revision_table.tex",
+      "package_sha256": "7921258b058119da1d942cb21d01392b6cf561b4cc88e7113c57a0c988c31ee0",
+      "current_sha256": "08936251ebb91b4c15c5f9233107a3006d7d6d6f660ada11878cead418fcf773"
+    },
+    {
+      "path": "paper/wrr_tr/process_time_revision_values.tex",
+      "package_sha256": "0c9de6d5340112421927b2f6e715e3a67574271c87acb19e022d4ee2479220d5",
+      "current_sha256": "88d80182afadd7a5feebcb23486f554ead18217f74663f05444546bae008cb19"
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_article.pdf",
+      "package_sha256": "0b9113148612414e8e4f9bdbf17cb5217dea074abc24f2cf2a72f13cd6fe4398",
+      "current_sha256": "5aa45374da2289266b7be2146699fd917f1a7812bd1aa21ecee972e33740bae2"
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_article.tex",
+      "package_sha256": "fce92ff20b9bb3b41b3a58697ef524bddda36e4fdd70a7b4edb53819f24fa346",
+      "current_sha256": "52aae66d7ac862e30f7e018827843de8457f74c563b8df2cb53afb6a156aa738"
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_supporting.tex",
+      "package_sha256": "59f3f9bebc8e14345798bbc4c8d1010188bafdb9f079df83b8aebb2b9abca952",
+      "current_sha256": "093bded739e59719e4bff87e649cd37859198f66e725c8c30df4e136e32e2017"
+    },
+    {
+      "path": "scripts/961_process_time_support.py",
+      "package_sha256": "bb9ab5c3df1c7bb935219ff29cb1b974cba173a169b2c7abce52e933c455944b",
+      "current_sha256": "76f301e0ce943a45dfe23f9ecabf4697c18031bb10d67029942b94072b942099"
+    },
+    {
+      "path": "scripts/964_process_gap_and_archive.py",
+      "package_sha256": "e2e6bb01616b60f2f180938b11ad9419a1dc150c279ecd215e587cd39da2dc2f",
+      "current_sha256": "5995ae1d88a2dcd38d8426b817bfee410bdb2380be5d29cbf9ee7a2800040b59"
+    },
+    {
+      "path": "tests/test_wrr_adversarial_revision.py",
+      "package_sha256": "a53b6a00865afc73a2a124e0c6bdcd5f3a5453b42b246e084101bd79b3cf62ad",
+      "current_sha256": "4f0a5c92be4236d5eaadb754a952738d3ee33fce8a49488d02dbc849525c594c"
+    },
+    {
+      "path": "tests/test_wrr_process_revision.py",
+      "package_sha256": "fd22039997c47ef69134395f9144ec3e72762a9b76a0c8efc4ab746507c87253",
+      "current_sha256": "d1bbad140a6097937b38baaeade0f35b66976cf4fc902c63130f70209ce6b107"
+    }
+  ],
+  "missing_current_files": [],
+  "manuscripts": [
+    {
+      "path": "paper/wrr_tr/review_completion_article.pdf",
+      "pages": 41,
+      "sha256": "5aa45374da2289266b7be2146699fd917f1a7812bd1aa21ecee972e33740bae2",
+      "receipt_pages": 40,
+      "receipt_sha256": "0b9113148612414e8e4f9bdbf17cb5217dea074abc24f2cf2a72f13cd6fe4398",
+      "receipt_matches": false
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_supporting.pdf",
+      "pages": 101,
+      "sha256": "0d48affc51203c622137e27e24dd30c4b789b130958a24a91241556eb43bb986",
+      "receipt_pages": 101,
+      "receipt_sha256": "0d48affc51203c622137e27e24dd30c4b789b130958a24a91241556eb43bb986",
+      "receipt_matches": true
+    }
+  ],
+  "note": "An older package is not evidence for current uncommitted manuscript changes; this check does not rebuild or alter the package."
+}

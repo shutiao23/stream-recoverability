@@ -1,0 +1,5 @@
+rule,station_years,known,accepted,rejected,unknown,rejected_with_observed_30day_bound,stations_with_rejected_bound,groups_with_rejected_bound
+complete_100,2656,2656,2122,534,0,518,70,32
+annual_95,2656,2656,2550,106,0,90,48,28
+warm_90_station_specific,2656,2656,2590,66,0,50,30,19
+july_aug_complete,2656,2656,2472,184,0,168,58,27

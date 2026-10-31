@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "annual_rows": 21446,
+  "cohorts": 4,
+  "bootstrap_draws": 2000,
+  "benchmark": "same two-estimator common finite-bound cases as the prior support audit",
+  "strata": "reference H30 equals observed lower bound within 1e-8 C, or exceeds it by more than that tolerance",
+  "bootstrap": "case-weighted means after resampling connected groups; repeated masks and regions remain dependent",
+  "crps": "128 stratified quantile draws, linear interior and adjacent-normal tail continuation with observed support; tail law is an assumption",
+  "limitation": "stratum requires complete hidden reference and is unavailable for deployment or model selection; finite reported records and mask designs are not independent climates; source sensor error is not evaluated"
+}

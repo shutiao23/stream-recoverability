@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "resources": 10,
+  "station_years_recomputed": 50,
+  "scope": "Independent pandas duplicate filtering, daily sums and 30-day rolling bounds compared for every fixed station-year.",
+  "limitations": "Agreement does not verify the assumed physical range, source QA or independent climates. No model prediction was evaluated."
+}

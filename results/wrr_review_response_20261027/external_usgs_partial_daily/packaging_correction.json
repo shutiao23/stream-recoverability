@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T08:15:11.546597+00:00",
+  "status": "corrected_after_two_package_verifier_failures",
+  "failure": "Both initial combined-package checks failed because snapshot enumeration omitted nested power/manifest.json, causing the portable USGS reference replay to fail.",
+  "correction": "Include every nested manifest except the top-level self-manifest, and add a regression test for power/manifest.json.",
+  "scientific_values_changed": false,
+  "original_failed_clean_report": "/dev/shm/wrr_usgs_complete_clean_final.json",
+  "original_failed_replay_report": "/dev/shm/wrr_usgs_complete_replay_final.json"
+}

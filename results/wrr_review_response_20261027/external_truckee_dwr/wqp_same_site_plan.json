@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-10-27T05:26:05.276999+00:00",
+  "status": "posthoc after target model scores and WQP station metadata were seen, before retrieving WQP water-temperature results",
+  "selection": "The only WQP water-temperature site within 0.25 km, whose station identifier matches the DWR water-data-library code of the scored TRB8 station.",
+  "wqp_site_id": "CALWR_WQX-G7166310",
+  "organization": "CALWR_WQX",
+  "years": [
+    2011,
+    2013,
+    2014,
+    2020
+  ],
+  "request": "All WQP result records for Temperature, water in each of the four already-scored calendar years; retain source metadata, timestamps, units, value type and quality/status fields.",
+  "intended_use": "First describe provenance, time-zone and measurement fields and whether records may be same-source duplicates. Any numeric comparisons require a subsequent recorded plan; do not label the data an independent sensor or climate.",
+  "limits": "Both datasets are DWR records for the same WDL station. A different portal does not prove another instrument, independent measurement or independent QA. WQP historical profile may lack subsequent revisions and source-specific reuse terms require review."
+}

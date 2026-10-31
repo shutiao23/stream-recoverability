@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-27T07:10:34.248275+00:00",
+  "status": "posthoc after model predictions, conditional errors, source factorial sensitivity and target feature values have been examined; before this range audit",
+  "training": "Reconstruct seed-zero global candidate roles and bootstrap weights from the original source cases. Use only rows with positive estimator weights and the exact feature-design function used to fit quantile models. Finite min/max and frequency-weighted 1st/99th percentile bounds are computed separately for each model feature.",
+  "comparison": "Compare all fixed 306 external cases and, as a descriptive comparator, source crossed-mask cases assigned positive weight in non-estimator roles. The latter participated in other calibration or risk components and is not a new independent validation sample.",
+  "definition": "A finite target value is outside if below the estimator-role minimum or above its maximum; a nonfinite target value is unsupported if no nonfinite source-training values occurred. Report finite/nonfinite cases separately. Also report values outside weighted 1st/99th percentile bounds as a descriptive tail flag, not a failure classifier.",
+  "count_feature": "Report any out-of-range feature both with and without n_complete_years. The real external count remains zero and is not replaced with an artificial in-range value. Never interpret one-dimensional ranges as a complete multivariate support region.",
+  "summary": "Per feature: training finite/nonfinite weighted counts and target/other-role out-of-range counts. Per case: number and identity of flagged features; aggregate across cases, target station-years and sites. All results use decision-time inputs only, but their analysis is retrospective and cannot establish risk calibration.",
+  "limits": "Source masks, local-history conditions, climatology, stations and time differ. Positive weights and training source identities do not establish independent climates or eliminate source overlap. Multiple feature flags are correlated, features can lie within marginal ranges while their joint combination is unsupported, and tree models can have active behavior outside ranges.",
+  "source_rows": 145684,
+  "source_estimator_positive_rows": 43804,
+  "source_estimator_positive_groups": 68,
+  "source_non_estimator_positive_rows": 39036,
+  "model_features": 68
+}

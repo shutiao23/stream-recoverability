@@ -1,0 +1,5 @@
+family,metric,lower,upper,valid_draws,groups
+calendar,retention_difference,-0.019285544790598682,0.03170190573740213,2000,185
+calendar,conditional_error_difference,0.005094130494498308,0.008769340948002125,2000,185
+crossed,retention_difference,-0.00741586205850048,0.025728106880870384,2000,185
+crossed,conditional_error_difference,0.007866466678524623,0.013076769438682806,2000,185

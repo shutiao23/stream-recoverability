@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "archive_settings": 820,
+  "status_counts": {
+    "passed": 736,
+    "one_or_both_annual_distributions_unavailable": 82,
+    "no_incomplete_years": 2
+  },
+  "previous_marginal_and_rank_checks": 685,
+  "scope": "same masks, candidate source annual quantiles and rank matrices; hypothetical endpoint-only and tapered shapes; no joint coverage guarantee"
+}

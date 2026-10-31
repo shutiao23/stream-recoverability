@@ -1,0 +1,15 @@
+{
+  "status": "passed_with_dependency_found",
+  "target_stations": 42,
+  "target_provider_counts": {
+    "gkd_bayern": 24,
+    "foen": 10,
+    "usgs": 7,
+    "syke": 1
+  },
+  "model_mode_region_combinations": 13,
+  "estimator_combinations_with_lubw_positive_weight": 13,
+  "interval_calibration_combinations_with_lubw_positive_weight": 6,
+  "source_role_assignments_match_saved_models": true,
+  "limitations": "Rows are repeated masked cases, not independent stations or climate samples. Positive training weights establish source dependence, not the legal status of a particular prediction. Other provider, air-forcing, source-case, mask, model and downstream provenance still require review."
+}

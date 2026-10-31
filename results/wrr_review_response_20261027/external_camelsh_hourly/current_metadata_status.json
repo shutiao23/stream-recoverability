@@ -1,0 +1,14 @@
+{
+  "status": "metadata_screen_completed",
+  "requested_sites": 147,
+  "sites_returned": 147,
+  "daily_series_records_returned": 10,
+  "status_counts": {
+    "no_daily_mean_series_returned": 137,
+    "no_candidate_series_in_current_metadata": 10
+  },
+  "metadata_candidates": 0,
+  "temperature_values_opened": false,
+  "model_errors_opened": false,
+  "limits": "Selection remains posthoc, depends on current metadata and incomplete prior inventories. No count, nonestimated status, complete subdaily sampling or independent network is verified."
+}

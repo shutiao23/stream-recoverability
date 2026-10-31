@@ -1,0 +1,23 @@
+{
+  "status": "source_like_planning_simulation_not_new_observations",
+  "protocol": "strictly_prior_years",
+  "primary_point": "original fixed priority H30 reconstruction",
+  "models": ["direct_failure_probability", "direct_failure_probability_plus_windows"],
+  "actual_component_roles": "disjoint old-source 60/20/20; fitting and calibration through 2018; evaluation 2019-2022",
+  "simulated_training_groups": [60, 120, 240],
+  "simulated_calibration_groups": [60, 120, 240, 480, 960, 1920, 3840],
+  "simulated_test_groups": [60, 120, 240, 480, 960, 1920, 3840, 7680],
+  "procedure_repetitions_per_training_size": 1000,
+  "calibration_bootstrap_draws": 1000,
+  "calibration_policies": ["empirical", "formal"],
+  "risk_cap": 0.05,
+  "practical_gain": 0.05,
+  "familywise_alpha": 0.05,
+  "alpha_allocation": {"formal_calibration_per_model": 0.005, "test_risk_per_model": 0.01, "paired_gain": 0.02},
+  "primary_gain_lower_bound": "Hoeffding for paired component differences in [-1,1]",
+  "secondary_gain_lower_bound": "one-sided normal approximation; sensitivity only",
+  "target_joint_power": 0.8,
+  "independence_assumption": "independent draws from role-specific empirical component distributions; no new climatic or hydrological types are generated",
+  "resampling_warning": "simulated group budgets are not observed independent component counts and are not recruitment achievements",
+  "sampling_plan_decision": "recommend no new confirmatory sample size unless joint target is reached under the stated model and inferential procedure"
+}

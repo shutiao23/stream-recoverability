@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-27T02:56:32.918272+00:00",
+  "status": "post-hoc plan after previous results and mask feasibility inspection; not preregistered",
+  "scope": "41 existing forward-eligible stations, first five existing masks, crossed family; 205 settings",
+  "selection": "Same heat-weighted selected years as 689: fixed original year count, weight five for air-hot years using pre-2010 burn-in and a separate seeded stream.",
+  "gap_assignment": "Retain original masks for years selected in both scenarios. Assign remaining original whole offset/length templates to newly selected years, placing longer-ending templates first into the earliest feasible non-leap year then leap year. Reject if any template cannot fit.",
+  "matched": "Identical number of masked years, multiset of original gap templates and aggregate gap days per archive; timestamps and years can change.",
+  "measurement": "Paired available trend outcomes, coverage, width and interval score; report common-case and group counts, connected-group resampling and fixed-prediction leave-region-out.",
+  "limitations": "Post-hoc after previous target results, scenario masks and feasibility were seen; selected years and positions change together, and transferring templates can alter their relation to seasonal peaks. Reuses source models, forcing and target archives; not a causal effect, natural-outage validation, independent climate or safety guarantee.",
+  "privacy": "Station-level masks, target cases and model predictions remain local private; aggregate outputs only.",
+  "input_hashes": {
+    "scripts/734_gap_matched_heat_stress.py": "cefd946f59dc860c0c06665cae3c74fd835d9ca4028eb794cdc93cc8ad287c5e",
+    "scripts/691_expanded_stress_comparison.py": "c90a7ea52f048e47d12a1bc213dd00be8958e92f7de1a4ece539a03475d16362",
+    "results/wrr_review_response_20261027/expanded_stress/plan.json": "719e8f92dc07fb45400e9b92c389994cef4f48ccfb1eda7f6ba3a3d02d4b08a6",
+    "private/wrr_expanded_stress_20261027/roster.csv": "0887d7b9c02ba27bbd038cb2def0619a5e11575e90578d39417cbe1fa5f84991",
+    "private/wrr_expanded_stress_20261027/input_manifest.json": "299e0cee28d1e778bc20db4cf4811a83e706b06fb3c57fa172565a11b10da791",
+    "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf"
+  }
+}

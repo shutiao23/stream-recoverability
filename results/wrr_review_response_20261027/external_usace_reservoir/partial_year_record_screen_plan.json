@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T06:15:52.395692+00:00",
+  "status": "posthoc after inspecting whole-cohort H30 bound widths, before this record-screen comparison",
+  "cohort": "All ten resources and all 2021-2025 station-years; chronological comparisons limited to the study window.",
+  "visible_window": "Largest 30-day mean using only fully observed 96-value days. No threshold is imposed on the observed 30-day window.",
+  "annual_rules": "Accept an annual observation if complete 96-reading days comprise at least 95% or 100% of the calendar year. These are generic sensitivity rules, not claims about a particular published H30 protocol.",
+  "guaranteed_added_record": "For a rejected target year with a complete visible 30-day window, require at least one earlier accepted year under the same gate and visible lower bound strictly above every earlier accepted year annual upper H30 bound. This proves a higher target H30 only among those earlier accepted years and only under the assumed slot bounds and reported values.",
+  "limitations": "Bound assumptions, possible corrections, instrument accuracy, sensor clock, source overlaps and climate independence remain unresolved; neither full historical records nor model accuracy are evaluated."
+}

@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T07:56:12.765154+00:00",
+  "status": "posthoc after all eight model scores; first saved mask per target fixed before this probe",
+  "procedure": "For all eight target years compare a same-process unchanged-input control with a rerun after increasing all target observations hidden by the first mask by 10 C. Check mask, 68 model inputs and 17 outputs at 1e-10 tolerance; separately compare unchanged controls to saved predictions.",
+  "limitations": "One mask per target and same implementation/models; no exhaustive proof of no hidden leakage, instrument accuracy, clock agreement, independence or calibration."
+}

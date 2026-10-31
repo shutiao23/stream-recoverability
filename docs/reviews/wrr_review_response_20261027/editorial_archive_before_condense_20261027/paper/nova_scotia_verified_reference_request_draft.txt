@@ -1,0 +1,22 @@
+UNSENT DRAFT — SUBJECT TO AUTHOR REVIEW
+
+Subject: Clarification of verified hourly water-temperature data and time basis
+
+Dear Nova Scotia Environment and Climate Change water monitoring team,
+
+We are assessing the reliability of annual sustained river-temperature statistics when monitoring records have gaps. We are investigating the department's historical verified workbooks and the Open Data Portal continuous water-quality dataset (bkfi-mjgw) for Kelley, LaHave, North East Margaree and Shelburne rivers.
+
+Before treating any records as a high-quality reference, could you clarify:
+
+1. For the 2009–2017 verified workbooks, what does “verified” mean specifically for temperature, and are interpolated or estimated values present? Are there point-level or time-interval quality flags, corrections, sensor calibration or field-verification records available for these years?
+   We found the department's 2010 network report describing segment-level ratings and linear adjustments for the earlier record, but cannot tell whether the same procedures, rating thresholds, and omission rules apply to 2009–2017.
+2. What time basis applies to each workbook and to the Open Data Portal date/time fields? The LaHave workbook header states UTC-04:00; does this represent a fixed offset throughout the record, or local civil time with daylight-saving transitions? What applies at the other stations?
+3. Are each reported hourly temperature an instantaneous hourly observation or a mean of shorter-interval readings? If a mean, what minimum within-hour sampling or quality is required?
+4. Do the historical verified workbooks and current Open Data Portal represent different revisions or processing? In an exploratory comparison, some matching reported date/time labels have different temperature values, including differences above 0.5 °C. We have not assumed that either release is incorrect. Can you identify the correct provenance, corrections and intended quality interpretation for the two releases?
+5. Can the historical workbooks or equivalent verified observations be shared with journal reviewers or deposited under the same Open Government Licence – Nova Scotia identified by the Open Data Portal, with attribution? If not, what reviewer access method and citation would you recommend?
+
+The candidate years were screened only for the presence of reported hourly labels and finite numeric cells. No reconstruction performance was evaluated from these data, and we recognize that a numeric value is not proof of a nonestimated or error-free observation.
+
+Thank you for considering these questions.
+
+[Author name, affiliation and contact: pending]

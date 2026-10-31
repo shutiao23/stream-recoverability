@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T06:32:06.383476+00:00",
+  "status": "posthoc scoring procedure fixed after H30 reference bounds and one target prediction were examined for leakage; before reference-versus-prediction errors were calculated",
+  "analysis": "Use all 17 fixed target years, retaining all controlled masks and unavailable outputs. Pair plug-in, D2, stochastic on common finite predictions. Compare each prediction with the full conditional H30 reference interval, not its midpoint.",
+  "point_loss": "For p and [L,U], absolute error is bounded below by distance to the interval and above by max distance to endpoints. Report mean bounds, threshold exceedance lower and upper rates and biases [mean(p-U), mean(p-L)].",
+  "interval_coverage": "For D2 and stochastic q05/q95, definite coverage requires the predictive interval to contain the entire reference interval; possible coverage requires overlap. Report both, predictive width and availability.",
+  "pair_contrast": "For D2 minus comparator absolute error, calculate extrema over [L,U] at endpoints and clipped predictions; average per-case extrema. Because masks share station-year truth, the average is a conservative bound and may not be jointly attainable.",
+  "subgroups": "All common cases and posthoc reference-width<=0.1 C subset. Subgroup and target quality were examined before this plan, so no confirmatory independence or selected-case prevalence claim.",
+  "limitations": "Source H30 intervals depend on the fixed missing-value range; real data may be corrected; climate and river-network independence, sample count and model support remain unresolved. Incomplete histories are explicitly interpolated, while zero observed complete histories lies outside original model regime. Repeated masks are not independent years."
+}

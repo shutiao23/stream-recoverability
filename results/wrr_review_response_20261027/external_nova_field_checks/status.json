@@ -1,0 +1,21 @@
+{
+  "status": "computed_exploratory",
+  "field_rows": 146,
+  "numeric_field_rows": 146,
+  "distinct_site_dates": 73,
+  "site_date_multiplicity": {
+    "2": 73
+  },
+  "site_dates_with_multiple_distinct_numeric_values": 0,
+  "field_status_counts": {
+    "Preliminary": 146
+  },
+  "units_excluded": {},
+  "complete_reported_days_in_portal": {
+    "NS01DL0009": 3043,
+    "NS01FB0001": 3266
+  },
+  "time_label_present": 0,
+  "interpretation": "All field records have no sample time or time zone and are preliminary. Same-program instruments may not be independent, and a non-hourly sample can fall outside hourly extrema. Uncertain day boundary, differing sites within a river reach, or data processing may also explain disagreement. This is not sensor calibration, strict reference qualification, independent-climate validation, or validation of H30 recovery.",
+  "row_level_evidence": "local private only"
+}

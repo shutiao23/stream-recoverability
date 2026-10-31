@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "sites": 4,
+  "target_years": 8,
+  "day_clock_rows": 5844,
+  "fixed_hourly_complete_years": 3,
+  "fixed_quarter_complete_years": 1,
+  "published_daily_h30_checked": 8,
+  "NASA_daily_rows": 20456,
+  "scope": "Public source response and processed published-daily snapshots, two-clock completeness/quality and H30, and saved NASA forcing.",
+  "limitations": "This does not fit models, reproduce model scores, establish actual clock convention, verify physical sensor accuracy or source/climate independence. Source daily preprocessing is reused."
+}

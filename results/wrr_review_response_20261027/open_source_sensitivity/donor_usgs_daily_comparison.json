@@ -1,0 +1,26 @@
+{
+  "status": "computed_posthoc",
+  "panel_columns": 73,
+  "unique_sites": 69,
+  "columns_with_comparisons": 73,
+  "series_returned": 69,
+  "local_finite_days": 293851,
+  "source_days": 293810,
+  "ambiguous_source_days": 1525,
+  "compared_days": 292285,
+  "equal_1e_6": 292285,
+  "equal_0_01": 292285,
+  "different_over_0_1": 0,
+  "mean_absolute_difference": 0.0,
+  "maximum_absolute_difference": 0.0,
+  "source_qualifier_counts": {
+    "A": 301216,
+    "P": 3666,
+    "A;[4]": 160,
+    "A;e": 17,
+    "P;[4]": 15,
+    "A;R": 1
+  },
+  "limitations": "Current API values can differ from historical versions or local quality processing. A match does not prove the original provider, timing, sensor accuracy, calibration, derivative rights, or independent-climate performance.",
+  "unit": "Panel-column days; the same site/day may occur in multiple panels. Counts do not represent independent observations."
+}

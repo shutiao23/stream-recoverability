@@ -1,0 +1,18 @@
+{
+  "status": "metadata_only_with_known_truckee_prior_cache",
+  "stations": 12,
+  "known_prior_ids": 1521,
+  "prior_ids_with_coordinates": 1495,
+  "source_panel_ids_with_coordinates": 450,
+  "at_least_four_possible_full_years": 11,
+  "same_watershed_independence_groups_at_most": 1,
+  "nearest_source_panel_within_250m": 0,
+  "nearest_source_panel_within_1km": 0,
+  "nearest_any_named_prior_within_250m": 0,
+  "nearest_any_named_prior_within_1km": 0,
+  "nearest_any_named_prior_within_10km": 0,
+  "station_time_series_opened": false,
+  "temperature_values_opened": false,
+  "model_errors_opened": false,
+  "limits": "Straight-line proximity is not proof of same gauge, same measurement, connection or independence. All 12 DWR sites belong to the same managed Truckee watershed and must not be counted as independent climates. Coordinate inventories may omit prior sites, and latitude/longitude does not prove river connectivity, exposure, precise gauge identity, sensor quality or complete data."
+}

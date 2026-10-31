@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-10-26T22:50:50.298475+00:00",
+  "status": "posthoc_all_span_candidate_count_plan",
+  "trigger": "after metadata revealed inconsistent freshwater/marine labels and two post-hoc count probes",
+  "candidates": "all 26 frozen station options whose reported QA date envelope could include four full 2010-2024 calendar years, regardless of water-type label",
+  "request": "provider count endpoint, one station and one possible calendar year at a time, plus a no-date station control; date end is next January 1 due observed boundary sensitivity",
+  "interpretation": "the count service may include other parameters, multiple observations per timestamp, estimated values, and unclear boundary semantics; a positive year count is an optimistic indicator only and does not qualify an observed daily water-temperature reference",
+  "unknown": "86 original freshwater-labelled options lack QA span dates and are not classified by this candidate screen; other sites with ambiguous metadata are not ruled out",
+  "privacy": "individual station count tables remain local pending source-specific reuse assessment; report only aggregate counts",
+  "no_water_temperature_values_requested": true,
+  "no_model_outcomes_examined": true
+}

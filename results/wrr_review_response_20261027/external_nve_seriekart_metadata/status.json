@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-26T19:48:46.723464+00:00",
+  "metadata_url": "https://kart.nve.no/enterprise/rest/services/Mapservices/TidsserieFeltpar/MapServer/0/query?where=stasjonParameter+%3D+%27Vanntemperatur%27+AND+antallKompletteAar+%3E%3D+4+AND+observasjonsSted+LIKE+%27Elv%25%27&outFields=stasjonNr%2CstasjonNavn%2CstasjonParameterKode%2CobservasjonsSted%2CdataFraDato%2CdataTilDato%2CantallKompletteAar%2Cvassdragsnr%2CvassdragsOmradeNr%2Cversjon%2CcompoundKey12&returnGeometry=true&outSR=4326&f=json&resultRecordCount=2000",
+  "catalog_series": 377,
+  "named_prior_station_id_count": 873,
+  "not_in_named_raw_or_confirmation": 98,
+  "interpretation": "Metadata-only leads; possible past contact in other caches, shared basin or climate, ambiguous metadata coverage and reference quality remain unchecked. No candidate temperatures or model errors were requested.",
+  "chartserver_pilot": "Official Seriekart chart requests for three previously opened NVE sites returned station not enabled and zero points; this does not establish unavailability for every site.",
+  "access_note": "Official HydAPI requests require user registration; do not extract or reuse a client credential. The Seriekart catalog is public and the agency describes its historical series as quality controlled.",
+  "sources": [
+    "https://seriekart.nve.no/om",
+    "https://www.nve.no/vann-og-vassdrag/hydrologiske-data/historiske-data/",
+    "https://api.nve.no/doc/hydrologiske-data/"
+  ]
+}

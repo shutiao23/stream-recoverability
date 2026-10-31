@@ -1,0 +1,24 @@
+{
+  "status": "metadata_selected_before_historical_temperature_acquisition",
+  "source": "USGS public instantaneous temperature channels, parameter 00010",
+  "selection": "Two stream sites with explicitly labelled primary/secondary or long-standing temperature plus separately labelled QW sonde, potential >=90-day overlap by 2025, and enough calendar support for three prior primary years. National metadata contain 6555 instantaneous temperature channels, including nonstream sites; the search is not an exhaustive independent-sensor inventory.",
+  "candidates": [
+    {"site": "15008000", "name": "SALMON R NR HYDER AK", "primary_metadata_id": "dffc3b2d8bab422eaacefe5e0af55489", "backup_metadata_id": "af60e4abe215404ebdc1d6325891f62c", "primary_label": "Primary", "backup_label": "Secondary", "acquire_from": "2020-01-01", "acquire_through": "2025-12-31", "candidate_years": [2024, 2025], "orientation": "official Primary as primary; Secondary as backup"},
+    {"site": "12056500", "name": "NF SKOKOMISH R BL STAIRCASE RPDS NR HOODSPORT, WA", "primary_metadata_id": "45015ffeaf9942fd97f26b5205f93703", "backup_metadata_id": "5d5165970a7940cdbecda22aaeee76bb", "primary_label": "long-standing unlabelled temperature channel", "backup_label": "QWsonde-EXO / From QW Sonde", "acquire_from": "2012-01-01", "acquire_through": "2025-12-31", "candidate_years": [2025], "orientation": "long-standing channel as primary; later QWsonde-EXO channel as backup"}
+  ],
+  "daily_reference": "primary observations plus independent backup only on actual missing primary days; complete calendar year required",
+  "coverage": {"minimum_distinct_hours": 20, "minimum_span_hours": 20},
+  "time_zone": "project UTC daily aggregation from each native timestamp and explicit UTC offset; not provider-certified daily means",
+  "gross_water_temperature_range_C": [-2, 40],
+  "native_QC": "approved actual observations only; estimated, ice-affected, equipment-malfunction, provisional and other flagged temperatures unavailable in the main record-reference qualification",
+  "duplicate_timestamp_rule": "collapse exact duplicates; finite conflicting values at the same channel/time unavailable; finite observation retained if also accompanied by an empty duplicate",
+  "reference_QC": {"minimum_visible_overlap_days": 90, "maximum_visible_daily_MAE_C": 0.25, "maximum_visible_daily_abs95_C": 0.5},
+  "history": "at least three completely observed primary years strictly before target year; never fill history with backups",
+  "natural_missingness": "every missing primary day in the full calendar year; finite first and last primary days required",
+  "independence": "distinct publication channel IDs or labels are insufficient alone to establish separate sensor hardware and same water parcel; retain physical-verification status separately, and do not promote record-level eligibility to independently verified natural-gap confirmation without it",
+  "uncertainty_unit": "site/catchment cohort with shared-record and old-source overlap audit, not individual missing days or multiple channel references",
+  "predictive_choice": "unchanged original strictly-prior source-only heads/thresholds; supplementary old-only selected air32 CSDI may be reported separately; no configuration selection from these outcomes",
+  "free_information": "free usable backup observations are directly incorporated operationally; primary-only recovery is a validation exercise, not a paid-query advantage",
+  "outcome_adaptation": false,
+  "NEON_access": "user has no API token; continue only no-login sources or legitimate public redistribution; official data-endpoint 403 is not zero eligible observations"
+}

@@ -1,0 +1,3 @@
+# Correction to historical whole-archive design metadata
+
+3,320 `design.json` files were read. 3,320 contain the historical phrase `held region and connected groups excluded`. The phrase is accurate for held test connected groups but not for every named region: the original forward HUC17 estimator retained one other same-region training group, and NVE interval calibration retained two other same-region groups. The current paper uses a held-test-group main analysis and a separate strict-region sensitivity. The original files were not modified. The correction text is in `design_correction_manifest.csv`.

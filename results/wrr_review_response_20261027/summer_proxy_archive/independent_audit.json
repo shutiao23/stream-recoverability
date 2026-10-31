@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "representative_regions": 7,
+  "archive_settings_recomputed": 52,
+  "masked_years_recomputed": 310,
+  "fitted_years_recomputed": 167,
+  "target_year_fit_perturbations": 167,
+  "sampled_case_hidden_values_masked_before_fit": true,
+  "aggregate_cells_independently_checked": 24,
+  "scope": "One lexicographically first station per region, repetitions 0 and 1, all available families and modes; separate least-squares and rolling windows. Aggregate point summaries rechecked for all common-cohort cells.",
+  "limitations": "Uses the same processed source data, masks and cached baseline predictions. Does not validate sensor accuracy, source rights, unseen climates or interval coverage."
+}

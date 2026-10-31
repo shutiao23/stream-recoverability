@@ -1,0 +1,29 @@
+{
+  "status": "completed_bounds_only",
+  "resources": 10,
+  "station_years": 50,
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "interval_width_min_c": 0.0,
+  "interval_width_median_c": 25.17827100694442,
+  "interval_width_max_c": 36.26949756944442,
+  "year_counts_width_at_most_c": {
+    "0.01": 4,
+    "0.1": 13,
+    "0.5": 14,
+    "1.0": 14
+  },
+  "site_counts_four_years_width_at_most_c": {
+    "0.01": 0,
+    "0.1": 1,
+    "0.5": 1,
+    "1.0": 1
+  },
+  "model_errors_calculated": false,
+  "limitations": "EXO sensor specified operating range is used as an explicit assumed bound on all unknown values, not proof the physical water was in range or that readings were accurate. Violating the assumption invalidates the enclosure. Published level-1 readings can be corrected; flags, sensor errors, actual time convention, physical bounds, network overlap and independent climates remain unresolved."
+}

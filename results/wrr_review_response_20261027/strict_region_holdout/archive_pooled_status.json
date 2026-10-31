@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "strict_archive_settings": 120,
+  "paired_rows": 19680,
+  "same_truth_and_keys": true,
+  "same_masks_and_hidden_value_check": "verified in 120 individual strict receipts",
+  "strict_scope": "HUC17 three forward stations only; other original forward archives unchanged",
+  "limitation": "post-hoc sensitivity with smaller source samples, not a complete strict-region rerun of every analysis; cases and repetitions are not independent climates"
+}

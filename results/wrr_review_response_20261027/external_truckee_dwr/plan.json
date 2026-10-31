@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-27T04:50:57.271849+00:00",
+  "status": "posthoc exploration after California catalog discovery, prior Truckee catalog inspection, direct EDI 403, and finding the public DataONE coordinating node; before accessing station tables or observations",
+  "source": "California Department of Water Resources Truckee River Continuous Water Quality, EDI package edi.2411.1; current public metadata through DataONE",
+  "metadata_identifier": "https://pasta.lternet.edu/package/metadata/eml/edi/2411/1",
+  "dataone_coordinating_node": "https://cn.dataone.org/cn/v2/object/",
+  "purpose": "Retrieve EML metadata only, inspect source attribution, station and instrument table descriptors, date/quality fields and declared access; assess prior river-network contact before deciding reference qualification.",
+  "previous_contact": "Earlier project catalogs contain Truckee USGS station metadata, but this fact does not prove observations were processed or that the new DWR station locations are identical. Check exact identities, catchments and data exposure before any independent claim.",
+  "staging": "No water measurements or prediction errors are requested. Station files, years and quality criteria require a separately recorded plan after metadata inspection.",
+  "limitations": "Public EML access is not proof of four complete quality-qualified years, timestamps, sensor independence or climate independence; provider and package licenses may differ and must be reconciled."
+}

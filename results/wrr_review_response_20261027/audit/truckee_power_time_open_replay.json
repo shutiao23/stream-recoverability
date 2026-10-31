@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "responses": 8,
+  "finite_hour_pairs": 34968,
+  "equal_hour_pairs": 34968,
+  "daily_pairs": 1457,
+  "scope": "Offline replay of current public POWER UTC/LST hourly responses and the original daily forcing; no provider water clock or source-model predictions are checked.",
+  "limitations": "Does not establish actual water sensor time convention, physical measurement accuracy, historical data vintage or independent-climate performance."
+}

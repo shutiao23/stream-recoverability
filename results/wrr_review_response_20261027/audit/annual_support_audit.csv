@@ -1,0 +1,13 @@
+family,mode,estimator,n_archive_files,hidden_target_values,n_comparable,n_below_1e8,max_violation
+calendar,offline,D2,840,0,48545,0,0.0
+calendar,offline,stochastic_cal,840,0,48433,0,0.0
+calendar,offline,state_cal,840,0,47607,0,0.0
+calendar,forward,D2,820,0,26628,0,0.0
+calendar,forward,stochastic_cal,820,0,25718,0,0.0
+calendar,forward,state_cal,820,0,25522,0,0.0
+crossed,offline,D2,840,0,48447,0,0.0
+crossed,offline,stochastic_cal,840,0,48433,0,0.0
+crossed,offline,state_cal,840,0,47873,0,0.0
+crossed,forward,D2,820,0,26439,0,0.0
+crossed,forward,stochastic_cal,820,0,25781,0,0.0
+crossed,forward,state_cal,820,0,25585,0,0.0

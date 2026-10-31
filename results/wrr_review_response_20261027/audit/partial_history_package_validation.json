@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "archive": "/dev/shm/wrr_partial_history_candidate_20261027.zip",
+  "archive_storage": "temporary RAM filesystem; copy to durable storage after space is available",
+  "package_checks": {
+    "clean": {
+      "report": "partial_history_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "reservoir_power": {
+        "status": "passed",
+        "resources": 4,
+        "daily_rows": 7304
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    },
+    "replay": {
+      "report": "partial_history_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "reservoir_power": {
+        "status": "passed",
+        "resources": 4,
+        "daily_rows": 7304
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    }
+  },
+  "restricted_model_replay": {
+    "status": "passed",
+    "python": "3.11.7",
+    "versions": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "sklearn": "1.2.2",
+      "xgboost": "2.1.4",
+      "numba": "0.59.0",
+      "llvmlite": "0.42.0",
+      "lightgbm": "4.7.0"
+    },
+    "replayed_target_years": 17,
+    "replayed_cases": 306,
+    "maximum_output_difference_c": 0.0,
+    "environment": "Existing isolated replay virtualenv plus separately installed no-dependency xgboost, numba and llvmlite in /dev/shm; user-site disabled. Local restricted source model and calibration explicitly provided.",
+    "limitations": "Not a clean-room rebuild from raw source data; not a complete install verification, model refit, data-rights resolution, independent sensor or climate validation."
+  },
+  "limitations": "Full model replay explicitly used local restricted source weights and calibration not present in the package. It does not rebuild source models or establish data rights, independent reference quality or climate."
+}

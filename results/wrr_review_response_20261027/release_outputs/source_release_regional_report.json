@@ -1,0 +1,29 @@
+{
+  "source": "held-region clean cases and source-calibrated thresholds fixed before evaluation",
+  "regions_crossed": {
+    "n_regions": 27,
+    "n_both_defined": 26,
+    "n_three_higher": 24,
+    "n_three_lower": 2,
+    "n_equal": 0,
+    "n_undefined": 1
+  },
+  "common_group_means_calendar": {
+    "n_groups": 185.0,
+    "n_both_defined": 172.0,
+    "n_score_zero": 0.0,
+    "n_three_zero": 13.0,
+    "score_mean_group_error": 0.0001490531898716,
+    "three_mean_group_error": 0.0082893815638409,
+    "group_mean_error_difference": 0.0081403283739693
+  },
+  "drop_one_evaluation_region_calendar_error_gap_range": [
+    0.0055080484837253,
+    0.0083345419583678
+  ],
+  "drop_one_evaluation_region_crossed_error_gap_range": [
+    0.0076703707356794,
+    0.012550886482239
+  ],
+  "limitations": "zero-release conditional risk undefined; case retention differs; exclusions do not refit models or thresholds; region signs are descriptive, not independent tests"
+}

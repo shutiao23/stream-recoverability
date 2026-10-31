@@ -1,0 +1,46 @@
+{
+  "schema": "final_candidate_package_manifest_v1",
+  "created_utc": "2026-10-31T04:28:25.848116+00:00",
+  "package": "dist/wrr_final_candidate_20261031.zip",
+  "package_sha256": "b9a1762e99e4a531c303920279fd893aacf1887ed9e6134cf5e5fd55dc13ac5a",
+  "package_bytes": 200798573,
+  "members": 3329,
+  "scientific_members": 3325,
+  "generated_members": [
+    "CONTENT_MANIFEST.sha256",
+    "RELEASE_RECEIPT.json",
+    "REVIEW_PACKAGE_README.txt",
+    "dependency_inventory.json"
+  ],
+  "content_manifest_sha256": "712a6f83a9c8f24b06461f18962b0c7ce144de0de026ff6b89e646cfd795625f",
+  "release_receipt_sha256": "16e83b1da406877237045bb262c495da708477b5f90ae1e7b4439a7b313a4704",
+  "base_archive": "dist/wrr_process_experiments_20261029.zip",
+  "base_archive_sha256": "25da3d5226b1e4a83197f978543cc79660a95e6eff08fabd7dd9cf483b2910cf",
+  "additions": [
+    "docs/reviews/wrr_multiview_review_20261031/MINOR_REVISION_COMPLETION_ZH.md",
+    "docs/reviews/wrr_multiview_review_20261031/PACKAGE_README.txt",
+    "docs/reviews/wrr_multiview_review_20261031/POSTING_CHECKLIST.md",
+    "docs/reviews/wrr_multiview_review_20261031/SIMULATED_WRR_REVIEW_ZH.md",
+    "results/final_release_20261031/targeted_tests.xml",
+    "results/final_release_20261031/targeted_tests_summary.json",
+    "results/final_release_20261031/workspace_consistency.json",
+    "results/wrr_multiview_review_20261031/time_paired_intervals_recheck.csv",
+    "results/wrr_multiview_review_20261031/time_primary_recheck.csv",
+    "results/wrr_multiview_review_20261031/time_selection_arithmetic.json",
+    "results/wrr_multiview_review_20261031/time_station_group_heterogeneity.csv",
+    "scripts/980_final_release.py"
+  ],
+  "manuscripts": {
+    "article": {
+      "tex_sha256": "c2aa6f1e8b70dcbb06b0c0075287b230004a843fba01ccdf7b6abeb88c799081",
+      "pdf_sha256": "3aeb27d01440a093fde78f97d4c368c6285956143837dd8d2eedbcf2c65bf5c6",
+      "pdf_pages": 41
+    },
+    "supporting": {
+      "tex_sha256": "093bded739e59719e4bff87e649cd37859198f66e725c8c30df4e136e32e2017",
+      "pdf_sha256": "c887ed7b8a86715ec410997b7de3b01229089225fabd6cba06319294cec53c54",
+      "pdf_pages": 102
+    }
+  },
+  "scope": "Package/workspace byte identity, current source-to-PDF identity and extracted-package checks are recorded in the acceptance record."
+}

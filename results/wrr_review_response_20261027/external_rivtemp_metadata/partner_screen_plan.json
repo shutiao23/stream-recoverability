@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-10-26T22:39:19.100651+00:00",
+  "status": "posthoc_partner_selection_before_partner_data_access",
+  "trigger": "following the MFFP dataset date-label screen with no four-year candidates",
+  "selection": "fixed two public RivTemp partners with catalog date extents exceeding four years: INRS and Vision H2O; choose all location identifiers, not based on target values, availability, quality or model outcomes",
+  "datasets": [
+    {
+      "name": "RivTemp--INRS",
+      "id": "a591e915-64fa-4a56-970b-1220132a92dd",
+      "doi": "10.25976/3vfm-jp51",
+      "version": "1.0.0",
+      "metadata_years": [
+        2005,
+        2020
+      ]
+    },
+    {
+      "name": "RivTemp--VisionH2O",
+      "id": "8c984598-b1a3-46cc-bf56-94b9852e1e2f",
+      "doi": "10.25976/v6mk-pq08",
+      "version": "4.1.0",
+      "metadata_years": [
+        2015,
+        2024
+      ]
+    }
+  ],
+  "primary_screen": "2010-2020 distinct published ActivityStartDate labels; require four potentially complete years per station; labels alone are an optimistic necessary condition, not confirmed 24-hour quality",
+  "secondary_screen": "full catalog years in each dataset as a separately reported retrospective sensitivity",
+  "before_date_screen": "acquire both sources and freeze all station-location metadata; audit duplicate identities and coordinates across the MFFP and both new datasets",
+  "access_and_rights": "read-only public download under provider terms; source files and any site-level derivative retained locally pending the apparent licence/disclaimer conflict",
+  "outcome": "do not read source temperature values or score models until reference quality, clock, nonestimated status and prior hydrologic overlap are qualified; station repeats are not independent climates",
+  "interpretation": "post-hoc selection of partners and exploratory availability screen; not preregistered independent confirmation or an unbiased sample of all monitoring networks"
+}

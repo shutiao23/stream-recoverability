@@ -1,0 +1,13 @@
+{
+  "cases": "all baseline whole-archive station/repetition rows",
+  "decision": "same source-split raw score, range thresholds and visible quality diagnostic as the release experiment",
+  "comparators": "released numerical values only; released numerical values plus lower-bound censored likelihood",
+  "truth": "finite complete-record slope; no hidden evaluation values enter the release decision",
+  "interval": "Gaussian working-likelihood regression interval; includes modeled regression variation and is not calibrated missingness-only uncertainty",
+  "limitations": [
+    "selected estimates are treated as exact",
+    "censoring can be informative",
+    "quality flag only detects exact-air-like conditions; unavailable air agreement is not a passing quality test",
+    "no group or trend coverage guarantee"
+  ]
+}

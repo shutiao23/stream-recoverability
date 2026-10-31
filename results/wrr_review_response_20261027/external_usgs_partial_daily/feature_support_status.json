@@ -1,0 +1,38 @@
+{
+  "status": "completed_posthoc_support_and_conditional_gate",
+  "support": [
+    {
+      "margin_fraction": 0.0,
+      "cases": 144,
+      "any_feature_flagged": 144,
+      "any_noncount_feature_flagged": 0,
+      "target_years_noncount_flagged": 0,
+      "hourly_supported_cases": 54,
+      "hourly_supported_noncount_flagged": 0
+    },
+    {
+      "margin_fraction": 0.01,
+      "cases": 144,
+      "any_feature_flagged": 144,
+      "any_noncount_feature_flagged": 0,
+      "target_years_noncount_flagged": 0,
+      "hourly_supported_cases": 54,
+      "hourly_supported_noncount_flagged": 0
+    }
+  ],
+  "gate": {
+    "cases": 144,
+    "complete_history_counts": {
+      "0": 18,
+      "1": 72,
+      "2": 54
+    },
+    "individual_score_le_0_1": 71,
+    "numerical_states_if_no_quality_flag_or_optional_limits": 0,
+    "bound_states_if_no_quality_flag_or_optional_limits": 144,
+    "unknown_states_if_no_quality_flag_or_optional_limits": 0,
+    "actual_quality_flags_available": false
+  },
+  "limitations": "Source estimator feature ranges are one-dimensional and do not prove joint support or risk. All 8 years and earlier source/target results were previously opened; repeated masks, clock/sensor uncertainty, source overlap and independent-climate questions remain. No target performance or status is altered.",
+  "storage": "temporary RAM filesystem; not durable"
+}

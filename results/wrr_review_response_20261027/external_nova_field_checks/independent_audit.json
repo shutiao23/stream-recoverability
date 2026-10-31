@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "field_rows_rechecked": 146,
+  "field_site_dates": 73,
+  "reported_day_range_rows_rechecked": 18,
+  "hour_proximity_rows_rechecked": 18,
+  "portal_complete_reported_days": 6309,
+  "all_nonvalue_metadata_equal_within_each_site_date": true,
+  "scope": "Separate Python CSV/datetime implementation recounts range and proximity summaries from the same field and portal files. It does not resolve absent field times, preliminary flags, sensor identity, timestamp zone, physical measurement quality or independent climate."
+}

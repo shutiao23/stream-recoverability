@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T01:49:42.720216+00:00",
+  "problem": "The initial summary reused an in-place NumPy view of the group-max support flag when restricting to the earlier empirical method; this incorrectly carried that restriction into later strata.",
+  "change": "Use an independent Boolean copy for each summary scope. Source radii, numerical intervals and per-case target scores are unchanged; recompute all summary cells and group resamples.",
+  "timing": "The original aggregate and source radii had already been inspected; this is a transparent post-hoc correctness repair, not an unopened analysis."
+}

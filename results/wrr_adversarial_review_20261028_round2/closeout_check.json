@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-10-28T11:00:45.984470+00:00",
+  "scope": "current candidate: revision tests, four-figure replay, isolated manuscript builds; no model retraining",
+  "checks": {
+    "revision_tests": {
+      "exit_code": 0,
+      "passed": 13
+    },
+    "four_figures": {
+      "exit_code": 0
+    },
+    "review_completion_article": {
+      "exit_code": 0
+    },
+    "review_completion_supporting": {
+      "exit_code": 0
+    }
+  },
+  "status": "passed"
+}

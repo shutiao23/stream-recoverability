@@ -1,0 +1,11 @@
+{
+  "status": "finite_published_reference_screened",
+  "stations": 12,
+  "station_years": 171,
+  "complete_finite_station_years": 18,
+  "stations_with_four_finite_reference_years": 1,
+  "complete_finite_days": 43053,
+  "annual_h30_calculated": false,
+  "prediction_errors_calculated": false,
+  "limitations": "EML states the published data passed provider validation and invalid data are NA. The files do not contain individual estimated/corrected-value flags, the exact application of PST versus DST remains uncertain, and prior contacts include the same managed river network. Finite values are provisional published-data references, not strict independent nonestimated sensor truth."
+}

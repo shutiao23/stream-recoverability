@@ -1,0 +1,13 @@
+{
+  "status": "finite_level1_reference_screened",
+  "resources": 10,
+  "station_years": 69,
+  "complete_finite_station_years": 0,
+  "sites_with_four_finite_years": 0,
+  "complete_finite_days": 16153,
+  "finite_values_outside_sensor_range": 0,
+  "files_with_flag_like_columns": 0,
+  "annual_h30_calculated": false,
+  "prediction_errors_calculated": false,
+  "limitations": "Published level-1 files are described as QA/QC and may be corrected for fouling or drift; unknown estimated/corrected flags, source version and physical accuracy preclude automatic strict-reference qualification. Record any candidate flag-like columns but do not infer their meaning. Retain known NLDI connections and no-hit cases separately; 200-km gage proxies and one regional project do not prove independent climates."
+}

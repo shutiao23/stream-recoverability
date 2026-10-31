@@ -1,0 +1,4 @@
+margin_fraction,source_eligible_cases,source_warning_cases,source_failed_cases,source_warning_detected_failures,source_recall,source_false_positive_rate,source_combined_numeric,source_combined_errors,source_score_matched_numeric,source_score_matched_errors,conditional_failure_difference,group_bootstrap_low,group_bootstrap_high,bootstrap_valid,external_cases,external_warning_cases,external_flagged_station_years,external_flagged_stations
+0.0,8010,484,868,42,0.04838709677419355,0.06188742649117894,5596,268,5596,211,0.010185847033595423,0.0068280140206936546,0.014055831211139078,4000,306,306,17,4
+1e-06,8010,484,868,42,0.04838709677419355,0.06188742649117894,5596,268,5596,211,0.010185847033595423,0.0068280140206936546,0.014055831211139078,4000,306,306,17,4
+0.01,8010,430,868,38,0.04377880184331797,0.054886586390366844,5620,268,5620,216,0.009252669039145907,0.005658499722236965,0.013338133429214333,4000,306,270,15,3

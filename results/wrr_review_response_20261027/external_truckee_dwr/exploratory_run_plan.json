@@ -1,0 +1,5 @@
+{
+  "created_utc": "2026-10-27T05:01:11.682674+00:00",
+  "status": "posthoc scoring inputs fixed after weather retrieval but before model predictions or H30 scoring",
+  "limitations": "One station, four years and one managed watershed with previous Truckee-basin data contact. Source model and calibration are fixed but the full river-network separation from every source dependency is not established. Nonestimated measurements, independent climate, natural outage, source permissions and physical measurement uncertainty remain unresolved. Repeated masks are not independent stations or climates."
+}

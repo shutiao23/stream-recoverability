@@ -1,0 +1,20 @@
+{
+  "status": "computed_posthoc",
+  "ambiguous_panel_column_days": 1525,
+  "matches_at_least_one": 1525,
+  "matches_none": 0,
+  "at_least_two_recorded_methods": 1525,
+  "multiple_qualifier_sets": 0,
+  "no_finite_source_days": 41,
+  "distinct_value_counts": {
+    "2": 1162,
+    "3": 326,
+    "4": 37
+  },
+  "qualifier_set_patterns": {
+    "A": 1525
+  },
+  "max_range_c": 3.099999999999998,
+  "median_range_c": 0.1999999999999993,
+  "limitations": "An any-value match is selected after seeing all returned alternatives and does not identify which source record produced the local value; it is weaker than a unique-source match. Same-day multiple values may represent different series or methods; identifying their historical relationship requires provider documentation."
+}

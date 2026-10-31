@@ -1,0 +1,8 @@
+{
+  "status": "pilot_passed_no_accuracy_claim",
+  "source_versions": 2,
+  "scenarios": 2,
+  "archive_reanalyses": 4,
+  "checks": "same target masks, hidden target and donor checks, plug-in, annual policy and observed bound",
+  "limitation": "One station and one replicate; no accuracy or source-effect interpretation."
+}

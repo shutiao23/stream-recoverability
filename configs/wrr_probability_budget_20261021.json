@@ -1,0 +1,27 @@
+{
+  "status": "supplementary_development_on_previously_opened_data",
+  "selection_data": "original old-source group-disjoint validation; no external outcomes",
+  "primary_selection_metric": "equal-group mean H30 CRPS in degrees C",
+  "configurations": {
+    "air32": {"n_channels": 32},
+    "air64": {"n_channels": 64}
+  },
+  "shared": {
+    "n_steps": 366, "n_features": 2, "n_layers": 2, "n_heads": 2,
+    "d_time_embedding": 64, "d_feature_embedding": 16, "d_diffusion_embedding": 64,
+    "n_diffusion_steps": 50, "target_strategy": "mix", "batch_size": 32,
+    "epochs": 30, "patience": 5, "num_workers": 0, "device": "cpu", "verbose": true
+  },
+  "seed": 20261021,
+  "learning_rate": 0.001,
+  "validation_samples": 32,
+  "evaluation_samples": 32,
+  "sampling_sensitivity": [8, 16, 32],
+  "validation_masks": ["peak30", "peak90", "start60", "end60", "fragmented60"],
+  "primary_point": "median of H30 samples",
+  "secondary_point": "H30 of pointwise median completed series",
+  "normalization": "station history excluding the target year, separately for water and air",
+  "air_missingness": "unavailable forcing remains NaN; no synthetic air truth",
+  "fairness": "both candidates use exactly the same fitting records, masks, calibration role and compute limits; comparison with univariate CSDI also changes information",
+  "new_independent_confirmation": false
+}

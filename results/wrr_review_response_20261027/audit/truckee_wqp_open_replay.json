@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "source_rows": 60,
+  "eligible_rows": 60,
+  "comparable_rows": 60,
+  "summary_cells_checked": 80,
+  "scope": "Offline replay of reduced WQP fields and the bundled DWR logger source; no model predictions or hidden observations are used.",
+  "limitations": "Same agency and station; different instrumentation, physical co-location, true clock convention, sensor accuracy and full-year representativeness remain unverified. The reduced file does not contain all columns of the original WQP responses."
+}

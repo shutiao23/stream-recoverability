@@ -1,0 +1,21 @@
+{
+  "status": "forcing_complete",
+  "requested_dates": 3653,
+  "selected_years": 4,
+  "selected_year_days": 1461,
+  "coordinates_rounded": true,
+  "time_standard": "NASA POWER local solar time",
+  "retrieved_utc": "2026-10-27T05:00:27.369182+00:00",
+  "source": "https://power.larc.nasa.gov/api/temporal/daily/point",
+  "parameters": {
+    "parameters": "T2M",
+    "community": "RE",
+    "longitude": -120.21,
+    "latitude": 39.23,
+    "start": "20110101",
+    "end": "20201231",
+    "format": "JSON",
+    "time-standard": "LST"
+  },
+  "limitations": "Current gridded air estimates are not direct station measurements; local solar days may not align with reported PST water days or historical API versions."
+}

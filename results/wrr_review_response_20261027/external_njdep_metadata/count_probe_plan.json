@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-26T22:49:09.843607+00:00",
+  "status": "posthoc_count_only_single_station_probe",
+  "station_id": "01399820",
+  "test_year": 2018,
+  "reason": "longest QA-envelope among non-buoy labels that explicitly describe a brook and do not exactly match the named source metadata; selected after seeing station metadata, not water temperatures or model errors",
+  "prior_contact": "the site occurs in a previously opened USGS network-metadata upstream list for 01400500; that receipt states no new temperature values were opened, but the search is not exhaustive",
+  "request": "provider count endpoint only, one station and one calendar year; retrieve no temperature observations",
+  "interpretation": "count can include other variables, duplicate timestamps, provisional/estimated values, or gaps; it is an availability probe and not proof of 24-hour water-temperature reference quality",
+  "contingency": "do not extend or score before freezing a separate multi-station plan, inspecting endpoint semantics, time zone, sensor flags and hydrological overlap"
+}

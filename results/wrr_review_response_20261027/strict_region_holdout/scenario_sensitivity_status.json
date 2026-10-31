@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "strict_scenario_settings": 20,
+  "affected_stations": 1,
+  "paired_trend_rows": 240,
+  "source_model_calibration_data_and_code_bound_to_receipts": true,
+  "original_scenario_case_metrics_reproduced": true,
+  "same_masks_hidden_target_checked": true,
+  "synchronized_hidden_donors_checked": true,
+  "unchanged_plugin_checked": true,
+  "scope": "both forward scenario families, five masks; one affected HUC17 station; other original sites retained; compare both source versions on four-way common baseline/stress cases",
+  "limitation": "post-hoc exploratory sensitivity; seven stations are not independent climates, and heat-associated missingness also changes masks and rates; this is not a causal attribution or group-safety guarantee"
+}

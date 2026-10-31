@@ -1,0 +1,10 @@
+{
+  "n_metadata_candidates": 5,
+  "selection": "five longest metadata service histories on Reunion, distinct waterbody codes and at least 10 km apart, excluding known old and reserved station IDs; no temperature errors used",
+  "pilot_before_roster": "one metadata-only qualification-count request for station 10615120; no temperature value requested",
+  "quality": "Sandre qualification 1 and finite Celsius values; conflicting timestamps excluded",
+  "daily": "mean of 24 distinct observed hourly bins on the provider-reported calendar day; no interpolation; time-zone convention not yet verified",
+  "reference": "at least four complete July-June years, 2010-2025; one-hour values are point observations, not a time-weighted instrument truth",
+  "independence": "distinct waterbody codes and 10 km separation do not establish independent climate or catchment errors",
+  "status": "unregistered exploratory qualification; no target prediction errors used in selection"
+}

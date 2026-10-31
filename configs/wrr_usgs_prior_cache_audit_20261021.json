@@ -1,0 +1,23 @@
+{
+  "status": "conservative_prior_cache_exclusion_addendum_before_new_values_or_roles",
+  "preflight": "configs/wrr_usgs_reference_preflight_20261021.json",
+  "scan_roots": ["data", "data_versions", "results", "metadata"],
+  "include_ignored_files": true,
+  "supported_evidence": [
+    "existing_wide_temperature_header_inventory",
+    "documented_nwis_daily_temperature_cache_filename_and_header",
+    "modern_usgs_daily_response_path_with_explicit_station_and_water_channel",
+    "legacy_daily_request_metadata_with_matching_saved_response",
+    "public_native_temperature_response_filename"
+  ],
+  "temperature_columns_parsed_or_used": false,
+  "auxiliary_flow_and_level_caches": "retained_and_conservatively_flagged_as_prior_water_record_contact",
+  "metadata_only_site_or_series_catalog": "not_prior_temperature_value_evidence",
+  "empty_or_uninspected_cache": "prior_cache_contact_not_proof_of_outcome_based_tuning",
+  "old_preflight_and_network_job_plan": "preserve_original_bytes_and_append_effective_scope",
+  "new_temperature_requests": false,
+  "new_roles_assigned": false,
+  "new_prediction_errors_opened": false,
+  "full_repository_prior_access_claim": false,
+  "remaining_audit_scope": "unrecognized cache formats, unlocated old identities, aliases, network and regional-event connections remain explicit"
+}

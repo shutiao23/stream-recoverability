@@ -1,0 +1,7 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,0,offline,crossed,heat_associated,26,8,plug_in,8,8,0.0574281313316058,,
+foen|2016,g0029,foen,0,offline,crossed,heat_associated,26,8,stochastic_calibrated,8,8,0.0682016205501754,0.875,0.2722042771461512
+foen|2016,g0029,foen,0,offline,crossed,heat_associated,26,8,D2,8,8,0.0450048049291775,1.0,0.2342903587951732
+gkd_bayern|10026293,g0032,gkd_bayern,0,offline,crossed,heat_associated,27,10,plug_in,10,10,0.3864607695990735,,
+gkd_bayern|10026293,g0032,gkd_bayern,0,offline,crossed,heat_associated,27,10,stochastic_calibrated,10,10,0.3018147519243356,0.8,0.6224572917303028
+gkd_bayern|10026293,g0032,gkd_bayern,0,offline,crossed,heat_associated,27,10,D2,10,10,0.3113408521210289,0.8,0.7875730471657448

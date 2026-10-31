@@ -1,0 +1,32 @@
+{
+  "created_utc": "2026-10-27T00:09:42.442287+00:00",
+  "status": "posthoc_frozen_before_new_trend_propagation",
+  "source_supported_regions": [
+    "foen",
+    "gkd_bayern",
+    "usgs_huc04",
+    "usgs_huc17"
+  ],
+  "supported_target_stations": 38,
+  "planned_archive_settings": 760,
+  "source_supported_both_methods_required": true,
+  "target_archive_must_have_incomplete_year": true,
+  "family": "crossed",
+  "mode": "forward",
+  "replicates": 20,
+  "draws": 256,
+  "marginals": [
+    "baseline",
+    "endpoint_only",
+    "tapered"
+  ],
+  "adjustments": "For each incomplete year, use the frozen source radius for its region and method. Endpoint-only shifts q05 downward and q95 upward; tapered also moves q10/q25 and q75/q90 by 0.8/0.4 radii toward the tails, keeping q50 unchanged. Project all quantiles to the observed bound. Both have identical adjusted q05 and q95; their interior and normal-spacing outer-tail representations differ.",
+  "couplings": [
+    "independent",
+    "shared_parameters",
+    "residual_blocks"
+  ],
+  "coupling_rule": "Reconstruct the original seed-specific ranks, including history fits from masked target and pre-2010 restriction. Reuse exactly the same rank matrices across baseline and adjusted marginals. Original baseline 95% coverage, width, interval endpoints and interval score must reproduce saved candidate archive outputs.",
+  "evaluation": "Same station-repetition cases with positive source support for both methods, at least one incomplete year, finite distributions and all three ranks; report original availability, source-supported and four-way common cases, trend coverage, width, interval score and connected-group resampling.",
+  "limitations": "Post-hoc after target annual and trend results were observed. Endpoint-only and tapered quantile interpolation are assumptions beyond the calibrated 90% endpoints. Single-year source calibration differs from jointly degraded target archives. Candidate source changes multiple components, has only 6-8 assigned forward rule groups, and does not guarantee group or independent-climate coverage. Trend point estimate remains unchanged; climate-process trend and physical sensor uncertainty are not evaluated."
+}

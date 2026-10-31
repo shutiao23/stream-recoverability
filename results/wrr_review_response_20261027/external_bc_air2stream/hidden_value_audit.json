@@ -1,0 +1,51 @@
+{
+  "cases": [
+    {
+      "station": "08FF003",
+      "year": 2016,
+      "mask_runs": "197:90",
+      "hidden_added_c": 5.0,
+      "altered_truth_delta_c": 5.0,
+      "features_equal": true,
+      "predictions_equal": true,
+      "n_features_changed": 0,
+      "n_prediction_fields_changed": 0
+    },
+    {
+      "station": "08JA017",
+      "year": 2013,
+      "mask_runs": "196:90",
+      "hidden_added_c": 5.0,
+      "altered_truth_delta_c": 5.000000000000014,
+      "features_equal": true,
+      "predictions_equal": true,
+      "n_features_changed": 0,
+      "n_prediction_fields_changed": 0
+    },
+    {
+      "station": "08LF051",
+      "year": 2012,
+      "mask_runs": "157:90",
+      "hidden_added_c": 5.0,
+      "altered_truth_delta_c": 4.999999999999986,
+      "features_equal": true,
+      "predictions_equal": true,
+      "n_features_changed": 0,
+      "n_prediction_fields_changed": 0
+    },
+    {
+      "station": "08MF040",
+      "year": 2015,
+      "mask_runs": "182:90",
+      "hidden_added_c": 5.0,
+      "altered_truth_delta_c": 4.9413886666666755,
+      "features_equal": true,
+      "predictions_equal": true,
+      "n_features_changed": 0,
+      "n_prediction_fields_changed": 0
+    }
+  ],
+  "n_cases": 4,
+  "passed": true,
+  "limitations": "Four chosen BC retrospective cases, one masked-year path; finite perturbation of hidden values only. Does not establish independence of all experiments or reference measurement quality."
+}

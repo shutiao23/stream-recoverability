@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "eligible_cases": 8010,
+  "groups": 19,
+  "model_cases_recomputed": 8010,
+  "warning_cases": 484,
+  "warning_failures_detected": 42,
+  "matched_numeric_cases_per_policy": 5596,
+  "group_bootstrap_draws": 4000,
+  "scope": "Direct Booster inference with independently applied calibration/support projection, feature warnings, truth-free matched-score ranking, per-group confusion counts and cluster bootstrap.",
+  "limits": "Same source cases, feature-design code and fixed model are reused; does not establish unseen climates, sensor accuracy, prospective threshold validity or an operational risk guarantee."
+}

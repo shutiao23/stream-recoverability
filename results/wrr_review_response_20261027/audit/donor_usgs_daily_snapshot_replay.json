@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "requested_sites": 69,
+  "source_series_with_numeric_values": 69,
+  "numeric_source_values": 305075,
+  "unique_site_dates": 298999,
+  "source_site_dates_with_different_values": 2556,
+  "responses": 7,
+  "scope": "Offline replays the public USGS API responses only. It does not contain or recompute the locally cached water values, panel-column mapping, local comparisons, historical vintage, source quality or derivative permissions."
+}

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "target_estimator_rows": 42390,
+  "two_method_cases": 21195,
+  "source_support_flags_verified": true,
+  "baseline_score_rows_reproduced": 24,
+  "limitation": "Checks selected cases and stored source support; does not establish calibration exchangeability, source representativeness, or independent-climate coverage."
+}

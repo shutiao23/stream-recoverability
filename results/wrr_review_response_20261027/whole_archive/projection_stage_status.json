@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "annual_rows": 21446,
+  "archive_files": 3320,
+  "estimator_groups": 8,
+  "saved_quantile_replay": "all values and missingness matched within absolute tolerance 1e-8 C",
+  "stage_quantile_order": "all common finite-bound cases checked within absolute tolerance 1e-8 C",
+  "scope": "common finite-bound cases for two estimators; same fitted models and same projection-aware calibration offsets",
+  "limitation": "the pre-final stage retains the first projection and offsets learned with that projection; no alternative model or calibration is fitted; quantiles do not establish physical sensor uncertainty"
+}

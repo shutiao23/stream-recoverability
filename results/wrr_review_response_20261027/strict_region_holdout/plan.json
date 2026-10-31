@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-10-26T22:09:37.924809+00:00",
+  "status": "frozen_posthoc_sensitivity",
+  "regions": [
+    "nve_hydapi",
+    "usgs_huc17"
+  ],
+  "split": "before_2010",
+  "seed": 0,
+  "role_rule": "retain original role order and bootstrap multiplicities, then remove every group with any same-region source case from all source roles; no replacement groups",
+  "evaluation": "original target groups and test-year cases retained; compare original versus strict models on common target cases; local whole-archive masks and inputs held fixed",
+  "timing": "developed after the same-region source-role finding and earlier performance results; exploratory sensitivity, not a preregistered independent test",
+  "limitation": "removing source groups also changes training or calibration sample size; source climate and recorded connected groups may remain dependent; region sensitivity does not prove causal effects"
+}

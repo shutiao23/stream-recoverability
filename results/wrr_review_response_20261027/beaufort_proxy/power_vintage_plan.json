@@ -1,0 +1,13 @@
+{
+  "created_utc": "2026-10-27T03:56:01.032684+00:00",
+  "status": "posthoc after proxy model results and historical processed air were inspected",
+  "selection": "Choose one lexicographically first station for each byte-identical saved 639-day air series; this reduces redundant provider requests, but does not prove that other stations share current provider values.",
+  "stations_in_prior_proxy": 22,
+  "distinct_saved_series": 15,
+  "representative_requests": 15,
+  "request": "NASA POWER daily point API, T2M, community AG, 2009-01-01 through 2017-12-31, explicit local solar time; at most two concurrent requests.",
+  "comparison": "For each representative compare the previously saved 639 June22–August31 values with the current response on identical dates; report availability and differences, with 1e-5 C rounding tolerance.",
+  "prior_exposure": "Prior thermal-peak target values, fitted-model results and stored air series were already inspected. Current NASA responses were not read before this plan.",
+  "limitations": "Current API data may have revised vintages or processing relative to the historical cached values. A match does not establish original service version, all other stations, weather accuracy, water-day alignment, sensor quality or independent climate. Missing or failed requests remain unavailable.",
+  "storage": "Coordinates, raw API responses and station-level comparisons remain local private; aggregate provider counts only."
+}

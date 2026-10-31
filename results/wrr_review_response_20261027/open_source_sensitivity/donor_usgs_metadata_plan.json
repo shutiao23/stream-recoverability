@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-27T04:28:14.501621+00:00",
+  "status": "posthoc after the donor provenance audit; identifiers selected without prediction-error or site-service results",
+  "selection": "All USGS-labeled panel donor columns not matched to any of the three local inventories, whether or not visible in a specific case.",
+  "panel_columns": 73,
+  "unique_identifiers": 69,
+  "valid_usgs_id_syntax": 69,
+  "endpoint": "https://waterservices.usgs.gov/nwis/site/",
+  "metadata_fields": "public USGS site identifiers and station metadata only; no water temperatures",
+  "interpretation": "A returned USGS site number verifies that the identifier appears in USGS metadata. It does not establish that local panel data came from the same source or have public redistribution rights; non-returned IDs remain unresolved."
+}

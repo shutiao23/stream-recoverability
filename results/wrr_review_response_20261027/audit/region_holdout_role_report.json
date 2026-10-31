@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "models_checked": 98,
+  "held_target_group_overlap": 0,
+  "held_target_station_overlap": 0,
+  "huc17_same_region_groups": 1,
+  "huc17_same_region_stations": 1,
+  "huc17_same_region_cases": 140,
+  "huc17_same_region_weighted_cases": 280,
+  "nve_same_region_interval_groups": 2,
+  "nve_same_region_interval_cases": 431,
+  "affected_forward_archive_cases": 120,
+  "affected_forward_archive_stations": 3,
+  "affected_future_output_region_rows": 6198,
+  "limitation": "stored roles and reproducible bootstrap weights identify positive-weight source cases; hidden observations, model sensitivity and non-seed-zero split variants are not audited here"
+}

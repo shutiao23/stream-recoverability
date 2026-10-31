@@ -1,0 +1,4 @@
+station_id,http_status,n_chart_points,legend,status,url
+31.10.0,200,0,31.10.0 This station is not enabled for viewing - Ingen data,no_points,https://chartserver.nve.no/ShowData.aspx?req=getchart&ver=1.0&time=20100101T0000%3B20251231T2359&lang=no&mth=mean&chd=ds%3Dhtsr%2Cda%3D2%2Cid%3D31.10.0.1003.1%2Crt%3D1&vfmt=json
+129.23.0,200,0,129.23.0 This station is not enabled for viewing - Ingen data,no_points,https://chartserver.nve.no/ShowData.aspx?req=getchart&ver=1.0&time=20100101T0000%3B20251231T2359&lang=no&mth=mean&chd=ds%3Dhtsr%2Cda%3D2%2Cid%3D129.23.0.1003.1%2Crt%3D1&vfmt=json
+211.1.0,200,0,211.1.0 This station is not enabled for viewing - Ingen data,no_points,https://chartserver.nve.no/ShowData.aspx?req=getchart&ver=1.0&time=20100101T0000%3B20251231T2359&lang=no&mth=mean&chd=ds%3Dhtsr%2Cda%3D2%2Cid%3D211.1.0.1003.1%2Crt%3D1&vfmt=json

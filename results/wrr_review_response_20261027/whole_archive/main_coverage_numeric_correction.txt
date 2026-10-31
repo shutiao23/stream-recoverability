@@ -1,0 +1,1 @@
+The initial posthoc script and plan are preserved. Its first run stopped before any output because summary.mode referenced pandas DataFrame.mode instead of the mode column. The corrected script selects summary[mode], uses a separately frozen corrected plan and output paths, and does not modify any model predictions or input data.

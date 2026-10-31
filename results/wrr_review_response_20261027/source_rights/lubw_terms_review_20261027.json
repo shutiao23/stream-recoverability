@@ -1,0 +1,20 @@
+{
+  "status": "source_specific_terms_identified_applicability_pending",
+  "acquisition_landing": "https://umweltdaten.lubw.baden-wuerttemberg.de/w/online-messstationen",
+  "terms_url": "https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem/nutzungsvereinbarung",
+  "indexed_terms_url": "https://www.lubw.baden-wuerttemberg.de/en/umweltinformationssystem/nutzungsvereinbarung",
+  "measurement_metadata_url": "https://rips-metadaten.lubw.de/trefferanzeige?docuuid=fff497a2-4fbf-41c1-b871-22f23f3a3a77",
+  "provider_metadata_links_to_uis_terms": true,
+  "actual_acquisition_landing_links_to_same_terms": true,
+  "source_station_identifiers": 20,
+  "source_ids_in_existing_official_catalog": 20,
+  "unmatched_source_identifiers": [],
+  "terms_body_live_status": 403,
+  "indexed_terms_summary": "The indexed provider-specific agreement describes attribution on reuse, a warranty disclaimer, and extra commercial-use restrictions for four named GIS datasets. This indexed excerpt is not a successful live fetch of the complete agreement and does not alone establish its application to the archived temperature exports or trained derivatives.",
+  "assessment": "The previous general-impressum citation alone is insufficient to characterize the source-specific route. Verify agreement scope and acquisition vintage for observations, reviewer transfer and model/case derivatives before changing the operational hold.",
+  "release_decision": "hold_redistribution_pending_scope_confirmation",
+  "redistribution_authorized_by_this_review": false,
+  "provider_contact_sent": false,
+  "raw_application_session_state_retained": false,
+  "limitations": "Metadata linkage and identifier matches do not authenticate a historical data vintage or constitute legal advice or a redistribution grant."
+}

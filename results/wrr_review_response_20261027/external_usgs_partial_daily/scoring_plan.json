@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-10-27T07:52:55.283786+00:00",
+  "status": "posthoc after daily values, earlier witness years, full subdaily qualification and bounded network checks; before new target model predictions or error scores",
+  "cohort": "All eight previously fixed approved, no-detected-estimate daily-complete years at four sites with at least three other eligible partial histories. Do not select on target H30, subdaily completeness, source-network results or model predictions.",
+  "source": "Use the fixed global source annual model and its original source-only calibration; no target model refitting, no target-station water donors. One station appears exactly in a source panel and others have prior contacts; all target daily archives were previously opened, so this is not a blind independent climate test.",
+  "history": "Exclude the entire target calendar year from local training. Other eligible history years have >=75% usable approved/no-detected-estimate days, observed endpoints and longest missing run <=45 days; linearly interpolate missing history days within their own year. Keep the actual count of completely observed history years, 0-2, not the number of interpolated years. These counts lie below the global estimator training minimum of 3 and outside the original four-complete-year protocol.",
+  "target": "Published USGS approved daily mean, fully finite throughout the calendar year, with no estimated qualifier recognized by the existing parser. Use 30/60/90-day crossed masks from the fixed source generator. No target mask value enters local fitting or decision-time inputs; never fill absent target values as truth.",
+  "metrics": "Report all target years and available/common masks, point MAE, bias, >0.5 C failures, 90% coverage, width and interval score for plug-in, D2 and calibrated stochastic. Separately report after-the-fact subsets with full fixed-standard hourly support and full quarter-hour support. Three hourly years and the only quarter-hour year all come from one station; do not treat masks or years as independent climates.",
+  "clock": "For one year with complete 15-minute source data, compare H30 under fixed standard time and native civil time against the published daily-value H30; do not choose clock by agreement. NASA POWER daily LST may differ from both USGS conventions.",
+  "limitations": "Prior source/witness exposure, USGS continuous quality, unknown pointwise corrections, input-domain extrapolation, incomplete history imputation, sensor accuracy, actual day convention and independence remain unresolved. The selected station-year labels were observed before this plan. One target station appears in a source panel. No trend or risk-calibration guarantee.",
+  "target_years": 8,
+  "sites": 4,
+  "expected_masks_per_year": 18
+}

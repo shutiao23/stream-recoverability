@@ -1,0 +1,48 @@
+{
+  "created_utc": "2026-10-26T23:01:32.479193+00:00",
+  "status": "three_site_metadata_plan_before_temperature_access",
+  "provider": "Walla Walla Basin Watershed Council",
+  "source_overview": "https://wwbwc.org/index.php/streamflow",
+  "selection": "three named river/stream gages with publicly listed recent multiyear water-temperature links; fixed from site-page metadata before reading observations or model errors",
+  "sites": [
+    {
+      "id": "s103",
+      "url": "https://wwbwc.org/streamflow/s103",
+      "calendar_years": [
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "limitation": "provider says this site no longer has year-round temperature measurement; timing and earlier records require verification"
+    },
+    {
+      "id": "s107",
+      "url": "https://wwbwc.org/streamflow/s107",
+      "calendar_years": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "limitation": "earlier 2001-2016 file is from the old upstream bridge and will not be mixed with the modern site"
+    },
+    {
+      "id": "s142",
+      "url": "https://wwbwc.org/streamflow/s142",
+      "calendar_years": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "limitation": "single creek within Walla Walla watershed, not an independent climate sample"
+    }
+  ],
+  "screen": "identify temperature table links and water-year coverage without reading time-series observations; before any reconstruction require source clock, unique subdaily samples, finite nonestimated quality-assured temperature, sensor documentation and catchment/prior-contact audits",
+  "timing_and_qa": "pages describe QA/QC downloads but also mark all data as provisional; reconcile provider quality and version descriptions; do not assume observations are certified from existence of a file",
+  "network_independence": "all three sites in the Walla Walla watershed and may share donors and weather; treat as a single related group absent evidence otherwise; compare against all prior source identities, river-network data and coordinate inventories",
+  "rights": "no clear source-specific redistribution terms yet; source files and detailed station-year derivatives stay local until clarified",
+  "no_temperature_values_opened_or_scored": true,
+  "interpretation": "metadata availability and later qualification are exploratory; not independent accuracy confirmation"
+}

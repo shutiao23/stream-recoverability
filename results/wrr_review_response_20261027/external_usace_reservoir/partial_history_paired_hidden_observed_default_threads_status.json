@@ -1,0 +1,12 @@
+{
+  "status": "passed_paired_perturbation",
+  "target_station_years": 17,
+  "target_resources": 4,
+  "masks_probed": 17,
+  "paired_feature_passes": 17,
+  "paired_output_passes": 17,
+  "targets_with_observed_hidden_days_perturbed": 17,
+  "saved_vs_unchanged_control_drift_cases": 4,
+  "saved_vs_unchanged_control_max_abs_difference": 0.006031527160711647,
+  "limitations": "One selected mask per target is not exhaustive. Same-process controls do not prove no hidden leakage across all implementations or guarantee cross-environment reproducibility. Scores are posthoc, out-of-support and reference bounds are conditional."
+}

@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T07:02:01.478905+00:00",
+  "status": "posthoc replay fixed after factorial scores and one hidden-value probe",
+  "scope": "Regenerate all 15 stations, nine masks and four factorial variants with one numerical thread, compare masks, all source-model features and 17 outputs with saved cases at 1e-10 tolerance.",
+  "limitations": "Same code and restricted fixed models, calibrations and processed data are reused. This is not independent model fitting, a raw-data rebuild or proof of climate independence."
+}

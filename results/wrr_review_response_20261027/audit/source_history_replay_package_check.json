@@ -1,0 +1,115 @@
+{
+  "created_utc": "2026-10-27T07:05:07.329126+00:00",
+  "archive": "/dev/shm/wrr_source_history_candidate_20261027.zip",
+  "scope": "extracted package; Graphviz architecture, figures from supplied summaries, manuscript TeX compilation, the 95-station observation subset, seasonal-window and past-only screening comparisons, the processed-data interannual summer-regression proxy, USGS donor metadata and daily responses, the Truckee reference, POWER timing and WQP same-agency field inputs, the USACE reservoir availability and conditional H30 bounds, and the USGS observation-only replay",
+  "not_tested": [
+    "full raw-data reconstruction",
+    "original source-model and daily-reconstruction fitting",
+    "other case-level scientific validation",
+    "data rights",
+    "independent accuracy validation"
+  ],
+  "environment": {
+    "python": "3.11.7",
+    "matplotlib": "3.9.2",
+    "numpy": "1.26.4",
+    "pandas": "2.1.4"
+  },
+  "checks": {
+    "zip_crc": "passed",
+    "architecture_regeneration": "passed",
+    "architecture_pixel_match": true,
+    "main_observation_open_subset": {
+      "status": "passed",
+      "stations": 95,
+      "original_stations": 96,
+      "witness_station_years": 35,
+      "rule_decisions_checked": 210
+    },
+    "summer_snapshot_reproduction": {
+      "status": "passed",
+      "complete_station_years": 2122,
+      "witnesses": 35,
+      "tables": 7
+    },
+    "usgs_donor_metadata_reproduction": {
+      "status": "passed",
+      "identifiers": 69,
+      "responses": 2
+    },
+    "usgs_donor_daily_response_reproduction": {
+      "status": "passed",
+      "identifiers": 69,
+      "numeric_values": 305075
+    },
+    "truckee_public_reference_reproduction": {
+      "status": "passed",
+      "stations": 12,
+      "station_years": 171,
+      "complete_finite_years": 18,
+      "power_days": 3653
+    },
+    "truckee_power_time_reproduction": {
+      "status": "passed",
+      "hour_pairs": 34968,
+      "daily_pairs": 1457
+    },
+    "truckee_wqp_field_reproduction": {
+      "status": "passed",
+      "source_rows": 60,
+      "comparable_rows": 60
+    },
+    "reservoir_public_reference_reproduction": {
+      "status": "passed",
+      "resources": 10,
+      "station_years": 69,
+      "complete_finite_years": 0
+    },
+    "reservoir_bounds_reproduction": {
+      "status": "passed",
+      "station_years": 50,
+      "complete_days": 14335,
+      "accepted_year_record_witnesses": 1
+    },
+    "reservoir_power_reproduction": {
+      "status": "passed",
+      "resources": 4,
+      "daily_rows": 7304
+    },
+    "source_partial_history_reference_reproduction": {
+      "status": "passed",
+      "stations": 15,
+      "complete_station_years": 135,
+      "target_h30_values": 15
+    },
+    "interannual_summer_proxy_reproduction": {
+      "status": "passed",
+      "stations": 22,
+      "case_masks": 11220,
+      "summary_rows": 16,
+      "leave_provider_rows": 64
+    },
+    "past_season_snapshot_reproduction": {
+      "status": "passed",
+      "station_years": 2656,
+      "rule_decisions": 13280,
+      "future_perturbation_probes": 35
+    },
+    "usgs_observation_only_replay": {
+      "status": "passed",
+      "stations": 10,
+      "complete_reference_station_years": 8,
+      "witness_station_years": 9
+    },
+    "figure_regeneration": "passed",
+    "figure_pixel_matches": {
+      "02_annual_comparators": true,
+      "03_archive_factorial": true,
+      "04_joint_uncertainty": true,
+      "05_output_boundaries": true
+    },
+    "review_completion_article_compile": "passed",
+    "review_completion_supporting_compile": "passed"
+  },
+  "status": "passed"
+}

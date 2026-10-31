@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stations_screened": 4,
+  "workbook_complete_label_years": 16,
+  "portal_complete_label_years": 17,
+  "common_complete_label_years": 14,
+  "common_complete_label_years_equal_1e6": 12,
+  "stations_with_four_equal_complete_label_years": 2,
+  "shared_unique_both_numeric_labels": 262667,
+  "numeric_different_at_1e6": 12810,
+  "numeric_different_over_0p01_c": 2397,
+  "numeric_different_over_0p5_c": 1086,
+  "maximum_abs_difference_c": 4.492664199814998,
+  "named_inventory_exact_id_matches": 0,
+  "strict_reference_qualification": "not established",
+  "reconstruction_scored_in_original_reference_screen": false,
+  "separate_exploratory_score_exists": true,
+  "limitation": "two releases of one provincial programme; reported labels are not validated physical hours; point-level QA, estimated values, local timezone and station independence remain unresolved; 0.01 and 0.5 C thresholds were chosen after inspecting the first comparison"
+}

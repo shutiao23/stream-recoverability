@@ -1,0 +1,51 @@
+{
+  "created_utc": "2026-10-27T01:46:54.404674+00:00",
+  "status": "post-hoc design after earlier source, target, risk and interval results have been examined; not a prospective registration",
+  "source": "Use source single-year masked cases in the union of assigned risk-learning and rule-calibration connected groups, for each strict-held-region candidate model and mask family. Exclude all target-region and target connected groups, and require pre-2010 source observations. Numeric quantiles and their offsets use disjoint estimator and interval-calibration roles.",
+  "classifier_independence": "Risk-learning groups trained an individual failure classifier in the existing model and may have trained the later exploratory classifier, but this sensitivity uses no risk score or publication selection. Explicitly perturb the stored classifier and check that annual quantiles remain unchanged.",
+  "group_score": "For each source connected group, take the maximum of max(q05 - truth, truth - q95, 0) across its valid single-year masks. Require finite observed bound and finite projected interval.",
+  "radius": "For G source groups, choose the ceil(0.9*(G+1))-th ordered group maximum; if that index exceeds G or radius is <=1e-8 C, report unsupported rather than a zero-width guarantee.",
+  "application": "For both D2 and calibrated stochastic methods, expand q05 and q95 by the source radius and clamp the lower endpoint to the observed window bound. Compare on the same forward target cases with both methods and both original/candidate quantiles available; report a separate overlap with the earlier rule-only empirical correction.",
+  "evaluation": "Report target annual coverage, width and 90% interval score, support/availability, case-weighted and equal-group changes, 4000 connected-group bootstrap draws, fixed-prediction leave-region-out sensitivity and counts of target groups whose every evaluated case is covered. Report outcome-defined hidden-peak strata only as retrospective.",
+  "group_counts": [
+    {
+      "region": "foen",
+      "assigned_risk_groups": 8,
+      "assigned_rule_groups": 8,
+      "assigned_union_groups": 16
+    },
+    {
+      "region": "gkd_bayern",
+      "assigned_risk_groups": 7,
+      "assigned_rule_groups": 7,
+      "assigned_union_groups": 14
+    },
+    {
+      "region": "usgs_huc03",
+      "assigned_risk_groups": 7,
+      "assigned_rule_groups": 7,
+      "assigned_union_groups": 14
+    },
+    {
+      "region": "usgs_huc04",
+      "assigned_risk_groups": 8,
+      "assigned_rule_groups": 8,
+      "assigned_union_groups": 16
+    },
+    {
+      "region": "usgs_huc10",
+      "assigned_risk_groups": 8,
+      "assigned_rule_groups": 8,
+      "assigned_union_groups": 16
+    },
+    {
+      "region": "usgs_huc17",
+      "assigned_risk_groups": 6,
+      "assigned_rule_groups": 6,
+      "assigned_union_groups": 12
+    }
+  ],
+  "receipt_files": 1640,
+  "limitations": "Groups and target climates are not shown exchangeable; source cases use one-year masks while target archives are jointly degraded and group sizes differ. Prior target/source outcomes and other classifier analyses were already examined. Candidate provider roles and rights remain uncertain. The finite rank does not establish 90% group coverage or a validated joint trend distribution.",
+  "privacy": "source group scores and individual target scores remain local; aggregate output only in candidate package"
+}

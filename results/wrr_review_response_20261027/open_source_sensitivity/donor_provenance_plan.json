@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T04:25:31.093627+00:00",
+  "status": "posthoc after candidate source model and a preliminary panel header scan; not preregistered",
+  "scope": "Candidate source cases, seed zero, offline and before-2010 modes; source panel column labels and visible donor identities reconstructed from saved mask runs.",
+  "visibility": "Use each panel and 90% masked-day donor availability threshold, separately for each saved case; compare reconstructed donor count to recorded n_visible_donors. A finite stored donor-ridge H30 indicates the donor estimator completed on the recorded visible set, conditional on the checked implementation and unchanged panel.",
+  "catalogs": "Classify donor identities by matching provider, network and station against the station-year inventory and coverage table; additionally check USGS station identifier in the local USGS metadata. A match is an attribution clue, not a legal or sensor-quality determination. A nonmatch is unresolved, not proof of restricted origin.",
+  "roles": "Summarize all eligible candidate cases and source cases with positive original bootstrap weight for each mode, target region and source role. These repeat station-years and masks.",
+  "limits": "The same processed panels and saved source cases are reused. This does not independently reproduce every daily regression or its historical inputs, prove actual provider-native lineage, determine derivative permissions, or grant publication rights."
+}

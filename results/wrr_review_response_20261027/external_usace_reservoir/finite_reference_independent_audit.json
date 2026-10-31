@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "resources": 10,
+  "station_years_recomputed": 69,
+  "complete_days_recomputed": 16153,
+  "complete_years_recomputed": 0,
+  "scope": "Independent csv/datetime/set and scalar mean computation over the same saved level-1 files.",
+  "limitations": "Published values may include corrections or estimates; finite data and sensor-range checks do not establish physical truth, instrument uncertainty, independent watershed or climate. No H30 or model-error score was computed."
+}

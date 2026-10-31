@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "models": 13,
+  "archive_settings": 3320,
+  "four_way_cells": 4,
+  "factorial_cells": 8,
+  "coverage_cells": 4,
+  "source_role_audit": "passed",
+  "independent_summary_audit": "passed",
+  "original_point_and_factorial_summaries_reproduced": true,
+  "limitations": "Post-hoc sensitivity after original results and source-rights audit; all original target masks and daily refits are reused. The source role assignment and sample size change as well as strict regional exclusion, so differences are not attributable to a single cause. Candidate provider permissions, prior-QC, air and mask provenance, and individual derivative publication rights require further review. Not a preregistered or independent-climate test.",
+  "rights_status": "Candidate provider licensing and all derived source, mask and model rights remain to be confirmed; case-level outputs and models remain local."
+}

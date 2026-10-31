@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-26T20:16:50.277666+00:00",
+  "selected_station": "MA05OC0001",
+  "usgs_alias": "05102500",
+  "selection": "single station with public metadata and 2011--2025 data blocks, no match in named prior source, E10, national and earlier ECCC daily inventories; no temperature values or reconstruction results used",
+  "source": "https://open.canada.ca/data/en/dataset/f258b0c8-7871-4572-b567-1ba2bd55f1b6",
+  "reference_rule": "VMV 4730 water temperature, validated status V, quality grade 1 or 2, unflagged finite values; each provider-local date requires exactly one valid reading in each of 24 distinct local hours; no interpolation; require >=4 complete calendar years",
+  "time_caveat": "dictionary states local time but does not resolve daylight-saving treatment, physical day boundaries or sensor changes; 24 wall-clock bins are not assumed to prove 24 physical hours",
+  "scope": "unregistered single-station exploratory same-river transfer only; upstream Red River station was in source model data; not a new independent climate, watershed, natural-outage or risk guarantee",
+  "quality_grade": "official metadata states 1 excellent, 2 good, 3 fair, 4 poor; validation V means validated",
+  "files": [
+    "auto-water-qual-eau-MA05OC0001-2011-2015.csv",
+    "auto-water-qual-eau-MA05OC0001-2016-2017.csv",
+    "auto-water-qual-eau-MA05OC0001-2018-2021.csv",
+    "auto-water-qual-eau-MA05OC0001-2022-2023.csv",
+    "auto-water-qual-eau-MA05OC0001-2024.csv",
+    "auto-water-qual-eau-MA05OC0001-2025.csv"
+  ]
+}

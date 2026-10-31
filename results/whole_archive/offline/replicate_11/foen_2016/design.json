@@ -1,0 +1,22 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "other physical stations remain observed",
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0029",
+  "marginals": "exact same stratified annual samples for all three dependence modes; outer quantile tails endpoint-extended",
+  "masks": {
+    "2009": "335:6",
+    "2010": "349:6",
+    "2020": "341:6",
+    "2022": "334:6",
+    "2023": "340:6"
+  },
+  "mode": "offline",
+  "n_incomplete": 5,
+  "n_years": 26,
+  "region": "foen",
+  "replicate": 11,
+  "source_model_split": "leave_one_year_out",
+  "station_key": "foen|2016"
+}

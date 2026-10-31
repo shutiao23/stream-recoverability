@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "raw_rows_recomputed": 60,
+  "eligible_rows_recomputed": 60,
+  "comparable_rows_recomputed": 60,
+  "summary_cells_checked": 47,
+  "duplicate_equal_records_retained": false,
+  "scope": "Separate CSV/datetime matching and scalar arithmetic over the same DWR and WQP files; timing strata selected after overall results.",
+  "limitations": "One same-agency station and three sampled years; instrument independence, spatial placement, true water clock, field-visit selection and quality of all unvisited dates remain unresolved. Equal dates or agreement do not prove independent instruments or correct historical clock conventions."
+}

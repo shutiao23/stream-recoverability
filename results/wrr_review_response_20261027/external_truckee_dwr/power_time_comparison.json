@@ -1,0 +1,18 @@
+{
+  "status": "computed_posthoc",
+  "expected_hours": 34968,
+  "finite_hour_pairs": 34968,
+  "hour_pairs_equal_1e_6": 34968,
+  "max_hour_difference_c": 0.0,
+  "expected_days": 1457,
+  "complete_hourly_and_daily_pairs": 1457,
+  "daily_differences_le_0_01": 1457,
+  "mean_daily_difference_c": 0.002509437199725437,
+  "max_daily_difference_c": 0.005000000000002558,
+  "requested_utc_minus_lst_hours": 8,
+  "api_versions": [
+    "v2.10.3"
+  ],
+  "interpretation": "A numerical match tests the current POWER products at this grid point only. PST in the DWR metadata is consistent with UTC-8 if fixed standard time; actual sensor clocks and daylight handling remain unverified.",
+  "limitations": "A current API comparison at one grid point does not validate water sensor clocks, historical API vintage, spatial representation, physical air-temperature accuracy or independent climates."
+}

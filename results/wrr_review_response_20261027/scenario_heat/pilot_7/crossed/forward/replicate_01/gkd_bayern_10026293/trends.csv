@@ -1,0 +1,13 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,retention,dependence,available,n_retained,truth_slope,slope,error,squared_error,lower95,upper95,width95,missing_coverage95,interval_score95
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,plug_in,warm90,point,True,7.0,0.822692229660516,1.1576417704001831,0.3349495407396671,0.1121911948417139,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,plug_in,all,point,True,13.0,0.822692229660516,0.5271349413336183,-0.29555728832689776,0.08735411068314898,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,stochastic_calibrated,warm90,point,True,7.0,0.822692229660516,1.157641770400178,0.334949540739662,0.11219119484171049,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,stochastic_calibrated,all,point,False,13.0,,,,,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,stochastic_calibrated,all,independent,False,,,,,,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,stochastic_calibrated,all,shared_parameters,False,,,,,,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,stochastic_calibrated,all,residual_blocks,False,,,,,,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,D2,warm90,point,True,7.0,0.822692229660516,1.157641770400178,0.334949540739662,0.11219119484171049,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,D2,all,point,True,13.0,0.822692229660516,0.6621345165079962,-0.16055771315251988,0.025778779252766854,,,,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,D2,all,independent,True,,0.822692229660516,0.6621345165079962,-0.16055771315251988,0.025778779252766854,0.2069574049456431,1.0811836234660173,0.8742262185203742,True,0.8742262185203742
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,D2,all,shared_parameters,True,,0.822692229660516,0.6621345165079962,-0.16055771315251988,0.025778779252766854,0.19072299136534507,1.0844235200008427,0.8937005286354976,True,0.8937005286354976
+gkd_bayern|10026293,g0032,gkd_bayern,1,forward,crossed,heat_associated,13,8,D2,all,residual_blocks,True,,0.822692229660516,0.6621345165079962,-0.16055771315251988,0.025778779252766854,0.1530386994335524,1.1033433052178572,0.9503046057843048,True,0.9503046057843048

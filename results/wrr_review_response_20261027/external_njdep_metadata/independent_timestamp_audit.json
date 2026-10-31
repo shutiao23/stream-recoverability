@@ -1,0 +1,13 @@
+{
+  "status": "independent_timestamp_recount_passed",
+  "station_year_files_checked": 8,
+  "stations": 2,
+  "fields_parsed": [
+    "Station",
+    "Date_Time",
+    "Date_Time_TZ"
+  ],
+  "temperature_values_or_model_errors_examined": false,
+  "scope": "independent Arrow/Python recount of reported timestamp-day and hour labels from the same source files",
+  "limitation": "does not establish real time zone, true sampling completeness, quality flags, nonestimated values, prior access or independent catchments"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "source_prediction_rows_rechecked": 88053,
+  "source_group_maxima_checked": 352,
+  "classifier_perturbation_cases": 300,
+  "target_case_method_rows_rechecked": 14714,
+  "target_unique_cases_rechecked": 7357,
+  "summary_cells_checked": 16,
+  "leave_region_cells_checked": 62,
+  "group_resamples_per_supported_cell": 4000,
+  "scope": "Independent group-max ranking and interval arithmetic using the same source models, target masks and stored data; checks classifier perturbations and roles. Not an independent dataset, exchangeability proof or group-risk guarantee."
+}

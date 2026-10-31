@@ -1,0 +1,15 @@
+{
+  "status": "qualification_computed",
+  "sites": 4,
+  "years_per_site": 5,
+  "site_years": 20,
+  "author_pass_complete_years": 0,
+  "site_years_with_missing_quarter_hour_timestamps": 20,
+  "minimum_missing_quarter_hour_timestamps": 28,
+  "sites_with_four_author_pass_complete_years": 0,
+  "new_independent_climate_confirmations": 0,
+  "reconstruction_accuracy_evaluated": false,
+  "data_rule": "exactly 96 unique quarter-hour UTC records, finite final reported value and PASS quality for every record; duplicates and off-grid readings invalidate a day",
+  "unit_mapping": "C denotes degrees Celsius; this is a notation mapping, not a numerical transformation",
+  "limitation": "same watershed; source notes early years lacked technician calibration records; PASS and 15-minute coverage do not prove physical accuracy; source quality and prior-contact/network independence remain to be evaluated before calling any site an independent reference"
+}

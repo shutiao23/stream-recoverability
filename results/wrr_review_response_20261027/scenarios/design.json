@@ -1,0 +1,6 @@
+{
+  "stations": "seven stations chosen by region round-robin, five masks, not independent climates",
+  "synchronized_donors": "same target-year masks are hidden from every donor in the same panel; paired with identical target masks",
+  "heat_associated": "year-specific missing probabilities 0.9 or 0.18 according to air H30 relative to the first-seven-year 80th percentile; different masks and potentially different missing rates",
+  "interpretation": "finite-record slopes; small, exploratory scenario sensitivity; no universal safety or causal separation of changed missingness rates"
+}

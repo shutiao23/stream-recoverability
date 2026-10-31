@@ -1,0 +1,21 @@
+{
+  "status": "metadata_probe_completed",
+  "recorded_utc": "2026-10-26T22:51:47.640466+00:00",
+  "hilltop_site_list": {
+    "http_status": 200,
+    "content_type": "text/xml",
+    "response_bytes": 78
+  },
+  "arcgis_item_metadata": {
+    "http_status": 200,
+    "title": "LAWA Monitoring Site Reference Data",
+    "owner": "HBRC_Data",
+    "access": "public",
+    "service_url": "https://gis.hbrc.govt.nz/server/rest/services/emar/MonitoringSiteReferenceData/MapServer/0",
+    "last_modified": 1643586497000
+  },
+  "water_observations_requested": false,
+  "reconstruction_scored": false,
+  "interpretation": "a non-200 response establishes only that this request was unavailable at the time, not that the provider has no relevant stations or data; a successful SiteList would still be metadata only",
+  "limitation": "the selected water-temperature name may not match all provider measurement names; river location, historical span, QA and availability remain unqualified"
+}

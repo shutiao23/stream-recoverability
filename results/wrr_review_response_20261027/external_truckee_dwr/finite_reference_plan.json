@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T04:58:24.493788+00:00",
+  "status": "posthoc after inspecting public metadata, acquiring station files and seeing timestamp coverage; before reading numerical water values or computing target prediction errors",
+  "cohort": "All 12 fixed station files; no selection by temperature, peak, model prediction or error.",
+  "rule": "A reported-clock day needs exactly 96 unique valid quarter-hour labels and 96 finite numeric water-temperature values; a reference year needs every day of a complete calendar year. Use the arithmetic mean of those 96 reported values for each eligible day; retain incomplete and unavailable years.",
+  "source_quality": "EML states the published data passed provider validation and invalid data are NA. The files do not contain individual estimated/corrected-value flags, the exact application of PST versus DST remains uncertain, and prior contacts include the same managed river network. Finite values are provisional published-data references, not strict independent nonestimated sensor truth.",
+  "no_scoring": "Produce completeness, availability and daily means only. Do not compute annual H30, prediction errors, or choose an analysis station or year using temperature outcomes."
+}

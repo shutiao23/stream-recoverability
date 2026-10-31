@@ -1,0 +1,17 @@
+{
+  "settings": 205,
+  "stations": 41,
+  "groups": 17,
+  "baseline_masked_years": 943,
+  "matched_masked_years": 943,
+  "baseline_hidden_days": 55950,
+  "matched_hidden_days": 55950,
+  "previous_heat_hidden_days": 57540,
+  "baseline_air_hot_masked_years": 511,
+  "matched_air_hot_masked_years": 700,
+  "settings_with_changed_year_selection": 202,
+  "settings_with_changed_masks_vs_previous_heat": 202,
+  "all_hidden_target_values_absent": true,
+  "same_heat_years_as_previous_sensitivity": true,
+  "same_gap_template_multiset_and_actual_hidden_days_per_archive": true
+}

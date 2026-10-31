@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "archive": "/dev/shm/wrr_source_history_candidate_20261027.zip",
+  "archive_storage": "temporary RAM filesystem; copy to durable storage after space is available",
+  "package_checks": {
+    "clean": {
+      "report": "source_history_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "source_reference": {
+        "status": "passed",
+        "stations": 15,
+        "complete_station_years": 135,
+        "target_h30_values": 15
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    },
+    "replay": {
+      "report": "source_history_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "source_reference": {
+        "status": "passed",
+        "stations": 15,
+        "complete_station_years": 135,
+        "target_h30_values": 15
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    }
+  },
+  "restricted_source_model_replay": {
+    "status": "passed",
+    "stations": 15,
+    "factorial_rows": 540,
+    "matching_masks_stations": 15,
+    "matching_features_stations": 15,
+    "matching_outputs_stations": 15,
+    "max_output_difference": 0.0,
+    "numerical_threads": 1,
+    "limitations": "Same code and restricted fixed models, calibrations and processed data are reused. This is not independent model fitting, a raw-data rebuild or proof of climate independence."
+  },
+  "limitations": "Open package checks do not reproduce model predictions. Local model replay reused restricted weights, calibration and same source code, and does not establish rights, source measurement accuracy or independent climates."
+}

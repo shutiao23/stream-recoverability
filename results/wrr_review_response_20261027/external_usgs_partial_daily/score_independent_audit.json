@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "sites": 4,
+  "target_years": 8,
+  "target_cases": 144,
+  "score_cells_checked": 9,
+  "paired_cells_checked": 6,
+  "year_method_cells_checked": 24,
+  "scope": "Independent arithmetic for approved daily H30, observed-bound constraints, all per-year and aggregate scores, paired differences and full-quarter two-clock H30.",
+  "limitations": "Same source records and saved model predictions are used; source model not retrained, measurement/clock quality not proven and independent climates not established.",
+  "storage": "temporary RAM filesystem; not durable"
+}

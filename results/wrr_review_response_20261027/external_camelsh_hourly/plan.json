@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-10-27T04:43:02.843029+00:00",
+  "status": "exploratory metadata-only plan, after prior reference searches; before inspecting archive member names or target water values",
+  "purpose": "Identify whether the published 1,297 hourly-gauge archive contains potentially uncontacted USGS stations; archive membership is a candidate list, not validation.",
+  "record": "https://doi.org/10.5281/zenodo.21324088",
+  "license": "CC BY 4.0 as declared in version-specific record",
+  "archive_url": "https://zenodo.org/api/records/21324088/files/StreamTemperature.zip/content",
+  "archive_size": 967697528,
+  "archive_index_only": "Retrieve ZIP central-directory byte ranges, recording names and metadata; no member contents, temperature values or model errors are accessed.",
+  "selection": "First classify member IDs against named prior source, evaluation, donor and metadata-contact inventories. Any later time-coverage, quality, river-network and model-error examinations require separate recorded plans.",
+  "limits": "Version metadata and listed files may be revised. A partial read does not open every listed file. USGS gauge identifiers, complete years, quality flags, timezone consistency, independence and rights for any derived values must be established separately."
+}

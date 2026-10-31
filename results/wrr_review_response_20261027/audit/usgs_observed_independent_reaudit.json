@@ -1,0 +1,13 @@
+{
+  "stations_acquired": 10,
+  "stations_with_complete_reference": 4,
+  "complete_approved_station_years": 8,
+  "witness_station_years_checked": 9,
+  "witness_stations": 3,
+  "max_complete_reference_discrepancy_c": 1.0658141036401503e-14,
+  "max_witness_day_discrepancy_c": 0.0,
+  "total_witness_missing_or_unapproved_days": 438,
+  "passed": true,
+  "scope": "saved USGS daily API responses; provider-local days and approved finite reference values, estimated values allowed in reference but not in witness window",
+  "limitations": "quality-screened window selection itself not reproduced; not a proof of 24-hour native sampling, error-free physical truth, random incidence or independent accuracy validation"
+}

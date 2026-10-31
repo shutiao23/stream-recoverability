@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-26T21:57:33.649393+00:00",
+  "status": "frozen_posthoc_sensitivity",
+  "base_plan": "results/wrr_review_response_20261027/external_nova_scotia_exploratory/plan.json",
+  "scope": "same two sites and eight already scored station-years; no new sites or calendar years selected",
+  "shifts_hours": [
+    -1,
+    0,
+    1
+  ],
+  "reported_day_definition": "for each stated date use the 24 reported hourly labels beginning at 00:00 plus the specified shift; this is a hypothetical boundary convention, not an inferred true time zone",
+  "boundary_rule": "require all 24-hourly labels and finite values from both provincial releases, unique in each and equal within 1e-6 C; include adjacent-year boundary hours when necessary; no interpolation",
+  "unavailable": "if any selected year lacks a needed boundary value, retain its failure reason and do not invent data; full variant scoring for a site requires all four originally selected years",
+  "masks": "reuse each original site-year mask exactly; compare same gap realizations under all available day-boundary variants",
+  "fitting": "rebuild daily features under each boundary, refit local leave-one-year-out stages using the other three years; original source model, source calibration and NASA POWER forcing remain fixed",
+  "evaluation": "paired H30 MAE, nominal 90 percent coverage, width and interval score; report availability and per-site results",
+  "timing": "defined after the original exploratory scores and source-version comparison were inspected; not preregistered or confirmatory",
+  "limitation": "one-hour shifts do not identify the actual source time basis, resolve estimated-value/QC status, represent every possible local solar-time discrepancy, or establish climate independence"
+}

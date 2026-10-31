@@ -1,0 +1,35 @@
+{
+  "status": "metadata_only_network_intake_before_reference_values_and_roles",
+  "candidate_preflight": "configs/wrr_usgs_reference_preflight_20261021.json",
+  "source": "USGS Network Linked Data Index, NHDPlusV2 indexing",
+  "network_base": "https://api.water.usgs.gov/nldi/linked-data/nwissite",
+  "candidate_navigation_modes": ["UT", "DD"],
+  "navigation_data_source": "nwissite",
+  "navigation_distance_km": 9999,
+  "exclude_navigation_geometry": true,
+  "feature_coordinate_tolerance_m": 250,
+  "maximum_requests_per_second": 2,
+  "maximum_workers": 2,
+  "maximum_response_bytes": 33554432,
+  "request_timeout_seconds": 45,
+  "prior_records": "all exact-station identities retained by the fixed preflight",
+  "job_order": "fixed identity order, independent of completeness or model error",
+  "candidate_groups": "connected through returned candidate identifiers or identical NHDPlus comid",
+  "connection_interpretation": "Conservative network-index connection; NLDI features can be off the main flow path because indexing is by catchment.",
+  "unindexed_or_unavailable_station": "pending_not_zero_reference_eligibility_or_an_independent_singleton",
+  "access_or_quota_failure": "stop_new_requests_preserve_completed_responses_no_alternate_endpoint",
+  "remaining_independence_work": [
+    "complete_prior_access_inventory_and_unindexed_record_connections",
+    "shared_upstream_diversion_or_catchment_overlap_not_identified_by_station_navigation",
+    "regional_heat_event_dependence",
+    "verified_process_attributes"
+  ],
+  "new_temperature_values_requested": false,
+  "new_component_roles_assigned": false,
+  "new_prediction_errors_opened": false,
+  "metadata_network_success_does_not_open_reference_or_prediction_gates": true,
+  "source_documentation": [
+    "https://api.water.usgs.gov/docs/nldi/navigation/",
+    "https://api.water.usgs.gov/docs/nldi/feature-sources/"
+  ]
+}

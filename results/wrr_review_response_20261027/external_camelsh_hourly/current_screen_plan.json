@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T04:49:16.022736+00:00",
+  "status": "posthoc after acquiring current site and series metadata; before approved-count preflight or target observation/error access",
+  "rules": "Same substantive stream, HUC8, time-zone, non-obvious-waterbody and >=4 possible complete calendar years in 2000–2025 as the original metadata screen. Additionally require an explicit Y/N daylight-saving flag from site metadata. Keep sites with >1 eligible primary daily series as ambiguous.",
+  "prior_exclusions": "Exclude HUC8 already observed for named prior stations and earlier known connected-component contacts; unobserved HUC or network links are not assumed independent.",
+  "limits": "Selection remains posthoc, depends on current metadata and incomplete prior inventories. No count, nonestimated status, complete subdaily sampling or independent network is verified."
+}

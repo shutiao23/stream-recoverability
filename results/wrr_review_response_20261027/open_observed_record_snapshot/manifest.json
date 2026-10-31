@@ -1,0 +1,44 @@
+{
+  "scope": "Previously eligible open-provider station subset; project-processed float32 daily series, not provider-native raw values or the entire study population",
+  "total_original_eligible_stations": 96,
+  "included_eligible_stations": 95,
+  "included_by_provider": {
+    "gkd_bayern": 37,
+    "usgs": 36,
+    "foen": 11,
+    "chmi": 11
+  },
+  "excluded_by_provider": {
+    "lubw": 1
+  },
+  "original_witnesses_included": 35,
+  "files": [
+    {
+      "path": "ATTRIBUTION.txt"
+    },
+    {
+      "path": "all_incomplete_year_bounds.csv"
+    },
+    {
+      "path": "daily_temperature.parquet"
+    },
+    {
+      "path": "eligible_station_years.csv"
+    },
+    {
+      "path": "observed_record_certificates.csv"
+    },
+    {
+      "path": "rule_summary.csv"
+    },
+    {
+      "path": "source_roster.csv"
+    },
+    {
+      "path": "station_years.parquet"
+    },
+    {
+      "path": "witness_rules.csv"
+    }
+  ]
+}

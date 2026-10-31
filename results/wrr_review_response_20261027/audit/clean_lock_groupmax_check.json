@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "original_workspace_hidden": true,
+  "network_namespace_isolated": true,
+  "local_inputs_mounted_read_only": true,
+  "source_import_from_extracted_package": true,
+  "private_directories_mounted": 4,
+  "explicit_additional_local_files_mounted": 20,
+  "annual_source_prediction_rows": 88053,
+  "annual_source_group_maxima": 352,
+  "annual_target_case_method_rows": 14714,
+  "annual_summary_cells": 16,
+  "trend_archives": 736,
+  "trend_treatment_rows": 13248,
+  "previous_rank_overlap_archives": 685,
+  "trend_tables_reproduced": 4,
+  "scope": "Extracted candidate code with explicitly mounted local-only cached data, trained source models and processed target inputs; current Python environment.",
+  "limits": "No provider-native raw reconstruction or source-model retraining; stored ranks are checked but not regenerated from raw histories. Rights, reviewer access, exchangeability and independent-climate validation remain unresolved.",
+  "created_utc": "2026-10-27T05:11:34.746750+00:00",
+  "evidence_is_authorized_for_distribution": false
+}

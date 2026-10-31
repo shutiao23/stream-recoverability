@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T05:27:42.901550+00:00",
+  "status": "posthoc after target scores, WQP acquisition, and inspection of non-value status/method/time fields; before comparing numerical temperatures",
+  "population": "All WQP Temperature, water rows for the same DWR station during the four scored reference years; no selection by measured temperature or model error.",
+  "comparability": "Require finite numeric result in deg C, Accepted status, Actual value type, Field Msr/Obs, no measurement qualifier, explicit PST label, and a valid date/time. Pair to the nearest scheduled 15-minute DWR timestamp, with ties earlier, at most 7 minutes 30 seconds away; missing logger value is unavailable, not imputed.",
+  "summary": "Report all WQP rows and exclusions, comparable observations and distinct dates, timing offsets, signed WQP-minus-DWR differences, MAE, median and maximum absolute difference and proportions within 0.1/0.5 C. Describe by year; no confidence interval or population frequency claim.",
+  "independence": "Both records use the same DWR station and provider. WQP labels a field observation using EPA thermometric method 170.1, but instrument identity and processing overlap are not documented; do not claim a separate or independent sensor, calibrated accuracy, or independent climate.",
+  "clock": "Both sources label the time PST. Interpret both as fixed UTC-8 only for this comparison; actual provider clock and daylight conventions remain unverified.",
+  "limitations": "Field visits are sparse and potentially selected around service events; 2020 had no WQP rows. Agreement cannot validate all annual readings, the source quality flags, model error, or sensor independence."
+}

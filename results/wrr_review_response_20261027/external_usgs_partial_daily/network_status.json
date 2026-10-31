@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "sites": 4,
+  "sites_both_directions": 4,
+  "sites_exact_source_panel": 1,
+  "sites_with_source_network_hits": 1,
+  "sites_with_other_prior_network_hits": 3,
+  "sites_with_other_candidate_hits": 0,
+  "limitations": "NLDI indexed catchments may include off-flowpath sites; the distance is bounded; a no-hit result or missing source identifiers does not establish independent watersheds or climate. Exact source contact and prior observation-only use are distinct."
+}

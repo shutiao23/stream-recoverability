@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "posthoc": true,
+  "seeds_checked": 20,
+  "rows_checked": 2914470,
+  "with_repair_valid": 2905234,
+  "without_repair_valid": 1823982,
+  "became_valid_with_repair": 1081252,
+  "became_invalid_with_repair": 0,
+  "both_valid_changed_quantiles": 1018696,
+  "maximum_quantile_change": 0.5672831215082486,
+  "limitation": "Counts are seed-case records, not independent station-years; saved cached inputs and calibration roles are reused. Hashes and omission comparisons were assembled after observing earlier results, not preregistered. Not a model refit or provider-data validation."
+}

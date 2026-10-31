@@ -1,0 +1,27 @@
+{
+  "abstract_words": 246,
+  "compile": {
+    "review_completion_article.tex": {
+      "pages_text_characters": 120748
+    },
+    "review_completion_supporting.tex": {
+      "pages_text_characters": 210112
+    }
+  },
+  "review_completion_article": {
+    "pages": 41,
+    "current_pdf_text_matches_rebuild": true,
+    "normalized_text_matches": true,
+    "overfull_boxes": 38,
+    "undefined_references": false,
+    "multiply_defined_labels": false
+  },
+  "review_completion_supporting": {
+    "pages": 102,
+    "current_pdf_text_matches_rebuild": false,
+    "normalized_text_matches": false,
+    "overfull_boxes": 0,
+    "undefined_references": false,
+    "multiply_defined_labels": false
+  }
+}

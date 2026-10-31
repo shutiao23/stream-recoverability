@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T07:42:25.929252+00:00",
+  "status": "posthoc metadata-only network check after these ten stations and daily outcomes were already opened; before continuous target values or model predictions",
+  "sites": "All four daily-qualified sites; each was previously opened for observation-only evidence, so none is blind. The other-prior list removes the ten already opened cohort stations, while candidate-to-candidate connections are separately counted.",
+  "navigation": "Query NLDI upstream with tributaries and downstream with diversions, bounded to 200 km. Compare with named source-panel USGS identifiers, other previously named stations and the four targets.",
+  "limitations": "NLDI indexed catchments may include off-flowpath sites; the distance is bounded; a no-hit result or missing source identifiers does not establish independent watersheds or climate. Exact source contact and prior observation-only use are distinct.",
+  "candidate_count": 4,
+  "source_documentation": "https://api.water.usgs.gov/docs/nldi/navigation/"
+}

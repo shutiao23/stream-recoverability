@@ -1,0 +1,12 @@
+{
+  "status": "completed_feasibility_only",
+  "stations": 10,
+  "station_years_checked": 450,
+  "complete_approved_no_detected_estimate_target_years": 8,
+  "stations_with_target_years": 4,
+  "target_years_with_three_partial_histories": 8,
+  "stations_with_three_partial_histories": 4,
+  "model_predictions_calculated": false,
+  "target_h30_calculated_in_this_scan": false,
+  "limitations": "Previously opened, selected and nonrandom stations; approved does not mean error-free or nonestimated when qualifier vocabulary is incomplete. Daily values may conceal subdaily gaps, ice, repairs and timing changes. No source-network or independent-climate conclusion is available from this scan."
+}

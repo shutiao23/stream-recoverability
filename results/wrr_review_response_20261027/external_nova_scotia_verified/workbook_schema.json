@@ -1,0 +1,113 @@
+{
+  "status": "headers_inspected",
+  "workbooks": [
+    {
+      "station_id": "NS01DL0009",
+      "workbook": "Kelley-River-Verified-2009-2017.xlsx",
+      "sheets": [
+        {
+          "name": "Kelley River Verified Data Octo",
+          "max_rows": 80520,
+          "max_columns": 6,
+          "first_rows_text": [
+            "Kelley River Corrected Data 2008 to 2017",
+            "Date+Time",
+            "Temperature",
+            "pH",
+            "Specific Conductance",
+            "Turbidity",
+            "Dissolved Oxygen",
+            "MM/dd/yyyy HH:mm:ss",
+            "°C",
+            "Units",
+            "µS/cm",
+            "NTUs",
+            "mg/l"
+          ]
+        }
+      ]
+    },
+    {
+      "station_id": "NS01EF0002",
+      "workbook": "LaHave-River-Verified-2008-2017.xlsx",
+      "sheets": [
+        {
+          "name": "LaHave River Corrected Hydrolab",
+          "max_rows": 78669,
+          "max_columns": 6,
+          "first_rows_text": [
+            "LaHave River Verified data",
+            "Date+Time",
+            "UTC-04:00",
+            "Temperature",
+            "pH",
+            "Specific Conductance",
+            "Turbidity",
+            "Dissolved Oxygen",
+            "MM/dd/yyyy HH:mm:ss",
+            "°C",
+            "Units",
+            "µS/cm",
+            "NTU's",
+            "mg/l"
+          ]
+        }
+      ]
+    },
+    {
+      "station_id": "NS01FB0001",
+      "workbook": "North-East-Margaree-River--Verified_2008-2017.xlsx",
+      "sheets": [
+        {
+          "name": "magraa verfied versioon 99999",
+          "max_rows": 79453,
+          "max_columns": 6,
+          "first_rows_text": [
+            "North East Margaree Verified Data",
+            "December 2008 - December 2017",
+            "Date+Time",
+            "Temperature",
+            "pH",
+            "Specific Conductance",
+            "Turbidity",
+            "Dissolved Oxygen",
+            "MM/dd/yyyy HH:mm:ss",
+            "°C",
+            "Units",
+            "µS/cm",
+            "NTU's",
+            "mg/l"
+          ]
+        }
+      ]
+    },
+    {
+      "station_id": "NS01ED9111",
+      "workbook": "Shelburne-River-Verified-2008-2017.xlsx",
+      "sheets": [
+        {
+          "name": "Shelburne River Verified data D",
+          "max_rows": 62661,
+          "max_columns": 7,
+          "first_rows_text": [
+            "Shelburne River Verified Data",
+            "Date+Time",
+            "Temperature",
+            "pH",
+            "Specific Conductance",
+            "Turbidity",
+            "Dissolved Oxygen",
+            "MM/dd/yyyy HH:mm:ss",
+            "°C",
+            "Units",
+            "µS/cm",
+            "NTU's",
+            "mg/l"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "sheet names and text in first 12 rows; all numeric and date cells omitted; does not qualify daily observations or prove quality flags",
+  "source_rights": "legacy workbooks retained locally pending specific reuse terms"
+}

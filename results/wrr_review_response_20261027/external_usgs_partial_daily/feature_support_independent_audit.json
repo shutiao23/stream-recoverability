@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "cases": 144,
+  "features_checked": 68,
+  "margins_checked": 2,
+  "scope": "Independent scalar feature comparisons and mandatory history gate on saved USGS cases.",
+  "limitations": "The same source extrema, source model feature-design routine and target cases are reused; no causal, physical accuracy, independent climate or risk guarantee.",
+  "storage": "temporary RAM filesystem; not durable"
+}

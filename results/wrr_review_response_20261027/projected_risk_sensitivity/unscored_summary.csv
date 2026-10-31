@@ -1,0 +1,5 @@
+family,comparison,n_masked,n_common_predictable,n_reference_evaluable,n_groups,n_stations,old_selected,new_selected,old_selected_evaluable,new_selected_evaluable,old_bad,new_bad,n_bad_all_evaluable,old_bad_rejected,new_bad_rejected,old_selected_with_bound,new_selected_with_bound,old_retention,new_retention,old_failure,new_failure,risk_difference_low,risk_difference_high,retention_difference_low,retention_difference_high,risk_bootstrap_valid
+calendar,source_threshold,3806,3806,0,17,41,3431,3112,0,0,0,0,0,0,0,3431,3112,0.9014713610089332,0.8176563321071991,,,,,-0.14928840609613003,-0.017072955406586644,0
+calendar,matched_target_count,3806,3806,0,17,41,3431,3431,0,0,0,0,0,0,0,3431,3431,0.9014713610089332,0.9014713610089332,,,,,-0.024042456268221574,0.024795399429174098,0
+crossed,source_threshold,3777,3777,0,17,41,3385,3222,0,0,0,0,0,0,0,3385,3222,0.896213926396611,0.8530579825258141,,,,,-0.09797801470686275,-0.0011311881006484327,0
+crossed,matched_target_count,3777,3777,0,17,41,3385,3385,0,0,0,0,0,0,0,3385,3385,0.896213926396611,0.896213926396611,,,,,-0.039885852558854205,0.032387149635117,0

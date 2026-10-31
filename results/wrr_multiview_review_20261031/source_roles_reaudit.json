@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "independent_of_968_functions": true,
+  "original_roles": {
+    "foen": {
+      "role_seed": 3498274817,
+      "positive_cases": 1142,
+      "integer_weight_sum": 2899,
+      "positive_groups": 4,
+      "held_groups": [
+        "g0029",
+        "g0030"
+      ],
+      "original_json_and_joblib_roles_match": true,
+      "historical_native_offset_max_error": 0.0
+    },
+    "gkd_bayern": {
+      "role_seed": 3498274818,
+      "positive_cases": 1228,
+      "integer_weight_sum": 2242,
+      "positive_groups": 4,
+      "held_groups": [
+        "g0031",
+        "g0032",
+        "g0033",
+        "g0034",
+        "g0035",
+        "g0036",
+        "g0037",
+        "g0039"
+      ],
+      "original_json_and_joblib_roles_match": true,
+      "historical_native_offset_max_error": 0.0
+    }
+  },
+  "source_cases": 2370,
+  "source_nested_quantile_rows": 21330,
+  "source_nested_quantile_max_error": 0.0,
+  "source_frozen_array_hashes_checked": 2370,
+  "independent_native20_frozen_input_replay_max_error": 1.5276668818842154e-13,
+  "offsets_checked": 288,
+  "offset_scalar_values_checked": 2016,
+  "max_offset_error": 0.0,
+  "fallback_count_mismatches": 0,
+  "target_rows_checked": 729,
+  "target_quantile_values_checked": 5103,
+  "max_target_quantile_error": 0.0,
+  "max_target_metric_error": 2.6645352591003757e-15,
+  "max_fixed_D2_native_reference_or_delta_error": 3.247402347028583e-15,
+  "target_MC_seeds": 81,
+  "source_MC_seeds": 7110,
+  "source_target_seed_intersection": 0,
+  "historical_native20_source_draw_error": 0.0,
+  "historical_native20_source_quantile_error": 0.0,
+  "historical_target_native20_calibration_max_error": 0.0,
+  "target_truth_source": "Original LOYO seed00 crossed-mask complete-year reference, unique by station/year; not whole-archive annual prediction rows.",
+  "target_prediction_rows_with_intentionally_missing_truth": 27,
+  "native20_vs_nested20": {
+    "source_cases_with_different_seed0_paths": 1361,
+    "source_max_absolute_path_difference": 5.633148293539383,
+    "target_cases_with_different_seed0_paths": 17,
+    "target_max_absolute_path_difference": 3.9160625286016604,
+    "interpretation": "Native draws=20 and prefix20 of draws=500 are different implementations; neither is silently substituted for the other."
+  },
+  "target_truth_perturbation": {
+    "max_source_offset_change": 0.0,
+    "source_offset_dataflow_precedes_target_loading": true,
+    "generator_reexecuted_with_mutated_targets": false,
+    "scope": "Independent source-only recomputation plus generator AST/data-provenance checks; not a claim to have rerun 968 with modified target files."
+  },
+  "fixed_D2_scope": "Original annual D2 seven quantiles and projected-distribution scoring are fixed; no D2 retraining/recalibration or full-archive trend comparison.",
+  "limits": [
+    "This audit checks saved draws, source-role identities, offsets and annual score arithmetic; it does not independently refit all source daily models.",
+    "Same 27 target station-years in two groups; 500 paths are not an infinite-draw convergence proof.",
+    "Equal normal-tail/256-point scoring is an assumed annual approximation, not a verified tail law or a general method ranking."
+  ],
+  "input_sha256": {
+    "results/wrr_process_experiments_20261029/source_calibration/source_union_cases.parquet": "686c030f937d5fadcf5ece042250f735a64fa8e62ece45c5a0a7f760ba9e5b46",
+    "results/wrr_process_experiments_20261029/source_calibration/source_role_cases.csv": "d7adf7ded771cab4cdfc9f5a53425f3f3e467b01ca7bedf8a597b90f948fcb6d",
+    "results/wrr_process_experiments_20261029/source_calibration/fixed_target_cases.csv": "0f4b31ea4eb762efa5cce1c544425ec4bd2e26d97b89b9fb9cfc74bdc508f940",
+    "results/wrr_process_experiments_20261029/source_calibration/full/source_nested_quantiles.csv": "3967716cd8ffadef32a3840a799e89c940a9402a3f39aec719287d377d992d54",
+    "results/wrr_process_experiments_20261029/source_calibration/full/source_nested_draws.parquet": "cbac6722e35f0a9067e455e13b9af3c5d3b0d83d212623e881726aa68065475c",
+    "results/wrr_process_experiments_20261029/source_calibration/full/source_frozen_manifest.csv": "fdbf38dae0c580f00c5239a5fdde73875b536e7e3086cef55c665db5d39a18a3",
+    "results/wrr_process_experiments_20261029/source_calibration/full/source_reestimated_offsets.csv": "6c8c9aa0773389257c6cb9554aa6e986f49a9167b1e94d1776a757e49e37ba81",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_nested_draws.parquet": "d5a1eb36a45af7897b1cf1451d4daab85cb096484d9784d27ed9fee3b2e89dc0",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_historical_reference.csv": "7e6514b531f7195d8a1274b5eb10484f86855b4e4833c2f07543aa0d03628e1f",
+    "results/wrr_review_completion_20261024/cases/before_2010/seed_00.parquet": "b0fdb38c79080b4fce194874c6bcf03bd0663a35077e40e4065b7ce91ea0f78e",
+    "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf",
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
+    "configs/wrr_review_completion_20261024.json": "58a5e5bef0fc05fd3332068fad0babc372a0e0011158f0d79107db764cba356b",
+    "results/wrr_review_response_20261027/whole_archive/classical_calibration.json": "af55b56f0c3a9c81d33c325f50dce37c76d09c87d61f367841a6a7b5342ef76e",
+    "scripts/968_process_source_calibration.py": "c64bd95a405616b61e3080a8d32936935ec293f51811247f01f686cf6ade6703",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/foen.json": "5c16f1aa75b040d661ba5032c531a76f423991f0630eea481c29f26bec2e800e",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/foen.joblib": "fa1217eed2f4501266e74deb8d598a899e4a74aef20553d30986b657d9364860",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/gkd_bayern.json": "a4fd6f5c256bd6648a0a4fde0646958878dd01e9592bda1a43814399f5f4b838",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/gkd_bayern.joblib": "8e3ce77fcf0cb100c408aa3d9423aa1494ee16171acb6f9fd7c68f1ad3933c1c"
+  }
+}

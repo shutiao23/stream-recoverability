@@ -1,0 +1,7 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,0,offline,crossed,synchronized_donors,26,9,plug_in,9,9,0.2770034172540343,,
+foen|2016,g0029,foen,0,offline,crossed,synchronized_donors,26,9,stochastic_calibrated,9,9,0.1649299367995193,1.0,1.1460724667162965
+foen|2016,g0029,foen,0,offline,crossed,synchronized_donors,26,9,D2,9,9,0.1904777930799359,0.8888888888888888,1.087280875990122
+gkd_bayern|10026293,g0032,gkd_bayern,0,offline,crossed,synchronized_donors,27,3,plug_in,3,3,0.1875686604558713,,
+gkd_bayern|10026293,g0032,gkd_bayern,0,offline,crossed,synchronized_donors,27,3,stochastic_calibrated,3,3,0.0760027509105552,1.0,0.2472119562721791
+gkd_bayern|10026293,g0032,gkd_bayern,0,offline,crossed,synchronized_donors,27,3,D2,3,3,0.1595236722094609,1.0,0.358415135546366

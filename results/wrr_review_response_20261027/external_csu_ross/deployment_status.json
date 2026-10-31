@@ -1,0 +1,44 @@
+{
+  "status": "metadata_preflight_complete",
+  "candidate_sites": 4,
+  "field_note_files": 5,
+  "candidate_event_rows": 410,
+  "removal_redeployment_pairs": 23,
+  "candidate_site_years_with_logged_gap": 15,
+  "nonempty_action_missing_timestamp": 0,
+  "temperature_values_retained": false,
+  "qualified_reference_sites": 0,
+  "interpretation": "field notes indicate visits and possible deployment gaps, not direct proof that no temperature measurements exist; multiple sensors, unlogged actions, timestamp uncertainty and internal gaps remain unverified",
+  "receipts": [
+    {
+      "file_name": "CSU_ROSS_2021_field_notes.csv",
+      "download_bytes": 4764,
+      "candidate_notes": 14,
+      "nonempty_action_without_timestamp": 0
+    },
+    {
+      "file_name": "CSU_ROSS_sensor_field_notes_2022.csv",
+      "download_bytes": 30768,
+      "candidate_notes": 92,
+      "nonempty_action_without_timestamp": 0
+    },
+    {
+      "file_name": "CSU_ROSS_sensor_field_notes_2023.csv",
+      "download_bytes": 111100,
+      "candidate_notes": 115,
+      "nonempty_action_without_timestamp": 0
+    },
+    {
+      "file_name": "CSU_ROSS_sensor_field_notes_2024.csv",
+      "download_bytes": 181397,
+      "candidate_notes": 94,
+      "nonempty_action_without_timestamp": 0
+    },
+    {
+      "file_name": "CSU_ROSS_sensor_field_notes_2025.csv",
+      "download_bytes": 175033,
+      "candidate_notes": 95,
+      "nonempty_action_without_timestamp": 0
+    }
+  ]
+}

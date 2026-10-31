@@ -1,0 +1,4 @@
+family,mode,estimator,n_eligible,n_available,mean_station_mae,mean_station_coverage90,mean_station_width90
+crossed,offline,D2,18,18,0.17817282852510322,0.9,0.510931702980459
+crossed,offline,plug_in,18,18,0.22194445046533964,,
+crossed,offline,stochastic_calibrated,18,18,0.1850081862372555,0.8375,0.44733078443822705

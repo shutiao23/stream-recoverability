@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "all_forward_crossed_archives": 820,
+  "source_supported_archives": 760,
+  "common_nontrivial_archives": 685,
+  "stations": 38,
+  "groups": 14,
+  "source_supported_exclusions": {
+    "passed": 685,
+    "one_or_both_annual_distributions_unavailable": 73,
+    "no_incomplete_years": 2
+  },
+  "treatment_rows": 12330,
+  "D2_independent_coverage": [
+    0.8788321167883212,
+    0.8934306569343066,
+    0.8890510948905109
+  ],
+  "classic_independent_coverage": [
+    0.8335766423357664,
+    0.8686131386861314,
+    0.8554744525547445
+  ],
+  "D2_independent_width": [
+    0.3818188081735413,
+    0.4093915268855341,
+    0.402923414232558
+  ],
+  "classic_independent_width": [
+    0.3438041610697301,
+    0.386762907167605,
+    0.3764903243839172
+  ],
+  "audit_scope": "independent reconstruction from stored per-case quantiles and rank arrays, not regeneration of ranks from raw histories or proof of provider rights",
+  "limitations": "Post-hoc after target annual and trend results were observed. Endpoint-only and tapered quantile interpolation are assumptions beyond the calibrated 90% endpoints. Single-year source calibration differs from jointly degraded target archives. Candidate source changes multiple components, has only 6-8 assigned forward rule groups, and does not guarantee group or independent-climate coverage. Trend point estimate remains unchanged; climate-process trend and physical sensor uncertainty are not evaluated."
+}

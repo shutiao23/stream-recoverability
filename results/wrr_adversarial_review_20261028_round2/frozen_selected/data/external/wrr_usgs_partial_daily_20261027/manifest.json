@@ -1,0 +1,638 @@
+{
+  "status": "local_temporary_review_snapshot",
+  "scope": "USGS and NASA public inputs, aggregate conditional model scores and portable reference replays; no model weights, source calibration offsets or per-case predictions",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5348
+    },
+    {
+      "path": "USGS_EXPLORATORY_REPORT_ZH.md",
+      "bytes": 6739
+    },
+    {
+      "path": "daily/07364133.parquet",
+      "bytes": 31108
+    },
+    {
+      "path": "daily/08048000.parquet",
+      "bytes": 54952
+    },
+    {
+      "path": "daily/08377900.parquet",
+      "bytes": 40490
+    },
+    {
+      "path": "daily/08405200.parquet",
+      "bytes": 37634
+    },
+    {
+      "path": "daily_original/07364133.json.gz",
+      "bytes": 78758
+    },
+    {
+      "path": "daily_original/08048000.json.gz",
+      "bytes": 149464
+    },
+    {
+      "path": "daily_original/08377900.json.gz",
+      "bytes": 112013
+    },
+    {
+      "path": "daily_original/08405200.json.gz",
+      "bytes": 101576
+    },
+    {
+      "path": "daily_original/ATTRIBUTION.txt",
+      "bytes": 1114
+    },
+    {
+      "path": "expansion_raw/08377900_2013_00.json.gz",
+      "bytes": 955178
+    },
+    {
+      "path": "expansion_raw/08377900_2014_00.json.gz",
+      "bytes": 853464
+    },
+    {
+      "path": "expansion_raw/08377900_2015_00.json.gz",
+      "bytes": 911019
+    },
+    {
+      "path": "expansion_raw/08377900_2016_00.json.gz",
+      "bytes": 989293
+    },
+    {
+      "path": "expansion_raw/08377900_2018_00.json.gz",
+      "bytes": 990308
+    },
+    {
+      "path": "metadata/cohort_metadata.csv",
+      "bytes": 4842
+    },
+    {
+      "path": "metadata/continuous_receipts.json",
+      "bytes": 4875
+    },
+    {
+      "path": "metadata/target_roster.csv",
+      "bytes": 1252
+    },
+    {
+      "path": "power/07364133.json.gz",
+      "bytes": 23970
+    },
+    {
+      "path": "power/08048000.json.gz",
+      "bytes": 24116
+    },
+    {
+      "path": "power/08377900.json.gz",
+      "bytes": 23723
+    },
+    {
+      "path": "power/08405200.json.gz",
+      "bytes": 23922
+    },
+    {
+      "path": "power/ATTRIBUTION.txt",
+      "bytes": 195
+    },
+    {
+      "path": "power/daily_air.parquet",
+      "bytes": 125659
+    },
+    {
+      "path": "power/manifest.json",
+      "bytes": 2576
+    },
+    {
+      "path": "provenance/continuous_metadata_plan.json",
+      "bytes": 1448
+    },
+    {
+      "path": "provenance/continuous_metadata_status.json",
+      "bytes": 668
+    },
+    {
+      "path": "provenance/continuous_target_acquisition.json",
+      "bytes": 653
+    },
+    {
+      "path": "provenance/continuous_target_plan.json",
+      "bytes": 2467
+    },
+    {
+      "path": "provenance/continuous_tmpfs_status.json",
+      "bytes": 662
+    },
+    {
+      "path": "provenance/corrected_driver_amendment.json",
+      "bytes": 983
+    },
+    {
+      "path": "provenance/feasibility_plan.json",
+      "bytes": 3870
+    },
+    {
+      "path": "provenance/feasibility_status.json",
+      "bytes": 888
+    },
+    {
+      "path": "provenance/feature_support_plan.json",
+      "bytes": 2860
+    },
+    {
+      "path": "provenance/forcing_repair_plan.json",
+      "bytes": 2201
+    },
+    {
+      "path": "provenance/forcing_status.json",
+      "bytes": 638
+    },
+    {
+      "path": "provenance/hidden_all_plan.json",
+      "bytes": 1006
+    },
+    {
+      "path": "provenance/history_count_leaf_plan.json",
+      "bytes": 2284
+    },
+    {
+      "path": "provenance/independent_audit_plan.json",
+      "bytes": 1704
+    },
+    {
+      "path": "provenance/measurement_support_plan.json",
+      "bytes": 5320
+    },
+    {
+      "path": "provenance/network_plan.json",
+      "bytes": 1432
+    },
+    {
+      "path": "provenance/network_status.json",
+      "bytes": 676
+    },
+    {
+      "path": "provenance/prediction_replay_plan.json",
+      "bytes": 1552
+    },
+    {
+      "path": "provenance/qualification_plan.json",
+      "bytes": 2814
+    },
+    {
+      "path": "provenance/reporting_resolution_plan.json",
+      "bytes": 2106
+    },
+    {
+      "path": "provenance/score_execution_plan.json",
+      "bytes": 1846
+    },
+    {
+      "path": "provenance/scoring_plan.json",
+      "bytes": 7194
+    },
+    {
+      "path": "provenance/storage_amendment.json",
+      "bytes": 1244
+    },
+    {
+      "path": "provenance/subdaily_bounded_score_plan.json",
+      "bytes": 3320
+    },
+    {
+      "path": "provenance/subdaily_h30_bounds_plan.json",
+      "bytes": 4372
+    },
+    {
+      "path": "qualifier/coverage_numeric_independent_audit.json",
+      "bytes": 480
+    },
+    {
+      "path": "qualifier/coverage_numeric_tolerance_summary.csv",
+      "bytes": 2668
+    },
+    {
+      "path": "qualifier/expansion_bounds_days.parquet",
+      "bytes": 60882
+    },
+    {
+      "path": "qualifier/expansion_ice_raw_daily_status.json",
+      "bytes": 595
+    },
+    {
+      "path": "qualifier/expansion_independent_audit.json",
+      "bytes": 797
+    },
+    {
+      "path": "qualifier/expansion_qualification_days.parquet",
+      "bytes": 44367
+    },
+    {
+      "path": "qualifier/expansion_qualification_years.csv",
+      "bytes": 1736
+    },
+    {
+      "path": "qualifier/expansion_receipts.json",
+      "bytes": 3048
+    },
+    {
+      "path": "qualifier/qualifier_aware_daily.parquet",
+      "bytes": 85485
+    },
+    {
+      "path": "qualifier/qualifier_aware_history_details.csv",
+      "bytes": 2410
+    },
+    {
+      "path": "qualifier/qualifier_aware_history_independent_audit.json",
+      "bytes": 802
+    },
+    {
+      "path": "qualifier/qualifier_aware_roster_v2.csv",
+      "bytes": 1337
+    },
+    {
+      "path": "qualifier/qualifier_aware_score_by_year.csv",
+      "bytes": 1585
+    },
+    {
+      "path": "qualifier/qualifier_aware_score_independent_audit.json",
+      "bytes": 925
+    },
+    {
+      "path": "qualifier/qualifier_aware_score_pairs_corrected.csv",
+      "bytes": 330
+    },
+    {
+      "path": "qualifier/qualifier_aware_score_summary.csv",
+      "bytes": 6302
+    },
+    {
+      "path": "qualifier/qualifier_hidden_status.json",
+      "bytes": 568
+    },
+    {
+      "path": "qualifier/qualifier_replay_status.json",
+      "bytes": 563
+    },
+    {
+      "path": "raw/07364133_2016_00.json.gz",
+      "bytes": 968735
+    },
+    {
+      "path": "raw/08048000_2011_00.json.gz",
+      "bytes": 972713
+    },
+    {
+      "path": "raw/08048000_2013_00.json.gz",
+      "bytes": 975072
+    },
+    {
+      "path": "raw/08377900_2012_00.json.gz",
+      "bytes": 996590
+    },
+    {
+      "path": "raw/08377900_2017_00.json.gz",
+      "bytes": 996785
+    },
+    {
+      "path": "raw/08377900_2019_00.json.gz",
+      "bytes": 990830
+    },
+    {
+      "path": "raw/08405200_2017_00.json.gz",
+      "bytes": 992775
+    },
+    {
+      "path": "raw/08405200_2018_00.json.gz",
+      "bytes": 993669
+    },
+    {
+      "path": "results/continuous_qualification_days.parquet",
+      "bytes": 72829
+    },
+    {
+      "path": "results/continuous_qualification_status.json",
+      "bytes": 1623
+    },
+    {
+      "path": "results/continuous_qualification_years.csv",
+      "bytes": 1809
+    },
+    {
+      "path": "results/feature_support_independent_audit.json",
+      "bytes": 425
+    },
+    {
+      "path": "results/feature_support_status.json",
+      "bytes": 1558
+    },
+    {
+      "path": "results/hidden_all_status.json",
+      "bytes": 541
+    },
+    {
+      "path": "results/history_count_leaf_status.json",
+      "bytes": 841
+    },
+    {
+      "path": "results/independent_audit_status.json",
+      "bytes": 685
+    },
+    {
+      "path": "results/measurement_daily_difference_counts.csv",
+      "bytes": 241
+    },
+    {
+      "path": "results/measurement_support_audit_correction.txt",
+      "bytes": 272
+    },
+    {
+      "path": "results/measurement_support_calibration_status.json",
+      "bytes": 912
+    },
+    {
+      "path": "results/measurement_support_independent_audit.json",
+      "bytes": 807
+    },
+    {
+      "path": "results/measurement_support_status.json",
+      "bytes": 979
+    },
+    {
+      "path": "results/measurement_support_summary.csv",
+      "bytes": 7008
+    },
+    {
+      "path": "results/prediction_replay_status.json",
+      "bytes": 560
+    },
+    {
+      "path": "results/public_reference_replay.json",
+      "bytes": 572
+    },
+    {
+      "path": "results/raw_daily_reference_replay.json",
+      "bytes": 539
+    },
+    {
+      "path": "results/reference_clock_comparison.csv",
+      "bytes": 784
+    },
+    {
+      "path": "results/reporting_resolution_independent_audit.json",
+      "bytes": 819
+    },
+    {
+      "path": "results/reporting_resolution_status.json",
+      "bytes": 772
+    },
+    {
+      "path": "results/reporting_resolution_summary.csv",
+      "bytes": 2286
+    },
+    {
+      "path": "results/score_independent_audit.json",
+      "bytes": 589
+    },
+    {
+      "path": "results/score_pairs.csv",
+      "bytes": 465
+    },
+    {
+      "path": "results/score_status.json",
+      "bytes": 1227
+    },
+    {
+      "path": "results/score_summary.csv",
+      "bytes": 1414
+    },
+    {
+      "path": "results/subdaily_bounded_score_independent_audit.json",
+      "bytes": 930
+    },
+    {
+      "path": "results/subdaily_bounded_score_pairs.csv",
+      "bytes": 1309
+    },
+    {
+      "path": "results/subdaily_bounded_score_status.json",
+      "bytes": 833
+    },
+    {
+      "path": "results/subdaily_bounded_score_summary.csv",
+      "bytes": 4647
+    },
+    {
+      "path": "results/subdaily_bounds_reference_replay.json",
+      "bytes": 439
+    },
+    {
+      "path": "results/subdaily_h30_bounds_days.parquet",
+      "bytes": 102988
+    },
+    {
+      "path": "results/subdaily_h30_bounds_independent_audit.json",
+      "bytes": 834
+    },
+    {
+      "path": "results/subdaily_h30_bounds_status.json",
+      "bytes": 1442
+    },
+    {
+      "path": "results/subdaily_h30_bounds_years.csv",
+      "bytes": 1537
+    },
+    {
+      "path": "scripts/871_usgs_partial_daily_feasibility.py",
+      "bytes": 7125
+    },
+    {
+      "path": "scripts/872_usgs_partial_continuous_metadata.py",
+      "bytes": 5750
+    },
+    {
+      "path": "scripts/873_usgs_partial_network.py",
+      "bytes": 7111
+    },
+    {
+      "path": "scripts/874_usgs_continuous_target_intake.py",
+      "bytes": 8602
+    },
+    {
+      "path": "scripts/875_continuous_tmpfs_intake.py",
+      "bytes": 6121
+    },
+    {
+      "path": "scripts/876_continuous_qualification.py",
+      "bytes": 10368
+    },
+    {
+      "path": "scripts/877_continuous_independent_audit.py",
+      "bytes": 7708
+    },
+    {
+      "path": "scripts/878_usgs_partial_scoring_plan.py",
+      "bytes": 5498
+    },
+    {
+      "path": "scripts/879_usgs_partial_power.py",
+      "bytes": 3726
+    },
+    {
+      "path": "scripts/880_usgs_partial_predict.py",
+      "bytes": 7841
+    },
+    {
+      "path": "scripts/881_usgs_partial_score.py",
+      "bytes": 10029
+    },
+    {
+      "path": "scripts/882_usgs_partial_hidden_probe.py",
+      "bytes": 5947
+    },
+    {
+      "path": "scripts/883_usgs_forcing_status_repair.py",
+      "bytes": 4779
+    },
+    {
+      "path": "scripts/884_usgs_score_independent_audit.py",
+      "bytes": 7176
+    },
+    {
+      "path": "scripts/885_usgs_hidden_all_targets.py",
+      "bytes": 7157
+    },
+    {
+      "path": "scripts/886_usgs_partial_prediction_replay.py",
+      "bytes": 6218
+    },
+    {
+      "path": "scripts/887_usgs_feature_support.py",
+      "bytes": 6169
+    },
+    {
+      "path": "scripts/888_usgs_history_count_leaf_audit.py",
+      "bytes": 4661
+    },
+    {
+      "path": "scripts/889_usgs_feature_support_audit.py",
+      "bytes": 4144
+    },
+    {
+      "path": "scripts/890_public_usgs_reference_replay.py",
+      "bytes": 8183
+    },
+    {
+      "path": "scripts/891_usgs_partial_power_corrected.py",
+      "bytes": 3750
+    },
+    {
+      "path": "scripts/892_public_usgs_raw_daily_audit.py",
+      "bytes": 3525
+    },
+    {
+      "path": "scripts/893_subdaily_h30_bounds.py",
+      "bytes": 8704
+    },
+    {
+      "path": "scripts/894_subdaily_h30_bounds_audit.py",
+      "bytes": 5454
+    },
+    {
+      "path": "scripts/895_subdaily_bounded_model_scores.py",
+      "bytes": 7938
+    },
+    {
+      "path": "scripts/896_subdaily_score_independent_audit.py",
+      "bytes": 5543
+    },
+    {
+      "path": "scripts/897_reporting_resolution_diagnostic.py",
+      "bytes": 5528
+    },
+    {
+      "path": "scripts/898_reporting_resolution_audit.py",
+      "bytes": 4136
+    },
+    {
+      "path": "scripts/899_measurement_support_sensitivity.py",
+      "bytes": 15265
+    },
+    {
+      "path": "scripts/900_measurement_support_independent_audit.py",
+      "bytes": 10860
+    },
+    {
+      "path": "scripts/901_public_subdaily_bounds_replay.py",
+      "bytes": 5420
+    },
+    {
+      "path": "scripts/902_riomora_expansion_intake.py",
+      "bytes": 7830
+    },
+    {
+      "path": "scripts/903_riomora_expansion_qualification.py",
+      "bytes": 7649
+    },
+    {
+      "path": "scripts/904_riomora_expansion_independent_audit.py",
+      "bytes": 8209
+    },
+    {
+      "path": "scripts/905_riomora_ice_raw_daily_audit.py",
+      "bytes": 5834
+    },
+    {
+      "path": "scripts/906_qualifier_aware_history.py",
+      "bytes": 7778
+    },
+    {
+      "path": "scripts/907_qualifier_aware_predictions.py",
+      "bytes": 10469
+    },
+    {
+      "path": "scripts/908_qualifier_aware_scoring.py",
+      "bytes": 9443
+    },
+    {
+      "path": "scripts/909_qualifier_score_pairs_correction.py",
+      "bytes": 1899
+    },
+    {
+      "path": "scripts/910_qualifier_aware_history_audit.py",
+      "bytes": 6082
+    },
+    {
+      "path": "scripts/911_qualifier_aware_score_audit.py",
+      "bytes": 8410
+    },
+    {
+      "path": "scripts/912_coverage_numeric_tolerance.py",
+      "bytes": 6653
+    },
+    {
+      "path": "scripts/913_coverage_numeric_independent_audit.py",
+      "bytes": 3520
+    },
+    {
+      "path": "scripts/914_qualifier_hidden_probe.py",
+      "bytes": 8115
+    },
+    {
+      "path": "scripts/915_qualifier_prediction_replay.py",
+      "bytes": 7187
+    },
+    {
+      "path": "scripts/916_public_qualifier_history_replay.py",
+      "bytes": 5166
+    },
+    {
+      "path": "scripts/917_public_riomora_expansion_replay.py",
+      "bytes": 7452
+    }
+  ]
+}

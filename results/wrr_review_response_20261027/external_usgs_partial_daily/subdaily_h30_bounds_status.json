@@ -1,0 +1,26 @@
+{
+  "status": "completed_conditional_subdaily_bounds",
+  "target_years": 8,
+  "day_clock_rows": 5844,
+  "clock_summaries": {
+    "fixed_standard": {
+      "years": 8,
+      "zero_width_years": 3,
+      "width_at_most_0_01_c_years": 3,
+      "width_at_most_0_1_c_years": 7,
+      "median_width_c": 0.016770833333335844,
+      "maximum_width_c": 0.1687499999999993
+    },
+    "native_civil": {
+      "years": 8,
+      "zero_width_years": 3,
+      "width_at_most_0_01_c_years": 4,
+      "width_at_most_0_1_c_years": 7,
+      "median_width_c": 0.015729166666664796,
+      "maximum_width_c": 0.16715277777777615
+    }
+  },
+  "model_scores_calculated": false,
+  "limitations": "Every unobserved, nonfinite, unapproved, flagged, duplicated or otherwise ambiguous slot lies in [-5,50] degrees C. This is a hypothetical water-value bound, not a demonstrated instrument or physical limit; if false, H30 enclosure can fail. Clock choice, quality corrections, actual value range, sensor accuracy, source model overlap, historical interpolation and independent climates are unresolved. The score has already been opened and one selected site contributes all three full-hour years. Bounds are conditional, not measured truth.",
+  "storage": "temporary RAM filesystem; not durable"
+}

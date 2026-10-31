@@ -1,0 +1,7 @@
+rule,definition,eligible_station_years,eligible_stations,eligible_groups,admitted,admitted_complete_number,admitted_observed_bound,admitted_unknown,excluded,excluded_complete_number,excluded_observed_bound,excluded_unknown,admitted_new_window_facts,admitted_new_window_stations,excluded_new_window_facts,excluded_new_window_stations
+complete_100,complete_year,2700,96,34,2139,2139,0,0,561,0,545,16,0,0,35,20
+annual_95,observed_fraction >= 0.95,2700,96,34,2591,2139,452,0,109,0,93,16,18,18,3,3
+warm_90_station_specific,train_warm_fraction >= 0.90,2700,96,34,2634,2139,495,0,66,0,50,16,19,19,2,2
+warm_90_fixed_original,warm_observed_fraction >= 0.90,2700,96,34,2635,2139,496,0,65,0,49,16,19,19,2,2
+july_aug_complete,julaug_complete,2700,96,34,2509,2139,370,0,191,0,175,16,18,18,3,3
+gap_le_49_days_context,longest_run <= 49,2700,96,34,2653,2139,514,0,47,0,31,16,19,19,1,1

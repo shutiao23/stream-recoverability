@@ -1,0 +1,10 @@
+{
+  "candidates": 24,
+  "acquired": 24,
+  "strict_reference_eligible": 0,
+  "relaxed_reference_eligible": 0,
+  "strict_reference_scope": "a UTC daily mean with all 48 half-hourly values passing NEON finalQF",
+  "relaxed_scope": "at least 46 of 48 values: observed-interval average, not a fully observed day",
+  "reconstruction_accuracy_evaluated": false,
+  "interpretation": "qualification only; no artificial masks or recovery scores have yet been calculated"
+}

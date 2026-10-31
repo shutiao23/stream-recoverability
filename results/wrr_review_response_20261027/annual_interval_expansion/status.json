@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "families": [
+    "calendar",
+    "crossed"
+  ],
+  "modes": [
+    "offline",
+    "forward"
+  ],
+  "target_rows": 21446,
+  "source_role": "rule-calibration groups disjoint from estimator, interval calibration, risk learning and held-region groups",
+  "forward_source_years": "strictly before 2010",
+  "source_calibration": "equal connected-group mass; empirical 90th percentile of nonnegative annual interval misses; at least three groups and positive radius",
+  "scope": "coverage, width and interval score of supported target cases before/after; baseline all-case results and outcome-defined retrospective strata retained",
+  "limitation": "exploratory analysis selected after prior results; group-weighted empirical quantile has no conformal or climate-transfer guarantee; group-max finite-rank diagnostic is not applied; no new joint trend distribution"
+}

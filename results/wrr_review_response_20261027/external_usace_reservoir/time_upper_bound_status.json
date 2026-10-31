@@ -1,0 +1,13 @@
+{
+  "status": "timestamp_upper_bound_completed",
+  "resources": 10,
+  "station_years": 69,
+  "possible_complete_years": 29,
+  "sites_at_least_four_possible_years": 5,
+  "timestamp_formats": {
+    "naive_labels_assumed_fixed_mst": 10
+  },
+  "water_values_evaluated": false,
+  "prediction_errors_evaluated": false,
+  "limitations": "Each resource README says timestamp is ISO 8601 Mountain Standard Time, UTC-07:00. Treat naive labels as reported fixed MST; convert explicitly offset labels to UTC-07. A day is possibly complete only with exactly 96 unique on-grid quarter-hour labels and no duplicates; a calendar year needs every day. This is a timestamp-only upper bound. A 200-km NLDI screen is a bounded gauge proxy, not proof of a sensor’s actual flowline or climate independence. Some candidates have known earlier source/network connections; upstream/downstream and tributary sites are not automatically independent. Authors describe quality control plus fouling/calibration corrections, but timestamp completeness does not establish finite, nonestimated, uncorrected or physically accurate water values. Unknown point flags, metadata vintage, sensor clocks and reservoir operations remain."
+}

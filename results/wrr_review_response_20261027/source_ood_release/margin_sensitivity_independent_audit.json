@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "source_cases": 8010,
+  "source_groups": 19,
+  "external_cases": 306,
+  "margins_checked": 3,
+  "bootstrap_draws_per_margin": 4000,
+  "scope": "Independent feature-margin flags, deterministic score ranking, group totals and bootstrap summaries.",
+  "limitations": "Same observed features, frozen source extrema and model outputs are reused. Tolerances are posthoc and do not establish error calibration, prospective release or independent climates."
+}

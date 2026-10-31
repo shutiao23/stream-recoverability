@@ -1,0 +1,123 @@
+version: 20261021
+status: prospective_specification_requires_new_unopened_sample
+primary_use: deliver_annual_H30_magnitude_in_archive
+secondary_analyses:
+  - hot_year_decision_under_declared_experimental_costs
+  - original_pool_frequency_bounds
+primary_population: independently_recruited_station_components_with_verified_daily_mean_reference
+failure_tolerance_C: 0.5
+selected_risk_cap: 0.05
+practical_retention_gain: 0.05
+parameter_interpretation:
+  tolerance: numerical_archive_delivery_error_not_biological_threshold
+  risk_cap: failure_fraction_under_declared_group_sampling_scheme
+  practical_gain: five_more_annual_magnitudes_per_hundred_original_candidates_at_common_risk_criterion
+  agency_service_level_validated: false
+familywise_alpha: 0.05
+confirmatory_alternative_selection: freeze_one_candidate_on_development_before_new_outcomes
+primary_comparator: both_predefined_same_information_direct_risk_references
+direct_reference_family:
+  - native_conditional_CDF_tolerance_exceedance_probability
+  - matched_capacity_direct_failure_probability_boosting
+reference_selection: retain_both_without_selecting_a_weaker_reference_on_calibration_or_test
+joint_success:
+  - risk_evidence_upper_bound_at_most_cap_with_positive_admission_for_all_three_methods
+  - paired_retention_gain_lower_bound_exceeds_practical_gain_against_each_direct_reference
+  - identical_original_candidates_information_and_calibration_budget
+  - no_change_to_primary_population_after_opening_outcomes
+joint_error_allocation:
+  formal_calibration_per_method: 0.005
+  evaluation_risk_per_method: 0.005
+  paired_gain_per_direct_reference: 0.01
+  methods: 3
+  direct_references: 2
+  familywise_total: 0.05
+risk_estimand: ratio_of_expected_group_failure_and_admission_to_expected_group_admission
+risk_assumptions:
+  - independent_deployment_representative_components
+  - independently_fitted_score
+  - training_fixed_threshold_family
+  - explicit_within_component_sampling_weights
+sample_size:
+  plan_unit: independent_catchment_and_shared_record_component
+  train_groups_grid: [60, 120, 240]
+  calibration_groups_grid: [60, 120, 240, 480]
+  test_groups_grid: [60, 120, 240, 480]
+  full_procedure_repetitions: 1000
+  target_joint_power: 0.8
+  planning_status: original_paired_source_plan_executed_new_three_method_two_comparison_procedure_and_population_require_joint_planning
+  current_source_planning:
+    configuration: configs/wrr_joint_power_20261021.json
+    actual_training_calibration_test_components: [59, 21, 24]
+    full_paired_refits: 3000
+    evaluated_budget_cells: 336
+    maximum_primary_joint_success_estimate: 0.039
+    recommended_recruitment_sample_size: null
+    simulated_budgets_are_new_observations: false
+    candidate_scope: original_priority_point_direct_probability_heads_with_or_without_windows
+    covers_new_two_reference_joint_procedure: false
+  zero_failure_59_or_118_examples_are_not_sample_size_targets: true
+splits:
+  candidate_recruitment: metadata_only_before_daily_outcomes
+  exclusion: all_previously_opened_target_and_donor_records_and_connected_components
+  roles: [development, calibration, test]
+  prospective_source_cutoff: fixed_before_acquisition
+  dependence: shared_records_nested_catchments_and_region_event_relations
+  event_holdout: region_and_heat_event_blocked
+  original_vintage_required_for_real_time_claim: true
+factorial:
+  reconstruction_same_air_input: [priority_policy, air2stream3]
+  probability_reference: development_selected_CSDI_or_conditional_residual_model
+  flow_enhanced_information_tier: [air2stream8, seasonal_state_residuals]
+  score: [native_CDF_failure_probability, direct_failure_probability, direct_failure_probability_plus_windows]
+  decision: [magnitude_screen_then_classify, direct_cost_minimization]
+  references: [reconstruct_all, all_unknown, all_hot, all_cool, random_rejection_same_retention]
+  probability_development_budget:
+    old_group_disjoint_validation: true
+    maximum_candidate_configurations: 4
+    maximum_epochs_per_configuration: 60
+    stopping_patience: 8
+    primary_validation_score: H30_CRPS
+    report_compute_and_unavailable_predictions: true
+populations:
+  artificial: balanced_mechanism_only
+  calendar_replay: actual_missing_geometry_weighted_archive_assessment
+  natural_gap_backup: independently_recovered_real_gap_reference_required
+coverage:
+  gap_patterns: [interior_contiguous, start_of_year, end_of_year, fragmented]
+  history_years: [3, 5, 10]
+  history_comparison: same_target_years_feasible_for_all_budgets
+  stress: [thermal_events, compound_heat_low_flow, donor_cofailure]
+  undefined_estimand: dry_channel_or_nonwater_temperature_excluded_by_verified_reason
+  process_labels: verified_glacier_snow_lake_groundwater_regulation_metadata_only
+calibration_modes:
+  F0: frozen_source_model_and_threshold
+  F1: frozen_model_target_calibration
+  F2: development_refit_target_calibration
+  budget_unit: independent_components
+  report: risk_retention_and_group_failures_over_calibration_budget
+probability_quality:
+  - H30_bias_MAE_CRPS
+  - interval_coverage_and_width
+  - threshold_probability_Brier_and_reliability
+  - warm_and_low_flow_conditions
+  - Monte_Carlo_stability_32_128_512
+information_acquisition:
+  status: inactive_until_real_action_and_cost_evidence_exists
+  user_reports_available_additional_material: false
+  public_free_backup_resource: DFO_Newfoundland_and_Labrador
+  public_resource_original_history_eligible_cases: 0
+  public_resource_secondary_scope: two_short_history_winter_partial_hourly_sampling_years
+  feasible_actions: existing_backup_logger_or_costly_archived_auxiliary_data
+  exclude: hidden_historical_truth_as_free_query
+  freely_available_information: incorporate_without_artificial_query_cost
+  comparisons_if_activated: [random, historical_correlation, daily_uncertainty, target_risk, window_value_of_information]
+  endpoint: actual_post_acquisition_loss_improvement_minus_verified_cost
+stopping:
+  failure: stop_core_method_superiority_claim_if_joint_primary_condition_fails
+  weak_comparator_only_gain: insufficient
+  extra_information_only_gain: information_effect_not_architecture
+  posthoc_cost_or_population_choice: supplementary_only
+  confirmatory_failure: retain_all_primary_groups_and_report
+  no_adaptive_acquisition_until_preferred_method_wins: true
+publication_claim: archive_fitness_and_failure_boundaries_until_joint_success_in_new_sample

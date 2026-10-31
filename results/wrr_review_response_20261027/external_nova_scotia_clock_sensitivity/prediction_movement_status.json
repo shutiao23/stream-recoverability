@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "created_utc": "2026-10-26T22:01:47.190172+00:00",
+  "cases_per_shift": 144,
+  "posthoc": true,
+  "scope": "changes in saved prediction points and selected training-derived features for the same masks",
+  "limitation": "1-hour shifts and 0.01 thresholds are post-hoc; temperature thresholds are in C and peak-overlap threshold is dimensionless. This does not identify actual time zone, prove cause, sensor quality or independent climates"
+}

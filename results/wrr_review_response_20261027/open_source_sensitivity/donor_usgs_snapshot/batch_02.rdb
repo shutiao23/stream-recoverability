@@ -1,0 +1,60 @@
+#
+#
+# US Geological Survey
+# retrieved: 2026-10-27 00:28:19 -04:00	(sdas01)
+#
+# The Site File stores location and general information about groundwater,
+# surface water, and meteorological sites
+# for sites in USA.
+#
+# File-format description:  http://help.waterdata.usgs.gov/faq/about-tab-delimited-output
+# Automated-retrieval info: http://waterservices.usgs.gov/rest/Site-Service.html
+#
+# Contact:   gs-w_support_nwisweb@usgs.gov
+#
+# The following selected fields are included in this output:
+#
+#  agency_cd       -- Agency
+#  site_no         -- Site identification number
+#  station_nm      -- Site name
+#  site_tp_cd      -- Site type
+#  dec_lat_va      -- Decimal latitude
+#  dec_long_va     -- Decimal longitude
+#  coord_acy_cd    -- Latitude-longitude accuracy
+#  dec_coord_datum_cd -- Decimal Latitude-longitude datum
+#  alt_va          -- Altitude of Gage/land surface
+#  alt_acy_va      -- Altitude accuracy
+#  alt_datum_cd    -- Altitude datum
+#  huc_cd          -- Hydrologic unit code
+#
+agency_cd	site_no	station_nm	site_tp_cd	dec_lat_va	dec_long_va	coord_acy_cd	dec_coord_datum_cd	alt_va	alt_acy_va	alt_datum_cd	huc_cd
+5s	15s	50s	7s	16s	16s	1s	10s	8s	3s	10s	16s
+USGS	03293530	MUDDY FK AT MOCKINGBIRD VALLEY RD AT LOUISVILLE,KY	ST	38.27645917	-85.693573	U	NAD83	 424.05	.16	NAVD88	05140101
+USGS	03298300	PENN RUN AT MT WASHINGTON RD NR LOUISVILLE, KY	ST	38.0875	-85.6425	U	NAD83	522.7	0.16	NAVD88	05140102
+USGS	03302000	POND CREEK NEAR LOUISVILLE, KY	ST	38.1197916	-85.7957955	M	NAD83	 429.76	.16	NAVD88	05140102
+USGS	03302030	POND CREEK AT PENDLETON ROAD NEAR LOUISVILLE, KY	ST	38.05423677	-85.8716296	U	NAD83	 404.22	.16	NAVD88	05140102
+USGS	03307000	RUSSELL CREEK NEAR COLUMBIA, KY	ST	37.12547797	-85.4040748	1	NAD83	 604.72	 .1	NAVD88	05110001
+USGS	04027000	BAD RIVER NEAR ODANAH, WI	ST	46.4866144	-90.696297	S	NAD83	668.34	.02	NAVD88	04010302
+USGS	04040000	ONTONAGON RIVER NEAR ROCKLAND, MI	ST	46.7207742	-89.207086	M	NAD83	 638.66	.01	NAVD88	04020102
+USGS	04067500	MENOMINEE RIVER NEAR MC ALLISTER, WI	ST	45.3258333	-87.6633333	S	NAD83	622.66	.06	NAVD88	04030108
+USGS	041482663	ALGER CREEK AT HILL ROAD NEAR SWARTZ CREEK, MI	ST	42.941944	-83.846111	S	NAD83	761.5	0.1	NAVD88	040802040301
+USGS	05054200	RED RIVER OF THE NORTH NEAR HARWOOD, ND	ST	46.9769096	-96.8209139	F	NAD83				09020104
+USGS	05440700	ROCK RIVER AT BYRON, IL	ST	42.12218889	-89.2553639	5	NAD83	666.00	.09	NAVD88	07090005
+USGS	05516665	YELLOW RIVER NEAR OAK GROVE, IN	ST	41.27138889	-86.4666667	S	NAD83	 716.04	.07	NAVD88	07120001
+USGS	05538010	DES PLAINES RIVER AT ROCKDALE, IL	ST	41.505	-88.0997222	S	NAD83				07120004
+USGS	06610505	Missouri River near Council Bluffs, IA	ST	41.18916667	-95.8625	S	NAD83	 944.09	.01	NAVD88	10230006
+USGS	06817000	Nodaway River at Clarinda, IA	ST	40.7432222	-95.0145278	F	NAD83	956.01	.12	NAVD88	10240009
+USGS	06818000	Missouri River at St. Joseph, MO	ST	39.75325	-94.8568333	5	NAD83	 789.27	.02	NAVD88	10240011
+USGS	07020850	Mississippi River at Cape Girardeau, MO	ST	37.30188889	-89.518	5	NAD83	 304.27	.07	NAVD88	07140105
+USGS	07049691	White River at Beaver Dam near Eureka Springs	ST	36.4208333	-93.8472222	T	NAD83				11010001
+USGS	07053450	White River bl Table Rock Dam near Branson, MO	ST	36.5950631	-93.3090721	S	NAD83	 741	 10	NAVD88	11010003
+USGS	07054501	White River at Bull Shoals Dam near Flippin	ST	36.365	-92.575	T	NAD83				11010003
+USGS	07054527	White River below Bull Shoals Dam near Fairview	ST	36.3436111	-92.5741667	S	NAD83	 495.00	10.	NAVD88	11010003
+USGS	07059998	North Fork River at Base of Norfork Dam nr Norfork	ST	36.248333	-92.24	H	NAD83				110100061003
+USGS	07061270	East Fork Black River near Lesterville, MO	ST	37.55255556	-90.8424444	5	NAD83	825.16	.01	NAVD88	11010007
+USGS	07076000	Little Red River near Heber Springs	ST	35.5172222	-91.9972222	T	NAD83	 261.78	.01	NGVD29	11010014
+USGS	073745253	Reggio Canal near Wills Point, LA	ST-CA	29.78416667	-89.9375	S	NAD83	 0.0	.01	NAVD88	08090203
+USGS	08120700	Colorado Rv nr Cuthbert, TX	ST	32.47733745	-100.9498382	F	NAD83	 2073.49	 .1	NGVD29	12080002
+USGS	12398600	PEND OREILLE RIVER AT INTERNATIONAL BOUNDARY	ST	48.99881409	-117.3535794	S	NAD83	 1700	 10	NGVD29	17010216
+USGS	410333095530101	Missouri River near La Platte, Nebr.	ST	41.059353	-95.883669	S	NAD83	931.64	1.6	NAVD88	102300060603
+USGS	412126095565201	Missouri River at NP Dodge Park at Omaha, Nebr.	ST	41.3574722	-95.9477778	S	NAD83	 981	 10	NAVD88	10230006

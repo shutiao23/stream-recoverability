@@ -1,0 +1,19 @@
+{
+  "scope": "metadata_only_conservative_hydrologic_dependence_screen",
+  "parent_qualification": "configs/wrr_au_reference_qualification_20261021.json",
+  "network_source": "BoM Geofabric V3.3 AHGFNetworkConnectivityDown, layer 38",
+  "grouping": "weak_components_of_all_positive_physical_node_connections",
+  "nonpositive_node_identifiers": "outlet_or_missing_sentinels_never_shared_physical_nodes",
+  "gauge_attachments": "previously_verified_exact_station_owner_coordinate_and_physical_attachment",
+  "reason_for_conservative_extension": "Account for shared upstream bifurcations and common downstream connections without requiring a recruited gauge at the connecting node.",
+  "interpretation": "A connected block is a conservative hydrologic dependence screen, not proof of record sharing or of regional-event independence.",
+  "existing_roles_and_quality_qualification": "preserve_original_bytes_and_report_new_connectivity_separately",
+  "unmapped_stations": "pending_not_zero_eligible_or_new_independent_units",
+  "new_temperature_or_prediction_requests": false,
+  "new_role_assignments": false,
+  "new_confirmation": false,
+  "source_documentation": [
+    "https://hosting.wsapi.cloud.bom.gov.au/arcgis/rest/services/ahgf/Geofabric_V3x_All_Products/FeatureServer/layers",
+    "https://www.bom.gov.au/water/geofabric/documentation.shtml"
+  ]
+}

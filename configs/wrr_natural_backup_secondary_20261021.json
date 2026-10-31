@@ -1,0 +1,16 @@
+{
+  "status": "secondary_short_history_assay_specified_after_reference_qualification_before_reconstruction_errors",
+  "primary_protocol_unchanged": "configs/wrr_natural_backup_20261021_v2.json",
+  "included": "all pair-years passing independent-reference and actual-gap QC but failing only the three-complete-prior-primary-year requirement",
+  "selection_does_not_use_reconstruction_error": true,
+  "original_workflow": "outside its validated support; report unknown without assigning zero risk",
+  "point_references": ["linear_interpolation", "air2stream3", "original_univariate_CSDI8", "old_validation_selected_air_CSDI32", "free_backup_union"],
+  "water_normalization": "strictly preceding observed primary values; with fewer than thirty prior values use current visible primary values, never backup values",
+  "air": "public NASA POWER T2M UTC daily forcing; automatically incorporated without a query cost",
+  "CSDI_global_time": "retrospective old-source training; no real-time or fully prospective global claim",
+  "probability_selection": "unchanged automatic old-only H30 CRPS rule; no Canadian errors used",
+  "reference_sensitivity": "report all eligible backup references; predictions cached once per primary logger-year and reused",
+  "aggregation": "pair-years, distinct primary logger-years and one dependent provincial resource are reported separately",
+  "downstream": "fixed 18/20 C illustrative thresholds only; local historical-q90 undefined when complete history is absent",
+  "claims": "actual short natural-gap records, not a risk certificate, long-gap confirmation or probability-model superiority claim"
+}

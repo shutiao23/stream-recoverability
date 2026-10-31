@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-26T22:38:29.773151+00:00",
+  "status": "posthoc_year_range_amendment_before_model_scoring",
+  "trigger": "after seeing zero stations with four potential complete date-label years in the preselected 2010-2020 interval",
+  "expanded_calendar_years": "1985-2021 inclusive, the full published dataset metadata time extent; all 248 already-frozen station IDs",
+  "purpose": "explore whether older, still retrospective reference years may support the separate leave-one-year-out annual comparison; not the preselected post-2010 prospective cohort",
+  "strict_rule_unchanged": "at least four completely observed 24-hour, nonestimated quality-qualified reference years and three other years for local fitting",
+  "data_read_before_amendment": "station metadata, all source activity date labels through the 2010-2020 filter and aggregate result; no water temperatures or model errors were examined",
+  "limitation": "post-hoc expansion and outcome-informed availability search; cannot be presented as preregistered, climate-independent, or a population sampling rate"
+}

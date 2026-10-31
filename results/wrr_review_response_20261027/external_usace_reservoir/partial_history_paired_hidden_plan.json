@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T06:37:18.630155+00:00",
+  "status": "posthoc after one all-target probe failed and unchanged-input control reproduced the same drift",
+  "cohort": "All 17 fixed target years, first saved mask per year, including all four sites.",
+  "comparison": "For each target regenerate an unchanged-input control and a hidden-target-plus-placeholder perturbation in the same Python process. Compare mask, all 68 source-model features, point and distribution outputs at 1e-10 absolute tolerance. Also compare unchanged-input controls with previously saved outputs to quantify repeatability; report both comparisons separately.",
+  "perturbation": "Add 10 C to every finite target day hidden by the first mask and change all natural-gap placeholders from 0 to 432.1 C. Target missingness geometry and actual training history are fixed.",
+  "limitations": "The first mask per target is not exhaustive. Same-process controls do not prove no hidden leakage across all implementations or guarantee cross-environment reproducibility. Scores are posthoc, out-of-support and reference bounds are conditional."
+}

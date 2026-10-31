@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,1,offline,crossed,synchronized_donors,26,7,plug_in,7,7,0.3673500341617181,,
+foen|2016,g0029,foen,1,offline,crossed,synchronized_donors,26,7,stochastic_calibrated,7,7,0.1573108045824933,1.0,0.6024078975433272
+foen|2016,g0029,foen,1,offline,crossed,synchronized_donors,26,7,D2,7,7,0.14217662817292417,1.0,0.5786600016598032

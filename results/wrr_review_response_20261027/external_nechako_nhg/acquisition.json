@@ -1,0 +1,9 @@
+{
+  "status": "created_verified",
+  "archive": "data/external/wrr_nechako_nhg_20261026/01_Data.zip",
+  "archive_bytes": 13830401,
+  "selected_member": "01_Data/01FW013_NechakoRiverOffDellwoodRoad.csv",
+  "selected_header": "\"station_code\",\"timestamp (UTC)\",\"wtmp (°C)\",\"wtmp_flag\"",
+  "access_scope": "archive contains all 32 sites; only selected site header inspected at acquisition",
+  "license": "CC BY 4.0; Kokoszka et al. 2025, DOI 10.5281/zenodo.15053907"
+}

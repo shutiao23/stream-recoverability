@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "posthoc_clarification": true,
+  "stations": 41,
+  "stations_with_any_2010_or_later_burnin": 4,
+  "station_count_by_number_of_2010_or_later_burnin_years": {
+    "0": 37,
+    "1": 4
+  },
+  "latest_burnin_year": 2012,
+  "clarification": "The frozen matched-gap plan incorrectly described the first-seven-year air baseline as pre-2010. The implementation uses the first seven complete reference-year labels; some extend into the evaluation period. The original expanded-stress plan correctly said first seven years. No scenario masks or predictions were changed.",
+  "interpretation": "The air values construct a synthetic test mask, not an input fitted using held water outcomes. This is not a strictly prior-vintage or prospective outage-generation experiment; year and air information from the evaluation period is used to design the retrospective mask.",
+  "scope": "Year metadata only; no temperature values, measurement-quality evaluation or independent climate evidence."
+}

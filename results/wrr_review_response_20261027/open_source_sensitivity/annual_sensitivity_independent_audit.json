@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "matched_annual_cases": 21446,
+  "version_score_rows_checked": 48,
+  "paired_rows_with_all_bootstrap_metrics": 24,
+  "leave_region_out_rows": 152,
+  "bootstrap_draws_per_metric": 4000,
+  "limit": "Recounts saved predictions and outcomes; does not refit models, independently validate sensor quality or calibrate new intervals."
+}

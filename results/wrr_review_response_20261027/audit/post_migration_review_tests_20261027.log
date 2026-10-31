@@ -1,0 +1,21 @@
+........................................................................ [ 26%]
+........................................................................ [ 52%]
+........................................................................ [ 78%]
+...........................................................              [100%]
+=============================== warnings summary ===============================
+tests/test_wrr_review_completion.py: 12 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+    duals[candidate_idx] += step_size_clip
+
+tests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups
+tests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization
+  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: 
+      You didn't specify the order of the vec expression. The default order
+      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's
+      default order ('C') in a future version of CVXPY.
+      To suppress this warning, please specify the order explicitly.
+      
+    warnings.warn(vec_order_warning, FutureWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+275 passed, 14 warnings in 9.12s

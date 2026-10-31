@@ -1,0 +1,3 @@
+family,mode,method,n_eligible,n_available,availability,n_stations,n_groups,total_masked,total_estimates,total_bounds,total_unknown,rmse,bias,total_working_coverage95,total_working_width95,total_working_interval_score95
+calendar,forward,released_values_and_bounds,2,2,1.0,2,1,14,14,0,0,7.315846664181852e-12,5.17058618143551e-12,1.0,1.9623411255718621,1.9623411255718621
+calendar,forward,released_values_only,2,2,1.0,2,1,14,14,0,0,4.35629926658099e-15,1.5265566588595902e-15,,,

@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "seed_repetitions": 20,
+  "seed_family_stratum_method_cells": 160,
+  "checked_count_fields_per_cell": 8,
+  "strict_to_1e10_unique_family_method_cases": 1265058,
+  "strict_changed_max_endpoint_gap_c": 1.2789769243681803e-13,
+  "strict_changed_gaps_above_1e12": 0,
+  "one10_to_one8_unique_family_method_cases": 14,
+  "one10_to_one8_min_gap_c": 1.8925767619748513e-09,
+  "one10_to_one8_max_gap_c": 9.921258481426776e-09,
+  "one10_to_one8_cases_in_danger_stratum": 0,
+  "one10_to_one8_by_family_method": {
+    "crossed|distribution_regression": 9,
+    "calendar|distribution_regression": 5
+  },
+  "scope": "Independent scalar replay of finite masks, bound projection and endpoint comparisons for all 160 cells using saved source outputs. Cases repeat across seeds and masks; no independent raw-reference reconstruction.",
+  "limitations": "Repeated masks and seeds use the same archive and are not independent climates. A machine-scale numerical comparison tolerance is not physical sensor uncertainty, recalibration, a new model, or a coverage guarantee. This uses saved predictions and truths, not independent reconstruction.",
+  "storage": "temporary RAM; not durable"
+}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "cases": 144,
+  "stations": 2,
+  "station_years": 8,
+  "D2_mae": 0.3106732972625594,
+  "stochastic_mae": 0.3129177620609725,
+  "D2_coverage90": 0.8819444444444444,
+  "stochastic_coverage90": 0.9305555555555556,
+  "D2_width90": 0.9996101130345684,
+  "stochastic_width90": 1.281190434490706,
+  "D2_interval_score90": 1.5717333222644647,
+  "stochastic_interval_score90": 1.7058253639496597,
+  "integrity_checks_passed": true,
+  "hidden_value_probes": 2,
+  "strict_reference_qualified": false,
+  "limitations": "unregistered post-hoc availability and version-agreement selection; two stations in one province, source QC and timezone not established; single-year leave-out with three other years is not whole-archive degradation, climate-independent confirmation or natural-outage evaluation; NASA POWER and water day may use different time bases; source-tail model remains assumed"
+}

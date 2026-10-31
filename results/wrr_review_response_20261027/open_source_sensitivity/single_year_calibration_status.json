@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "source_corrections_frozen_before_target_scoring": true,
+  "source_support_rows": 52,
+  "target_all_cases": 21446,
+  "target_common_cases": 21195,
+  "source_status_counts": {
+    "zero_source_correction": 42,
+    "supported_exploratory": 10
+  },
+  "forward_finite_group_max_corrections": 0,
+  "limitation": "Source cases hide one year at a time whereas the target has jointly degraded archives; source and target difficulty and climatology need not match. The empirical correction has no finite-sample or climate-transfer guarantee. This follow-up was designed after earlier results, does not create a new joint trend distribution, and does not resolve source rights."
+}

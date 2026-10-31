@@ -1,0 +1,31 @@
+{
+  "status": "passed_independent_arrow_date_recount",
+  "datasets": [
+    {
+      "dataset": "MFFP",
+      "source_rows": 140300,
+      "location_ids": 248,
+      "station_year_rows_independently_verified": 11904,
+      "scopes": 2
+    },
+    {
+      "dataset": "RivTemp--INRS",
+      "source_rows": 163897,
+      "location_ids": 132,
+      "station_year_rows_independently_verified": 3564,
+      "scopes": 2
+    },
+    {
+      "dataset": "RivTemp--VisionH2O",
+      "source_rows": 1335,
+      "location_ids": 4,
+      "station_year_rows_independently_verified": 84,
+      "scopes": 2
+    }
+  ],
+  "fields_parsed": [
+    "MonitoringLocationID",
+    "ActivityStartDate"
+  ],
+  "limitation": "recount checks date labels and frozen identifiers only; does not assess temperatures, quality, complete 24-hour observations, time-zone alignment or hydrologic independence"
+}

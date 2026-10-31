@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "sites": 4,
+  "site_years": 20,
+  "complete_author_pass_years": 0,
+  "site_years_missing_quarter_hour_timestamps": 20,
+  "minimum_missing_quarter_hour_timestamps": 28,
+  "sites_with_four_complete_author_pass_years": 0,
+  "scored_reconstruction": false,
+  "source_files": 5,
+  "unit_mapping": "C denotes degrees Celsius; this is a notation mapping, not a numerical transformation",
+  "limitation": "only four metadata-selected locations, one watershed, no independent-climate conclusion; raw files contain additional unexamined sites and parameters; 2019-2021 technician calibration records were not collected"
+}

@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-10-26T22:55:41.774419+00:00",
+  "status": "posthoc_two_additional_sites_before_download",
+  "trigger": "after both first selected sites had incomplete reported date labels in all four 2016-2019 station-years",
+  "stations": [
+    "AN0753",
+    "BFBM000236"
+  ],
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "selection": "the remaining two non-buoy options with river/stream metadata and four QA-envelope years with provider record counts above an hourly sampling necessary-count heuristic; counts can include other parameters and are not proof of 24-hour water-temperature observations",
+  "identity_sources": [
+    "https://www.nj.gov/dep/wms/bfbm/waterchemmap.pdf",
+    "https://njdep.rutgers.edu/continuous/file-repository/continuous/uploaded_files/qapp/evL5OLVfNi_Continuous_Monitoring%20QAPP_2017WEBVERSION.pdf"
+  ],
+  "not_selected": "BFBM000237 is described as a bog and is not presumed a river; buoys in coastal waters remain excluded; other seasonal or missing-span stations remain unresolved",
+  "data_and_analysis": "download provider temperature CSVs into local private storage; read only station, timestamp and timezone columns for an optimistic date-label upper bound; no temperature values used for recovery-model scores",
+  "interpretation": "post-hoc availability-selected exploration; four nonzero or high count years do not imply full 24-hour observations, QA, nonestimated temperatures, time-zone correctness or independent watersheds",
+  "identity_source_correction": {
+    "corrected_utc": "2026-10-26T22:56:12.522410+00:00",
+    "previous_links": [
+      "https://www.nj.gov/dep/wms/bfbm/waterchemmap.pdf",
+      "https://www.waterqualitydata.us/provider/STORET/NJDEP_BFBM/NJDEP_BFBM-BFBM000236/"
+    ],
+    "reason": "The presumed Water Quality Portal deep link was not verified; both named river-site identities are explicitly listed in the official NJDEP map and QAPP. Selection and years were not changed."
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "status": "label_completeness_computed",
+  "stations": 4,
+  "station_years": 36,
+  "complete_reported_label_years": 16,
+  "stations_with_four_complete_label_years": 3,
+  "strict_quality_qualified_stations": 0,
+  "strict_quality_status": "not established",
+  "temperature_values_retained_in_summaries": false,
+  "parse_counts": [
+    {
+      "station_id": "NS01DL0009",
+      "parseable_timestamp_rows": 79493,
+      "numeric_values_with_unparseable_timestamp": 0,
+      "temperature_cell_types": {
+        "float": 77338,
+        "int": 1501,
+        "NoneType": 654
+      }
+    },
+    {
+      "station_id": "NS01EF0002",
+      "parseable_timestamp_rows": 78392,
+      "numeric_values_with_unparseable_timestamp": 0,
+      "temperature_cell_types": {
+        "float": 76125,
+        "int": 843,
+        "NoneType": 1424
+      }
+    },
+    {
+      "station_id": "NS01FB0001",
+      "parseable_timestamp_rows": 77906,
+      "numeric_values_with_unparseable_timestamp": 0,
+      "temperature_cell_types": {
+        "float": 75753,
+        "int": 1756,
+        "NoneType": 397
+      }
+    },
+    {
+      "station_id": "NS01ED9111",
+      "parseable_timestamp_rows": 61728,
+      "numeric_values_with_unparseable_timestamp": 0,
+      "temperature_cell_types": {
+        "float": 60682,
+        "int": 523,
+        "NoneType": 523
+      }
+    }
+  ],
+  "limitation": "an upper bound on completeness only: numeric cells do not establish nonestimated data, unique physical hourly coverage, sensor accuracy or point-level QA; LaHave header states UTC-04:00; other workbook headers did not identify an offset. This plan does not assume either fixed offset or daylight-saving behavior",
+  "prediction_errors_computed_in_this_label_screen": false,
+  "separate_exploratory_score_exists": true
+}

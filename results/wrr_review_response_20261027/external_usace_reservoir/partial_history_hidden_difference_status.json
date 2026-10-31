@@ -1,0 +1,46 @@
+{
+  "status": "completed_diagnostic",
+  "target_years": 1,
+  "observed_hidden_days_perturbed": 30,
+  "conditions": {
+    "unchanged": {
+      "max_abs_feature_difference": 4.440892098500626e-14,
+      "max_abs_output_difference": 0.006031527160711647,
+      "changed_outputs": {
+        "D2_q95": -0.006031527160711647
+      }
+    },
+    "placeholder_only": {
+      "max_abs_feature_difference": 4.440892098500626e-14,
+      "max_abs_output_difference": 0.006031527160711647,
+      "changed_outputs": {
+        "D2_q95": -0.006031527160711647
+      }
+    },
+    "hidden_only": {
+      "max_abs_feature_difference": 4.440892098500626e-14,
+      "max_abs_output_difference": 0.006031527160711647,
+      "changed_outputs": {
+        "D2_q95": -0.006031527160711647
+      }
+    },
+    "both": {
+      "max_abs_feature_difference": 4.440892098500626e-14,
+      "max_abs_output_difference": 0.006031527160711647,
+      "changed_outputs": {
+        "D2_q95": -0.006031527160711647
+      }
+    }
+  },
+  "raw_quantile_model_prediction_differences_both_vs_unchanged_c": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "interpretation": "Exact outputs and near-identical features must be judged from the recorded controls; this diagnostic alone does not prove or disprove leakage.",
+  "limitations": "After-the-fact diagnosis of one failing mask; even a repeatability explanation would not validate all target masks or fix the scientific distribution shift."
+}

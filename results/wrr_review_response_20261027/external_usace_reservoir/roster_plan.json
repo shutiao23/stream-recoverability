@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T05:53:56.903095+00:00",
+  "status": "posthoc after reviewing all 11 descriptions, filename inventories and an initial exact-ID overlap probe; no resource temperature data or model errors examined",
+  "scope": "All 11 public collection resources; inspect all referenced USGS IDs, level-1 file date ranges and site coordinates before target measurements.",
+  "candidate_rule": "Require at least one explicit USGS site ID, no exact match to named prior identities or source panel columns, and one unambiguously latest level-1 QA/QC file whose filename date span permits at least four full calendar years. Multiple referenced gages remain a network-identity warning, not automatically independent.",
+  "file_rule": "Choose the uniquely latest declared end date from names matching level1-qaqc_YYYYMMDD-YYYYMMDD with optional version suffix; no selection by data values. A suspicious river-name or metadata mismatch must be held for investigation before scoring.",
+  "network": "Record distances to named prior USGS sites with known coordinates and all referenced gages. River-network and prior-role separation must be assessed separately; upstream/downstream pairs and tributaries are not independent climates.",
+  "source_condition": "Authors describe level-1 QC and fouling/calibration corrections. This does not establish nonestimated values, continuous timestamp support or physical sensor accuracy."
+}

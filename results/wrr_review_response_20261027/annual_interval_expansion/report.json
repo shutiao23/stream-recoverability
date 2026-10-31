@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "forward_controlled_common": 3683,
+  "forward_controlled_supported": 92,
+  "forward_controlled_availability": 0.0249796361661688,
+  "forward_controlled_supported_stations": 1,
+  "forward_d2_coverage_before": 1.0,
+  "forward_d2_coverage_after": 1.0,
+  "forward_d2_width_before": 0.5315270357035915,
+  "forward_d2_width_after": 0.5425911281906347,
+  "plan_status_counts": {
+    "zero_source_correction": 25,
+    "insufficient_source_groups": 20,
+    "no_source_cases": 4,
+    "supported_exploratory": 3
+  },
+  "maximum_source_groups": 4,
+  "finite_group_max_corrections": 0,
+  "limitations": "exploratory analysis selected after prior results; group-weighted empirical quantile has no conformal or climate-transfer guarantee; group-max finite-rank diagnostic is not applied; no new joint trend distribution"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "computed_posthoc_after_pairwise_results",
+  "summary_rows": 24,
+  "contrast_rows": 16,
+  "scope": "All three scenario predictions and both methods available on same station-replicate, separately for each dependence construction.",
+  "limitations": "Post-hoc intersection after pairwise results. Retained repeated masks are not independent climates; selected years and gap placement change together. Reuses same source models and observed target reference."
+}

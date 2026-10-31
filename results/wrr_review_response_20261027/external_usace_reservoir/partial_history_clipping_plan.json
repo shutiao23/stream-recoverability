@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T07:15:23.664653+00:00",
+  "status": "posthoc after external scores, all-feature support flags and observed-only correlation analysis; before clipping predictions were calculated",
+  "cohort": "All 306 fixed external partial-history cases and the same saved global model, source calibration and observation-support projection.",
+  "interventions": "Hold all features fixed except, separately, n_complete_years, law_phi_a, law_phi_r, or all three. Clip each selected feature to the finite min/max of positive-weight global estimator-role training rows. Keep missing inputs missing.",
+  "metrics": "First recompute original D2 point, all seven quantiles and individual score and check against saved predictions. For every clipping variant compare all seven raw quantile-regression outputs and all projected/calibrated D2 quantiles, point estimate and classifier score with unmodified inputs. Report changed case counts and maximum absolute changes, not target errors or outcomes.",
+  "meaning": "Artificially changing a complete-history count or other features does not reconstruct a valid history and is not a recommended deployment procedure. The exercise only checks whether the frozen tree ensemble differentiates these particular out-of-range inputs from training-edge values. It does not prove calibration or valid transfer.",
+  "limits": "One-dimensional ranges ignore joint feature support. A lack of response can arise from model splits or lower-bound projection; report raw model outputs separately. Previous targets and source results have been inspected; no independent test or climate guarantee."
+}

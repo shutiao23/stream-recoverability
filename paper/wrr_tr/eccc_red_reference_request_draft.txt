@@ -1,0 +1,34 @@
+UNSENT DRAFT — requires author identification and review before sending
+
+To: msqeinformation-wqmsinformation@ec.gc.ca
+Subject: Clarification of Red River at Emerson automated temperature data
+
+Dear Water Quality Monitoring and Surveillance Division,
+
+We are evaluating how incomplete river-temperature records affect annual
+30-day heat statistics. We downloaded the public automated freshwater-quality
+files for Red River at Emerson, catalog station MA05OC0001, under the Open
+Government Licence. Before using these data as a reference, could you help us
+understand the following details?
+
+1. In the 2016–2017 file named for MA05OC0001, temperature rows use the
+   station identifier MA05OC001. Does this identifier refer to the same
+   physical monitoring location and instrument record? If not, what is the
+   correct correspondence?
+2. The public table dictionary lists status R (raw) and V (validated) and
+   grades 1–4, while some Red River files use CORRECTED or VALIDATED and leave
+   the grade empty; the 2016–2017 file uses CORRECTED and EXCELLENT. What do
+   these values mean, and which combinations represent measurements suitable
+   for retrospective quantitative evaluation?
+3. The timestamp dictionary says local time. Are the data in year-round
+   Central Standard Time or civil time with daylight-saving changes? How are
+   repeated or missing clock hours represented?
+4. Are the temperature values instantaneous hourly readings or hourly means,
+   and are estimated, gap-filled, or corrected periods identifiable in the
+   files? Is documentation available for instrument changes and drift checks?
+
+We have not treated the ambiguous status, grade or station identifiers as
+qualified reference data. We would cite the agency and dataset and document any
+remaining limitations. Author and institutional contact details are pending.
+
+Thank you for your guidance.

@@ -1,0 +1,13 @@
+{
+  "exit_code": 1,
+  "test_files": [
+    "tests/test_usgs_public_snapshot_manifest.py",
+    "tests/test_wrr_adversarial_revision.py",
+    "tests/test_review_manuscript_structure.py",
+    "tests/test_review_bundle_atomic_write.py",
+    "tests/test_review_completion_current_evidence.py",
+    "tests/test_whole_archive.py",
+    "tests/test_uncertainty_paired_diagnostics.py"
+  ],
+  "scope": "Targeted tests in the unchanged extracted candidate; not a full raw-data or model reconstruction"
+}

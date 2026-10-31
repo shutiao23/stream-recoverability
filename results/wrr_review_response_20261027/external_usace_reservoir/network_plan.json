@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T05:57:04.982887+00:00",
+  "status": "posthoc metadata-only network screen, before opening candidate station temperature files or model errors",
+  "cohort": "All USGS gages referenced by the 10 metadata candidates, including both upstream gages of the confluence site.",
+  "navigation": "For each referenced USGS gage query USGS NLDI upstream with tributaries (UT) and downstream with diversions (DD), at 200 km; compare returned indexed USGS site identifiers to named prior IDs and candidate gages.",
+  "limitations": "The monitoring site may be offset from its referenced USGS gage. NLDI indexes catchments and can return off-flowpath sites; 200 km is bounded, not proof of disconnection beyond the search. USGS source records or coordinates may be incomplete; neither a clean result nor a missing response establishes independent climate or no prior exposure.",
+  "site_ids": 11,
+  "requests": 22,
+  "source_documentation": "https://api.water.usgs.gov/docs/nldi/navigation/"
+}

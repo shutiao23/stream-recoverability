@@ -1,0 +1,11 @@
+{
+  "status": "metadata_checked",
+  "retrieved_utc": "2026-10-26T21:42:19.950921+00:00",
+  "map_url": "https://data.novascotia.ca/resource/i9ee-9hct.json",
+  "candidate_sites": 2,
+  "map_records_returned": 6,
+  "source_usgs_locations_checked": 336,
+  "mapping_basis": "provincial station map names and historical station codes match provincial monitoring report station descriptions",
+  "forcing_coordinates": "site map coordinates rounded to 0.01 degree; derived forcing grid and local water timezone remain separate issues",
+  "limitations": "metadata name matching and distance to USGS source stations do not prove exact gauge identity, catchment disconnection, absence from all other inventories or independent climates"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "case_audit_checks": [
+    "witness_window_arithmetic",
+    "canonical_daily_record_reaudit",
+    "canonical_daily_rule_reaudit",
+    "usgs_daily_record_reaudit",
+    "annual_boundary_summary_cells",
+    "annual_summary_cells",
+    "trend_summary_cells",
+    "factorial_case_cells",
+    "source_seed_summary_cells",
+    "release_summary_cells",
+    "matched_release_count_cells",
+    "source_threshold_target_counts",
+    "integrated_release_rows"
+  ],
+  "canonical_daily_stations": 96,
+  "canonical_complete_reference_years": 2139,
+  "canonical_witnesses": 35,
+  "annual_source_seeds": 20,
+  "annual_source_case_rows": 2914470,
+  "annual_scorecard_cells": 3520,
+  "annual_paired_cells": 560,
+  "source_import_from_extracted_package": true,
+  "original_workspace_hidden": true,
+  "evidence_bind_read_only": true,
+  "network_namespace_isolated": true,
+  "scope": "Extracted package code with an explicitly supplied local-only evidence directory and the current installed Python environment.",
+  "limits": "No provider-native raw reconstruction, source-model training or independent physical/climate validation; this test does not establish legal rights, reviewer access or a permanent deposit.",
+  "created_utc": "2026-10-27T05:11:27.680519+00:00",
+  "evidence_is_authorized_for_distribution": false
+}

@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "source_models_loaded": 13,
+  "models_with_version_warning": 0,
+  "warning_count_by_estimator": {},
+  "warning_count_by_version": {},
+  "other_warning_count_by_category": {},
+  "environment": {
+    "numpy": "1.26.4",
+    "pandas": "2.1.4",
+    "pyarrow": "14.0.2",
+    "scipy": "1.11.4",
+    "scikit-learn": "1.2.2",
+    "matplotlib": "3.9.2",
+    "torch": "2.13.0+cpu",
+    "lightgbm": "4.7.0",
+    "joblib": "1.2.0"
+  },
+  "scope": "Only warning and loadability audit on 13 trusted local saved models. Numerical outputs, other models, fitting and future library compatibility are not established by this check."
+}

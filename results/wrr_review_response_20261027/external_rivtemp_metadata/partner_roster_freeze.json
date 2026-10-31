@@ -1,0 +1,64 @@
+{
+  "status": "all_partner_rosters_frozen_before_date_screen",
+  "created_utc": "2026-10-26T22:39:30.768480+00:00",
+  "datasets": [
+    {
+      "name": "RivTemp--INRS",
+      "digest_matched": true,
+      "bytes": 56628567,
+      "source_metadata_rows": 163897,
+      "location_ids": 132,
+      "all_types": {
+        "River/Stream": 132
+      }
+    },
+    {
+      "name": "RivTemp--VisionH2O",
+      "digest_matched": true,
+      "bytes": 460307,
+      "source_metadata_rows": 1335,
+      "location_ids": 4,
+      "all_types": {
+        "River/Stream": 4
+      }
+    }
+  ],
+  "cross_dataset_overlap": [
+    {
+      "dataset": "RivTemp--INRS",
+      "compared_to": "MFFP",
+      "exact_id_overlap": 0,
+      "metadata_rows_with_same_coordinates": 0
+    },
+    {
+      "dataset": "RivTemp--INRS",
+      "compared_to": "other_partner",
+      "exact_id_overlap": 0,
+      "metadata_rows_with_same_coordinates": 0
+    },
+    {
+      "dataset": "RivTemp--VisionH2O",
+      "compared_to": "MFFP",
+      "exact_id_overlap": 0,
+      "metadata_rows_with_same_coordinates": 0
+    },
+    {
+      "dataset": "RivTemp--VisionH2O",
+      "compared_to": "other_partner",
+      "exact_id_overlap": 0,
+      "metadata_rows_with_same_coordinates": 0
+    }
+  ],
+  "columns_read": [
+    "MonitoringLocationID",
+    "MonitoringLocationName",
+    "MonitoringLocationLatitude",
+    "MonitoringLocationLongitude",
+    "MonitoringLocationHorizontalCoordinateReferenceSystem",
+    "MonitoringLocationHorizontalAccuracyMeasure",
+    "MonitoringLocationHorizontalAccuracyUnit",
+    "MonitoringLocationType"
+  ],
+  "target_values_and_dates_read": false,
+  "limitation": "exact IDs and coordinates do not establish matching or independent watersheds; initial selection is post-hoc"
+}

@@ -1,0 +1,23 @@
+{
+  "checked_utc": "2026-10-26T23:39:49.430268+00:00",
+  "status": "passed",
+  "splits": [
+    {
+      "split": "leave_one_year_out",
+      "status": "passed",
+      "original_rows": 145684,
+      "candidate_rows": 129235,
+      "columns": 201,
+      "all_columns_equal_after_provider_filter": true
+    },
+    {
+      "split": "before_2010",
+      "status": "passed",
+      "original_rows": 67196,
+      "candidate_rows": 65135,
+      "columns": 202,
+      "all_columns_equal_after_provider_filter": true
+    }
+  ],
+  "limitation": "Exact identity of processed source cases only; not raw instrument data, source QC, legal reuse permission, role assignments, independent climate validation, or proof of all upstream dependencies."
+}

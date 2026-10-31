@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "complete_station_years_checked": 2122,
+  "stations_checked": 95,
+  "witnesses_checked": 35,
+  "rule_station_years_checked": 2656,
+  "screening_rules_checked": 4,
+  "group_bootstrap_resamples_checked": 4000,
+  "scope": "Pandas rolling calculations, screening counts and connected-group resampling on the same project-processed daily snapshot; not an independent source, sensor or physical error check."
+}

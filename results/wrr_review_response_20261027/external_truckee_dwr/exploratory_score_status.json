@@ -1,0 +1,12 @@
+{
+  "status": "exploratory_scored",
+  "stations": 1,
+  "reference_years": 4,
+  "cases": 72,
+  "mask_family": "controlled gaps only",
+  "strict_reference_qualified": false,
+  "trend_scored": false,
+  "source_model": "previously fixed global model and source-only calibration; no new model fit using target outcomes",
+  "reference": "daily reported-PST means from 96 finite source readings; pointwise correction/estimation status unknown",
+  "limitations": "One station, four years and one managed watershed with previous Truckee-basin data contact. Source model and calibration are fixed but the full river-network separation from every source dependency is not established. Nonestimated measurements, independent climate, natural outage, source permissions and physical measurement uncertainty remain unresolved. Repeated masks are not independent stations or climates."
+}

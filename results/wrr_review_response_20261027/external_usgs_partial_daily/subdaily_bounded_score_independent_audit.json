@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "case_clock_rows": 288,
+  "summary_cells": 18,
+  "paired_cells": 12,
+  "scope": "Independent scalar point-error, coverage, interval-score and paired-contrast bounds using the separately audited subdaily target enclosures.",
+  "limitations": "Posthoc, previously opened sites and target scores, unknown actual missing-value range, clock, corrections, sensor accuracy, source overlap and independence. Model histories use interpolation and only 0-2 genuinely complete years. Repeated masks and the one-station 3-year subgroup do not give independent-climate accuracy or coverage guarantees. Count cases where the published-daily observed lower bound exceeds the subdaily conditional upper bound. Such cases indicate incompatibility of reporting estimands or assumptions, not evidence of hidden target leakage; do not apply an artificial projection.",
+  "storage": "temporary RAM filesystem; not durable"
+}

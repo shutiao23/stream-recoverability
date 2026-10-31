@@ -1,0 +1,126 @@
+{
+  "endpoint": "https://waterservices.usgs.gov/nwis/dv/",
+  "parameters": {
+    "format": "json",
+    "parameterCd": "00010",
+    "statCd": "00003",
+    "startDT": "1980-01-01",
+    "endDT": "2026-05-04",
+    "siteStatus": "all"
+  },
+  "batches": [
+    {
+      "file": "batch_01.json.gz",
+      "sites": [
+        "01104410",
+        "01111230",
+        "01192500",
+        "01454720",
+        "01477050",
+        "01493112",
+        "01570500",
+        "01585075",
+        "01585219",
+        "01585225"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:14.302569+00:00"
+    },
+    {
+      "file": "batch_02.json.gz",
+      "sites": [
+        "01585230",
+        "01589290",
+        "01591610",
+        "01636500",
+        "01646305",
+        "01649190",
+        "01656903",
+        "02197000",
+        "02382500",
+        "02413210"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:16.878532+00:00"
+    },
+    {
+      "file": "batch_03.json.gz",
+      "sites": [
+        "03058000",
+        "03061000",
+        "03070420",
+        "03077100",
+        "03077500",
+        "03085000",
+        "03201980",
+        "03216070",
+        "03238745",
+        "03238772"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:19.422496+00:00"
+    },
+    {
+      "file": "batch_04.json.gz",
+      "sites": [
+        "03249500",
+        "03260015",
+        "03260050",
+        "03260100",
+        "03277130",
+        "03277200",
+        "03289000",
+        "03292480",
+        "03292500",
+        "03293000"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:22.434454+00:00"
+    },
+    {
+      "file": "batch_05.json.gz",
+      "sites": [
+        "03293530",
+        "03298300",
+        "03302000",
+        "03302030",
+        "03307000",
+        "04027000",
+        "04040000",
+        "04067500",
+        "041482663",
+        "05054200"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:25.214414+00:00"
+    },
+    {
+      "file": "batch_06.json.gz",
+      "sites": [
+        "05440700",
+        "05516665",
+        "05538010",
+        "06610505",
+        "06817000",
+        "06818000",
+        "07020850",
+        "07049691",
+        "07053450",
+        "07054501"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:28.226372+00:00"
+    },
+    {
+      "file": "batch_07.json.gz",
+      "sites": [
+        "07054527",
+        "07059998",
+        "07061270",
+        "07076000",
+        "073745253",
+        "08120700",
+        "12398600",
+        "410333095530101",
+        "412126095565201"
+      ],
+      "retrieved_utc_file_mtime": "2026-10-27T04:34:31.386327+00:00"
+    }
+  ],
+  "selection": "The 69 USGS identifiers selected for the post-hoc donor provenance check; source metadata and source models were already examined.",
+  "limits": "Contains current USGS API responses, not historical API versions or the local water panel, network-to-site mapping, source roles or masked cases. It does not itself establish local-value consistency, water quality or derivative rights."
+}

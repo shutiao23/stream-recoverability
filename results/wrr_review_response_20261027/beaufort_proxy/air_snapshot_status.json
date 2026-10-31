@@ -1,0 +1,8 @@
+{
+  "status": "processed_air_snapshot_created",
+  "stations": 22,
+  "expected_station_days": 14058,
+  "stations_complete_for_all_lags": 22,
+  "stations_with_missing_air": 0,
+  "limitations": "Previously assembled processed NASA POWER-based table; raw API responses, service version and water-day alignment are not established for this cohort."
+}

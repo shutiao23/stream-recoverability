@@ -1,0 +1,8 @@
+{
+  "status": "computed",
+  "archives": 3320,
+  "matched_archives": 3320,
+  "original_trend_replayed": true,
+  "truth_used_to_select": false,
+  "limitations": "Retrospective count matching uses the target archive and is not prospective. Aggregate bounds/unknowns may differ. Same source data, models and original likelihood; no new external reference."
+}

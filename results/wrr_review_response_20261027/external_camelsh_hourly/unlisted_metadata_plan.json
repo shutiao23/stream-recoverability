@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T04:48:21.191365+00:00",
+  "status": "posthoc metadata extension after the first 12-site count preflight; before accessing the new target time-series metadata or any target temperatures",
+  "selection": "All archive station IDs without a matching record in the existing local USGS daily-temperature metadata, not filtered by expected results.",
+  "site_ids": 147,
+  "requests": "Current USGS site metadata and time-series metadata for water-temperature daily mean (00010/00003), 25 sites per batch. No water observations, annual statistics or model errors.",
+  "limitations": "Missing or failed responses remain unknown. Current metadata dates and site types do not establish complete approved years, physical accuracy, time support, network independence or permissions for derived data."
+}

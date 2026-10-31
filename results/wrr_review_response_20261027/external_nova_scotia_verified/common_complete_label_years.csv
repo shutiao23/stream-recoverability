@@ -1,0 +1,15 @@
+station_id,year,complete_label_year_workbook,complete_label_year_portal,shared_unique_labels,both_numeric,workbook_only_unique_labels,portal_only_unique_labels,one_numeric_other_missing,maximum_abs_difference_c,difference_gt_1e-06,difference_gt_0p005,difference_gt_0p01,difference_gt_0p1,difference_gt_0p5,difference_gt_1p0,difference_gt_2p0,identical_all_numeric_1e6,within_0p01_all_numeric
+NS01DL0009,2010,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01DL0009,2013,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01DL0009,2014,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01DL0009,2016,True,True,8784,8784,0,0,0,9.302454639925628e-17,0,0,0,0,0,0,0,True,True
+NS01EF0002,2012,True,True,8784,8784,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01EF0002,2013,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01EF0002,2014,True,True,8760,8760,0,0,0,3.552713678800501e-15,0,0,0,0,0,0,0,True,True
+NS01FB0001,2010,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01FB0001,2011,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01FB0001,2012,True,True,8784,8784,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01FB0001,2013,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True
+NS01FB0001,2015,True,True,8760,8760,0,0,0,0.00499716392512,751,0,0,0,0,0,0,False,True
+NS01FB0001,2016,True,True,8784,8784,0,0,0,0.0049971639251302,2773,0,0,0,0,0,0,False,True
+NS01ED9111,2015,True,True,8760,8760,0,0,0,0.0,0,0,0,0,0,0,0,True,True

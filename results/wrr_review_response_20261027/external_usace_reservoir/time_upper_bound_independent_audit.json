@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "resources": 10,
+  "station_years_recomputed": 69,
+  "possible_complete_years_recomputed": 29,
+  "scope": "Independent csv/datetime/set implementation of time-label counts, using the same downloaded level-1 files and fixed UTC-7 interpretation.",
+  "limits": "Time labels do not verify finite temperature, quality, nonestimated values, sensor clocks, independent basins or model performance."
+}

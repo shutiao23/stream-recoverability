@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "models_checked": 98,
+  "held_station_overlap_anywhere": 0,
+  "held_group_overlap_anywhere": 0,
+  "strict_forbidden_positive_cases": 0,
+  "models_with_changed_positive_weights_or_classifier_split": 2,
+  "changed_models": [
+    {
+      "split": "before_2010",
+      "region": "nve_hydapi"
+    },
+    {
+      "split": "before_2010",
+      "region": "usgs_huc17"
+    }
+  ],
+  "risk_learning_split_case_changes": 0,
+  "scope": "four saved source splits, seed zero; verifies global station/group roles and source weights, plus effective classifier/probability memberships and strict saved roles",
+  "limitation": "does not assess physical independence, nonzero seeds, unrecorded input dependencies or downstream results that depend on zero-weight role membership"
+}

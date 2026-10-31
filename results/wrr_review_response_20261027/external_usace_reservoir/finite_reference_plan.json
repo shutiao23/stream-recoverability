@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T06:02:03.475137+00:00",
+  "status": "posthoc after source metadata, NLDI, downloads and timestamp upper bounds were inspected; before reading numerical temperatures or target model errors",
+  "cohort": "All 10 fixed candidate level-1 files, including those with known 200-km NLDI prior hits; do not select on temperature or model error.",
+  "day_rule": "A reported fixed-MST day needs exactly 96 unique on-grid quarter-hour timestamps and 96 finite values in [-5,50] degrees C; a year requires every calendar day. Compute each valid daily arithmetic mean but do not compute annual H30 or model prediction errors.",
+  "range_basis": "Authors describe YSI EXO sondes. Manufacturer EXO temperature measurement range is -5 to 50 C; use only as a broad invalid/sentinel guard, not a validation of sensor accuracy or all local instrument configurations.",
+  "manufacturer_source": "https://www.xylemanalytics.com/File%20Library/Resource%20Library/YSI/Spec%20Sheets/YSI-EXO-Sonde-Platform-Specification-Sheet.pdf",
+  "quality": "Published level-1 files are described as QA/QC and may be corrected for fouling or drift; unknown estimated/corrected flags, source version and physical accuracy preclude automatic strict-reference qualification. Record any candidate flag-like columns but do not infer their meaning.",
+  "network": "Retain known NLDI connections and no-hit cases separately; 200-km gage proxies and one regional project do not prove independent climates."
+}

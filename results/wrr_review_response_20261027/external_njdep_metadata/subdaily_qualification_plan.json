@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-10-26T22:53:20.870872+00:00",
+  "status": "posthoc_two_site_qualification_plan_before_observation_download",
+  "selection": "fixed AN0521 and BFBM000059 after seeing metadata QA spans, nonzero provider counts and US EPA Water Quality Portal metadata that identifies each as a river/stream; no temperature values or model errors examined",
+  "station_ids": [
+    "AN0521",
+    "BFBM000059"
+  ],
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "identity_sources": [
+    "https://www.waterqualitydata.us/provider/STORET/21NJDEP1/21NJDEP1-AN0521/",
+    "https://www.waterqualitydata.us/provider/STORET/NJDEP_BFBM/NJDEP_BFBM-BFBM000059/"
+  ],
+  "previous_contact": "no exact IDs in the named source inventory or searched repository text, but aliases, binary caches and connected watersheds remain unresolved; no independence claim",
+  "data_request": "provider CSV download API, temperature parameter selected, one station-year per request; source files local only; inspect headers, timestamps and availability before any reconstruction scoring",
+  "qualification": "require unique full 24-hour days with documented time basis and expected provider sampling cadence, nonestimated finite measurements and interpretable quality flags; at least four complete calendar years per station and three other years for local fitting",
+  "qa_caveat": "downloadable records are described as quality-assured, but this does not on its own resolve flags, clock, estimated values or sensor comparability",
+  "rights": "source provider reuse and redistribution terms require clarification; keep original and station-level derivatives in local private directory",
+  "timing": "post-hoc availability-based site selection after seeing public metadata and record counts; any eventual evaluation is exploratory and not preregistered population inference"
+}

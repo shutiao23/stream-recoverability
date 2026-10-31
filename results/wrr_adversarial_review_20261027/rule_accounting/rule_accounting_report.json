@@ -1,0 +1,46 @@
+{
+  "scope": "all eligible station-years under explicit completeness rules",
+  "eligible_station_years": 2700,
+  "eligible_stations": 96,
+  "eligible_groups": 34,
+  "providers": {
+    "gkd_bayern": 1251,
+    "usgs": 936,
+    "foen": 268,
+    "chmi": 201,
+    "lubw": 44
+  },
+  "rules": {
+    "complete_100": "complete_year",
+    "annual_95": "observed_fraction >= 0.95",
+    "warm_90_station_specific": "train_warm_fraction >= 0.90",
+    "warm_90_fixed_original": "warm_observed_fraction >= 0.90",
+    "july_aug_complete": "julaug_complete",
+    "gap_le_49_days_context": "longest_run <= 49"
+  },
+  "tolerance_c": 5e-06,
+  "warm90_excluded_increment_values_c": [
+    0.1499999364217146,
+    0.11333332061771983
+  ],
+  "warm90_excluded_cases": [
+    {
+      "station_key": "gkd_bayern|18001508",
+      "year": 2022,
+      "observed_window": 15.76999994913737,
+      "accepted_record_other_years": 15.620000012715655
+    },
+    {
+      "station_key": "usgs|14169000",
+      "year": 2005,
+      "observed_window": 23.27999998728434,
+      "accepted_record_other_years": 23.16666666666662
+    }
+  ],
+  "limits": [
+    "reported windows are not true incomplete-year H30 values",
+    "accepted incomplete years can contain an unobserved higher peak",
+    "station-years are repeated masks only where noted; these are archive records, not independent climates",
+    "measurement margins are assumptions, not sensor error estimates"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "purpose": "Complete exact-identity metadata checks for expanded prior records outside the finished base plan; classify retained unresolved base responses without repeating them",
+  "base_network_configuration": "configs/wrr_usgs_network_intake_20261021.json",
+  "extended_records": "all expanded prior identifiers absent from the original fixed 1615-job plan",
+  "missing_source_coordinate": "retain unresolved; do not request guessed aliases or assign an independent component",
+  "unindexed_feature": "retain explicit null reach; do not infer zero observations, independent singleton or hydrologic isolation",
+  "coordinate_tolerance_m": 250,
+  "maximum_workers": 2,
+  "maximum_requests_per_second": 2,
+  "requests": "exact USGS identifier feature metadata only, using the unchanged original NLDI endpoint",
+  "original_base_plan_and_results_edited": false,
+  "new_temperature_values_requested": false,
+  "new_roles_assigned": false,
+  "new_prediction_errors_opened": false
+}

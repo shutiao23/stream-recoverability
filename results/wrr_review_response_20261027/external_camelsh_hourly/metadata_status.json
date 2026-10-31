@@ -1,0 +1,16 @@
+{
+  "status": "metadata_screen_completed",
+  "archive_unmatched_to_named_prior_ids": 533,
+  "sites_in_existing_usgs_daily_catalog": 386,
+  "prior_huc8s_observed_in_local_metadata": 634,
+  "status_counts": {
+    "no_candidate_series_in_existing_metadata": 372,
+    "not_in_existing_daily_catalog": 147,
+    "candidate_one_series": 12,
+    "multiple_candidate_series": 2
+  },
+  "metadata_candidates": 12,
+  "temperature_values_opened": false,
+  "model_errors_opened": false,
+  "limitations": "Posthoc and incomplete prior inventories; metadata date envelope is only an availability upper bound and gives no daily coverage, nonestimated status, subdaily quality, physical representativeness, natural outage or source-model independence guarantee."
+}

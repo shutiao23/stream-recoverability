@@ -1,0 +1,17 @@
+{
+  "forward_calendar_common_cases": 3674,
+  "D2_zero_width": 1476,
+  "stochastic_zero_width": 2977,
+  "D2_zero_width_uncovered": 0,
+  "stochastic_zero_width_uncovered": 0,
+  "forward_controlled_common_cases": 3683,
+  "controlled_stochastic_zero_width": 1091,
+  "controlled_stochastic_zero_width_missed": 3,
+  "controlled_stochastic_miss_stations": 2,
+  "controlled_stochastic_miss_station_years": 3,
+  "forward_calendar_D2_zero_created_last_projection": 380,
+  "forward_calendar_D2_zero_before_last_projection": 1096,
+  "forward_calendar_stochastic_zero_created_last_projection": 0,
+  "forward_calendar_stochastic_raw_zero": 3090,
+  "limitation": "case counts include repeated masks; coverage is against finite complete reported records, not the error-free physical water temperature; pre-final results retain the first projection and offsets calibrated with projection"
+}

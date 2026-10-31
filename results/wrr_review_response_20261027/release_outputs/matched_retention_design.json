@@ -1,0 +1,8 @@
+{
+  "goal": "compare empirical failure among equally many numerical outputs, same D2 predictions and same evaluation cases",
+  "baseline": "rank finite raw individual classifier scores ascending, tie-break deterministically using case identifiers; set exact count equal to three-output rule",
+  "threshold_source": "evaluated unlabeled feature distribution and three-output count; transductive descriptive comparison, not a prospective threshold or risk control",
+  "outcome": "absolute D2 error greater than 0.5 C compared with available reference; no use of labels for cutoff or tie selection",
+  "limitations": "same numeric count is not equivalent to equal information: three-output lower-bound/unknown states and source-selected sample matter; artificial scenarios have unknown prevalence",
+  "bootstrap": "2000 connected-group resamples; conditional risk difference in resampled groups, descriptive only; one model seed and group/climate exchangeability uncertain"
+}

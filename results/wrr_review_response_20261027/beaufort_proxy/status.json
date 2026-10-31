@@ -1,0 +1,12 @@
+{
+  "status": "computed_posthoc",
+  "planned_stations": 22,
+  "planned_groups": 10,
+  "station_case_rows": 11220,
+  "available_stations": 22,
+  "unavailable_records": 0,
+  "unavailable_reasons": {},
+  "all_nine_years_missing": "unsupported_no_visible_training_data",
+  "privacy": "per-station mask and result records remain local private",
+  "limitations": "Analyses and station availability seen before design, not independent validation or a causal comparison. Some sites have human influences and others unknown. Year-missing patterns are exhaustive synthetic masks, not observed outages. In-sample lag selection, daily air errors and timing, water QC, and natural climate representativeness remain unresolved. No guarantee for annual H30, trend, tail coverage or source selection."
+}

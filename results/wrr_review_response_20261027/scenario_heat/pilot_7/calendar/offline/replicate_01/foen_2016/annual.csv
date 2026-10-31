@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,1,offline,calendar,heat_associated,26,9,plug_in,9,9,0.0,,
+foen|2016,g0029,foen,1,offline,calendar,heat_associated,26,9,stochastic_calibrated,9,9,1.0263395072090336e-14,1.0,6.315935428978668e-15
+foen|2016,g0029,foen,1,offline,calendar,heat_associated,26,9,D2,9,9,1.223712489364617e-14,1.0,6.315935428978668e-15

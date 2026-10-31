@@ -1,0 +1,54 @@
+[
+  {
+    "family": "calendar",
+    "mode": "forward",
+    "n_all": 820,
+    "n_warm90": 820,
+    "common": 820,
+    "all_figure_rmse": 0.067276647939001,
+    "all_paired_rmse": 0.067276647939001,
+    "warm90_rmse": 0.11345843565166083,
+    "figure_uses_rmse": "all_paired_rmse",
+    "common_definition": "station-repetition rows available under both retention sets",
+    "status": "corrected in Figure 3 and the manuscript"
+  },
+  {
+    "family": "calendar",
+    "mode": "offline",
+    "n_all": 840,
+    "n_warm90": 840,
+    "common": 840,
+    "all_figure_rmse": 0.008732407857961595,
+    "all_paired_rmse": 0.008732407857961595,
+    "warm90_rmse": 0.024040528693608287,
+    "figure_uses_rmse": "all_paired_rmse",
+    "common_definition": "station-repetition rows available under both retention sets",
+    "status": "corrected in Figure 3 and the manuscript"
+  },
+  {
+    "family": "crossed",
+    "mode": "forward",
+    "n_all": 820,
+    "n_warm90": 807,
+    "common": 807,
+    "all_figure_rmse": 0.1734603675796381,
+    "all_paired_rmse": 0.16947410610302732,
+    "warm90_rmse": 0.44533079558179234,
+    "figure_uses_rmse": "all_paired_rmse",
+    "common_definition": "station-repetition rows available under both retention sets",
+    "status": "corrected in Figure 3 and the manuscript"
+  },
+  {
+    "family": "crossed",
+    "mode": "offline",
+    "n_all": 840,
+    "n_warm90": 840,
+    "common": 840,
+    "all_figure_rmse": 0.027771839922873215,
+    "all_paired_rmse": 0.027771839922873215,
+    "warm90_rmse": 0.10060272305059097,
+    "figure_uses_rmse": "all_paired_rmse",
+    "common_definition": "station-repetition rows available under both retention sets",
+    "status": "corrected in Figure 3 and the manuscript"
+  }
+]

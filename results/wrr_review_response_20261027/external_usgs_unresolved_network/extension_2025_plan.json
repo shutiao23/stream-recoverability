@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-26T21:03:23.042179+00:00",
+  "n_original_candidates": 10,
+  "population": "the entire previously fixed candidate roster; no temperature-based or per-site selection",
+  "reason": "extend the 2010-2024 count screen to the now-completed calendar year 2025 after observing zero original passes",
+  "query": "2025 approved daily-mean counts for the exact previously selected time series; retain no temperatures",
+  "decision": "a candidate passes the extended count screen if it has at least four complete approved-count years over 2010-2025; 2025 missing or unmatched is unknown, not zero",
+  "limitation": "post-hoc, unregistered, availability-selected; network identity and point-level nonestimated quality remain unresolved"
+}

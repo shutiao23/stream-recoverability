@@ -1,0 +1,33 @@
+{
+  "status": "completed_continuous_qualification",
+  "station_years": 8,
+  "sites": 4,
+  "comparisons": {
+    "fixed_standard": {
+      "station_years": 8,
+      "hourly_complete_years": 3,
+      "quarter_complete_years": 1,
+      "hourly_complete_days": 2909,
+      "quarter_complete_days": 2828,
+      "compared_days": 2828,
+      "mean_abs_daily_difference_c": 0.02730470591702024,
+      "max_abs_daily_difference_c": 0.1864583333333325,
+      "days_abs_diff_at_most_0_05_c": 2564
+    },
+    "native_civil": {
+      "station_years": 8,
+      "hourly_complete_years": 3,
+      "quarter_complete_years": 1,
+      "hourly_complete_days": 2911,
+      "quarter_complete_days": 2832,
+      "compared_days": 2832,
+      "mean_abs_daily_difference_c": 0.02964343962376157,
+      "max_abs_daily_difference_c": 0.18437500000000018,
+      "days_abs_diff_at_most_0_05_c": 2469
+    }
+  },
+  "qualifier_categories": 1,
+  "model_predictions_calculated": false,
+  "storage": "temporary RAM filesystem; not durable",
+  "limitations": "Parent-series linkage, approved status and clear qualifier do not establish unchanged instrument, physical accuracy, source-model separation or independent climate. Previously inspected daily targets and witness years make this retrospective. A 24-hour bin screen with >=1 point/hour is weaker than requiring all quarter-hour values."
+}

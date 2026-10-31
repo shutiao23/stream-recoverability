@@ -1,0 +1,6 @@
+rule,station_years,stations,groups,accepted,rejected,unknown,rejected_with_bound,rejected_with_bound_and_prior_record,rejected_above_prior_reported_record,stations_with_rejected_above_prior_record,witnesses,witness_accepted,witness_rejected,witness_unknown,witness_rejected_above_prior_record
+annual_95,2656,95,33,2550,106,0,90,76,11,5,35,31,4,0,3
+complete_100,2656,95,33,2122,534,0,518,473,86,36,35,0,35,0,34
+warm90_leave_year_out,2656,95,33,2590,66,0,50,46,9,4,35,32,3,0,3
+warm90_past,2656,95,33,2589,67,0,51,45,9,4,35,32,3,0,3
+warm90_past_four_complete,2656,95,33,2487,42,127,31,31,3,2,35,27,2,6,2

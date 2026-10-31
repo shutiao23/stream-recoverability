@@ -1,0 +1,26 @@
+Selected daily-temperature archive for observation-only witness verification
+
+This is a project-processed, float32, quality-filtered subset of provider data,
+not the original provider-native measurements or a statement of sensor accuracy.
+Data and derived outputs are limited to previously selected eligible stations
+with documented source/derivative reuse. The study's one LUBW eligible station
+is excluded pending permission. Selection, aggregation, quality filtering,
+float32 conversion, and the derived station-year/window calculations are
+project changes; dates, available values, and station identities are retained.
+
+USGS: U.S. Geological Survey, Water Data for the Nation, daily water temperature,
+https://api.waterdata.usgs.gov/; acknowledge the U.S. Geological Survey.
+
+GKD Bayern: Datenquelle: Bayerisches Landesamt fuer Umwelt, www.lfu.bayern.de;
+water temperature, https://www.gkd.bayern.de/de/fluesse/wassertemperatur/tabellen;
+CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ .
+
+CHMI: Czech Hydrometeorological Institute, historical measured water temperature,
+https://opendata.chmi.cz/hydrology/historical/data/measured_temperature/ ;
+CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ .
+
+FOEN: Federal Office for the Environment (FOEN), Hydrological observations,
+https://api.data-platform.cloud.bafu.admin.ch/en/dataproduct-water-observations ;
+Open use. Must provide the source; https://api.data-platform.cloud.bafu.admin.ch/en/lizenz-und-quelle .
+
+The candidate is a local review artifact, not a permanent public archive.

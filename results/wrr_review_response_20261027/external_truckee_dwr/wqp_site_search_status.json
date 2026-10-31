@@ -1,0 +1,17 @@
+{
+  "status": "completed_metadata_only",
+  "search_center": "DWR TRB8 coordinates",
+  "radius_miles": 5,
+  "observation_values_requested": false,
+  "metadata_time_window": "2011–2020",
+  "limitations": "The WQP historical profile may omit some USGS updates after March 2024. A nearby station may share an instrument or underlying data; multiple sites in one watershed are not independent climates. A failed or empty query is not proof that no reference exists.",
+  "http_status": 200,
+  "response_bytes": 1905,
+  "station_rows": 3,
+  "unique_station_ids": 3,
+  "rows_with_coordinates": 3,
+  "rows_within_0_25km": 1,
+  "rows_within_0_5km": 1,
+  "rows_within_1km": 1,
+  "rows_within_5km": 1
+}

@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+gkd_bayern|10026293,g0032,gkd_bayern,1,offline,crossed,synchronized_donors,27,8,plug_in,8,8,0.3901548049818171,,
+gkd_bayern|10026293,g0032,gkd_bayern,1,offline,crossed,synchronized_donors,27,8,stochastic_calibrated,8,8,0.27435268212189357,1.0,0.9610449088867039
+gkd_bayern|10026293,g0032,gkd_bayern,1,offline,crossed,synchronized_donors,27,8,D2,8,8,0.2637838897699494,0.875,1.299793425611249

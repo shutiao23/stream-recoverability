@@ -1,0 +1,12 @@
+{
+  "status": "completed_hypothetical_quality",
+  "cases": 306,
+  "actual_history_count_zero": 306,
+  "D2_finite": 306,
+  "individual_score_at_most_0_1": 158,
+  "numeric_states_with_no_quality_flag_and_no_optional_limits": 0,
+  "bound_states_with_no_quality_flag_and_no_optional_limits": 304,
+  "unknown_states_with_no_quality_flag_and_no_optional_limits": 2,
+  "actual_quality_flags_available": false,
+  "limits": "The <=0.1 score is not a calibrated group-risk guarantee. Empty limits and quality_flag=False are explicit hypothetical assumptions because source quality flags and the deployment thresholds are not established for these data; resulting bounds/unknown counts are conditional, not actual releases. A mandatory n_complete_years>=4 gate independently prevents numeric release when actual complete history is zero, regardless of risk score, optional thresholds or quality flag. This diagnostic does not validate risk or operational safety."
+}

@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-26T19:49:21.265863+00:00",
+  "roster_selection": "all metadata candidates outside every basin present in named earlier NVE raw and confirmation files, at most one per basin chosen by largest reported complete-year field then station ID; no temperature values used",
+  "n_roster": 3,
+  "fixed_before_request": true,
+  "caveats": "not a formal preregistration; potential other prior records and network/climatic dependence remain unchecked; field meaning and physical subdaily completeness need verification",
+  "source": "https://seriekart.nve.no/om",
+  "chart_endpoint": "provider chart service used by public Seriekart; requests use no key",
+  "evaluation": "reference qualification and scoring require actual data and documented per-observation QC; a chart response alone is insufficient"
+}

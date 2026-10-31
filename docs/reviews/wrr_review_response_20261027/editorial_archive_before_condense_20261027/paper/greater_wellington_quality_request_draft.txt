@@ -1,0 +1,36 @@
+Subject: Clarification of historical water-temperature quality codes and use
+
+Kia ora Greater Wellington Environmental Monitoring team,
+
+We are evaluating whether previously retrieved river water-temperature records
+can support a scientific reference dataset. We would be grateful for guidance
+about the Hilltop StdSeries and StdQualSeries records for the following sites:
+Akatarawa River at Cemetery; Hutt River at Taita Gorge; Kopuaranga River at
+Stuarts; Mangaone Stream at Ratanui; Mangaroa River at Te Marua; Waitohu Stream
+at Water Supply Intake; Wainuiomata River at Leonard Wood Park; Wainuiomata
+River at Manuka Track; and Waipoua River at Mikimiki Bridge.
+
+The cached records span approximately 2001–2026, depending on site. Could you
+please advise:
+
+1. What do historical StdQualSeries codes 0 and 1 mean for these continuous
+   water-temperature series, and during what periods did those meanings apply?
+   Is there a published data dictionary or crosswalk to the NEMS schema?
+2. How should code 200 be interpreted for these records? Does a quality event
+   apply forward until the next event? How are missing or default quality values
+   represented?
+3. Which observations are verified or provisional, and how are estimated,
+   interpolated, corrected, or sensor-fault periods indicated? Is there a way to
+   obtain the corresponding flags and calibration or maintenance history?
+4. Are these historical timestamps consistently fixed New Zealand Standard
+   Time (UTC+12), including during daylight saving, and were sampling interval
+   changes or site/sensor relocations recorded?
+5. What attribution, licence and redistribution conditions apply to archived
+   records, derived daily and annual summaries, and trained model outputs?
+
+Any documentation or a contact for the appropriate data steward would be very
+helpful. Thank you for your time.
+
+[Author and contact details to be supplied]
+
+Draft only. Not sent.

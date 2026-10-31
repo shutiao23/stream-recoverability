@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T05:14:03.491701+00:00",
+  "status": "posthoc after viewing all 72 overall and by-year Truckee scores; not prespecified and not a prospective risk classifier",
+  "cohort": "All 72 fixed controlled-gap records from the one-station four-year experiment; use one three-method common finite cohort in each stratum.",
+  "strata": "All; finite observed bound equals complete reference within 1e-8 C; complete reference exceeds finite observed bound by more than 1e-8 C; observed bound unavailable. Reference-based strata are retrospective and cannot be selected at deployment.",
+  "metrics": "Per-method point MAE, signed bias, 0.5 C failure frequency; D2 and stochastic nominal 90% coverage, width, interval score and CRPS; case counts and represented years. No inferential confidence interval from one station and four years.",
+  "limits": "Outcome-defined and selected after main results; repeated synthetic masks share one station and four reference years. Neither population failure rate nor independent-climate calibration is established."
+}

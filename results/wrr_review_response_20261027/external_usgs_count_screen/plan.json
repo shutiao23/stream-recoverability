@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-26T19:44:38.697556+00:00",
+  "n_metadata_candidates": 5,
+  "selection": "previously unused metadata candidates with completed NLDI indexed-component screen, no prior HUC8 contact, begin by 2016 and end in/after 2020; nonriver names, no timezone, known source/E10/national/fresh/cache contacts, and the 02450250 endpoint pilot are excluded",
+  "preflight": "USGS annual approved counts for the matching daily mean series, complete 2010-2024 calendar years, no annual temperatures or prediction errors saved or used; estimated qualifiers and point-level quality cannot be determined from counts",
+  "future_roster": "select up to two sites per HUC2 with >=4 count-complete years, choose distinct indexed components and sort by descending complete-year count then station ID, before requesting daily observations; all candidates and excluded sites remain documented",
+  "strict_reference": "after roster fixed, require every calendar day of at least four years to pass approved, nonestimated and point-level quality checks, using agency daily mean",
+  "caveat": "unregistered exploratory study, completeness-based selection and current-vintage metadata; agency-approved daily means do not establish that every underlying hourly value passed independent QC, and river-network/climatic independence is not guaranteed"
+}

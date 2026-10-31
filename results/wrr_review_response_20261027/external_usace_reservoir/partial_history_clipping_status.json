@@ -1,0 +1,7 @@
+{
+  "status": "completed_posthoc_clipping_diagnostic",
+  "cases": 306,
+  "scenarios": 4,
+  "baseline_predictions_reproduced": true,
+  "limits": "One-dimensional ranges ignore joint feature support. A lack of response can arise from model splits or lower-bound projection; report raw model outputs separately. Previous targets and source results have been inspected; no independent test or climate guarantee. Artificially changing a complete-history count or other features does not reconstruct a valid history and is not a recommended deployment procedure. The exercise only checks whether the frozen tree ensemble differentiates these particular out-of-range inputs from training-edge values. It does not prove calibration or valid transfer."
+}

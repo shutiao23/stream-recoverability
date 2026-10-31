@@ -1,0 +1,21 @@
+{
+  "status": "historical_target_overlap_confirmed",
+  "original_reference_station_years": 80,
+  "original_reference_stations": 52,
+  "round1_prior_case_overlap_station_years": 80,
+  "round1_prior_evaluation_eligible_station_years": 79,
+  "round1_original_test_role_station_years": 10,
+  "round1_original_test_role_evaluated": 10,
+  "round2_hot_window_overlap_station_years": 74,
+  "round2_evaluable_hot_window_overlap_station_years": 73,
+  "round1_evaluation_utc": "2026-10-22T18:37:49.581338+00:00",
+  "round1_existing_evaluated_cases": 30728,
+  "round2_existing_development_cases": 32694,
+  "round1_period_definition": "calendar year, no southern hemisphere shift",
+  "round2_period_definition": "July 1 through next July 1 exclusive; any overlap with original calendar year is counted",
+  "original_formal_F2_primary_test_gate": false,
+  "original_formal_F2_recorded_new_errors_opened": false,
+  "new_F2_predictions_or_errors_computed_by_this_audit": false,
+  "interpretation": "Of 80 candidate station-years, 80 occur in the later first Australian case file and 79 in its earlier evaluated case set; 10 former F2 test-role years entered that separate evaluation. The historical F2 intake recorded its test as unopened, and this audit did not run F2; the overlapping records are nevertheless not unopened independent records for a new test.",
+  "limitation": "matches station IDs and calendar/season windows only; overlap is prior use, not proof of model-training leakage or identical masked cases. Reference sampling allowed 20 observed hours and is not a strict 24-hour measurement guarantee."
+}

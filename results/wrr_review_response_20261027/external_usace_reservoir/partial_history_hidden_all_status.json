@@ -1,0 +1,8 @@
+{
+  "status": "failed_pending_investigation",
+  "targets_passed_before_failure": 3,
+  "failed_target_order": 4,
+  "output_differences": "D2 q95 changed by -0.006031527 C; point estimate unchanged. Source feature maximum absolute difference approximately 4.44e-14.",
+  "interpretation": "Root cause not yet established; do not describe all-target hidden-value isolation as passed.",
+  "not_tested": "Remaining 13 target years were not reached."
+}

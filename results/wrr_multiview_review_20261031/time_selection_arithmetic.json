@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "raw_archives": 820,
+  "common_archives": 807,
+  "masked_common_archives": 805,
+  "choices_checked": 1614,
+  "feasible_sets": 5758,
+  "max_saved_error_discrepancy": 5.323186336170238e-12,
+  "reference_slope_median": 0.7543934303844534,
+  "reference_slope_q25": 0.49628431372548676,
+  "reference_slope_q75": 0.9063774509803872,
+  "scope": "Independent least-squares fits and geometry optimization from frozen annual inputs; group bootstrap matches the stated seed and sampling scheme."
+}

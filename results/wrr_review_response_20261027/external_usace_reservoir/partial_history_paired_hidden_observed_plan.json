@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T06:37:58.376570+00:00",
+  "status": "posthoc after first-mask probe stopped because one mask had no hidden observed days; previous failure and diagnostic are retained",
+  "cohort": "All 17 fixed target years and four sites. For each year choose the first saved mask containing at least one formerly observed hidden day, using only the mask and daily availability. If none exists, use the first mask and test placeholders only.",
+  "comparison": "For each target regenerate an unchanged-input control and a hidden-target-plus-placeholder perturbation in the same Python process. Compare mask, all 68 source-model features, point and distribution outputs at 1e-10 absolute tolerance. Also compare unchanged-input controls with previously saved outputs to quantify repeatability; report both comparisons separately.",
+  "perturbation": "Add 10 C to every finite target day hidden by the selected mask and change all natural-gap placeholders from 0 to 432.1 C. Target missingness geometry and actual training history are fixed.",
+  "limitations": "One selected mask per target is not exhaustive. Same-process controls do not prove no hidden leakage across all implementations or guarantee cross-environment reproducibility. Scores are posthoc, out-of-support and reference bounds are conditional."
+}

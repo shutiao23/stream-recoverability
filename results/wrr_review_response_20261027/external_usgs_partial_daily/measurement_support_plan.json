@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-27T08:31:54.900183+00:00",
+  "status": "posthoc after daily-versus-subdaily coverage, raw target observations and rounding-scale differences were inspected; not a prospective calibration",
+  "goal": "Evaluate conditional, symmetric observation-support margins while recalibrating both D2 and stochastic source offsets for each margin. Do not present any selected margin as validated sensor error or deployable guarantee.",
+  "support": "For a reported visible 30-day lower bound L, apply L-epsilon before and after quantile calibration to both methods. This changes the target support assumption: reported-daily H30 itself satisfies >=L, whereas a latent/continuous target satisfies >=L-epsilon only if daily value discrepancies are uniformly bounded by epsilon and clocks/measurements are comparable.",
+  "margins_c": [
+    0.0,
+    0.01,
+    0.05,
+    0.2
+  ],
+  "margin_interpretation": "0, 0.01, 0.05 and 0.20 C are posthoc sensitivity values; not measured instrument tolerances. All available clean quarter-hour days have reported-versus-continuous discrepancies summarized separately; unmatched or corrected times remain unknown.",
+  "calibration": "For each epsilon use the same positive-weight global source interval-calibration groups, bootstrap multiplicities, difficulty cells and fallback logic as the original source recalibration. Recompute both D2 and stochastic residual offsets using source reported daily H30; source reference is not latent temperature, so calibration transfer to continuous target is unproven. Models, masks, target histories and features are fixed.",
+  "baseline": "At epsilon=0 all source calibration offsets and saved target quantiles must reproduce existing values; otherwise stop. No target observations or outcomes enter recalibration.",
+  "evaluation": "On all 144 masks and posthoc full-hour subset of 54 masks, compare source-recalibrated 90% quantiles against conditional subdaily H30 intervals under fixed standard and local civil clocks: MAE bounds, definite/possible coverage, width, proper interval-score bounds, published-daily coverage and fraction of q05 below the unsoftened reported bound. Report plug-in unchanged for context. All three hourly years are one site.",
+  "limitations": "Measurements, sensor accuracy, time alignment, source role exchangeability, independent climates, partial-history extrapolation and held-out pre-registration are unresolved. Changing support requires a changed estimand and measurement-error assumption, and the experiment is not a full operational recalibration or deployment safety assessment."
+}

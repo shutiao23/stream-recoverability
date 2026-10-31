@@ -1,0 +1,132 @@
+{
+  "status": "metadata_selected_before_historical_temperature_acquisition",
+  "source": "USGS public instantaneous temperature channels, parameter 00010",
+  "selection": "All five additional instrument-named overlapping natural-stream pairs in the reviewed national metadata with >=90 days potential overlap and three potentially complete prior years by an overlap year. Explicit pump/depth differences, short first deployments, canal site 04092750, and the two initially investigated sites are excluded. No native temperatures for these five new sites have yet been acquired or inspected. The original two-site lock and results remain unchanged.",
+  "candidates": [
+    {
+      "site": "01193500",
+      "name": "SALMON RIVER NEAR EAST HAMPTON, CT",
+      "primary_metadata_id": "a559aa4d5ad14e2996aa1b2838de852a",
+      "backup_metadata_id": "0dc0f27e567d44b3b901d55155f74e99",
+      "primary_label": "long-standing temperature channel",
+      "backup_label": "from YSI",
+      "native_backup_marker": "from YSI",
+      "acquire_from": "2013-01-01",
+      "acquire_through": "2025-12-31",
+      "candidate_years": [
+        2017,
+        2018
+      ],
+      "orientation": "study primary is the long-standing channel selected from metadata before temperatures; instrument-labelled later channel is the candidate reference; provider does not designate an operational backup"
+    },
+    {
+      "site": "02054750",
+      "name": "ROANOKE RIVER AT ROUTE 117 AT ROANOKE, VA",
+      "primary_metadata_id": "61b23b24db4344f2a8b9e1f93c75c15a",
+      "backup_metadata_id": "fd0d4cc0ee8f465fbaba95dbad0991ce",
+      "primary_label": "long-standing temperature channel",
+      "backup_label": "YSI EXO",
+      "native_backup_marker": "YSI EXO",
+      "acquire_from": "2007-01-01",
+      "acquire_through": "2025-12-31",
+      "candidate_years": [
+        2019,
+        2020
+      ],
+      "orientation": "study primary is the long-standing channel selected from metadata before temperatures; instrument-labelled later channel is the candidate reference; provider does not designate an operational backup"
+    },
+    {
+      "site": "05420500",
+      "name": "Mississippi River at Clinton, IA",
+      "primary_metadata_id": "0ed0be2f568c4eee9ecc4086a6fb0239",
+      "backup_metadata_id": "59c88ffc78a94bada4478cf80d008ac5",
+      "primary_label": "long-standing temperature channel",
+      "backup_label": "YSI EXO2",
+      "native_backup_marker": "YSI EXO2",
+      "acquire_from": "2012-01-01",
+      "acquire_through": "2025-12-31",
+      "candidate_years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "orientation": "study primary is the long-standing channel selected from metadata before temperatures; instrument-labelled later channel is the candidate reference; provider does not designate an operational backup"
+    },
+    {
+      "site": "05464420",
+      "name": "Cedar River at Blairs Ferry Road at Palo, IA",
+      "primary_metadata_id": "0946f73e8702449c94e5388bc3a216e0",
+      "backup_metadata_id": "3a5074bf277f47c8935a80879fac72b6",
+      "primary_label": "long-standing temperature channel",
+      "backup_label": "YSI EXO3",
+      "native_backup_marker": "YSI EXO3",
+      "acquire_from": "2012-01-01",
+      "acquire_through": "2025-12-31",
+      "candidate_years": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "orientation": "study primary is the long-standing channel selected from metadata before temperatures; instrument-labelled later channel is the candidate reference; provider does not designate an operational backup"
+    },
+    {
+      "site": "05578100",
+      "name": "SALT CREEK NEAR FARMER CITY, IL",
+      "primary_metadata_id": "6473bfceffda4f5391e38865e3697060",
+      "backup_metadata_id": "e2e0735fb7b84daa93c76ca1b795af77",
+      "primary_label": "long-standing temperature channel",
+      "backup_label": "Hobo",
+      "native_backup_marker": "Hobo",
+      "acquire_from": "2015-01-01",
+      "acquire_through": "2025-12-31",
+      "candidate_years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "orientation": "study primary is the long-standing channel selected from metadata before temperatures; instrument-labelled later channel is the candidate reference; provider does not designate an operational backup"
+    }
+  ],
+  "daily_reference": "primary observations plus independent backup only on actual missing primary days; complete calendar year required",
+  "coverage": {
+    "minimum_distinct_hours": 20,
+    "minimum_span_hours": 20
+  },
+  "time_zone": "project UTC daily aggregation from each native timestamp and explicit UTC offset; not provider-certified daily means",
+  "gross_water_temperature_range_C": [
+    -2,
+    40
+  ],
+  "native_QC": "approved actual observations only; estimated, ice-affected, equipment-malfunction, provisional and other flagged temperatures unavailable in the main record-reference qualification",
+  "duplicate_timestamp_rule": "collapse exact duplicates; finite conflicting values at the same channel/time unavailable; finite observation retained if also accompanied by an empty duplicate",
+  "reference_QC": {
+    "minimum_visible_overlap_days": 90,
+    "maximum_visible_daily_MAE_C": 0.25,
+    "maximum_visible_daily_abs95_C": 0.5
+  },
+  "history": "at least three completely observed primary years strictly before target year; never fill history with backups",
+  "natural_missingness": "every missing primary day in the full calendar year; finite first and last primary days required",
+  "independence": "distinct publication channel IDs or labels are insufficient alone to establish separate sensor hardware and same water parcel; retain physical-verification status separately, and do not promote record-level eligibility to independently verified natural-gap confirmation without it",
+  "uncertainty_unit": "site/catchment cohort with shared-record and old-source overlap audit, not individual missing days or multiple channel references",
+  "predictive_choice": "unchanged original strictly-prior source-only heads/thresholds; supplementary old-only selected air32 CSDI may be reported separately; no configuration selection from these outcomes",
+  "free_information": "free usable backup observations are directly incorporated operationally; primary-only recovery is a validation exercise, not a paid-query advantage",
+  "outcome_adaptation": false,
+  "NEON_access": "user has no API token; continue only no-login sources or legitimate public redistribution; official data-endpoint 403 is not zero eligible observations",
+  "initial_investigation": "configs/wrr_usgs_backup_20261021.json",
+  "metadata_exclusions": [
+    {
+      "site": "04092750",
+      "name": "INDIANA HARBOR CANAL AT EAST CHICAGO, IN",
+      "reason": "provider_site_type_ST-CA"
+    }
+  ]
+}

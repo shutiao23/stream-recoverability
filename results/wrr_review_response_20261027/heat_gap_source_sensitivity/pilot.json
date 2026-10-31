@@ -1,0 +1,7 @@
+{
+  "status": "pilot_passed_no_accuracy_claim",
+  "replays": 2,
+  "source_versions": 2,
+  "same_masks_daily_features_and_plugin_checked": true,
+  "limitation": "Stored daily features, fitted source models and target observations are reused; not a new fit or independent climate validation."
+}

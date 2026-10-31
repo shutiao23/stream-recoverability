@@ -1,0 +1,14 @@
+{
+  "station": "MA05OC0001",
+  "n_files": 6,
+  "n_temperature_rows_exact_station": 91354,
+  "n_identity_unresolved_rows": 13932,
+  "n_literal_v_grade_numeric12_rows": 0,
+  "complete_local_wallclock_years": 0,
+  "complete_years": [],
+  "physical_day_timezone_verified": false,
+  "strict_physical_reference_eligible": false,
+  "reconstruction_scored": false,
+  "prior_same_river_source": true,
+  "limitation": "V and grade 1/2 are required as specified before download; other values, including Corrected with absent grades and records with nonmatching station IDs, are not called invalid but are not established as eligible. Local-day DST convention unresolved; source includes an upstream site on the same river."
+}

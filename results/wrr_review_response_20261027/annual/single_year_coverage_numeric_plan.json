@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T10:26:07.287447+00:00",
+  "status": "posthoc after USGS and whole-archive numerical boundary analyses, prior to reading single-year coverage sensitivity results",
+  "scope": "All twenty saved single-year source repetitions, both families, both strata and both estimators. Reproduce the method-specific 1e-8 C coverage saved per seed and its median for crossed danger; compare strict and 1e-10 C comparisons on the same cases and support-projected quantile endpoints.",
+  "availability": "Replicate the original per-method valid point, finite reference and all-seven-finite quantile mask, including cases whose observed lower bound is unavailable. Do not compare different case cohorts as a paired method effect.",
+  "limitations": "Repeated masks and seeds use the same archive and are not independent climates. A machine-scale numerical comparison tolerance is not physical sensor uncertainty, recalibration, a new model, or a coverage guarantee. This uses saved predictions and truths, not independent reconstruction."
+}

@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T06:56:45.769100+00:00",
+  "status": "posthoc analysis fixed after original source and USACE results; factorial predictions exist but reference-error comparisons have not been opened",
+  "truth": "Compute 2017 H30 from all 365 saved reported daily values for every fixed station; independently check against saved station-year reference.",
+  "cohort": "Require every D2 factorial point and q05/q95 and both history modes plug-in and calibrated stochastic point and q05/q95 to be finite on each station and target mask. Record all exclusions and denominators.",
+  "metrics": "On the same common cases report MAE, bias, nominal 90% coverage, width and 90% interval score. Also report equal-station and equal-connected-group means. Classifiers and risk scores are not evaluated.",
+  "effects": "For D2 paired absolute errors e(history,count), report true-mode effect e(partial,0)-e(full,8); history effect averaged over count; count effect averaged over history; and interaction [e(partial,8)-e(partial,0)]-[e(full,8)-e(full,0)]. False count settings are counterfactual diagnostics only. For plug-in and stochastic compare partial and full under their actual counts.",
+  "uncertainty": "Use fixed-prediction connected-group bootstrap, 4000 resamples of the six observed groups with equal group weighting, seed 20261027; descriptive only. Also report per-group and per-provider contrasts without refitting models.",
+  "limitations": "Fifteen preselected source stations, six connected groups, two regions, one target year and a single synthetic warm-season history gap are not representative independent climates. The count intervention is not an operational choice and the factorial effect is specific to this adaptation."
+}

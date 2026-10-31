@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T04:52:47.471143+00:00",
+  "status": "posthoc access amendment before saving station metadata tables or opening observations",
+  "reason": "The coordinating-node object endpoint returned HTTP 404 for the first frozen table. Its public resolve endpoint redirects to the DataONE member-node object service; two test metadata table responses were seen but not saved.",
+  "method": "Retrieve the same three preselected metadata table identifiers through the public resolver, and verify EML-declared byte sizes. No station measurement tables are requested.",
+  "limits": "Evaluate station dates and prior-site proximity/network contact before selecting sites. EML says data passed validation and labels timestamp PST, but station-level estimated flags and the precise DST convention remain to be clarified; missing or corrected measurements are not presumed absent."
+}

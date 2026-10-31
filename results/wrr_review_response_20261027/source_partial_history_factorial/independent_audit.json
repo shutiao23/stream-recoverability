@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "stations": 15,
+  "complete_target_years": 15,
+  "target_cases": 135,
+  "factorial_case_rows": 540,
+  "summary_cells": 8,
+  "paired_contrasts": 6,
+  "group_contrasts": 36,
+  "bootstrap_draws_per_contrast": 4000,
+  "scope": "Independently recomputes source-reference H30 from 365 saved daily values, common masks, scalar scores, factorial contrasts, six-group bootstrap and observed-bound constraints.",
+  "limitations": "Does not refit source models, validate source sensor QA, establish independent climates or prove an operational interpretation for false history-count interventions."
+}

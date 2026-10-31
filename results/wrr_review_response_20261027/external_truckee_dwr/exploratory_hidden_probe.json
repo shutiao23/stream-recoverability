@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "probes": 1,
+  "hidden_days": 90,
+  "truth_change_c": 4.999999999999954,
+  "max_feature_difference": 0.0,
+  "max_prediction_difference": 0.0,
+  "control_replay_feature_difference": 1.3008026655825233e-08,
+  "control_replay_prediction_difference": 0.0,
+  "selection": "After scoring, choose a 90-day case with the largest fraction of the true peak hidden; add 5 C only to masked values. Recompute case generation and compare the same mask and source-model outputs.",
+  "limits": "One post-hoc probe on one station; not exhaustive evidence of no leakage in all cases, input paths, climate conditions or model fits."
+}

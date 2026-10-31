@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "annual_cases": 21446,
+  "score_rows_checked": 48,
+  "paired_rows_checked": 24,
+  "leave_region_out_rows_checked": 152,
+  "hidden_forward_crossed_cases": 2146,
+  "hidden_forward_crossed_stations": 41,
+  "hidden_forward_crossed_groups": 17,
+  "D2_original_coverage90": 0.8322460391425909,
+  "D2_candidate_coverage90": 0.8191985088536813,
+  "classic_original_coverage90": 0.8164026095060578,
+  "classic_candidate_coverage90": 0.7823858341099721,
+  "classic_exclude_foen_coverage_difference": 0.0033046926635822,
+  "classic_exclude_bavaria_coverage_difference": -0.0890688259109311,
+  "limitations": "This study is after original and candidate trend results were inspected. It reuses target records, masks and daily refits; source providers, source role assignment and region exclusion changed together. The peak-visibility stratum depends on the hidden complete reference and is unavailable for deployment. Bootstrap groups are not necessarily independent climates; results do not establish coverage or legal redistribution rights."
+}

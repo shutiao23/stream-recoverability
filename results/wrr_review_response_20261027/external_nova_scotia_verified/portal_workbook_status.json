@@ -1,0 +1,13 @@
+{
+  "status": "comparison_computed",
+  "stations": 4,
+  "shared_unique_labels": 265426,
+  "both_numeric": 262667,
+  "numeric_equal": 249857,
+  "numeric_different": 12810,
+  "one_numeric_other_missing": 5,
+  "portal_complete_reported_label_years": 17,
+  "temperature_difference_tolerance_c": 1e-06,
+  "scope": "two releases of the same provincial monitoring programme; comparison of reported clock labels, not independent sensors",
+  "limitation": "timestamps lack a fully verified common timezone; per-observation quality and estimated-value status are not established; shared data values are not evidence of independent accuracy"
+}

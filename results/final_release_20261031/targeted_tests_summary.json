@@ -1,0 +1,28 @@
+{
+  "exit_code": 0,
+  "passed": 94,
+  "tests": 94,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "scope": "15 selected current-review and delivery test files; not the full repository test suite",
+  "junit": "results/final_release_20261031/targeted_tests.xml",
+  "files": [
+    "tests/test_wrr_source_trajectory_calibration.py",
+    "tests/test_independent_calibration_audit.py",
+    "tests/test_process_time_gap_sensitivity.py",
+    "tests/test_region_water_adversarial.py",
+    "tests/test_experiment_data_catalog.py",
+    "tests/test_process_experiment_delivery.py",
+    "tests/test_wrr_process_revision.py",
+    "tests/test_review_manuscript_structure.py",
+    "tests/test_wrr_adversarial_revision.py",
+    "tests/test_wrr_process_time_gap_revision.py",
+    "tests/test_wrr_trajectory_revision.py",
+    "tests/test_current_observation_replay.py",
+    "tests/test_review_completion_current_evidence.py",
+    "tests/test_review_bundle_atomic_write.py",
+    "tests/test_process_review_region_water.py"
+  ],
+  "created_utc": "2026-10-31T04:11:31.072095+00:00"
+}

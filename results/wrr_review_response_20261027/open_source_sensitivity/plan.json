@@ -1,0 +1,109 @@
+{
+  "created_utc": "2026-10-26T23:27:47.595323+00:00",
+  "status": "posthoc_design_frozen_before_new_predictions",
+  "analysis": "Refit source models and classical offsets on candidate permitted provider cases only, with strictly excluded target-region groups and new role assignments using the unchanged seed algorithm. Reuse the original archive masks and already fitted daily features; compare with original model and classical outputs on their common target cases.",
+  "allowed_providers": [
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "nve_hydapi",
+    "rws_waterwebservices",
+    "syke",
+    "usgs"
+  ],
+  "splits": {
+    "leave_one_year_out": {
+      "eligible_case_rows_before_filter": 145684,
+      "candidate_case_rows_after_filter": 129235,
+      "removed_case_rows": 16449,
+      "candidate_stations": 505,
+      "candidate_groups": 162,
+      "providers_removed": [
+        "arso",
+        "hubeau",
+        "lubw"
+      ],
+      "checked_same_provider_calendars": 27661
+    },
+    "before_2010": {
+      "eligible_case_rows_before_filter": 67196,
+      "candidate_case_rows_after_filter": 65135,
+      "removed_case_rows": 2061,
+      "candidate_stations": 172,
+      "candidate_groups": 62,
+      "providers_removed": [
+        "lubw"
+      ],
+      "checked_same_provider_calendars": 13997
+    }
+  },
+  "target_mode_region_stations": [
+    {
+      "mode": "forward",
+      "region": "foen",
+      "stations": 10
+    },
+    {
+      "mode": "forward",
+      "region": "gkd_bayern",
+      "stations": 24
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc03",
+      "stations": 1
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc04",
+      "stations": 1
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc10",
+      "stations": 2
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc17",
+      "stations": 3
+    },
+    {
+      "mode": "offline",
+      "region": "foen",
+      "stations": 10
+    },
+    {
+      "mode": "offline",
+      "region": "gkd_bayern",
+      "stations": 24
+    },
+    {
+      "mode": "offline",
+      "region": "syke",
+      "stations": 1
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc03",
+      "stations": 1
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc04",
+      "stations": 1
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc10",
+      "stations": 2
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc17",
+      "stations": 3
+    }
+  ],
+  "role_rule": "Recompute role assignments and bootstrap weights using only retained source cases; remove every connected group that occurs in the target region from every source role, without replacement. Require at least two role groups and positive usable estimation and calibration observations.",
+  "limitations": "Post-hoc sensitivity after original results and source-rights audit; all original target masks and daily refits are reused. The source role assignment and sample size change as well as strict regional exclusion, so differences are not attributable to a single cause. Candidate provider permissions, prior-QC, air and mask provenance, and individual derivative publication rights require further review. Not a preregistered or independent-climate test."
+}

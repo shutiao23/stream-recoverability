@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "resources": 10,
+  "station_years": 69,
+  "complete_finite_days": 16153,
+  "complete_finite_years": 0,
+  "scope": "Recomputed all station-year qualification from public two-column snapshots. No H30, model scoring, cross-site sensor independence or measurement accuracy checked.",
+  "limits": "Source level-1 values may include corrections; no quality-code or network-independence guarantee."
+}

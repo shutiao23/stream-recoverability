@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-27T06:13:55.277675+00:00",
+  "status": "posthoc after timestamp and finite-completeness results; before computing H30 bounds or model errors",
+  "cohort": "All ten previously screened source files and all calendar years 2021-2025; retain years with any number of missing days.",
+  "estimand": "Maximum arithmetic mean over all 30 consecutive daily means wholly within each calendar year. Each day is the mean of its 96 quarter-hour slots in reported fixed MST.",
+  "interval": "Each finite, unique, on-grid reported temperature in [-5,50] is fixed. Every missing, nonfinite, nonnumeric, duplicate or otherwise ambiguous quarter-hour slot is bounded by [-5,50] C. If any off-grid row is present on a day, treat that entire day as unknown. Construct each day lower/upper mean and then separately maximize its 30-day rolling mean.",
+  "range_basis": "EXO sensor specified operating range is used as an explicit assumed bound on all unknown values, not proof the physical water was in range or that readings were accurate. Violating the assumption invalidates the enclosure.",
+  "width_thresholds_c": [
+    0.01,
+    0.1,
+    0.5,
+    1.0
+  ],
+  "threshold_interpretation": "Descriptive resolution thresholds, not an accuracy or qualification criterion; reported for all years and no threshold chosen from outcomes.",
+  "quality_and_independence": "Published level-1 readings can be corrected; flags, sensor errors, actual time convention, physical bounds, network overlap and independent climates remain unresolved.",
+  "no_scoring": "No model prediction, model error or mask outcome is requested in this analysis. Bounded data are not strict complete nonestimated references."
+}

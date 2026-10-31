@@ -1,0 +1,23 @@
+{
+  "created_utc": "2026-10-26T22:34:44.839763+00:00",
+  "status": "metadata_only_plan_no_data_downloaded",
+  "dataset_name": "RivTemp--MFFP_QC",
+  "dataset_doi": "10.25976/sz2k-b624",
+  "public_catalog": "https://datastream.org/en-ca/dataset/09ab9bf0-789b-4487-918e-b5c8cf258225",
+  "current_network_validation": "https://rivtemp.ca/en/data-validation/",
+  "database_structure": "https://rivtemp.ca/en/rivtemp-database-structure/",
+  "reference_plan": "https://doi.org/10.1016/j.hydroa.2022.100133",
+  "selection_before_values": "all station identities in the named MFFP dataset whose metadata support freshwater river sites and test years 2010 through 2020; do not select using observed temperatures or model performance; freeze roster before qualification",
+  "prior_contact": "audit exact station identifiers, prior cache and source rosters, geometry and hydrologic group relationships before scoring; absent identity or ambiguous overlap is not independent confirmation",
+  "reference_requirement": "for each day, independently establish the expected sample cadence, unique timestamp coverage of the complete defined 24-hour day, usable nonestimated quality status, instrument and daylight/time-zone convention; one value per daily date is not sufficient",
+  "reference_years": "at least four eligible complete calendar years per station, with three other complete years for leave-one-year-out local fitting",
+  "current_metadata_caveat": "current RivTemp protocol allows daily summaries when retained subdaily observations exceed 90%; a published paper describes an all-hours requirement for its study; the exact rules, version and per-day completeness evidence for this release are not established",
+  "access_caveat": "At plan creation only public catalog pages had been browsed; no dataset download, account registration or email had been performed. Site use is subject to the provider terms; subsequent acquisition is recorded separately in acquisition.json.",
+  "rights_caveat": "DataStream page presents ODC-BY attribution and a separate disclaimer restricting database transfer; redistribution, derived records and reviewer-access permissions need clarification",
+  "assessment": "unqualified lead only; no data selection, reconstruction scores or new independent validation claimed",
+  "access_note_correction": {
+    "corrected_utc": "2026-10-26T22:41:05.841458+00:00",
+    "original_text": "RivTemp direct database access uses requested credentials; the DataStream download button states access implies agreement to its terms; no account created, terms accepted, data retrieved or email sent",
+    "reason": "The site terms state that browsing itself is subject to its terms; the earlier statement that no terms were accepted was too broad. Selection, year, completeness and no-outcome rules are unchanged."
+  }
+}

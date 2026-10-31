@@ -1,0 +1,5 @@
+{
+  "created_utc": "2026-10-27T00:41:20.128565+00:00",
+  "reason": "Initial execution failed while reading a zero-column empty annual-prediction Parquet file, before analysis output; preserve it as a zero-row table with the required column types. Cohort, quality rules, selection, metrics and inputs are unchanged.",
+  "replacement_script": "scripts/685_archive_matched_release_trend_empty.py"
+}

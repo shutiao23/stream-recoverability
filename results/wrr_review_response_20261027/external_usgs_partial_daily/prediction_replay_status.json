@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "sites": 4,
+  "target_years": 8,
+  "cases": 144,
+  "matching_mask_years": 8,
+  "matching_feature_years": 8,
+  "matching_output_years": 8,
+  "max_output_difference": 0.0,
+  "threads": 1,
+  "limitations": "Same source model, source calibration, processed USGS daily inputs and generator are reused; this is not a model refit, raw-service reconstruction or independent climate validation.",
+  "storage": "temporary RAM filesystem; not durable"
+}

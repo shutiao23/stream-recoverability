@@ -1,0 +1,1044 @@
+--- current_saved_SI
+
++++ freshly_rebuilt_SI
+
+@@ -1,6 +1,6 @@
+
+ WATER RESOURCES RESEARCH
+ Supporting Information for “Retaining incomplete
+-river-temperature records: temporal support and
+-uncertainty in sustained-heat trends”
++river-temperature records: time support of
++finite-record heat slopes”
+ Author information to be completed by the authors
+ Contents of this file
+@@ -18,5 +18,5 @@
+
+ groups are excluded from estimator fitting, interval calibration, risk learning and rule
+ calibration. In the original partitioned forward models, other training-only groups in a
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X-2                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ named target region can remain in source roles. The source-role audit and subsequent
+@@ -40,5 +40,5 @@
+
+ data; it does not change any saved prediction. A correction manifest is available in
+ results/wrr adversarial review 20261027/metadata correction/.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                    X-3
+ S2.   Observation-rule accounting
+@@ -64,5 +64,5 @@
+
+ percentage points. Averaging seeds can cancel opposing changes, so these rules are not
+ a resolution guarantee and the constructions are not ranked. At 4,096 samples, nominal
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X-4                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ 95% trend coverage remains 87.4–89.9%. The later source-budget experiment instead
+@@ -90,5 +90,5 @@
+
+ sensitivity in the USGS exploration, we compared this convention with exact floating-point
+ comparisons and a 10−10 ◦ C tolerance on the same saved two-estimator common cases. For
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                    X-5
+ the forward empirical-calendar subset, D2 covers 3,610 of 3,674 repeated masked cases with
+@@ -115,5 +115,5 @@
+
+ treated as exact, unknown cases remain unavailable, and the working interval includes re-
+ gression variability. It is not a calibrated missingness-only interval. Tables S2 and S3 retain
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X-6                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ the negative matched-retention results; they are not a proposed operational publication
+@@ -140,5 +140,5 @@
+
+ of the main article). For example, the Rio Mora 2020 window exceeds the complete-only
+ record by approximately 0.883◦ C, and a Pecos River 2020 window by 0.643◦ C. These facts
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                     X-7
+ Table S1. Dangerous source-case summaries: the gap overlaps at least half the training-
+@@ -163,5 +163,5 @@
+
+ crossed      score only       114,012       80,980        71.0%            3.9%
+ crossed      three outputs    114,012       82,169        72.1%            4.9%
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X-8                        AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S3. Retrospective equal numerical-count comparison. The score threshold uses
+@@ -187,5 +187,5 @@
+
+ crossed    offline   D2           840       18       94.1%        91.7%        94.2%            94.0%        94.5%       94.8%
+ crossed    offline   classical    838       18       92.6%        86.4%        90.7%            90.2%        91.6%       91.2%
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                            X-9
+ Table S5.         Evidence map. Each claim is paired with the comparison and metric used
+@@ -225,5 +225,5 @@
+
+ A reported window is not a complete-year H30. A rule-accepted incomplete year can contain a higher unobserved peak, so the last two
+ columns compare reported windows only. The 49-day row is a contextual Johnson comparison, not a validated H30 rule.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 10            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S7. Measurement-margin sensitivity for the station-specific warm-season rule. A
+@@ -248,5 +248,5 @@
+
+ validate trend or risk guarantees. Every witness includes the thirty original approved
+ values; agency reporting and measurement validity remain assumptions.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                     X - 11
+ Table S8. Numerical convergence of the three fixed-marginal joint-rank constructions
+@@ -272,5 +272,5 @@
+
+ Classical shared parameters    1024 87.3 [87.0, 87.5] 0.385 [0.385, 0.385] 0.856 [0.854, 0.859]
+ Classical shared parameters    4096 87.5 [87.4, 87.6] 0.386 [0.386, 0.386] 0.854 [0.852, 0.856]
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 12              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ S6.      Whole-archive supplements
+@@ -296,5 +296,5 @@
+
+ total information or comparable prospective risks. Repeated masks are not independent
+ climates. A connected-group bootstrap of paired squared-error differences for forward
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 13
+ Table S9.    The same 35 observation-only complete-year witnesses under each screening
+@@ -317,5 +317,5 @@
+
+ Heat / forward      30      30       0.079         0.088
+ Heat / offline      35      30       0.035         0.058
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 14              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S11.      Release followed by finite-record trend inference for controlled gaps. The
+@@ -338,5 +338,5 @@
+
+ crossed / offline       D2          301 0.977              0.980           1.236
+ crossed / offline       Stochastic 307 0.948               0.951           1.108
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                              X - 15
+ Table S13.      Task calibration support. Empirical calibration from small source pools
+@@ -364,5 +364,5 @@
+
+ 08405200 2020 2              28.970           28.327       0.643
+ 07364133 2015 1              29.427           28.767       0.660
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 16             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ controlled gaps gives [-0.0017, 0.0072] (◦ C/decade)2 ; this is descriptive and spans zero.
+@@ -386,5 +386,5 @@
+
+ observations, selected cases and working likelihood; it did not independently reconstruct
+ source sensors or models, establish likelihood validity or verify interval standard errors.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 17
+ S8.   Expanded missingness-mechanism sensitivities
+@@ -411,5 +411,5 @@
+
+ reported on the common subset. Nominal trend interval coverage, widths and scores use
+ independent annual ranks and the original normal-spacing tails; the intervals are not
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 18             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ validated climate-transfer guarantees. Connected-group resampling of paired D2 squared-
+@@ -434,5 +434,5 @@
+
+ it does not independently refit the models, check bootstrap intervals or establish sensor
+ quality.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 19
+ S9.   Heat-associated years with matched gap templates
+@@ -459,5 +459,5 @@
+
+ (◦ C/decade)2 . The shared cohort is post-hoc, and these differences change in group-equal
+ weighting. The fixed heat-year count and gap-template distribution do not isolate year,
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 20             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ position and peak alignment, establish a natural-outage mechanism, or prove climate
+@@ -482,5 +482,5 @@
+
+ earlier target-region-excluded models, which also change the provider set, sample size and
+ role allocation. In all, 205 candidate and 15 strict-original matched-gap settings were
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION               X - 21
+ re-scored. The source models and daily feature fits were not independently retrained for
+@@ -507,5 +507,5 @@
+
+ between the stress-minus-baseline MSE changes under the candidate and original sources.
+ For D2 with independent ranks, this difference is -0.0024 with group-resampled interval
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 22              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ [-0.0052, -0.0001] (◦ C/decade)2 . The interval does not cross zero but its upper limit is close
+@@ -532,5 +532,5 @@
+
+ replayed the stressed daily features and masks through two already fitted alternative
+ source-model sets. The strict-original version replaces only the forward HUC17 model,
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                   X - 23
+ the sole affected target region in this cohort, with the model refitted after excluding
+@@ -557,5 +557,5 @@
+
+ baseline receipts against their source models, calibration, original features and saved out-
+ puts, and replayed the 15 affected strict-original baselines, including 60 annual predictions
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 24             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S19.      Source-model sensitivity on six-way common archives, baseline / stress.
+@@ -583,5 +583,5 @@
+
+ After inspecting prior projection and risk results, we fitted six region-specific binary
+ classifiers to identify absolute D2 point error above 0.5 ◦ C after the observed-bound
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 25
+ projection. For each target region, the source estimator, interval-calibration, risk-learning
+@@ -607,5 +607,5 @@
+
+ archive record. A second comparison against the original source station–year–family H30
+ verified all 7,583 reference values, and the saved selections did not change. These target
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 26             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ archives and source data had nevertheless been inspected in earlier analyses; this is not an
+@@ -630,5 +630,5 @@
+
+ Controlled Source threshold              3,777 3,385 / 3,222 363 / 306             10.72 / 9.50
+ Controlled Target count match            3,777 3,385 / 3,385 363 / 383 10.72 / 11.31
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 27
+ The independent audit refits the six classifiers using the same source records and feature
+@@ -654,5 +654,5 @@
+
+ summer air-temperature climate correction; that study also excluded sites with strong
+ human influence. The present sample contains regulated and incompletely characterized
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 28             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ sites, covers different locations and years, and the fully-contained July–August window
+@@ -677,5 +677,5 @@
+
+ Station warm season 90%         2,590          66           0                      50        30
+ Complete July–August            2,472        184            0                      168       58
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 29
+ After inspecting the largest annual gaps, we separately summarized existing project
+@@ -699,5 +699,5 @@
+
+ The comparison and screening totals were independently reconstructed using pandas
+ rolling windows on the same snapshot. The post-hoc influence totals and 36 selected-site
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 30             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ peak-window dates were independently checked using NumPy convolution; the stored
+@@ -724,5 +724,5 @@
+
+ changes the target, so any summer-only estimator may omit a peak outside July–August.
+ The unfilled comparison averages only the retained years; the filled comparison averages
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 31
+ retained observed peaks and reconstructed missing-year summer peaks. Both methods are
+@@ -749,5 +749,5 @@
+
+ separate implementation recomputed 11,220 masks and all 16 summary cells from the
+ same processed inputs; it did not reproduce the original authors’ datasets or code.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 32             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S23. Adapted summer-regression proxy against two distinct nine-year targets.
+@@ -773,5 +773,5 @@
+
+ maximizing in-sample R2 is selected. We fill missing July–August water days and take
+ the maximum of the reconstructed summer 30-day peak and the fully observed full-year
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 33
+ 30-day bound. When summer contains no gaps, the result is the observed full-year bound
+@@ -796,5 +796,5 @@
+
+ regions, 310 masked years and target-year fit perturbations, plus the reported aggregate
+ cells. It used the same processed sources and fixed baseline predictions.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 34               AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S24. Common-cohort annual and nontrivial-archive point comparisons. Annual
+@@ -820,5 +820,5 @@
+
+ accepted even if the climatology is unavailable, because every possible warm season is
+ fully observed. The four-year threshold is an exploratory study choice, not a published
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 35
+ standard. Unsupported incomplete years remain unknown rather than being counted
+@@ -846,5 +846,5 @@
+
+ Warm 90%, past data              2,589      67         0                  51            9 32 / 3 / 0
+ Warm 90%, past + 4 complete      2,487      42       127                  31            3 27 / 2 / 6
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 36              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ An independent implementation rebuilt all 2,656 earlier-only climatologies, 13,280 rule
+@@ -871,5 +871,5 @@
+
+ exchangeability is not demonstrated, source cases use individual-year masks, target archives
+ have joint multiyear gaps, and groups have different sizes and climates. Both methods’
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 37
+ lower endpoints are constrained to the visible observed window. Table S26 compares
+@@ -894,5 +894,5 @@
+
+ identical ranks, but their interpolated interior and normal-spacing tails differ. Table S27
+ shows empirical nominal 95% trend coverage, width and interval score. On the 685 archives
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 38               AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ with the earlier narrow source correction and all ranks, the independent-rank tapered D2
+@@ -919,5 +919,5 @@
+
+ The audit now requires the table explicitly and fails if it is absent or changed. A separate
+ calculation reconstructs 13,248 trend treatment rows from saved quantiles and rank arrays
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION               X - 39
+ and checks all 685 overlapping earlier rank snapshots. These numerical audits use the
+@@ -936,5 +936,5 @@
+
+ checks reuse saved cases and model roles and were assembled after the earlier analyses,
+ not prospectively registered.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 40             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ S18.      Annual support and hidden-peak diagnostics
+@@ -949,5 +949,5 @@
+
+ stratum uses the complete reference and is unavailable at decision time; the gap, overlap
+ and donor bins were chosen after inspection.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                                          X - 41
+ Table S28.      Replay of annual interval stages on common finite-bound cases. Raw is the
+@@ -990,5 +990,5 @@
+
+ crossed      offline    Excess     D2            4132             18   0.285    90.7%           [88.5, 93.6]
+ crossed      offline    Excess     Stochastic    4132             18   0.289    87.9%           [84.6, 91.3]
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 42                    AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S30.             Descriptive failure strata for the crossed forward controlled gaps. Peak
+@@ -1036,5 +1036,5 @@
+
+ region: USGS HUC17           D2            228         3       3      0.161            97.4%           0.75
+ region: USGS HUC17           Classical     228         3       3      0.140            96.5%           0.72
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                              X - 43
+ Table S32.      Exploratory source-only annual interval expansion on two-method common
+@@ -1053,5 +1053,5 @@
+
+ crossed    offline   D2              6919            0        –             –             –
+ crossed    offline   Stochastic      6919            0        –             –             –
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 44              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ S19.     Source role audit for partitioned forward models
+@@ -1078,5 +1078,5 @@
+
+ The future-year release analysis replaces predictions in both affected regions while
+ preserving all target cases and the other regional models. Across 27,846 forward controlled-
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 45
+ gap cases, the three-output rule publishes 63.1% and 64.5% in the original and strict
+@@ -1102,5 +1102,5 @@
+
+ widths 3.26 and 3.29. These working intervals include regression variation and do not
+ establish calibrated missingness-only coverage.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 46             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ In the outcome-defined stratum with an unobserved peak, the 2,146 common forward
+@@ -1127,5 +1127,5 @@
+
+ descriptive connected-group bootstrap interval for the strict result is [+0.000957, +0.010431]
+ (◦ C/decade)2 . The same resampled groups are used for both source versions. Removing
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 47
+ Bavaria from these fixed predictions leaves 331 cases in 9 groups and changes the difference
+@@ -1147,5 +1147,5 @@
+
+ target feature distribution and the three-output count; counts and selected cases differ
+ between source versions, and lower-bound information is not held equal.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 48            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S33. Seed-zero before-2010 model roles with positive-weight source cases in the
+@@ -1155,5 +1155,5 @@
+
+ nve hydapi interval calibration        2       3    431            695
+ usgs huc17 estimator                   1       1    140            280
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 49
+ S21.   Source-provider dependence of whole-archive models
+@@ -1180,5 +1180,5 @@
+
+ we retrieved current USGS daily-mean water temperatures for those 69 sites. Of 293,851
+ finite local panel-column days, 292,285 had a single distinct finite USGS value and all
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 50             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ agreed within 10−6 ◦ C. Another 1,525 had multiple distinct USGS values; every local value
+@@ -1205,5 +1205,5 @@
+
+ population transfer guarantee. The corresponding paired MSE differences and bootstrap
+ intervals are supplied with the candidate-source summary.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                          X - 51
+ Table S34.     LUBW cases with positive source-role weights, not independent station
+@@ -1231,5 +1231,5 @@
+
+ crossed     forward     738         17   0.16381         0.14658     0.15806       0.15600
+ crossed     offline     838         18   0.02780         0.03208     0.02868       0.03195
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 52             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S36.     Nominal 95% D2 trend-interval results on cases where both versions are
+@@ -1253,5 +1253,5 @@
+
+ crossed   offline     D2             840          18              0.930                    0.933
+ crossed   offline     classical      838          18              0.942                    0.942
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                   X - 53
+ S23.   Annual uncertainty under candidate-source refits
+@@ -1278,5 +1278,5 @@
+
+ family, mode, region and estimator we estimate an equal-group-weighted empirical 90th
+ percentile of nonnegative interval misses. A correction is applied only with at least three
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 54                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S38.        Annual 90% interval comparison on the same four-way common cases.
+@@ -1301,5 +1301,5 @@
+
+ crossed / offline    hidden    D2          4132        18      90.7%       88.6%        1.171       1.127
+ crossed / offline    hidden    classical   4132        18      87.9%       87.4%        1.068       1.037
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 55
+ available source groups and a positive radius. This rule is exploratory, and the source cases
+@@ -1326,5 +1326,5 @@
+
+ Seventy-three of these lack at least one annual distribution, and two have no incomplete
+ year, leaving 685 common nontrivial settings. Original saved trend intervals are reproduced
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 56                     AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S39. Exploratory interval expansion: same target cases must be supported for
+@@ -1349,5 +1349,5 @@
+
+ crossed / offline    hidden    D2             4132            0        0             –             –              –             –
+ crossed / offline    hidden    classical      4132            0        0             –             –              –             –
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION               X - 57
+ before adjustment. The target selection and calibration remain retrospective. Connected-
+@@ -1357,5 +1357,5 @@
+
+ annual undercoverage, guarantee trend coverage, or resolve source rights. The underlying
+ case records and rank arrays remain local pending permission.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 58            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S40.        Nominal 95% finite-record trend interval comparison on the same 685
+@@ -1381,5 +1381,5 @@
+
+ classical   residual blocks     endpoints           86.4%    0.391           0.845
+ classical   residual blocks     tapered             85.7%    0.381           0.853
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 59
+ S26.   External reference qualification
+@@ -1406,5 +1406,5 @@
+
+ contacts; no station passed the four-year reference requirement after the documented
+ quality checks. A further five metadata candidates with prior network screening had no
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 60              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ four years of complete approved daily counts in 2010–2024; counts can include estimated
+@@ -1430,5 +1430,5 @@
+
+ 30,728 eligible masked cases across its wider roster. These are previously evaluated records
+ for a different pipeline, not unopened target station-years for a new independent test.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 61
+ A later Australian development analysis used July–June rather than calendar-year
+@@ -1455,5 +1455,5 @@
+
+ the published daily mean as reference, not as error-free physical truth. Repeated gaps in
+ a station-year and the four stations are dependent; three stations lie in the Fraser River
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 62             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ basin (Nechako, Thompson and Fraser). These are descriptive results, without population
+@@ -1480,5 +1480,5 @@
+
+ headers do not identify per-hour temperature quality or estimated-value flags; one header
+ states UTC–04:00 and the remaining headers do not establish a time basis. We count
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 63
+ complete reported clock-label years, requiring 24 unique hourly labels with finite numeric
+@@ -1505,5 +1505,5 @@
+
+ error-free temperature. The fixed global source model and source-only interval calibration
+ were reused. Each year was masked separately with 30-, 60- and 90-day controlled gaps,
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 64               AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ using the other three selected years for local history; no empirical-calendar family or
+@@ -1531,5 +1531,5 @@
+
+ remain uncertain. The two sites and repeated masks do not justify a population-level
+ ranking or independent-climate inference.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                               X - 65
+ Table S42. Retrospective 2009–2017 reported-label completeness and release concor-
+@@ -1556,5 +1556,5 @@
+
+ Station     NS01DL0009          72      0.400              0.393           81.9                  93.1
+ Station     NS01FB0001          72      0.221              0.232           94.4                  93.1
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 66             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ S32.     Nova Scotia field values and reported hourly ranges
+@@ -1581,5 +1581,5 @@
+
+ implementation reproduces all 18 range-summary and 18 proximity-summary cells using the
+ same source files. The field records’ preliminary status, absent clock, possible equipment
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                   X - 67
+ dependence and provider quality procedures remain unresolved. None of these counts
+@@ -1605,5 +1605,5 @@
+
+ error-free reference. A second CSV/set implementation recomputed every day and year.
+ The EDI EML declares CC0 while the California discovery catalog lists Creative Commons
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 68                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Attribution; source attribution is retained and the difference requires reconciliation before
+@@ -1631,5 +1631,5 @@
+
+ calibration or generality. Independent arithmetic reconstructed all 72 references, bounds
+ and score cells. A single post-hoc 90-day hidden-peak perturbation left model inputs and
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 69
+ predictions unchanged while altering the hidden reference; it is a diagnostic, not exhaustive
+@@ -1656,5 +1656,5 @@
+
+ and do not identify whether a separate instrument was used. Field visits are sparse and
+ may coincide with servicing; these instantaneous differences cannot be converted directly
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 70              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ into uncertainty in a 30-day H30 maximum. The comparison assumes both PST labels
+@@ -1681,5 +1681,5 @@
+
+ An exploratory adaptation scored 306 masks in 17 station-years at four sites that lack
+ four complete training years. On a post-hoc subset of 180 masks with reference width at
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 71
+ most 0.1◦ C, mean absolute-error bounds are [0.299, 0.325] (plug-in), [0.348, 0.374] (D2)
+@@ -1703,5 +1703,5 @@
+
+ equivalent physical-reference accuracy, and none of these checks is independent-climate
+ validation.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 72            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S45. Paired exploratory reported-day boundary sensitivity with identical original
+@@ -1723,5 +1723,5 @@
+
+ D2                                      72 0.131 -0.047                  97.2       1.106 1.133
+ Calibrated stochastic                   72 0.188 -0.100                  98.6       1.459 1.464
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 73
+ S35.   Exploratory process and numerical diagnostics
+@@ -1747,5 +1747,5 @@
+
+ therefore center both H30 quantities within station and period, before/from 2010, and pool
+ those centered observations. Both periods of a sampled connected group remain paired in
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 74                   AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S47.         Descriptive regional coverage standardization on common cells. Min-count
+@@ -1769,5 +1769,5 @@
+
+ heat-peak timing, tails or autocorrelation. Each variable is its own annual maximum and
+ their maximizing dates need not coincide.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 75
+ Table S48. Remaining balance after regional standardization. TV denotes total variation
+@@ -1792,5 +1792,5 @@
+
+ Paired intervals in this table use seed 2026102969. The following subsection reports the
+ same one-draw contrasts under seed 20261029, including the 468-archive choice and the
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 76             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S49.     Hidden-reference-peak recovery by region and daily reconstructor. The
+@@ -1815,5 +1815,5 @@
+
+ observations. All three summaries use each year’s longest contiguous missing run, including
+ unions of adjacent or overlapping missing spans.
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                       X - 77
+ Table S50. Annual water–air H30 associations in unique complete station-years. Years
+@@ -1839,5 +1839,5 @@
+
+ The shared-year fraction counts station-years in which at least one other station in the
+ same connected group also has an incomplete year (within the same replicate for trial
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 78             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S51. Annual water–air correlations and paired changes. Intervals use connected-
+@@ -1860,5 +1860,5 @@
+
+ archive, shared by the retained analysis. They do not average over all random year
+ selections. The time-balanced heuristic spreads only the added incomplete years; it does
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION               X - 79
+ Table S52.        Paired resampling sensitivity for within-station annual water–air H30
+@@ -1882,5 +1882,5 @@
+
+ retain no incomplete year and 5 retain every incomplete year. Only 468 archives offer a
+ choice between different same-sized subsets. Their estimated RMSEs are 0.3944 (Warm-
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm
+ X - 80                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S53.     Exploratory finite-record slope comparisons on 805 actual-mask archives
+@@ -1891,38 +1891,12 @@
+
+ minus-warm-season estimated RMSE with a paired 95% group-percentile interval, not an
+ equivalence test.
+-Rule              Years Estimate Year-set Reconst. ∆ RMSE [95% interval]
+-Warm-season         9.59         0.4459        0.4458   0.0023 Reference
+-Legacy random       9.59         0.4540        0.4569   0.1030 0.0081 [-0.0103, 0.0177]
+-Legacy spacing      9.59         0.4566        0.4539   0.0873 0.0108 [-0.0063, 0.0404]
+-Uniform exact       9.59         0.4492        0.4483   0.0978 0.0033 [-0.0052, 0.0171]
+-CDF                 9.59         0.4284        0.4199   0.1079 -0.0175 [-0.0274, -0.0049]
+-Sxx                 9.59         0.4023        0.3931   0.1185 -0.0436 [-0.0645, -0.0173]
+-All years          13.32         0.1697        0.0000   0.1697 -0.2762 [-0.3557, -0.1841]
+-Table S54.         Common annual-longest-gap comparison in 2010–2025. Each number
+-describes the longest contiguous missing run within an incomplete year. Observations
+-weight incomplete station-years equally; trial rows weight incomplete station-year–replicates
+-equally, retaining all 20 mask replicates. Repetition and station composition differ, so this
+-is descriptive rather than a same-distribution test.
+-Source                Rows Stations Median (d) 90th percentile (d)                ≥ 30 d
+-Observed archive           109            29             4                 33.6   11.93%
+-Empirical calendar 3,806                  41             6                 30.0   10.25%
+-Controlled gaps       3,777               41            60                 90.0 100.00%
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                         X - 81
+-Table S55. Long-complete evaluation stations versus the remainder of the 581-station
+-source archive. Complete-year counts are unique complete station-years, including the
+-held-out year, rather than training-year counts. USGS counts follow named hydrologic-unit
+-regions.
+-Panel              Stations Groups Median years Bavaria Switzerland USGS
+-Trend cohort             42         18           31    24          10      7
+-Source remainder        539     183               8    29           1     312
+-Table S56.            Forward-mask geometry on the 41-station trend cohort with twenty
+-replicates. Year selection after a seven-year burn-in is shared. Segment length and season
+-come from the copied empirical calendars or from the controlled-gap design. Shared-year
+-fraction is the share of masked station-years that are also masked at another station in
+-the same connected group.
+-Family               Median length (d) JJA share Adjacent years Shared years Stations
+-Empirical calendar                  4        19.9%        43.9%       60.9%         41
+-Controlled 30–90 d                 60        58.5%        43.5%       60.1%         41
++Rule             Years Estimate Year-set Reconst. ∆ RMSE [95% interval]
++Warm-season       9.59   0.4459   0.4458   0.0023 Reference
++Legacy random     9.59   0.4540   0.4569   0.1030 0.0081 [-0.0103, 0.0177]
++Legacy spacing    9.59   0.4566   0.4539   0.0873 0.0108 [-0.0063, 0.0404]
++Uniform exact     9.59   0.4492   0.4483   0.0978 0.0033 [-0.0052, 0.0171]
++CDF               9.59   0.4284   0.4199   0.1079 -0.0175 [-0.0274, -0.0049]
++Sxx               9.59   0.4023   0.3931   0.1185 -0.0436 [-0.0645, -0.0173]
++All years        13.32   0.1697   0.0000   0.1697 -0.2762 [-0.3557, -0.1841]
+ season 90%), 0.4100 (Same-count random), 0.4150 (Same-count time-balanced) ◦ C per
+ decade. Similar overall point estimates therefore partly reflect identical selections.
+@@ -1931,6 +1905,54 @@
+
+ and E = S + R. Consequently,
+ MSE(E) = MSE(S) + MSE(R) + 2 mean(SR).
+-October 30, 2026, 5:19am
+-X - 82          AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                              X - 81
++Table S54.     Annual longest contiguous missing run. The first three rows are the 2010–
++2025 comparison. Observations weight incomplete station-years equally; trial rows weight
++incomplete station-year–replicates equally. The 1981–2025 row is the longer observed
++archive on the same statistic. Sampling and repeat weights differ, so this is not a same-
++distribution test.
++Source                Rows Stations Median (d) 90th percentile (d)        ≥ 30 d
++Observed archive       109       29           4               33.6        11.93%
++Empirical calendar    3,806      41           6               30.0        10.25%
++Controlled gaps       3,777      41          60               90.0 100.00%
++Observed 1981–2025     220       31           3               32.4        11.36%
++Table S55. Long-complete evaluation stations versus the remainder of the 581-station
++source archive. Complete-year counts are unique complete station-years, including the
++held-out year, rather than training-year counts. USGS counts follow named hydrologic-unit
++regions.
++Panel               Stations Groups Median years Bavaria Switzerland USGS
++Trend cohort             42      18           31       24             10        7
++Source remainder       539      183            8       29              1      312
++For the same-count random control, the numerical identity is 0.206128 = 0.208715 +
++0.010617 − 0.013204. The negative cross term shows error cancellation; RMSE differences
++and normalized squared terms are not independent causal contributions.
++Relationship to the 807-archive core comparison.: Two of the original common
++archives have no masked year and empty annual-prediction schemas: Bavaria station
++10081004, replicate 6 (14 complete years), and station 11405000, replicate 14 (7 complete
++years). Their design masks are empty and saved warm-season and all-year slope errors are
++October 30, 2026, 4:43pm
++X - 82               AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++Table S56.        Forward-mask geometry on the 41-station trend cohort with twenty
++replicates. Year selection after a seven-year burn-in is shared. Segment length and season
++come from the copied empirical calendars or from the controlled-gap design. Shared-year
++fraction is the share of masked station-years that are also masked at another station in
++the same connected group.
++Family               Median length (d) JJA share Adjacent years Shared years Stations
++Empirical calendar                  4     19.9%          43.9%        60.9%       41
++Controlled 30–90 d                 60     58.5%          43.5%        60.1%       41
++both zero. The prior diagnostic skipped them because the empty prediction files contain
++neither a year nor a D2 column. The present 805-archive diagnostic explicitly retains that
++actual-mask scope; this is not a reconstruction failure. A saved 807-archive sensitivity
++restores their zero errors to every scheme. The remaining 13 of the 820 forward archives
++lack an available warm-season comparison and are outside both common denominators.
++S35.6. Earlier uncalibrated-only trajectory diagnostic
++The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case
++sample. Its small pooled median does not establish stratified stability. On seed 0, six of nine
++Bavarian upper endpoints move by more than 0.05◦ C, and the mean 90% width increases
++from 0.3179 to 0.3686◦ C. The subsequent experiment section additionally regenerates the
++original source-calibration roles and re-estimates offsets at each budget; the table below is
++retained specifically as the uncalibrated reference.
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 83
+ Table S57.   Bavarian whole-archive stations. Regulation labels are project metadata.
+ Code     Group Latitude Longitude Years     Regulation
+@@ -1959,6 +1981,6 @@
+
+ 24064003 g0037   49.716     9.225 1981–2025 unmatched gages
+ 24405002 g0033   50.197    10.075 1981–2025 unmatched gages
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION               X - 83
++October 30, 2026, 4:43pm
++X - 84           AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S58. Non-Bavarian whole-archive stations, including Switzerland (FOEN) and
+ USGS HUC17. Regulation labels are project metadata.
+@@ -1982,6 +2004,6 @@
+
+ 14166000 g0057   44.270   -123.174 2003–2025 regulated
+ 14211500 g0059   45.477   -122.508 2000–2021 regulated
+-October 30, 2026, 5:19am
+-X - 84              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                       X - 85
+ Table S59. Paired estimated-slope RMSE contrasts, comparator minus warm-season
+ screen (◦ C per decade).
+@@ -1990,25 +2012,4 @@
+
+ Same-count time-balanced    +0.0108               [-0.0060, +0.0394]
+ All supported years          -0.2762               [-0.3572, -0.1832]
+-For the same-count random control, the numerical identity is 0.206128 = 0.208715 +
+-0.010617 − 0.013204. The negative cross term shows error cancellation; RMSE differences
+-and normalized squared terms are not independent causal contributions.
+-Relationship to the 807-archive core comparison.: Two of the original common
+-archives have no masked year and empty annual-prediction schemas: Bavaria station
+-10081004, replicate 6 (14 complete years), and station 11405000, replicate 14 (7 complete
+-years). Their design masks are empty and saved warm-season and all-year slope errors are
+-both zero. The prior diagnostic skipped them because the empty prediction files contain
+-neither a year nor a D2 column. The present 805-archive diagnostic explicitly retains that
+-actual-mask scope; this is not a reconstruction failure. A saved 807-archive sensitivity
+-restores their zero errors to every scheme. The remaining 13 of the 820 forward archives
+-lack an available warm-season comparison and are outside both common denominators.
+-S35.6. Earlier uncalibrated-only trajectory diagnostic
+-The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case
+-sample. Its small pooled median does not establish stratified stability. On seed 0, six of nine
+-Bavarian upper endpoints move by more than 0.05◦ C, and the mean 90% width increases
+-from 0.3179 to 0.3686◦ C. The subsequent experiment section additionally regenerates the
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                  X - 85
+-original source-calibration roles and re-estimates offsets at each budget; the table below is
+-retained specifically as the uncalibrated reference.
+ S36.   Additional exploratory experiments
+ S36.1. Outcome-blind year-set selection
+@@ -2025,14 +2026,14 @@
+
+ identify effects of year count and temporal position.
+ p
+-Uniform exact means      meana EU |a (Ea2 ), with an equal-probability set U inside each
++Uniform exact means     meana EU |a (Ea2 ), with an equal-probability set U inside each
+ archive a. It is not the mean RMSE over random selections. Over 200 random seeds,
+ the mean RMSE is 0.4505, the root of mean sampled MSE is 0.4506, and the exact
+ conditional root-expected-MSE is 0.4492 ◦ C per decade. The across-seed 2.5th–97.5th
++October 30, 2026, 4:43pm
++X - 86             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ percentiles [0.4359, 0.4671] describe selection variation, not a confidence interval; 62/200
+ seeds improve on the warm-season point result. Paired intervals in Table S53 instead
+ resample the recorded connected groups 10,000 times, preserving paired archives and their
+ conditional subset-average MSEs before taking roots.
+-October 30, 2026, 5:19am
+-X - 86             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ For each fixed set E = S + R, hence MSE(E) = MSE(S) + MSE(R) + 2 mean(SR).
+ Averaging over uniform subsets preserves this identity; negative cross terms can cancel
+@@ -2054,9 +2055,9 @@
+
+ and archive files. Seeds 0, 1 and 2 share fixed daily models, residual histories and masks.
+ The uncalibrated, fixed-old-offset and updated-source-offset layers score the same target
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 87
+ raw draws. D2 retains its original seven annual quantiles, with no refit or recalibration.
+ Every CRPS uses the common bounded normal-spacing 256-point annual approximation;
+ these are annual scores, not newly computed full-archive trends. The 27 target years
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 87
+ span only two connected groups; 500 paths do not prove convergence or broad ranking
+ robustness.
+@@ -2077,10 +2078,10 @@
+
+ Swiss station, and the Bavarian aggregate change masks group influence. None of these
+ checks establishes daily reconstruction stability or equivalence.
++October 30, 2026, 4:43pm
++X - 88             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ S36.4. Same-day missingness with an evaluable-peer denominator
+ Peer-evaluable rows require another station in the same connected group with an eligible
+ recorded missingness pattern in that year. Observed peers use the eligible-year roster,
+ which includes incomplete years; trial peers use the complete-reference-year roster on
+-October 30, 2026, 5:19am
+-X - 88             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ which masks are imposed. Group-years with no such peer are excluded and counted.
+ Same-day overlap means at least one missing day coincides with a peer missing day. Shared
+@@ -2102,9 +2103,9 @@
+
+ river with a source station and retains grade and time-basis questions (Environment and
+ Climate Change Canada, 2024; Redoloza et al., 2025). An Australian candidate archive
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 89
+ had prior evaluation exposure: 79 of 80 candidate station-years were previously evaluable,
+ including all 10 designated test years (Australian Bureau of Meteorology, 2026). These
+ exclusions do not establish that the observations are erroneous.
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 89
+ Two exploratory comparisons bound what external evidence can show. British Columbia
+ has 4 stations and 16 station-years. Of 372 masks, 288 are controlled gaps and 84 are
+@@ -2127,20 +2128,22 @@
+
+ corrections, daily preprocessing and the bound assumption. It does not identify a single
+ source error or justify a universal physical calibration. Truckee scores 72 controlled-gap
++October 30, 2026, 4:43pm
++X - 90             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ masks on one station and four reported years. The reservoir comparison scores 306
+ exploratory bounded-reference cases at 4 stations and 17 target station-years. Both remain
+ descriptive checks of bounds and clock assumptions, not independent accuracy tests.
+-October 30, 2026, 5:19am
+-X - 90             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                         X - 91
+ Table S60.      Fixed-input trajectory sensitivity, 20 to 500 nested draws, by seed and
+ region–reconstructor stratum. Med./max. are absolute 95th-percentile changes in ◦ C.
+ Tail count is the number with either endpoint moving by more than 0.05◦ C. Intervals are
+ uncalibrated; each stratum is one connected group.
+-Seed Stratum                 n    Med./max. Tail count Width 20/500 Covered 20/500
+-0      Switzerland / donor 18 0.0011/0.1770             4      0.138/0.157       15/16
+-0      Bavaria / air         9 0.1140/0.4346            6      0.677/0.792        8/9
+-1      Switzerland / donor 18 0.0033/0.0887             2      0.151/0.153       16/16
+-1      Bavaria / air         9 0.1057/0.3824            6      0.700/0.821        8/9
+-2      Switzerland / donor 18 0.0043/0.1369             5      0.153/0.153       16/16
+-2      Bavaria / air         9 0.0194/0.2570            5      0.790/0.831        9/9
++Seed Stratum                n    Med./max. Tail count Width 20/500 Covered 20/500
++0     Switzerland / donor 18 0.0011/0.1770             4      0.138/0.157       15/16
++0     Bavaria / air         9 0.1140/0.4346            6      0.677/0.792        8/9
++1     Switzerland / donor 18 0.0033/0.0887             2      0.151/0.153       16/16
++1     Bavaria / air         9 0.1057/0.3824            6      0.700/0.821        8/9
++2     Switzerland / donor 18 0.0043/0.1369             5      0.153/0.153       16/16
++2     Bavaria / air         9 0.0194/0.2570            5      0.790/0.831        9/9
+ Table S61.     Estimated slope RMSE sensitivity to weighting and selection opportunity.
+ Archive, station and group columns weight each respective unit equally within the 805-
+@@ -2153,7 +2156,7 @@
+
+ Sxx                 0.4023        0.4003       0.3413      0.3031
+ All years           0.1697        0.1689       0.1524      0.1711
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                         X - 91
+-Table S62.     Same-target annual comparison by region–reconstructor stratum. D2 and
++October 30, 2026, 4:43pm
++X - 92            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++Table S62.    Same-target annual comparison by region–reconstructor stratum. D2 and
+ historical native20 are fixed original references. Updated rows regenerate the source-role
+ offsets at the stated nested budget; entries are minima–maxima across seeds 0, 1 and
+@@ -2175,7 +2178,7 @@
+
+ Updated nested100 8–9 of 9 0.1824–0.2129 0.7526–0.8547 0.1262–0.1467
+ Updated nested500        9 of 9 0.1915–0.2015 0.7607–0.8006 0.1287–0.1334
+-October 30, 2026, 5:19am
+-X - 92            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+-Table S63.     Updated source-offset annual results for every nested seed and budget.
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 93
++Table S63.      Updated source-offset annual results for every nested seed and budget.
+ Panels retain the original region–reconstructor strata. Counts are descriptive on one group
+ per panel; all scores use the same bounded 256-point annual approximation.
+@@ -2201,7 +2204,7 @@
+
+ 2 / 100         9           9 0.1824 0.8547   0.1317
+ 2 / 500         9           9 0.1915 0.8006   0.1287
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                   X - 93
+-Table S64.      Both endpoint sensitivities after source-role offset re-estimation, from
++October 30, 2026, 4:43pm
++X - 94             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++Table S64.       Both endpoint sensitivities after source-role offset re-estimation, from
+ nested-prefix20 to 500 paths. Entries are the median/maximum absolute change in ◦ C
+ across the stated target stratum; the last column counts cases with either endpoint changing
+@@ -2215,5 +2218,5 @@
+
+ Bavarian air       1     9      0.0433/0.2918        0.1011/0.3140               6/9
+ Bavarian air       2     9      0.0034/0.4496        0.0670/0.2367               7/9
+-Table S65.      Influence checks. Panel A shows FOEN-minus-Bavaria coverage gaps in
++Table S65.     Influence checks. Panel A shows FOEN-minus-Bavaria coverage gaps in
+ percentage points using min-count weights; group deletion recomputes common support.
+ Panel B shows after-minus-before-2010 within-station annual slopes; equal-station weighting
+@@ -2226,6 +2229,6 @@
+
+ Switzerland                    -0.0143               -0.0137 -0.0152 to -0.0047
+ Bavaria                        -0.0054               -0.0343    -0.0882–0.1089
+-October 30, 2026, 5:19am
+-X - 94            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                         X - 95
+ Table S66. Same-day overlap denominators. Any overlap is the percent of peer-evaluable
+ incomplete rows with at least one shared missing day. Day share uses eligible missing
+@@ -2237,6 +2240,6 @@
+
+ Controlled / 2010–25 3,777 2,779   998    58.58       64,164/165,870     38.68
+ Observed / 1981–25    220   147     73    32.65            158/3,946      4.00
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                                X - 95
++October 30, 2026, 4:43pm
++X - 96                    AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ Table S67.              External reference qualification. Complete or bounded reference years,
+ stations meeting the stated history rule, quality and clock, independence, and scored cases
+@@ -2288,7 +2291,7 @@
+
+ missing values lie in                         target station-years
+ [−5, 50] ◦ C
+-October 30, 2026, 5:19am
+-X - 96             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+-S38.     Post-hoc retained-truth and point-summary checks
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                 X - 97
++S38.   Post-hoc retained-truth and point-summary checks
+ These checks reuse the saved forward and offline predictions. They do not refit models,
+ open new stations, or supply an independent validation. Replacing a retained annual value
+@@ -2313,13 +2316,13 @@
+
+ that property. Table S69 replaces only the annual point, using the mean of the same
+ approximate distribution on the 738 archives where both methods have a forward controlled-
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION               X - 97
++October 30, 2026, 4:43pm
++X - 98             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ gap result. The mean still depends on interpolation between the seven quantiles and on
+ the normal-spacing tails. Both root-mean-square errors change slightly, and the original
+ ordering does not reverse. This is not a claim that the mean is a verified optimum, and it
+ does not replace the published-median analysis.
+-October 30, 2026, 5:19am
+-X - 98              AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+-Table S68.       D2 slope error when retained years keep their saved annual values or
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                                  X - 99
++Table S68.        D2 slope error when retained years keep their saved annual values or
+ are replaced by the known complete-record H30. Units are ◦ C per decade. The truth
+ replacement is an evaluation device.
+@@ -2335,7 +2338,7 @@
+
+ D2                                      0.163814                                    0.157811
+ Calibrated stochastic                   0.146577                                    0.143719
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                    X - 99
+-S39.    Independent observed-record arithmetic re-audits
++October 30, 2026, 4:43pm
++X - 100             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++S39.      Independent observed-record arithmetic re-audits
+ Using the same local canonical float32 daily archive and an independent convolution
+ implementation, we recomputed 2,139 complete reference station-years and 545 incomplete
+@@ -2360,6 +2363,6 @@
+
+ payloads, but the separate arithmetic audit does not independently implement that
+ selection. Approved estimated values remain in complete-year references, but the certified
+-October 30, 2026, 5:19am
+-X - 100            AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
++October 30, 2026, 4:43pm
++AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                X - 101
+ windows contain no estimated days. These records do not establish subdaily completeness,
+ physical measurement accuracy or independent recovery performance.
+@@ -2377,14 +2380,14 @@
+
+ Environment and Climate Change Canada. (2024). Automated fresh water quality mon-
+ itoring and surveillance data. Retrieved from https://open.canada.ca/data/en/
+-dataset/f258b0c8-7871-4572-b567-1ba2bd55f1b6             (Open Government Licence;
++dataset/f258b0c8-7871-4572-b567-1ba2bd55f1b6              (Open Government Licence;
+ ECCC Red River files and metadata accessed October 2026)
+ Government of Nova Scotia, Environment and Climate Change. (2026). Surface water
+ quality monitoring network continuous water quality data. Retrieved from https://
+-data.novascotia.ca/datasets/bkfi-mjgw           (Open Government Licence – Nova
++data.novascotia.ca/datasets/bkfi-mjgw            (Open Government Licence – Nova
+ Scotia; accessed October 2026)
+ Greater Wellington Regional Council. (2016). Environmental monitoring: quality codes.
+-Retrieved from https://cms.graphs.gw.govt.nz/envmon/whats-new                (Quality-
+-October 30, 2026, 5:19am
+-AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                         X - 101
++Retrieved from https://cms.graphs.gw.govt.nz/envmon/whats-new                 (Quality-
++October 30, 2026, 4:43pm
++X - 102                AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+ code explanation; accessed October 2026)
+ Marzolf, N. (2025). Ecosystem metabolism estimates from the national ecological observa-
+@@ -2397,5 +2400,5 @@
+
+ Office français de la biodiversité, & Bureau de recherches géologiques et minières. (2026).
+ Hub’Eau: continuous stream temperature data. Retrieved from https://hubeau
+-.eaufrance.fr/api/v1/temperature/chronique                  (Quality-qualified Réunion
++.eaufrance.fr/api/v1/temperature/chronique                 (Quality-qualified Réunion
+ records retrieved October 2026)
+ Redoloza, F. S., Glas, R. L., Nustad, R. A., & Ryberg, K. R. (2025). Evaluating drought risk
+@@ -2410,3 +2413,3 @@
+
+ from https://wateroffice.ec.gc.ca/contactus/faq e.html (Temperature is an
+ auxiliary output without standardized quality assurance; accessed October 2026)
+-October 30, 2026, 5:19am
++October 30, 2026, 4:43pm

@@ -1,0 +1,5 @@
+{
+  "created_utc": "2026-10-27T00:35:19.912691+00:00",
+  "change": "After interruption during first site before any output, apply identical duplicate-resolution rule only to duplicated timestamps for speed; original plan, cohort, criteria and all source bytes unchanged.",
+  "replacement_script": "scripts/682_nz_native_completeness_fast.py"
+}

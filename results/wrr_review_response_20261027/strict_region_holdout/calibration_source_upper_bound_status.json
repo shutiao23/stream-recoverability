@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "source_group_upper_bound_before_model_predictions": 1,
+  "minimum_groups_required": 3,
+  "original_and_strict_rule_groups_match": true,
+  "conclusion": "strict HUC17 annual expansion and task calibration remain unsupported for either estimator because raw eligible source groups are too few; no model-dependent calibration radius is asserted",
+  "scope": "forward HUC17 only; original source archive calibration cases and identical strict rule-role list; not an independent validation or a group-risk guarantee"
+}

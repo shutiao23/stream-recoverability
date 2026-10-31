@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "sites": 4,
+  "target_years": 8,
+  "raw_daily_rows": 2922,
+  "raw_target_rows_with_nonempty_qualifier": 0,
+  "raw_target_nonapproved_rows": 0,
+  "scope": "Posthoc comparison of previously downloaded raw daily API responses with processed target daily values; raw/processed 30-day maxima also checked.",
+  "limitations": "Blank qualifiers and approved status do not prove absence of unrecorded corrections or physical measurement error; no model fitting, independent climate or true reporting-clock validation."
+}

@@ -1,0 +1,134 @@
+{
+  "status": "posthoc_count_semantics_completed",
+  "completed_utc": "2026-10-26T22:50:15.382576+00:00",
+  "primary_station": "01399820",
+  "boundary_comparisons": [
+    {
+      "year": 2013,
+      "end_december_31": {
+        "status": "returned",
+        "http_status": 200,
+        "count": 6577
+      },
+      "end_next_january_1": {
+        "status": "returned",
+        "http_status": 200,
+        "count": 6603
+      }
+    },
+    {
+      "year": 2023,
+      "end_december_31": {
+        "status": "returned",
+        "http_status": 200,
+        "count": 17472
+      },
+      "end_next_january_1": {
+        "status": "returned",
+        "http_status": 200,
+        "count": 17520
+      }
+    }
+  ],
+  "secondary_station": "01403075",
+  "secondary_control": {
+    "status": "returned",
+    "http_status": 200,
+    "count": 26911
+  },
+  "secondary_year_counts": [
+    {
+      "year": 2010,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2011,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2012,
+      "status": "returned",
+      "http_status": 200,
+      "count": 2058
+    },
+    {
+      "year": 2013,
+      "status": "returned",
+      "http_status": 200,
+      "count": 8417
+    },
+    {
+      "year": 2014,
+      "status": "returned",
+      "http_status": 200,
+      "count": 4053
+    },
+    {
+      "year": 2015,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2016,
+      "status": "returned",
+      "http_status": 200,
+      "count": 4030
+    },
+    {
+      "year": 2017,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2018,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2019,
+      "status": "returned",
+      "http_status": 200,
+      "count": 8353
+    },
+    {
+      "year": 2020,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2021,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2022,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2023,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2024,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    }
+  ],
+  "no_temperature_values_requested": true,
+  "no_predictions_scored": true,
+  "limitations": "end-date convention is inferred only from returned record counts; multiple data parameters, duplicates, estimated values, missing hours, incomplete QA and watershed overlap remain unresolved"
+}

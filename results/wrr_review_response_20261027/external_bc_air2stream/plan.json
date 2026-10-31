@@ -1,0 +1,14 @@
+{
+  "created_utc": "2026-10-26T19:38:36.611369+00:00",
+  "selection": "all 23 stations in the author-published roster before retrieving daily time series; do not replace stations based on outcomes",
+  "source": "https://doi.org/10.5281/zenodo.14502248",
+  "study": "https://doi.org/10.1002/hyp.70033",
+  "selection_caveat": "23 were selected by original authors for >=5 years total data; these are not a representative random sample",
+  "prior_contact": "search station numbers and geography in named local source and evaluation inventories; no ID matches found in initial text search, geographic and network independence not established",
+  "quality": "published tw_obs removed periods after manual hourly and spot checks; study accepted daily means with >=20 hourly values, actual day-specific counts and flags unavailable; no 24-hour completeness claim, possible air-temperature-dependent selection",
+  "qualification": "at least four full Gregorian calendar years with one finite, non-conflicting tw_obs per day; continuous 24h per day is unverified. Test only this weaker reference as exploratory, never override strict quality criterion",
+  "analysis": "source models frozen, same masks and scoring for D2 and calibrated stochastic; only if temporal, source-model, support and reference availability permit; consider shared watershed/climate dependence",
+  "climate": "BC station observations may share climatic forcing and hydrologic networks with previously used US stations; separation of station labels does not establish independence",
+  "coordinates": "rounded 0.01 degree as published article table 1, used only with clear precision caveat for meteorological forcing",
+  "status": "unregistered prospective local analysis plan; published study has existing results; no masked-recovery outcomes inspected"
+}

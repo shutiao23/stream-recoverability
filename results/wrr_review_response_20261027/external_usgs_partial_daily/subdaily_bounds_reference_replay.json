@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "target_years": 8,
+  "day_clock_rows": 5844,
+  "fixed_zero_width_years": 3,
+  "scope": "Public continuous-source records, conditional daily slot bounds and annual 30-day maxima for two clocks.",
+  "limitations": "The [-5,50] C range for missing samples is an assumption, not sensor accuracy. Does not evaluate models, establish actual clock, source/climate independence or validate physical water temperature."
+}

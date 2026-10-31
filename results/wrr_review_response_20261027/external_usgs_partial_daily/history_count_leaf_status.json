@@ -1,0 +1,15 @@
+{
+  "status": "completed_posthoc_leaf_diagnostic",
+  "cases": 144,
+  "clipped_history_count_cases": 144,
+  "quantile_leaf_changed_cases": 0,
+  "classifier_leaf_changed_cases": 0,
+  "max_raw_quantile_change": 0.0,
+  "max_projected_quantile_change": 0.0,
+  "max_classifier_score_change": 0.0,
+  "estimator_min_history": 3.0,
+  "estimator_max_history": 41.0,
+  "baseline_manually_reproduced": true,
+  "limitations": "Frozen source model, source cases and target predictions reused; source model training, independence, point quality and model calibration are not validated. The altered count is knowingly false and is not a valid missing-history treatment or release workaround. No target outcomes are used in this diagnostic, and identical paths do not prove accuracy or joint support.",
+  "storage": "temporary RAM filesystem; not durable"
+}

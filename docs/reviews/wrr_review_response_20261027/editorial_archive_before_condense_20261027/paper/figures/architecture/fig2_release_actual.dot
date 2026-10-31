@@ -1,0 +1,26 @@
+digraph release {
+  graph [rankdir=TB, bgcolor="white", pad="0.08", nodesep="0.2", ranksep="0.22", size="5.35,3.9", ratio=compress];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, margin="0.12,0.08", color="#888888"];
+  edge [fontname="Helvetica", fontsize=9, color="#666666", arrowsize=0.7];
+  input [label="Visible water, air,\nobserved-window bound", fillcolor="#dceafb"];
+  quality [label="Quality flag\n(seven-day air match)", fillcolor="#fff2cc"];
+  risk [label="Source-range limits, available estimate,\n>=4 history years; raw score <= 0.10", fillcolor="#fff2cc"];
+  bound [label="Fully observed\n30-day window?", fillcolor="#fff2cc"];
+  estimate [label="Estimate\nmedian H30", fillcolor="#d7ead3"];
+  lower [label="Observed lower bound\n(no reconstructed annual value)", fillcolor="#fce3d6"];
+  unknown_quality [label="Unknown\n(quality flagged)", fillcolor="#eeeeee"];
+  unknown_bound [label="Unknown\n(no observed bound)", fillcolor="#eeeeee"];
+  separate [label="Exploratory selected trend\nvalues plus bounds; Gaussian working likelihood", fillcolor="#e9e0ef", fontsize=10];
+  input -> quality;
+  quality -> risk [label="no flag"];
+  quality -> unknown_quality [label="flag"];
+  risk -> estimate [label="pass"];
+  risk -> bound [label="fail"];
+  bound -> lower [label="yes"];
+  bound -> unknown_bound [label="no"];
+  { rank=same; quality; unknown_quality; }
+  { rank=same; estimate; risk; }
+  { rank=same; lower; bound; unknown_bound; }
+  estimate -> separate [style=dashed];
+  lower -> separate [style=dashed];
+}

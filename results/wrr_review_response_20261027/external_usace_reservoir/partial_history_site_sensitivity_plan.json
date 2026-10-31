@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T06:34:24.524410+00:00",
+  "status": "posthoc after target H30 bounds and aggregate model scores were inspected; before generating per-site results",
+  "cohort": "All four fixed resources and all available cases, and the already defined width<=0.1 C posthoc subset. Report every resource, including those with zero subset cases.",
+  "metrics": "Number of target years/cases, interpolation burden in history, equal-case means of each method lower/upper absolute-error bounds, and D2-minus-comparator paired difference bounds. Compare known gage-proxy 200-km prior hits as descriptive subsets only.",
+  "limitations": "No-hit is not proof of independence: sensor and gage can differ, search is truncated, networks and climate can overlap. Mask cases repeat years, and no site or uncertainty inference is claimed. Results depend on assumed missing-value bounds, quality, training interpolation and out-of-support model inputs."
+}

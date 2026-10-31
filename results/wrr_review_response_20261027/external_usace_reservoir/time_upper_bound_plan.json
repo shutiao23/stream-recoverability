@@ -1,0 +1,103 @@
+{
+  "created_utc": "2026-10-27T05:59:18.812368+00:00",
+  "status": "posthoc after all source metadata, README, exact prior-ID and bounded NLDI results, before opening candidate level-1 files or target errors",
+  "selection": "All 10 frozen metadata candidates, including those with known prior network hits; retain the 11th exact prior-gage resource as excluded. No candidate selected by observed temperatures or reconstruction errors.",
+  "resource_files": [
+    {
+      "resource_id": "518f1782309742a39cea7e08b677ca48",
+      "filename": "USACE-RES_Arkansas-above-JohnMartin_level1-qaqc_20200630-20260403.csv",
+      "url": "https://www.hydroshare.org/resource/518f1782309742a39cea7e08b677ca48/data/contents/USACE-RES_Arkansas-above-JohnMartin_level1-qaqc_20200630-20260403.csv",
+      "expected_bytes": 13762364,
+      "gage_ids": [
+        "07124000",
+        "07128500"
+      ]
+    },
+    {
+      "resource_id": "53bdd4a98c0e46dfaf0e5c67cf5be2e5",
+      "filename": "USACE-RES_Rio-Chama-below-Abiquiu_level1-qaqc_20200630-20260428.csv",
+      "url": "https://www.hydroshare.org/resource/53bdd4a98c0e46dfaf0e5c67cf5be2e5/data/contents/USACE-RES_Rio-Chama-below-Abiquiu_level1-qaqc_20200630-20260428.csv",
+      "expected_bytes": 11719019,
+      "gage_ids": [
+        "08287000"
+      ]
+    },
+    {
+      "resource_id": "6b8443e801424ed7933581b054fc4fac",
+      "filename": "USACE-RES_Pecos-below-SantaRosa_level1-qaqc_20200822-20260327_v2.csv",
+      "url": "https://www.hydroshare.org/resource/6b8443e801424ed7933581b054fc4fac/data/contents/USACE-RES_Pecos-below-SantaRosa_level1-qaqc_20200822-20260327_v2.csv",
+      "expected_bytes": 12040941,
+      "gage_ids": [
+        "08382830"
+      ]
+    },
+    {
+      "resource_id": "6dfb4f3681f443cd8c2017cb9304081c",
+      "filename": "USACE-RES_Rio-Chama-above-Abiquiu_level1-qaqc_20200630-20260428.csv",
+      "url": "https://www.hydroshare.org/resource/6dfb4f3681f443cd8c2017cb9304081c/data/contents/USACE-RES_Rio-Chama-above-Abiquiu_level1-qaqc_20200630-20260428.csv",
+      "expected_bytes": 11896866,
+      "gage_ids": [
+        "08286500"
+      ]
+    },
+    {
+      "resource_id": "7ee7252127f145818035c34ae5edfbe0",
+      "filename": "USACE-RES_Purgatory-above-Trinidad_level1-qaqc_20200825-20260403.csv",
+      "url": "https://www.hydroshare.org/resource/7ee7252127f145818035c34ae5edfbe0/data/contents/USACE-RES_Purgatory-above-Trinidad_level1-qaqc_20200825-20260403.csv",
+      "expected_bytes": 12745998,
+      "gage_ids": [
+        "07124200"
+      ]
+    },
+    {
+      "resource_id": "814f3b12af614c56a4932eed9568eeaf",
+      "filename": "USACE-RES_Canadian-above-Conchas_level1-qaqc_20200812-20260403.csv",
+      "url": "https://www.hydroshare.org/resource/814f3b12af614c56a4932eed9568eeaf/data/contents/USACE-RES_Canadian-above-Conchas_level1-qaqc_20200812-20260403.csv",
+      "expected_bytes": 13085170,
+      "gage_ids": [
+        "07221500"
+      ]
+    },
+    {
+      "resource_id": "9cf09ae6b59448ca89ba1b582339979c",
+      "filename": "USACE-RES_Pecos-above-SantaRosa_level1-qaqc_20200720-20260327_v2.csv",
+      "url": "https://www.hydroshare.org/resource/9cf09ae6b59448ca89ba1b582339979c/data/contents/USACE-RES_Pecos-above-SantaRosa_level1-qaqc_20200720-20260327_v2.csv",
+      "expected_bytes": 11712977,
+      "gage_ids": [
+        "08382650"
+      ]
+    },
+    {
+      "resource_id": "9e912c8455d64899a323d3fc11e9f27f",
+      "filename": "USACE-RES_Rio-Grande-below-Jemez_level1-qaqc_20200618-20260327.csv",
+      "url": "https://www.hydroshare.org/resource/9e912c8455d64899a323d3fc11e9f27f/data/contents/USACE-RES_Rio-Grande-below-Jemez_level1-qaqc_20200618-20260327.csv",
+      "expected_bytes": 12156399,
+      "gage_ids": [
+        "08319000"
+      ]
+    },
+    {
+      "resource_id": "c1065841703b4cddb5279ba6672911a3",
+      "filename": "USACE-RES_Purgatory-below-Trinidad_level1-qaqc_20210326-20260326.csv",
+      "url": "https://www.hydroshare.org/resource/c1065841703b4cddb5279ba6672911a3/data/contents/USACE-RES_Purgatory-below-Trinidad_level1-qaqc_20210326-20260326.csv",
+      "expected_bytes": 8515163,
+      "gage_ids": [
+        "07124410"
+      ]
+    },
+    {
+      "resource_id": "f57c3e1508674f77acd613061264c945",
+      "filename": "USACE-RES_Arkansas-below-JohnMartin_level1-qaqc_20200728-20260428.csv",
+      "url": "https://www.hydroshare.org/resource/f57c3e1508674f77acd613061264c945/data/contents/USACE-RES_Arkansas-below-JohnMartin_level1-qaqc_20200728-20260428.csv",
+      "expected_bytes": 11033821,
+      "gage_ids": [
+        "07130500"
+      ]
+    }
+  ],
+  "total_expected_bytes": 118668718,
+  "time_rule": "Each resource README says timestamp is ISO 8601 Mountain Standard Time, UTC-07:00. Treat naive labels as reported fixed MST; convert explicitly offset labels to UTC-07. A day is possibly complete only with exactly 96 unique on-grid quarter-hour labels and no duplicates; a calendar year needs every day. This is a timestamp-only upper bound.",
+  "handling": "Full level-1 files contain water values and will be stored privately under source CC BY 4.0 with attribution due before sharing. Qualification parses only timestamp fields, not temperature values or model errors.",
+  "network_limits": "A 200-km NLDI screen is a bounded gauge proxy, not proof of a sensor’s actual flowline or climate independence. Some candidates have known earlier source/network connections; upstream/downstream and tributary sites are not automatically independent.",
+  "quality_limits": "Authors describe quality control plus fouling/calibration corrections, but timestamp completeness does not establish finite, nonestimated, uncorrected or physically accurate water values. Unknown point flags, metadata vintage, sensor clocks and reservoir operations remain."
+}

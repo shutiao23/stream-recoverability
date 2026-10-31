@@ -1,0 +1,9 @@
+{
+  "status": "metadata_endpoint_intermittent",
+  "recorded_utc": "2026-10-26T22:56:59.970382+00:00",
+  "requests": "initial four metadata-only Hilltop/WFS requests each returned HTTP 522; a later SiteList request returned HTTP 200 with a 78-byte XML payload whose semantics were not parsed; a subsequent identical SiteList request returned HTTP 522",
+  "arcgis_item": "public ArcGIS reference item metadata was accessible; its separately hosted service connection returned TLS EOF in this environment",
+  "no_temperature_observations_requested": true,
+  "no_prediction_accuracy_evaluated": true,
+  "interpretation": "service responses do not establish whether any usable stations, temperature series or quality-controlled years exist; metadata availability remains unresolved"
+}

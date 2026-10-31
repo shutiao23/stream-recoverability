@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T06:05:49.441770+00:00",
+  "status": "posthoc after viewing timestamp and finite-reference availability, before requesting partner time-series metadata or partner water values",
+  "cohort": "All 11 USGS gages referenced in the 10 previously selected resource metadata entries; no selection by temperature or model error.",
+  "request": "Current public USGS time-series metadata for water-temperature parameter 00010, with any statistic. No daily or subdaily water observations are requested.",
+  "goal": "Identify possible separately maintained temperature series for evaluating source-data agreement and whether natural gaps might have a backup. Metadata envelopes and physical proximity do not establish shared water, sensor independence or adequate quality.",
+  "limitations": "USACE sensors may be offset from the named USGS gage; some gages have known prior network links. Missing or absent series metadata is unknown, not proof that no measurement exists. No independent climate or annual reference is established.",
+  "gage_count": 11,
+  "endpoint": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+}

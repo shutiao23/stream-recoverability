@@ -1,0 +1,70 @@
+{
+  "status": "metadata_and_reference_qualification_before_new_prediction_errors",
+  "parent_confirmation_specification": "configs/wrr_next_confirmation_20261021.yaml",
+  "resource": "Australian Bureau of Meteorology Water Data Online, native daily mean water-temperature series",
+  "time_series_name": "DMQaQc.Merged.DailyMean.24HR",
+  "parameter_type_id": "11765",
+  "archive_from": "1981-01-01",
+  "archive_through": "2024-12-31",
+  "metadata_recruitment": {
+    "require_parameters": ["Water Temperature", "Water Course Discharge"],
+    "exclude_parameter_tokens": ["Ground", "Storage"],
+    "allowed_object_types": ["General", "Surface water", "Water quality"],
+    "medium_review_name_tokens": ["CANAL", "DRAIN", "PIPELINE", "TUNNEL", "SEWER", "IRRIGATION CHANNEL"],
+    "uncertain_medium_or_geometry": "pending verification; retained in candidate ledger rather than promoted to eligible or scored as zero",
+    "catchment_source": "BoM Geofabric V3.3 official Station Catchments layer 49",
+    "station_number_matching": "exact provider station number; union duplicate matching polygons conservatively; no guessed suffix aliases",
+    "gauge_to_catchment_tolerance_m": 250,
+    "overlap_share_of_smaller_catchment_for_grouping": 0.01,
+    "retired_geometry_note_tokens": ["historical site", "before crotty dam", "not correct"]
+  },
+  "roles": {
+    "assignment": "fixed order of all members of a metadata-connected catchment component before daily reference acquisition",
+    "fractions": {"development": 0.4, "calibration": 0.3, "test": 0.3},
+    "target_years": {"development": [2016, 2018, 2020], "calibration": [2021, 2022], "test": [2024]},
+    "no_role_reshuffling_after_reference_quality_or_outcomes": true
+  },
+  "daily_reference": {
+    "quality_code": 10,
+    "quality_code_name": "quality-A",
+    "quality_interpretation": "provider best-available record; not an error-free physical truth guarantee",
+    "statistic": "provider time-weighted daily mean with documented minimum 90-percent source coverage",
+    "minimum_aggregation_accuracy_percent_when_reported": 90,
+    "missing_aggregation_accuracy": "retain provider documented daily-mean definition; never invent a coverage percentage",
+    "time_definition": "provider local standard calendar day; convert explicit timestamps to verified owner-state standard offset before assigning dates",
+    "owner_state_offsets_hours": {"QLD": 10, "NSW": 10, "VIC": 10, "TAS": 10, "ACT": 10, "SA": 9.5, "NT": 9.5, "WA": 8},
+    "require_local_midnight_label": true,
+    "complete_year": "every calendar date including leap day has a finite quality-A daily mean",
+    "sentinel_values": [-999999, -99999, -9999, -999, 9999, 99999, 999999],
+    "duplicate_rule": "identical duplicates collapse; conflicting finite approved means make the day unavailable; an empty duplicate does not erase a valid approved mean",
+    "value_clipping_or_gap_filling": false,
+    "minimum_complete_strictly_prior_primary_years": 3,
+    "zero_flow": "not automatically dry: monitored pools can retain water; wet status remains qualified by provider temperature QC"
+  },
+  "predictive_choice_before_new_recovery_results": {
+    "primary_point": "old-only selected air32 CSDI H30 point, 32 conditional draws",
+    "candidate": "matched-capacity direct failure-probability boosting with window summaries",
+    "required_direct_references": ["native conditional-CDF tolerance-exceedance probability", "matched-capacity direct failure-probability boosting"],
+    "fitting_seed": 20261021,
+    "boosting": {"max_depth": 4, "max_iter": 350, "learning_rate": 0.06, "min_samples_leaf": 40},
+    "normalization": "strictly prior complete local water history and prior local air history; target-year hidden temperatures never determine normalization",
+    "maximum_local_complete_history_years": 10,
+    "minimum_local_complete_history_years": 3,
+    "source_F0": "serialize old opened Swiss-development heads and old calibration thresholds before new daily temperature acquisition",
+    "F1": "unchanged probability model and heads, target-calibration thresholds",
+    "F2": "unchanged probability model, identical-capacity heads refitted on new development groups, target calibration",
+    "new_test_error_access": "sealed pending complete reference and independence qualification, recruitment/power review and an evaluation lock",
+    "real_time_or_complete_global_forward_claim": false
+  },
+  "planned_evaluation": {
+    "primary_admission_masks": "unchanged broadened admission generator: 14/30/60/90/120/180/270-day gaps and pre-fixed empirical-calendar templates; all feasible cases and unsupported predictions retained",
+    "controlled_mechanisms": "separate balanced placement/length and nested-gap assays",
+    "boundary_fragment_history_sensitivities": "separate supports; histories 3/5/10 compared on common feasible target years",
+    "natural_missingness": "not supplied by constructed masks or provider reaggregation; independent backup references remain a distinct unmet requirement",
+    "risk_cap": 0.05,
+    "tolerance_C": 0.5,
+    "practical_gain": 0.05,
+    "joint_error_allocation": "unchanged parent three-method/two-reference allocation",
+    "small_reference_pool": "report actual support and planning infeasibility; never relabel masks or years as new independent groups"
+  }
+}

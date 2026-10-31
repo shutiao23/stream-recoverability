@@ -1,0 +1,7 @@
+{
+  "status": "completed_after_serial_fallback",
+  "initial_attempt": "The eight-worker joblib process pool failed to deserialize a dispatched task (BrokenProcessPool). It did not produce a complete execution result.",
+  "completed_attempt": "The same frozen plan was run with one worker, reusing the two receipt-verified pilot outputs and completing all 220 source replays.",
+  "output_integrity": "Existing receipt-bearing outputs are checked against their inputs; unexpected partial files are preserved and cause failure rather than silent overwrite.",
+  "limitation": "The serial fallback does not change the scientific design or turn the post-hoc comparison into an independent validation."
+}

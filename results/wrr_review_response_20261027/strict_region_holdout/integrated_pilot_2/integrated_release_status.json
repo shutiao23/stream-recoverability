@@ -1,0 +1,11 @@
+{
+  "status": "pilot_passed",
+  "affected_archive_settings": 2,
+  "station_repetition_rows": 4,
+  "original_annual_rows_replayed": 26,
+  "original_states_mismatched": 0,
+  "same_target_mask_truth_and_quality": true,
+  "strict_regions": "HUC17 in forward whole-archive; other regional results unchanged",
+  "scope": "post-hoc sensitivity of same archive masks and evaluated finite-record trends; source training size changes",
+  "limitation": "not independent climate validation; working-likelihood intervals include regression variation and are not calibrated missingness-only uncertainty; does not rerun every source analysis"
+}

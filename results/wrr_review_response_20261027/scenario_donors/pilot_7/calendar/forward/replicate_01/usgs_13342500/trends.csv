@@ -1,0 +1,13 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,retention,dependence,available,n_retained,truth_slope,slope,error,squared_error,lower95,upper95,width95,missing_coverage95,interval_score95
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,plug_in,warm90,point,True,12.0,0.27289482046393554,0.27289482046393554,0.0,0.0,,,,,
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,plug_in,all,point,True,12.0,0.27289482046393554,0.27289482046393554,0.0,0.0,,,,,
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,stochastic_calibrated,warm90,point,True,12.0,0.27289482046393554,0.27289482046393554,0.0,0.0,,,,,
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,stochastic_calibrated,all,point,True,12.0,0.27289482046393554,0.27289482046393554,0.0,0.0,,,,,
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,stochastic_calibrated,all,independent,True,,0.27289482046393554,0.27289482046393554,0.0,0.0,0.27289482046393315,0.2728948204639362,3.0531133177191805e-15,True,3.0531133177191805e-15
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,stochastic_calibrated,all,shared_parameters,True,,0.27289482046393554,0.27289482046393554,0.0,0.0,0.2728948204639325,0.2728948204639362,3.7192471324942744e-15,True,3.7192471324942744e-15
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,stochastic_calibrated,all,residual_blocks,True,,0.27289482046393554,0.27289482046393554,0.0,0.0,0.2728948204639326,0.2728948204639362,3.608224830031759e-15,True,3.608224830031759e-15
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,D2,warm90,point,True,12.0,0.27289482046393554,0.27289482046393554,0.0,0.0,,,,,
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,D2,all,point,True,12.0,0.27289482046393554,0.27289482046393554,0.0,0.0,,,,,
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,D2,all,independent,True,,0.27289482046393554,0.27289482046393554,0.0,0.0,0.15352579765928956,0.37348016200374784,0.21995436434445828,True,0.21995436434445828
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,D2,all,shared_parameters,True,,0.27289482046393554,0.27289482046393554,0.0,0.0,0.13707489781757018,0.38055904710841043,0.24348414929084025,True,0.24348414929084025
+usgs|13342500,g0054,usgs_huc17,1,forward,calendar,synchronized_donors,12,3,D2,all,residual_blocks,True,,0.27289482046393554,0.27289482046393554,0.0,0.0,0.14684030081683858,0.36522563877115344,0.21838533795431486,True,0.21838533795431486

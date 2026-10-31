@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T05:00:05.348391+00:00",
+  "status": "posthoc fixed exploratory evaluation after source metadata, downloaded values and finite-day qualification were inspected; no Truckee model predictions, H30 values or prediction errors examined",
+  "selection": "All sites with at least four complete finite published-reference years; exactly one site and all four qualifying years. Selection uses temporal and value availability, not annual H30 or prediction error.",
+  "reference": "Daily arithmetic means of 96 distinct finite reported 15-minute values. Provider describes QA/QC and uses PST; per-value estimated/corrected flags and physical day alignment remain unresolved.",
+  "method": "Single-year leave-one-year-out: three other complete selected years at that site form local history, with target gaps hidden and no donor stations. Reuse the fixed global annual source model and source-only calibration; compare plug-in, D2, and calibrated stochastic on the same controlled 30/60/90-day masks.",
+  "metrics": "Annual point MAE, bias, absolute error over 0.5 C; availability; nominal 90% coverage, interval width, score and CRPS on common cases. Also retain reported outcomes by year; no trend inference from four years and no cluster or climate generalization.",
+  "forcing": "One NASA POWER T2M request for 2011–2020 at the station metadata coordinates rounded to 0.01 degree, daily local-solar time. POWER local solar day need not align with the water provider PST day; weather quality is not validated.",
+  "limitations": "One station, four years and one managed watershed with previous Truckee-basin data contact. Source model and calibration are fixed but the full river-network separation from every source dependency is not established. Nonestimated measurements, independent climate, natural outage, source permissions and physical measurement uncertainty remain unresolved. Repeated masks are not independent stations or climates."
+}

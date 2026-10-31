@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "target_years": 17,
+  "cases": 306,
+  "matching_mask_target_years": 17,
+  "matching_feature_target_years": 17,
+  "matching_prediction_target_years": 17,
+  "maximum_output_difference_c": 0.0,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "limitations": "Same implementation and fixed model are reused. This does not refit source models, establish data rights, validate partial-history extrapolation or provide independent climate evidence. Other thread configurations previously gave output drift."
+}

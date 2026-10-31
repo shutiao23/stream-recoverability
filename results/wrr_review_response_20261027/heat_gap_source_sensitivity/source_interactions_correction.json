@@ -1,0 +1,7 @@
+{
+  "status": "posthoc_numerical_correction",
+  "issue": "The first calculation used separate random streams with 4,000 group resamples for four rank representations that share the same point estimates. Identical empirical point contrasts therefore received slightly different Monte Carlo interval limits.",
+  "change": "The revised calculation uses one stream per method and source comparison, shared across dependence representations, with 40,000 group resamples. If cohorts differ, the same seed does not make their underlying observations identical.",
+  "preserved_original": "source_interactions_pre_correction.csv",
+  "timing_and_limit": "This numerical correction was chosen after inspecting preliminary results, particularly intervals near zero. It does not change the target masks, fitted models or case-level errors; it remains post hoc, without multiplicity correction and without an independent-climate guarantee."
+}

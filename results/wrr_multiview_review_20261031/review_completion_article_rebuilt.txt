@@ -1,0 +1,2341 @@
+                           manuscript submitted to Water Resources Research
+
+
+
+1     Retaining incomplete river-temperature records: time
+2              support of finite-record heat slopes
+
+3                                          [Author names]1
+
+
+4
+                                               1 [Affiliations]
+
+
+
+
+5    Key points
+
+6       •   Screening incomplete years changes the time support of sustained-heat facts
+7           and of finite-record slopes
+
+8       •   Hidden-peak undercoverage concentrates in Bavarian air reconstructions; extra
+
+9           paths still move those tails without identifying the cause
+
+10      •   Placing years, not merely matching their count, can reduce slope error; restor-
+
+11          ing all years reduces it further
+
+
+
+
+                                                    –1–
+                           manuscript submitted to Water Resources Research
+
+
+
+12   Abstract
+
+13   Screening incomplete river-temperature years changes the time support of sus-
+14   tained heat. We examine observed heat windows, finite-record slopes of the annual
+15   maximum 30-day mean (H30), and information conditions associated with re-
+16   covery failures. Whole-archive evaluation uses 42 long complete records from a
+
+17   581-station source archive. Observed windows in incomplete years can exceed every
+18   complete-year heat maximum; most witnesses also pass a warm-season rule. On
+19   805 forward controlled-gap archives, the median complete-record slope is 0.75◦ C
+
+20   per decade. Recovering all supported years gives slope RMSE 0.170, versus 0.446
+21   under warm-season screening, so the screening error is more than half the median
+22   slope. Calendar-position controls that include the fixed complete years reduce
+23   RMSE to 0.428 and 0.402; their paired intervals exclude zero. Weak same-count
+
+24   controls do not. Hidden-peak 90% coverage is 67.9% for Bavarian air-ridge recon-
+25   structions. Common geometric weighting retains a regional contrast, but support
+26   loss and training-history imbalance prevent causal attribution. A trajectory-budget
+
+27   experiment regenerates 2,370 original source-calibration cases and scores the same
+28   27 target station-years. Across three seeds, source-recalibrated median absolute
+29   95th-percentile changes from 20 to 500 nested paths are 0.069–0.117◦ C in the Swiss
+30   subset and 0.061–0.101◦ C in Bavaria. Five hundred paths do not establish conver-
+
+31   gence or a preferred estimator. These results support preserving observed heat facts
+32   and evaluating year selection, reconstruction and numerical uncertainty for a stated
+33   period.
+
+
+34   Plain Language Summary
+35   Gaps in a river’s temperature record do not necessarily erase a hot year: thirty observed
+
+36   days can already be warmer than every complete year. Most such examples also pass a
+37   warm-season screen. In our experiments, the choice of years matters even when the
+38   number retained is fixed. Choosing years that better cover the record period reduces slope
+
+39   error, while restoring all supported years improves it further. Recovery failures
+40   concentrate in Bavarian air-supported reconstructions, but regional comparisons cannot
+41   identify their cause. More simulated paths and recalibration on the original independent
+42   source data change uncertainty endpoints and some method comparisons. These findings
+
+43   favor retaining observed heat facts and stating the temporal and information support of
+44   any reconstructed summary.
+
+
+
+                                                 –2–
+                          manuscript submitted to Water Resources Research
+
+
+
+45   1 Introduction
+
+46        Stream-temperature records support studies of thermal habitat, climate change
+47   and water management (Caissie, 2006; Michel et al., 2020; van Hamel & Brunner,
+48   2024). The annual maximum of a 30-day mean (H30) summarizes sustained heat
+
+49   and is related to the thermal peak used in river-network studies (Beaufort et al.,
+50   2022). A monitoring gap can change this statistic through the years it removes,
+51   the thermal states it hides, and the information that remains from other years or
+52   stations.
+
+53        Prior work has already shown that partial stream-temperature records can
+54   support some annual analyses. Johnson et al. (2021) evaluated missing intervals and
+55   imputation for annual mean, phase and amplitude, finding limitations that varied
+
+56   among rivers. Beaufort et al. (2022) used summer observations and climate correc-
+57   tion for a multiyear thermal-peak metric. Those results concern different targets:
+58   Johnson and coauthors do not supply a universal error baseline for annual H30, and
+
+59   Beaufort and coauthors do not evaluate jointly degraded multiyear archives. The
+60   question added here is how completeness screening changes the time support of
+61   sustained-heat information, and which observations and river-state information then
+62   leave annual recovery and trend propagation without support.
+
+63        That question has two mechanisms. First, the years that a rule deletes, and
+64   the thermal states and time-leverage those years carry, change a slope fitted to
+65   the remaining finite record. Second, river thermal response, data processing and
+
+66   source support jointly determine the error of recovering a heat peak inside a gap.
+67   The intended use is a comparable finite-record H30 slope on a stated record period,
+68   together with fully observed 30-day windows retained as archive facts. If an observed
+69   lower bound already exceeds a pre-defined H30 threshold, that exceedance can be
+
+70   kept without a precise annual value. Study thresholds are not ecological-hazard
+71   standards, and a 0.5◦ C reconstruction-error flag is not a calibrated probability at
+72   another threshold.
+
+73        Regression record augmentation and maintenance-of-variance methods have
+74   a long hydrological history (Matalas & Jacobs, 1964; Hirsch, 1982; Vogel & Ste-
+75   dinger, 1985). A point prediction, a predictive distribution and a decision to release
+76   a value have different targets. Distributional imputation should be assessed for
+
+
+
+                                                 –3–
+                            manuscript submitted to Water Resources Research
+
+
+
+77    the downstream quantity rather than only for daily squared error (Näf et al., 2023;
+
+78    Gneiting & Raftery, 2007). We compare a daily plug-in, simple corrections, source-
+79    role-calibrated stochastic reconstruction and annual distribution regression, then
+80    jointly hide portions of a station’s multiyear record before local refitting.
+
+83         We organize the evidence around three research questions. RQ1: what ob-
+84    served heat information does each completeness rule retain or discard? RQ2: how
+85    do the retained year set and annual reconstruction errors combine in a slope for a
+86    specified record period? RQ3: under which visible information conditions do hidden-
+
+87    peak recovery errors concentrate? The regional, same-count and trajectory-budget
+88    diagnostics were developed after inspecting existing results; they are exploratory
+89    rather than preregistered confirmation. The six-station trajectory subset was fixed
+
+90    before that replay, not before the wider study. Its 0.05◦ C tolerance is a numerical
+91    diagnostic, not a hydrological acceptance threshold. Table 1 states the corresponding
+92    evidence, denominators and boundaries. Throughout, calibrated means an empirical
+93    offset estimated on disjoint source-role groups; it does not mean that a target region
+
+94    attains nominal coverage.
+
+
+
+
+95    2 Data and study design
+
+101        The source archive contains previously assembled European and US daily ob-
+102   servations: 581 physical stations, 185 connected-record groups, 27 regions and 6,170
+
+103   unique complete station-years. NASA POWER daily air temperature is the common
+104   meteorological input (NASA Langley Research Center, 2026). Artificial controlled
+105   gaps of 30, 60 or 90 days are crossed with overlap with a training-period climatolog-
+106   ical peak window; empirical incomplete calendars provide a separate family that is
+
+107   closer to the observed archive. Each of twenty source repetitions redraws masks and
+108   group-role composition. In the leave-one-year-out source comparison, fitting, interval
+109   calibration, score learning and rule calibration use disjoint connected groups outside
+
+110   each held region. In the original forward source split, HUC17 estimator and NVE
+111   interval-calibration roles retain other same-region groups, as detailed below. These
+112   repetitions describe variability within the available archive, not twenty independent
+113   climates. Figure 1 separates the observation-only, single-year and whole-archive
+
+114   evidence.
+
+
+                                                    –4–
+                               manuscript submitted to Water Resources Research
+
+
+
+81    Table 1.      Three research questions, their evidence and inference limits. Regional, same-count
+
+82    and numerical diagnostics are exploratory, developed after inspecting existing results.
+
+       Question           Target                Evidence and denominator          Inference boundary
+       RQ1: What          Reported 30-day       All 2,700 eligible                Most witnesses pass the
+       observed heat      window Ly versus a    station-years at 96 stations in   warm-season rule. The 19
+       information        stated accepted       34 groups. Rules use a            accepted windows add facts
+       survives each      record; no            common denominator.               relative to strict
+       screen?            reconstruction.                                         completeness; only 2
+                                                                                  excluded windows exceed the
+                                                                                  warm-season accepted record,
+                                                                                  by 0.150 and 0.113◦ C.
+       RQ2: How do        Total slope error     807 common forward                Calendar-CDF and spread
+       year selection     E = S + R, with a     controlled-gap archives; 805      controls improve over
+       and recovery       signed MSE cross      have actual masked years and      warm-season selection at
+       combine in a       term.                 enter same-count diagnostics.     fixed counts; all-year recovery
+       finite-record                            There are 17 connected            improves further. 337/805
+       slope?                                   groups.                           selections are fixed by count
+                                                                                  constraints. Pure count
+                                                                                  effects and equivalence
+                                                                                  remain unidentified.
+       RQ3: Where         Hidden-peak           Regional cases receive            Bavarian air-ridge failures
+       does               nominal 90%           common-cell weights with          lack a Swiss counterpart.
+       hidden-peak        coverage and          support denominators. A           Training imbalance persists.
+       recovery fail?     recovery bias under   27-target, two-group              Re-estimated source offsets
+                          visible information   numerical subset repeats          change endpoints and local
+                          conditions.           three seeds and recalibrates      method comparisons; 500
+                                                on 2,370 original source-role     paths do not certify
+                                                cases.                            convergence or a general
+                                                                                  ranking.
+
+
+
+
+118            We use complete daily station-years as reference outcomes for artificial mask-
+
+119   ing. Water observations hidden by a mask never enter the local fit for that case.
+120   Features available when a value is evaluated include the visible gap geometry, a
+121   training-period climatological peak, local water history, air conditions and available
+
+122   neighboring stations. The true peak location and hidden water values are evaluation
+123   quantities. Observation quality is inherited from the assembled source records; a
+124   reported value is not assumed to be error-free physical truth. An observed lower
+125   bound is valid for the reported series if its thirty measurements are comparable and
+
+126   valid.
+
+               The annual target is
+                                                              j+29
+                                                           1 X
+                                            H30y = max         Yyd .                                           (1)
+                                                       j   30
+                                                               d=j
+
+127   H30 is used because it summarizes sustained heat. Native seven-day (H7) source
+128   refits exist in the repository; they are a different ecological window and are not
+129   substituted for H30 here. For an incomplete year, the largest fully observed 30-day
+
+130   mean Ly satisfies H30y ≥ Ly for the same reported series. For 1981–2025 we select
+
+
+                                                        –5–
+                                  manuscript submitted to Water Resources Research
+
+
+
+
+                                                     Assembled source archive
+                                                581 stations; 185 connected groups
+                                                   6,170 complete station-years
+
+
+
+             Observed-window evidence               Single-year source cases                     Jointly degraded target archive
+             Incomplete reported years          Annual recovery and release tests              All selected gaps masked together
+                 No reconstruction                  Held-group source roles                           Refit local daily stages
+
+
+
+                                                                                           Fixed source annual models
+                      Observed bound vs.              Annual scores; numerical
+                                                                                             Finite-record trends and
+                     complete-year record            release, bound or unknown
+                                                                                             rank-coupling sensitivity
+
+
+
+                   Hidden target days are excluded from local fitting. Visible target and donor records remain usable.
+                             The release-then-trend working likelihood is a separate exploratory analysis.
+
+
+
+
+96    Figure 1.      Evidence architecture. Observation-only witnesses, single-year source evaluations
+
+97    and jointly degraded target archives address distinct questions. Hidden target days are excluded
+
+98    from local fitting; unmasked target and donor records remain available. Annual source models are
+
+99    fitted separately and held fixed during each archive reanalysis. Release followed by the working-
+
+100   likelihood trend is a separate exploratory analysis.
+
+
+
+
+131   stations with at least fifteen complete reference years and compare every incomplete-
+
+132   year bound with the largest complete-year H30. The observation-only denominator
+133   contains 2,700 eligible station-years at 96 stations in 34 connected groups. We
+134   evaluate whether the same witnesses pass a 95% annual-coverage rule and a 90%
+
+135   station-specific warm-season rule. The five consecutive warm months are obtained
+136   from the station’s climatology after excluding the evaluated year. These are explicit
+137   study comparators; the seven-week missing-period result of Johnson et al. (2021)
+138   concerns annual signal parameters, not a validated H30 record rule.
+
+139         The whole-archive benchmark contains 42 stations with at least twenty
+140   complete reference years in seven regions, 18 connected groups and 3,320 station–
+141   repetition–setting evaluations (Figure 2; Table 2). One Finnish record ends in 1994,
+
+142   leaving 41 stations for forward evaluation. Twenty-four stations are in Bavaria and
+143   ten in Switzerland; that long-complete selection is a monitoring-network filter, not a
+144   random river sample. These 42 stations are the long-complete tail of the 581-station
+145   source archive: median complete years 31 versus 8 among the remaining 539 stations.
+
+146   Bavaria contributes 24 of 42 evaluation stations against 29 of the remainder; USGS
+
+
+                                                                      –6–
+                                    manuscript submitted to Water Resources Research
+
+
+
+
+                  60
+
+
+                  55
+       Latitude
+
+
+
+                  50
+
+
+                  45
+
+
+                  40     Switzerland (n=10)     USGS HUC04 (n=1)
+                         Bavaria (n=24)         USGS HUC10 (n=2)
+                         Finland (n=1)          USGS HUC17 (n=3)
+                  35
+                         USGS HUC03 (n=1)
+
+                       −120        −100       −80       −60          −40    −20        0         20
+                                                              Longitude
+
+
+
+115   Figure 2.           Whole-archive evaluation stations. Long, complete records concentrate in Bavaria
+
+116   and Switzerland; 18 connected groups are analysis clusters, not 18 independent hydroclimates.
+
+117   Coordinates and station codes are in Supporting Information.
+
+
+
+
+147   regions contribute 7 versus 312 (Table 3). Regulation metadata are unmatched gages
+
+148   or unknown for most sites and do not mean unregulated rivers; 35 of 42 evaluation
+149   stations are unmatched gages, five are labelled regulated and none unregulated.
+150   Daily values are provider daily means where that class is recorded. Visible-neighbour
+151   counts and process-metadata gaps are reported with the station roster. If area,
+
+152   elevation or discharge were complete they would be summarized; they are not. For
+153   the main retention contrast in the forward controlled-gap setting, both retention sets
+154   are available in 807 of 820 settings; the other 820 minus 807 settings are used only
+
+155   for availability accounting. The held-test-group main analysis excludes evaluated
+156   test groups from the named source roles. The forward HUC17 estimator and NVE
+157   interval calibration retain additional same-region training groups, so the strict-region
+158   sensitivity is reported separately. The 2010 split is a retrospective time condition on
+
+159   current-vintage records, not a general nonstationarity test.
+
+
+167   3 Methods
+
+168                3.1 Annual recovery and the decision to release
+
+169                The daily plug-in computes H30 after a selected daily reconstruction. Func-
+
+170   tional debiasing corrects its annual value. D2 is a distribution regression of that
+
+
+                                                            –7–
+                                manuscript submitted to Water Resources Research
+
+
+
+160   Table 2.    Whole-archive evaluation stations. Regulation labels are project metadata; un-
+
+161   matched gages does not mean unregulated. Donor counts are mean visible neighbours in saved
+
+162   leave-one-year-out controlled-gap source cases; the Finnish record is included in that design, not
+
+163   in forward evaluation. Coordinates and station codes are in Supporting Information.
+
+       Region               Stations   Groups     Years       Statistic                     Regulation        Mean donors
+
+       Switzerland (FOEN)        10           2   2000–2025   daily mean                    unmatched gages             7.3
+
+       Bavaria                   24           8   1981–2025   daily mean                    unmatched gages             5.5
+
+       Finland (SYKE)             1           1   1935–1994   non daily reference reading   unmatched gages             0.2
+
+       USGS HUC03                 1           1   1988–2025   daily mean                    unknown                     3.6
+
+       USGS HUC04                 1           1   1999–2024   daily mean                    unknown                     2.9
+
+       USGS HUC10                 2           2   2001–2025   daily mean                    regulated                   3.9
+
+       USGS HUC17                 3           3   2000–2025   daily mean                    regulated                   3.1
+
+
+
+164   Table 3.    Long-complete evaluation stations versus the remainder of the 581-station source
+
+165   archive. Complete-year counts are unique complete station-years, including the held-out year,
+
+166   rather than training-year counts. USGS counts follow named hydrologic-unit regions.
+
+
+          Panel                   Stations        Groups      Median years       Bavaria      Switzerland     USGS
+
+          Trend cohort                   42           18                   31          24                10         7
+
+          Source remainder              539          183                    8          29                 1      312
+
+
+
+
+171   annual error: it learns error quantiles from features visible when a value is released,
+
+172   including summaries of simulated trajectories. A stochastic regression comparator
+173   generates conditional residual bridges and calculates H30 for each realization. D2
+174   and the stochastic comparator have the same source interval-calibration roles and
+175   bootstrap multiplicities. Point estimates are medians; MAE, CRPS, 90% interval
+
+176   coverage and interval score are reported on available cases, with paired comparisons
+177   on common cases. Source-role calibration is an empirical offset on disjoint source
+178   groups; it is not a certificate that a target region attains nominal coverage.
+
+179         In the twenty historical source fits, we apply the same observed-window sup-
+180   port projection to both methods after their original calibration. The seven stored
+181   quantiles constrain only those seven probability levels. Values between them are
+182   interpolated, and the outer tails are extrapolated; for comparable CRPS integration
+
+183   we extend the tails using adjacent normal-quantile spacings and enforce Ly when
+
+
+                                                               –8–
+                            manuscript submitted to Water Resources Research
+
+
+
+184   available. The original model weights and calibration offsets remain fixed in this
+
+185   source re-analysis. In the whole-archive study described below, offsets for both
+186   methods are instead re-estimated on their original independent calibration roles
+187   after projection. Stored stochastic bridge-repair tables are required to reproduce
+188   the historical source, open-source archive and group-maximum sensitivity calcula-
+
+189   tions; these dependencies were checked retrospectively. Neither approach makes the
+190   assumed tail shape a verified full distribution.
+
+           The conditional-mean mechanism is useful but limited. For observed informa-
+
+      tion X and 30-day averaging vectors wj , convexity gives
+
+
+
+
+                                 max wj⊤ E(Y | X) ≤ E{max wj⊤ Y | X}.
+                                   j                     j
+
+
+
+
+191   It concerns the true conditional mean and conditional expectation; an approximate
+
+192   learner need not underestimate every individual year. Calibration, local adaptation,
+193   model bias and the chosen point summary remain empirical questions.
+
+194        We evaluate a rule that reports an estimated value, an observed lower bound
+
+195   or an unknown state. Numerical release requires an available D2, at least four
+196   complete historical years, visible features within source-derived limits and a raw
+197   individual classifier score no greater than 0.10. The score was trained for a 0.5◦ C
+198   absolute-error flag on the original unprojected D2; that flag is a reconstruction-
+
+199   tolerance diagnostic, not an ecological-hazard threshold, and the score is not a
+200   calibrated group-risk certificate for the projected value or for any other threshold.
+201   A seven-day close match between visible water and air temperature is tested for
+202   the imposed exact-air-substitution scenario; that detector is not evaluated for other
+
+203   stresses. No observed bound is released when this quality flag is raised. The primary
+204   factorial trend comparison is separate. A second exploratory analysis passes released
+205   values and bounds into a Gaussian working likelihood, treating released numerical
+
+206   estimates as exact and each bound L as a right-censored response with contribution
+207   P (H30   ≥    L). Unknown cases remain in availability denominators. The resulting
+208   regression interval includes working-model variability and is not a task-calibrated
+209   missingness-only interval. The three-output rule is retained as a boundary result,
+
+210   not as a proposed general publication system.
+
+
+                                                   –9–
+                             manuscript submitted to Water Resources Research
+
+
+
+211        3.2 Whole-archive degradation, common cohorts and task-level
+
+212                 uncertainty
+
+213        The whole-archive benchmark jointly masks selected gaps in several years of
+214   a target station before fitting its daily models, climatology or residual histories.
+
+215   Unmasked target observations and neighboring physical stations remain available in
+216   this experiment. The benchmark contains 42 stations with at least twenty complete
+217   reference years in seven regions. One Finnish record ends in 1994, leaving 41 stations
+218   for forward evaluation. Twenty paired mask repetitions use both empirical calendars
+
+219   and controlled 30–90-day gaps; after seven observed burn-in years, each reference
+220   year is degraded with probability 0.35. These 3,320 archive experiments do not reuse
+221   any masked target day when fitting another year. The complete reference, including
+
+222   those hidden days, is used for scoring; its unmasked values can also enter local fit-
+223   ting. The archived single-year plug-in is retained as an optimistic-information paired
+224   comparator on identical masks.
+
+225        Offline daily fits use the remaining visible history. Forward annual models and
+226   interval offsets use source observations before 2010 and exclude the evaluated test
+227   stations and their connected groups. The original partitioned role assignment can re-
+228   tain other training-only groups in the same named region: this occurs in the HUC17
+
+229   estimator and in NVE interval calibration. Accordingly this forward experiment
+230   is held-test-group, not uniformly held-region, and is applied to 2010 onward. The
+231   strict-region sensitivity removes the additional same-region groups and is reported
+232   separately. Forward local daily fitting and dependence estimation also exclude water
+
+233   observations from 2010 onward. These are current-vintage retrospective forward
+234   experiments, not a historical real-time field trial. Annual regression weights remain
+235   source-only and use source-fit seed zero throughout. Source observations do not
+
+236   change across archive masks, so those fits are reused; every local stage that uses the
+237   degraded target archive is refitted. Twenty archive masks are not twenty new global
+238   model fits.
+
+239        On each degraded archive, the retention set (90% warm-season rule or all sup-
+240   ported years) is crossed with the annual estimator (daily plug-in, equally calibrated
+241   stochastic regression or D2). Every slope is scored against the same complete-record
+242   slope. For the four MSE cells A (rule/plug-in), B (all/plug-in), C (rule/alternative)
+
+
+
+
+                                                  –10–
+                              manuscript submitted to Water Resources Research
+
+
+
+243   and D (all/alternative), the symmetric retention contribution is {(A−B)+(C −D)}/2,
+
+244   and the estimator contribution is {(A − C) + (B − D)}/2. They sum to A − D; the
+245   interaction is (A − B) − (C − D). Complete paired cells, rather than different
+246   available subsets, determine each decomposition. The retention figure uses common
+247   station-repetition rows: in the forward controlled-gap setting, both retention sets are
+
+248   available for 807 of 820 settings, and the all-year RMSE is recomputed on those 807
+249   rows.
+
+
+
+250           3.3 Specification of the executed estimators
+
+251           Daily completion uses one recorded reconstructor per case: donor ridge,
+252   air ridge, linear interpolation, smooth climatology, or day-of-year climatology.
+
+253   Air2stream-3 and the value computed from observed days are additional compara-
+254   tors. A reconstructor may use days that remain visible in the target year, the
+255   station’s other visible years, and eligible neighboring stations. Days hidden by that
+256   year’s target mask are not used to fit the local model. In the forward experiment,
+
+257   local daily fitting also excludes the target station’s water observations from 2010
+258   onward.
+
+259           D2 learns the annual H30 error relative to the plug-in, not the annual value
+
+260   itself. Seven LightGBM quantile regressions use the quantile objective at levels 0.05,
+261   0.10, 0.25, 0.50, 0.75, 0.90 and 0.95. The fixed settings, which were not re-tuned for
+262   this revision, are 300 trees, learning rate 0.05, 31 leaves, at least 50 cases per leaf,
+263   80% row and column subsampling, and an L2 penalty of 1. Features are available at
+
+264   decision time: gap length and runs, warm-season and peak overlap, donor count and
+265   correlation, historical reconstruction error, the visible edge anomaly, air anomalies,
+266   differences among the other reconstructors relative to the plug-in, and summaries
+
+267   of the stochastic and air-state simulation distributions when those summaries exist.
+268   A missing simulation feature stays missing and uses the tree’s missing-value branch.
+269   Predicted quantiles are sorted to remove crossings. The published annual point is
+270   the calibrated 0.50 quantile.
+
+271           The historical calibrated stochastic comparator stores 20 residual-bridge trajec-
+272   tories as a fixed computational budget. The same-target experiment reported below
+273   regenerates the original source-calibration cases at larger budgets and updates their
+
+
+
+
+                                                    –11–
+                              manuscript submitted to Water Resources Research
+
+
+
+274   offsets; it does not rerun the full whole-archive trend comparison. Fine method rank-
+
+275   ings are not asserted beyond the tested numerical subset. The bridge is a Gaussian
+276   AR(1) on a residual history with at least 30 finite days. Its lag coefficient is clipped
+277   to [−0.95, 0.995]. When an observed water value exists at the left or right end of
+278   a gap, the trajectory is conditioned on that boundary; otherwise the left state is
+
+279   drawn from the residual margin. The same seven probability levels are read from
+280   those 20 trajectories. Where a stored bridge-repair table applies, it replaces the
+281   stochastic columns. It does not refit the daily bridge.
+
+282        Both annual distributions use four disjoint connected-group roles, with shares
+283   0.55, 0.15, 0.15 and 0.15: estimator fitting, interval calibration, score learning and
+284   rule calibration. Groups are shuffled within the source seed and bootstrapped
+
+285   only inside their own role. Each role must contain at least two groups. Interval
+286   offsets are empirical quantiles of the calibration-role errors, computed separately by
+287   peak-overlap bin and reconstructor. A stratum with fewer than 50 positive-weight
+288   calibration cases falls back to all calibration-role cases. Levels at or above 0.50 use
+
+289   the higher empirical quantile, and lower levels use the lower one. Offsets are added
+290   and the seven levels are sorted again.
+
+291        Sampling then follows one order. A finite observed-window lower bound is
+
+292   applied to the annual quantiles. Stratified probabilities are interpolated between the
+293   seven stored levels. Outside 0.05 and 0.95, the default extends the quantile function
+294   by the adjacent normal-quantile spacing; holding the endpoint fixed is retained
+295   only as a paired sensitivity. These seven levels do not identify a complete central
+
+296   90% distribution: values between them are interpolations, and both outer tails are
+297   extrapolations. Samples are then projected onto the same lower bound. Independent
+298   ranks, auxiliary Ridge year-bootstrap states, or three-year residual blocks reorder
+
+299   the samples without changing each year’s marginal. The ordinary-least-squares slope
+300   and its interval are computed from that joint sample. Task-level calibration is a
+301   later, separate step.
+
+302        We refit both methods’ annual quantile offsets on their original disjoint source
+303   calibration groups after imposing the observed-window lower bound. Both distri-
+304   butions and their samples respect the bound when one is available. Seven stored
+305   quantiles constrain only those seven probability levels; they do not identify the
+
+
+
+
+                                                   –12–
+                            manuscript submitted to Water Resources Research
+
+
+
+306   distribution between or outside them. We extrapolate both outer tails using the ad-
+
+307   jacent normal-quantile spacing and project the annual samples onto the bound; the
+308   endpoint-constant alternative is retained on paired cases. The normal extrapolation
+309   is an assumption, not a validated tail law. That projection is applied to the annual
+310   distribution and then carried into the slope. It does not project a trend interval
+
+311   onto an annual lower bound. The main analysis uses 256 stratified samples per year.
+312   Within one estimator, independent ranks, auxiliary shared year-bootstrap regres-
+313   sion states and three-year residual blocks keep that estimator’s annual marginals
+
+314   fixed. The two estimators do not share one annual distribution. Shared states come
+315   from a small harmonic/air Ridge model, not the D2 tree posterior or the selected
+316   donor model. These couplings are dependence sensitivities, not posterior samples or
+317   coverage theorems.
+
+318        The joint-rank numerical sensitivity fixes the annual quantiles, observed
+319   bounds and evaluation years and increases the stratified sample count through 256,
+320   1,024 and 4,096 on the difficult forward controlled gaps. Three random seeds index
+
+321   the rank construction. The rank sequence is generated at 4,096 draws and truncated
+322   for smaller counts; annual marginals are regenerated separately for each sample
+323   size. We report coverage, width, interval score, the three-seed mean and the largest
+
+324   single-seed change. A 0.3-point rule on the three-seed mean is only a diagnostic:
+325   averaging seeds can cancel opposing changes, and meeting it does not justify ranking
+326   small construction differences. The check uses the same opened data and is not an
+327   independent validation.
+
+328        Table 4 separates the calibration and projection order of the historical, whole-
+329   archive, task-calibration and external analyses. The task-level comparator calibrates
+330   absolute slope error divided by an independent-draw interval half-width. Every
+
+331   source connected group receives equal total weight in the empirical 95th percentile.
+332   Calibration uses only unused rule-calibration groups, re-predicted with the held-
+333   region model; forward errors end before 2010. We withhold the calibration when
+334   fewer than three nondegenerate source groups remain, the calibration factor is effec-
+
+335   tively zero, or the target half-width lies outside the source 1st–99th percentile range.
+336   These thresholds are empirical support checks rather than a finite-sample guarantee.
+337   Source support, availability and matched-case width, coverage and interval score
+
+
+
+
+                                                  –13–
+                           manuscript submitted to Water Resources Research
+
+
+
+338   are reported. All uncertainty scores target the finite complete-record slope, not
+
+339   climate-trend uncertainty.
+
+340         The historical design metadata are not rewritten. The saved 3,320 design.json
+341   files state that held region and connected groups were excluded; that is correct for
+
+342   held test groups but not an unconditional region exclusion. The forward HUC17
+343   estimator retained one other same-region training group, and NVE interval calibra-
+344   tion retained two. The paper uses the held-test-group analysis as primary and the
+345   strict-region sensitivity as a separate check. A correction manifest accompanies the
+
+346   historical files.
+
+349         Two controlled-gap sensitivities assess missingness mechanisms on the first
+350   five masks at each of 41 forward-eligible stations. One hides the target’s exact gaps
+
+351   from the donor panel; the other preferentially selects air-hot years while preserving
+352   the number of missing years. They are retrospective stresses rather than estimates
+353   of outage frequency. For the primary gap comparison, all sources use the annual
+354   longest contiguous missing run in 2010–2025. The observed archive contains 109
+
+355   incomplete station-years at 29 of the 41 forward stations, with median 4 days and
+356   11.93% at least 30 days. Empirical-calendar masks have median 6 days and 10.25%
+357   at least 30 days over 3806 station-year–repetition rows; controlled masks have me-
+
+358   dian 60 days over 3777 rows, all at least 30 days. Observations receive one weight
+359   per station-year; trials receive one per station-year–repetition. These differing sam-
+360   ples and repeat weights make this a descriptive comparison. Over 1981–2025 the
+361   same statistic has median 3 days, and 11.36% of 220 incomplete station-years last
+
+362   at least 30 days (Table 5). The shared-year measure requires missingness at two
+363   connected stations in the same year, not on the same days. Among the 109 observed
+364   incomplete station-years after 2010, only 74 have another evaluable cohort station in
+
+365   the same group and year. Of those 74, 38 have a peer that is also incomplete in that
+366   year, and 14 have at least one missing day in common with a peer; 40 of 2,086 peer-
+367   evaluable missing station-days overlap. The other 35 station-years are excluded from
+368   this peer-conditioned denominator. This concerns the 41-station cohort, not every
+
+369   potential or selected model donor. Experimental year selection follows probability
+370   0.35 after a seven-year burn-in; its frequency is not an observed outage estimate.
+371   Observation-only accounting uses 96 stations, whereas the whole-archive benchmark
+
+372   uses 42.
+
+
+                                                 –14–
+                            manuscript submitted to Water Resources Research
+
+
+
+377        3.4 Regional standardization, time-support controls and trajectory
+
+378             budget
+
+379        The Bavaria–Switzerland comparison reuses saved forward controlled-gap
+380   annual cases. Common-support screening retains bins of gap length, training-peak
+
+381   overlap, evaluation year and visible-donor count represented in both regions. It does
+382   not balance their frequencies. We therefore standardize the within-cell outcomes to
+383   identical weights, proportional to the smaller regional cell count; equal-cell weights
+384   give a sensitivity analysis. A second analysis adds reconstructor class and reports
+
+385   its support loss. Total variation of the joint cells, continuous-variable balance within
+386   bins and training complete-year balance are reported before and after weighting.
+387   Hidden-peak labels use withheld reference H30 and cannot be a deployment filter.
+
+388   No credible flow or regulation subset is available; unmatched gages is not an un-
+389   regulated class. Regional and reconstructor associations cannot exclude process
+390   explanations.
+
+391        Complete-year water–air H30 associations are reported both pooled and af-
+392   ter centering each variable within station and period (before/from 2010). Paired
+393   resampling carries both periods of each connected group; station resampling is a
+394   sensitivity. These are annual associations between maxima that need not occur on
+
+395   the same dates, not daily gap-reconstruction coefficients.
+
+396        Time-support controls reuse saved D2 annual predictions. Complete years
+397   remain in every scheme. We first retain the warm-season 90% rule, its original
+
+398   one-draw random subset and its original spacing heuristic for incomplete years.
+399   A stronger exploratory comparison enumerates all 5,758 feasible same-count
+400   incomplete-year subsets in the 807 original common archives; 5,756 subsets be-
+401   long to the 805 actually masked archives. Two additional choices use only calendar
+
+402   years and include the fixed complete set in their objective: minimizing the mean
+403   squared discrepancy between selected and full-reference empirical year CDFs on
+404   the integer-year grid, or maximizing centered year spread Sxx . Ties follow the other
+
+405   objective and then lexicographic incomplete-year order. These choices never in-
+406   spect water temperature or reconstruction errors. Uniform random performance
+407   averages squared error over feasible subsets within each archive before taking the
+408   across-archive square root. Two hundred fixed random seeds separately describe
+
+
+
+
+                                                  –15–
+                            manuscript submitted to Water Resources Research
+
+
+
+409   selection variation; their percentile range is not a confidence interval. Paired 95%
+
+410   percentile intervals resample the 17 connected groups 10,000 times, retaining ev-
+411   ery archive in the selected group. The original one-draw contrasts are reported for
+412   seeds 20261029 and 2026102969; CDF, Sxx and uniform-exact intervals use seed
+413   2026102969. The two seeds agree on whether each legacy interval contains zero.
+
+414   Station- and group-equal weighting are sensitivities. These exploratory intervals are
+415   pointwise summaries without multiplicity adjustment across controls and sensitiv-
+416   ities. For each selected set, complete-year H30 gives year-set slope error S, annual
+
+417   estimates add reconstruction error R, and total error is E = S + R.
+
+418        The historical classical comparator generates 20 residual-bridge paths. To
+419   evaluate budget sensitivity, we freeze the original six stations, 27 scored target
+
+420   station-years, masks, daily means and residual histories, and the original source
+421   interval-calibration roles and bootstrap multiplicities. The two target-region roles
+422   contribute 1,142 and 1,228 positive-weight calibration cases, 2,370 in total, at 19
+423   stations in 102 station-years before 2010. Each role has four positive-weight con-
+
+424   nected groups, disjoint from its target group. Native 20-path generation exactly
+425   reproduces both the original source repair and target draws and quantiles. Nested
+426   20/100/500 samples are prefixes of a 500-path call for seeds 0, 1 and 2. Because the
+
+427   generator consumes random arrays by day, the native 20-path sample differs from
+428   that 500-path prefix; the historical native baseline and nested-budget contrasts are
+429   kept distinct.
+
+430        For every budget and seed we compare three target distributions: no offset,
+
+431   the original fixed source offset, and an offset recomputed on the original source
+432   role at that budget. Source quantiles are projected onto the observed bound before
+433   weighted calibration, using the original 50-positive-case stratum fallback. Target
+
+434   quantiles are projected, offset, sorted and projected again. No target outcome enters
+435   calibration. D2 quantiles remain fixed. All new CRPS comparisons use 256 common
+436   stratified probability levels with the same normal-spacing tail continuation, so that
+437   scoring approximation is held constant. Coverage, absolute endpoint movements
+
+438   and scores are reported by region/reconstructor; the target sample has only two
+439   connected groups. Neither this experiment nor subsequent joint-rank sampling
+440   establishes infinite-path convergence or a general method ranking.
+
+
+
+
+                                                  –16–
+                                                     manuscript submitted to Water Resources Research
+
+
+
+                                                  Record omission                                    20 stations, 35 years
+                                1.2      gkd_bayern
+                                         usgs
+       Excess over record (C)   1.0
+                                         Additional records
+                                0.8
+
+
+
+
+                                                                                   Stations
+                                0.6
+
+                                0.4
+
+                                0.2
+
+                                0.0
+                                       1990        2000       2010   2020                0.0   0.2   0.4     0.6    0.8      1.0   1.2
+                                                   Incomplete year                                    Largest excess (C)
+
+
+
+443   Figure 3.                          Fully observed thirty-day windows in incomplete years exceed complete-only station
+
+444   records. Crosses on the left are additional approved-record witnesses with sparse one-to-three-
+
+445   year complete reference support; they are not included in the original long-record denominator or
+
+446   the source-station bars on the right. The evidence concerns reported measurements and requires
+
+447   no reconstruction.
+
+
+
+
+441   4 Results
+
+442                               4.1 Observed windows remain facts under a less restrictive screen
+
+448                               At 20 of 96 eligible stations, 35 incomplete years contain an observed window
+449   above the maximum complete-year H30 (Figure 3). Six stations have a witness
+450   exceeding the complete-year record by more than 0.5◦ C. Another incomplete year
+
+451   could still be warmer, and measurement error or a changed sensor location can affect
+452   physical interpretation.
+
+453                               The practical consequence depends on the rule. Table 6 accounts for all 2,700
+454   eligible station-years. Complete-year selection admits 2,139 years and discards 561;
+
+455   545 of the discarded years still contain a fully observed 30-day window and 16 are
+456   unknown. The station-specific warm-season rule admits 2,634 years and excludes
+457   66, of which 50 still contain a fully observed window. Of the 35 selected witnesses,
+
+458   32 pass the warm-season criterion and 31 pass 95% annual coverage. Among the
+459   warm-season exclusions, only 2 exceed the largest reported window among the other
+460   rule-accepted years, by 0.150 and 0.113 ◦ C. The larger 0.930◦ C difference for the
+461   Bavarian 2022 case is relative to the complete-year record, not to the warm-season
+
+462   accepted record; the two comparisons must not be mixed.
+
+
+                                                                            –17–
+                           manuscript submitted to Water Resources Research
+
+
+
+463        The rule also admits 19 incomplete years whose observed windows exceed
+
+464   the accepted record of the other accepted years. Strict completeness discards all
+465   of them. Those 19 windows add information relative to strict complete-year selec-
+466   tion. Relative to the warm-season rule, the additional observed facts are the two
+467   excluded increments of 0.150 and 0.113◦ C; remaining incomplete years stay unknown
+
+468   as annual H30. Numerical recovery of those years is a separate cost, reported below.
+469   The comparison uses the full archive retrospectively, after setting the evaluated year
+470   aside. It is not a sequence of physical records announced in historical time from only
+
+471   the data then available. At an assumed absolute error of 0.05◦ C on each window,
+472   both excluded differences exceed 2ϵ; at 0.10◦ C, neither difference exceeds 2ϵ. These
+473   margins are sensitivity assumptions, not measured instrument errors.
+
+478        The seasonal-window, past-only and air-regression diagnostics are reported in
+479   the Supporting Information. They show that retained heat information depends on
+480   the window definition, the historical-support requirement and regulated rivers. They
+481   do not reproduce the multiyear climate correction of Beaufort et al. (2022), whose
+
+482   target and site exclusions differ, and they do not establish a universal H30 error
+483   baseline from the annual-mean analysis of Johnson et al. (2021).
+
+484        The additional observation-only USGS intake is reported in the Supporting
+
+485   Information. It corroborates omission at three stations but does not estimate inci-
+486   dence, verify a unique warmest year or establish external reconstruction accuracy.
+
+
+487        4.2 Annual recovery is a source-role comparison, not a target-region
+
+488             calibration
+
+489        On controlled gaps overlapping at least half the training climatological peak,
+490   the median source-repetition H30 MAE is approximately 0.428◦ C for the daily plug-
+
+491   in, 0.355 for functional debiasing, 0.337 for D2 and 0.336 for source-role-calibrated
+492   stochastic regression (Figure 4). Median 90% interval coverage is 89.3% and 89.8%,
+493   respectively, with CRPS 0.246 and 0.245. These source-calibrated scores describe
+
+494   the executed 20-path classical budget. They establish neither equivalence nor a
+495   robust fine method ranking under more fully sampled annual distributions. Both
+496   distributions use the same support projection and tail approximation in this com-
+497   parison; method-specific availability and paired counts are reported in Supporting
+
+
+
+
+                                                 –18–
+                           manuscript submitted to Water Resources Research
+
+
+
+498   Information Table S1. The practical evidence is a gain over the simple plug-in, not a
+
+499   demonstrated universal need for D2.
+
+
+500        4.3 Retention, estimator and the common cohort
+
+501        The whole-archive benchmark comprises 3,320 station/repetition/setting eval-
+502   uations at 42 long-record stations in 18 connected groups. Figure 5 and Table 7 use
+503   common station/repetition rows. For the forward controlled-gap retention contrast,
+504   both retention sets are available in 807 of 820 settings; the all-year D2 RMSE on
+
+505   those 807 rows is 0.169 ◦ C per decade, compared with 0.445 under the warm-season
+506   rule. The 820-row all-year value is not used for this paired contrast. Retaining years
+507   improves the finite-record slope comparison in the evaluated settings. The executed
+
+508   fixed-budget D2 and classical comparisons vary with time setting and region; small
+509   differences do not establish a ranking for more fully sampled source-calibrated an-
+510   nual distributions. Results are conditional on donor availability and mask design.
+511   Twenty masks at one station are not twenty independent rivers or climates.
+
+512        The four-cell factorial comparison gives an arithmetic retention contrast. It
+513   is not an orthogonal year-set/reconstruction error decomposition or an identified
+514   year-count effect. For offline controlled gaps, the symmetric retention contrast is
+
+515   93.0% of the D2-versus-rule/plug-in MSE gain. This is a result for this experiment,
+516   not a universal percentage. Estimator effects and interactions are retained in the full
+517   paired table.
+
+518        The peak-visibility stratification separates cases where the complete reference
+519   peak is already visible at the observed lower bound from cases where it is not (Ta-
+520   ble 8). In the forward empirical-calendar common cases, 3,125 of 3,674 reference
+521   peaks are already at the bound and 549 are above it; hidden-peak coverage is 88.3%
+
+522   for D2 and 87.8% for the classical method (Supporting Information). The controlled-
+523   gap stratum is harder. In the forward controlled gaps, 1,537 common cases have the
+524   reference peak at the bound and 2,146 have a higher reference peak. D2 nominal
+
+525   90% coverage is 99.3% and 94.4% in the visible stratum, but 83.2% and 81.6% in the
+526   hidden stratum. Hidden-stratum MAE is 0.378 and 0.345 ◦ C. Longer gaps, partial
+527   training-peak overlap and region change these values: D2 coverage falls from 92.6%
+528   at 30-day gaps to 90.3% at 31–60 days and 86.9% at 61–90 days, and from 97.1%
+
+
+
+
+                                                  –19–
+                             manuscript submitted to Water Resources Research
+
+
+
+529   with no training-peak overlap to 83.9% with partial overlap. Bavaria has 82.9%
+
+530   coverage versus 98.7% for the Swiss FOEN stations. Removing Bavaria changes
+531   the D2-minus-classical MAE difference from 0.013 to -0.013 ◦ C. These strata are
+532   descriptive; the hidden-peak stratum uses the withheld reference and cannot become
+533   a deployment filter.
+
+534        Annual marginals and trend uncertainty give different answers (Figure 6).
+535   The left panel is a paired comparison on the two-method intersection, weighted by
+536   incomplete years. For forward controlled gaps that intersection has 736 archives and
+
+537   3,328 missing-year cases; annual coverage is 90.7% for D2 and 88.1% for the classical
+538   method. D2 is also available on 818 of 820 archives and the classical method on 736;
+539   those availability counts are not the paired denominator. The right panel keeps each
+
+540   method on its own available archives, so the printed sample sizes differ and the panel
+541   is not a paired comparison. On D2’s own forward set, nominal 95% independent-
+542   rank trend coverage is 88.0% and residual blocks give 89.0%. On the intersection,
+543   independent-rank trend coverage is 89.1% for D2 and 86.3% for the classical method.
+
+544   The dashed lines are the nominal 90% annual target on the left and the nominal
+545   95% trend target on the right. Within one estimator, the three rank constructions
+546   keep that estimator’s annual marginals fixed; the two estimators do not share one
+
+547   annual distribution. The joint-rank numerical check increases the samples through
+548   256, 1,024 and 4,096 (Table 9). At 4,096 samples, nominal 95% trend coverage is
+549   87.4%–89.9% across methods, constructions and seeds, so the undercoverage remains.
+550   The largest change in the three-seed mean coverage is 0.36 percentage points, and
+
+551   the largest single-seed change is 0.815 percentage points. 5 of 6 method–construction
+552   pairs meet a 0.3-point rule on the three-seed mean. That mean can cancel oppos-
+553   ing seed changes, so it is not a resolution guarantee and the constructions are not
+554   ranked. The experiment does not uniquely attribute the residual undercoverage to
+
+555   annual miscalibration, tail extrapolation or dependence.
+
+556        Task calibration is available for 39 of 820 forward controlled-gap D2 cases
+557   (4.8%), representing two stations and two groups. Both task calibration and the
+
+558   independent-draw comparator cover all of these same cases, but the task-calibrated
+559   average width is 0.513 ◦ C per decade versus 0.461 for the independent interval. This
+560   selected-subset result does not demonstrate general improvement. Withholding and
+
+561   regional support remain explicit.
+
+
+                                                  –20–
+                            manuscript submitted to Water Resources Research
+
+
+
+564        The three-output release comparison also does not establish a general safety
+
+565   gain. Matching the numerical output count on future long gaps gives 17,583 values
+566   per rule; the three-output rule produces 1,924 errors (10.94%) and simple score
+567   ranking produces 1,220 (6.94%). Matching within the 3,174 forward controlled-gap
+568   archives gives trend RMSE 0.202 versus 0.196 ◦ C per decade, and the connected-
+
+569   group interval for the paired squared-error difference spans zero. The published-
+570   values-plus-bounds working likelihood treats released values as exact and covers
+571   99.8% with a 3.26 ◦ C per decade width; it is not a calibrated missingness-only
+
+572   interval. These are boundary results, not a deployment recommendation.
+
+
+580        4.4 Source roles, stress tests and external limits
+
+581        The main comparison excludes held test stations and connected groups from
+582   source roles, but its original forward HUC17 estimator and NVE interval calibration
+583   retain other same-region groups. Strict-region and candidate-provider sensitivi-
+584   ties are reported in Supporting Information; changing providers, source samples
+
+585   and roles together does not identify a provider effect. These fixed-budget method
+586   comparisons do not establish a universal estimator ranking.
+
+587        Hiding matching target gaps from donors raises D2 finite-record slope RMSE
+
+588   from 0.1555 to 0.2024◦ C per decade on 205 common forward archives. Matching
+589   heat-associated gap templates leaves paired stress effects compatible with zero.
+590   These results describe the imposed information conditions and do not identify a
+591   physical thermal mechanism or natural outage frequency.
+
+592        The release rule in Figure 7 withholds unsupported numbers; Figure 8 retains
+593   its negative results. It does not beat simple score ranking at matched retention
+594   or certify general sensor-quality control. Supporting Information Table S2 reports
+
+595   the source comparison and Table S3 the matched-target comparison; details, the
+596   working-likelihood trend analysis and source-role sensitivities remain there.
+
+597        Strict independent external confirmation remains unresolved. Reference quality,
+
+598   clock, prior exposure and watershed dependence remain separate limits. British
+599   Columbia, Nova Scotia, Truckee and reservoir comparisons remain exploratory. Rio
+600   Mora’s continuous-reference years include 2017 with every quarter-hour slot and
+601   bounded years 2012 and 2019; unknown quarter-hour values use the conditional
+
+
+
+                                                  –21–
+                           manuscript submitted to Water Resources Research
+
+
+
+602   range [−5, 50] ◦ C. Daily-target accuracy does not establish equivalent physical-
+
+603   reference accuracy. These limits constrain broad transport claims without erasing
+604   the observation-only facts or the stated finite-record comparisons.
+
+
+605        4.5 Information conditions associated with regional recovery failures
+
+606        Hidden-peak fractions are similar in Bavaria (58.4%) and Switzerland (56.6%),
+607   but their reconstruction support differs (Figure 9; Table 10). Bavarian air-ridge
+608   hidden-peak 90% intervals cover 67.9% with bias -0.479◦ C; 30.2% of references ex-
+
+609   ceed their upper endpoint. Donor-ridge coverage is 90.8% in Bavaria and 98.1% in
+610   Switzerland. Daily out-of-fold residual scales are 1.054, 0.673 and 0.455◦ C, respec-
+611   tively. These are conditional associations among different cases, not a controlled
+
+612   change of reconstructor at the same station.
+
+613        Common geometric support alone has regional cell-frequency total variation
+614   0.228. Identical min-count weights reduce that joint-cell distance to zero and yield
+
+615   coverage 98.72% in Switzerland versus 82.68% in Bavaria, a 16.04-point difference
+616   (Table 11). Equal-cell weighting also retains a contrast. Thus a contrast remains
+617   after equalizing the frequencies of these coarse geometric cells. Adding reconstructor
+618   retains only 289/1983 Bavarian and 472/1119 Swiss cases. Their standardized cov-
+
+619   erage difference is 3.69 points, but Switzerland supplies no air-ridge counterpart to
+620   the main Bavarian failure layer. Removing 85.4% of Bavarian cases cannot estimate
+621   how much reconstructor choice explains the original regional gap. Training complete-
+622   year counts also remain strongly imbalanced after weighting (absolute standardized
+
+623   differences exceed 2.7). The cause of the regional difference remains unidentified;
+624   process explanations have not been excluded. Deleting one connected group and
+625   recomputing common support and weights leaves the geometric coverage contrast
+
+626   positive (12.39–17.77 points), but the reconstructor-conditioned contrast can reverse
+627   sign (minimum −1.12 points). This is an influence check over changing supported
+628   populations, not a causal contrast.
+
+637        Pooled annual slopes are 1.143/1.176 in Switzerland and 1.318/1.409 in
+638   Bavaria. Within-station slopes are 0.715/0.701 and 0.814/0.809 (Table 12). Pooled
+639   correlations rank Switzerland above Bavaria in both periods, 0.842/0.817 versus
+640   0.649/0.708. Within-station correlations keep that order before 2010 (0.855 versus
+
+
+
+
+                                                  –22–
+                            manuscript submitted to Water Resources Research
+
+
+
+641   0.826) and reverse it afterward (0.725 versus 0.800; Table 13). The within-station
+
+642   slopes change by -0.014 in Switzerland and -0.005 in Bavaria. The Swiss group-
+643   resample interval excludes zero, but two groups produce only three compositions,
+644   so that interval is not evidence of a changed water–air relation. Only two Swiss
+645   connected groups are available. Neither this limited annual evidence nor maxima
+
+646   on potentially different dates establish stable daily residuals, hidden-peak timing,
+647   tail behavior or autocorrelation. In Bavaria, equal station weighting changes the
+648   within-slope difference from −0.0054 to −0.0343; deleting one group gives differences
+
+649   from −0.0882 to +0.1089. The pooled annual point estimate therefore does not
+650   imply uniform station or group behavior.
+
+
+661        4.6 Year choice matters at fixed counts
+
+662        On 805 actually masked forward controlled-gap archives, the median complete-
+663   record H30 slope is 0.754◦ C per decade (interquartile range 0.496 to 0.906). The
+664   warm-season rule retains 9.59 years on average and yields estimated-slope RMSE
+
+665   0.4459, more than half that median. All-year RMSE 0.1697 is less than one quarter
+666   of it. The warm-season rule’s original one-draw random and incomplete-year-only
+667   spacing controls give 0.4540 and 0.4566. On the 468 archives that can select different
+
+668   years, those weak rules give 0.3944, 0.4100 and 0.4150. The spacing rule changes
+669   mean span only from 13.265 to 13.343 years, because fixed complete years stay
+670   outside its objective. A seed-20261029 group resample gives weak-control minus
+671   warm-season intervals [-0.0106, +0.0176] and [-0.0060, +0.0394], both containing
+
+672   zero, and an all-year interval [-0.3572, -0.1832]. Exact uniform averaging over all fea-
+673   sible subsets gives 0.4492, with a paired group-resampling interval for its difference
+674   from warm-season RMSE spanning zero. This removes single-selection Monte Carlo
+675   noise from that comparison. The mean RMSE across 200 separately drawn selec-
+
+676   tions is 0.4505 and their 2.5–97.5% range is 0.4359–0.4671; these describe conditional
+677   selection variation, not uncertainty across independent rivers.
+
+678        The stronger calendar controls improve performance (Figure 10; Table 14). Op-
+
+679   timizing the empirical year CDF including fixed complete years gives RMSE 0.4284,
+680   with a paired difference interval [-0.0274, -0.0049]; maximizing Sxx gives 0.4023 and
+681   [-0.0645, -0.0173]. They change 367 and 376 warm-season selections, respectively.
+
+682   Both directions persist with station- or group-equal weights and after each of the 17
+
+
+                                                  –23–
+                            manuscript submitted to Water Resources Research
+
+
+
+683   group deletions. These exploratory findings show that the earlier weak controls can-
+
+684   not support a blanket claim of no advantage for same-count selection. They assess
+685   calendar-based selection rules at fixed count; they neither establish equivalence nor
+686   separately identify the effect of adding years.
+
+687        The count constraints force a single feasible set in 337/805 archives: 332 re-
+688   tain no incomplete year and 5 retain all. The other 468 archives offer a choice. On
+689   this subset, warm-season, CDF and Sxx RMSEs are 0.3944, 0.3594 and 0.3031. Re-
+690   taining all supported years remains closer to the specified complete-record slope,
+
+691   with RMSE 0.1697 on all 805 common masked archives, versus 0.4023 for the best
+692   tested same-count control. Under seed 2026102969 the paired all-minus-warm-season
+693   interval is [−0.3557, −0.1841] ◦ C per decade.
+
+           Year-set RMSE under warm-season screening is 0.446, compared with recon-
+      struction RMSE 0.002 on that same set. The all-year truth-set error is zero by
+      definition; its estimated RMSE supplies the nontrivial recovery evidence. The signed
+      identity
+
+                             MSE(E) = MSE(S) + MSE(R) + 2 mean(SR)
+
+694   includes error cancellation. For the original random control, 0.206128 = 0.208715 +
+
+695   0.010617 − 0.013204. Neither RMSE subtraction nor normalized squared terms identify
+696   independent causal contributions.
+
+697        The original 807-archive paired cohort additionally contains two zero-mask
+698   archives, Bavarian stations 10081004/replicate 6 and 11405000/replicate 14, whose
+
+699   empty prediction schemas caused exclusion from the older diagnostic. Restoring
+700   their zero errors is a reported sensitivity. The remaining 13 of 820 archives retain
+701   only three or four warm-season years and fail the original five-year slope criterion.
+
+702   Their all-year RMSE is 0.3390 and the all-820 all-year RMSE is 0.1735; these un-
+703   paired availability results are not substituted for the 805-archive contrast.
+
+
+710        4.7 Source recalibration changes the budget comparison
+
+711        In the original uncalibrated-only nested check, the pooled median absolute
+712   upper-end change was 0.0071◦ C, masking 0.0011◦ C among 18 Swiss donor-ridge
+713   cases and 0.1140◦ C among nine Bavarian air-ridge cases. 6 of those nine Bavarian
+
+714   upper endpoints, and 7 of 27 overall, move by more than 0.05◦ C; 10 of 27 do so at ei-
+
+
+                                                   –24–
+                            manuscript submitted to Water Resources Research
+
+
+
+715   ther endpoint. Mean 90% interval width increases from 0.3179 to 0.3686◦ C (15.9%).
+
+716   The Bavarian 10046105/2011 upper endpoint moved by 0.4346◦ C; uncalibrated
+717   coverage changed from 23/27 to 25/27. These original diagnostics remain descriptive
+718   and reproducible.
+
+719        The new experiment completes the source-role step. All 2370 native-20 source
+720   cases and all 27 native-20 target cases reproduce their historical draws and seven
+721   quantiles exactly. Source eligibility remains unchanged across seeds and budgets.
+722   Re-estimating source offsets changes the behavior even in the Swiss subset whose
+
+723   uncalibrated median was small (Figure 11; Table 15). Across seeds, the median abso-
+724   lute recalibrated upper-end change from nested 20 to 500 paths is 0.0691–0.1169◦ C
+725   in Switzerland and 0.0609–0.1011◦ C in Bavaria. The corresponding upper-end ex-
+
+726   ceedance counts are 10–13/18 and 6–7/9. Holding target draws fixed while changing
+727   only the source offset separately records the calibration contribution.
+
+728        On the same 27 targets, historical native-20 classical MAE is 0.1335◦ C versus
+729   0.1150 for fixed D2. At 500 nested paths with updated source offsets, classical MAE
+
+730   ranges from 0.1100–0.1158 across seeds and crosses the fixed D2 value. Under one
+731   common scoring approximation, updated 500-path classical CRPS ranges from
+732   0.0762–0.0787, against historical classical CRPS 0.0879 and fixed D2 CRPS 0.0867.
+
+733   Within seed 0 the updated-source CRPS also crosses fixed D2 between nested 20 and
+734   500 paths. Native 20-path draws and a nested 500-path prefix are different samples.
+735   Both historical calibrated methods cover all 27 references, as do the recalibrated 500-
+736   path intervals in each seed. These are local comparisons on two connected groups.
+
+737   They show that sampling budget and source recalibration can change an endpoint
+738   or a local score. They do not identify a preferred estimator or verify population
+739   calibration.
+
+746        Separately, the original joint-rank experiment increases only samples from
+747   fixed annual quantiles and retains nominal 95% trend undercoverage (Table 9).
+748   Annual 90% intervals, their 95th-percentile endpoints and trend 95% intervals
+
+749   remain distinct. Supporting Information Table S4 compares the earlier rank and
+750   tail assumptions; the new source-budget experiment varies the upstream annual
+751   distributions themselves.
+
+
+
+
+                                                  –25–
+                           manuscript submitted to Water Resources Research
+
+
+
+752   5 Discussion
+
+753        The contribution links observed-window facts, recovery of an annual statistic
+754   under stated information conditions, and a slope for a fixed record period. Direct
+755   window facts require no imputation. Year selection and annual reconstruction con-
+
+756   tribute distinct, potentially cancelling errors to the slope. The exact same-count
+757   experiment now shows that calendar positions can improve the result even without
+758   adding years. Restoring all supported years improves it further in the evaluated
+759   archives. This supports attention to time support without assigning a pure causal
+
+760   percentage to year count or treating near point estimates from weak controls as
+761   equivalence. The target remains the finite complete-record slope, not an identified
+762   climate-process trend.
+
+763        A regional contrast remains after assigning common weights to the checked
+764   geometric cells. History, provider, region and reconstruction support remain en-
+765   tangled, however, and the absence of a Swiss air-ridge counterpart prevents causal
+
+766   attribution. The reconstructor-conditioned contrast can change sign when a group is
+767   removed. Similar within-station annual water–air slopes also conceal sensitivity to
+768   group and station weighting and do not establish stable gap-day residuals or peak
+769   timing.
+
+770        The completed source-calibration experiment shows why the earlier pooled
+771   0.007◦ C diagnostic was insufficient. Recalibrated endpoints change in both target
+772   strata and local method comparisons depend on the Monte Carlo realization and
+
+773   budget. Historical native20 and a nested500 prefix are different random samples and
+774   remain explicitly distinguished. More paths can reduce sampling error without re-
+775   moving structural model or calibration error; 500 paths on two target groups do not
+776   prove convergence or transportability. The observation-only facts and D2 year-set
+
+777   comparisons do not depend on declaring a classical-method winner.
+
+778        The cohort remains the long-complete tail of the archive: median 31 complete
+779   years versus 8 among the remaining 539 source stations, with 24 of 42 evaluation
+
+780   stations in Bavaria. Repeated masks and 18 connected groups do not constitute
+781   independent hydroclimates. Empirical calendars are closer to observed annual
+782   longest-gap conditions than controlled 30–90-day stresses, while actual same-day
+783   co-missingness is much lower on the recorded peer-conditioned denominator. That
+
+
+
+                                                 –26–
+                                manuscript submitted to Water Resources Research
+
+
+
+784   comparison does not measure every model donor’s availability or a common out-
+
+785   age cause. External-reference limitations and the negative release and matched-
+786   heat-stress results remain in Supporting Information. All added diagnostics are
+787   exploratory rather than independent confirmation.
+
+
+788   6 Conclusions
+
+789        Observed 30-day windows in incomplete years can overturn a complete-year
+790   heat record. The 19 warm-season-accepted windows add facts relative to strict com-
+
+791   pleteness; two excluded windows add facts relative to the warm-season rule. In the
+792   controlled-gap experiment, the median complete-record slope is 0.754◦ C per decade.
+793   Warm-season screening error is more than half of that median, and restoring all sup-
+
+794   ported years brings the error below one quarter of it. Fixed-count rules that place
+795   years, including the complete years, can improve on warm-season screening; match-
+796   ing the year count alone does not. Regional standardization retains a geometric
+797   contrast without identifying its cause. Repeating both source and target trajectory
+
+798   sampling and recalibrating on the original source roles changes endpoints and local
+799   method comparisons, so a small pooled change cannot certify numerical stability.
+800   Preserve direct heat facts, specify the record-period target and year-selection rule,
+
+801   and assess reconstruction, source calibration and numerical sampling together.
+
+
+802   Open Research
+
+803        The source observations, processing code, case-level results and figure scripts
+804   require a permanent repository and citations to be supplied by the authors. A lo-
+805   cal review candidate includes processed daily values from 95 of the 96 previously
+806   eligible source stations, permitting an independent arithmetic audit of all 35 obser-
+
+807   vation witnesses and their screening-rule decisions. The LUBW station is omitted
+808   pending permission, so the full eligible population is not reconstructed. The candi-
+809   date also includes ten additional USGS daily snapshots and their observation-only
+810   replay; neither check reconstructs the main models or verifies subdaily sampling.
+
+811   The Supporting Information lists the access status of each external archive and the
+812   derived-file inventory.
+
+813        The source includes observations from LUBW; its reuse and redistribution
+
+814   terms require provider-specific resolution rather than an assumed open licence.
+
+
+                                                     –27–
+                           manuscript submitted to Water Resources Research
+
+
+
+815   Although all whole-archive target stations have recorded reuse paths, 13 of 13 source-
+
+816   model estimator roles and 6 interval-calibration roles include positive-weight LUBW
+817   cases; the access and sharing conditions of the resulting models and case-level deriva-
+818   tives remain unresolved. Author, affiliation, funding, conflicts of interest, permitted
+819   reviewer access and permanent deposit information remain to be supplied before
+
+820   submission.
+
+
+
+864   References
+
+865   Beaufort, A., Diamond, J. S., Sauquet, E., & Moatar, F. (2022). Spatial extrapolation
+866        of stream thermal peaks using heterogeneous time series at a national scale. Hy-
+
+867        drology and Earth System Sciences, 26 , 3477–3495. doi: 10.5194/hess-26-3477
+868        -2022
+
+869   Caissie, D. (2006). The thermal regime of rivers: a review. Freshwater Biology, 51 ,
+870        1389–1406. doi: 10.1111/j.1365-2427.2006.01597.x
+
+871   Gneiting, T., & Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and
+872        estimation. Journal of the American Statistical Association, 102 , 359–378. doi:
+
+873        10.1198/016214506000001437
+
+874   Hirsch, R. M. (1982). A comparison of four streamflow record extension techniques.
+
+875        Water Resources Research, 18 (4), 1081–1088. doi: 10.1029/WR018i004p01081
+
+876   Johnson, Z. C., Johnson, B. G., Briggs, M. A., Snyder, C. D., Hitt, N. P., & Devine,
+877        W. D. (2021). Heed the data gap: guidelines for using incomplete datasets in
+878        annual stream temperature analyses. Ecological Indicators, 122 , 107229. doi:
+879        10.1016/j.ecolind.2020.107229
+
+880   Matalas, N. C., & Jacobs, B.    (1964).   A correlation procedure for augmenting hy-
+
+881        drologic data (Tech. Rep. No. 434-E).     U.S. Geological Survey.   doi: 10.3133/
+882        pp434E
+
+883   Michel, A., Brauchli, T., Lehning, M., Schaefli, B., & Huwald, H.     (2020).   Stream
+884        temperature and discharge evolution in Switzerland over the last 50 years:
+885        annual and seasonal behaviour.        Hydrology and Earth System Sciences, 24 ,
+
+886        115–142. doi: 10.5194/hess-24-115-2020
+
+887   Näf, J., Spohn, M.-L., Michel, L., & Meinshausen, N. (2023). Imputation scores. The
+888        Annals of Applied Statistics, 17 , 2452–2472. doi: 10.1214/22-AOAS1727
+
+889   NASA Langley Research Center. (2026). POWER project data sets: daily 2 m air tem-
+
+
+                                                  –28–
+                                                          manuscript submitted to Water Resources Research
+
+
+
+
+                                                       Point accuracy                                                                                 Calibration
+                                                                                                                             100
+                            0.4
+                                                                                                                             80
+
+
+
+
+                                                                                                            Coverage (%)
+       H30 MAE (C)
+
+
+
+
+                            0.3
+                                                                                                                             60
+
+                            0.2
+                                                                                                                             40
+
+                            0.1                                                                                              20
+
+
+                            0.0                                                                                               0
+                                    Plug-in           Debias               D2         Stochastic                                             D2                     Stochastic
+
+
+
+
+821   Figure 4.                          Annual estimation under difficult controlled gaps. Both historical source-calibrated
+
+822   methods receive the same observed-bound projection and normal-spacing tail model. Bars show
+
+823   empirical repetition ranges within the same archive; these are not independent climates.
+
+
+
+
+                                            Whole-archive trend error                                                                     Retention vs estimator
+                                         (common station-repetition rows)                                                            (n above bars: D2, then classical)
+                                                                                          807/820
+                                         Warm-season                                                                                 840             840        820               807
+                                                                                                                                     835             838        701               725
+       Trend RMSE (C/dec)
+
+
+
+
+                                                                                              807/820                        100
+                                         Retain all + D2                                     41 st, 17 gr
+                                                                                                              MSE gain (%)
+
+
+
+
+                                                                       820/820
+                                                     840/840
+                                                                            820/820                                           80
+                             0.1                                           41 st, 17 gr
+                                                                                                                              60
+                                                         840/840
+                                                        42 st, 18 gr
+                                   840/840                                                                                    40
+
+                                       840/840                                                                                20
+                                      42 st, 18 gr
+                            0.01
+                                                                                                                               0
+                                      Cal.              Ctrl.              Cal.              Ctrl.                                  Cal.            Ctrl.       Cal.            Ctrl.
+                                     offline           offline           forward           forward                                 offline         offline    forward         forward
+
+
+
+                                                                                                                                                  Retention           Estimator
+
+
+
+
+824   Figure 5.                          Whole-archive trend errors and the symmetric retention/estimator decomposition.
+
+825   Left: D2 on common station-repetition rows where both retention sets are available; annotations
+
+826   give n and station/group counts. The forward controlled-gap contrast uses 807 of 820 settings.
+
+827   Right: the left bar of each pair is D2 and the right bar is the calibrated classical method. Each
+
+828   bar uses that method’s own complete four-cell count, printed under the setting; the two counts
+
+829   are not one shared denominator.
+
+
+
+
+                                                                                                      –29–
+                                                        manuscript submitted to Water Resources Research
+
+
+
+
+                                              Paired annual coverage                                                                      Each method's available set
+                                            (intersection; 90% nominal)                                                                    (not paired; 95% nominal)
+                                                                                                                          100
+       Annual coverage (%)   100
+
+
+
+
+                                                                                                     Trend coverage (%)
+                             95
+                                                                                                                          90
+                             90
+
+                             85                                                                                                      Independent
+                                                                                                                          80         Shared
+                             80                                                                                                      Blocks
+
+                                           Offline                              Forward                                          D2             Cl.         D2            Cl.
+                                       paired n=838                          paired n=736
+                                   D2 840/840; Cl. 838/840               D2 818/820; Cl. 736/820
+                                                                                                                                 off            off         fwd          fwd
+                                                                                                                                n=840          n=838       n=818        n=736
+
+
+
+                                                        D2           Classical
+
+
+
+
+830   Figure 6.                          Left: paired annual coverage on the two-method intersection, weighted by incom-
+
+831   plete years. Ticks are station-repetition means on the same intersection. The tick labels give the
+
+832   paired archive count and each method’s availability out of all archives. The dashed line is the
+
+833   nominal 90 percent annual target. Right: nominal 95 percent trend coverage on each method’s
+
+834   own available archives, with that archive count. The right panel is not a paired method compari-
+
+835   son. Group-bootstrap intervals use connected groups. No gray band is shown.
+
+
+
+
+                                                                     Visible water, air,
+                                                                  observed-window bound
+
+
+                                                                       Quality flag                                  flag          Unknown
+                                                                  (seven-day air match)                                         (quality flagged)
+
+                                                                                     no flag
+
+                                                      Source-range limits, available estimate,                                          pass        Estimate
+                                                       >=4 history years; raw score <= 0.10                                                        median H30
+
+                                                                  fail             yes
+
+                                    Fully observed           no            Unknown                                               Observed lower bound
+                                   30-day window?                    (no observed bound)                                    (no reconstructed annual value)
+
+
+                                                                                                                  Exploratory selected trend
+                                                                                                       values plus bounds; Gaussian working likelihood
+
+
+
+
+836   Figure 7.                          The evaluated three-output decision and exploratory trend analysis. The cap
+
+837   applies to an individual raw classifier score, not a certified group risk. The seven-day water–air
+
+838   check was assessed only for the clean and imposed exact-air-substitution cases. The selected-
+
+839   trend working likelihood treats released values as exact and observed bounds as censored.
+
+
+
+                                                                                                   –30–
+                                                                manuscript submitted to Water Resources Research
+
+
+
+
+                                                       Empirical calendars                                                                                      Controlled gaps
+                                  100                                                                                                         Circle: fixed cap
+                                                                                                                                     40                                                                Air
+                                                                                                                                              Square: three outputs
+                                                                                                                                              No square: zero published
+
+
+
+
+                                                                                                                Selected error (%)
+                                  80
+                                                                                                                                     30
+       Cases (%)
+
+
+
+
+                                  60
+                                                                                                                                     20
+                                  40
+                                                                                                                                                                                                     Hot
+                                                                                                                                                                                            Future
+                                  20                                                                                                 10
+                                                                                                                                                                                                    Clean
+
+                                   0                                                                                                  0
+                                              Clean        Hot           Future           Air                                             0            20             40              60             80             100
+                                                                                                                                                            Values published (%)
+                                                Estimate              Bound              Unknown
+
+
+
+
+840   Figure 8.                                 Left: three outputs for empirical-calendar masks. Right: numerical-publication
+
+841   rates and selected errors for controlled gaps. Source diagnostics do not remove extrapolation
+
+842   failures. The air-agreement flag addresses the specified exact-substitution stress only; zero publi-
+
+843   cation is shown as unknown rather than zero-risk success.
+
+
+
+
+                                  100                                                                                                 0.0
+       Nominal 90% coverage (%)
+
+
+
+
+                                   80                                                                                                −0.1
+                                                                                                            H30 bias (∘C)
+
+
+
+
+                                   60                                                                                                −0.2
+
+
+                                   40                                                                                                −0.3
+
+
+                                   20                                                                                                −0.4
+
+
+                                    0                                                                                                −0.5
+                                                            idg e            ge                     idge                                                                   e             idge                          e
+                                                       or r            ir rid                  or r                                                                  ridg           air r                          ridg
+                                                   o  n             a/a                  do   n                                                           do   nor             a/                       do   nor
+                                               d/d           vari                  ria /                                                             nd /                 vari                    ria /
+                                        tzerlan            Ba               Bav
+                                                                                  a
+                                                                                                                                              tzer
+                                                                                                                                                  la                 Ba                     Bav
+                                                                                                                                                                                                a
+                                   Swi                                                                                                 Swi
+
+
+
+
+844   Figure 9.                                 Hidden-reference-peak recovery by region and daily reconstructor. Coverage is
+
+845   nominal 90%; bias is the median minus complete-year H30. The hidden-peak label uses withheld
+
+846   complete-year truth and is unavailable at decision time. Bavarian air-ridge cases are not matched
+
+847   to Swiss donor-ridge cases.
+
+
+
+
+                                                                                                          –31–
+                                                                               manuscript submitted to Water Resources Research
+
+
+
+                                                                     (a) Year-set and estimated errors                                                                  (b) Paired 17-group resampling
+                                   0.5                                                                 Estimated annual values             Uniform exact
+                                                                    0.449                              True values on selected years
+                                                   0.446
+                                                                                 0.428
+                                                                                                   0.402
+                                   0.4
+      Slope RMSE (°C per decade)
+
+                                                                                                                                                     CDF
+                                   0.3
+
+                                   0.2                                                                                0.170                          Sxx
+
+                                   0.1
+
+                                                                                                                                                      All
+                                   0.0
+                                                     Warm            Uniform         CDF                Sxx                All                               0.35 0.30 0.25 0.20 0.15 0.10 0.05 0.00
+                                                                      exact                                                                                         Estimated RMSE minus warm-season
+
+
+
+848   Figure 10.                                                 Year choice at a fixed retention count on 805 forward controlled-gap archives. Left:
+
+849   estimated-slope and complete-truth-year-set RMSE. Uniform exact averages squared error over
+
+850   every feasible subset inside each archive before taking the cohort root. CDF and Sxx select years
+
+851   without temperature outcomes and include all fixed complete years in their objectives. Right:
+
+852   comparator-minus-warm-season estimated-RMSE differences and paired 95% percentile intervals
+
+853   from 10,000 resamples of 17 connected groups. The original one-draw random and incomplete-
+
+854   year-only spacing controls remain in Table 14.
+
+                                                                                              Seed 0           Seed 1             Seed 2        Stratum × seed median
+                                                                  (a) Uncalibrated                                      (b) Fixed native offsets                               (c) Updated source offsets
+
+
+                                             0.4
+      Absolute 95th-percentile change (°C)
+             Nested prefix20 500
+
+
+
+
+                                             0.3
+
+
+                                             0.2
+
+
+                                             0.1
+
+
+                                             0.0
+                                                        Swiss donor               Bavarian air                   Swiss donor                    Bavarian air                Swiss donor            Bavarian air
+                                                     18 cases, 1 group          9 cases, 1 group              18 cases, 1 group               9 cases, 1 group           18 cases, 1 group       9 cases, 1 group
+
+
+
+
+855   Figure 11.                                                 Absolute upper-endpoint changes between nested 20 and 500 residual-bridge
+
+856   paths, for the same target samples under no offset, fixed historical source offsets and source
+
+857   offsets re-estimated at each budget. All 27 case points per seed remain visible, separated into 18
+
+858   Swiss donor-ridge and nine Bavarian air-ridge cases; colors identify seeds 0, 1 and 2 and horizon-
+
+859   tal marks their stratum medians. The 0.05◦ C line is a numerical diagnostic. Source recalibration
+
+860   uses 2,370 original positive-weight cases with unchanged roles and multiplicities. Native historical
+
+861   20-path draws are a separate reference, not the 500-path prefix. Lower-endpoint changes and
+
+862   all counts are reported in Supporting Information. Two target groups and 500 paths do not
+
+863   establish population calibration or convergence.
+
+
+
+                                                                                                                              –32–
+                          manuscript submitted to Water Resources Research
+
+
+
+890        perature (MERRA-2). https://power.larc.nasa.gov/.
+
+891   van Hamel, A., & Brunner, M. I. (2024). Trends and drivers of water temperature
+892        extremes in mountain rivers. Water Resources Research, 60 , e2024WR037518.
+893        doi: 10.1029/2024WR037518
+894   Vogel, R. M., & Stedinger, J. R. (1985). Minimum variance streamflow record aug-
+
+895        mentation procedures. Water Resources Research, 21 (5), 715–723. doi: 10.1029/
+896        WR021i005p00715
+
+
+
+
+                                               –33–
+                              manuscript submitted to Water Resources Research
+
+
+
+
+347   Table 4.     Calibration and projection order in the analyses used here. The rows are separate
+
+348   analyses; they are not twenty repetitions of one final pipeline.
+
+        Analysis             Projection and tail      Calibration and source   What it supports
+                             treatment                roles
+        Twenty historical    The same                 Original weights and      Historical annual H30
+        single-year source   observed-window          offsets remain fixed.     comparisons at the executed
+        repetitions          projection is applied to Source roles are the      20-path classical budget.
+                             both methods after       original held-region      Fine differences are not
+                             their original           and held-group            established for larger-budget
+                             calibration. The seven assignments.                source-calibrated
+                             stored quantiles are                               distributions. Not a
+                             extended with adjacent                             whole-archive trend refit.
+                             normal-quantile
+                             spacings.
+        Whole-archive        The observed-bound       Annual weights stay       The retention/estimator
+        factorial            projection is applied to source-only; local daily decomposition and the
+                             each estimator’s         models, climatology       finite-record trend
+                             annual distribution      and residual histories    comparison. The primary
+                             before and after         are refitted after        retention contrast uses
+                             re-estimated offsets,    jointly masking the       common station-repetition
+                             and those annual         target archive. The       rows.
+                             samples then enter the main analysis excludes
+                             slope. Each estimator    held test groups; the
+                             has its own bounded      strict-region sensitivity
+                             annual marginals.        removes additional
+                             Within one estimator     same-region groups.
+                             those marginals stay
+                             fixed across the three
+                             rank constructions.
+                             Both use
+                             normal-spacing tails. A
+                             trend interval is not
+                             projected onto an
+                             annual lower bound.
+        Forward task         The observed lower       Calibration uses          The negative result that task
+        calibration          bound is imposed on      unused rule-calibration calibration is available for
+                             the annual distribution. groups, equal group       only a small selected subset
+                             The independent-draw weights and pre-2010          and does not establish
+                             slope interval is then   source errors. Fewer      population coverage.
+                             compared with the        than three
+                             task-calibrated slope    nondegenerate groups,
+                             interval on the same     a zero factor or an
+                             cases. This does not     out-of-range target
+                             project a trend interval width returns an
+                             onto an annual lower     unsupported status.
+                             bound.
+        External             Source models and        Reference quality,        Descriptive transfer evidence
+        exploratory          source calibration are   clock, quality codes      only. These rows cannot
+        comparisons          fixed; local history is  and watershed             substitute for a strict
+                             refitted where the       dependence are            independent reference.
+                             adaptation requires it. unresolved.
+
+
+
+
+                                                        –34–
+                                 manuscript submitted to Water Resources Research
+
+
+
+
+373   Table 5.     Annual longest contiguous missing run. The first three rows are the 2010–2025 com-
+
+374   parison. Observations weight incomplete station-years equally; trial rows weight incomplete
+
+375   station-year–replicates equally. The 1981–2025 row is the longer observed archive on the same
+
+376   statistic. Sampling and repeat weights differ, so this is not a same-distribution test.
+
+
+              Source                  Rows      Stations    Median (d)         90th percentile (d)        ≥ 30 d
+
+              Observed archive           109          29               4                      33.6       11.93%
+
+              Empirical calendar      3,806           41               6                      30.0       10.25%
+
+              Controlled gaps         3,777           41              60                      90.0       100.00%
+
+              Observed 1981–2025         220          31               3                      32.4       11.36%
+
+
+
+
+474   Table 6.     Every eligible station-year under the compared completeness rules. “Number” is a
+
+475   complete-year H30; “bound” is an incomplete year with a fully observed 30-day window; “un-
+
+476   known” has neither. “New facts” counts admitted incomplete years whose observed window
+
+477   exceeds the maximum reported window among other accepted years.
+
+
+       Rule                          Eligible   Admitted   Number    Bound      Unknown    New facts     Excluded facts
+
+       Complete year (100%)            2,700       2,139     2,139         0           0             0              35
+
+       Annual coverage ≥95%            2,700       2,591     2,139     452             0         18                  3
+
+       Station warm-season ≥90%        2,700       2,634     2,139     495             0         19                  2
+
+       Fixed warm-season ≥90%          2,700       2,635     2,139     496             0         19                  2
+
+       July–August complete            2,700       2,509     2,139     370             0         18                  3
+
+       Longest gap ≤49 d (context)     2,700       2,653     2,139     514             0         19                  1
+
+      A reported window is not a complete-year H30. A rule-accepted incomplete year can contain a higher
+
+      unobserved peak, so the last two columns compare reported windows only. The 49-day row is a contextual
+
+      Johnson comparison, not a validated H30 rule.
+
+
+
+
+                                                           –35–
+                                   manuscript submitted to Water Resources Research
+
+
+
+
+562   Table 7.      Whole-archive trend errors on identical available station/repetition rows, in degrees C
+
+563   per decade.
+
+
+              Setting                   Reference                  Paired n     D2 RMSE      Reference RMSE
+
+              calendar / forward        Calibrated stochastic      701          0.062        0.051
+
+              calendar / forward        Daily plug-in              820          0.067        0.088
+
+              calendar / offline        Calibrated stochastic      835          0.009        0.011
+
+              calendar / offline        Daily plug-in              840          0.009        0.014
+
+              crossed / forward         Calibrated stochastic      738          0.164        0.147
+
+              crossed / forward         Daily plug-in              820          0.173        0.228
+
+              crossed / offline         Calibrated stochastic      838          0.028        0.032
+
+              crossed / offline         Daily plug-in              840          0.028        0.046
+
+
+
+
+573   Table 8.       Annual recovery separated by whether the complete reference peak is already visible
+
+574   at the observed lower bound. The stratification uses the withheld complete reference and is
+
+575   unavailable at decision time. Common finite D2 and classical cases, crossed forward controlled
+
+576   gaps.
+
+
+       Reference peak              Method      Cases    Stations   Groups     MAE (◦ C)   90% coverage   Width (◦ C)
+
+       At observed bound           D2          1,537         41          17       0.012         99.3%           0.17
+
+       At observed bound           Classical   1,537         41          17       0.025         94.4%           0.10
+
+       Above observed bound        D2          2,146         41          17       0.378         83.2%           1.30
+
+       Above observed bound        Classical   2,146         41          17       0.345         81.6%           1.12
+
+
+
+
+                                                             –36–
+                               manuscript submitted to Water Resources Research
+
+
+
+
+577   Table 9.     Numerical convergence of the three fixed-marginal joint-rank constructions on the
+
+578   difficult forward controlled gaps. Annual quantiles, bounds and evaluation years are fixed. The
+
+579   range is across three random seeds; it is not a confidence interval.
+
+
+       Method      Construction        Draws         Coverage (%)         Width (◦ C/dec)          Interval score
+
+       D2          independent            256      88.3 [88.0, 88.5]   0.450 [0.449, 0.451]   0.855 [0.849, 0.860]
+
+       D2          independent           1024      89.2 [89.0, 89.4]   0.457 [0.457, 0.458]   0.845 [0.842, 0.847]
+
+       D2          independent           4096      89.2 [89.1, 89.2]   0.459 [0.459, 0.459]   0.842 [0.839, 0.844]
+
+       D2          residual blocks        256      89.2 [88.6, 89.6]   0.451 [0.450, 0.451]   0.840 [0.828, 0.851]
+
+       D2          residual blocks       1024      89.8 [89.7, 89.9]   0.456 [0.456, 0.456]   0.828 [0.825, 0.830]
+
+       D2          residual blocks       4096      89.7 [89.6, 89.9]   0.457 [0.457, 0.458]   0.825 [0.825, 0.826]
+
+       D2          shared parameters      256      88.4 [88.3, 88.6]   0.444 [0.444, 0.445]   0.855 [0.845, 0.863]
+
+       D2          shared parameters     1024      88.7 [88.3, 88.9]   0.450 [0.449, 0.451]   0.840 [0.835, 0.846]
+
+       D2          shared parameters     4096      88.7 [88.5, 88.9]   0.452 [0.451, 0.452]   0.835 [0.834, 0.835]
+
+       Classical   independent            256      86.3 [86.0, 86.7]   0.384 [0.383, 0.384]   0.856 [0.849, 0.866]
+
+       Classical   independent           1024      87.5 [87.2, 87.6]   0.390 [0.390, 0.390]   0.853 [0.852, 0.853]
+
+       Classical   independent           4096      87.6 [87.5, 87.6]   0.391 [0.391, 0.391]   0.851 [0.851, 0.852]
+
+       Classical   residual blocks        256      86.9 [86.5, 87.1]   0.384 [0.383, 0.385]   0.840 [0.837, 0.845]
+
+       Classical   residual blocks       1024      87.6 [87.4, 87.9]   0.389 [0.389, 0.390]   0.837 [0.835, 0.839]
+
+       Classical   residual blocks       4096      88.0 [87.8, 88.2]   0.390 [0.390, 0.391]   0.837 [0.836, 0.839]
+
+       Classical   shared parameters      256      86.3 [85.9, 86.5]   0.380 [0.380, 0.381]   0.867 [0.864, 0.868]
+
+       Classical   shared parameters     1024      87.3 [87.0, 87.5]   0.385 [0.385, 0.385]   0.856 [0.854, 0.859]
+
+       Classical   shared parameters     4096      87.5 [87.4, 87.6]   0.386 [0.386, 0.386]   0.854 [0.852, 0.856]
+
+
+
+629   Table 10.      Hidden-reference-peak recovery by region and daily reconstructor. The hidden-peak
+
+630   label uses withheld complete-year H30. Coverage is nominal 90%. Above-interval is the share of
+
+631   complete references hotter than the 95th percentile.
+
+
+       Region          Reconstructor   Method       Cases     MAE        Bias   90% coverage      Above interval
+
+       Switzerland     donor ridge          D2         633    0.175    -0.130           98.1%               0.9%
+
+       Switzerland     donor ridge     classical       633    0.180    -0.133           96.7%               2.7%
+
+       Bavaria         air ridge            D2         995    0.574    -0.479           67.9%              30.2%
+
+       Bavaria         air ridge       classical       995    0.486    -0.296           66.5%              27.1%
+
+       Bavaria         donor ridge          D2         163    0.249    -0.129           90.8%               8.6%
+
+       Bavaria         donor ridge     classical       163    0.205    -0.079           87.7%               8.6%
+
+
+
+
+                                                         –37–
+                               manuscript submitted to Water Resources Research
+
+
+
+
+632   Table 11.     Descriptive regional coverage standardization on common cells. Min-count weights
+
+633   are the primary common target; equal-cell weights are a sensitivity analysis. Coverage is in per-
+
+634   cent and differences are percentage points. Geometry cells contain gap, training-peak overlap,
+
+635   year and visible-donor bins. Adding the reconstructor changes the supported population; it does
+
+636   not identify a reconstructor effect.
+
+
+
+        Cells                          Weights                FOEN            Bavaria          Difference
+
+        Geometry                       Original                 98.75             82.78                15.97
+
+        Geometry                       Min-count                98.72             82.68                16.04
+
+        Geometry                       Equal-cell               99.29             81.68                17.62
+
+        + reconstructor                Original                 99.58             94.12                  5.46
+
+        + reconstructor                Min-count                99.72             96.04                  3.69
+
+        + reconstructor                Equal-cell               99.75             93.41                  6.33
+      Reconstructor common support retains 472/1,119 FOEN and 289/1,983 Bavaria cases. Switzerland has no
+
+            air-ridge cases, so Bavaria’s air-reconstruction failure stratum has no cross-region counterpart.
+
+
+
+
+                                                         –38–
+                               manuscript submitted to Water Resources Research
+
+
+
+
+651   Table 12.     Annual water–air H30 associations in unique complete station-years. Years and
+
+652   slopes are shown before/from 2010; S/G counts stations/connected groups. Within estimates
+
+653   center both variables within station and period. Slopes and correlations pool the centered annual
+
+654   observations, rather than averaging station coefficients. The paired 95% percentile intervals
+
+655   resample the same connected groups in both periods; only two FOEN groups and eight Bavaria
+
+656   groups are available, so these intervals are descriptive and coarse. Station-resampling sensitivity
+
+657   results are saved separately.
+
+
+        Region       Fit               Years       S/G              Slopes              ∆b [95% interval]
+
+        FOEN         Pooled           98/159      10/2       1.143/1.176        +0.033 [-0.005, +0.047]
+
+        FOEN         Within           98/159      10/2       0.715/0.701           -0.014 [-0.015, -0.005]
+
+        Bavaria      Pooled        554/295        24/8       1.318/1.409        +0.091 [-0.151, +0.346]
+
+        Bavaria      Within        554/295        24/8       0.814/0.809          -0.005 [-0.224, +0.149]
+        The air and water H30 maxima need not refer to the same dates. Similar annual within slopes do not
+
+       establish stable daily residuals, hidden-peak timing, tails or autocorrelation, and are not an equivalence
+
+                                                          test.
+
+
+
+
+658   Table 13.     Annual water–air correlations and paired changes. Intervals use connected-group re-
+
+659   sampling, as in Table 12. Correlations describe annual H30 associations at the stated aggregation
+
+660   scale.
+
+
+
+        Region           Fit              r<2010         r≥2010                   ∆r [95% interval]
+
+        FOEN             Pooled            0.842           0.817            -0.025 [-0.129, -0.014]
+
+        FOEN             Within            0.855           0.725            -0.130 [-0.130, -0.129]
+
+        Bavaria          Pooled            0.649           0.708         +0.059 [-0.027, +0.100]
+
+        Bavaria          Within            0.826           0.800          -0.025 [-0.066, +0.051]
+
+
+
+
+                                                         –39–
+                             manuscript submitted to Water Resources Research
+
+
+
+
+704   Table 14.    Exploratory finite-record slope comparisons on 805 actual-mask archives in 17 con-
+
+705   nected groups. Errors are ◦ C per decade. CDF and Sxx optimize the entire retained set including
+
+706   fixed complete years. Uniform exact averages squared errors over feasible same-count sets within
+
+707   each archive, then averages archives and takes the square root. All-year truth-set error is zero by
+
+708   definition. The last column gives comparator-minus-warm-season estimated RMSE with a paired
+
+709   95% group-percentile interval, not an equivalence test.
+
+
+            Rule              Years    Estimate    Year-set     Reconst.   ∆ RMSE [95% interval]
+
+            Warm-season         9.59     0.4459      0.4458       0.0023   Reference
+
+            Legacy random       9.59     0.4540      0.4569       0.1030   0.0081 [-0.0103, 0.0177]
+
+            Legacy spacing      9.59     0.4566      0.4539       0.0873   0.0108 [-0.0063, 0.0404]
+
+            Uniform exact       9.59     0.4492      0.4483       0.0978   0.0033 [-0.0052, 0.0171]
+
+            CDF                 9.59     0.4284      0.4199       0.1079   -0.0175 [-0.0274, -0.0049]
+
+            Sxx                 9.59     0.4023      0.3931       0.1185   -0.0436 [-0.0645, -0.0173]
+
+            All years         13.32      0.1697      0.0000       0.1697   -0.2762 [-0.3557, -0.1841]
+
+
+
+
+                                                     –40–
+                             manuscript submitted to Water Resources Research
+
+
+
+
+740   Table 15.    Same-target annual comparison by region–reconstructor stratum. D2 and historical
+
+741   native20 are fixed original references. Updated rows regenerate the source-role offsets at the
+
+742   stated nested budget; entries are minima–maxima across seeds 0, 1 and 2, not confidence inter-
+
+743   vals. MAE and mean 90% width are in ◦ C. CRPS uses the same seven-quantile normal-spacing
+
+744   256-point approximation for every method. Each stratum contains one connected group; these
+
+745   counts do not estimate population coverage or establish a general method ranking.
+
+
+              Method / paths        Covered             MAE              Width        CRPS256
+
+              Switzerland / donor ridge; 18 target station-years
+
+              Fixed D2                 18/18           0.0569             0.7347          0.0483
+
+              Historical native20      18/18           0.0785             0.5623          0.0554
+
+              Updated nested20       18 of 18   0.0632–0.0666      0.5802–0.6716   0.0504–0.0509
+
+              Updated nested100      18 of 18   0.0642–0.0724      0.5677–0.5715   0.0490–0.0521
+
+              Updated nested500      18 of 18   0.0693–0.0730      0.5334–0.5533   0.0500–0.0516
+
+              Bavaria / air ridge; 9 target station-years
+
+              Fixed D2                   9/9           0.2311             1.0531          0.1634
+
+              Historical native20        9/9           0.2435             0.7612          0.1530
+
+              Updated nested20       8–9 of 9   0.1914–0.2321      0.7357–0.8804   0.1281–0.1621
+
+              Updated nested100      8–9 of 9   0.1824–0.2129      0.7526–0.8547   0.1262–0.1467
+
+              Updated nested500        9 of 9   0.1915–0.2015      0.7607–0.8006   0.1287–0.1334
+
+
+
+
+                                                     –41–
+

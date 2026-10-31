@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "case_rows": 432,
+  "common_masks": 144,
+  "stations": 2,
+  "station_year_shift_rows": 24,
+  "max_reference_difference_c": 2.4868995751603507e-14,
+  "max_bound_difference_c": 1.0658141036401503e-14,
+  "mask_count_mismatches": 0,
+  "paired_summary_cells_checked": 66,
+  "paired_difference_cells_checked": 60,
+  "scope": "independent convolution, support checks and score arithmetic on saved predictions and shifted reported-clock daily data; no model refit",
+  "limitation": "post-hoc shifts do not determine true timezone, validate instrument quality, or establish independence; they keep NASA forcing fixed"
+}

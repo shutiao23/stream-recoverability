@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T08:07:28.373179+00:00",
+  "status": "posthoc correction after original driver saved all four responses but failed to write status; source and results unchanged",
+  "change": "Separate the status-path variable from the raw-response file handle; no request, data conversion or scoring changes.",
+  "original_retained": true,
+  "current_results_used_repaired_saved_responses": true,
+  "new_network_requests": false,
+  "verification": "A fake-response unit test confirms the corrected driver writes a completed status; current four saved responses were independently reconstructed by script 883.",
+  "limitations": "The corrected driver was not run against the network; it still requires the recorded inputs and path adaptation in an extracted review package."
+}

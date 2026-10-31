@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "input_case_rows": 21446,
+  "summary_cells": 24,
+  "scalar_checked_counts": 6,
+  "all_strata_comparisons_changed": 12947,
+  "changed_case_endpoint_gap_max_c": 8.171241461241152e-14,
+  "changed_case_endpoint_gap_median_c": 1.4210854715202004e-14,
+  "changed_case_gaps_above_1e12_c": 0,
+  "changed_case_reference_bound_difference_max_c": 8.171241461241152e-14,
+  "changed_case_endpoint_direction": {
+    "below_lower": 12726,
+    "above_upper": 221
+  },
+  "scope": "Independent scalar recomputation of pooled coverage for 24 preexisting post-hoc comparison cells and endpoint gaps. Repeated masked cases and methods are not independent station-years.",
+  "limitations": "Same saved references, outputs and prior-outcome-defined strata; no independent reference or raw-data recomputation. Tolerances are numerical comparisons, not physical sensor error. This audit cannot establish population calibration or coverage.",
+  "storage": "temporary RAM; not durable"
+}

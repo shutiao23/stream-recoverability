@@ -1,0 +1,7 @@
+rule,witness_years,admitted_witness_years,excluded_witness_years,admitted_witness_stations,excluded_exceed_reported_record,excluded_exceed_reported_record_stations
+complete_100,35,0,35,0,35,20
+annual_95,35,31,4,18,3,3
+warm_90_station_specific,35,32,3,19,2,2
+warm_90_fixed_original,35,32,3,19,2,2
+july_aug_complete,35,30,5,18,3,3
+gap_le_49_days_context,35,34,1,19,1,1

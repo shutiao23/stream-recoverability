@@ -1,0 +1,18 @@
+{
+  "status": "portal_label_completeness_computed",
+  "stations": 4,
+  "station_years": 36,
+  "complete_reported_label_years": 17,
+  "stations_with_four_complete_label_years": 3,
+  "unparsed_timestamp_rows": {
+    "NS01DL0009": 0,
+    "NS01EF0002": 0,
+    "NS01FB0001": 0,
+    "NS01ED9111": 0
+  },
+  "strict_reference_qualified_stations": 0,
+  "strict_reference_status": "not established",
+  "prediction_errors_computed_in_this_label_screen": false,
+  "separate_exploratory_score_exists": true,
+  "limitation": "reported labels and numeric cells only; timezone, estimated-value treatment, per-observation QA and climate independence are not established"
+}

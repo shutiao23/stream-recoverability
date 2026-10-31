@@ -1,0 +1,28 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "calibration": "historical held-region quantile offsets for each seed, then identical observed-bound projection",
+  "tails": "same adjacent-normal-quantile extension and support projection for both annual methods",
+  "limitation": "post-calibration projection is not projection-aware offset refitting; seed-zero whole-archive analysis separately refits offsets on calibration groups",
+  "repetitions": "20 source masks/role compositions on the same archive; not independent climates"
+}

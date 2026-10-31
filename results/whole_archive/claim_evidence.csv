@@ -1,0 +1,7 @@
+主张,主要比较或事实,主要指标,结果及限制,证据
+观测事实,不完整年份可以已观测窗口否定完整年纪录,观测窗口下界减完整年纪录,20/96站、35站年；不确定唯一最热年,observed_records/observed_record_certificates.csv
+年度恢复,目标指标恢复优于简单点填补，但不预设优于合格随机重建,H30 MAE、CRPS、区间覆盖和宽度,同等校准对照；不主张D2普遍必要,evidence/scorecard_summary.csv
+整档案趋势,统一隐藏多年观测后，保留集合与估计器分别影响趋势误差,趋势RMSE、配对MSE主效应与交互,42站、20次重复；邻站仍可观测,results/whole_archive/factorial_paired_summary.csv
+联合不确定性,年度校准不能替代趋势校准,缺失分量覆盖、区间宽度、评分和可用率,前推长缺口覆盖不足；任务校准支持不足,results/whole_archive/paired_task_intervals.csv
+输出边界,数值、观测下界、未知状态分别评价,数值错误率、输出率、热年案例召回与误报,严重污染条件付出高输出损失；不能泛化为通用质控,results/release_outputs/release_metrics.csv
+外部资料,实际确认资格，并检验原先选定的观测纪录主张,完整参照年数、批准窗口与纪录差值,新西兰九站无合格精度参照；另十站中3站、9站年有批准观测纪录反证；不报告外部精度,results/additional_usgs_observed/robust_record_witnesses.csv

@@ -1,0 +1,22 @@
+{
+  "status": "metadata_first_supplementary_backup_reference_validation",
+  "resource_id": "bef00bd7-255e-461c-a08b-09f81977170c",
+  "provider": "Fisheries and Oceans Canada",
+  "population": "all available river files in the frozen English archive, not a performance-selected subset",
+  "reference_scope": "project-aggregated UTC-day means; separate from provider-documented daily means",
+  "pair_eligibility": "same river, station name and coordinates rounded to six decimals; distinct serials with at least ninety days of concurrent recorded timestamps",
+  "primary_role": "lexicographically smaller serial; reverse direction is a sensitivity",
+  "natural_gap": "missing daily record strictly inside the primary logger's recorded deployment interval; no transplanted or enlarged masks",
+  "reference_year": "backup must have a finite qualified daily mean for every calendar day",
+  "daily_coverage": {"minimum_distinct_hours": 20, "minimum_span_hours": 20},
+  "pair_agreement": {"minimum_visible_days": 90, "maximum_visible_daily_MAE_C": 0.25, "maximum_visible_daily_abs95_C": 0.5},
+  "original_upstream_history": "at least three complete primary-only years strictly preceding target year",
+  "backup_input_rule": "backup temperatures are reference only for primary-only reconstruction tests, never reconstructor inputs",
+  "operational_free_backup": "also report the free backup-union reference; withholding a freely available backup does not establish an acquisition-policy advantage",
+  "risk_models": "unchanged original source-only strictly-prior-year heads and thresholds; no local outcome adaptation",
+  "outage_causes": "record gaps only; sensor failure, dry channel and maintenance causes require separate verified evidence",
+  "quality_rule": "no agency-approved flag is invented; project aggregation and sensor-reference limitations remain explicit",
+  "independent_unit": "conservatively treat the new provincial resource as one dependent cohort unless catchment/event independence is independently established",
+  "confirmation_claim": "new frozen-resource descriptive stress test; not a population risk certificate or new broad superiority confirmation",
+  "costly_query_experiment": "inactive without documented costs; public archive downloads are free inputs"
+}

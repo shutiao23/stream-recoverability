@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-10-26T21:19:15.175218+00:00",
+  "source_doi": "10.4211/hs.521e317e189e498581d0aaa08c3f32bc",
+  "candidates": [
+    "archery",
+    "cottonwood",
+    "riverbend",
+    "salyer"
+  ],
+  "years_utc": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "source_files": [
+    "CSU_ROSS_2020_raw.parquet",
+    "CSU_ROSS_2021_raw.parquet",
+    "CSU_ROSS_2022_raw.parquet",
+    "CSU_ROSS_2023_raw.parquet",
+    "CSU_ROSS_2024_raw.parquet"
+  ],
+  "parameter": "Temperature",
+  "units": "degrees C",
+  "measurement_column": "value_post_drift_corr",
+  "quality_column": "qc_status",
+  "accepted_quality": [
+    "PASS"
+  ],
+  "daily_reference": "exactly 96 unique quarter-hour UTC records, finite final reported value and PASS quality for every record; duplicates and off-grid readings invalidate a day",
+  "annual_reference": "all UTC days in the year satisfy the daily rule; at least four such years are needed at one site",
+  "sampling": "fixed four candidates from published metadata; 2019 and 2025 cannot be complete calendar years according to resource period",
+  "independence": "single Poudre watershed; named nearby USGS metadata was previously encountered, connectivity and exact station matching not yet independently established",
+  "caveat": "source says 2019-2021 lacked technician calibration records; even a fully PASS year is not proof of sensor calibration, independent climate or suitability for blinded confirmation",
+  "precontact": "metadata, file schemas/descriptions and deployment notes examined; temperature data and prediction errors not examined before this plan"
+}

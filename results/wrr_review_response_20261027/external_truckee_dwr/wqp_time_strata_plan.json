@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T05:28:49.382830+00:00",
+  "status": "posthoc after inspecting the overall field-versus-logger difference; before calculating timing-stratified results",
+  "strata": "Compare all matched field observations, those exactly on a 15-minute label, and those paired to a neighboring label within 7.5 minutes; retain zero-count strata.",
+  "audit": "Reconstruct eligibility and nearest timestamps directly from the saved WQP CSV and DWR logger file using Python csv/datetime; recompute every original aggregate and both timing strata.",
+  "limitations": "One same-agency station and three sampled years; instrument independence, spatial placement, true water clock, field-visit selection and quality of all unvisited dates remain unresolved."
+}

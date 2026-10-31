@@ -1,0 +1,12 @@
+{
+  "status": "station_year_files_acquired",
+  "acquired_utc": "2026-10-26T22:54:08.016369+00:00",
+  "stations": 2,
+  "station_year_files": 8,
+  "provider_endpoint": "https://njdep.rutgers.edu/continuous/api/latest/download/csv//",
+  "parameter": "Temp",
+  "local_files": "private/wrr_njdep_reference_20261026/station_year_csv/",
+  "water_temperature_values_scored": false,
+  "quality_or_complete_years_established": false,
+  "limitation": "post-hoc two-site selection; CSV acquisition does not establish unique complete days, physical time zone, nonestimated values, individual quality flags, sensor accuracy or independent watershed"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "portal_counts_received",
+  "fixed_candidates": 4,
+  "stations_returned": 4,
+  "candidate_ids_not_returned": [],
+  "temperature_values_requested": false,
+  "limitation": "public portal lists no per-record temperature quality flags and timestamp zone remains to be confirmed",
+  "request_url": "https://data.novascotia.ca/resource/bkfi-mjgw.json?%24select=station_number%2Ccount%28%2A%29+as+row_count%2Cmin%28date%29+as+first_date%2Cmax%28date%29+as+last_date&%24where=station_number+in+%28%27NS01DL0009%27%2C%27NS01EF0002%27%2C%27NS01FB0001%27%2C%27NS01ED9111%27%29+AND+date+%3E%3D+%272009-01-01T00%3A00%3A00%27+AND+date+%3C+%272018-01-01T00%3A00%3A00%27&%24group=station_number&%24order=station_number&%24limit=100",
+  "prediction_errors_computed_in_this_count_screen": false,
+  "separate_exploratory_score_exists": true
+}

@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T07:56:47.499820+00:00",
+  "status": "posthoc after scores, qualification and hidden probes",
+  "scope": "Regenerate all eight target years and 144 masks with one numerical thread. Compare case identities/masks, 68 design features and 17 point/quantile/classifier outputs against saved results.",
+  "limitations": "Same source model, source calibration, processed USGS daily inputs and generator are reused; this is not a model refit, raw-service reconstruction or independent climate validation."
+}

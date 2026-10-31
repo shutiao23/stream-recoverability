@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "candidate_baseline_receipts_verified": 205,
+  "strict_huc17_baselines_replayed": 15,
+  "strict_trend_rows_replayed": 180,
+  "strict_annual_rows_replayed": 60,
+  "execution_note": "The first attempted parallel audit failed before dispatch because a dynamic module could not be deserialized; the full audit was then executed sequentially.",
+  "scope": "Candidate baseline inputs, model, calibration and outputs checked against saved receipts. Strict HUC17 baseline replayed with current strict source model and same daily features and masks, comparing annual predictions and trend summaries. This is not an independent source-model refit or physical sensor validation."
+}

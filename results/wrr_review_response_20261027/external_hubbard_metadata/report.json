@@ -1,0 +1,60 @@
+{
+  "status": "no_eligible_reference_identified_in_inspected_metadata",
+  "metadata_documents": 2,
+  "measurement_tables_downloaded": 0,
+  "temperature_outcomes_read": false,
+  "model_errors_scored": false,
+  "documents": [
+    {
+      "identifier": "https://pasta.lternet.edu/package/metadata/eml/knb-lter-hbr/59/18",
+      "title": "Hubbard Brook Experimental Forest: Daily Air Temperature Record, 1955 - ongoing",
+      "entities": [
+        {
+          "name": "HBEF daily temperature",
+          "temperature_attributes": []
+        }
+      ],
+      "metadata_only_reason": "air_temperature_not_stream_temperature"
+    },
+    {
+      "identifier": "https://pasta.lternet.edu/package/metadata/eml/knb-lter-hbr/208/14",
+      "title": "Continuous precipitation and stream chemistry data, Hubbard Brook Ecosystem Study, 1963 – ongoing.",
+      "entities": [
+        {
+          "name": "HubbardBrook_weekly_precipitation_chemistry_1963-2025",
+          "temperature_attributes": [
+            {
+              "name": "temp",
+              "definition": "water temperature at sampling time"
+            }
+          ]
+        },
+        {
+          "name": "HubbardBrook_weekly_stream_chemistry_1963-2025",
+          "temperature_attributes": [
+            {
+              "name": "temp",
+              "definition": "water temperature at sampling time"
+            }
+          ]
+        }
+      ],
+      "metadata_only_reason": "weekly_sampling_temperature_not_continuous_daily_reference"
+    }
+  ],
+  "queries": [
+    {
+      "file": "dataone_catalog_query.json",
+      "hits": 83,
+      "returned": 83,
+      "package_ids_among_returned_versions": 30
+    },
+    {
+      "file": "dataone_stream_query.json",
+      "hits": 254,
+      "returned": 254,
+      "package_ids_among_returned_versions": 67
+    }
+  ],
+  "limitations": "This is a post-hoc search of two queries and two selected metadata documents, not an exhaustive provider catalog audit or proof that no suitable records exist. No independence, complete timestamps, quality flags or sensor accuracy was established."
+}

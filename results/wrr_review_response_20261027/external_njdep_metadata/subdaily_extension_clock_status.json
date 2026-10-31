@@ -1,0 +1,17 @@
+{
+  "status": "posthoc_extension_clock_independently_recounted",
+  "station_year_files": 8,
+  "stations": 2,
+  "station_years_missing_reported_dates": 8,
+  "station_years_unparseable_clock": 0,
+  "station_years_requiring_further_quality_review": 0,
+  "stations_with_four_possible_label_years": 0,
+  "minimum_missing_date_labels": 45,
+  "maximum_missing_date_labels": 168,
+  "provider_time_zone_labels": [
+    "EST"
+  ],
+  "independent_arrow_recount_passed": true,
+  "temperature_values_or_model_errors_examined": false,
+  "limitation": "post-hoc two-site selection; reported-clock dates do not prove physical time basis, full subdaily measurement, nonestimated values, quality flags, sensor equivalence or independent watersheds"
+}

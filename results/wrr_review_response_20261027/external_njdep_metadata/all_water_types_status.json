@@ -1,0 +1,16 @@
+{
+  "status": "posthoc_metadata_candidates_not_reference_qualified",
+  "options_with_four_year_qa_span": 26,
+  "unique_station_ids": 26,
+  "water_type_counts": {
+    "marine-water": 26
+  },
+  "river_like_label_options": 19,
+  "same_huc8_as_source_options": 2,
+  "exact_source_site_ids": 0,
+  "within_10km_source_options": 0,
+  "original_freshwater_options_with_missing_span": 86,
+  "no_temperature_values_requested": true,
+  "no_predictions_scored": true,
+  "limitation": "river-like names and 4-year bounding spans do not establish freshwater type, uninterrupted deployment, 24-hour completeness, quality, no prior overlap or independent catchments; all candidate station identities require follow-up"
+}

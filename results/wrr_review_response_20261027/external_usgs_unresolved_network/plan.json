@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-26T21:02:39.790504+00:00",
+  "n_candidates": 10,
+  "selection": "all previously unused metadata candidates in the existing pending-identity-or-schema-review scope; no prior HUC8 match in the named inventory, no known raw contact, stream name filter, begin <=2016, end >=2020, known native timezone",
+  "screen": "approved daily-mean sample counts for full calendar years 2010-2024; discard temperatures and do not compute prediction errors",
+  "next_step": "count-complete sites are only candidates; resolve NLDI/river-network identity and all prior-contact inventories, then freeze a separate post-network roster before acquiring any daily temperature values",
+  "reference": "at least four distinct complete calendar years of approved, nonestimated, QC-passing daily means, including three usable other years for local history",
+  "limitation": "unregistered and selected on availability, pending network identity, nonrandom, metadata does not prove independence, daily approval does not ensure complete hourly measurements"
+}

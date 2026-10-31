@@ -1,0 +1,82 @@
+[
+  {
+    "operation": "replace",
+    "old": "RESEARCH Supporting Information for \u201cRetaining incomplete river-temperature records: temporal support and uncertainty in sustained-heat trends\u201d Author information",
+    "new": "RESEARCH Supporting Information for \u201cRetaining incomplete river-temperature records: time support of finite-record heat slopes\u201d Author information to"
+  },
+  {
+    "operation": "replace",
+    "old": "Information for \u201cRetaining incomplete river-temperature records: temporal support and uncertainty in sustained-heat trends\u201d Author information to be completed by the authors",
+    "new": "Information for \u201cRetaining incomplete river-temperature records: time support of finite-record heat slopes\u201d Author information to be completed by the authors"
+  },
+  {
+    "operation": "insert",
+    "old": "years 13.32 0.1697 0.0000 0.1697 -0.2762 [-0.3557, -0.1841] Table S54. Common annual-longest-gap comparison in 2010\u20132025. Each",
+    "new": "years 13.32 0.1697 0.0000 0.1697 -0.2762 [-0.3557, -0.1841] season 90%), 0.4100 (Same-count random), 0.4150 (Same-count time-balanced) \u25e6 C per decade. Similar overall point estimates therefore partly reflect identical selections. For each archive, S is the complete-year slope on the selected set minus the full finite- record slope, R is the estimated slope minus the complete-year slope on that selected set, and E = S + R. Consequently, MSE(E) = MSE(S) + MSE(R) + 2 mean(SR). Table S54. Annual longest contiguous missing run. The"
+  },
+  {
+    "operation": "replace",
+    "old": "0.1697 0.0000 0.1697 -0.2762 [-0.3557, -0.1841] Table S54. Common annual-longest-gap comparison in 2010\u20132025. Each number describes the longest contiguous missing run within an incomplete year.",
+    "new": "MSE(S) + MSE(R) + 2 mean(SR). Table S54. Annual longest contiguous missing run. The first three rows"
+  },
+  {
+    "operation": "replace",
+    "old": "2010\u20132025. Each number describes the longest contiguous missing run within an incomplete year. Observations weight incomplete station-years equally; trial rows weight",
+    "new": "2 mean(SR). Table S54. Annual longest contiguous missing run. The first three rows are the 2010\u2013 2025 comparison. Observations weight incomplete station-years equally; trial rows weight"
+  },
+  {
+    "operation": "replace",
+    "old": "incomplete station-years equally; trial rows weight incomplete station-year\u2013replicates equally, retaining all 20 mask replicates. Repetition and station composition differ, so this is descriptive",
+    "new": "incomplete station-years equally; trial rows weight incomplete station-year\u2013replicates equally. The 1981\u20132025 row is the longer observed archive on the same statistic. Sampling and repeat weights differ, so this is not"
+  },
+  {
+    "operation": "replace",
+    "old": "equally, retaining all 20 mask replicates. Repetition and station composition differ, so this is descriptive rather than a",
+    "new": "observed archive on the same statistic. Sampling and repeat weights differ, so this is not a same- distribution"
+  },
+  {
+    "operation": "replace",
+    "old": "Repetition and station composition differ, so this is descriptive rather than a same-distribution test. Source Rows Stations Median (d)",
+    "new": "Sampling and repeat weights differ, so this is not a same- distribution test. Source Rows Stations Median"
+  },
+  {
+    "operation": "replace",
+    "old": "differ, so this is descriptive rather than a same-distribution test. Source Rows Stations Median (d) 90th percentile",
+    "new": "repeat weights differ, so this is not a same- distribution test. Source Rows Stations Median (d) 90th percentile"
+  },
+  {
+    "operation": "insert",
+    "old": "10.25% Controlled gaps 3,777 41 60 90.0 100.00% Table S55. Long-complete evaluation stations versus the remainder",
+    "new": "10.25% Controlled gaps 3,777 41 60 90.0 100.00% Observed 1981\u20132025 220 31 3 32.4 11.36% Table S55. Long-complete evaluation stations versus the remainder"
+  },
+  {
+    "operation": "insert",
+    "old": "Source remainder 539 183 8 29 1 312 Table S56. Forward-mask geometry on the 41-station trend",
+    "new": "Source remainder 539 183 8 29 1 312 For the same-count random control, the numerical identity is 0.206128 = 0.208715 + 0.010617 \u2212 0.013204. The negative cross term shows error cancellation; RMSE differences and normalized squared terms are not independent causal contributions. Relationship to the 807-archive core comparison.: Two of the original common archives have no masked year and empty annual-prediction schemas: Bavaria station 10081004, replicate 6 (14 complete years), and station 11405000, replicate 14 (7 complete years). Their design masks are empty and saved warm-season and all-year slope errors are Table S56. Forward-mask geometry on the 41-station trend"
+  },
+  {
+    "operation": "replace",
+    "old": "Controlled 30\u201390 d 60 58.5% 43.5% 60.1% 41 season 90%), 0.4100 (Same-count random), 0.4150 (Same-count time-balanced) \u25e6 C per decade. Similar overall point estimates therefore partly reflect identical selections. For each archive, S is the complete-year slope on",
+    "new": "Controlled 30\u201390 d 60 58.5% 43.5% 60.1% 41 both zero. The prior diagnostic skipped them because the empty prediction files contain neither a year nor a D2 column. The present 805-archive diagnostic explicitly retains that actual-mask scope; this is not a reconstruction failure. A saved 807-archive sensitivity restores their zero errors to every scheme. The remaining 13 of the 820 forward archives lack an available warm-season comparison and are outside both common denominators. S35.6. Earlier uncalibrated-only trajectory diagnostic The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case sample. Its small pooled median does not establish stratified stability. On seed 0, six of nine Bavarian upper endpoints move by more than 0.05\u25e6 C, and the mean 90% width increases from 0.3179 to 0.3686\u25e6 C. The subsequent experiment section additionally regenerates the original source-calibration roles and re-estimates offsets at each budget; the table below is retained specifically"
+  },
+  {
+    "operation": "replace",
+    "old": "estimates therefore partly reflect identical selections. For each archive, S is the complete-year slope on the selected set",
+    "new": "original source-calibration roles and re-estimates offsets at each budget; the table below is retained specifically as the uncalibrated reference. Table"
+  },
+  {
+    "operation": "insert",
+    "old": "reflect identical selections. For each archive, S is the complete-year slope on the selected set minus",
+    "new": "offsets at each budget; the table below is retained specifically as the uncalibrated reference. Table S57. Bavarian whole-archive stations."
+  },
+  {
+    "operation": "replace",
+    "old": "identical selections. For each archive, S is the complete-year slope on the selected set minus the full finite- record slope, R is the estimated slope minus the complete-year slope on that selected set, and E = S + R. Consequently, MSE(E) = MSE(S) + MSE(R) + 2 mean(SR). Table S57. Bavarian whole-archive stations. Regulation labels are",
+    "new": "the table below is retained specifically as the uncalibrated reference. Table S57. Bavarian whole-archive stations. Regulation labels are"
+  },
+  {
+    "operation": "delete",
+    "old": "[-0.0060, +0.0394] All supported years -0.2762 [-0.3572, -0.1832] For the same-count random control, the numerical identity is 0.206128 = 0.208715 + 0.010617 \u2212 0.013204. The negative cross term shows error cancellation; RMSE differences and normalized squared terms are not independent causal contributions. Relationship to the 807-archive core comparison.: Two of the original common archives have no masked year and empty annual-prediction schemas: Bavaria station 10081004, replicate 6 (14 complete years), and station 11405000, replicate 14 (7 complete years). Their design masks are empty and saved warm-season and all-year slope errors are both zero. The prior diagnostic skipped them because the empty prediction files contain neither a year nor a D2 column. The present 805-archive diagnostic explicitly retains that actual-mask scope; this is not a reconstruction failure. A saved 807-archive sensitivity restores their zero errors to every scheme. The remaining 13 of the 820 forward archives lack an available warm-season comparison and are outside both common denominators. S35.6. Earlier uncalibrated-only trajectory diagnostic The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case sample. Its small pooled median does not establish stratified stability. On seed 0, six of nine Bavarian upper endpoints move by more than 0.05\u25e6 C, and the mean 90% width increases from 0.3179 to 0.3686\u25e6 C. The subsequent experiment section additionally regenerates the original source-calibration roles and re-estimates offsets at each budget; the table below is retained specifically as the uncalibrated reference. S36. Additional exploratory experiments S36.1. Outcome-blind year-set selection",
+    "new": "[-0.0060, +0.0394] All supported years -0.2762 [-0.3572, -0.1832] S36. Additional exploratory experiments S36.1. Outcome-blind year-set selection"
+  }
+]

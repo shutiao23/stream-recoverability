@@ -1,0 +1,19 @@
+{
+  "status": "posthoc_qualification_screen_completed",
+  "metadata_station_options": 287,
+  "freshwater_labeled_options": 156,
+  "freshwater_options_without_qa_dates": 86,
+  "all_water_types_four_year_qa_span_options": 26,
+  "all_types_four_nonzero_count_year_options": 24,
+  "screened_stations": 4,
+  "screened_station_years": 16,
+  "station_years_missing_reported_dates": 16,
+  "station_years_with_unparseable_times": 0,
+  "minimum_missing_reported_dates": 37,
+  "maximum_missing_reported_dates": 168,
+  "independent_timestamp_recounts_passed": true,
+  "station_year_csv_count_endpoint_matches": 16,
+  "temperature_values_or_model_errors_examined": false,
+  "quality_and_reference": "date-label screening only; no complete reference year or prediction accuracy established",
+  "limitations": "four stations selected post-hoc after metadata and count inspection; not a representative sample; 86 freshwater-labelled entries without QA spans, unscreened stations and other years remain unresolved; reported clock and provider quality/sensor procedures require further validation"
+}

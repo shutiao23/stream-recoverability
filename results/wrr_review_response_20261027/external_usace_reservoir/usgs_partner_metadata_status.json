@@ -1,0 +1,14 @@
+{
+  "status": "completed_metadata_only",
+  "gages_requested": 11,
+  "temperature_values_requested": false,
+  "prediction_errors_opened": false,
+  "limitations": "USACE sensors may be offset from the named USGS gage; some gages have known prior network links. Missing or absent series metadata is unknown, not proof that no measurement exists. No independent climate or annual reference is established.",
+  "http_status": 200,
+  "series_records": 11,
+  "gages_with_any_temperature_series": 4,
+  "gages_with_daily_mean": 1,
+  "gages_with_other_or_unspecified_statistic": 4,
+  "null_begin_records": 0,
+  "null_end_records": 0
+}

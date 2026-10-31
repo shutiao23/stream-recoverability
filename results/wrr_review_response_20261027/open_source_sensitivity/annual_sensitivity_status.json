@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "archive_settings": 3320,
+  "nonempty_annual_settings": 3316,
+  "matched_annual_cases": 21446,
+  "original_summary_cells_reproduced": 24,
+  "same_keys_groups_and_bounds": true,
+  "four_way_common_cohorts": 4,
+  "bootstrap_draws": 4000,
+  "source_status": "posthoc_filtered_provider_and_strict_region",
+  "limitations": "This study is after original and candidate trend results were inspected. It reuses target records, masks and daily refits; source providers, source role assignment and region exclusion changed together. The peak-visibility stratum depends on the hidden complete reference and is unavailable for deployment. Bootstrap groups are not necessarily independent climates; results do not establish coverage or legal redistribution rights.",
+  "scope": "annual results only; no new calibration or external validation"
+}

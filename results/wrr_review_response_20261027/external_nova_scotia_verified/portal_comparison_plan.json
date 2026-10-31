@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-10-26T21:28:20.282353+00:00",
+  "stations": [
+    "NS01DL0009",
+    "NS01EF0002",
+    "NS01FB0001",
+    "NS01ED9111"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "first_step": "request only site-level counts and date ranges, not temperatures",
+  "possible_next_step": "if official portal has records, compare all four already-fixed sites and 2009-2017 values to their provincial verified workbooks; never select on prediction errors",
+  "license": "open data portal dataset is described under Open Government Licence \u2013 Nova Scotia; do not infer that the separate legacy workbook has identical terms",
+  "prior_access": "same sites and time period already examined for workbook numeric completeness; unregistered nonblind provenance comparison, not independent source validation",
+  "limitation": "public portal lists no per-record temperature quality flags and timestamp zone remains to be confirmed"
+}

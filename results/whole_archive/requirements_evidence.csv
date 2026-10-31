@@ -1,0 +1,9 @@
+step,work,evidence
+1,收敛主张并给出证据表,docs/CLAIM_EVIDENCE_ZH.md
+2,整档案缺测后重拟合，离线和时间前推,results/whole_archive/status.json
+3,保留集合和估计器的因子试验,results/whole_archive/factorial_contrasts.csv
+4,相同年度边际的联合恢复及任务校准,results/whole_archive/paired_task_intervals.csv
+5,数值、下界和未知三类输出,results/release_outputs/output_states.csv
+6,既有失败情景及未知污染比例,results/release_outputs/exposure_mixtures.csv
+7,实际取得外部资料、确认资格并检验观测主张,results/additional_usgs_observed/robust_record_witnesses.csv
+8,五张核心主图及重排后的论文,paper/wrr_tr/simple_core_figures.tex

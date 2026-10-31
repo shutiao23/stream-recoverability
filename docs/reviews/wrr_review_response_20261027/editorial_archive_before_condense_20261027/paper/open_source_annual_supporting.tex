@@ -1,0 +1,25 @@
+\section{Annual uncertainty under candidate-source refits}
+The follow-up compares the same target cases where both methods and both source versions have finite seven-quantile distributions and a finite observed bound. The original 24 annual summary cells were independently reproduced on their original cohorts. Target identities, bounds and connected groups agree between versions. The decomposition by whether the complete reference exceeds the visible bound uses the withheld reference and is unavailable at decision time. Candidate-versus-original differences are post hoc; changed source providers, role assignments and strict region exclusion cannot be separated. The quoted CRPS uses the stated normal-spacing tail continuation, and no new calibration or independent climate validation is established.
+\begin{table}[p]\centering\footnotesize
+\caption{Annual 90\% interval comparison on the same four-way common cases. Hidden peak means that the complete reported H30 exceeds the observed bound; this is an outcome-defined stratum. Widths are in $^{\circ}$C. Repeated masks are not independent climates.}\label{tab:open-annual-visibility}
+\resizebox{\linewidth}{!}{\begin{tabular}{lllrrrrrr}\toprule
+Family / mode & Stratum & Method & Cases & Groups & Cover old & Cover new & Width old & Width new\\\midrule
+calendar / forward & all & D2 & 3674 & 17 & 98.3\% & 97.9\% & 0.118 & 0.135\\
+calendar / forward & all & classical & 3674 & 17 & 98.1\% & 97.9\% & 0.088 & 0.093\\
+calendar / forward & hidden & D2 & 549 & 15 & 88.3\% & 86.3\% & 0.690 & 0.680\\
+calendar / forward & hidden & classical & 549 & 15 & 87.8\% & 86.7\% & 0.566 & 0.610\\
+calendar / offline & all & D2 & 6919 & 18 & 98.5\% & 98.5\% & 0.095 & 0.093\\
+calendar / offline & all & classical & 6919 & 18 & 97.4\% & 97.7\% & 0.066 & 0.069\\
+calendar / offline & hidden & D2 & 1028 & 16 & 90.6\% & 90.8\% & 0.573 & 0.578\\
+calendar / offline & hidden & classical & 1028 & 16 & 83.1\% & 85.1\% & 0.427 & 0.434\\
+crossed / forward & all & D2 & 3683 & 17 & 90.0\% & 89.2\% & 0.826 & 0.734\\
+crossed / forward & all & classical & 3683 & 17 & 87.0\% & 87.3\% & 0.693 & 0.650\\
+crossed / forward & hidden & D2 & 2146 & 17 & 83.2\% & 81.9\% & 1.299 & 1.161\\
+crossed / forward & hidden & classical & 2146 & 17 & 81.6\% & 78.2\% & 1.121 & 1.078\\
+crossed / offline & all & D2 & 6919 & 18 & 94.1\% & 92.8\% & 0.730 & 0.701\\
+crossed / offline & all & classical & 6919 & 18 & 92.7\% & 92.4\% & 0.660 & 0.639\\
+crossed / offline & hidden & D2 & 4132 & 18 & 90.7\% & 88.6\% & 1.171 & 1.127\\
+crossed / offline & hidden & classical & 4132 & 18 & 87.9\% & 87.4\% & 1.068 & 1.037\\
+\bottomrule\end{tabular}}
+\end{table}
+For forward controlled gaps with hidden peaks, the paired candidate-minus-original classical coverage difference is -3.4 percentage points with descriptive connected-group bootstrap interval [-8.6, 2.0]. Removing FOEN or Bavaria from the fixed evaluation cases changes that difference to +0.3 or -8.9 percentage points, respectively. Regions were not refitted in this deletion, and connected groups are not proven independent climates.

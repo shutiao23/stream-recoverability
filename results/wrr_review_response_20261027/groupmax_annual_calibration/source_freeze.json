@@ -1,0 +1,5 @@
+{
+  "status": "source_group_max_radii_frozen_before_new_target_scoring",
+  "classifier_invariance_source_cases_checked": 300,
+  "limitation": "Source and target datasets and earlier results were already examined; source risk groups trained classifiers, but quantiles are invariant to classifier output. No independent-climate or exchangeability guarantee."
+}

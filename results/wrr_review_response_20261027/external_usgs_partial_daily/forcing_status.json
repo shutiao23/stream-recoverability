@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "requested_sites": 4,
+  "returned_sites": 4,
+  "finite_days": 20456,
+  "status_repaired_after_variable_shadowing": true,
+  "no_network_retry": true,
+  "limitations": "NASA POWER LST may not align with USGS local standard or civil day; weather is gridded, not a direct air observation.",
+  "storage": "temporary RAM filesystem; not durable"
+}

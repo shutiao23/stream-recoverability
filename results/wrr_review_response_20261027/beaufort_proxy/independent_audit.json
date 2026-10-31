@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "source_stations_checked": 22,
+  "case_masks_recomputed": 11220,
+  "summary_rows_recomputed": 16,
+  "leave_provider_rows_recomputed": 64,
+  "group_resamples_per_cell": 4000,
+  "max_absolute_numeric_difference": 2.1316282072803006e-14,
+  "scope": "Independent rolling-window and ordinary least-squares implementation using the same processed air and water, year masks and station roster. It does not establish source rights, independent climate, sensor accuracy or the original authors' precise implementation."
+}

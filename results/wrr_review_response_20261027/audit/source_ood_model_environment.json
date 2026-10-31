@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "python": "3.11.7",
+  "versions": {
+    "numpy": "1.26.4",
+    "pandas": "2.1.4",
+    "sklearn": "1.2.2",
+    "lightgbm": "4.7.0"
+  },
+  "cases": 8010,
+  "groups": 19,
+  "margin_scenarios": 3,
+  "environment": "Existing isolated Python environment with user site disabled; source-case table and model were supplied from restricted local paths.",
+  "limitations": "The same fitted model, source cases and feature-design code are reused. This does not resolve source data rights, establish independent climates or reproduce training from raw observations."
+}

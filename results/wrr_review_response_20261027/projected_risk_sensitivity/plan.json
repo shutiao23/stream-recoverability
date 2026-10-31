@@ -1,0 +1,60 @@
+{
+  "created_utc": "2026-10-27T01:13:04.657658+00:00",
+  "status": "post-hoc design following inspection of original risk, projection and target results; not prospective registration",
+  "goal": "exploratory detection of absolute error >0.5 C for the support-projected D2 point, using only decision-time predictors",
+  "source": "candidate-provider strictly held-region before-2010 source models; source case group assignments, source and target data already used in earlier analyses",
+  "training": "train one fixed low-complexity LightGBM binary classifier per target region on assigned risk-learning source groups; group-weight each equally; exclude all target-region connected groups, require >=4 contributing groups and both classes; source D2 predictions are fitted on separate estimator and interval-calibration roles",
+  "features": "the source model decision-time design matrix plus projected D2 90% interval width and projected D2 minus the visible observed lower bound; exclude source raw risk score, reference values, target truth and source outcome labels",
+  "model_parameters": {
+    "n_estimators": 120,
+    "learning_rate": 0.04,
+    "num_leaves": 7,
+    "min_child_samples": 100,
+    "reg_lambda": 5,
+    "subsample": 1.0,
+    "colsample_bytree": 1.0,
+    "n_jobs": 1,
+    "objective": "binary",
+    "verbosity": -1,
+    "random_seed": "700 + sorted region position"
+  },
+  "threshold": "For each family, determine a score cutoff on disjoint assigned rule-calibration source groups before evaluating target scores; choose the attainable group-equal-weight source release rate nearest 80%, ties included together. Apply the same procedure to original raw score and projected-risk score; no outcome labels enter cutoff selection.",
+  "target": "both original forward archive mask families, 41 stations, 20 repeated masks each, six target regions; predictions and annual reference values already available from previous work; target group held out from candidate source roles",
+  "comparisons": "(1) frozen source-derived thresholds, report full cohort support, numerical retention, >0.5 C conditional failure and detection; (2) descriptive target-distribution exact-count matching to original threshold releases, deterministic label-free tie break. Equal numerical counts do not guarantee equal information as bounds.",
+  "uncertainty": "4000 connected-group resamples of paired conditional error differences and retention differences; report per-region and leave-one-region-out fixed-prediction results; no finite-sample risk guarantee",
+  "limitations": "posthoc and motivated by previously seen outcomes, no unopened independent reference, one source model seed, source single-year masks vs target multi-year archives, risk role groups may share source histories and climates; projected scores are not certified or necessarily calibrated probabilities, equal source retention need not give equal target retention",
+  "privacy": "source cases, per-case targets, fitted risk classifiers and receipts remain local private; only aggregate results in review package",
+  "target_prediction_files": 1640,
+  "roles": [
+    {
+      "region": "foen",
+      "assigned_risk_groups": 8,
+      "assigned_rule_groups": 8
+    },
+    {
+      "region": "gkd_bayern",
+      "assigned_risk_groups": 7,
+      "assigned_rule_groups": 7
+    },
+    {
+      "region": "usgs_huc03",
+      "assigned_risk_groups": 7,
+      "assigned_rule_groups": 7
+    },
+    {
+      "region": "usgs_huc04",
+      "assigned_risk_groups": 8,
+      "assigned_rule_groups": 8
+    },
+    {
+      "region": "usgs_huc10",
+      "assigned_risk_groups": 8,
+      "assigned_rule_groups": 8
+    },
+    {
+      "region": "usgs_huc17",
+      "assigned_risk_groups": 6,
+      "assigned_rule_groups": 6
+    }
+  ]
+}

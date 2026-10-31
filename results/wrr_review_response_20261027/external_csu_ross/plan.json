@@ -1,0 +1,18 @@
+{
+  "created_utc": "2026-10-26T21:17:20.455146+00:00",
+  "source_doi": "10.4211/hs.521e317e189e498581d0aaa08c3f32bc",
+  "license": "CC BY 4.0",
+  "published_site_location_rows": 23,
+  "candidates": [
+    "archery",
+    "cottonwood",
+    "riverbend",
+    "salyer"
+  ],
+  "candidate_count": 4,
+  "selection": "all individual metadata location records spanning at least four complete UTC calendar years among 2020-2024; metadata period is only an upper bound, not proof of observations",
+  "preflight": "inspect author-declared site, timestamp and deployment/removal field-note columns; no sensor readings, temperatures or prediction errors are retained",
+  "rule": "provider says equipment generally deployed March-November; use site-specific removal/redeployment notes only as indicative evidence, not proof of zero measurement coverage",
+  "prior_contact": "previous national USGS metadata includes named Poudre stations; direct matching to these CSU sites and river networks remains unverified; all candidates share a watershed",
+  "limitation": "unregistered, nonrandom, location dates may span long internal gaps; source notes 2019-2021 has no calibration data and substantial gaps; one watershed is not four independent climates"
+}

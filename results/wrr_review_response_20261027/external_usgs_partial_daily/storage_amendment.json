@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T07:46:34.632030+00:00",
+  "status": "posthoc storage-only amendment after original acquisition stopped with insufficient disk before downloading data",
+  "scope": "The identical eight fixed target years and daily-parent time-series IDs, UTC request windows, columns and pagination; no outcome-based replacement.",
+  "storage": "Raw responses, receipts and subsequent diagnostics stored only on /dev/shm; volatile on reboot. Original disk-reserve failure retained. Stop if temporary storage has less than 1 GiB free.",
+  "limitations": "Parent ID does not prove an unchanged sensor or error-free values. Strict criteria, date basis and hourly vs quarter-hour sensitivity require explicit follow-up. Source river-network overlap, previously inspected daily values, flowpath and climate independence remain unresolved. This is not a blind evaluation."
+}

@@ -1,0 +1,11 @@
+family,mode,reason,n,available,equal_bound,n_stations,n_groups
+calendar,forward,observed_bound_only,2981,2981,2981,41,17
+calendar,forward,summer_air_fill,825,825,406,31,15
+calendar,offline,missing_air_on_gap,35,0,0,1,1
+calendar,offline,observed_bound_only,5348,5348,5348,42,18
+calendar,offline,summer_air_fill,1559,1559,732,32,16
+crossed,forward,observed_bound_only,1060,1060,1060,41,17
+crossed,forward,summer_air_fill,2717,2717,1036,41,17
+crossed,offline,missing_air_on_gap,133,0,0,1,1
+crossed,offline,observed_bound_only,1945,1945,1945,42,18
+crossed,offline,summer_air_fill,4843,4843,1276,42,18

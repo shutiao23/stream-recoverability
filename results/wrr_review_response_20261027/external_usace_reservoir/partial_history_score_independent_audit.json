@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "cases_checked": 306,
+  "common_cases_checked": 306,
+  "summary_cells_checked": 6,
+  "paired_cells_checked": 4,
+  "scope": "Scalar point-to-reference bounds, coverage and paired extrema from saved predictions and annual reference intervals; common-cohort summaries recomputed.",
+  "limitations": "This audit does not independently fit the source model, verify source data quality, justify interval assumptions, or establish independent climates."
+}

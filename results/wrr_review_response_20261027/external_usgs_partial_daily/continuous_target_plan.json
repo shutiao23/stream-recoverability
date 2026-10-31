@@ -1,0 +1,13 @@
+{
+  "created_utc": "2026-10-27T07:44:56.018811+00:00",
+  "status": "posthoc after all daily observations, witness results, daily feasibility and source-network metadata; before acquiring continuous water values or this cohort model errors",
+  "cohort": "All eight previously identified approved complete daily target years with >=3 partially supported historical years, including the already contacted source-panel station. No selection by continuous temperatures or future prediction error.",
+  "series": "Use only the unique instantaneous time-series ID identified as the parent of the original daily-mean series. Unknown or ambiguous parent IDs are retained as unknown, never replaced by a better-looking series.",
+  "request": "For each target calendar year request public continuous observations for the parent series from the previous December 31 UTC to the next January 2 UTC, using one-year-plus-margin windows, pagination and saved response bytes. Request timestamp, temperature, approval status and qualifiers; no model predictions.",
+  "screen_to_follow": "In fixed site-standard time and separately in documented local civil time, count genuinely distinct physical hourly bins and quarter-hour grid slots per day, retaining only approved finite records without any nonempty qualifier. Unknown codes are not assumed good. Daily DST boundaries have 23 or 25 physical hours under civil time; fixed-standard days are 24 hours. Record observed-vs-reported-daily mean differences without using them to pick cases.",
+  "limitations": "Parent ID does not prove an unchanged sensor or error-free values. Strict criteria, date basis and hourly vs quarter-hour sensitivity require explicit follow-up. Source river-network overlap, previously inspected daily values, flowpath and climate independence remain unresolved. This is not a blind evaluation.",
+  "sites": 4,
+  "target_years": 8,
+  "years_with_parent": 8,
+  "endpoint": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/continuous/items"
+}

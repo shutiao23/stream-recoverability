@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "target_cases_probed": 1,
+  "observed_hidden_days_perturbed": 29,
+  "missing_placeholder_changed": true,
+  "feature_columns_compared": 68,
+  "output_columns_compared": 17,
+  "mask_unchanged": true,
+  "scope": "Add 10 C to every finite target-day observation hidden by the first saved mask. Replace placeholders for naturally missing target days with 432.1 C. Regenerate all cases, and compare the first mask inference features, plug-in, D2 and classical interval; no target score is computed.",
+  "limitations": "One deterministic post-hoc probe cannot establish absence of leakage in every target, history year, mask, source model or forcing input."
+}

@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,3,forward,calendar,synchronized_donors,16,5,plug_in,5,5,0.0,,
+foen|2016,g0029,foen,3,forward,calendar,synchronized_donors,16,5,stochastic_calibrated,5,5,1.2789769243681804e-14,1.0,3.552713678800501e-15
+foen|2016,g0029,foen,3,forward,calendar,synchronized_donors,16,5,D2,5,5,1.2789769243681804e-14,1.0,1.5339285184268192e-07

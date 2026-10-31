@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T00:40:56.755682+00:00",
+  "status": "post-hoc, following examination of original release and trend results; not prospective registration",
+  "archive_settings": 3320,
+  "method": "Within each archive, select the same number of masked-year estimates as the existing rule by lowest finite raw risk score, breaking ties by calendar year. Apply the same detected-quality exclusion; other rejected years retain the same visible lower-bound eligibility or are unknown. Complete observed years are unchanged.",
+  "scoring": "After both selections, compare absolute annual error greater than 0.5 C and finite-record slope errors for released numeric years alone and for numerical years plus the same working censored likelihood. Both methods use the same underlying D2 predictions.",
+  "uncertainty": "4,000 connected-group bootstrap resamples, paired squared trend error difference, seed 684; equal-group mean separately. Descriptive and conditional on available fits.",
+  "limitations": "Uses target archive numerical count and target scores without labels to select a comparator, so not a prospective threshold; equal numerical counts need not imply identical bounds, unknowns, or information. One model seed, sampled masks and reused archives do not establish safety, calibration or independent climates. Working likelihood treats selected estimates as exact and censoring can be informative.",
+  "privacy": "Input manifest and archive-level outcomes are local private; only aggregates are in the review package."
+}

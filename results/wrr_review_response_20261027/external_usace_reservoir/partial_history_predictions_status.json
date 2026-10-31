@@ -1,0 +1,9 @@
+{
+  "status": "predictions_complete_not_scored",
+  "resources": 4,
+  "target_years": 17,
+  "cases": 306,
+  "target_outcome_or_error_scored": false,
+  "source_model_refitted_on_target": false,
+  "limitations": "Water quality/corrections, missing-slot range assumption, source overlap and independent climates unresolved. Upstream and downstream sites are dependent. The target-derived bounds and source-visible history have been examined in prior work, so this is not a prospective, independent confirmation. Previously fixed global annual source model and source-only calibration; annual model is not refitted on target. Actual complete history count supplied as 0, outside the original >=4 complete-year input regime. This is an adaptation, not the original complete-history protocol."
+}

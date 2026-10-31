@@ -1,0 +1,24 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "other physical stations remain observed",
+  "family": "crossed",
+  "hidden_donor_values_present": null,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0029",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2015": "172:60",
+    "2017": "98:30",
+    "2018": "206:30",
+    "2024": "200:60"
+  },
+  "mode": "forward",
+  "n_incomplete": 4,
+  "n_years": 16,
+  "region": "foen",
+  "replicate": 1,
+  "scenario": "heat_associated",
+  "source_model_split": "before_2010",
+  "station_key": "foen|2016"
+}

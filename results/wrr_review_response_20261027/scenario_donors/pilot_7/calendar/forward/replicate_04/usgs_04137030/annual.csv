@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+usgs|04137030,g0166,usgs_huc04,4,forward,calendar,synchronized_donors,11,4,plug_in,4,4,0.27882809731717106,,
+usgs|04137030,g0166,usgs_huc04,4,forward,calendar,synchronized_donors,11,4,stochastic_calibrated,4,4,0.023527744533565986,1.0,1.2886334177517051
+usgs|04137030,g0166,usgs_huc04,4,forward,calendar,synchronized_donors,11,4,D2,4,4,0.06374803689005493,1.0,0.9066225063261006

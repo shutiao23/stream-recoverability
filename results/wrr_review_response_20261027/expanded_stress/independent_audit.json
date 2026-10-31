@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "baseline_masks_checked": 205,
+  "synchronized_masks_checked": 205,
+  "matched_heat_masks_checked": 205,
+  "aggregate_cells_checked": 8,
+  "scope": "Independently reconstructs random mask selections and counts finite donor observations using cached panels; independently recomputes paired RMSE and MSE summary. Uses the same underlying data, RNG seeds and fitted-model results. Does not independently refit models, bootstrap, confidence intervals, or assess sensor quality and data rights."
+}

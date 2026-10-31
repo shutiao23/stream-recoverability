@@ -1,0 +1,13 @@
+{
+  "status": "passed_posthoc_sensitivity",
+  "seed_repetitions": 20,
+  "method_family_stratum_seed_cells": 160,
+  "summary_cells": 8,
+  "saved_coverage_and_median_reproduced": true,
+  "strict_to_1e10_changes_count_with_overlapping_strata": 1353956,
+  "changed_endpoint_max_c": 1.2789769243681803e-13,
+  "changed_endpoint_gaps_above_1e12_c": 0,
+  "max_1e10_to_1e8_changed_per_cell": 4,
+  "limitations": "Repeated masks and seeds use the same archive and are not independent climates. A machine-scale numerical comparison tolerance is not physical sensor uncertainty, recalibration, a new model, or a coverage guarantee. This uses saved predictions and truths, not independent reconstruction.",
+  "storage": "temporary RAM; not durable"
+}

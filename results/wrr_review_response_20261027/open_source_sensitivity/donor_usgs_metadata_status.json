@@ -1,0 +1,27 @@
+{
+  "status": "completed",
+  "planned_unique_identifiers": 69,
+  "valid_syntax_queried": 69,
+  "returned_unique_identifiers": 69,
+  "valid_syntax_not_returned": 0,
+  "unqueried_nonstandard_identifiers": 0,
+  "batches": [
+    {
+      "batch": 1,
+      "requested_ids": 40,
+      "status": "completed",
+      "http_status": 200,
+      "bytes": 5831,
+      "returned_rows": 40
+    },
+    {
+      "batch": 2,
+      "requested_ids": 29,
+      "status": "completed",
+      "http_status": 200,
+      "bytes": 4416,
+      "returned_rows": 29
+    }
+  ],
+  "limits": "A returned USGS site number verifies that the identifier appears in USGS metadata. It does not establish that local panel data came from the same source or have public redistribution rights; non-returned IDs remain unresolved."
+}

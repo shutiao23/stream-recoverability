@@ -1,0 +1,21 @@
+{
+  "status": "completed",
+  "resources": 10,
+  "station_years": 50,
+  "visible_30_day_window_years": 50,
+  "rules": {
+    "95": {
+      "accepted_years": 11,
+      "rejected_years_with_visible_window": 39,
+      "rejected_with_prior_accepted_year": 8,
+      "guaranteed_added_record_years": 1
+    },
+    "100": {
+      "accepted_years": 0,
+      "rejected_years_with_visible_window": 50,
+      "rejected_with_prior_accepted_year": 0,
+      "guaranteed_added_record_years": 0
+    }
+  },
+  "limitations": "Bound assumptions, possible corrections, instrument accuracy, sensor clock, source overlaps and climate independence remain unresolved; neither full historical records nor model accuracy are evaluated."
+}

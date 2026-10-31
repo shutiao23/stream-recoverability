@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "field_rows": 146,
+  "site_dates": 73,
+  "range_summary_rows": 18,
+  "proximity_summary_rows": 18,
+  "aggregate_tables_reproduced": 3,
+  "manuscript_inputs_reproduced": true,
+  "created_utc": "2026-10-27T05:10:24.674839+00:00",
+  "original_workspace_hidden": true,
+  "public_field_data_downloaded_fresh": true,
+  "arithmetic_network_isolated": true,
+  "field_data_retained_by_check": false,
+  "scope": "Fresh public-source download and calculation using extracted candidate code and the current installed Python environment.",
+  "limitations": "Provider field times, timezone, preliminary flags, sensor independence and physical quality remain unresolved. This checks data access and arithmetic, not H30 accuracy, legal rights to other data, model training or independent-climate validation."
+}

@@ -1,0 +1,13 @@
+{
+  "created_utc": "2026-10-27T04:34:08.515719+00:00",
+  "status": "posthoc after source models, metadata results and panel date ranges were seen; before current USGS daily-value responses or differences are examined",
+  "selection": "All 69 distinct USGS identifiers previously absent from three local catalogs; includes all 73 network-column occurrences, regardless of model contribution or outcome.",
+  "site_count": 69,
+  "panel_columns": 73,
+  "panel_count": 32,
+  "start_date": "1980-01-01",
+  "end_date": "2026-05-04",
+  "request": "USGS daily values, all sites in batches of 10, variable 00010 (water temperature), daily mean statistic 00003, all available approval statuses; retain qualifiers.",
+  "comparison": "For each panel column compare all finite cached values with same-site, same-date finite current USGS values, only when all returned rows for a site and date agree; report missing or ambiguous source dates and overlapping absolute differences at 1e-6, 0.01 and 0.1 C. Network-column repeated days are not independent.",
+  "limitations": "Current API values can differ from historical versions or local quality processing. A match does not prove the original provider, timing, sensor accuracy, calibration, derivative rights, or independent-climate performance."
+}

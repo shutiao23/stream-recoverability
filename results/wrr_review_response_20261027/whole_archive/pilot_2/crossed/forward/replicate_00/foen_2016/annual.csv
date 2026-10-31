@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,0,forward,crossed,16,9,plug_in,9,9,0.053672978860188576,,
+foen|2016,g0029,foen,0,forward,crossed,16,9,stochastic_calibrated,9,9,0.06549287903063217,0.8888888888888888,0.10564802324647952
+foen|2016,g0029,foen,0,forward,crossed,16,9,D2,9,9,0.06487451490462111,1.0,0.7895290581473371

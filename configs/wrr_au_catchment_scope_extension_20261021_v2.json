@@ -1,0 +1,17 @@
+{
+  "scope": "metadata-only conservative catchment proxies for all 1500 original candidates, compared with the retained verified gauge attachments",
+  "layer": 7,
+  "layer_name": "AHGFCatchment (SH_Network)",
+  "batch_size": 1,
+  "maximum_requests_per_second": 2,
+  "maximum_response_bytes": 33554432,
+  "maximum_returned_features": 2000,
+  "assignment": "use official per-point spatial-query metadata and explicit netnodeid; no new physical attachment verification",
+  "ambiguous_or_disagreeing_blocks": "union all possible catchment blocks and any original verified attachment; never choose the convenient basin",
+  "physical_station_attachment_verified_by_proxy": false,
+  "independence_or_reference_release_allowed": false,
+  "new_roles_assigned": false,
+  "new_temperature_measurements_or_prediction_errors_opened": false,
+  "maximum_workers": 2,
+  "query_representation": "one recorded provider coordinate per native JSON spatial query; retain all returned catchment identities as provider-reported proxies"
+}

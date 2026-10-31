@@ -1,0 +1,10 @@
+{
+  "status": "computed",
+  "expected_per_scenario": 205,
+  "all_frozen_input_hashes_verified": true,
+  "target_and_synchronized_donor_hidden_values_checked": true,
+  "heat_year_count_matched_per_available_archive": true,
+  "masks_and_per_case_scores": "local private",
+  "limitation": "source and original results already viewed; five repeated masks are not independent climates; model seed zero; source model may include other groups in named target region; fixed temporal cutoff and currently available forcing; no causal isolation of changing year position or gap length, natural-outage validation or group safety",
+  "heat_limitation": "air is used to construct an experimental mask, not to select source cases by evaluation outcome; hot-year identity, gap shapes, total hidden days and positions can change; missing air yields unavailable, not zero error"
+}

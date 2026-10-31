@@ -1,0 +1,115 @@
+{
+  "created": "2026-07-12T15:16:10.031642+00:00",
+  "modified": "2026-07-15T04:24:16.245702+00:00",
+  "id": 21324088,
+  "conceptrecid": "14889025",
+  "doi": "10.5281/zenodo.21324088",
+  "conceptdoi": "10.5281/zenodo.14889025",
+  "doi_url": "https://doi.org/10.5281/zenodo.21324088",
+  "metadata": {
+    "title": "CAMELSH: A Large-Sample Hourly Hydrometeorological Dataset and Attributes at Watershed-Scale for Contiguous United States",
+    "doi": "10.5281/zenodo.21324088",
+    "publication_date": "2026-07-12",
+    "description": "<p>CAMELSH is a large-sample hydrometeorological dataset at the hourly scale for the contiguous United States. CAMELSH intergrates hourly meteorological time series, catchment attributes and boundaries from GAGES-II and HydroATLAS for <strong>9,008 </strong>catchments across diverse climatic, hydrological, and anthropogenic conditions. In addition, hourly streamflow time series is provided for <strong>5,767 (the latest version)</strong> catchments. The dataset spans 45 years (1980&ndash;2024) with 11 meteorological variables from the NLDAS-2 (and ERA5-Land) forcing datasets, from which we compute nine climate indices related to precipitation, evapotranspiration, seasonality, and snow fraction. Additionally, CAMELSH includes two sets of catchment attributes: 439 from GAGES-II and 195 derived from HydroATLAS. These attributes include factors related to climate, geology, hydrology, river/stream morphology, landscape, nutrient, soil, topography, and anthropogenic influences.</p>\n<p>Additionally, the dataset provides simulated (retrospective) hourly streamflow data from the National Water Model versions 3.0 and 2.1 for <strong>8,664</strong> locations that correspond to USGS stations. It also includes archived real-time forecast water stages from the California-Nevada River Forecast Center (CNRFC) for <strong>68</strong> locations across California and Nevada, covering the period from 2011 to 2023. These simulated datasets serve as valuable resources for model development and comparison studies, functioning as benchmark models.</p>\n<p>&nbsp;</p>\n<p><strong>Reference:&nbsp;</strong>Vinh Ngoc Tran, Donghui Xu, Tam Van Nguyen, Taeho Kim, Valeriy Ivanov, CAMELSH: A Large-Sample Hourly Hydrometeorological Dataset and Attributes at Watershed-Scale for CONUS, Scientific Data (2025), <a href=\"https://doi.org/10.1038/s41597-025-05612-6\">https://doi.org/10.1038/s41597-025-05612-6</a></p>\n<p>&nbsp;</p>\n<p><strong>****** UPDATE 07/11/2026 (STREAM TEMPERATURE)</strong></p>\n<p>We have added stream temperature data for 1,297 CAMELSH gauges. The data is provided at an hourly resolution, covering the period from 1980-2025, with missing values represented as NaN. For the corresponding weather forcings and streamflow, please refer to the updated versions below (<strong>e.g., version 6, updated on 08/02/2025</strong>). Note that the entire CAMELSH dataset has been standardized to the UTC+0 time zone.</p>\n<p>Stream Temperature Data can be downloaded here:&nbsp;<a href=\"https://doi.org/10.5281/zenodo.21324088\">https://doi.org/10.5281/zenodo.21324088</a></p>\n<p>&nbsp;</p>\n<p><strong>****** UPDATE 07/10/2026 (ACTUAL FORECAST FORCINGS)</strong></p>\n<p>We have added actual forecast forcing data for 9,008 CAMELSH basins. The data is provided at hourly resolution with an 18-hour lead time, covering the period from 2025/01/01 to 2026/03/09. The data was extracted from NWM (National Water Model) operational forecast output and processed into basin-averaged forcing values.</p>\n<p>In addition, we are also providing actual streamflow forecast data from NWM for 8,723 locations, with an 18-hour short-range forecast lead time. This streamflow forecast data covers the year 2025.</p>\n<p>Acutal forecast forcing data can be downloaded here: <a href=\"https://doi.org/10.5281/zenodo.21302482\">https://doi.org/10.5281/zenodo.21302482</a></p>\n<p>&nbsp;</p>\n<p><strong>****** UPDATE 09/08/2025 (BENCHMARK MODELS)</strong></p>\n<p>We have added benchmarking simulation data for model comparison studies.</p>\n<p>This includes retrospective simulations from the <em><strong>National Water Model version 2.1 (NWM21) and version 3.0 (NWM30)</strong></em> at <strong>8,664</strong> locations (overlapped with USGS stations) across the CONUS. The data is provided at an hourly temporal resolution for the period 1980&ndash;2020 (NWM21) and 1980-2023 (NWM30).</p>\n<p>In addition, we have included actual operational forecast data (water stage) from the<em><strong> California-Nevada River Forecast Center (CNRFC) </strong></em>for <strong>68</strong> locations in California and Nevada. These forecasts have a lead time of up to 120 hours and were collected once per day. The data covers the period from 2011 to 2023.</p>\n<p>Data can be downloaded here:&nbsp;<a href=\"https://doi.org/10.5281/zenodo.16763144\" rel=\"noopener\">https://doi.org/10.5281/zenodo.16763144</a></p>\n<p>&nbsp;</p>\n<p><strong>****** UPDATE 08/02/2025 (LATEST VERSION OF CAMELSH)</strong></p>\n<p>The total number of gauges is <strong>5,767</strong>.</p>\n<p>Gauges with observed streamflow records longer than 365 (*24 hours) days were selected (only count streamflows &gt; 0 cms).&nbsp;</p>\n<p>The hourly streamflow and water level data for a total of 5,767 USGS gauges are stored in individual NetCDF files and packaged together in the Hourly2.zip archive. The dataset covers the period from 1980-01-01 00:00:00 to 2024-12-31 23:00:00. Missing values are indicated by NaN.</p>\n<ul>\n<li>Fixed errors at several stations due to inconsistent data periods.</li>\n<li>Corrected the \"time\" variable across all NetCDF files.</li>\n<li>Performed data quality checks and removed significant negative values.</li>\n<li>Optimized the size of NetCDF files.</li>\n</ul>\n<p>Observed streamflow and water level can be downloaded here: <a href=\"https://doi.org/10.5281/zenodo.16729675\" rel=\"noopener\">https://doi.org/10.5281/zenodo.16729675</a></p>\n<p>NLDAS-2 forcings can be downloaded here:&nbsp;<a href=\"https://doi.org/10.5281/zenodo.15066778\"> https://doi.org/10.5281/zenodo.15066778</a> (folder 1); <a href=\"https://doi.org/10.5281/zenodo.15070091\">https://doi.org/10.5281/zenodo.15070091</a>&nbsp;(folder 2)</p>\n<p>ERA5-Land forcings can be downloaded here: <a href=\"https://doi.org/10.5281/zenodo.15264813\">https://doi.org/10.5281/zenodo.15264813</a></p>\n<p>Link Google Drive (backup only): <a href=\"https://drive.google.com/drive/folders/15dk6qlU38LqsUkf9hiIZHXGtzzrDfl-q?usp=sharing\">https://drive.google.com/drive/folders/15dk6qlU38LqsUkf9hiIZHXGtzzrDfl-q?usp=sharing</a></p>\n<p>&nbsp;</p>\n<p><strong>****** UPDATE 05/15/2025 (Restricted)</strong></p>\n<p>We have increased the number of basins with observational data from 3,166 to 5,188.</p>\n<p>In addition, we have added water level data alongside streamflow measurements.</p>\n<p>The hourly streamflow and water level data for a total of 5,188 USGS gauges are stored in individual NetCDF files and packaged together in the Hourly.7z archive. The dataset covers the period from 1980-01-01 00:00:00 to 2024-12-31 23:00:00. Missing values are indicated by NaN.</p>\n<p>&nbsp;</p>\n<p><strong>****** UPDATE 05/01/2025</strong></p>\n<p>We updated ERA5-Land forcings. The variables are: dewpoint temperature, 2-meter air temperature, soil moisture (four layers), net solar and thermal radiation, 10-meter wind components, surface pressure, total precipitation, snow water equivalent, and potential evaporation</p>\n<p>ERA5-Land forcings can be downloaded here:&nbsp;<a href=\"https://doi.org/10.5281/zenodo.15264813\">https://doi.org/10.5281/zenodo.15264813</a></p>\n<p>&nbsp;</p>\n<p><strong>****** ORIGINAL VERSION</strong></p>\n<p>The current version of the CAMELSH dataset, containing data for <strong>9,008</strong> basins,. Due to the total data volume in the repository being approximately 57 GB, which exceeds Zenodo's size limit, we split it into two different links. The first link (<a href=\"https://doi.org/10.5281/zenodo.15066778\">https://doi.org/10.5281/zenodo.15066778</a>) contains data on attributes, shapefiles, and time series data for the first set of basins. The second link (<a href=\"https://doi.org/10.5281/zenodo.15070091\">https://doi.org/10.5281/zenodo.15070091</a>) contains forcing (time series) data for the the remaining basins. All data is compressed in 7zip format. After extraction, the dataset is organized into the following subfolders:&nbsp;</p>\n<p><br>&bull; &nbsp; &nbsp;The attributes folder contains 28 CSV (comma-separated values) files that store basin attributes with all files beginning with \"attributes_\" and one excel file. Of these, the 'attributes_nldas2_climate.csv' file contains nine climate attributes (Table 2) derived from NLDAS-2 data. The 'attributes_hydroATLAS.csv' file includes 195 basin attributes derived from the HydroATLAS dataset. 26 files with names starting with 'attributes_gageii_' contain a total of 439 basin attributes extracted from the GAGES-II dataset. The name of each file represents a distinct group of attributes, as described in Table S.1. The remaining file, named 'Var_description_gageii.xlsx', provides explanatory details regarding the variable names included in the 26 CSV files, with information similar to that presented in Table S.1. The first column in all CSV files, labeled 'STAID', contains the identification (ID) names of the stream gauges. These IDs are assigned by the USGS and are sourced from the original GAGES-II dataset.<br>&bull; &nbsp; &nbsp;The shapefiles folder contains two sets of shapefiles for the catchment boundary. The first set, CAMELSH_shapefile.shp, is derived from the original GAGES-II dataset and is used to obtain the corresponding climate forcing data for each catchment. The second set, CAMELSH_shapefile_hydroATLAS.shp, includes catchment boundaries derived from the HydroATLAS dataset. Each polygon in both shapefiles contains a field named GAGE_ID, which represents the ID of the stream gauges.<br>&bull; &nbsp; &nbsp;The timeseries (7zip) file contains a compressed archive (7zip) that includes time series data for 3,166 basins with observed streamflow data. Within this 7zip file, there are a total of 3,166 NetCDF files, each corresponding to a specific basin. The name of each NetCDF file matches the stream gauge ID. Each file contains an hourly time series from 1980-01-01 00:00:00 to 2024-12-31 23:00:00 for streamflow (denoted as \"Streamflow\" in the NetCDF file) and 11 climate variables (see Table 1). The streamflow data series includes missing values, which are represented as \"NaN\". All meteorological forcing data and streamflow records have been standardized to the +0 UTC time zone.<br>&bull; &nbsp; &nbsp;The timeseries_nonobs (7zip) file contains time series data for the remaining 5,842 basins. The structure of each NetCDF file is similar to the one described above.<br>&bull; &nbsp; &nbsp;The info.csv file, located in the main directory of the dataset, contains basic information for 9,008 stream stations. This includes the stream gauge ID, the total number of observed hourly data points over 45 years (from 1980 to 2024), and the number of observed hourly data points for each year from 1980 to 2024. Stations with and without observed data are distinguished by the value in the second column, where stations without observed streamflow data have a corresponding value of 0.</p>\n<p>Download link: <a href=\"https://doi.org/10.5281/zenodo.15066778\">https://doi.org/10.5281/zenodo.15066778</a> (folder 1)</p>\n<p><a href=\"https://doi.org/10.5281/zenodo.15070091\">https://doi.org/10.5281/zenodo.15070091</a>&nbsp;(folder 2)</p>\n<p>&nbsp;</p>\n<p><strong>Note: All timestamps in the data have been converted to UTC+0.</strong></p>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "Tran, Vinh Ngoc",
+        "affiliation": "University of Michigan",
+        "orcid": "0000-0001-8272-4843"
+      }
+    ],
+    "keywords": [
+      "CAMELSH"
+    ],
+    "dates": [
+      {
+        "type": "available"
+      }
+    ],
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "relations": {
+      "version": [
+        {
+          "index": 8,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "14889025"
+          }
+        }
+      ]
+    }
+  },
+  "title": "CAMELSH: A Large-Sample Hourly Hydrometeorological Dataset and Attributes at Watershed-Scale for Contiguous United States",
+  "links": {
+    "self": "https://zenodo.org/api/records/21324088",
+    "self_html": "https://zenodo.org/records/21324088",
+    "preview_html": "https://zenodo.org/records/21324088?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.21324088",
+    "self_doi": "https://doi.org/10.5281/zenodo.21324088",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.21324088",
+    "reserve_doi": "https://zenodo.org/api/records/21324088/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/14889025",
+    "parent_html": "https://zenodo.org/records/14889025",
+    "parent_doi": "https://doi.org/10.5281/zenodo.14889025",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14889025",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:21324088/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:21324088/sequence/default",
+    "files": "https://zenodo.org/api/records/21324088/files",
+    "media_files": "https://zenodo.org/api/records/21324088/media-files",
+    "latest": "https://zenodo.org/api/records/21324088/versions/latest",
+    "latest_html": "https://zenodo.org/records/21324088/latest",
+    "versions": "https://zenodo.org/api/records/21324088/versions",
+    "draft": "https://zenodo.org/api/records/21324088/draft",
+    "access_links": "https://zenodo.org/api/records/21324088/access/links",
+    "access_grants": "https://zenodo.org/api/records/21324088/access/grants",
+    "access_users": "https://zenodo.org/api/records/21324088/access/users",
+    "access_request": "https://zenodo.org/api/records/21324088/access/request",
+    "access": "https://zenodo.org/api/records/21324088/access",
+    "communities": "https://zenodo.org/api/records/21324088/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/21324088/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/21324088/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/21324088/file-modification",
+    "quota_increase": "https://zenodo.org/api/records/21324088/quota-increase",
+    "requests": "https://zenodo.org/api/records/21324088/requests"
+  },
+  "updated": "2026-07-15T04:24:16.245702+00:00",
+  "recid": "21324088",
+  "revision": 12,
+  "files": [
+    {
+      "id": "b8b016b6-96a7-4622-8b02-5c28dc0e012e",
+      "key": "StreamTemperature.zip",
+      "size": 967697528,
+      "links": {
+        "self": "https://zenodo.org/api/records/21324088/files/StreamTemperature.zip/content"
+      }
+    }
+  ],
+  "swh": {},
+  "owners": [
+    {
+      "id": "516199"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 18076,
+    "unique_downloads": 4999,
+    "views": 7902,
+    "unique_views": 6361,
+    "version_downloads": 40,
+    "version_unique_downloads": 27,
+    "version_unique_views": 358,
+    "version_views": 430
+  },
+  "state": "done",
+  "submitted": true
+}

@@ -1,0 +1,9 @@
+{
+  "status": "completed",
+  "stations": 42,
+  "archive_settings": 3320,
+  "annual_rows": 21446,
+  "trend_method_rows": 13280,
+  "scope": "Saved masks and baseline predictions with new train-only summer regression; case-level outputs remain private.",
+  "limitations": "Adaptation, not Beaufort et al. original code, target or data. Post-hoc and synthetic masks; all complete observations and target archive are reused. July\u2013August fill cannot identify a missing peak outside summer. Air is NASA POWER-based, timing may not match water. Group bootstrap is descriptive; model source-region overlap, data rights and independent-climate validation remain unresolved. Deterministic point proxy has no predictive interval."
+}

@@ -1,0 +1,14 @@
+{
+  "station_id": "MA05OC0001",
+  "usgs_alias": "05102500",
+  "named_inventory_matches": {
+    "source_usgs": 0,
+    "previous_e10": 0,
+    "national_metadata": 0,
+    "expanded_identity": 0,
+    "previous_eccc_daily_station": 0
+  },
+  "same_river_source": "USGS-05054000 Red River of the North at Fargo, in source station metadata; separation about 241 km, same river basin",
+  "identity_evidence": "https://pubs.usgs.gov/publication/sir20255002/full",
+  "caveat": "named inventories only; zero identifier matches does not establish all-cache or independent-river status"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "target_years": 8,
+  "day_clock_rows": 5844,
+  "fixed_zero_width_years": 3,
+  "scope": "Independent scalar UTC-slot set and rolling-window reconstruction for all eight years and both clocks.",
+  "limitations": "Every unobserved, nonfinite, unapproved, flagged, duplicated or otherwise ambiguous slot lies in [-5,50] degrees C. This is a hypothetical water-value bound, not a demonstrated instrument or physical limit; if false, H30 enclosure can fail. Clock choice, quality corrections, actual value range, sensor accuracy, source model overlap, historical interpolation and independent climates are unresolved. The score has already been opened and one selected site contributes all three full-hour years. Bounds are conditional, not measured truth.",
+  "storage": "temporary RAM filesystem; not durable"
+}

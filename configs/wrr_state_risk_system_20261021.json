@@ -1,0 +1,19 @@
+{
+  "status": "supplementary_opened_data_system_factorial",
+  "parent": "configs/wrr_state_risk_completion_20261021.json",
+  "candidate_law": "retain_development_only_CRPS_selection_from_script416",
+  "neural_reference_law": "lowest_development_common_air_CRPS_neural_law_not_calibration_or_test_selection",
+  "primary_air_points": ["priority", "air2stream3", "neural_median32", "state_median32"],
+  "primary_air_CDFs": ["development_selected_neural_reference", "development_selected_state"],
+  "supplementary_flow_points": ["priority", "air2stream8", "flow_state_median32"],
+  "supplementary_flow_CDFs": ["development_selected_state_air", "state_air_flow"],
+  "scores": ["native_CDF", "boost_direct", "boost_window"],
+  "primary_draw_budget": 32,
+  "candidate_denominator": "every_original_case_in_each_role_unsupported_points_and_CDFs_remain_unknown",
+  "head_and_threshold_calibration_support": "same_intersection_within_information_tier_before_error_comparison",
+  "formal_calibration_family_alpha": 0.05,
+  "formal_calibration_cells": 42,
+  "reported_MC_bands_and_risks_are_not_new_independent_confirmation": true,
+  "original_protocol_or_predictive_bank_changed": false,
+  "new_USGS_or_Australian_error_access": false
+}

@@ -1,0 +1,41 @@
+{
+  "sites": [
+    "ARIK",
+    "BIGC",
+    "BLDE",
+    "BLUE",
+    "CARI",
+    "COMO",
+    "CUPE",
+    "GUIL",
+    "HOPB",
+    "KING",
+    "LECO",
+    "LEWI",
+    "MART",
+    "MAYF",
+    "MCDI",
+    "MCRA",
+    "OKSR",
+    "POSE",
+    "PRIN",
+    "REDB",
+    "SYCA",
+    "TECR",
+    "WALK",
+    "WLOU"
+  ],
+  "previously_opened_pilot": [
+    "ARIK"
+  ],
+  "excluded_from_new_station_accuracy": {
+    "KING": "source USGS station in upstream watershed"
+  },
+  "selection": "all 24 river/stream sites in the existing public metadata directory; no prediction error selection",
+  "primary_daily_reference": "48 unique valid 30-minute observations; finalQF=0; UTC day",
+  "sensitivity_daily_reference": "at least 46 unique valid 30-minute observations; finalQF=0; UTC day",
+  "annual_eligibility": "at least four complete calendar years; no filling of missing days",
+  "source": "https://doi.org/10.6084/m9.figshare.28074452",
+  "independence": "new NEON sites are exploratory and shared climate/catchments may remain dependent",
+  "registration": "unregistered; ARIK was opened during feasibility before this plan"
+}

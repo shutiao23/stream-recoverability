@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "strict_archive_settings": 120,
+  "empty_settings": 0,
+  "annual_cases_replayed": 456,
+  "numeric_fields_replayed": 24,
+  "maximum_absolute_difference": 0.0,
+  "scope": "current strict HUC17 source model and calibration replayed on every saved affected archive annual feature row; prediction support, scores, D2 and comparator quantiles checked",
+  "limitation": "does not independently re-fit daily models, verify original source data rights, or validate trend draws, physical measurement uncertainty or independent climate transfer"
+}

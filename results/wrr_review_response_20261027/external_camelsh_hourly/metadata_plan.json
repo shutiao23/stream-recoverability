@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T04:45:45.328926+00:00",
+  "status": "posthoc exploratory metadata screen after archive index and preliminary metadata counts; no CAMELSH temperature files or target prediction errors opened",
+  "scope": "All 533 archive IDs with no exact match in the named prior-contact identity lists. Existing current-vintage USGS daily-series metadata and the prior project network-screen table only.",
+  "candidate_rule": "USGS 00010/00003 primary stream series with known time zone and HUC8; at least four whole calendar years could lie within the reported date envelope during 2000–2025; reject obvious nonriver names, known prior HUC8, and known connected-component overlap. Require exactly one eligible series per site; unknown fields or missing metadata remain unknown.",
+  "huc_rule": "Conservatively flag HUC8 shared with any known prior USGS station whose HUC is in available prior metadata, or flagged in the earlier network scope; metadata lookup is incomplete and different HUC8 does not establish hydrologic or climate independence.",
+  "next_step": "Preserve all counts and excluded/unknown statuses. A separate count-only preflight and separate network-identity audit must occur before any chosen target temperature or prediction error is accessed.",
+  "limits": "Posthoc and incomplete prior inventories; metadata date envelope is only an availability upper bound and gives no daily coverage, nonestimated status, subdaily quality, physical representativeness, natural outage or source-model independence guarantee."
+}

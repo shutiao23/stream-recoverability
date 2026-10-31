@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+syke|1670,g0087,syke,2,offline,crossed,synchronized_donors,44,13,plug_in,13,13,1.1686809132788185,,
+syke|1670,g0087,syke,2,offline,crossed,synchronized_donors,44,13,stochastic_calibrated,13,13,0.6991187604843201,0.6923076923076923,1.4321435648187342
+syke|1670,g0087,syke,2,offline,crossed,synchronized_donors,44,13,D2,13,13,0.8267234309740072,0.7692307692307693,1.937635131004653

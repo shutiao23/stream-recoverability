@@ -1,0 +1,57 @@
+{
+  "created_utc": "2026-10-27T05:51:33.729494+00:00",
+  "status": "posthoc exploratory intake after previous reference attempts and public collection descriptions were inspected; before opening any selected temperature values or model errors",
+  "collection": "https://www.hydroshare.org/resource/430ee557554948b5811830c1e2ec41aa/",
+  "resource_count": 11,
+  "resources": [
+    {
+      "id": "518f1782309742a39cea7e08b677ca48",
+      "title": "Continuous water quality data from the Arkansas River above John Martin Reservoir, Colorado, USA, 2020-ongoing"
+    },
+    {
+      "id": "53bdd4a98c0e46dfaf0e5c67cf5be2e5",
+      "title": "Continuous water quality data from the Rio Chama below Abiquiu Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "6b8443e801424ed7933581b054fc4fac",
+      "title": "Continuous water quality data from the Pecos River below Santa Rosa Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "6dfb4f3681f443cd8c2017cb9304081c",
+      "title": "Continuous water quality data from the Rio Chama above Abiquiu Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "7ee7252127f145818035c34ae5edfbe0",
+      "title": "Continuous water quality data from the Purgatory River above Trinidad Reservoir, Colorado, USA, 2020-ongoing"
+    },
+    {
+      "id": "814f3b12af614c56a4932eed9568eeaf",
+      "title": "Continuous water quality data from the Canadian River above Conchas Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "9cf09ae6b59448ca89ba1b582339979c",
+      "title": "Continuous water quality data from the Pecos River above Santa Rosa Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "9e912c8455d64899a323d3fc11e9f27f",
+      "title": "Continuous water quality data from the Rio Grande below Jemez Canyon Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "c1065841703b4cddb5279ba6672911a3",
+      "title": "Continuous water quality data from the Purgatory River below Trinidad Reservoir, Colorado, USA, 2020-ongoing"
+    },
+    {
+      "id": "d6af42b7936f4bacad1bfe9b57c6aed4",
+      "title": "Continuous water quality data from the Rio Grande above Cochiti Reservoir, New Mexico, USA, 2020-ongoing"
+    },
+    {
+      "id": "f57c3e1508674f77acd613061264c945",
+      "title": "Continuous water quality data from the Arkansas River below John Martin Reservoir, Colorado, USA, 2020-ongoing"
+    }
+  ],
+  "retrieval": "For every listed resource, request its public metadata RDF and file-name/size inventory only. Do not download level-0/level-1 temperature files at this stage.",
+  "early_probe": "An endpoint-discovery request inadvertently retrieved one complete resource ZIP into memory; no ZIP members or temperature values were opened, and the response was not retained.",
+  "selection": "Classify each resource by public date envelope, declared level-1 QA/QC file names, referenced USGS IDs, geographic position and named prior-contact inventories. Retain unknowns. Freeze a separate data-access and qualification plan before reading station files.",
+  "license": "Resource metadata says CC BY 4.0 with required attribution and requests courtesy notification of derivative work. No notification or external message has been sent.",
+  "limitations": "Posthoc and not random. Reservoir influence, monitoring-site linkage, source-model overlap, quality corrections, timezone and completeness require explicit verification; archive pages do not establish independent climates or reference accuracy."
+}

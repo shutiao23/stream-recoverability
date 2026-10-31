@@ -1,0 +1,134 @@
+[
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2010-01-01&date_fin_mesure=2010-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:28:45.230842+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2011-01-01&date_fin_mesure=2011-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 206,
+    "requested_utc": "2026-10-26T19:28:49.158890+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2011-01-01&date_fin_mesure=2011-07-02&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:28:51.945130+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2011-07-03&date_fin_mesure=2011-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:28:55.175618+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2012-01-01&date_fin_mesure=2012-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 206,
+    "requested_utc": "2026-10-26T19:28:59.381436+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2012-01-01&date_fin_mesure=2012-07-01&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:01.621806+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2012-07-02&date_fin_mesure=2012-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:04.396667+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2013-01-01&date_fin_mesure=2013-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 206,
+    "requested_utc": "2026-10-26T19:29:08.506600+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2013-01-01&date_fin_mesure=2013-07-02&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:11.366355+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2013-07-03&date_fin_mesure=2013-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:14.173399+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2014-01-01&date_fin_mesure=2014-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:15.013560+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2015-01-01&date_fin_mesure=2015-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:15.703618+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2016-01-01&date_fin_mesure=2016-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:16.399656+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2017-01-01&date_fin_mesure=2017-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:19.083947+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2018-01-01&date_fin_mesure=2018-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:21.983831+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2019-01-01&date_fin_mesure=2019-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:24.691157+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2020-01-01&date_fin_mesure=2020-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:27.704946+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2021-01-01&date_fin_mesure=2021-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:29.292474+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2022-01-01&date_fin_mesure=2022-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:30.051813+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2023-01-01&date_fin_mesure=2023-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:30.760842+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2024-01-01&date_fin_mesure=2024-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:31.453343+00:00",
+    "retry_after": null
+  },
+  {
+    "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=10200110&code_qualification=1&date_debut_mesure=2025-01-01&date_fin_mesure=2025-12-31&size=20000&page=1&sort=asc&fields=code_station%2Cdate_mesure_temp%2Cheure_mesure_temp%2Cresultat%2Csymbole_unite%2Ccode_qualification",
+    "status": 200,
+    "requested_utc": "2026-10-26T19:29:32.145067+00:00",
+    "retry_after": null
+  }
+]

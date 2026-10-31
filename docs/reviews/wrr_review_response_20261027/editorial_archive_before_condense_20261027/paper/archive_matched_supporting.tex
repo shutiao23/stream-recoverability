@@ -1,0 +1,19 @@
+\section{Matched numerical release within each archive}
+After the original release and trend results were inspected, we fixed a further descriptive comparison on the same 3,320 archive settings. In each archive the three-output rule's number of numerical releases was matched exactly by choosing the lowest available raw classifier scores; equal scores were broken by year, and the existing detected-quality exclusion was applied to both rules. The choice uses the target archive's score distribution and its original release count, but no reference outcomes. It is therefore transductive and not a prospective release threshold. The same observed years and D2 estimates are used, while the selected years can differ. Nonselected years retain a visible lower bound if allowed by the same quality flag, and otherwise remain unknown. An unassessed quality diagnostic does not count as a detected flag in this analysis, as in the original pipeline.
+
+Table~\ref{tab:archive-matched-release} gives annual errors and working-likelihood trend RMSE; lower-bound counts are not an assertion that the same years or bound values were retained. The number of numerical outputs is matched within each archive, but equal counts do not establish equal total information or comparable prospective risks. Repeated masks are not independent climates. A connected-group bootstrap of paired squared-error differences for forward controlled gaps gives [\AMBootstrapLow, \AMBootstrapHigh] $({}^{\circ}\mathrm{C}/\mathrm{decade})^2$; this is descriptive and spans zero. The likelihood treats released predictions as exact, censoring may be informative, and its intervals are not calibrated missingness-only uncertainty. No model was refitted for this comparison.
+
+\begin{table}[ht]
+\caption{Per-archive matched numerical output. Annual errors exceed 0.5 $^{\circ}$C. Counts and RMSE are original three-output rule / score-only comparator; RMSE uses common converged release-plus-bound working-likelihood fits and units $^{\circ}$C per decade.}
+\label{tab:archive-matched-release}
+\centering\small
+\begin{tabular}{lrrrrr}\toprule
+Scenario & Numeric & Errors & Bounds & Fits & RMSE \\
+\midrule
+Calendar, offline & 6,345 & 11 / 9 & 590 / 590 & 840 & 0.0198 / 0.0237 \\
+Calendar, forward & 3,435 & 43 / 32 & 371 / 370 & 819 & 0.1240 / 0.1220 \\
+Controlled, offline & 5,543 & 242 / 229 & 1378 / 1378 & 840 & 0.0405 / 0.0407 \\
+Controlled, forward & 3,174 & 397 / 370 & 603 / 603 & 820 & 0.2024 / 0.1959 \\
+\bottomrule\end{tabular}\end{table}
+
+The audit separately reconstructed the selection masks for all 3,320 archives using Python ordering, recomputed 3,319 available score-comparator numerical-only OLS slopes and checked all eight summary cells. A second implementation refitted all 6,640 rule-by-archive censored likelihoods using normal log-density and survival functions. Convergence status agreed for every fit; 6,638 converged in both implementations, and their largest slope difference was approximately $1.2\times10^{-6}$ $^{\circ}$C per decade. This numerical check used the same observations, selected cases and working likelihood; it did not independently reconstruct source sensors or models, establish likelihood validity or verify interval standard errors.

@@ -1,0 +1,20 @@
+{
+  "analysis_status": "supplementary development on previously opened outcomes",
+  "primary_use": "archive delivery of annual H30 magnitude",
+  "secondary_use": "illustrative hot-year classification; costs are experimental, not ecological",
+  "protocols": ["leave_one_year_out", "strictly_prior_years"],
+  "fold_seeds": [101, 202, 303],
+  "risk_cap": 0.05,
+  "alpha": 0.05,
+  "tolerance_C": 0.5,
+  "objectives": ["quantile", "probability"],
+  "windows": [false, true],
+  "learner_parameters": {"max_depth": 4, "max_iter": 350, "learning_rate": 0.06, "min_samples_leaf": 40},
+  "probability_calibration": "Platt on independent calibration groups; no test calibration",
+  "hot_thresholds": ["local_training_q90", "fixed18", "fixed20"],
+  "false_negative_costs": [1, 5, 10],
+  "abstention_costs": [0, 0.01, 0.025, 0.05, 0.1, 0.25],
+  "bootstrap_draws": 2000,
+  "reliability_bins": 10,
+  "new_confirmation_claim": false
+}

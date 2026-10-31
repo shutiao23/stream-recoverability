@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "cases": 72,
+  "reference_years": 4,
+  "max_truth_difference_c": 2.842170943040401e-14,
+  "max_observed_bound_difference_c": 5.329070518200751e-15,
+  "quantile_support_violations": 0,
+  "summary_cells_checked": 58,
+  "paired_cells_checked": 22,
+  "year_cells_checked": 24,
+  "scope": "Independent rolling-window, mask, score and quadrature arithmetic from the same processed target data and saved predictions; does not retrain source models or establish physical sensor accuracy.",
+  "limitations": "One station, four years and one managed watershed with previous Truckee-basin data contact. Source model and calibration are fixed but the full river-network separation from every source dependency is not established. Nonestimated measurements, independent climate, natural outage, source permissions and physical measurement uncertainty remain unresolved. Repeated masks are not independent stations or climates."
+}

@@ -1,0 +1,47 @@
+{
+  "status": "metadata_screen_completed_not_network_qualified",
+  "frozen_location_ids": 248,
+  "inventories": [
+    {
+      "inventory": "BC_published_roster",
+      "locations": 248,
+      "within_100m": 0,
+      "within_10km": 0,
+      "nearest_km": 2576.136942641621
+    },
+    {
+      "inventory": "ECCC_automatic_catalog",
+      "locations": 248,
+      "within_100m": 0,
+      "within_10km": 0,
+      "nearest_km": 180.83937364744187
+    },
+    {
+      "inventory": "Nova_Scotia_opened_sites",
+      "locations": 248,
+      "within_100m": 0,
+      "within_10km": 0,
+      "nearest_km": 287.93202705876837
+    },
+    {
+      "inventory": "USGS_processed_national",
+      "locations": 248,
+      "within_100m": 0,
+      "within_10km": 0,
+      "nearest_km": 63.71898701928539
+    },
+    {
+      "inventory": "USGS_source_metadata",
+      "locations": 248,
+      "within_100m": 0,
+      "within_10km": 0,
+      "nearest_km": 183.60990181947406
+    }
+  ],
+  "coincident_coordinate_groups": 4,
+  "locations_with_coincident_coordinates": 8,
+  "prior_exact_id_text_files": 0,
+  "text_search_scope": "exact IDs in selected repository text files up to 25 MB, excluding new intake; binary, compressed, ignored and larger files not searched",
+  "data_scope": "only published location metadata; target dates and water values not read; no reconstruction scored",
+  "limitation": "different IDs, geographic distance, a clear exact-text search or different river names do not prove no prior contact, hydrologic separation, independent climates, or reference quality"
+}

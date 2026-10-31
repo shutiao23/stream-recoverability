@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+foen|2016,g0029,foen,1,offline,26,9,plug_in,9,9,0.0,,
+foen|2016,g0029,foen,1,offline,26,9,stochastic_calibrated,9,9,0.0,1.0,0.0
+foen|2016,g0029,foen,1,offline,26,9,D2,9,9,0.0,1.0,0.0

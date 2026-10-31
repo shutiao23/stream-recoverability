@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T04:11:18.517978+00:00",
+  "status": "post-hoc after prior archive results and published-method proxy were seen; not preregistered",
+  "cohort": "All 3,320 existing archive settings: 42 offline and 41 forward stations, calendar and crossed masks, 20 repetitions; same masks and finite-record target as existing comparisons.",
+  "method": "Adapted summer-air point proxy, not the published interannual thermal-peak estimator. Simultaneously mask the original target gaps. For each incomplete year exclude that entire year from the local fit; in forward mode also exclude all years from 2010 onward. Use visible July–August water and 2–10-day right-aligned air means, common finite training rows, select the highest in-sample R-squared (shortest lag for ties). Require three complete training years and 30 finite training days.",
+  "prediction": "Retain observed values and fill only missing July–August days. Use the larger of the resulting summer 30-day maximum and the fully observed full-year 30-day lower bound. If summer has no gaps, use the observed full-year bound. Unsupported fits, missing required air or unavailable windows are reported, not replaced with zero.",
+  "comparison": "Point estimates only: proxy versus saved plug-in, D2 and calibrated stochastic, on shared annual cases and shared archive-level OLS slopes. Report each method availability, each pairwise cohort and a four-method common cohort; separate nontrivial masked archives. Same support projection for finite bounds.",
+  "limitations": "Adaptation, not Beaufort et al. original code, target or data. Post-hoc and synthetic masks; all complete observations and target archive are reused. July–August fill cannot identify a missing peak outside summer. Air is NASA POWER-based, timing may not match water. Group bootstrap is descriptive; model source-region overlap, data rights and independent-climate validation remain unresolved. Deterministic point proxy has no predictive interval.",
+  "privacy": "Station-year masks, inputs and case-level outputs are local only; aggregate results may be reviewed separately."
+}

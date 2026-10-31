@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "cases_recomputed": 72,
+  "summary_cells_checked": 93,
+  "counts": {
+    "reference_equals_bound": 35,
+    "reference_above_bound": 37,
+    "bound_unavailable": 0
+  },
+  "scope": "Independent convolution, mask and score arithmetic on the same source values and saved model predictions.",
+  "limitations": "Retrospective, outcome-defined strata; four years and one managed watershed. Does not refit models or verify sensor accuracy, current weather or climate independence."
+}

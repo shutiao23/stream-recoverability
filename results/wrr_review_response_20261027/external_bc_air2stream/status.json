@@ -1,0 +1,26 @@
+{
+  "n_roster": 23,
+  "n_exploratory_eligible": 4,
+  "n_strict_24h_eligible": 0,
+  "n_duplicate_rows": 0,
+  "reconstruction_accuracy_evaluated": true,
+  "strict_limitation": "This derivative does not identify 24 valid hourly measurements or day-specific raw QC flags; cannot satisfy strict full-day reference",
+  "previous_contact": "no WSC identifiers found in initial searched local metadata and scripts; geographic network dependence remains to be checked",
+  "time_zone": "not established for the published derivative",
+  "selection": "unregistered, all published stations; original authors selected >=5 total years, not a random population",
+  "citation": "https://doi.org/10.5281/zenodo.14502248",
+  "n_cases": 372,
+  "n_scored_stations": 4,
+  "inference_scope": "unregistered BC offline masked-year comparison; published means may include only 20 hours per day; station-selected author QC also used water-air checks; local day/timezone unresolved; stations and climate not independent",
+  "n_station_years": 16,
+  "n_families": {
+    "crossed": 288,
+    "calendar": 84
+  },
+  "lower_bound_violations": {
+    "D2": 0,
+    "stochastic": 0
+  },
+  "bound_interpretation": "bound applies to published daily-mean series; 24h physical-day bound not established",
+  "network_dependence": "three sites lie in the Fraser River basin (Nechako, Thompson and Fraser); all share British Columbia climate and are not four independent regions"
+}

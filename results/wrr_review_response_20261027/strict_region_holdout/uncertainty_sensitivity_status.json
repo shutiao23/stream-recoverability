@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "strict_archive_settings": 120,
+  "affected_stations": 3,
+  "original_tail_rows_replayed": 480,
+  "original_tail_metrics_reproduced": true,
+  "original_summary_reproduced": true,
+  "uncertainty": "2000 connected-group resamples of case-weighted strict-minus-original paired differences, descriptive only",
+  "comparison": "common station/repetition cases with all original and strict annual, tail and joint-rank outputs available; original and strict target masks and reference unchanged",
+  "limitation": "post-hoc paired sensitivity; tail and dependence treatments use different random sequences, annual marginal coverage remains imperfect; repeated masks are not independent climates and no physical sensor error is evaluated"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "cases": 306,
+  "scenarios": 4,
+  "manual_calibration_reproduced": true,
+  "cases_with_any_quantile_leaf_changes": 0,
+  "cases_with_any_classifier_leaf_changes": 0,
+  "scope": "Direct LightGBM Booster predictions and leaf IDs; independently applies quantile sorting, source offsets and observed lower-bound projection.",
+  "limits": "Same frozen models and feature-design routine reused. Feature clipping is artificial and neither proves transfer nor validates accuracy, calibration, data quality or independent climates."
+}

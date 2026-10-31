@@ -1,0 +1,13 @@
+{
+  "created_utc": "2026-10-27T01:52:40.128544+00:00",
+  "status": "post-hoc propagation after annual group-max and prior trend results were inspected; not prospective registration",
+  "scope": "41 forward target stations, 20 existing replicates and controlled-gap masks; 820 expected archives; source support for both estimators required",
+  "source_radius": "fixed per-region and estimator group-max annual radius from disjoint numeric-fit/calibration source roles; 90% annual rank only, not a 95% joint-trend calibration",
+  "annual_shapes": "baseline, endpoint-only and tapered; both expanded versions have the same q05/q95, fixed median and observed lower bound, but differing interior quantiles and normal-spacing outer tails",
+  "dependence": "independent, auxiliary shared-parameter and residual-block ranks rebuilt with the same historical target masks and random seeds. All three representations use the same ranks and preserve their own annual marginals.",
+  "validation": "replay saved candidate baseline trend; where earlier empirical-expansion rank snapshots exist, compare years, truth, masks, bounds, baseline quantiles and all rank matrices. Target groups are descriptive, not independent climates.",
+  "evaluation": "report all 820 availability and common nontrivial archives, same-case 95% trend coverage, interval width and score for both estimators and three rank models, group bootstrap and fixed-prediction leave-region sensitivity.",
+  "limitations": "source group maxima come from single-year masks, target archives have multiple joint gaps and different source/target group sizes; source and target groups are not known exchangeable. The 90% annual calibration and assumed shape/rank coupling do not establish 95% trend coverage or any guarantee. Previous empirical and group-max results have been viewed.",
+  "expected_archive_settings": 820,
+  "expected_previous_rank_snapshots": 685
+}

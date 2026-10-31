@@ -1,0 +1,73 @@
+{
+  "created_utc": "2026-10-27T04:55:59.901163+00:00",
+  "status": "posthoc after metadata, prior-cache and coordinate screening; before station time-series download or target error evaluation",
+  "selection": "All 12 EML station files, not selected by temperature, label completeness or prediction error. Include the one station with an inconsistent reported date envelope; mark that metadata inconsistency unresolved.",
+  "invalid_date_envelopes": [
+    "TrkBlwPr"
+  ],
+  "resources": [
+    {
+      "station_code": "DncAbvTrk",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/37c90c10068d544ad6ecab6515cbf0b2",
+      "bytes": 11257322
+    },
+    {
+      "station_code": "FAR",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/31234537adb52d5df18dc9596010708b",
+      "bytes": 40972260
+    },
+    {
+      "station_code": "LAB",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/a18771cf7e181cdf9dad769d494bafef",
+      "bytes": 28396656
+    },
+    {
+      "station_code": "LtkAbvTrk",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/d5235cc4a313bc6c48936c1f42681c71",
+      "bytes": 11309339
+    },
+    {
+      "station_code": "PrAbvTrk",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/f2c69f2d2c1c0d0152ae5255b92002c8",
+      "bytes": 10985048
+    },
+    {
+      "station_code": "TRB8",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/75e83c43ce9f4c7445c4e21d7fbed727",
+      "bytes": 40515480
+    },
+    {
+      "station_code": "TRTT",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/6daf5894605cf80d5aba71564388d2d8",
+      "bytes": 30434806
+    },
+    {
+      "station_code": "TrkAbvDnc",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/a3405a6b450f9f2991a1d0f2337d89b0",
+      "bytes": 11294304
+    },
+    {
+      "station_code": "TrkAbvLtk",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/f4a1db72895e8fbe0f1a3062db807049",
+      "bytes": 11273314
+    },
+    {
+      "station_code": "TrkAbvPr",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/d0dc935b84bfe12381612c55cc687805",
+      "bytes": 8622253
+    },
+    {
+      "station_code": "TrkBlwDnc",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/6f9cbcc9f6d6575cfd20dc9c718cab07",
+      "bytes": 11226519
+    },
+    {
+      "station_code": "TrkBlwPr",
+      "url": "https://pasta.lternet.edu/package/data/eml/edi/2411/1/09c1829f5eee8f75fc2845cb99d1efa9",
+      "bytes": 10896754
+    }
+  ],
+  "estimated_raw_bytes": 227184055,
+  "time_upper_bound": "Count only station code and timestamp labels. Treat EML PST as reported clock labels; a day can be complete only if all 96 unique quarter-hour labels occur exactly once. A year can be complete only if every calendar day meets that condition. Early hourly periods fail this deliberately strict 15-minute test.",
+  "limitations": "Full source files contain measurements and will be downloaded into an ignored local folder; the time-screen calculation does not evaluate those values. A time-label upper bound ignores NA values, point quality, estimated/corrected status and clock uncertainty. All sites are one managed watershed, with previously accessed downstream USGS sites; no independent climate or scored accuracy claim."
+}

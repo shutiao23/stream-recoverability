@@ -1,0 +1,5 @@
+scope,family,method,n_eligible,n_stations,original_available,strict_available,n_common,original_rmse,original_bias,original_total_working_coverage95,original_total_working_width95,original_total_working_interval_score95,strict_rmse,strict_bias,strict_total_working_coverage95,strict_total_working_width95,strict_total_working_interval_score95
+affected,calendar,released_values_and_bounds,2,2,2,2,2,0.21813614396565492,0.15424554661999948,1.0,2.8529829474469652,2.8529829474469652,0.2115188210785422,0.14956509113893726,1.0,2.8565905687155175,2.8565905687155175
+affected,calendar,released_values_only,2,2,2,2,2,0.2179750210265786,0.154131615497174,,,,0.21136174794590615,0.14945402366170438,,,
+pooled_forward,calendar,released_values_and_bounds,2,2,2,2,2,0.21813614396565492,0.15424554661999948,1.0,2.8529829474469652,2.8529829474469652,0.2115188210785422,0.14956509113893726,1.0,2.8565905687155175,2.8565905687155175
+pooled_forward,calendar,released_values_only,2,2,2,2,2,0.2179750210265786,0.154131615497174,,,,0.21136174794590615,0.14945402366170438,,,

@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "environments": {
+    "clean": {
+      "report": "usace_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "reservoir": {
+        "status": "passed",
+        "resources": 10,
+        "station_years": 69,
+        "complete_finite_years": 0
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    },
+    "replay": {
+      "report": "usace_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "reservoir": {
+        "status": "passed",
+        "resources": 10,
+        "station_years": 69,
+        "complete_finite_years": 0
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    }
+  },
+  "scope": "Current candidate ZIP: public reservoir qualification replay, other included replay checks, figure generation and TeX compilation. Not a complete raw-to-model rebuild.",
+  "limits": "No independently validated climate or measurement accuracy; restricted source weights and per-case predictions, permanent deposit and rights remain outstanding."
+}

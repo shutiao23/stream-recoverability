@@ -1,0 +1,15 @@
+{
+  "complete": true,
+  "conditions": [
+    "air_exposure",
+    "clean",
+    "future_years",
+    "hot_year_extrapolation",
+    "smooth_non_air_shift"
+  ],
+  "limitations": [
+    "synthetic exact air substitution is easier to detect than general sensor contamination",
+    "a bound requires valid measurements",
+    "output rules have no population-wide risk guarantee"
+  ]
+}

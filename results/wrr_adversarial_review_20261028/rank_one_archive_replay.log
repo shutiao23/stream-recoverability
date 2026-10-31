@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "station": "foen|2016",
+  "replicate": 0,
+  "seed": 0,
+  "rows": 18,
+  "max_absolute_differences": {
+    "lower_error": 8.326672684688674e-17,
+    "upper_error": 8.326672684688674e-17,
+    "width": 5.551115123125783e-17,
+    "interval_score": 5.551115123125783e-17
+  },
+  "scope": "Same-code replay of one saved archive from current local input panels; no independent source-model fitting or external reference validation."
+}

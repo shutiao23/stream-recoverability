@@ -1,0 +1,10 @@
+{
+  "status": "passed_metadata_identity_checks",
+  "usgs_unmatched_local_panel_columns": 73,
+  "usgs_unique_ids_matched_to_official_response": 69,
+  "gkd_extra_panel_columns": 1,
+  "gkd_ids_matched_to_project_network_qc": 1,
+  "usgs_source": "https://waterservices.usgs.gov/nwis/site/",
+  "interpretation": "All 74 panel-column occurrences absent from the first three local catalogs have a matching identifier in an additional source: 73 in USGS site metadata and one in a project-generated GKD network-QC table. USGS metadata is authoritative for the existence of the site identifier; the GKD QC row is a local project record, not an independent provider confirmation. Neither proves that the cached temperatures came from those records, that every preprocessing input is identified, or that data or model derivatives can be redistributed.",
+  "audit": "Separate Python CSV parser verifies the two saved USGS responses, compares the complete frozen ID roster, and checks the provider/network/site fields in the local QC table; no model or temperature values are retrieved."
+}

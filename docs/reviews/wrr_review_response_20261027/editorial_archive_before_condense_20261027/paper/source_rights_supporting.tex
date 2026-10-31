@@ -1,0 +1,21 @@
+\section{Source-provider dependence of whole-archive models}
+The 42 whole-archive target stations belong to providers with recorded reuse paths, but source-model training has additional provenance. Recomputing the source role assignments and checking them against all 13 saved seed-zero model bundles shows that 13 estimator roles and 6 interval-calibration roles have positive-weight LUBW source cases. Source cases are repeated masks; their counts are not independent observations. Positive source weights establish model dependence but do not resolve the legal status of any particular derivative. Individual source, model, target, mask and reviewer-access rights still require confirmation. A post-hoc candidate-provider strict-region refit is reported separately and does not replace the main results.
+\begin{table}[p]\centering\small
+\caption{LUBW cases with positive source-role weights, not independent station counts. Groups with bootstrap multiplicity zero do not contribute.}\label{tab:rights-roles}
+\begin{tabular}{llrr}\toprule
+Mode & Region & Estimator case rows & Interval calibration case rows\\\midrule
+forward & foen & 383 & 0\\
+forward & gkd\_bayern & 287 & 0\\
+forward & usgs\_huc03 & 383 & 0\\
+forward & usgs\_huc04 & 96 & 0\\
+forward & usgs\_huc10 & 191 & 96\\
+forward & usgs\_huc17 & 191 & 0\\
+offline & foen & 288 & 311\\
+offline & gkd\_bayern & 862 & 2732\\
+offline & syke & 1030 & 311\\
+offline & usgs\_huc03 & 3475 & 0\\
+offline & usgs\_huc04 & 1461 & 168\\
+offline & usgs\_huc10 & 1150 & 0\\
+offline & usgs\_huc17 & 1246 & 2732\\
+\bottomrule\end{tabular}
+\end{table}

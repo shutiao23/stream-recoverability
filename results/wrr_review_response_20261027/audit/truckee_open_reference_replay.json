@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "stations": 12,
+  "station_years": 171,
+  "complete_finite_days": 43053,
+  "complete_finite_years": 18,
+  "time_label_possible_years": 147,
+  "power_days": 3653,
+  "power_api_version": "v2.10.1",
+  "scope": "Offline rebuild of the provider timestamp and finite-value screens, all complete-day means and the NASA POWER forcing from bundled public responses. No target masks, source-model weights, model predictions or scoring are replayed.",
+  "limitations": "One managed watershed and previously contacted downstream stations; original estimated/corrected flags, physical time basis, sensor error, full source-model separation and redistribution conditions remain unresolved."
+}

@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T07:17:02.584488+00:00",
+  "status": "posthoc after external predictions, scores and feature-support findings",
+  "analysis": "Apply the original release_states function to all 306 external cases with no optional range limits and quality_flag=False solely to isolate the mandatory complete-history gate. Separately count individual classifier scores <=0.1 and finite observed bounds.",
+  "interpretation": "The <=0.1 score is not a calibrated group-risk guarantee. Empty limits and quality_flag=False are explicit hypothetical assumptions because source quality flags and the deployment thresholds are not established for these data; resulting bounds/unknown counts are conditional, not actual releases.",
+  "limits": "A mandatory n_complete_years>=4 gate independently prevents numeric release when actual complete history is zero, regardless of risk score, optional thresholds or quality flag. This diagnostic does not validate risk or operational safety."
+}

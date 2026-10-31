@@ -1,0 +1,8 @@
+{
+  "status": "computed_posthoc_after_near_zero_interval",
+  "leave_group_cases": 68,
+  "summary_rows": 4,
+  "bootstrap_draws_per_exclusion": 40000,
+  "scope": "Remove one connected group and recompute a fixed-prediction source-by-stress contrast and cluster-resampled interval. Per-group identities remain local.",
+  "limitations": "Selected after observing a near-zero endpoint. Resampling depends on the remaining groups; source models and target cases are not refitted, and this is not an independent climate or a causal test."
+}

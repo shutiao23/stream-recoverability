@@ -1,0 +1,5 @@
+family,mode,station_key,independence_group,region,replicate,n_years,n_masked,n_estimates,n_bounds,n_unknown,truth_slope,method,available,slope,error,squared_error,n_exact,n_censored,total_working_coverage95,total_working_width95,total_working_interval_score95
+calendar,forward,foen|2016,g0029,foen,0,16,7,7,0,0,0.8501764705882344,released_values_only,True,0.8501764705882319,-2.55351295663786e-15,6.520428419717426e-30,,,,,
+calendar,forward,foen|2016,g0029,foen,0,16,7,7,0,0,0.8501764705882344,released_values_and_bounds,True,0.8501764705882294,-4.9960036108132044e-15,2.4960052079258577e-29,16.0,0.0,True,3.919927969080108,3.919927969080108
+calendar,forward,foen|2019,g0029,foen,0,16,7,7,0,0,0.4962843137254882,released_values_only,True,0.4962843137254938,5.6066262743570405e-15,3.143425818031071e-29,,,,,
+calendar,forward,foen|2019,g0029,foen,0,16,7,7,0,0,0.4962843137254882,released_values_and_bounds,True,0.49628431373583437,1.0346168366481834e-11,1.0704319986758938e-22,16.0,0.0,True,0.004754282063616055,0.004754282063616055

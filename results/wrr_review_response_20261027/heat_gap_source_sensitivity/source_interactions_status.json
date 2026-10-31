@@ -1,0 +1,7 @@
+{
+  "status": "computed_posthoc_after_source_results",
+  "rows": 16,
+  "bootstrap_draws": 40000,
+  "definition": "(stress MSE - baseline MSE) for alternate source minus the same difference for original source, per archive.",
+  "limitations": "Both-method six-way available intersection; source sample, provider and roles may change together. The resampling stream and draw count were corrected after inspecting preliminary results, which are retained. Group bootstrap depends on sampled groups; not a causal attribution, new climate or independent fit."
+}

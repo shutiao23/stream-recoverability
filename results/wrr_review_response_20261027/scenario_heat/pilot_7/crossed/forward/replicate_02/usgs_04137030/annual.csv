@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+usgs|04137030,g0166,usgs_huc04,2,forward,crossed,heat_associated,11,5,plug_in,5,5,0.06141472428417387,,
+usgs|04137030,g0166,usgs_huc04,2,forward,crossed,heat_associated,11,5,stochastic_calibrated,5,5,0.07360792537869827,1.0,0.6240404978078224
+usgs|04137030,g0166,usgs_huc04,2,forward,crossed,heat_associated,11,5,D2,5,5,0.040320772883507064,1.0,0.7847900230513254

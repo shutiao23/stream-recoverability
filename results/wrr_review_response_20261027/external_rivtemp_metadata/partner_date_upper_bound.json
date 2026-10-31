@@ -1,0 +1,39 @@
+{
+  "status": "posthoc_partner_date_labels_only",
+  "datasets": [
+    {
+      "dataset": "RivTemp--INRS",
+      "scope": "fixed_forward_2010_2020",
+      "station_ids": 132,
+      "station_years_possible_by_label": 50,
+      "station_ids_four_possible_years": 0,
+      "distinct_coordinate_pairs_four_possible_years": 0
+    },
+    {
+      "dataset": "RivTemp--INRS",
+      "scope": "published_period",
+      "station_ids": 132,
+      "station_years_possible_by_label": 50,
+      "station_ids_four_possible_years": 0,
+      "distinct_coordinate_pairs_four_possible_years": 0
+    },
+    {
+      "dataset": "RivTemp--VisionH2O",
+      "scope": "fixed_forward_2010_2020",
+      "station_ids": 4,
+      "station_years_possible_by_label": 0,
+      "station_ids_four_possible_years": 0,
+      "distinct_coordinate_pairs_four_possible_years": 0
+    },
+    {
+      "dataset": "RivTemp--VisionH2O",
+      "scope": "published_period",
+      "station_ids": 4,
+      "station_years_possible_by_label": 0,
+      "station_ids_four_possible_years": 0,
+      "distinct_coordinate_pairs_four_possible_years": 0
+    }
+  ],
+  "target_temperature_values_or_predictions_read": false,
+  "limitation": "distinct date labels are only an optimistic availability upper bound; sample times, complete 24-hour days, estimated values, quality, hydrographic independence and cross-dataset duplication remain unresolved"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "panel_column_days_recomputed": 1525,
+  "all_candidate_values_recomputed": true,
+  "implementation": "Independent pandas joins and group aggregates over all saved source responses and local panels.",
+  "limitations": "Uses the same responses and cached panels. Any-match analysis is post-hoc and does not identify a correct method, historical source, sensor quality, or permission."
+}

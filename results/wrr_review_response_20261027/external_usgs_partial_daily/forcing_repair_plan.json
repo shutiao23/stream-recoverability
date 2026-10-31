@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T07:53:36.925046+00:00",
+  "status": "posthoc repair after four responses and daily forcing were saved but an accidentally shadowed status-path variable caused AttributeError; before target predictions",
+  "procedure": "Read each unchanged saved NASA POWER JSON response, independently rebuild all daily T2M values and check the stored combined table, source coordinates, period, local-solar-time parameter, content hashes and target coverage; then write a separate corrected forcing status without another network request.",
+  "limitations": "Reconstruction verifies stored data and parameters, not NASA physical accuracy, USGS day alignment, historical API consistency or model validity."
+}

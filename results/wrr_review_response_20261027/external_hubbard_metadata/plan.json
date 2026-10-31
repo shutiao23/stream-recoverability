@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-27T14:01:19.242964+00:00",
+  "status": "posthoc new-provider metadata screen after prior study results; no Hubbard Brook target temperatures read",
+  "provider": "Hubbard Brook Ecosystem Study catalog and its linked EDI metadata",
+  "catalog": "https://hubbardbrook.org/data-catalog/",
+  "scope": "Inspect catalog and metadata only for measured in-stream temperature time series; explicitly distinguish air/soil/lake temperature and weekly chemistry from continuous stream thermometry. Do not download temperature data or fit models in this step.",
+  "feasibility": "Require metadata encompassing at least five full calendar years with subdaily sampling and an interpretable timestamp convention and per-value estimation/quality policy before a later separately documented strict-reference intake. Four other complete history years would satisfy the original numerical-release history gate; date-span feasibility alone is not qualification.",
+  "prior_contact": "Provider-specific station identifiers, coordinates and watershed overlap must be compared with all source/prior archives before any model-scoring claim; a new provider does not establish new climate or independence.",
+  "stop_rule": "If metadata does not identify an eligible candidate or cannot be accessed, report unavailable/unknown; do not relax the rule or score an ineligible series. Coweeta HydroShare 2017-2019 spans only three calendar years and is not pursued for this five-year screen.",
+  "limits": "No provider contact, registration, publication, temperature-outcome inspection or general climate/quality claim is authorised by this metadata screen."
+}

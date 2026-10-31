@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T07:58:11.927177+00:00",
+  "status": "posthoc after USGS target predictions, errors, source-range and reservoir results were inspected",
+  "scope": "All 144 USGS cases, comparing the fixed global model inputs to its previously audited positive-weight estimator feature minima/maxima. Separately exclude n_complete_years, and apply 0 and 1% source weighted 1st-99th-percentile-span margins previously used in the reservoir sensitivity; unknown nonfinite types remain flags.",
+  "release_gate": "Apply the original mandatory n_complete_years>=4 gate, risk score <=0.1 and availability. For illustration only assume no quality flags and omit optional range limits; actual quality flags are unknown. Report observed-bound/unknown outcomes as conditional, not actual releases.",
+  "limitations": "Source estimator feature ranges are one-dimensional and do not prove joint support or risk. All 8 years and earlier source/target results were previously opened; repeated masks, clock/sensor uncertainty, source overlap and independent-climate questions remain. No target performance or status is altered."
+}

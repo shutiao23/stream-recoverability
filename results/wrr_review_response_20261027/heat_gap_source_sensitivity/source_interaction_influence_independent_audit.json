@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "leave_group_rows_checked": 68,
+  "aggregate_rows_checked": 4,
+  "bootstrap_draws_per_exclusion": 40000,
+  "scope": "Recounts fixed-prediction group exclusions and seeded resampling using the same underlying observations and saved source predictions. Does not refit models or validate a new climate."
+}

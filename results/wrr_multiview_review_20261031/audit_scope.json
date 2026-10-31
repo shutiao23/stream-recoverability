@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-31 Asia/Shanghai",
+  "head": "8a294e495238b3a134d7d30c42fe8a4ae0fb79d7",
+  "inputs_sha256": {
+    "paper/wrr_tr/review_completion_article.tex": "52aae66d7ac862e30f7e018827843de8457f74c563b8df2cb53afb6a156aa738",
+    "paper/wrr_tr/review_completion_article.pdf": "5aa45374da2289266b7be2146699fd917f1a7812bd1aa21ecee972e33740bae2",
+    "paper/wrr_tr/review_completion_supporting.tex": "093bded739e59719e4bff87e649cd37859198f66e725c8c30df4e136e32e2017",
+    "paper/wrr_tr/review_completion_supporting.pdf": "0d48affc51203c622137e27e24dd30c4b789b130958a24a91241556eb43bb986",
+    "scripts/968_process_source_calibration.py": "c64bd95a405616b61e3080a8d32936935ec293f51811247f01f686cf6ade6703",
+    "scripts/969_time_gap_sensitivity.py": "7163a8afed5ac58f5cb92daa3b880707e019e4f06c1f2658349cc30510fa0472",
+    "results/wrr_process_experiments_20261029/time_frozen_replay/annual_inputs.parquet": "9ce286b560827f2f875d95124046ca50856b91670e2933e6b8baeb4cad608496",
+    "results/wrr_process_experiments_20261029/source_calibration/full/source_nested_draws.parquet": "cbac6722e35f0a9067e455e13b9af3c5d3b0d83d212623e881726aa68065475c",
+    "results/wrr_process_experiments_20261029/source_calibration/full/source_reestimated_offsets.csv": "6c8c9aa0773389257c6cb9554aa6e986f49a9167b1e94d1776a757e49e37ba81",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c"
+  },
+  "scope": "Current workspace review; saved-result arithmetic and version identity; not raw-data or whole-model reproduction",
+  "scientific_outputs_modified": false
+}

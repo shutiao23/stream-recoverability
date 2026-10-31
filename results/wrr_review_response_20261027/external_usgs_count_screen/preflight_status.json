@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-10-26T19:45:35.826075+00:00",
+  "request_url": "https://api.waterdata.usgs.gov/statistics/v0/observationIntervals?monitoring_location_id=USGS-02042500&monitoring_location_id=USGS-02299727&monitoring_location_id=USGS-02226500&monitoring_location_id=USGS-04085427&monitoring_location_id=USGS-05014300&parameter_code=00010&start_date=2010-01-01&end_date=2024-12-31&interval_type=CY&computation_type=arithmetic_mean&page_size=100",
+  "metadata_candidates": 5,
+  "statistics_features": 5,
+  "preflight_pass": 0,
+  "statistics_not_returned": 0,
+  "selected": 0,
+  "annual_values_saved": false,
+  "quality_caveat": "counts contain approved values, potentially including estimated or otherwise flagged values; verify individually",
+  "design": "availability-selected unregistered exploratory roster; not a random sample or proof of independent climates"
+}

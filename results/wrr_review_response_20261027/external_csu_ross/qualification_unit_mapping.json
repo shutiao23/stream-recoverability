@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-26T21:20:15.584931+00:00",
+  "stage": "after examining raw-file parameter and unit labels, before computing candidate completeness or prediction errors",
+  "source_parameter": "Temperature",
+  "frozen_unit_description": "degrees C",
+  "observed_raw_unit": "C",
+  "interpretation": "C denotes degrees Celsius; this is a notation mapping, not a numerical transformation",
+  "basis": "author sensor-method metadata describes Temperature units as degrees C; raw 2020 unit field uses C",
+  "policy": "accept exact C only; stop rather than assume additional unit strings",
+  "limitations": "unregistered schema clarification; no claim of calibration quality follows"
+}

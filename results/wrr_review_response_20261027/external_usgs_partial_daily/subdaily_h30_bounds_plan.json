@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T08:25:21.234493+00:00",
+  "status": "posthoc after daily values, target H30, continuous eligibility and model scores were examined; before subdaily H30 bounds are computed",
+  "cohort": "All eight previously fixed target years, both fixed-standard and native-civil clocks. Do not select years by outcomes or network overlap.",
+  "estimand": "For each reporting day, equally weighted mean of expected 15-minute physical slots; H30 is the maximum of all 30 consecutive reporting-day means wholly within that calendar year. Civil DST days contain 92 or 100 slots and are not 24 physical hours.",
+  "assumption": "Every unobserved, nonfinite, unapproved, flagged, duplicated or otherwise ambiguous slot lies in [-5,50] degrees C. This is a hypothetical water-value bound, not a demonstrated instrument or physical limit; if false, H30 enclosure can fail.",
+  "method": "A unique on-grid approved finite reading with empty qualifier is fixed. Missing/ambiguous expected slots receive the assumed lower or upper value. A reporting day containing off-grid observations is conservatively treated as entirely unknown. Require accepted observations themselves inside the assumed range. Maximize the 30-day rolling daily lower and upper sequences separately.",
+  "comparison": "Recheck that every previously fully quarter-hour-supported day has zero-width bounds and an identical saved continuous mean. Later, score fixed model predictions against these intervals without treating their midpoint as truth, for all cases and separately the already known fixed-standard full-hour subset.",
+  "limitations": "Clock choice, quality corrections, actual value range, sensor accuracy, source model overlap, historical interpolation and independent climates are unresolved. The score has already been opened and one selected site contributes all three full-hour years. Bounds are conditional, not measured truth."
+}

@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-26T23:48:09.219561+00:00",
+  "status": "posthoc_frozen_before_candidate_annual_scores",
+  "receipt_count": 3320,
+  "design": "Compare both versions, both estimators, and all seven quantiles on the exact same incomplete-year cases. Report original availability and the four-way common cohort, bias, MAE, 90% coverage, width, interval score, assumed-tail CRPS and zero-width rates; separately stratify on complete-reference H30 relative to the observed lower bound.",
+  "resampling": "Resample connected groups jointly for the original and candidate score differences; report case-weighted and equal-group contrasts, plus descriptive leave-one-region-out results without model refitting.",
+  "limitations": "This study is after original and candidate trend results were inspected. It reuses target records, masks and daily refits; source providers, source role assignment and region exclusion changed together. The peak-visibility stratum depends on the hidden complete reference and is unavailable for deployment. Bootstrap groups are not necessarily independent climates; results do not establish coverage or legal redistribution rights."
+}

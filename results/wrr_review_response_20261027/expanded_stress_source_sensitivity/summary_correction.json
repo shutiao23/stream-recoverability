@@ -1,0 +1,4 @@
+{
+  "created_utc": "2026-10-27T01:03:06.856613+00:00",
+  "change": "Initial summary stopped before aggregate output because a mixed-type pandas pivot produced object-typed numeric columns. Numeric columns are explicitly converted before identical planned comparisons; source models, masks and case-level predictions are unchanged."
+}

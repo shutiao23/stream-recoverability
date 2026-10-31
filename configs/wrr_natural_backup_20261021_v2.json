@@ -1,0 +1,21 @@
+{
+  "status": "analysis_specified_before_temperature_or_recovery_outcome_inspection",
+  "metadata_protocol": "configs/wrr_natural_backup_20261021.json",
+  "amendment_reason": "An independent backup is needed on every missing primary day; observed primary days already define their part of the reference. Requiring the backup itself to cover unrelated observed days is unnecessary. Both logger orientations are evaluated because the provider does not designate a primary serial.",
+  "resource": "Fisheries and Oceans Canada bef00bd7-255e-461c-a08b-09f81977170c",
+  "reference": "primary observations plus independent backup on all primary gaps, yielding a complete recorded calendar year",
+  "pair": "same nominal station and reported coordinates, distinct serials, at least ninety days of potential overlap; physical colocated equivalence is not inferred from rounded coordinates alone",
+  "primary_candidates": "both orientations of every metadata-eligible pair; repeated primary years and backups are not independent events",
+  "natural_missingness": "all primary missing days in the year; primary must have finite first and last days to exclude starts, retirements and external boundary extrapolation",
+  "coverage": {"minimum_distinct_hours": 20, "minimum_span_hours": 20},
+  "gross_water_temperature_range_C": [-2, 40],
+  "duplicate_timestamp_rule": "collapse exact duplicates; conflicting temperatures at the same serial/time become unavailable",
+  "reference_QC": {"minimum_visible_overlap_days": 90, "maximum_visible_daily_MAE_C": 0.25, "maximum_visible_daily_abs95_C": 0.5},
+  "history": "at least three completely observed primary years strictly before the evaluated year; no backup history in fitting",
+  "predictive_choice": "original unchanged source-only strictly-prior-year score heads/thresholds in all-statistic scope",
+  "qualification": "project-aggregated UTC-day sensor-record reference; not a provider-certified daily-mean or sensor-error guarantee",
+  "wet_status": "provider describes submerged and monitored loggers; every gap's hydrological cause and wet status are not independently documented",
+  "uncertainty_unit": "whole provincial resource treated as a dependent cohort; no mask-wise or serial-wise binomial certainty",
+  "free_backup": "available backups should be used operationally; the primary-only validation does not establish a costly-query advantage",
+  "outcome_adaptation": false
+}

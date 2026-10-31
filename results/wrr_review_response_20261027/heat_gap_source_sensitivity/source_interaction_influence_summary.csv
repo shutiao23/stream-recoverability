@@ -1,0 +1,5 @@
+estimator,comparison,excluded_groups_tested,intervals_crossing_or_touching_zero,intervals_entirely_below_zero,intervals_entirely_above_zero,minimum_mean,maximum_mean,minimum_upper,maximum_upper
+D2,candidate_minus_original,17,6,11,0,-0.002955000938587596,-0.001657381517105994,-0.00045421792764536496,0.0004225116253824267
+D2,strict_original_minus_original,17,17,0,0,-0.00027980323967418487,-1.0907121301172737e-05,0.0,8.008426135819577e-05
+stochastic_calibrated,candidate_minus_original,17,17,0,0,-0.0015525731098475568,-0.00043999381532010685,0.0005386495034856036,0.0018401309412076868
+stochastic_calibrated,strict_original_minus_original,17,17,0,0,0.0,0.0,0.0,0.0

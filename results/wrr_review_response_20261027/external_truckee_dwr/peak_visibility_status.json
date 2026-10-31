@@ -1,0 +1,12 @@
+{
+  "status": "computed_posthoc",
+  "cases": 72,
+  "three_method_common_cases": 72,
+  "cases_by_stratum": {
+    "all": 72,
+    "reference_equals_bound": 35,
+    "reference_above_bound": 37,
+    "bound_unavailable": 0
+  },
+  "limitations": "Outcome-defined and selected after main results; repeated synthetic masks share one station and four reference years. Neither population failure rate nor independent-climate calibration is established."
+}

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "models_checked": 13,
+  "roles_checked": 52,
+  "positive_target_region_rows": 0,
+  "positive_disallowed_provider_rows": 0,
+  "post_2009_forward_source_rows": 0,
+  "limitation": "Source input filtering, role assignment, weights, and year cutoff only; does not independently rebuild daily features, provider data quality, missingness mechanisms, or legal derivative permissions."
+}

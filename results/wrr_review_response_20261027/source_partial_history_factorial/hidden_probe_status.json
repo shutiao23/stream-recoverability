@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "target_hidden_days_changed": 30,
+  "historical_hidden_days_changed": 240,
+  "target_variants_compared": 4,
+  "partial_history_variant_rows_compared": 18,
+  "model_features_compared": 68,
+  "target_features_equal": true,
+  "target_outputs_equal": true,
+  "history_features_equal": true,
+  "history_outputs_equal": true,
+  "limitations": "One selected station and target mask are not an exhaustive proof of leakage absence. Same code and models are reused; calibration, data quality and climate independence are not evaluated."
+}

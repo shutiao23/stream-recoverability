@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "input": "included 95-station processed daily snapshot and supplied station groups",
+  "tables_reproduced": 7,
+  "complete_station_years": 2122,
+  "witnesses": 35,
+  "independent_rolling_audit": "passed",
+  "limits": "Existing regulation labels and station selection are supplied inputs; provider-native records, sensor accuracy, climate representativeness and rights are not independently validated."
+}

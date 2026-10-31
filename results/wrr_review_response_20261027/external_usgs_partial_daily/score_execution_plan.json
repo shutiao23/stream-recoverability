@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T07:54:55.722319+00:00",
+  "status": "posthoc after previously opened daily outcomes and observed continuous qualification; before computing model errors in this experiment",
+  "cohort": "All eight fixed years and their target masks, with unavailable outputs retained; separately report fixed-standard full-hour support and full-quarter support as posthoc subsets. Every hourly-supported year belongs to one site, so masks/years are not independent climates.",
+  "metrics": "Against complete reported approved daily H30 calculate point MAE, bias, failure>0.5 C, availability, D2/stochastic 90% interval coverage, width and interval score; use common finite cases for comparisons and preserve per-year results. Also compare published H30 with fixed-standard and civil 15-minute H30 where every day has full quarter support; this is a clock/measurement sensitivity, not a substitute ground truth.",
+  "limitations": "Daily values were inspected in earlier witness analysis and continuous availability has been inspected. Daily means may contain unflagged corrections or variable subdaily support. Partial-history interpolation and only 0-2 complete training years are out-of-support for the fixed source model. Station identity/source overlap, climate independence and NASA-water daily alignment remain unresolved. Synthetic masks repeat the same years."
+}

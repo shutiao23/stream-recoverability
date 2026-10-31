@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "representative_requests_checked": 15,
+  "available_responses_checked": 15,
+  "aggregate_rows_checked": 5,
+  "current_api_versions": {
+    "v2.10.1": 15
+  },
+  "current_response_time_standard": "LST",
+  "current_response_units": "C",
+  "scope": "Recounts current-provider response versus saved processed-air values, using the same selected representative stations. Does not verify historical response version, omitted stations, physical air accuracy or water-clock alignment."
+}

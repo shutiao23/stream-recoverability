@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "raw_archives": 820,
+  "original_common": 807,
+  "actual_mask_common": 805,
+  "nontrivial_choice": 468,
+  "independently_fitted_feasible_sets": 5758,
+  "random_seed_archive_rows_checked": 161400,
+  "exclusions": [
+    {
+      "station_key": "gkd_bayern|11401009",
+      "replicate": 11,
+      "independence_group": "g0034",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|11405000",
+      "replicate": 2,
+      "independence_group": "g0034",
+      "region": "gkd_bayern",
+      "n_warm": 3
+    },
+    {
+      "station_key": "gkd_bayern|11405000",
+      "replicate": 3,
+      "independence_group": "g0034",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|11405000",
+      "replicate": 9,
+      "independence_group": "g0034",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|11405000",
+      "replicate": 17,
+      "independence_group": "g0034",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|16005701",
+      "replicate": 5,
+      "independence_group": "g0036",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|16005701",
+      "replicate": 12,
+      "independence_group": "g0036",
+      "region": "gkd_bayern",
+      "n_warm": 3
+    },
+    {
+      "station_key": "gkd_bayern|16005701",
+      "replicate": 18,
+      "independence_group": "g0036",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|18001508",
+      "replicate": 5,
+      "independence_group": "g0035",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|18001508",
+      "replicate": 7,
+      "independence_group": "g0035",
+      "region": "gkd_bayern",
+      "n_warm": 4
+    },
+    {
+      "station_key": "gkd_bayern|18001508",
+      "replicate": 18,
+      "independence_group": "g0035",
+      "region": "gkd_bayern",
+      "n_warm": 3
+    },
+    {
+      "station_key": "usgs|04137030",
+      "replicate": 1,
+      "independence_group": "g0166",
+      "region": "usgs_huc04",
+      "n_warm": 4
+    },
+    {
+      "station_key": "usgs|04137030",
+      "replicate": 2,
+      "independence_group": "g0166",
+      "region": "usgs_huc04",
+      "n_warm": 4
+    }
+  ],
+  "optimizer_ties": {
+    "cdf_primary_ties": 71,
+    "sxx_primary_ties": 8
+  },
+  "original_design_prediction_set_sha256": "3e22eb08909dab8e1e9213fb3158db5f8e2afb35aaa799a12b51de2165c3d62a",
+  "geometry_scope": "CDF and Sxx use calendar years, including every fixed complete year; rational integer-count geometry and direct polyfit use no temperature outcome in selection."
+}

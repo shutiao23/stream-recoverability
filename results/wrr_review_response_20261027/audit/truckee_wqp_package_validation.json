@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "created_utc": "2026-10-27T05:47:33.665852+00:00",
+  "environments": {
+    "clean": {
+      "report": "wqp_instrument_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "wqp_field": {
+        "status": "passed",
+        "source_rows": 60,
+        "comparable_rows": 60
+      },
+      "truckee_reference": {
+        "status": "passed",
+        "stations": 12,
+        "station_years": 171,
+        "complete_finite_years": 18,
+        "power_days": 3653
+      },
+      "power_time": {
+        "status": "passed",
+        "hour_pairs": 34968,
+        "daily_pairs": 1457
+      }
+    },
+    "replay": {
+      "report": "wqp_instrument_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "wqp_field": {
+        "status": "passed",
+        "source_rows": 60,
+        "comparable_rows": 60
+      },
+      "truckee_reference": {
+        "status": "passed",
+        "stations": 12,
+        "station_years": 171,
+        "complete_finite_years": 18,
+        "power_days": 3653
+      },
+      "power_time": {
+        "status": "passed",
+        "hour_pairs": 34968,
+        "daily_pairs": 1457
+      }
+    }
+  },
+  "previous_isolated_evidence_record": "environment_replay_comparison.json refers to a previous package; its restricted-evidence checks were not repeated for this field-evidence update.",
+  "limitations": "The current package replays public DWR, POWER and reduced same-agency WQP records; it does not reproduce restricted source weights or model predictions, prove independent sensors, verify the physical water clock, or complete data permissions and permanent deposit."
+}

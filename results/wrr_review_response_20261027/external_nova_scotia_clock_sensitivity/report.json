@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "common_cases": 144,
+  "stations": 2,
+  "station_years": 8,
+  "max_reference_h30_change_c": 0.00226736628579971,
+  "max_d2_point_change_c": 0.0936252215571826,
+  "zero_shift_replay_max_difference": 0.0,
+  "paired_scores": [
+    {
+      "shift_hours": -1,
+      "D2_mae": 0.310201958749234,
+      "stochastic_mae": 0.3128060669910484,
+      "D2_coverage90": 0.8888888888888888,
+      "stochastic_coverage90": 0.9236111111111112,
+      "D2_width90": 0.9997540654892644,
+      "stochastic_width90": 1.2830164968612128,
+      "D2_interval_score90": 1.5546937973269404,
+      "stochastic_interval_score90": 1.7037355719160068
+    },
+    {
+      "shift_hours": 0,
+      "D2_mae": 0.3106732972625594,
+      "stochastic_mae": 0.3129177620609725,
+      "D2_coverage90": 0.8819444444444444,
+      "stochastic_coverage90": 0.9305555555555556,
+      "D2_width90": 0.9996101130345684,
+      "stochastic_width90": 1.281190434490706,
+      "D2_interval_score90": 1.5717333222644647,
+      "stochastic_interval_score90": 1.7058253639496597
+    },
+    {
+      "shift_hours": 1,
+      "D2_mae": 0.314507609280425,
+      "stochastic_mae": 0.3133739569608878,
+      "D2_coverage90": 0.8680555555555556,
+      "stochastic_coverage90": 0.9305555555555556,
+      "D2_width90": 0.9980244512720962,
+      "stochastic_width90": 1.2776846921597165,
+      "D2_interval_score90": 1.5717801246325669,
+      "stochastic_interval_score90": 1.7307435953423034
+    }
+  ],
+  "integrity_case_rows": 432,
+  "strict_reference_qualified": false,
+  "limitation": "one-hour shifts do not identify the actual source time basis, resolve estimated-value/QC status, represent every possible local solar-time discrepancy, or establish climate independence; annual outputs and local fits are recomputed for each shifted day definition; NASA POWER forcing is held fixed in local solar time"
+}

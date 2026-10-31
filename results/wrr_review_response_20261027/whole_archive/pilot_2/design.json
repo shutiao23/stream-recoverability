@@ -1,0 +1,21 @@
+{
+  "donor_availability": "observed neighboring stations, same for every method",
+  "draws": 128,
+  "eligible_complete_years_minimum": 20,
+  "families": [
+    "calendar",
+    "crossed"
+  ],
+  "first_seven_years": "observed burn-in",
+  "forward_source_cutoff": 2010,
+  "modes": [
+    "offline",
+    "forward"
+  ],
+  "replicates": 1,
+  "station_keys": [
+    "foen|2016",
+    "gkd_bayern|10026293"
+  ],
+  "year_missing_probability": 0.35
+}

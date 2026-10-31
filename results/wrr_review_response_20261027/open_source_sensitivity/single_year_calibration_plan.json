@@ -1,0 +1,128 @@
+{
+  "created_utc": "2026-10-26T23:57:55.389612+00:00",
+  "status": "posthoc_frozen_before_single_year_source_residuals",
+  "model_roles": [
+    {
+      "mode": "forward",
+      "region": "foen",
+      "assigned_rule_groups": 8,
+      "finite_90pct_group_max_possible": false
+    },
+    {
+      "mode": "forward",
+      "region": "gkd_bayern",
+      "assigned_rule_groups": 7,
+      "finite_90pct_group_max_possible": false
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc03",
+      "assigned_rule_groups": 7,
+      "finite_90pct_group_max_possible": false
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc04",
+      "assigned_rule_groups": 8,
+      "finite_90pct_group_max_possible": false
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc10",
+      "assigned_rule_groups": 8,
+      "finite_90pct_group_max_possible": false
+    },
+    {
+      "mode": "forward",
+      "region": "usgs_huc17",
+      "assigned_rule_groups": 6,
+      "finite_90pct_group_max_possible": false
+    },
+    {
+      "mode": "offline",
+      "region": "foen",
+      "assigned_rule_groups": 24,
+      "finite_90pct_group_max_possible": true
+    },
+    {
+      "mode": "offline",
+      "region": "gkd_bayern",
+      "assigned_rule_groups": 23,
+      "finite_90pct_group_max_possible": true
+    },
+    {
+      "mode": "offline",
+      "region": "syke",
+      "assigned_rule_groups": 24,
+      "finite_90pct_group_max_possible": true
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc03",
+      "assigned_rule_groups": 22,
+      "finite_90pct_group_max_possible": true
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc04",
+      "assigned_rule_groups": 23,
+      "finite_90pct_group_max_possible": true
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc10",
+      "assigned_rule_groups": 23,
+      "finite_90pct_group_max_possible": true
+    },
+    {
+      "mode": "offline",
+      "region": "usgs_huc17",
+      "assigned_rule_groups": 22,
+      "finite_90pct_group_max_possible": true
+    }
+  ],
+  "source_and_code_hashes": {
+    "private/wrr_open_source_sensitivity_20261026/refits/before_2010/seed_00/foen.joblib": "9b6e1be17a3dce8909e8c16ce104ef9f4987bdd508bbede3074015429b8314b1",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/forward/foen.json": "a087bf55bd9f4dfe6af346373fb793b66e1180af24684e310d1c1618bcaaf799",
+    "private/wrr_open_source_sensitivity_20261026/candidate_cases/before_2010/seed_00.parquet": "c24a1f572c3321e29fbdaa365cfacea1d6acb68f1ab6c0efb967f7f5df1adcf5",
+    "private/wrr_open_source_sensitivity_20261026/refits/before_2010/seed_00/gkd_bayern.joblib": "5c8b6b48f3937596e360e8f40905c40f43f41d0d3db43eb6e05aebd15685668e",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/forward/gkd_bayern.json": "2c1340ad9f3a9559f147b24e0e38671f75068f8984c8c1c5ae6d2b47138967b0",
+    "private/wrr_open_source_sensitivity_20261026/refits/before_2010/seed_00/usgs_huc03.joblib": "84248d163fe78c8e805a2e6d187f4d0745d266b16ed22ab8b763950b3e93e6e7",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/forward/usgs_huc03.json": "73aa1958398249e754048b7f08237ce988fca490972923e8ead839cc1825b94c",
+    "private/wrr_open_source_sensitivity_20261026/refits/before_2010/seed_00/usgs_huc04.joblib": "50c42a53fa734dbe597818df7c3396973059772ef4453b0094bbda1c8424c70f",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/forward/usgs_huc04.json": "9bccefccfdf6f5a3a2170dcb73e1b7bd976e35eb9634de72813ff3b922b78d86",
+    "private/wrr_open_source_sensitivity_20261026/refits/before_2010/seed_00/usgs_huc10.joblib": "c685e234ffb95b7e92d3ac6763abaddc77dcc51e002ceca4a81049f7bf6b5489",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/forward/usgs_huc10.json": "a606e187d6b27a0699e870089f6e6e1e6cca21d5cec5f0d80b8cafdd147d54e0",
+    "private/wrr_open_source_sensitivity_20261026/refits/before_2010/seed_00/usgs_huc17.joblib": "3e1d184b6fae26090c8e92d6740534273295752adfe46d3374fc7dbb98ffc880",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/forward/usgs_huc17.json": "10da61f16c9233bd0ac69195da479e055db961c5b810557635eafb251c7f24eb",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/foen.joblib": "34e1fc577d0b621477203c9d413bd6e0d38019bd01637230d29128b75fa1d320",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/foen.json": "1292d3f8dfd12022d1bb294ac334288b9d3458b72e4217395be2ed26803da8a7",
+    "private/wrr_open_source_sensitivity_20261026/candidate_cases/leave_one_year_out/seed_00.parquet": "d2e420bd7b7e8655c1174ff154d0112de5e170cf978b3f1ce93f3eb4a80b5a49",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/gkd_bayern.joblib": "677f8ac3f04cc6d7f7545c9d59db500ceea15b6d439913bbc6874214dc22e72f",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/gkd_bayern.json": "0edff74200adb93aeb1604838ee3e2e1806b2a1adbc56eb53c7675b0f5642ced",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/syke.joblib": "cf88f0d43b03e556b24c824de483edf887e3ee4c09b395236446f79455744802",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/syke.json": "c3a5c423c5138aa12688dc9c509f9f917a4db78410795dfb9f0ee21e4ccb3435",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/usgs_huc03.joblib": "dddb79af95e685e97df3bccafdd9d7d02b3d7e5258937d0c64e60fc4921260bd",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/usgs_huc03.json": "aea42c6c02e57069d28c6dcf54dbef85357cf90ac997888ba8b81dce1533d19d",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/usgs_huc04.joblib": "b1ad7e363cc5bd2a4bb6eede3c8c597101c4dc951ba0d58a0a57afe6f1123e0c",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/usgs_huc04.json": "2932018a7cde41b079f33af73cb5ee75daa823b02b24f5e254b0694f519ab7a3",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/usgs_huc10.joblib": "70c0c32723cee2ca0729f8a0d31c8aab33148916c3091954fa35e14c8e30d51b",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/usgs_huc10.json": "4a2e0d0fddfd1f025f85c7f10d51ecc28147d4638b6c33fd1f8437e3879bbaed",
+    "private/wrr_open_source_sensitivity_20261026/refits/leave_one_year_out/seed_00/usgs_huc17.joblib": "50d6bb40ad354c7fcd3e6801a9c739836d1b6cd19644028994308b541ce6325b",
+    "private/wrr_open_source_sensitivity_20261026/calibrations/offline/usgs_huc17.json": "6750fd360297563c8b0ddbad32a7f884bc21dcb4f03bbcaf008af252e3ae4bce",
+    "scripts/581_source_annual_interval_expansion.py": "de10cc6bc0cef76a1ef7be93184b271297566ab614acf8879f79b16406d6f7a5",
+    "scripts/495_review_completion_independent_analysis.py": "6edab2e0011d0230b2bd5dcdd4747c20009e7886171fcbea8c9a4dfcc63179f0",
+    "scripts/467_review_completion_analysis.py": "759c4c17754e63a95b79089a21c6543b1ee48c16a021bde8fdf6ab704e53314e",
+    "scripts/wrr_tr_features.py": "a9dfd60fbc9a4d60353d4cb26f120565da85d5e2d97a557e327af809965809a7",
+    "src/stream_recoverability/experiments/tr_revision/archive.py": "143ff9c8256c9b10a8a20dc63e36d75ef95e1f4edbf66ad65d12a5bb8bd7a55d",
+    "results/wrr_review_completion_20261024/repairs/leave_one_year_out/seed_00.parquet": "ace33d4a8e540c2b7ba68a046e984d507c7c31ecb513329e1f71a57c906449bf",
+    "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf",
+    "results/wrr_review_response_20261027/open_source_sensitivity/annual_sensitivity_status.json": "1abc0bcaecdd4fb93d7caaa21d7d54d2adc3f5e7c8aae91dda6a5941d136b35e",
+    "results/wrr_review_response_20261027/open_source_sensitivity/annual_sensitivity_plan.json": "e461fb83c608e0c122a48c317c5493f6bc436225cdda2f89b7a55f7f515e69a0",
+    "results/wrr_review_response_20261027/open_source_sensitivity/candidate_source_role_audit.json": "29623ce591423fb6e73f258c294a1a850e1dc4aff3324343532105508f5d58a0"
+  },
+  "source": "Every valid calendar or controlled-gap single-year source case assigned to the disjoint rule-calibration role. For forward source cases require training_partition=train and year<2010. Exclude any target-region group; no target outcome is used to choose cases, residuals or radii.",
+  "adjustment": "For each mode, region, family and estimator, use equal-group weighted empirical 90th percentile of nonnegative interval miss distance. Require at least three observed groups and a strictly positive correction; otherwise mark unsupported. Preserve the observed lower bound. A separate one-maximum-per-group finite-rank threshold is reported only if at least nine groups contribute; it is not applied.",
+  "evaluation": "Compare original and adjusted annual 90% intervals on the identical four-way common target cases, report supported fraction and paired coverage, width and interval score alongside all-case baseline, including outcome-defined peak visibility strata.",
+  "limitations": "Source cases hide one year at a time whereas the target has jointly degraded archives; source and target difficulty and climatology need not match. The empirical correction has no finite-sample or climate-transfer guarantee. This follow-up was designed after earlier results, does not create a new joint trend distribution, and does not resolve source rights."
+}

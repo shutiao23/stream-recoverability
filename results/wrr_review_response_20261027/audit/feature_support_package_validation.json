@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "archive": "/dev/shm/wrr_feature_support_candidate_20261027.zip",
+  "archive_storage": "temporary RAM filesystem; copy to durable storage after free space is available",
+  "package_checks": {
+    "clean": {
+      "report": "feature_support_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "source_reference": {
+        "status": "passed",
+        "stations": 15,
+        "complete_station_years": 135,
+        "target_h30_values": 15
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    },
+    "replay": {
+      "report": "feature_support_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "source_reference": {
+        "status": "passed",
+        "stations": 15,
+        "complete_station_years": 135,
+        "target_h30_values": 15
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    }
+  },
+  "feature_support_independent_audit": {
+    "status": "passed",
+    "features": 68,
+    "source_estimator_cases": 43804,
+    "source_other_crossed_cases": 30384,
+    "target_cases": 306,
+    "scope": "Independent reconstruction of source group bootstrap multiplicities, expanded weighted quantiles and scalar source/target support flags for all 68 design features.",
+    "limits": "The same case tables and feature-design routine are reused; this does not verify hidden-case construction, interpret support as a calibrated risk, or establish independence."
+  },
+  "observed_only_correlation_audit": {
+    "status": "passed",
+    "target_years": 17,
+    "interpolated_phi_outside_training_range_years": 15,
+    "observed_only_phi_outside_training_range_years": 14,
+    "both_outside_years": 14,
+    "interpolated_outside_observed_inside_years": 1,
+    "scope": "Independent day-of-year accumulation, linear interpolation, 15-day smoothing and scalar Pearson correlation for both history treatments.",
+    "limits": "Same fixed history roster, season and source inputs are reused; this does not establish sensor quality, predictive validity, causal attribution or independent climates."
+  },
+  "clipping_leaf_audit": {
+    "status": "passed",
+    "cases": 306,
+    "scenarios": 4,
+    "manual_calibration_reproduced": true,
+    "cases_with_any_quantile_leaf_changes": 0,
+    "cases_with_any_classifier_leaf_changes": 0,
+    "scope": "Direct LightGBM Booster predictions and leaf IDs; independently applies quantile sorting, source offsets and observed lower-bound projection.",
+    "limits": "Same frozen models and feature-design routine reused. Feature clipping is artificial and neither proves transfer nor validates accuracy, calibration, data quality or independent climates."
+  },
+  "limitations": "Package checks do not replay restricted source-model diagnostic; those audits used local restricted source cases, models and the same case feature-design routine. Model quality, rights, independent climates and full raw-data reconstruction remain unresolved."
+}

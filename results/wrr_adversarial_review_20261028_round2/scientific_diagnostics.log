@@ -1,0 +1,14 @@
+RETAINED-TRUTH DIAGNOSTIC
+  family    mode   n  stations  groups  all_D2_rmse  warm_D2_rmse  warm_true_H30_rmse  warm_reconstruction_component_rms  selection_mse  reconstruction_mse    cross_term  total_warm_mse
+calendar forward 820        41      17     0.067277      0.113458            0.111852                           0.015004       0.012511        2.251090e-04  1.369367e-04        0.012873
+calendar offline 840        42      18     0.008732      0.024041            0.023985                           0.001724       0.000575        2.970796e-06 -3.034795e-07        0.000578
+ crossed forward 807        41      17     0.169474      0.445331            0.445242                           0.002285       0.198240        5.222983e-06  7.413510e-05        0.198320
+ crossed offline 840        42      18     0.027772      0.100603            0.100603                           0.000011       0.010121        1.257337e-10 -6.773225e-08        0.010121
+COVERAGE GROUP DIAGNOSTIC
+        method      construction   n  groups   pooled  group_equal  cluster_low  cluster_high  without_bavaria
+            D2       independent 818      17 0.891606     0.910903     0.823414      0.960926         0.997059
+            D2   residual_blocks 818      17 0.897311     0.908105     0.835169      0.957932         0.985294
+            D2 shared_parameters 818      17 0.887123     0.902514     0.819141      0.955640         0.988235
+stochastic_cal       independent 736      17 0.875906     0.892687     0.799050      0.943283         0.978852
+stochastic_cal   residual_blocks 736      17 0.879529     0.899757     0.809099      0.942977         0.976838
+stochastic_cal shared_parameters 736      17 0.875453     0.894820     0.799188      0.942921         0.980866

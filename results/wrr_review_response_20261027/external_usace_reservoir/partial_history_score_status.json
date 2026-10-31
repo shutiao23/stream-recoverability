@@ -1,0 +1,10 @@
+{
+  "status": "completed_exploratory_bounded_scoring",
+  "resources": 4,
+  "target_station_years": 17,
+  "cases": 306,
+  "common_finite_cases": 306,
+  "strict_reference_qualified": false,
+  "independent_climate_established": false,
+  "limitations": "Source H30 intervals depend on the fixed missing-value range; real data may be corrected; climate and river-network independence, sample count and model support remain unresolved. Incomplete histories are explicitly interpolated, while zero observed complete histories lies outside original model regime. Repeated masks are not independent years."
+}

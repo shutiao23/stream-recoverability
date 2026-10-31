@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-10-28T06:48:31.910107+00:00",
+  "scope": "saved-result transcription, manuscript text, and optional isolated compile",
+  "not_tested": [
+    "full raw-data reconstruction",
+    "model retraining",
+    "strict independent external confirmation"
+  ],
+  "historical_package_note": "An older candidate package is not evidence for the current workspace.",
+  "extracted": {
+    "bc_masks": [
+      288,
+      84,
+      372
+    ],
+    "truckee_cases": 72,
+    "reservoir_cases": 306,
+    "usgs_complete_years": 8,
+    "usgs_four_year_stations": 0,
+    "paired_forward_archives": 736,
+    "paired_forward_years": 3328,
+    "seed_change_max_pp": 0.8152173913043459,
+    "overlap_exact_half": 47,
+    "abstract_words": 201
+  },
+  "package_match": {
+    "members_compared": "all packaged files except the package readme and dependency inventory"
+  },
+  "compile": {
+    "review_completion_article.tex": {
+      "pages_text_characters": 91984
+    },
+    "review_completion_supporting.tex": {
+      "pages_text_characters": 177698
+    }
+  }
+}

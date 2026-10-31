@@ -1,0 +1,13 @@
+clock,cohort,contrast,common_cases,mae_difference_lower_c,mae_difference_upper_c
+fixed_standard,all,D2_minus_plug_in,144,-0.059401273809045446,-0.051020290775018795
+fixed_standard,all,D2_minus_stochastic,144,-0.052544404464916705,-0.04330356120513585
+fixed_standard,fixed_standard_full_hour_posthoc,D2_minus_plug_in,54,-0.08490121549074368,-0.08490121549074368
+fixed_standard,fixed_standard_full_hour_posthoc,D2_minus_stochastic,54,0.005495139114276677,0.005495139114276677
+fixed_standard,fixed_standard_full_quarter_posthoc,D2_minus_plug_in,18,-0.2184706104094163,-0.2184706104094163
+fixed_standard,fixed_standard_full_quarter_posthoc,D2_minus_stochastic,18,-0.04385100658300445,-0.04385100658300445
+native_civil,all,D2_minus_plug_in,144,-0.059001968253489544,-0.05093686099106861
+native_civil,all,D2_minus_stochastic,144,-0.05242962823034861,-0.04336168919404593
+native_civil,fixed_standard_full_hour_posthoc,D2_minus_plug_in,54,-0.08434694594341897,-0.08434694594341897
+native_civil,fixed_standard_full_hour_posthoc,D2_minus_stochastic,54,0.005609593846786971,0.005609593846786971
+native_civil,fixed_standard_full_quarter_posthoc,D2_minus_plug_in,18,-0.21742122769336733,-0.21742122769336733
+native_civil,fixed_standard_full_quarter_posthoc,D2_minus_stochastic,18,-0.04358866090399221,-0.04358866090399221

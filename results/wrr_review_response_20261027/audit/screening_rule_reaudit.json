@@ -1,0 +1,15 @@
+{
+  "eligible_stations": 96,
+  "station_years_checked": 2700,
+  "witnesses_checked": 35,
+  "rules_checked": 6,
+  "witness_rule_decisions_checked": 210,
+  "target_year_perturbation_probes": 35,
+  "changed_climatology_probes": 0,
+  "max_climatology_difference": 0.0,
+  "max_annual_coverage_difference": 1.1102230246251565e-16,
+  "max_warm_coverage_difference": 1.1102230246251565e-16,
+  "rule_totals_match": true,
+  "passed": true,
+  "limitations": "fixed-original warm fraction is taken from saved source metadata; perturbation checks only witness years; same canonical archive, not external raw or independent climate validation"
+}

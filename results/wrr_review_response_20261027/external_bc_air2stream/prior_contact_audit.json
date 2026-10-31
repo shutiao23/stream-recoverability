@@ -1,0 +1,20 @@
+{
+  "identifier_matches": [],
+  "search_roots": [
+    "scripts",
+    "docs",
+    "paper",
+    "results",
+    "data"
+  ],
+  "suffixes": [
+    ".py",
+    ".csv",
+    ".json",
+    ".md",
+    ".tex"
+  ],
+  "search_excludes": "new BC intake itself and unsearched binary/compressed/other formats",
+  "distance_scope": "nearest USGS source metadata and successfully processed national-panel site metadata; approximate, not river-network membership",
+  "caveat": "Different station IDs and distance do not establish independent river networks, climate, or a repository-wide absence of earlier contact."
+}

@@ -1,0 +1,18 @@
+{
+  "status": "source_overlap_confirmed",
+  "source_station_alias": "usgs|14161500",
+  "source_independence_group": "g0058",
+  "source_region": "usgs_huc17",
+  "source_station_case_years": 9,
+  "source_station_first_case_year": 2013,
+  "source_station_last_case_year": 2024,
+  "source_station_masked_case_rows": 204,
+  "connected_source_stations": 14,
+  "source_huc8": "17090004",
+  "hja_identity_source": "https://andrewsforest.oregonstate.edu/data/studies/hf04/hja_gage_ws_descriptions_instrumentation.pdf",
+  "hja_data_catalog": "https://andrewsforest.oregonstate.edu/data/datacatalog/HT004",
+  "decision": "do not treat the documented Lookout Creek station or its same-flow-system record as new independent basin confirmation; other HJA probes require explicit network identity and prior-access assessment",
+  "hja_measurement_rows_downloaded_or_scored": false,
+  "access_note": "provider download page requests one-time user registration; EDI public-access endpoint returned HTTP 403 in this environment",
+  "limitation": "same USGS station and recorded source group prove prior exposure; they do not establish equivalence of particular HJA temperature probes, timestamps, years, or complete 24-hour quality"
+}

@@ -1,0 +1,4733 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.1.31)  30 OCT 2026 16:43
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**review_completion_article.tex
+(./review_completion_article.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21> (../wrr/template/agujournal2025.cls
+Document Class: agujournal2025 11/12/2024
+ELSE not published
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen138
+\Gin@req@width=\dimen139
+)
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2005/11/02 line numbers on paragraphs v4.41
+\linenopenalty=\count185
+\output=\toks17
+\linenoprevgraf=\count186
+\linenumbersep=\dimen140
+\linenumberwidth=\dimen141
+\c@linenumber=\count187
+\c@pagewiselinenumber=\count188
+\c@LN@truepage=\count189
+\c@internallinenumber=\count190
+\c@internallinenumbers=\count191
+\quotelinenumbersep=\dimen142
+\bframerule=\dimen143
+\bframesep=\dimen144
+\bframebox=\box50
+LaTeX Info: Redefining \\ on input line 3056.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/indentfirst.sty
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+Package: ragged2e 2021/12/15 v3.1 ragged2e Package
+\CenteringLeftskip=\skip47
+\RaggedLeftLeftskip=\skip48
+\RaggedRightLeftskip=\skip49
+\CenteringRightskip=\skip50
+\RaggedLeftRightskip=\skip51
+\RaggedRightRightskip=\skip52
+\CenteringParfillskip=\skip53
+\RaggedLeftParfillskip=\skip54
+\RaggedRightParfillskip=\skip55
+\JustifyingParfillskip=\skip56
+\CenteringParindent=\skip57
+\RaggedLeftParindent=\skip58
+\RaggedRightParindent=\skip59
+\JustifyingParindent=\skip60
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count192
+\rotFPtop=\skip61
+\rotFPbot=\skip62
+\rot@float@box=\box51
+\rot@mess@toks=\toks18
+)
+\draftskip=\count193
+\c@section=\count194
+\c@subsection=\count195
+\c@subsubsection=\count196
+\c@paragraph=\count197
+\c@subparagraph=\count198
+\c@figure=\count199
+\c@table=\count266
+\abovecaptionskip=\skip63
+\belowcaptionskip=\skip64
+\c@appendnum=\count267
+\bibindent=\dimen145
+
+(/usr/share/texlive/texmf-dist/tex/latex/apacite/apacite.sty
+Package: apacite 2013/07/21 v6.03 APA citation
+\c@BibCnt=\count268
+\bibleftmargin=\skip65
+\bibindent=\skip66
+\bibparsep=\skip67
+\bibitemsep=\skip68
+\biblabelsep=\skip69
+))
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen146
+\lightrulewidth=\dimen147
+\cmidrulewidth=\dimen148
+\belowrulesep=\dimen149
+\belowbottomsep=\dimen150
+\aboverulesep=\dimen151
+\abovetopsep=\dimen152
+\cmidrulesep=\dimen153
+\cmidrulekern=\dimen154
+\defaultaddspace=\dimen155
+\@cmidla=\count269
+\@cmidlb=\count270
+\@aboverulesep=\dimen156
+\@belowrulesep=\dimen157
+\@thisruleclass=\count271
+\@lastruleclass=\count272
+\@thisrulewidth=\dimen158
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip70
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks19
+\ex@=\dimen159
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen160
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count273
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count274
+\leftroot@=\count275
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count276
+\DOTSCASE@=\count277
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box52
+\strutbox@=\box53
+\big@size=\dimen161
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count278
+\c@MaxMatrixCols=\count279
+\dotsspace@=\muskip17
+\c@parentequation=\count280
+\dspbrk@lvl=\count281
+\tag@help=\toks20
+\row@=\count282
+\column@=\count283
+\maxfields@=\count284
+\andhelp@=\toks21
+\eqnshift@=\dimen162
+\alignsep@=\dimen163
+\tagshift@=\dimen164
+\tagwidth@=\dimen165
+\totwidth@=\dimen166
+\lineht@=\dimen167
+\@envbody=\toks22
+\multlinegap=\skip71
+\multlinetaggap=\skip72
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
+
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count285
+)
+\MT@toks=\toks24
+\MT@count=\count286
+\MT@tempbox=\box54
+LaTeX Info: Redefining \leftprotrusion on input line 1010.
+LaTeX Info: Redefining \rightprotrusion on input line 1018.
+LaTeX Info: Redefining \textls on input line 1173.
+\MT@outer@kern=\dimen168
+LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
+\MT@listname@count=\count287
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 897.
+LaTeX Info: Redefining \lslig on input line 897.
+\MT@outer@space=\skip73
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen169
+\ar@mcellbox=\box55
+\extrarowheight=\dimen170
+\NC@list=\toks25
+\extratabsurround=\skip74
+\backup@length=\skip75
+\ar@cellbox=\box56
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+\TX@col@width=\dimen171
+\TX@old@table=\dimen172
+\TX@old@col=\dimen173
+\TX@target=\dimen174
+\TX@delta=\dimen175
+\TX@cols=\count288
+\TX@ftn=\toks26
+)
+(./review_completion_claims.tex) (./simple_research_claims.tex)
+(./core_claims_values.tex) (./process_revision_values.tex)
+(./process_region_revision_values.tex) (./process_water_revision_values.tex)
+(./process_time_revision_values.tex) (./process_gap_revision_values.tex)
+(./process_trajectory_revision_values.tex) (./process_experiments_values.tex)
+(./summer_window_values.tex) (./beaufort_proxy_values.tex)
+(./summer_proxy_archive_values.tex) (./past_season_values.tex)
+(./uncertainty_paired_values.tex) (./support_projection_values.tex)
+(./peak_visibility_values.tex) (./annual_interval_expansion_values.tex)
+(./nova_scotia_exploratory_values.tex) (./nova_clock_sensitivity_values.tex)
+(./nova_field_values.tex) (./truckee_values.tex) (./region_holdout_values.tex)
+(./au_prior_exposure_values.tex) (./source_rights_values.tex)
+(./open_source_values.tex) (./open_source_annual_values.tex)
+(./single_year_calibration_values.tex) (./single_year_trend_values.tex)
+(./strict_region_values.tex) (./input_precision_values.tex)
+(./release_matched_values.tex) (./release_regional_values.tex)
+(./archive_matched_values.tex) (./expanded_stress_values.tex)
+(./heat_gap_matched_values.tex) (./heat_gap_source_values.tex)
+(./stress_source_values.tex) (./projected_risk_values.tex)
+(./groupmax_values.tex) (./bc_exploratory_values.tex) (./eccc_red_values.tex)
+(./external_qualification_values.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count289
+\l__pdf_internal_box=\box57
+)
+(./review_completion_article.aux)
+\openout1 = `review_completion_article.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count290
+\scratchdimen=\dimen176
+\scratchbox=\box58
+\nofMPsegments=\count291
+\nofMParguments=\count292
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count293
+\MPscratchDim=\dimen177
+\MPnumerator=\count294
+\makeMPintoPDFobject=\count295
+\everyMPtoPDFconversion=\toks28
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@maskedRefs=\count296
+
+(/usr/share/texlive/texmf-dist/tex/latex/apacite/english.apc
+File: english.apc 2013/07/21 v6.03 apacite language file
+LaTeX Info: Redefining \BPBI on input line 129.
+LaTeX Info: Redefining \BHBI on input line 130.
+)
+LaTeX Info: Redefining \microtypecontext on input line 50.
+Package microtype Info: Applying patch `item' on input line 50.
+Package microtype Info: Applying patch `toc' on input line 50.
+Package microtype Info: Applying patch `eqnum' on input line 50.
+Package microtype Info: Applying patch `footnote' on input line 50.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 50.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmss' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 53.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 53.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <10.5> not available
+(Font)              size <10.95> substituted on input line 60.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <10.5> not available
+(Font)              size <10.95> substituted on input line 60.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--60
+[]\OT1/cmr/m/n/10 (+20) Screening in-com-plete years changes the time sup-port 
+of sustained-heat facts 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--60
+[]\OT1/cmr/m/n/10 (+12) Placing years, not merely match-ing their count, can re
+-duce slope er-ror; restor- 
+ []
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) Screening in-com-plete river-temperature years changes th
+e time sup-port of sus- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) tained heat. We ex-am-ine ob-served heat win-dows, finite
+-record slopes of the an-nual 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) max-i-mum 30-day mean (H30), and in-for-ma-tion con-di-ti
+ons as-so-ci-ated with re- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) cov-ery fail-ures. Whole-archive eval-u-a-tion uses 42 lo
+ng com-plete records from a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) 581-station source archive. Ob-served win-dows in in-com-
+plete years can ex-ceed ev-ery 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) complete-year heat max-i-mum; most wit-nesses also pass a
+ warm-season rule. On 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) 805 for-ward controlled-gap archives, the me-dian complet
+e-record slope is 0.75$[]$C 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) per decade. Re-cov-er-ing all sup-ported years gives slop
+e RMSE 0.170, ver-sus 0.446 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) un-der warm-season screen-ing, so the screen-ing er-ror i
+s more than half the me-dian 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) slope. Calendar-position con-trols that in-clude the fixe
+d com-plete years re-duce 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) RMSE to 0.428 and 0.402; their paired in-ter-vals ex-clud
+e zero. Weak same-count 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) con-trols do not. Hidden-peak 90% cov-er-age is 67.9% for
+ Bavar-ian air-ridge re-con- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) struc-tions. Com-mon ge-o-met-ric weight-ing re-tains a r
+e-gional con-trast, but sup-port 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) loss and training-history im-bal-ance pre-vent causal at-
+tri-bu-tion. A trajectory-budget 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) ex-per-i-ment re-gen-er-ates 2,370 orig-i-nal source-cali
+bration cases and scores the same 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) 27 tar-get station-years. Across three seeds, source-reca
+librated me-dian ab-so-lute 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) 95th-percentile changes from 20 to 500 nested paths are 0
+.069--0.117$[]$C in the Swiss 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+20) sub-set and 0.061--0.101$[]$C in Bavaria. Five hun-dred p
+aths do not es-tab-lish con-ver- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+15) gence or a pre-ferred es-ti-ma-tor. These re-sults sup-po
+rt pre-serv-ing ob-served heat facts 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+\OT1/cmr/m/n/10 (+19) and eval-u-at-ing year se-lec-tion, re-con-struc-tion and
+ nu-mer-i-cal un-cer-tainty for a stated 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+\OT1/cmr/m/n/10 (+20) and wa-ter man-age-ment []Caissie, 2006; Michel et al.[],
+ 2020; van Hamel & Brun-ner, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+\OT1/cmr/m/n/10 (+20) 2024). The an-nual max-i-mum of a 30-day mean (H30) sum-m
+a-rizes sus-tained heat 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+\OT1/cmr/m/n/10 (+20) and is re-lated to the ther-mal peak used in river-networ
+k stud-ies []Beaufort et al.[], 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+\OT1/cmr/m/n/10 (+20) 2022). A mon-i-tor-ing gap can change this statis-tic thr
+ough the years it re-moves, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+\OT1/cmr/m/n/10 (+20) the ther-mal states it hides, and the in-for-ma-tion that
+ re-mains from other years or 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+[]\OT1/cmr/m/n/10 (+20) Prior work has al-ready shown that par-tial stream-temp
+erature records can 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+10) sup-port some an-nual anal-y-ses. []Johnson et al.[] (202
+1) eval-u-ated miss-ing in-ter-vals and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+20) im-pu-ta-tion for an-nual mean, phase and am-pli-tude, fi
+nd-ing lim-i-ta-tions that var-ied 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+20) among rivers. []Beaufort et al.[] (2022) used sum-mer ob-
+ser-va-tions and cli-mate cor-rec- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+20) tion for a mul-ti-year thermal-peak met-ric. Those re-sul
+ts con-cern dif-fer-ent tar-gets: 
+ []
+
+
+Overfull \hbox (0.15219pt too wide) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+17) John-son and coau-thors do not sup-ply a uni-ver-sal er-r
+or base-line for an-nual H30, and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+20) Beau-fort and coau-thors do not eval-u-ate jointly de-gra
+ded mul-ti-year archives. The 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+20) ques-tion added here is how com-plete-ness screen-ing cha
+nges the time sup-port of 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+\OT1/cmr/m/n/10 (+12) sustained-heat in-for-ma-tion, and which ob-ser-va-tions 
+and river-state in-for-ma-tion then 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+[]\OT1/cmr/m/n/10 (+20) That ques-tion has two mech-a-nisms. First, the years t
+hat a rule deletes, and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) the ther-mal states and time-leverage those years carry, 
+change a slope fit-ted to 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) the re-main-ing fi-nite record. Sec-ond, river ther-mal r
+e-sponse, data pro-cess-ing and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) source sup-port jointly de-ter-mine the er-ror of re-cov-
+er-ing a heat peak in-side a gap. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) The in-tended use is a com-pa-ra-ble finite-record H30 sl
+ope on a stated record pe-riod, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 to-gether with fully ob-served 30-day win-dows re-tained as arc
+hive facts. If an ob-served 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) lower bound al-ready ex-ceeds a pre-defined H30 thresh-ol
+d, that ex-ceedance can be 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) kept with-out a pre-cise an-nual value. Study thresh-olds
+ are not ecological-hazard 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+\OT1/cmr/m/n/10 (+20) stan-dards, and a 0.5$[]$C reconstruction-error flag is n
+ot a cal-i-brated prob-a-bil-ity at 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+[]\OT1/cmr/m/n/10 (+20) Regression record aug-men-ta-tion and maintenance-of-va
+riance meth-ods have 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 (+20) a long hy-dro-log-i-cal his-tory []Matalas & Ja-cobs, 196
+4; Hirsch, 1982; Vo-gel & Ste- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 (+19) dinger, 1985). A point pre-dic-tion, a pre-dic-tive dis-t
+ri-bu-tion and a de-ci-sion to re-lease 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 (+20) a value have dif-fer-ent tar-gets. Dis-tri-bu-tional im-p
+u-ta-tion should be as-sessed for 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 (+20) the down-stream quan-tity rather than only for daily squa
+red er-ror []N^^?af et al.[], 2023; 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 (+20) Gneit-ing & Raftery, 2007). We com-pare a daily plug-in, 
+sim-ple cor-rec-tions, source- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 (+20) role-calibrated stochas-tic re-con-struc-tion and an-nual
+ dis-tri-bu-tion re-gres-sion, then 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3]
+(./core_claims_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[]\OT1/cmr/bx/n/9 (+20) Table 1. \OT1/cmr/m/n/9 (+20) Three re-search ques-tion
+s, their ev-i-dence and in-fer-ence lim-its. Re-gional, same-count
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+[]\OT1/cmr/m/n/10 (+20) We or-ga-nize the ev-i-dence around three re-search que
+s-tions. RQ1: what ob- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+20) served heat in-for-ma-tion does each com-plete-ness rule 
+re-tain or dis-card? RQ2: how 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+20) do the re-tained year set and an-nual re-con-struc-tion e
+r-rors com-bine in a slope for a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+20) peak re-cov-ery er-rors con-cen-trate? The re-gional, sam
+e-count and trajectory-budget 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+20) di-ag-nos-tics were de-vel-oped af-ter in-spect-ing ex-is
+t-ing re-sults; they are ex-ploratory 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+20) rather than pre-reg-is-tered con-fir-ma-tion. The six-sta
+tion tra-jec-tory sub-set was fixed 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+20) be-fore that re-play, not be-fore the wider study. Its 0.
+05$[]$C tol-er-ance is a nu-mer-i-cal 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+\OT1/cmr/m/n/10 (+17) ev-i-dence, de-nom-i-na-tors and bound-aries. Through-out
+, \OT1/cmr/m/it/10 (+17) cal-i-brated \OT1/cmr/m/n/10 (+17) means an em-pir-i-c
+al 
+ []
+
+(./architecture_figures.tex
+<figures/architecture/fig1_evidence_actual.pdf, id=23, 708.6475pt x 346.29375pt
+>
+File: figures/architecture/fig1_evidence_actual.pdf Graphic file (type pdf)
+<use figures/architecture/fig1_evidence_actual.pdf>
+Package pdftex.def Info: figures/architecture/fig1_evidence_actual.pdf  used on
+ input line 2.
+(pdftex.def)             Requested size: 397.48499pt x 194.2402pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+[]\OT1/cmr/bx/n/9 (+20) Figure  1. \OT1/cmr/m/n/9 (+20) Ev-i-dence ar-chi-tec-t
+ure. Observation-only wit-nesses, single-year source eval-u-a-tions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 from lo-cal fit-ting; un-masked tar-get and donor records re-mai
+n avail-able. An-nual source mod-els are
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) fit-ted sep-a-rately and held fixed dur-ing each archive r
+e-anal-y-sis. Re-lease fol-lowed by the working-
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+[]\OT1/cmr/m/n/10 (+20) The source archive con-tains pre-vi-ously as-sem-bled E
+u-ro-pean and US daily ob- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+20) me-te-o-ro-log-i-cal in-put []NASA Lan-g-ley Re-search Ce
+n-ter, 2026). Ar-ti-fi-cial con-trolled 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+18) gaps of 30, 60 or 90 days are crossed with over-lap with 
+a training-period cli-ma-to-log- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+20) i-cal peak win-dow; em-pir-i-cal in-com-plete cal-en-dars
+ pro-vide a sep-a-rate fam-ily that is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+14) closer to the ob-served archive. Each of twenty source re
+p-e-ti-tions re-draws masks and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+5) group-role com-po-si-tion. In the leave-one-year-out sourc
+e com-par-i-son, fit-ting, in-ter-val 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+14) cal-i-bra-tion, score learn-ing and rule cal-i-bra-tion u
+se dis-joint con-nected groups out-side 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+20) each held re-gion. In the orig-i-nal for-ward source spli
+t, HUC17 es-ti-ma-tor and NVE 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+20) interval-calibration roles re-tain other same-region grou
+ps, as de-tailed be-low. These 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+20) rep-e-ti-tions de-scribe vari-abil-ity within the avail-a
+ble archive, not twenty in-de-pen-dent 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
+\OT1/cmr/m/n/10 (+20) cli-mates. Fig-ure 1[] sep-a-rates the observation-only, 
+single-year and whole-archive 
+ []
+
+<figures/process_revision/01_sample_domain.pdf, id=24, 511.06181pt x 251.63824p
+t>
+File: figures/process_revision/01_sample_domain.pdf Graphic file (type pdf)
+<use figures/process_revision/01_sample_domain.pdf>
+Package pdftex.def Info: figures/process_revision/01_sample_domain.pdf  used on
+ input line 86.
+(pdftex.def)             Requested size: 397.48499pt x 195.7241pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+[]\OT1/cmr/bx/n/9 (+20) Figure  2. \OT1/cmr/m/n/9 (+20) Whole-archive eval-u-a-
+tion sta-tions. Long, com-plete records con-cen-trate in Bavaria
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+\OT1/cmr/m/n/9 (+20) and Switzer-land; 18 con-nected groups are anal-y-sis clus
+-ters, not 18 in-de-pen-dent hy-dro-cli-mates.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+[]\OT1/cmr/m/n/10 (+20) We use com-plete daily station-years as ref-er-ence out
+-comes for ar-ti-fi-cial mask- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+20) ing. Wa-ter ob-ser-va-tions hid-den by a mask never en-te
+r the lo-cal fit for that case. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+20) Fea-tures avail-able when a value is eval-u-ated in-clude
+ the vis-i-ble gap ge-om-e-try, a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+20) training-period cli-ma-to-log-i-cal peak, lo-cal wa-ter h
+is-tory, air con-di-tions and avail-able 
+ []
+
+
+Overfull \hbox (0.12697pt too wide) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+10) neigh-bor-ing sta-tions. The true peak lo-ca-tion and hid
+-den wa-ter val-ues are eval-u-a-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+20) quan-ti-ties. Ob-ser-va-tion qual-ity is in-her-ited from
+ the as-sem-bled source records; a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+20) re-ported value is not as-sumed to be error-free phys-i-c
+al truth. An ob-served lower 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+\OT1/cmr/m/n/10 (+19) bound is valid for the re-ported se-ries if its thirty me
+a-sure-ments are com-pa-ra-ble and 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) H30 is used be-cause it sum-ma-rizes sus-tained heat. Na-
+tive seven-day (H7) source 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) re-fits ex-ist in the repos-i-tory; they are a dif-fer-en
+t eco-log-i-cal win-dow and are not 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) sub-sti-tuted for H30 here. For an in-com-plete year, the
+ largest fully ob-served 30-day 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+8) sta-tions with at least fif-teen com-plete ref-er-ence yea
+rs and com-pare ev-ery incomplete- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) year bound with the largest complete-year H30. The observ
+ation-only de-nom-i-na-tor 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) con-tains 2,700 el-i-gi-ble station-years at 96 sta-tions
+ in 34 con-nected groups. We 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) eval-u-ate whether the same wit-nesses pass a 95% annual-
+coverage rule and a 90% 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) station-specific warm-season rule. The five con-sec-u-tiv
+e warm months are ob-tained 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+17) from the sta-tion's cli-ma-tol-ogy af-ter ex-clud-ing the
+ eval-u-ated year. These are ex-plicit 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+\OT1/cmr/m/n/10 (+20) study com-para-tors; the seven-week missing-period re-sul
+t of []Johnson et al.[] (2021) 
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+[]\OT1/cmr/m/n/10 (+20) The whole-archive bench-mark con-tains 42 sta-tions wit
+h at least twenty 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) com-plete ref-er-ence years in seven re-gions, 18 con-nec
+ted groups and 3,320 station-- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) repetition--setting eval-u-a-tions (Fig-ure 2[]; Ta-ble 2
+[]). One Finnish record ends in 1994, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) leav-ing 41 sta-tions for for-ward eval-u-a-tion. Twenty-
+four sta-tions are in Bavaria and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+12) ten in Switzer-land; that long-complete se-lec-tion is a 
+monitoring-network fil-ter, not a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+2) source archive: me-dian com-plete years 31 ver-sus 8 among
+ the re-main-ing 539 sta-tions. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) Bavaria con-tributes 24 of 42 eval-u-a-tion sta-tions aga
+inst 29 of the re-main-der; USGS 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) or un-known for most sites and do not mean un-reg-u-lated
+ rivers; 35 of 42 eval-u-a-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) sta-tions are un-matched[]gages, five are la-belled reg-u
+-lated and none un-reg-u-lated. 
+ []
+
+
+Overfull \hbox (0.15471pt too wide) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+2) Daily val-ues are provider daily means where that class is
+ recorded. Visible-neighbour 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) counts and process-metadata gaps are re-ported with the s
+ta-tion ros-ter. If area, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) el-e-va-tion or dis-charge were com-plete they would be s
+um-ma-rized; they are not. For 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+3) the main re-ten-tion con-trast in the for-ward controlled-
+gap set-ting, both re-ten-tion sets 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) are avail-able in 807 of 820 set-tings; the other 820 mi-
+nus 807 set-tings are used only 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) for avail-abil-ity ac-count-ing. The held-test-group main
+ anal-y-sis ex-cludes eval-u-ated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+20) test groups from the named source roles. The for-ward HUC
+17 es-ti-ma-tor and NVE 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+2) in-ter-val cal-i-bra-tion re-tain ad-di-tional same-region
+ train-ing groups, so the strict-region 
+ []
+
+
+Overfull \hbox (0.16307pt too wide) in paragraph at lines 99--100
+\OT1/cmr/m/n/10 (+12) sen-si-tiv-ity is re-ported sep-a-rately. The 2010 split 
+is a ret-ro-spec-tive time con-di-tion on 
+ []
+
+
+Underfull \vbox (badness 7685) has occurred while \output is active []
+
+ [6 <./figures/architecture/fig1_evidence_actual.pdf>] (./process_sample_table.
+tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Table 2. \OT1/cmr/m/n/9 (+20) Whole-archive eval-u-a-ti
+on sta-tions. Reg-u-la-tion la-bels are project meta-data; un-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) matched[]gages does not mean un-reg-u-lated. Donor counts 
+are mean vis-i-ble neigh-bours in saved
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) leave-one-year-out controlled-gap source cases; the Finnis
+h record is in-cluded in that de-sign, not
+ []
+
+) (./process_gap_revision_archive_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Table 3. \OT1/cmr/m/n/9 (+20) Long-complete eval-u-a-ti
+on sta-tions ver-sus the re-main-der of the 581-station source
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) archive. Complete-year counts are unique com-plete station
+-years, in-clud-ing the held-out year,
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+[]\OT1/cmr/m/n/10 (+20) The daily plug-in com-putes H30 af-ter a se-lected dail
+y re-con-struc-tion. Func- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) tional de-bi-as-ing cor-rects its an-nual value. D2 is a 
+dis-tri-bu-tion re-gres-sion of that 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) an-nual er-ror: it learns er-ror quan-tiles from fea-ture
+s vis-i-ble when a value is re-leased, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) in-clud-ing sum-maries of sim-u-lated tra-jec-to-ries. A 
+stochas-tic re-gres-sion com-para-tor 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) gen-er-ates con-di-tional resid-ual bridges and cal-cu-la
+tes H30 for each re-al-iza-tion. D2 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) and the stochas-tic com-para-tor have the same source int
+erval-calibration roles and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) boot-strap mul-ti-plic-i-ties. Point es-ti-mates are me-d
+i-ans; MAE, CRPS, 90% in-ter-val 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+17) cov-er-age and in-ter-val score are re-ported on avail-ab
+le cases, with paired com-par-isons 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/10 (+20) on com-mon cases. Source-role cal-i-bra-tion is an em-pir
+-i-cal off-set on dis-joint source 
+ []
+
+[7 <./figures/process_revision/01_sample_domain.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+[]\OT1/cmr/m/n/10 (+20) In the twenty his-tor-i-cal source fits, we ap-ply the 
+same observed-window sup- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) port pro-jec-tion to both meth-ods af-ter their orig-i-na
+l cal-i-bra-tion. The seven stored 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) quan-tiles con-strain only those seven prob-a-bil-ity lev
+-els. Val-ues be-tween them are 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+17) in-ter-po-lated, and the outer tails are ex-trap-o-lated;
+ for com-pa-ra-ble CRPS in-te-gra-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) we ex-tend the tails us-ing ad-ja-cent normal-quantile sp
+ac-ings and en-force $\OML/cmm/m/it/10 L[]$ \OT1/cmr/m/n/10 (+20) when 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) avail-able. The orig-i-nal model weights and cal-i-bra-ti
+on off-sets re-main fixed in this 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) source re-analysis. In the whole-archive study de-scribed
+ be-low, off-sets for both 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) meth-ods are in-stead re-estimated on their orig-i-nal in
+-de-pen-dent cal-i-bra-tion roles 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) af-ter pro-jec-tion. Stored stochas-tic bridge-repair ta-
+bles are re-quired to re-pro-duce 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) the his-tor-i-cal source, open-source archive and group-m
+aximum sen-si-tiv-ity cal-cu-la- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+\OT1/cmr/m/n/10 (+20) tions; these de-pen-den-cies were checked ret-ro-spec-tiv
+ely. Nei-ther ap-proach makes the 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8]
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+[]\OT1/cmr/m/n/10 (+20) The conditional-mean mech-a-nism is use-ful but lim-ite
+d. For ob-served in-for-ma- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--115
+\OT1/cmr/m/n/10 (+20) It con-cerns the true con-di-tional mean and con-di-tiona
+l ex-pec-ta-tion; an ap-prox-i-mate 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--115
+\OT1/cmr/m/n/10 (+20) learner need not un-der-es-ti-mate ev-ery in-di-vid-ual y
+ear. Cal-i-bra-tion, lo-cal adap-ta-tion, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+[]\OT1/cmr/m/n/10 (+20) We eval-u-ate a rule that re-ports an es-ti-mated value
+, an ob-served lower bound 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) or an un-known state. Nu-mer-i-cal re-lease re-quires an 
+avail-able D2, at least four 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) com-plete his-tor-i-cal years, vis-i-ble fea-tures within
+ source-derived lim-its and a raw 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) in-di-vid-ual clas-si-fier score no greater than 0.10. Th
+e score was trained for a 0.5$[]$C 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) absolute-error flag on the orig-i-nal un-pro-jected D2; t
+hat flag is a reconstruction- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) tolerance di-ag-nos-tic, not an ecological-hazard thresh-
+old, and the score is not a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) cal-i-brated group-risk cer-tifi-cate for the pro-jected 
+value or for any other thresh-old. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) A seven-day close match be-tween vis-i-ble wa-ter and air
+ tem-per-a-ture is tested for 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) the im-posed exact-air-substitution sce-nario; that de-te
+c-tor is not eval-u-ated for other 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+6) stresses. No ob-served bound is re-leased when this qual-i
+ty flag is raised. The pri-mary 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+7) fac-to-rial trend com-par-i-son is sep-a-rate. A sec-ond e
+x-ploratory anal-y-sis passes re-leased 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) val-ues and bounds into a Gaus-sian work-ing like-li-hood
+, treat-ing re-leased nu-mer-i-cal 
+ []
+
+
+Overfull \hbox (0.16084pt too wide) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+18) es-ti-mates as ex-act and each bound $\OML/cmm/m/it/10 L$
+ \OT1/cmr/m/n/10 (+18) as a right-censored re-sponse with con-tri-bu-tion 
+ []
+
+
+Underfull \hbox (badness 1990) in paragraph at lines 116--117
+\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (+20) (\OML/cmm/m/it/10 H\OT1/cmr/m/n/10 (+20
+) 30 \OMS/cmsy/m/n/10 ^^U \OML/cmm/m/it/10 L\OT1/cmr/m/n/10 (+20) )$. Un-known 
+cases re-main in avail-abil-ity de-nom-i-na-tors. The re-sult-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) re-gres-sion in-ter-val in-cludes working-model vari-abil
+-ity and is not a task-calibrated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+\OT1/cmr/m/n/10 (+20) missingness-only in-ter-val. The three-output rule is re-
+tained as a bound-ary re-sult, 
+ []
+
+(./simple_research_methods.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/10 (+20) Whole-archive degra-da-tion, com-mon co-horts and task
+-level 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9]
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+[]\OT1/cmr/m/n/10 (+20) The whole-archive bench-mark jointly masks se-lected ga
+ps in sev-eral years of 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) a tar-get sta-tion be-fore fit-ting its daily mod-els, cl
+i-ma-tol-ogy or resid-ual his-to-ries. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+17) Un-masked tar-get ob-ser-va-tions and neigh-bor-ing phys-
+i-cal sta-tions re-main avail-able in 
+ []
+
+
+Overfull \hbox (0.12788pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) this ex-per-i-ment. The bench-mark con-tains 42 sta-tions
+ with at least twenty com-plete 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 ref-er-ence years in seven re-gions. One Finnish record ends in
+ 1994, leav-ing 41 sta-tions 
+ []
+
+
+Overfull \hbox (0.13127pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+7) for for-ward eval-u-a-tion. Twenty paired mask rep-e-ti-ti
+ons use both em-pir-i-cal cal-en-dars 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) and con-trolled 30--90-day gaps; af-ter seven ob-served b
+urn-in years, each ref-er-ence 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+3) year is de-graded with prob-a-bil-ity 0.35. These 3,320 ar
+chive ex-per-i-ments do not reuse 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+14) any masked tar-get day when fit-ting an-other year. The c
+om-plete ref-er-ence, in-clud-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) those hid-den days, is used for scor-ing; its un-masked v
+al-ues can also en-ter lo-cal fit- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+[]\OT1/cmr/m/n/10 (+17) Offline daily fits use the re-main-ing vis-i-ble his-to
+ry. For-ward an-nual mod-els and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) in-ter-val off-sets use source ob-ser-va-tions be-fore 20
+10 and ex-clude the eval-u-ated test 
+ []
+
+
+Overfull \hbox (0.1384pt too wide) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+7) sta-tions and their con-nected groups. The orig-i-nal par-
+ti-tioned role as-sign-ment can re- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+11) tain other training-only groups in the same named re-gion
+: this oc-curs in the HUC17 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) es-ti-ma-tor and in NVE in-ter-val cal-i-bra-tion. Ac-cor
+d-ingly this for-ward ex-per-i-ment 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) is held-test-group, not uni-formly held-region, and is ap
+-plied to 2010 on-ward. The 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) strict-region sen-si-tiv-ity re-moves the ad-di-tional sa
+me-region groups and is re-ported 
+ []
+
+
+Overfull \hbox (0.10886pt too wide) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+10) sep-a-rately. For-ward lo-cal daily fit-ting and de-pen-d
+ence es-ti-ma-tion also ex-clude wa-ter 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) ob-ser-va-tions from 2010 on-ward. These are current-vint
+age ret-ro-spec-tive for-ward 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) ex-per-i-ments, not a his-tor-i-cal real-time field trial
+. An-nual re-gres-sion weights re-main 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) source-only and use source-fit seed zero through-out. Sou
+rce ob-ser-va-tions do not 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+[]\OT1/cmr/m/n/10 (+20) On each de-graded archive, the re-ten-tion set (90% war
+m-season rule or all sup- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) ported years) is crossed with the an-nual es-ti-ma-tor (d
+aily plug-in, equally cal-i-brated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) slope. For the four MSE cells $\OML/cmm/m/it/10 A$ \OT1/c
+mr/m/n/10 (+20) (rule/plug-in), $\OML/cmm/m/it/10 B$ \OT1/cmr/m/n/10 (+20) (all
+/plug-in), $\OML/cmm/m/it/10 C$ \OT1/cmr/m/n/10 (+20) (rule/alternative) 
+ []
+
+
+Underfull \hbox (badness 6944) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) in-ter-ac-tion is $(\OML/cmm/m/it/10 A \OMS/cmsy/m/n/10 ^
+^@ \OML/cmm/m/it/10 B\OT1/cmr/m/n/10 (+20) ) \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/
+10 (+20) (\OML/cmm/m/it/10 C \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 D\OT1/cmr/m/
+n/10 (+20) )$. Com-plete paired cells, rather than dif-fer-ent 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) avail-able sub-sets, de-ter-mine each de-com-po-si-tion. 
+The re-ten-tion fig-ure uses com-mon 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+18) avail-able for 807 of 820 set-tings, and the all-year RMS
+E is re-com-puted on those 807 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10]
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+[]\OT1/cmr/m/n/10 (+20) Daily com-ple-tion uses one recorded re-con-struc-tor p
+er case: donor ridge, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\OT1/cmr/m/n/10 (+20) air ridge, lin-ear in-ter-po-la-tion, smooth cli-ma-tol-o
+gy, or day-of-year cli-ma-tol-ogy. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\OT1/cmr/m/n/10 (+20) Air2stream-3 and the value com-puted from ob-served days 
+are ad-di-tional com-para- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\OT1/cmr/m/n/10 (+20) tors. A re-con-struc-tor may use days that re-main vis-i-
+ble in the tar-get year, the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\OT1/cmr/m/n/10 (+20) sta-tion's other vis-i-ble years, and el-i-gi-ble neigh-b
+or-ing sta-tions. Days hid-den by that 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\OT1/cmr/m/n/10 (+20) year's tar-get mask are not used to fit the lo-cal model.
+ In the for-ward ex-per-i-ment, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\OT1/cmr/m/n/10 (+20) lo-cal daily fit-ting also ex-cludes the tar-get sta-tion
+'s wa-ter ob-ser-va-tions from 2010 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+[]\OT1/cmr/m/n/10 (+20) D2 learns the an-nual H30 er-ror rel-a-tive to the plug
+-in, not the an-nual value 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+13) it-self. Seven Light-GBM quan-tile re-gres-sions use the 
+quan-tile ob-jec-tive at lev-els 0.05, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) 0.10, 0.25, 0.50, 0.75, 0.90 and 0.95. The fixed set-ting
+s, which were not re-tuned for 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) this re-vi-sion, are 300 trees, learn-ing rate 0.05, 31 l
+eaves, at least 50 cases per leaf, 
+ []
+
+
+Overfull \hbox (0.15054pt too wide) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+13) 80% row and col-umn sub-sam-pling, and an L2 penalty of 1
+. Fea-tures are avail-able at 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+10) de-ci-sion time: gap length and runs, warm-season and pea
+k over-lap, donor count and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) cor-re-la-tion, his-tor-i-cal re-con-struc-tion er-ror, t
+he vis-i-ble edge anomaly, air anoma-lies, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) dif-fer-ences among the other re-con-struc-tors rel-a-tiv
+e to the plug-in, and sum-maries 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) of the stochas-tic and air-state sim-u-la-tion dis-tri-bu
+-tions when those sum-maries ex-ist. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) A miss-ing sim-u-la-tion fea-ture stays miss-ing and uses
+ the tree's missing-value branch. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+\OT1/cmr/m/n/10 (+20) Pre-dicted quan-tiles are sorted to re-move cross-ings. T
+he pub-lished an-nual point is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+18) to-ries as a fixed com-pu-ta-tional bud-get. The same-tar
+get ex-per-i-ment re-ported be-low 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) re-gen-er-ates the orig-i-nal source-calibration cases at
+ larger bud-gets and up-dates their 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+6) off-sets; it does not re-run the full whole-archive trend 
+com-par-i-son. Fine method rank- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) ings are not as-serted be-yond the tested nu-mer-i-cal su
+b-set. The bridge is a Gaus-sian 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) AR(1) on a resid-ual his-tory with at least 30 fi-nite da
+ys. Its lag co-ef-fi-cient is clipped 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) to $[\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 (+20) 0\OML/cmm/
+m/it/10 :\OT1/cmr/m/n/10 (+20) 95\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 0\OML
+/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 995]$. When an ob-served wa-ter value ex-is
+ts at the left or right end of 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) a gap, the tra-jec-tory is con-di-tioned on that bound-ar
+y; oth-er-wise the left state is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) drawn from the resid-ual mar-gin. The same seven prob-a-b
+il-ity lev-els are read from 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 (+20) those 20 tra-jec-to-ries. Where a stored bridge-repair ta
+-ble ap-plies, it re-places the 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11]
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+[]\OT1/cmr/m/n/10 (+20) Both an-nual dis-tri-bu-tions use four dis-joint connec
+ted-group roles, with shares 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) 0.55, 0.15, 0.15 and 0.15: es-ti-ma-tor fit-ting, in-ter-
+val cal-i-bra-tion, score learn-ing and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) rule cal-i-bra-tion. Groups are shuf-fled within the sour
+ce seed and boot-strapped 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) only in-side their own role. Each role must con-tain at l
+east two groups. In-ter-val 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) off-sets are em-pir-i-cal quan-tiles of the calibration-r
+ole er-rors, com-puted sep-a-rately by 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) peak-overlap bin and re-con-struc-tor. A stra-tum with fe
+wer than 50 positive-weight 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) cal-i-bra-tion cases falls back to all calibration-role c
+ases. Lev-els at or above 0.50 use 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmr/m/n/10 (+20) the higher em-pir-i-cal quan-tile, and lower lev-els use 
+the lower one. Off-sets are added 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+[]\OT1/cmr/m/n/10 (+20) Sampling then fol-lows one or-der. A fi-nite observed-w
+indow lower bound is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+11) ap-plied to the an-nual quan-tiles. Strat-i-fied prob-a-b
+il-i-ties are in-ter-po-lated be-tween the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+17) seven stored lev-els. Out-side 0.05 and 0.95, the de-faul
+t ex-tends the quan-tile func-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+20) by the ad-ja-cent normal-quantile spac-ing; hold-ing the 
+end-point fixed is re-tained 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+20) only as a paired sen-si-tiv-ity. These seven lev-els do n
+ot iden-tify a com-plete cen-tral 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+20) 90% dis-tri-bu-tion: val-ues be-tween them are in-ter-po-
+la-tions, and both outer tails are 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+5) ex-trap-o-la-tions. Sam-ples are then pro-jected onto the 
+same lower bound. In-de-pen-dent 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+20) ranks, aux-il-iary Ridge year-bootstrap states, or three-
+year resid-ual blocks re-order 
+ []
+
+
+Overfull \hbox (0.13885pt too wide) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+5) the sam-ples with-out chang-ing each year's marginal. The 
+ordinary-least-squares slope 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 (+20) and its in-ter-val are com-puted from that joint sam-ple.
+ Task-level cal-i-bra-tion is a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+[]\OT1/cmr/m/n/10 (+20) We re-fit both meth-ods' an-nual quan-tile off-sets on 
+their orig-i-nal dis-joint source 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) cal-i-bra-tion groups af-ter im-pos-ing the observed-wind
+ow lower bound. Both dis-tri- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) bu-tions and their sam-ples re-spect the bound when one i
+s avail-able. Seven stored 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) quan-tiles con-strain only those seven prob-a-bil-ity lev
+-els; they do not iden-tify the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) dis-tri-bu-tion be-tween or out-side them. We ex-trap-o-l
+ate both outer tails us-ing the ad- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) ja-cent normal-quantile spac-ing and project the an-nual 
+sam-ples onto the bound; the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+18) endpoint-constant al-ter-na-tive is re-tained on paired c
+ases. The nor-mal ex-trap-o-la-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) is an as-sump-tion, not a val-i-dated tail law. That pro-
+jec-tion is ap-plied to the an-nual 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) dis-tri-bu-tion and then car-ried into the slope. It does
+ not project a trend in-ter-val 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+14) onto an an-nual lower bound. The main anal-y-sis uses 256
+ strat-i-fied sam-ples per year. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) Within one es-ti-ma-tor, in-de-pen-dent ranks, aux-il-iar
+y shared year-bootstrap re-gres- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) sion states and three-year resid-ual blocks keep that es-
+ti-ma-tor's an-nual marginals 
+ []
+
+
+Overfull \hbox (0.1413pt too wide) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) fixed. The two es-ti-ma-tors do not share one an-nual dis
+-tri-bu-tion. Shared states come 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+20) from a small har-monic/air Ridge model, not the D2 tree p
+os-te-rior or the se-lected 
+ []
+
+
+Overfull \hbox (0.10681pt too wide) in paragraph at lines 19--20
+\OT1/cmr/m/n/10 (+18) donor model. These cou-plings are de-pen-dence sen-si-tiv
+-i-ties, not pos-te-rior sam-ples or 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12]
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+[]\OT1/cmr/m/n/10 (+20) The joint-rank nu-mer-i-cal sen-si-tiv-ity fixes the an
+-nual quan-tiles, ob-served 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+20) bounds and eval-u-a-tion years and in-creases the strat-i
+-fied sam-ple count through 256, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+20) 1,024 and 4,096 on the dif-fi-cult for-ward con-trolled g
+aps. Three ran-dom seeds in-dex 
+ []
+
+
+Overfull \hbox (0.10088pt too wide) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+8) the rank con-struc-tion. The rank se-quence is gen-er-ated
+ at 4,096 draws and trun-cated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+20) for smaller counts; an-nual marginals are re-gen-er-ated 
+sep-a-rately for each sam-ple 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+20) size. We re-port cov-er-age, width, in-ter-val score, the
+ three-seed mean and the largest 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+20) single-seed change. A 0.3-point rule on the three-seed me
+an is only a di-ag-nos-tic: 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+4) av-er-ag-ing seeds can can-cel op-pos-ing changes, and mee
+t-ing it does not jus-tify rank-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+\OT1/cmr/m/n/10 (+20) small con-struc-tion dif-fer-ences. The check uses the sa
+me opened data and is not an 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+[]\OT1/cmr/m/n/10 (+20) Table 4[] sep-a-rates the cal-i-bra-tion and pro-jec-ti
+on or-der of the his-tor-i-cal, whole- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+11) archive, task-calibration and ex-ter-nal anal-y-ses. The 
+task-level com-para-tor cal-i-brates 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+20) ab-so-lute slope er-ror di-vided by an independent-draw i
+n-ter-val half-width. Ev-ery 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+20) source con-nected group re-ceives equal to-tal weight in 
+the em-pir-i-cal 95th per-centile. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+20) Cal-i-bra-tion uses only un-used rule-calibration groups,
+ re-predicted with the held- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+20) region model; for-ward er-rors end be-fore 2010. We with-
+hold the cal-i-bra-tion when 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+19) fewer than three non-de-gen-er-ate source groups re-main,
+ the cal-i-bra-tion fac-tor is ef-fec- 
+ []
+
+
+Overfull \hbox (0.15735pt too wide) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+14) tively zero, or the tar-get half-width lies out-side the 
+source 1st--99th per-centile range. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+20) Source sup-port, avail-abil-ity and matched-case width, c
+ov-er-age and in-ter-val score 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\OT1/cmr/m/n/10 (+20) are re-ported. All un-cer-tainty scores tar-get the fi-ni
+te complete-record slope, not 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+)
+Overfull \hbox (0.1038pt too wide) in paragraph at lines 25--119
+[]\OT1/cmr/m/n/10 (-10) The his-tor-i-cal de-sign meta-data are not rewrit-ten.
+ The saved 3,320 \OT1/cmtt/m/n/10 design.json 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--119
+\OT1/cmr/m/n/10 (+20) files state that held re-gion and con-nected groups were 
+ex-cluded; that is cor-rect for 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--119
+\OT1/cmr/m/n/10 (+20) held test groups but not an un-con-di-tional re-gion ex-c
+lu-sion. The for-ward HUC17 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--119
+\OT1/cmr/m/n/10 (+20) es-ti-ma-tor re-tained one other same-region train-ing gr
+oup, and NVE in-ter-val cal-i-bra- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--119
+\OT1/cmr/m/n/10 (+20) tion re-tained two. The pa-per uses the held-test-group a
+nal-y-sis as pri-mary and the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--119
+\OT1/cmr/m/n/10 (+20) strict-region sen-si-tiv-ity as a sep-a-rate check. A cor
+-rec-tion man-i-fest ac-com-pa-nies the 
+ []
+
+(./method_version_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 7--7
+[]\OT1/cmr/bx/n/9 (+20) Table 4. \OT1/cmr/m/n/9 (+20) Cal-i-bra-tion and pro-je
+c-tion or-der in the anal-y-ses used here. The rows are sep-a-rate
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+[]\OT1/cmr/m/n/10 (+20) Two controlled-gap sen-si-tiv-i-ties as-sess miss-ing-n
+ess mech-a-nisms on the first 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) five masks at each of 41 forward-eligible sta-tions. One 
+hides the tar-get's ex-act gaps 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) from the donor panel; the other pref-er-en-tially se-lect
+s air-hot years while pre-serv-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) the num-ber of miss-ing years. They are ret-ro-spec-tive 
+stresses rather than es-ti-mates 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) of out-age fre-quency. For the pri-mary gap com-par-i-son
+, all sources use the an-nual 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) longest con-tigu-ous miss-ing run in 2010--2025. The ob-s
+erved archive con-tains 109 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) in-com-plete station-years at 29 of the 41 for-ward sta-t
+ions, with me-dian 4 days and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) 11.93% at least 30 days. Empirical-calendar masks have me
+-dian 6 days and 10.25% 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) at least 30 days over 3806 station-year--repetition rows;
+ con-trolled masks have me- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) dian 60 days over 3777 rows, all at least 30 days. Ob-ser
+-va-tions re-ceive one weight 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) per station-year; tri-als re-ceive one per station-year--
+repetition. These dif-fer-ing sam- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) ples and re-peat weights make this a de-scrip-tive com-pa
+r-i-son. Over 1981--2025 the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) same statis-tic has me-dian 3 days, and 11.36% of 220 in-
+com-plete station-years last 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) at least 30 days (Ta-ble 5[]). The shared-year mea-sure r
+e-quires miss-ing-ness at two 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+8) the same group and year. Of those 74, 38 have a peer that 
+is also in-com-plete in that 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) year, and 14 have at least one miss-ing day in com-mon wi
+th a peer; 40 of 2,086 peer- 
+ []
+
+
+Overfull \hbox (0.13193pt too wide) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+6) evaluable miss-ing station-days over-lap. The other 35 sta
+tion-years are ex-cluded from 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) this peer-conditioned de-nom-i-na-tor. This con-cerns the
+ 41-station co-hort, not ev-ery 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) po-ten-tial or se-lected model donor. Ex-per-i-men-tal ye
+ar se-lec-tion fol-lows prob-a-bil-ity 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+20) 0.35 af-ter a seven-year burn-in; its fre-quency is not a
+n ob-served out-age es-ti-mate. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+\OT1/cmr/m/n/10 (+15) Observation-only ac-count-ing uses 96 sta-tions, whereas 
+the whole-archive bench-mark 
+ []
+
+(./process_gap_revision_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Table 5. \OT1/cmr/m/n/9 (+20) An-nual longest con-tigu-
+ous miss-ing run. The first three rows are the 2010--2025 com-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) par-i-son. Ob-ser-va-tions weight in-com-plete station-yea
+rs equally; trial rows weight in-com-plete
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) station-year--replicates equally. The 1981--2025 row is th
+e longer ob-served archive on the same
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 126--126
+[]\OT1/cmr/bx/n/10 (+20) Regional stan-dard-iza-tion, time-support con-trols an
+d tra-jec-tory 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+[]\OT1/cmr/m/n/10 (+20) The Bavaria--Switzerland com-par-i-son reuses saved for
+-ward controlled-gap 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) an-nual cases. Common-support screen-ing re-tains bins of
+ gap length, training-peak 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) not bal-ance their fre-quen-cies. We there-fore stan-dard
+-ize the within-cell out-comes to 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) iden-ti-cal weights, pro-por-tional to the smaller re-gio
+nal cell count; equal-cell weights 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) give a sen-si-tiv-ity anal-y-sis. A sec-ond anal-y-sis ad
+ds re-con-struc-tor class and re-ports 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) bins and train-ing complete-year bal-ance are re-ported b
+e-fore and af-ter weight-ing. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) Hidden-peak la-bels use with-held ref-er-ence H30 and can
+-not be a de-ploy-ment fil-ter. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) No cred-i-ble flow or reg-u-la-tion sub-set is avail-able
+; un-matched[]gages is not an un- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+\OT1/cmr/m/n/10 (+20) reg-u-lated class. Re-gional and re-con-struc-tor as-so-c
+i-a-tions can-not ex-clude pro-cess 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+[]\OT1/cmr/m/n/10 (+20) Complete-year water--air H30 as-so-ci-a-tions are re-po
+rted both pooled and af- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+\OT1/cmr/m/n/10 (+20) ter cen-ter-ing each vari-able within sta-tion and pe-rio
+d (be-fore/from 2010). Paired 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+\OT1/cmr/m/n/10 (+20) re-sam-pling car-ries both pe-ri-ods of each con-nected g
+roup; sta-tion re-sam-pling is a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+\OT1/cmr/m/n/10 (+20) sen-si-tiv-ity. These are an-nual as-so-ci-a-tions be-twe
+en max-ima that need not oc-cur on 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+[]\OT1/cmr/m/n/10 (+20) Time-support con-trols reuse saved D2 an-nual pre-dic-t
+ions. Com-plete years 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) re-main in ev-ery scheme. We first re-tain the warm-seaso
+n 90% rule, its orig-i-nal 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) one-draw ran-dom sub-set and its orig-i-nal spac-ing heur
+is-tic for in-com-plete years. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) A stronger ex-ploratory com-par-i-son enu-mer-ates all 5,
+758 fea-si-ble same-count 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) incomplete-year sub-sets in the 807 orig-i-nal com-mon ar
+chives; 5,756 sub-sets be- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) long to the 805 ac-tu-ally masked archives. Two ad-di-tio
+nal choices use only cal-en-dar 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) years and in-clude the fixed com-plete set in their ob-je
+c-tive: min-i-miz-ing the mean 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) squared dis-crep-ancy be-tween se-lected and full-referen
+ce em-pir-i-cal year CDFs on 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+18) the integer-year grid, or max-i-miz-ing cen-tered year sp
+read $\OML/cmm/m/it/10 S[]$\OT1/cmr/m/n/10 (+18) . Ties fol-low the other 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) ob-jec-tive and then lex-i-co-graphic incomplete-year or-
+der. These choices never in- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) spect wa-ter tem-per-a-ture or re-con-struc-tion er-rors.
+ Uni-form ran-dom per-for-mance 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) av-er-ages squared er-ror over fea-si-ble sub-sets within
+ each archive be-fore tak-ing the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) across-archive square root. Two hun-dred fixed ran-dom se
+eds sep-a-rately de-scribe 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) se-lec-tion vari-a-tion; their per-centile range is not a
+ con-fi-dence in-ter-val. Paired 95% 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) per-centile in-ter-vals re-sam-ple the 17 con-nected grou
+ps 10,000 times, re-tain-ing ev- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) ery archive in the se-lected group. The orig-i-nal one-dr
+aw con-trasts are re-ported for 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) seeds 20261029 and 2026102969; CDF, $\OML/cmm/m/it/10 S[]
+$ \OT1/cmr/m/n/10 (+20) and uniform-exact in-ter-vals use seed 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) 2026102969. The two seeds agree on whether each legacy in
+-ter-val con-tains zero. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+17) Station- and group-equal weight-ing are sen-si-tiv-i-ties
+. These ex-ploratory in-ter-vals are 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) point-wise sum-maries with-out mul-ti-plic-ity ad-just-me
+nt across con-trols and sen-si-tiv- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+\OT1/cmr/m/n/10 (+20) i-ties. For each se-lected set, complete-year H30 gives y
+ear-set slope er-ror $\OML/cmm/m/it/10 S$\OT1/cmr/m/n/10 (+20) , an-nual 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15]
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+[]\OT1/cmr/m/n/10 (+20) The his-tor-i-cal clas-si-cal com-para-tor gen-er-ates 
+20 residual-bridge paths. To 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) eval-u-ate bud-get sen-si-tiv-ity, we freeze the orig-i-n
+al six sta-tions, 27 scored tar-get 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) station-years, masks, daily means and resid-ual his-to-ri
+es, and the orig-i-nal source 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) interval-calibration roles and boot-strap mul-ti-plic-i-t
+ies. The two target-region roles 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) con-tribute 1,142 and 1,228 positive-weight cal-i-bra-tio
+n cases, 2,370 in to-tal, at 19 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) sta-tions in 102 station-years be-fore 2010. Each role ha
+s four positive-weight con- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) nected groups, dis-joint from its tar-get group. Na-tive 
+20-path gen-er-a-tion ex-actly 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) re-pro-duces both the orig-i-nal source re-pair and tar-g
+et draws and quan-tiles. Nested 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) gen-er-a-tor con-sumes ran-dom ar-rays by day, the na-tiv
+e 20-path sam-ple dif-fers from 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+\OT1/cmr/m/n/10 (+20) that 500-path pre-fix; the his-tor-i-cal na-tive base-lin
+e and nested-budget con-trasts are 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+[]\OT1/cmr/m/n/10 (+20) For ev-ery bud-get and seed we com-pare three tar-get d
+is-tri-bu-tions: no off-set, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) the orig-i-nal fixed source off-set, and an off-set re-co
+m-puted on the orig-i-nal source 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) role at that bud-get. Source quan-tiles are pro-jected on
+to the ob-served bound be-fore 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) weighted cal-i-bra-tion, us-ing the orig-i-nal 50-positiv
+e-case stra-tum fall-back. Tar-get 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+8) quan-tiles are pro-jected, off-set, sorted and pro-jected 
+again. No tar-get out-come en-ters 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) strat-i-fied prob-a-bil-ity lev-els with the same normal-
+spacing tail con-tin-u-a-tion, so that 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) scor-ing ap-prox-i-ma-tion is held con-stant. Cov-er-age,
+ ab-so-lute end-point move-ments 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) and scores are re-ported by re-gion/reconstructor; the ta
+r-get sam-ple has only two 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+\OT1/cmr/m/n/10 (+20) con-nected groups. Nei-ther this ex-per-i-ment nor sub-se
+-quent joint-rank sam-pling 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+(./figure_observed_records.tex
+<figures/simple_research/01_observed_records.pdf, id=103, 517.60149pt x 208.325
+18pt>
+File: figures/simple_research/01_observed_records.pdf Graphic file (type pdf)
+<use figures/simple_research/01_observed_records.pdf>
+Package pdftex.def Info: figures/simple_research/01_observed_records.pdf  used 
+on input line 1.
+(pdftex.def)             Requested size: 397.48499pt x 159.98174pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--1
+\OT1/cmr/m/n/9 (+20) records. Crosses on the left are ad-di-tional approved-rec
+ord wit-nesses with sparse one-to-three-
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+[]\OT1/cmr/m/n/10 (+20) At 20 of 96 el-i-gi-ble sta-tions, 35 in-com-plete year
+s con-tain an ob-served win-dow 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+\OT1/cmr/m/n/10 (+20) above the max-i-mum complete-year H30 (Fig-ure 3[]). Six 
+sta-tions have a wit-ness 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+\OT1/cmr/m/n/10 (+20) ex-ceed-ing the complete-year record by more than 0.5$[]$
+C. An-other in-com-plete year 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+\OT1/cmr/m/n/10 (+3) could still be warmer, and mea-sure-ment er-ror or a chang
+ed sen-sor lo-ca-tion can af-fect 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+[]\OT1/cmr/m/n/10 (+20) The prac-ti-cal con-se-quence de-pends on the rule. Ta-
+ble 6[] ac-counts for all 2,700 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) el-i-gi-ble station-years. Complete-year se-lec-tion ad-m
+its 2,139 years and dis-cards 561; 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) 545 of the dis-carded years still con-tain a fully ob-ser
+ved 30-day win-dow and 16 are 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) un-known. The station-specific warm-season rule ad-mits 2
+,634 years and ex-cludes 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) 66, of which 50 still con-tain a fully ob-served win-dow.
+ Of the 35 se-lected wit-nesses, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) 32 pass the warm-season cri-te-rion and 31 pass 95% an-nu
+al cov-er-age. Among the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+14) warm-season ex-clu-sions, only 2 ex-ceed the largest re-p
+orted win-dow among the other 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) rule-accepted years, by 0.150 and 0.113 $[]$C. The larger
+ 0.930$[]$C dif-fer-ence for the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+\OT1/cmr/m/n/10 (+20) Bavar-ian 2022 case is rel-a-tive to the complete-year re
+cord, not to the warm-season 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+[]\OT1/cmr/m/n/10 (+20) The rule also ad-mits 19 in-com-plete years whose ob-se
+rved win-dows ex-ceed 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+20) the ac-cepted record of the other ac-cepted years. Strict
+ com-plete-ness dis-cards all 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+20) of them. Those 19 win-dows add in-for-ma-tion rel-a-tive 
+to strict complete-year se-lec- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+20) tion. Rel-a-tive to the warm-season rule, the ad-di-tiona
+l ob-served facts are the two 
+ []
+
+
+Overfull \hbox (0.13957pt too wide) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+18) as an-nual H30. Nu-mer-i-cal re-cov-ery of those years is
+ a sep-a-rate cost, re-ported be-low. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+13) The com-par-i-son uses the full archive ret-ro-spec-tivel
+y, af-ter set-ting the eval-u-ated year 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+6) aside. It is not a se-quence of phys-i-cal records an-noun
+ced in his-tor-i-cal time from only 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+20) the data then avail-able. At an as-sumed ab-so-lute er-ro
+r of 0.05$[]$C on each win-dow, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+\OT1/cmr/m/n/10 (+20) both ex-cluded dif-fer-ences ex-ceed $2\OML/cmm/m/it/10 ^
+^O$\OT1/cmr/m/n/10 (+20) ; at 0.10$[]$C, nei-ther dif-fer-ence ex-ceeds $2\OML/
+cmm/m/it/10 ^^O$\OT1/cmr/m/n/10 (+20) . These 
+ []
+
+
+Underfull \vbox (badness 7704) has occurred while \output is active []
+
+ [17 <./figures/simple_research/01_observed_records.pdf>] (./rule_accounting_ta
+ble.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+[]\OT1/cmr/bx/n/9 (+20) Table 6. \OT1/cmr/m/n/9 (+20) Ev-ery el-i-gi-ble statio
+n-year un-der the com-pared com-plete-ness rules. ``Num-ber'' is a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) complete-year H30; ``bound'' is an in-com-plete year with 
+a fully ob-served 30-day win-dow; ``un-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) known'' has nei-ther. ``New facts'' counts ad-mit-ted in-c
+om-plete years whose ob-served win-dow
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+[]\OT1/cmr/m/n/10 (+20) The seasonal-window, past-only and air-regression di-ag
+-nos-tics are re-ported in 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+\OT1/cmr/m/n/10 (+20) the Sup-port-ing In-for-ma-tion. They show that re-tained
+ heat in-for-ma-tion de-pends on 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+\OT1/cmr/m/n/10 (+20) do not re-pro-duce the mul-ti-year cli-mate cor-rec-tion 
+of []Beaufort et al.[] (2022), whose 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+\OT1/cmr/m/n/10 (+20) tar-get and site ex-clu-sions dif-fer, and they do not es
+-tab-lish a uni-ver-sal H30 er-ror 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
+[]\OT1/cmr/m/n/10 (+20) The ad-di-tional observation-only USGS in-take is re-po
+rted in the Sup-port-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
+\OT1/cmr/m/n/10 (+20) In-for-ma-tion. It cor-rob-o-rates omis-sion at three sta
+-tions but does not es-ti-mate in-ci- 
+ []
+
+
+Overfull \hbox (0.14287pt too wide) in paragraph at lines 152--152
+[]\OT1/cmr/bx/n/10 (+8) Annual re-cov-ery is a source-role com-par-i-son, not a
+ target-region 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+[]\OT1/cmr/m/n/10 (+20) On con-trolled gaps over-lap-ping at least half the tra
+in-ing cli-ma-to-log-i-cal peak, 
+ []
+
+
+Overfull \hbox (0.10973pt too wide) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+17) the me-dian source-repetition H30 MAE is ap-prox-i-mately
+ 0.428$[]$C for the daily plug- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) in, 0.355 for func-tional de-bi-as-ing, 0.337 for D2 and 
+0.336 for source-role-calibrated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) stochas-tic re-gres-sion (Fig-ure 4[]). Me-dian 90% in-te
+r-val cov-er-age is 89.3% and 89.8%, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) re-spec-tively, with CRPS 0.246 and 0.245. These source-c
+alibrated scores de-scribe 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) the ex-e-cuted 20-path clas-si-cal bud-get. They es-tab-l
+ish nei-ther equiv-a-lence nor a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) ro-bust fine method rank-ing un-der more fully sam-pled a
+n-nual dis-tri-bu-tions. Both 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) dis-tri-bu-tions use the same sup-port pro-jec-tion and t
+ail ap-prox-i-ma-tion in this com- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+\OT1/cmr/m/n/10 (+20) par-i-son; method-specific avail-abil-ity and paired coun
+ts are re-ported in Sup-port-ing 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18]
+(./simple_research_results.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+[]\OT1/cmr/m/n/10 (+20) The whole-archive bench-mark com-prises 3,320 sta-tion/
+repetition/setting eval- 
+ []
+
+
+Overfull \hbox (0.11522pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) u-a-tions at 42 long-record sta-tions in 18 con-nected gr
+oups. Fig-ure 5[] and Ta-ble 7[] use 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) com-mon sta-tion/repetition rows. For the for-ward contro
+lled-gap re-ten-tion con-trast, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) both re-ten-tion sets are avail-able in 807 of 820 set-ti
+ngs; the all-year D2 RMSE on 
+ []
+
+
+Overfull \hbox (0.10695pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+19) those 807 rows is 0.169 $[]$C per decade, com-pared with 
+0.445 un-der the warm-season 
+ []
+
+
+Overfull \hbox (0.15887pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+11) rule. The 820-row all-year value is not used for this pai
+red con-trast. Re-tain-ing years 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) im-proves the finite-record slope com-par-i-son in the ev
+al-u-ated set-tings. The ex-e-cuted 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) fixed-budget D2 and clas-si-cal com-par-isons vary with t
+ime set-ting and re-gion; small 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) dif-fer-ences do not es-tab-lish a rank-ing for more full
+y sam-pled source-calibrated an- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+\OT1/cmr/m/n/10 (+20) nual dis-tri-bu-tions. Re-sults are con-di-tional on dono
+r avail-abil-ity and mask de-sign. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+[]\OT1/cmr/m/n/10 (+20) The four-cell fac-to-rial com-par-i-son gives an arith-
+metic re-ten-tion con-trast. It 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) is not an or-thog-o-nal year-set/reconstruction er-ror de
+-com-po-si-tion or an iden-ti-fied 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) year-count ef-fect. For of-fline con-trolled gaps, the sy
+m-met-ric re-ten-tion con-trast is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/cmr/m/n/10 (+20) 93.0% of the D2-versus-rule/plug-in MSE gain. This is a r
+e-sult for this ex-per-i-ment, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+[]\OT1/cmr/m/n/10 (+20) The peak-visibility strat-i-fi-ca-tion sep-a-rates case
+s where the com-plete ref-er-ence 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) peak is al-ready vis-i-ble at the ob-served lower bound f
+rom cases where it is not (Ta- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) ble 8[]). In the for-ward empirical-calendar com-mon case
+s, 3,125 of 3,674 ref-er-ence 
+ []
+
+
+Overfull \hbox (0.1315pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+14) gap stra-tum is harder. In the for-ward con-trolled gaps,
+ 1,537 com-mon cases have the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) ref-er-ence peak at the bound and 2,146 have a higher ref
+-er-ence peak. D2 nom-i-nal 
+ []
+
+
+Overfull \hbox (0.16277pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+2) 90% cov-er-age is 99.3% and 94.4% in the vis-i-ble stra-tu
+m, but 83.2% and 81.6% in the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) hid-den stra-tum. Hidden-stratum MAE is 0.378 and 0.345 $
+[]$C. Longer gaps, par-tial 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) training-peak over-lap and re-gion change these val-ues: 
+D2 cov-er-age falls from 92.6% 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) at 30-day gaps to 90.3% at 31--60 days and 86.9% at 61--9
+0 days, and from 97.1% 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) with no training-peak over-lap to 83.9% with par-tial ove
+r-lap. Bavaria has 82.9% 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) cov-er-age ver-sus 98.7% for the Swiss FOEN sta-tions. Re
+-mov-ing Bavaria changes 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+20) the D2-minus-classical MAE dif-fer-ence from 0.013 to -0.
+013 $[]$C. These strata are 
+ []
+
+
+Overfull \hbox (0.1027pt too wide) in paragraph at lines 6--7
+\OT1/cmr/m/n/10 (+8) de-scrip-tive; the hidden-peak stra-tum uses the with-held
+ ref-er-ence and can-not be-come 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19]
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+[]\OT1/cmr/m/n/10 (+20) Annual marginals and trend un-cer-tainty give dif-fer-e
+nt an-swers (Fig-ure 6[]). 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) The left panel is a paired com-par-i-son on the two-metho
+d in-ter-sec-tion, weighted by 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+11) in-com-plete years. For for-ward con-trolled gaps that in
+-ter-sec-tion has 736 archives and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 method on its own avail-able archives, so the printed sam-ple s
+izes dif-fer and the panel 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) is not a paired com-par-i-son. On D2's own for-ward set, 
+nom-i-nal 95% independent- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) rank trend cov-er-age is 88.0% and resid-ual blocks give 
+89.0%. On the in-ter-sec-tion, 
+ []
+
+
+Overfull \hbox (0.1326pt too wide) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+7) independent-rank trend cov-er-age is 89.1% for D2 and 86.3
+% for the clas-si-cal method. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) The dashed lines are the nom-i-nal 90% an-nual tar-get on
+ the left and the nom-i-nal 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) 95% trend tar-get on the right. Within one es-ti-ma-tor, 
+the three rank con-struc-tions 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) keep that es-ti-ma-tor's an-nual marginals fixed; the two
+ es-ti-ma-tors do not share one 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) an-nual dis-tri-bu-tion. The joint-rank nu-mer-i-cal chec
+k in-creases the sam-ples through 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) 256, 1,024 and 4,096 (Ta-ble 9[]). At 4,096 sam-ples, nom
+-i-nal 95% trend cov-er-age is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+4) 87.4%--89.9% across meth-ods, con-struc-tions and seeds, s
+o the un-der-cov-er-age re-mains. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) The largest change in the three-seed mean cov-er-age is 0
+.36 per-cent-age points, and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+3) the largest single-seed change is 0.815 per-cent-age point
+s. 5 of 6 method--construction 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) pairs meet a 0.3-point rule on the three-seed mean. That 
+mean can can-cel op-pos- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) ing seed changes, so it is not a res-o-lu-tion guar-an-te
+e and the con-struc-tions are not 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+\OT1/cmr/m/n/10 (+20) ranked. The ex-per-i-ment does not uniquely at-tribute th
+e resid-ual un-der-cov-er-age to 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+[]\OT1/cmr/m/n/10 (+20) Task cal-i-bra-tion is avail-able for 39 of 820 for-war
+d controlled-gap D2 cases 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+\OT1/cmr/m/n/10 (+20) (4.8%), rep-re-sent-ing two sta-tions and two groups. Bot
+h task cal-i-bra-tion and the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+\OT1/cmr/m/n/10 (+20) independent-draw com-para-tor cover all of these same cas
+es, but the task-calibrated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+\OT1/cmr/m/n/10 (+8) av-er-age width is 0.513 $[]$C per decade ver-sus 0.461 fo
+r the in-de-pen-dent in-ter-val. This 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+\OT1/cmr/m/n/10 (+20) selected-subset re-sult does not demon-strate gen-eral im
+-prove-ment. With-hold-ing and 
+ []
+
+) (./simple_research_tables.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+[]\OT1/cmr/m/n/10 (+20) The three-output re-lease com-par-i-son also does not e
+s-tab-lish a gen-eral safety 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) gain. Match-ing the nu-mer-i-cal out-put count on fu-ture
+ long gaps gives 17,583 val-ues 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) per rule; the three-output rule pro-duces 1,924 er-rors (
+10.94%) and sim-ple score 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) rank-ing pro-duces 1,220 (6.94%). Match-ing within the 3,
+174 for-ward controlled-gap 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) archives gives trend RMSE 0.202 ver-sus 0.196 $[]$C per d
+ecade, and the connected- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) group in-ter-val for the paired squared-error dif-fer-enc
+e spans zero. The published- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) values-plus-bounds work-ing like-li-hood treats re-leased
+ val-ues as ex-act and cov-ers 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--157
+\OT1/cmr/m/n/10 (+20) 99.8% with a 3.26 $[]$C per decade width; it is not a cal
+-i-brated missingness-only 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [20]
+(./peak_visibility_main_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+[]\OT1/cmr/bx/n/9 (+20) Table 8. \OT1/cmr/m/n/9 (+20) An-nual re-cov-ery sep-a-
+rated by whether the com-plete ref-er-ence peak is al-ready vis-i-ble
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) at the ob-served lower bound. The strat-i-fi-ca-tion uses 
+the with-held com-plete ref-er-ence and is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) un-avail-able at de-ci-sion time. Com-mon fi-nite D2 and c
+las-si-cal cases, crossed for-ward con-trolled
+ []
+
+) (./rank_convergence_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+[]\OT1/cmr/bx/n/9 (+20) Table 9. \OT1/cmr/m/n/9 (+20) Nu-mer-i-cal con-ver-genc
+e of the three fixed-marginal joint-rank con-struc-tions on the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) dif-fi-cult for-ward con-trolled gaps. An-nual quan-tiles,
+ bounds and eval-u-a-tion years are fixed. The
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+[]\OT1/cmr/m/n/10 (+20) The main com-par-i-son ex-cludes held test sta-tions an
+d con-nected groups from 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+\OT1/cmr/m/n/10 (+12) source roles, but its orig-i-nal for-ward HUC17 es-ti-ma-
+tor and NVE in-ter-val cal-i-bra-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+\OT1/cmr/m/n/10 (+20) re-tain other same-region groups. Strict-region and candi
+date-provider sen-si-tiv-i- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+\OT1/cmr/m/n/10 (+20) ties are re-ported in Sup-port-ing In-for-ma-tion; chang-
+ing providers, source sam-ples 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+\OT1/cmr/m/n/10 (+20) and roles to-gether does not iden-tify a provider ef-fect
+. These fixed-budget method 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
+[]\OT1/cmr/m/n/10 (+20) Hiding match-ing tar-get gaps from donors raises D2 fin
+ite-record slope RMSE 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
+\OT1/cmr/m/n/10 (+20) from 0.1555 to 0.2024$[]$C per decade on 205 com-mon for-
+ward archives. Match-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
+\OT1/cmr/m/n/10 (+20) heat-associated gap tem-plates leaves paired stress ef-fe
+cts com-pat-i-ble with zero. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
+\OT1/cmr/m/n/10 (+20) These re-sults de-scribe the im-posed in-for-ma-tion con-
+di-tions and do not iden-tify a 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+[]\OT1/cmr/m/n/10 (+20) The re-lease rule in Fig-ure 7[] with-holds un-sup-port
+ed num-bers; Fig-ure 8[] re-tains 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+\OT1/cmr/m/n/10 (+20) its neg-a-tive re-sults. It does not beat sim-ple score r
+ank-ing at matched re-ten-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+\OT1/cmr/m/n/10 (+20) or cer-tify gen-eral sensor-quality con-trol. Sup-port-in
+g In-for-ma-tion Ta-ble S2 re-ports 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+\OT1/cmr/m/n/10 (+20) the source com-par-i-son and Ta-ble S3 the matched-target
+ com-par-i-son; de-tails, the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+[]\OT1/cmr/m/n/10 (+3) Strict in-de-pen-dent ex-ter-nal con-fir-ma-tion re-main
+s un-re-solved. Ref-er-ence qual-ity, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+\OT1/cmr/m/n/10 (+20) clock, prior ex-po-sure and wa-ter-shed de-pen-dence re-m
+ain sep-a-rate lim-its. British 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+\OT1/cmr/m/n/10 (+20) Columbia, Nova Sco-tia, Truc-kee and reser-voir com-par-i
+sons re-main ex-ploratory. Rio 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+\OT1/cmr/m/n/10 (+20) Mora's continuous-reference years in-clude 2017 with ev-e
+ry quarter-hour slot and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+\OT1/cmr/m/n/10 (+20) bounded years 2012 and 2019; un-known quarter-hour val-ue
+s use the con-di-tional 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+\OT1/cmr/m/n/10 (+20) range $[\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 (+20) 5\OML/c
+mm/m/it/10 ; \OT1/cmr/m/n/10 (+20) 50]$ $[]$C. Daily-target ac-cu-racy does not
+ es-tab-lish equiv-a-lent physical- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+\OT1/cmr/m/n/10 (+20) reference ac-cu-racy. These lim-its con-strain broad tran
+s-port claims with-out eras-ing 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21]
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+[]\OT1/cmr/m/n/10 (+18) Hidden-peak frac-tions are sim-i-lar in Bavaria (58.4%)
+ and Switzer-land (56.6%), 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 (+20) but their re-con-struc-tion sup-port dif-fers (Fig-ure 9[
+]; Ta-ble 10[]). Bavar-ian air-ridge 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 (+20) hidden-peak 90% in-ter-vals cover 67.9% with bias -0.479$
+[]$C; 30.2% of ref-er-ences ex- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 (+20) ceed their up-per end-point. Donor-ridge cov-er-age is 90
+.8% in Bavaria and 98.1% in 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 (+20) Switzer-land. Daily out-of-fold resid-ual scales are 1.05
+4, 0.673 and 0.455$[]$C, re-spec- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 (+20) tively. These are con-di-tional as-so-ci-a-tions among di
+f-fer-ent cases, not a con-trolled 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+[]\OT1/cmr/m/n/10 (+20) Common ge-o-met-ric sup-port alone has re-gional cell-f
+requency to-tal vari-a-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) 0.228. Iden-ti-cal min-count weights re-duce that joint-c
+ell dis-tance to zero and yield 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) cov-er-age 98.72% in Switzer-land ver-sus 82.68% in Bavar
+ia, a 16.04-point dif-fer-ence 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) (Ta-ble 11[]). Equal-cell weight-ing also re-tains a con-
+trast. Thus a con-trast re-mains 
+ []
+
+
+Overfull \hbox (0.14822pt too wide) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+10) af-ter equal-iz-ing the fre-quen-cies of these coarse ge-
+o-met-ric cells. Adding re-con-struc-tor 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) re-tains only 289/1983 Bavar-ian and 472/1119 Swiss cases
+. Their stan-dard-ized cov- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) er-age dif-fer-ence is 3.69 points, but Switzer-land sup-
+plies no air-ridge coun-ter-part to 
+ []
+
+
+Overfull \hbox (0.13719pt too wide) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+18) the main Bavar-ian fail-ure layer. Re-mov-ing 85.4% of Ba
+var-ian cases can-not es-ti-mate 
+ []
+
+
+Overfull \hbox (0.16199pt too wide) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+5) how much re-con-struc-tor choice ex-plains the orig-i-nal 
+re-gional gap. Train-ing complete- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) year counts also re-main strongly im-bal-anced af-ter wei
+ght-ing (ab-so-lute stan-dard-ized 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) dif-fer-ences ex-ceed 2.7). The cause of the re-gional di
+f-fer-ence re-mains uniden-ti-fied; 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) pro-cess ex-pla-na-tions have not been ex-cluded. Delet-i
+ng one con-nected group and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) re-com-put-ing com-mon sup-port and weights leaves the ge
+-o-met-ric cov-er-age con-trast 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+12) pos-i-tive (12.39--17.77 points), but the reconstructor-c
+onditioned con-trast can re-verse 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/n/10 (+20) sign (min-i-mum $\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 (+20
+) 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (+20) 12$ points). This is an in-flu-ence 
+check over chang-ing sup-ported 
+ []
+
+(./process_region_policy_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) la-bel uses with-held complete-year H30. Cov-er-age is nom
+-i-nal 90%. Above-interval is the share of
+ []
+
+) (./process_region_revision_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Table 11. \OT1/cmr/m/n/9 (+20) De-scrip-tive re-gional 
+cov-er-age stan-dard-iza-tion on com-mon cells. Min-count weights
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) are the pri-mary com-mon tar-get; equal-cell weights are a
+ sen-si-tiv-ity anal-y-sis. Cov-er-age is in per-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) cent and dif-fer-ences are per-cent-age points. Ge-om-e-tr
+y cells con-tain gap, training-peak over-lap,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+19) year and visible-donor bins. Adding the re-con-struc-tor c
+hanges the sup-ported pop-u-la-tion; it does
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+[]\OT1/cmr/m/n/10 (+20) Pooled an-nual slopes are 1.143/1.176 in Switzer-land a
+nd 1.318/1.409 in 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) Bavaria. Within-station slopes are 0.715/0.701 and 0.814/
+0.809 (Ta-ble 12[]). Pooled 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) cor-re-la-tions rank Switzer-land above Bavaria in both p
+e-ri-ods, 0.842/0.817 ver-sus 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) 0.649/0.708. Within-station cor-re-la-tions keep that or-
+der be-fore 2010 (0.855 ver-sus 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) 0.826) and re-verse it af-ter-ward (0.725 ver-sus 0.800; 
+Ta-ble 13[]). The within-station 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) slopes change by -0.014 in Switzer-land and -0.005 in Bav
+aria. The Swiss group- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) resample in-ter-val ex-cludes zero, but two groups pro-du
+ce only three com-po-si-tions, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) so that in-ter-val is not ev-i-dence of a changed water--
+air re-la-tion. Only two Swiss 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) con-nected groups are avail-able. Nei-ther this lim-ited 
+an-nual ev-i-dence nor max-ima 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) on po-ten-tially dif-fer-ent dates es-tab-lish sta-ble da
+ily resid-u-als, hidden-peak tim-ing, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) tail be-hav-ior or au-to-cor-re-la-tion. In Bavaria, equa
+l sta-tion weight-ing changes the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+\OT1/cmr/m/n/10 (+20) from $\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 (+20) 0\OML/cmm
+/m/it/10 :\OT1/cmr/m/n/10 (+20) 0882$ to $+0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 (
++20) 1089$. The pooled an-nual point es-ti-mate there-fore does not 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22]
+(./process_water_revision_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Table 12. \OT1/cmr/m/n/9 (+20) An-nual water--air H30 a
+s-so-ci-a-tions in unique com-plete station-years. Years and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) slopes are shown be-fore/from 2010; S/G counts sta-tions/c
+onnected groups. Within es-ti-mates
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+8) cen-ter both vari-ables within sta-tion and pe-riod. Slopes
+ and cor-re-la-tions pool the cen-tered an-nual
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) ob-ser-va-tions, rather than av-er-ag-ing sta-tion co-ef-f
+i-cients. The paired 95% per-centile in-ter-vals
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) re-sam-ple the same con-nected groups in both pe-ri-ods; o
+nly two FOEN groups and eight Bavaria
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) groups are avail-able, so these in-ter-vals are de-scrip-t
+ive and coarse. Station-resampling sen-si-tiv-ity
+ []
+
+) (./process_water_revision_correlation.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+[]\OT1/cmr/m/n/10 (+16) On 805 ac-tu-ally masked for-ward controlled-gap archiv
+es, the me-dian complete- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) record H30 slope is 0.754$[]$C per decade (in-terquar-til
+e range 0.496 to 0.906). The 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) warm-season rule re-tains 9.59 years on av-er-age and yie
+lds estimated-slope RMSE 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) 0.4459, more than half that me-dian. All-year RMSE 0.1697
+ is less than one quar-ter 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) of it. The warm-season rule's orig-i-nal one-draw ran-dom
+ and incomplete-year-only 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+2) spac-ing con-trols give 0.4540 and 0.4566. On the 468 arch
+ives that can se-lect dif-fer-ent 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) years, those weak rules give 0.3944, 0.4100 and 0.4150. T
+he spac-ing rule changes 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) mean span only from 13.265 to 13.343 years, be-cause fixe
+d com-plete years stay 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) out-side its ob-jec-tive. A seed-20261029 group re-sam-pl
+e gives weak-control mi-nus 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) warm-season in-ter-vals [-0.0106, +0.0176] and [-0.0060, 
++0.0394], both con-tain-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) si-ble sub-sets gives 0.4492, with a paired group-resampl
+ing in-ter-val for its dif-fer-ence 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) from warm-season RMSE span-ning zero. This re-moves singl
+e-selection Monte Carlo 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+\OT1/cmr/m/n/10 (+20) noise from that com-par-i-son. The mean RMSE across 200 s
+ep-a-rately drawn se-lec- 
+ []
+
+
+Overfull \hbox (0.10466pt too wide) in paragraph at lines 186--187
+[]\OT1/cmr/m/n/10 (+6) The stronger cal-en-dar con-trols im-prove per-for-mance
+ (Fig-ure 10[]; Ta-ble 14[]). Op- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+19) ti-miz-ing the em-pir-i-cal year CDF in-clud-ing fixed co
+m-plete years gives RMSE 0.4284, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+20) with a paired dif-fer-ence in-ter-val [-0.0274, -0.0049];
+ max-i-miz-ing $\OML/cmm/m/it/10 S[]$ \OT1/cmr/m/n/10 (+20) gives 0.4023 and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+20) [-0.0645, -0.0173]. They change 367 and 376 warm-season s
+e-lec-tions, re-spec-tively. 
+ []
+
+
+Overfull \hbox (0.12224pt too wide) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+16) Both di-rec-tions per-sist with station- or group-equal w
+eights and af-ter each of the 17 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+19) group dele-tions. These ex-ploratory find-ings show that 
+the ear-lier weak con-trols can- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+20) not sup-port a blan-ket claim of no ad-van-tage for same-
+count se-lec-tion. They as-sess 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+\OT1/cmr/m/n/10 (+20) calendar-based se-lec-tion rules at fixed count; they nei
+-ther es-tab-lish equiv-a-lence nor 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23]
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+[]\OT1/cmr/m/n/10 (+20) The count con-straints force a sin-gle fea-si-ble set i
+n 337/805 archives: 332 re- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+\OT1/cmr/m/n/10 (+20) tain no in-com-plete year and 5 re-tain all. The other 46
+8 archives of-fer a choice. On 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+\OT1/cmr/m/n/10 (+20) this sub-set, warm-season, CDF and $\OML/cmm/m/it/10 S[]$
+ \OT1/cmr/m/n/10 (+20) RM-SEs are 0.3944, 0.3594 and 0.3031. Re- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+\OT1/cmr/m/n/10 (+20) tain-ing all sup-ported years re-mains closer to the spec
+-i-fied complete-record slope, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+\OT1/cmr/m/n/10 (+20) with RMSE 0.1697 on all 805 com-mon masked archives, ver-
+sus 0.4023 for the best 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+\OT1/cmr/m/n/10 (+6) tested same-count con-trol. Un-der seed 2026102969 the pai
+red all-minus-warm-season 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+[]\OT1/cmr/m/n/10 (+20) Year-set RMSE un-der warm-season screen-ing is 0.446, c
+om-pared with re-con- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+\OT1/cmr/m/n/10 (+20) struc-tion RMSE 0.002 on that same set. The all-year trut
+h-set er-ror is zero by 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+[]\OT1/cmr/m/n/10 (+20) The orig-i-nal 807-archive paired co-hort ad-di-tion-al
+ly con-tains two zero-mask 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+\OT1/cmr/m/n/10 (+20) archives, Bavar-ian sta-tions 10081004/repli-cate 6 and 1
+1405000/repli-cate 14, whose 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+\OT1/cmr/m/n/10 (+20) empty pre-dic-tion schemas caused ex-clu-sion from the ol
+der di-ag-nos-tic. Restor-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+\OT1/cmr/m/n/10 (+20) their zero er-rors is a re-ported sen-si-tiv-ity. The re-
+main-ing 13 of 820 archives re-tain 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+\OT1/cmr/m/n/10 (+20) only three or four warm-season years and fail the orig-i-
+nal five-year slope cri-te-rion. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+\OT1/cmr/m/n/10 (+20) Their all-year RMSE is 0.3390 and the all-820 all-year RM
+SE is 0.1735; these un- 
+ []
+
+(./process_experiments_time_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Table 14. \OT1/cmr/m/n/9 (+20) Ex-ploratory finite-reco
+rd slope com-par-isons on 805 actual-mask archives in 17 con-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+2) nected groups. Er-rors are $[]$C per decade. CDF and Sxx op
+-ti-mize the en-tire re-tained set in-clud-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+12) def-i-ni-tion. The last col-umn gives comparator-minus-war
+m-season es-ti-mated RMSE with a paired
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+[]\OT1/cmr/m/n/10 (+20) In the orig-i-nal uncalibrated-only nested check, the p
+ooled me-dian ab-so-lute 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 (+20) upper-end change was 0.0071$[]$C, mask-ing 0.0011$[]$C am
+ong 18 Swiss donor-ridge 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 (+20) cases and 0.1140$[]$C among nine Bavar-ian air-ridge case
+s. 6 of those nine Bavar-ian 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 up-per end-points, and 7 of 27 over-all, move by more than 0.05
+$[]$C; 10 of 27 do so at ei- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 (+20) ther end-point. Mean 90% in-ter-val width in-creases from
+ 0.3179 to 0.3686$[]$C (15.9%). 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 (+20) The Bavar-ian 10046105/2011 up-per end-point moved by 0.4
+346$[]$C; un-cal-i-brated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 (+5) cov-er-age changed from 23/27 to 25/27. These orig-i-nal d
+i-ag-nos-tics re-main de-scrip-tive 
+ []
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+[]\OT1/cmr/m/n/10 (+20) The new ex-per-i-ment com-pletes the source-role step. 
+All 2370 native-20 source 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+20) cases and all 27 native-20 tar-get cases re-pro-duce thei
+r his-tor-i-cal draws and seven 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+20) quan-tiles ex-actly. Source el-i-gi-bil-ity re-mains un-c
+hanged across seeds and bud-gets. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+20) Re-estimating source off-sets changes the be-hav-ior even
+ in the Swiss sub-set whose 
+ []
+
+
+Overfull \hbox (0.12581pt too wide) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+4) un-cal-i-brated me-dian was small (Fig-ure 11[]; Ta-ble 15
+[]). Across seeds, the me-dian ab-so- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+20) lute re-cal-i-brated upper-end change from nested 20 to 5
+00 paths is 0.0691--0.1169$[]$C 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+20) in Switzer-land and 0.0609--0.1011$[]$C in Bavaria. The c
+or-re-spond-ing upper-end ex- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+\OT1/cmr/m/n/10 (+12) ceedance counts are 10--13/18 and 6--7/9. Hold-ing tar-ge
+t draws fixed while chang-ing 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+[]\OT1/cmr/m/n/10 (+20) On the same 27 tar-gets, his-tor-i-cal native-20 clas-s
+i-cal MAE is 0.1335$[]$C ver-sus 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) ranges from 0.1100--0.1158 across seeds and crosses the f
+ixed D2 value. Un-der one 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) com-mon scor-ing ap-prox-i-ma-tion, up-dated 500-path cla
+s-si-cal CRPS ranges from 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) 0.0762--0.0787, against his-tor-i-cal clas-si-cal CRPS 0.
+0879 and fixed D2 CRPS 0.0867. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 Within seed 0 the updated-source CRPS also crosses fixed D2 be-
+tween nested 20 and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) 500 paths. Na-tive 20-path draws and a nested 500-path pr
+e-fix are dif-fer-ent sam-ples. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) path in-ter-vals in each seed. These are lo-cal com-par-i
+sons on two con-nected groups. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) They show that sam-pling bud-get and source re-cal-i-bra-
+tion can change an end-point 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+\OT1/cmr/m/n/10 (+20) or a lo-cal score. They do not iden-tify a pre-ferred es-
+ti-ma-tor or ver-ify pop-u-la-tion 
+ []
+
+(./process_experiments_source_table.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+18) Table 15. \OT1/cmr/m/n/9 (+18) Same-target an-nual com-
+par-i-son by region--reconstructor stra-tum. D2 and his-tor-i-cal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) na-tive20 are fixed orig-i-nal ref-er-ences. Up-dated rows
+ re-gen-er-ate the source-role off-sets at the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) stated nested bud-get; en-tries are minima--maxima across 
+seeds 0, 1 and 2, not con-fi-dence in-ter-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) vals. MAE and mean 90% width are in $[]$C. CRPS uses the s
+ame seven-quantile normal-spacing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) 256-point ap-prox-i-ma-tion for ev-ery method. Each stra-t
+um con-tains one con-nected group; these
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+[]\OT1/cmr/m/n/10 (+20) Separately, the orig-i-nal joint-rank ex-per-i-ment in-
+creases only sam-ples from 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+\OT1/cmr/m/n/10 (+20) fixed an-nual quan-tiles and re-tains nom-i-nal 95% trend
+ un-der-cov-er-age (Ta-ble 9[]). 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+\OT1/cmr/m/n/10 (+20) An-nual 90% in-ter-vals, their 95th-percentile end-points
+ and trend 95% in-ter-vals 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+\OT1/cmr/m/n/10 (+20) re-main dis-tinct. Sup-port-ing In-for-ma-tion Ta-ble S4 
+com-pares the ear-lier rank and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+\OT1/cmr/m/n/10 (+20) tail as-sump-tions; the new source-budget ex-per-i-ment v
+aries the up-stream an-nual 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [25]
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+[]\OT1/cmr/m/n/10 (+20) The con-tri-bu-tion links observed-window facts, re-cov
+-ery of an an-nual statis-tic 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) un-der stated in-for-ma-tion con-di-tions, and a slope fo
+r a fixed record pe-riod. Di-rect 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) win-dow facts re-quire no im-pu-ta-tion. Year se-lec-tion
+ and an-nual re-con-struc-tion con- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) tribute dis-tinct, po-ten-tially can-celling er-rors to t
+he slope. The ex-act same-count 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) ex-per-i-ment now shows that cal-en-dar po-si-tions can i
+m-prove the re-sult even with-out 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) adding years. Restor-ing all sup-ported years im-proves i
+t fur-ther in the eval-u-ated 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) archives. This sup-ports at-ten-tion to time sup-port wit
+h-out as-sign-ing a pure causal 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) per-cent-age to year count or treat-ing near point es-ti-
+mates from weak con-trols as 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+\OT1/cmr/m/n/10 (+20) equiv-a-lence. The tar-get re-mains the fi-nite complete-
+record slope, not an iden-ti-fied 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+[]\OT1/cmr/m/n/10 (+20) A re-gional con-trast re-mains af-ter as-sign-ing com-m
+on weights to the checked 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+\OT1/cmr/m/n/10 (+20) ge-o-met-ric cells. His-tory, provider, re-gion and re-co
+n-struc-tion sup-port re-main en- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+\OT1/cmr/m/n/10 (+20) tan-gled, how-ever, and the ab-sence of a Swiss air-ridge
+ coun-ter-part pre-vents causal 
+ []
+
+
+Overfull \hbox (0.15646pt too wide) in paragraph at lines 214--215
+\OT1/cmr/m/n/10 (+8) at-tri-bu-tion. The reconstructor-conditioned con-trast ca
+n change sign when a group is 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+\OT1/cmr/m/n/10 (+20) re-moved. Sim-i-lar within-station an-nual water--air slo
+pes also con-ceal sen-si-tiv-ity to 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+\OT1/cmr/m/n/10 (+20) group and sta-tion weight-ing and do not es-tab-lish sta-
+ble gap-day resid-u-als or peak 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+[]\OT1/cmr/m/n/10 (+20) The com-pleted source-calibration ex-per-i-ment shows w
+hy the ear-lier pooled 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+\OT1/cmr/m/n/10 (+20) 0.007$[]$C di-ag-nos-tic was in-suf-fi-cient. Re-cal-i-br
+ated end-points change in both tar-get 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+\OT1/cmr/m/n/10 (+20) strata and lo-cal method com-par-isons de-pend on the Mon
+te Carlo re-al-iza-tion and 
+ []
+
+
+Overfull \hbox (0.10182pt too wide) in paragraph at lines 216--217
+\OT1/cmr/m/n/10 (+8) bud-get. His-tor-i-cal na-tive20 and a nested500 pre-fix a
+re dif-fer-ent ran-dom sam-ples and 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+\OT1/cmr/m/n/10 (+20) re-main ex-plic-itly dis-tin-guished. More paths can re-d
+uce sam-pling er-ror with-out re- 
+ []
+
+
+Overfull \hbox (0.16716pt too wide) in paragraph at lines 216--217
+\OT1/cmr/m/n/10 (+15) mov-ing struc-tural model or cal-i-bra-tion er-ror; 500 p
+aths on two tar-get groups do not 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+\OT1/cmr/m/n/10 (+20) prove con-ver-gence or trans-porta-bil-ity. The observati
+on-only facts and D2 year-set 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+[]\OT1/cmr/m/n/10 (+20) The co-hort re-mains the long-complete tail of the arch
+ive: me-dian 31 com-plete 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) years ver-sus 8 among the re-main-ing 539 source sta-tion
+s, with 24 of 42 eval-u-a-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) sta-tions in Bavaria. Re-peated masks and 18 con-nected g
+roups do not con-sti-tute 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) in-de-pen-dent hy-dro-cli-mates. Em-pir-i-cal cal-en-dars
+ are closer to ob-served an-nual 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) longest-gap con-di-tions than con-trolled 30--90-day stre
+sses, while ac-tual same-day 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) co-missingness is much lower on the recorded peer-conditi
+oned de-nom-i-na-tor. That 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) com-par-i-son does not mea-sure ev-ery model donor's avai
+l-abil-ity or a com-mon out- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) age cause. External-reference lim-i-ta-tions and the neg-
+a-tive re-lease and matched- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+\OT1/cmr/m/n/10 (+20) heat-stress re-sults re-main in Sup-port-ing In-for-ma-ti
+on. All added di-ag-nos-tics are 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [26]
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+[]\OT1/cmr/m/n/10 (+20) Observed 30-day win-dows in in-com-plete years can over
+-turn a complete-year 
+ []
+
+
+Overfull \hbox (0.18298pt too wide) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+19) heat record. The 19 warm-season-accepted win-dows add fac
+ts rel-a-tive to strict com- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) plete-ness; two ex-cluded win-dows add facts rel-a-tive t
+o the warm-season rule. In the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) controlled-gap ex-per-i-ment, the me-dian complete-record
+ slope is 0.754$[]$C per decade. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+12) Warm-season screen-ing er-ror is more than half of that m
+e-dian, and restor-ing all sup- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) ported years brings the er-ror be-low one quar-ter of it.
+ Fixed-count rules that place 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) years, in-clud-ing the com-plete years, can im-prove on w
+arm-season screen-ing; match- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) ing the year count alone does not. Re-gional stan-dard-iz
+a-tion re-tains a ge-o-met-ric 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) con-trast with-out iden-ti-fy-ing its cause. Re-peat-ing 
+both source and tar-get tra-jec-tory 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) sam-pling and re-cal-i-brat-ing on the orig-i-nal source 
+roles changes end-points and lo-cal 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) method com-par-isons, so a small pooled change can-not ce
+r-tify nu-mer-i-cal sta-bil-ity. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+\OT1/cmr/m/n/10 (+20) Pre-serve di-rect heat facts, spec-ify the record-period 
+tar-get and year-selection rule, 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+[]\OT1/cmr/m/n/10 (+20) The source ob-ser-va-tions, pro-cess-ing code, case-lev
+el re-sults and fig-ure scripts 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) re-quire a per-ma-nent repos-i-tory and ci-ta-tions to be
+ sup-plied by the au-thors. A lo- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) cal re-view can-di-date in-cludes pro-cessed daily val-ue
+s from 95 of the 96 pre-vi-ously 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) el-i-gi-ble source sta-tions, per-mit-ting an in-de-pen-d
+ent arith-metic au-dit of all 35 ob-ser- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) va-tion wit-nesses and their screening-rule de-ci-sions. 
+The LUBW sta-tion is omit-ted 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) pend-ing per-mis-sion, so the full el-i-gi-ble pop-u-la-t
+ion is not re-con-structed. The can-di- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) date also in-cludes ten ad-di-tional USGS daily snap-shot
+s and their observation-only 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) re-play; nei-ther check re-con-structs the main mod-els o
+r ver-i-fies sub-daily sam-pling. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\OT1/cmr/m/n/10 (+20) The Sup-port-ing In-for-ma-tion lists the ac-cess sta-tus
+ of each ex-ter-nal archive and the 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+[]\OT1/cmr/m/n/10 (+20) The source in-cludes ob-ser-va-tions from LUBW; its reu
+se and re-dis-tri-bu-tion 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+\OT1/cmr/m/n/10 (+20) terms re-quire provider-specific res-o-lu-tion rather tha
+n an as-sumed open li-cence. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+\OT1/cmr/m/n/10 Al-though all whole-archive tar-get sta-tions have recorded reu
+se paths, 13 of 13 source- 
+ []
+
+
+Overfull \hbox (0.15517pt too wide) in paragraph at lines 226--227
+\OT1/cmr/m/n/10 (+5) cases; the ac-cess and shar-ing con-di-tions of the re-sul
+t-ing mod-els and case-level deriva- 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+\OT1/cmr/m/n/10 (+20) tives re-main un-re-solved. Au-thor, af-fil-i-a-tion, fun
+d-ing, con-flicts of in-ter-est, per-mit-ted 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+\OT1/cmr/m/n/10 (+20) re-viewer ac-cess and per-ma-nent de-posit in-for-ma-tion
+ re-main to be sup-plied be-fore 
+ []
+
+[27] (./simple_core_figures.tex
+<figures/simple_research/02_annual_comparators.pdf, id=150, 511.00224pt x 200.9
+2754pt>
+File: figures/simple_research/02_annual_comparators.pdf Graphic file (type pdf)
+
+<use figures/simple_research/02_annual_comparators.pdf>
+Package pdftex.def Info: figures/simple_research/02_annual_comparators.pdf  use
+d on input line 1.
+(pdftex.def)             Requested size: 397.48499pt x 156.29054pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/9 (+12) Figure  4. \OT1/cmr/m/n/9 (+12) An-nual es-ti-ma-tion u
+n-der dif-fi-cult con-trolled gaps. Both his-tor-i-cal source-calibrated
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--1
+\OT1/cmr/m/n/9 (+20) meth-ods re-ceive the same observed-bound pro-jec-tion and
+ normal-spacing tail model. Bars show
+ []
+
+<figures/simple_research/03_archive_factorial.pdf, id=151, 539.88138pt x 238.99
+997pt>
+File: figures/simple_research/03_archive_factorial.pdf Graphic file (type pdf)
+<use figures/simple_research/03_archive_factorial.pdf>
+Package pdftex.def Info: figures/simple_research/03_archive_factorial.pdf  used
+ on input line 2.
+(pdftex.def)             Requested size: 397.48499pt x 175.96373pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 (+20) Figure  5. \OT1/cmr/m/n/9 (+20) Whole-archive trend er-
+rors and the sym-met-ric re-ten-tion/estimator de-com-po-si-tion.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+16) Left: D2 on com-mon station-repetition rows where both re-
+ten-tion sets are avail-able; an-no-ta-tions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) give n and sta-tion/group counts. The for-ward controlled-
+gap con-trast uses 807 of 820 set-tings.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) Right: the left bar of each pair is D2 and the right bar i
+s the cal-i-brated clas-si-cal method. Each
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) bar uses that method's own com-plete four-cell count, prin
+ted un-der the set-ting; the two counts
+ []
+
+<figures/simple_research/04_joint_uncertainty.pdf, id=152, 538.78058pt x 227.37
+389pt>
+File: figures/simple_research/04_joint_uncertainty.pdf Graphic file (type pdf)
+<use figures/simple_research/04_joint_uncertainty.pdf>
+Package pdftex.def Info: figures/simple_research/04_joint_uncertainty.pdf  used
+ on input line 3.
+(pdftex.def)             Requested size: 397.48499pt x 167.75096pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+[]\OT1/cmr/bx/n/9 (+20) Figure  6. \OT1/cmr/m/n/9 (+20) Left: paired an-nual co
+v-er-age on the two-method in-ter-sec-tion, weighted by in-com-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+16) plete years. Ticks are station-repetition means on the sam
+e in-ter-sec-tion. The tick la-bels give the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) paired archive count and each method's avail-abil-ity out 
+of all archives. The dashed line is the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) nom-i-nal 90 per-cent an-nual tar-get. Right: nom-i-nal 95
+ per-cent trend cov-er-age on each method's
+ []
+
+<figures/architecture/fig2_release_actual.pdf, id=153, 458.71375pt x 278.03876p
+t>
+File: figures/architecture/fig2_release_actual.pdf Graphic file (type pdf)
+<use figures/architecture/fig2_release_actual.pdf>
+Package pdftex.def Info: figures/architecture/fig2_release_actual.pdf  used on 
+input line 5.
+(pdftex.def)             Requested size: 397.48499pt x 240.9372pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[]\OT1/cmr/bx/n/9 (+20) Figure  7. \OT1/cmr/m/n/9 (+20) The eval-u-ated three-o
+utput de-ci-sion and ex-ploratory trend anal-y-sis. The cap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+\OT1/cmr/m/n/9 (+20) ap-plies to an in-di-vid-ual raw clas-si-fier score, not a
+ cer-ti-fied group risk. The seven-day water--air
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+\OT1/cmr/m/n/9 (+20) check was as-sessed only for the clean and im-posed exact-
+air-substitution cases. The selected-
+ []
+
+<figures/simple_research/05_output_boundaries.pdf, id=154, 525.30818pt x 213.66
+571pt>
+File: figures/simple_research/05_output_boundaries.pdf Graphic file (type pdf)
+<use figures/simple_research/05_output_boundaries.pdf>
+Package pdftex.def Info: figures/simple_research/05_output_boundaries.pdf  used
+ on input line 8.
+(pdftex.def)             Requested size: 397.48499pt x 161.68013pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--8
+[]\OT1/cmr/bx/n/9 (+20) Figure  8. \OT1/cmr/m/n/9 (+20) Left: three out-puts fo
+r empirical-calendar masks. Right: numerical-publication
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--8
+\OT1/cmr/m/n/9 (+20) rates and se-lected er-rors for con-trolled gaps. Source d
+i-ag-nos-tics do not re-move ex-trap-o-la-tion
+ []
+
+) (./process_revision_figures.tex
+<figures/process_revision/02_region_recovery.pdf, id=155, 523.68108pt x 215.606
+6pt>
+File: figures/process_revision/02_region_recovery.pdf Graphic file (type pdf)
+<use figures/process_revision/02_region_recovery.pdf>
+Package pdftex.def Info: figures/process_revision/02_region_recovery.pdf  used 
+on input line 1.
+(pdftex.def)             Requested size: 397.48499pt x 163.65544pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/9 (+20) Figure  9. \OT1/cmr/m/n/9 (+20) Hidden-reference-peak r
+e-cov-ery by re-gion and daily re-con-struc-tor. Cov-er-age is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--1
+\OT1/cmr/m/n/9 (+15) nom-i-nal 90%; bias is the me-dian mi-nus complete-year H3
+0. The hidden-peak la-bel uses with-held
+ []
+
+<figures/process_revision/03_time_support.pdf, id=156, 861.21701pt x 311.96503p
+t>
+File: figures/process_revision/03_time_support.pdf Graphic file (type pdf)
+<use figures/process_revision/03_time_support.pdf>
+Package pdftex.def Info: figures/process_revision/03_time_support.pdf  used on 
+input line 2.
+(pdftex.def)             Requested size: 397.48499pt x 143.98642pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]\OT1/cmr/bx/n/9 Figure  10. \OT1/cmr/m/n/9 Year choice at a fixed re-ten-tion
+ count on 805 for-ward controlled-gap archives. Left:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) estimated-slope and complete-truth-year-set RMSE. Uni-form
+ ex-act av-er-ages squared er-ror over
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) with-out tem-per-a-ture out-comes and in-clude all fixed c
+om-plete years in their ob-jec-tives. Right:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+\OT1/cmr/m/n/9 (+20) from 10,000 re-sam-ples of 17 con-nected groups. The orig-
+i-nal one-draw ran-dom and incomplete-
+ []
+
+<figures/process_revision/04_trajectory_budget.pdf, id=157, 897.352pt x 346.594
+65pt>
+File: figures/process_revision/04_trajectory_budget.pdf Graphic file (type pdf)
+
+<use figures/process_revision/04_trajectory_budget.pdf>
+Package pdftex.def Info: figures/process_revision/04_trajectory_budget.pdf  use
+d on input line 3.
+(pdftex.def)             Requested size: 397.48499pt x 153.52281pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+[]\OT1/cmr/bx/n/9 (+20) Figure  11. \OT1/cmr/m/n/9 (+20) Ab-so-lute upper-endpo
+int changes be-tween nested 20 and 500 residual-bridge
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) paths, for the same tar-get sam-ples un-der no off-set, fi
+xed his-tor-i-cal source off-sets and source
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) off-sets re-estimated at each bud-get. All 27 case points 
+per seed re-main vis-i-ble, sep-a-rated into 18
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) 20-path draws are a sep-a-rate ref-er-ence, not the 500-pa
+th pre-fix. Lower-endpoint changes and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--3
+\OT1/cmr/m/n/9 (+20) all counts are re-ported in Sup-port-ing In-for-ma-tion. T
+wo tar-get groups and 500 paths do not
+ []
+
+) (./review_completion_article.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 193--212
+\OT1/cmr/m/n/10 (+20) tem-per-a-ture and dis-charge evo-lu-tion in Switzer-land
+ over the last 50 years: 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--212
+\OT1/cmr/m/n/10 (+20) an-nual and sea-sonal be-haviour.  \OT1/cmr/m/it/10 (+20)
+ Hy-drol-ogy and Earth Sys-tem Sci-ences\OT1/cmr/m/n/10 (+20) , \OT1/cmr/m/it/1
+0 (+20) 24\OT1/cmr/m/n/10 (+20) , 
+ []
+
+
+Underfull \vbox (badness 4954) has occurred while \output is active []
+
+ [28]
+[29 <./figures/simple_research/02_annual_comparators.pdf> <./figures/simple_res
+earch/03_archive_factorial.pdf>] [30 <./figures/simple_research/04_joint_uncert
+ainty.pdf> <./figures/architecture/fig2_release_actual.pdf>] [31 <./figures/sim
+ple_research/05_output_boundaries.pdf> <./figures/process_revision/02_region_re
+covery.pdf>] [32 <./figures/process_revision/03_time_support.pdf> <./figures/pr
+ocess_revision/04_trajectory_budget.pdf>]) [33] [34] [35] [36] [37] [38]
+[39] [40] [41] (./review_completion_article.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 0.45pt have occurred.
+
+ )
+(\end occurred when \ifx on line 100 was incomplete)
+(\end occurred when \ifx on line 100 was incomplete)
+(\end occurred when \ifx on line 100 was incomplete)
+(\end occurred when \ifx on line 100 was incomplete)
+(\end occurred when \ifx on line 97 was incomplete)
+(\end occurred when \ifx on line 97 was incomplete)
+(\end occurred when \ifx on line 97 was incomplete)
+(\end occurred when \ifx on line 97 was incomplete)
+(\end occurred when \ifx on line 97 was incomplete)
+(\end occurred when \ifx on line 92 was incomplete)
+(\end occurred when \ifx on line 92 was incomplete)
+(\end occurred when \ifx on line 92 was incomplete)
+(\end occurred when \ifx on line 92 was incomplete)
+(\end occurred when \ifx on line 92 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 82 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 75 was incomplete)
+(\end occurred when \ifx on line 4 was incomplete)
+(\end occurred when \ifx on line 3 was incomplete) 
+Here is how much of TeX's memory you used:
+ 7897 strings out of 480171
+ 129522 string characters out of 5894489
+ 502392 words of memory out of 5000000
+ 25403 multiletter control sequences out of 15000+600000
+ 483182 words of font info for 141 fonts, out of 8000000 for 9000
+ 65 hyphenation exceptions out of 8191
+ 70i,13n,76p,2214b,420s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on review_completion_article.pdf (41 pages, 570609 bytes).
+PDF statistics:
+ 506 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 31288 words of extra memory for PDF output out of 35830 (max. 10000000)
+

@@ -1,0 +1,20 @@
+{
+  "eligible_stations": 96,
+  "input_panel_files": 34,
+  "station_years_checked": 2700,
+  "complete_reference_years": 2139,
+  "incomplete_years_checked": 545,
+  "finite_daily_values_compared": 971673,
+  "missingness_disagreements": 0,
+  "float32_cast_disagreements": 0,
+  "maximum_float32_rounding_c": 1.5258789076710855e-06,
+  "maximum_complete_h30_difference_c": 1.0658141036401503e-13,
+  "maximum_record_margin_difference_c": 4.450480162176973e-07,
+  "witness_count": 35,
+  "witness_identity_changes": 0,
+  "half_c_margin_classification_changes": 0,
+  "tolerance_c": 5e-06,
+  "passed": true,
+  "scope": "selected local processed daily CSV panels compared with canonical float32 archive for 96 eligible stations; not provider-native instrument records",
+  "limitations": "recomputes reported series only; no sensor uncertainty, independent external validation, or downstream model fitting assessed"
+}

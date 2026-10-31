@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "probes": 2,
+  "all_truths_changed": true,
+  "max_feature_difference": 0.0,
+  "max_prediction_difference": 0.0,
+  "max_control_replay_feature_difference": 4.436248701722434e-09,
+  "max_control_replay_prediction_difference": 7.105427357601002e-15,
+  "selection": "one 90-day case per site, post-hoc chosen for largest fraction of the reference peak hidden; compare identically serialized control and input with +5 C only on masked daily values",
+  "limitation": "two selected cases on one source path, not an exhaustive leakage proof; reference QC, time basis and climate independence remain unresolved"
+}

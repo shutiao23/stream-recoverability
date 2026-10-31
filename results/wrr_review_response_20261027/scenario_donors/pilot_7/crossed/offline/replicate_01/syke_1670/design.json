@@ -1,0 +1,33 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "same gaps simultaneously hidden",
+  "family": "crossed",
+  "hidden_donor_values_present": 0,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0087",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "1948": "182:60",
+    "1957": "206:90",
+    "1962": "65:60",
+    "1964": "259:60",
+    "1970": "199:60",
+    "1971": "140:60",
+    "1972": "188:30",
+    "1973": "194:30",
+    "1976": "21:90",
+    "1982": "212:60",
+    "1986": "15:60",
+    "1987": "174:90",
+    "1992": "149:90"
+  },
+  "mode": "offline",
+  "n_incomplete": 13,
+  "n_years": 44,
+  "region": "syke",
+  "replicate": 1,
+  "scenario": "synchronized_donors",
+  "source_model_split": "leave_one_year_out",
+  "station_key": "syke|1670"
+}

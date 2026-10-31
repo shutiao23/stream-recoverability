@@ -1,0 +1,10 @@
+{
+  "status": "boundary_inputs_checked",
+  "station_year_variants": 24,
+  "available_station_year_variants": 24,
+  "full_site_variants": 6,
+  "total_site_variants": 6,
+  "model_scoring_performed": true,
+  "strict_reference_qualified": false,
+  "limitation": "one-hour shifts do not identify the actual source time basis, resolve estimated-value/QC status, represent every possible local solar-time discrepancy, or establish climate independence; source files are two releases of one programme and may share underlying errors"
+}

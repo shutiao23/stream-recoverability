@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-27T05:24:52.870455+00:00",
+  "status": "posthoc after viewing target scores and provider metadata, before requesting WQP station metadata or additional temperature observations",
+  "target_station": "TRB8",
+  "latitude": 39.229335,
+  "longitude": -120.205161,
+  "query": "WQP Station service: all reporting organizations and site types, water-temperature characteristic, within 5 miles of the published coordinates, sample dates 2011–2020. This returns station metadata only.",
+  "distance_thresholds_km": [
+    0.25,
+    0.5,
+    1.0,
+    5.0
+  ],
+  "candidate_rule": "Preserve all returned station metadata. Proximity and a temperature result during the date envelope are leads only; establish physical river connection, sample timing, organizational independence, measurement type, data quality and access before any accuracy comparison.",
+  "caveats": "The WQP historical profile may omit some USGS updates after March 2024. A nearby station may share an instrument or underlying data; multiple sites in one watershed are not independent climates. A failed or empty query is not proof that no reference exists.",
+  "endpoint": "https://www.waterqualitydata.us/data/Station/search"
+}

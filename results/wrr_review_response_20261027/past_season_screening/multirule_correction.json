@@ -1,0 +1,5 @@
+{
+  "created_utc": "2026-10-27T01:37:23.086500+00:00",
+  "change": "Initial run stopped before outputs: uniqueness checking must include rule as well as station and year. No study population, selection criterion, input or outcome was changed.",
+  "replacement_script": "scripts/715_past_season_multirule.py"
+}

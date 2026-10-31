@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-10-26T21:11:02.713041+00:00",
+  "dataset_doi": "10.5281/zenodo.15053907",
+  "license": "CC BY 4.0",
+  "published_site_count": 32,
+  "candidate_count": 1,
+  "selection": "all named river or creek sites whose published date range strictly extends beyond both boundaries of 2020, 2021, 2022 and 2023; exclude named lakes and reservoir spillway",
+  "candidate_sites": [
+    "01FW013"
+  ],
+  "years_utc": [
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "reference_rule": "each UTC calendar day has exactly 96 distinct quarter-hour timestamps with finite values and author QC flag P or A; any missing, duplicate, off-grid or other flagged value fails the day",
+  "quality_flag_basis": "authors identify P as pass, A as average of valid simultaneous loggers and C when an averaged input has a warning; all other flags excluded",
+  "independence": "same Nechako River and Fraser basin as previously scored BC site 08JA017; targeted exploratory comparison, not an independent climate or blinded confirmation",
+  "contact": "published metadata inspected before freeze; no source temperature values or prediction errors inspected before freeze; repository text search found no matching new site identifier/name in named paths, but absence does not prove no prior contact",
+  "archive_url": "https://zenodo.org/api/records/15053907/files/01_Data.zip/content",
+  "archive_bytes": 13830401,
+  "limitations": "single selected candidate, no population incidence, no natural-outage reference; sensor accuracy and catchment dependence remain"
+}

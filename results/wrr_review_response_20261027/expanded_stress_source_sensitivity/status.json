@@ -1,0 +1,9 @@
+{
+  "status": "computed",
+  "scenario_reanalyses": 440,
+  "original_strict_huc17_settings": 30,
+  "candidate_provider_settings": 410,
+  "target_masks_and_daily_features": "identical across source versions",
+  "comparison": "six-way common available baseline and stress cases separately for each estimator and dependence",
+  "limitations": "Both sensitivities are post-hoc. Candidate providers, role assignments and sample size change together; strict-original excludes the affected HUC17 groups and reduces source sample size. Group bootstrap and fixed-prediction region deletions do not establish independent climate transfer."
+}

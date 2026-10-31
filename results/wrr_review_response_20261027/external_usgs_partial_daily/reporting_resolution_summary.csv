@@ -1,0 +1,13 @@
+clock,cohort,method,cases,finite_intervals,daily_reference_covered,continuous_definite_cover,continuous_possible_cover,daily_covered_continuous_definitely_missed,published_bound_above_continuous_upper,mismatch_station_years,mismatch_q05_equals_published_bound,mismatch_gap_median_c,mismatch_gap_max_c,mismatch_gap_le_0_01_c,mismatch_gap_le_0_05_c,continuous_nonoverlap_cases,nonoverlap_distance_le_0_01_c,nonoverlap_distance_le_0_05_c,nonoverlap_distance_le_0_1_c,max_nonoverlap_distance_c
+fixed_standard,all,D2,144,144,121,75,102,25,20,3,20,0.003368055555556637,0.011805555555557845,12,20,42,12,30,31,0.6632417185166375
+fixed_standard,all,stochastic,144,144,123,75,103,26,20,3,20,0.003368055555556637,0.011805555555557845,12,20,41,12,27,30,1.1226098462181398
+fixed_standard,fixed_standard_full_hour_posthoc,D2,54,54,52,33,33,19,20,3,20,0.003368055555556637,0.011805555555557845,12,20,21,12,21,21,0.02030215461323337
+fixed_standard,fixed_standard_full_hour_posthoc,stochastic,54,54,54,34,34,20,20,3,20,0.003368055555556637,0.011805555555557845,12,20,20,12,20,20,0.011805555555557845
+fixed_standard,fixed_standard_full_quarter_posthoc,D2,18,18,17,12,12,5,6,1,6,0.003368055555556637,0.003368055555556637,6,6,6,6,6,6,0.003368055555556637
+fixed_standard,fixed_standard_full_quarter_posthoc,stochastic,18,18,18,12,12,6,6,1,6,0.003368055555556637,0.003368055555556637,6,6,6,6,6,6,0.003368055555556637
+native_civil,all,D2,144,144,121,75,102,25,20,3,20,0.004548611111111711,0.012743055555555216,12,20,42,12,30,31,0.6631722740721955
+native_civil,all,stochastic,144,144,123,75,102,26,20,3,20,0.004548611111111711,0.012743055555555216,12,20,42,13,28,31,1.1225404017736977
+native_civil,fixed_standard_full_hour_posthoc,D2,54,54,52,33,33,19,20,3,20,0.004548611111111711,0.012743055555555216,12,20,21,12,21,21,0.019364654613236
+native_civil,fixed_standard_full_hour_posthoc,stochastic,54,54,54,34,34,20,20,3,20,0.004548611111111711,0.012743055555555216,12,20,20,12,20,20,0.012743055555555216
+native_civil,fixed_standard_full_quarter_posthoc,D2,18,18,17,12,12,5,6,1,6,0.004548611111111711,0.004548611111111711,6,6,6,6,6,6,0.004548611111111711
+native_civil,fixed_standard_full_quarter_posthoc,stochastic,18,18,18,12,12,6,6,1,6,0.004548611111111711,0.004548611111111711,6,6,6,6,6,6,0.004548611111111711

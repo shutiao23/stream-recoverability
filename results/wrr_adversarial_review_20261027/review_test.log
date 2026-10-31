@@ -1,0 +1,120 @@
+python -m pytest tests/test_review_bundle_atomic_write.py
+...                                                                      [100%]
+3 passed in 0.03s
+python -m pytest tests/test_review_completion_current_evidence.py
+...                                                                      [100%]
+3 passed in 0.38s
+python -m pytest tests/test_usace_open_reference_replay.py
+.                                                                        [100%]
+1 passed in 0.01s
+python -m pytest tests/test_usace_partial_year_h30_bounds.py
+..                                                                       [100%]
+2 passed in 0.30s
+python -m pytest tests/test_usace_partial_history_scores.py
+..                                                                       [100%]
+2 passed in 0.29s
+python -m pytest tests/test_usace_partial_history_engine.py
+..                                                                       [100%]
+2 passed in 0.34s
+python -m pytest tests/test_source_partial_history_factorial.py
+..                                                                       [100%]
+2 passed in 0.39s
+python -m pytest tests/test_partial_history_feature_support.py
+...                                                                      [100%]
+3 passed in 1.78s
+python -m pytest tests/test_source_support_rule_evaluation.py
+...                                                                      [100%]
+3 passed in 0.36s
+python -m pytest tests/test_usgs_partial_daily_feasibility.py
+..                                                                       [100%]
+2 passed in 0.30s
+python -m pytest tests/test_usgs_partial_power_status.py
+.                                                                        [100%]
+1 passed in 0.40s
+python -m pytest tests/test_usgs_public_snapshot_manifest.py
+.                                                                        [100%]
+1 passed in 0.04s
+python -m pytest tests/test_usgs_subdaily_measurement_bounds.py
+..                                                                       [100%]
+2 passed in 0.50s
+python -m pytest tests/test_isolated_groupmax_review.py
+....                                                                     [100%]
+4 passed in 0.29s
+python -m pytest tests/test_isolated_review_evidence.py
+..                                                                       [100%]
+2 passed in 0.01s
+python -m pytest tests/test_groupmax_annual_calibration.py
+......                                                                   [100%]
+6 passed in 0.38s
+python -m pytest tests/test_past_season_screening.py
+....                                                                     [100%]
+4 passed in 1.75s
+python -m pytest tests/test_summer_window_comparison.py
+....                                                                     [100%]
+4 passed in 0.35s
+python -m pytest tests/test_projected_risk_sensitivity.py
+....                                                                     [100%]
+4 passed in 0.74s
+python -m pytest tests/test_stress_source_common_cohort.py
+..                                                                       [100%]
+2 passed in 0.61s
+python -m pytest tests/test_matched_heat_stress.py
+...                                                                      [100%]
+3 passed in 2.15s
+python -m pytest tests/test_archive_matched_release_trend.py
+.....                                                                    [100%]
+5 passed in 1.85s
+python -m pytest tests/test_nz_quality_bound.py
+....                                                                     [100%]
+4 passed in 2.13s
+python -m pytest tests/test_heat_gap_matched.py
+...                                                                      [100%]
+3 passed in 2.15s
+python -m pytest tests/test_heat_gap_source_common.py
+..                                                                       [100%]
+2 passed in 0.70s
+python -m pytest tests/test_nova_field_range_check.py
+..                                                                       [100%]
+2 passed in 0.33s
+python -m pytest tests/test_nova_field_cleanroom.py
+..                                                                       [100%]
+2 passed in 0.30s
+python -m pytest tests/test_beaufort_proxy.py
+...                                                                      [100%]
+3 passed in 0.29s
+python -m pytest tests/test_archive_summer_proxy.py
+...                                                                      [100%]
+3 passed in 2.15s
+python -m pytest tests/test_candidate_donor_provenance.py
+..                                                                       [100%]
+2 passed in 2.16s
+python -m pytest tests/test_camelsh_metadata_screen.py
+..                                                                       [100%]
+2 passed in 0.30s
+python -m pytest tests/test_truckee_wqp_pairing.py
+.                                                                        [100%]
+1 passed in 0.30s
+python -m pytest tests/test_annual_bridge_dependencies.py
+.                                                                        [100%]
+1 passed in 0.41s
+python -m pytest tests/test_review_manuscript_structure.py tests/test_single_year_trend_audit.py tests/test_single_year_trend_propagation.py tests/test_single_year_source_calibration.py tests/test_open_source_annual_scores.py tests/test_open_source_archive_summary.py tests/test_open_source_archive_sensitivity.py tests/test_open_observed_snapshot.py tests/test_usgs_observed_snapshot.py tests/test_wrr_usgs_late_start_counts.py tests/test_au_prior_exposure.py tests/test_njdep_metadata_preflight.py tests/test_rivtemp_date_upper_bound.py tests/test_andrews_source_overlap_audit.py tests/test_strict_region_holdout.py tests/test_nova_clock_sensitivity_reference.py tests/test_nova_clock_sensitivity_score.py tests/test_nova_scotia_exploratory_score.py tests/test_nova_scotia_location_audit.py tests/test_nova_scotia_label_completeness.py tests/test_nova_scotia_portal_comparison.py tests/test_poudre_metadata_preflight.py tests/test_nechako_reference_qualification.py tests/test_usgs_unresolved_network_count_screen.py tests/test_source_annual_interval_expansion.py tests/test_peak_visibility_diagnostics.py tests/test_projection_stage_replay.py tests/test_private_annual_score.py tests/test_whole_archive.py tests/test_release_outputs.py tests/test_integrated_release_trend.py tests/test_hubeau_reunion_reference.py tests/test_uncertainty_paired_diagnostics.py tests/test_bc_reference_qualification.py tests/test_bc_reference_integrity.py tests/test_release_matched_retention.py tests/test_source_calibrated_release.py tests/test_release_regional_sensitivity.py tests/test_support_projection_diagnostics.py tests/test_eccc_red_qualification.py tests/test_eccc_opened_cache_screen.py tests/test_private_case_audit.py tests/test_observed_record_reaudit.py tests/test_screening_rule_reaudit.py tests/test_usgs_observed_reaudit.py tests/test_input_panel_precision_audit.py tests/test_usgs_approved_count_preflight.py tests/test_nve_chart_reference_probe.py tests/test_external_observed_records.py tests/test_wrr_review_completion.py tests/test_wrr_target_recovery.py tests/test_wrr_review_independent.py tests/test_wrr_review_national.py tests/test_wrr_review_windows.py tests/test_wrr_review_forcing_evidence.py tests/test_wrr_forcing_residual_history.py tests/test_wrr_national_coverage.py
+........................................................................ [ 36%]
+........................................................................ [ 73%]
+....................................................                     [100%]
+=============================== warnings summary ===============================
+tests/test_wrr_review_completion.py: 12 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+    duals[candidate_idx] += step_size_clip
+
+tests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups
+tests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization
+  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: 
+      You didn't specify the order of the vec expression. The default order
+      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's
+      default order ('C') in a future version of CVXPY.
+      To suppress this warning, please specify the order explicitly.
+      
+    warnings.warn(vec_order_warning, FutureWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+196 passed, 14 warnings in 6.66s

@@ -1,0 +1,58 @@
+{
+  "status": "completed",
+  "tables": [
+    {
+      "name": "Instrument Specifications",
+      "file": "station_metadata_01.csv",
+      "rows": 5,
+      "columns": [
+        "Constituent",
+        "EXO_Accuracy",
+        "EXO_Range",
+        "6_Series_Accuracy",
+        "6_Series_Range",
+        "HOBO_Accuracy",
+        "HOBO_Range"
+      ]
+    },
+    {
+      "name": "Instrument Type Date Ranges",
+      "file": "station_metadata_02.csv",
+      "rows": 12,
+      "columns": [
+        "Station_Code",
+        "Start_Date_YSI6600",
+        "Start_Time_YSI6600",
+        "Start_Date_YSIEXO2",
+        "Start_Time_YSIEXO2",
+        "Start_Date_ONSETHOBO",
+        "Start_Time_ONSETHOBO"
+      ]
+    },
+    {
+      "name": "Stations Metadata",
+      "file": "station_metadata_03.csv",
+      "rows": 12,
+      "columns": [
+        "Station_Code",
+        "Station_Name",
+        "Latitude",
+        "Longitude",
+        "Hydrologic_Area",
+        "Basin",
+        "County",
+        "Habitat_Type",
+        "Station_Access_Type",
+        "Parameters",
+        "Dataset_Begin_Date",
+        "Dataset_End_Date",
+        "WDL_Station_Code"
+      ]
+    }
+  ],
+  "station_time_series_opened": false,
+  "temperature_values_opened": false,
+  "model_errors_opened": false,
+  "limitations": "Evaluate station dates and prior-site proximity/network contact before selecting sites. EML says data passed validation and labels timestamp PST, but station-level estimated flags and the precise DST convention remain to be clarified; missing or corrected measurements are not presumed absent.",
+  "rights_note": "The EDI EML describes CC0, whereas the state discovery catalog says CC BY; retain source attribution and reconcile the discrepancy for any release."
+}

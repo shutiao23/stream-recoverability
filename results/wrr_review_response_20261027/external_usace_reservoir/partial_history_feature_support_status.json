@@ -1,0 +1,35 @@
+{
+  "status": "completed_posthoc_feature_support",
+  "features": 68,
+  "source_fit_rows": 43804,
+  "source_fit_total_weight": 68028.0,
+  "source_fit_groups": 68,
+  "source_non_estimator_crossed_rows": 30384,
+  "target": {
+    "cases": 306,
+    "outside_minmax_cases": 306,
+    "outside_minmax_excluding_complete_count_cases": 306,
+    "unseen_nonfinite_cases": 0,
+    "any_minmax_or_unseen_cases": 306,
+    "any_minmax_or_unseen_excluding_complete_count_cases": 306,
+    "weighted_tail_cases": 306,
+    "median_features_outside_minmax": 2.0,
+    "max_features_outside_minmax": 2,
+    "station_years": 17,
+    "sites": 4,
+    "station_years_any_excluding_complete_count": 17,
+    "sites_any_excluding_complete_count": 4
+  },
+  "source_non_estimator_crossed": {
+    "cases": 30384,
+    "outside_minmax_cases": 1931,
+    "outside_minmax_excluding_complete_count_cases": 1931,
+    "unseen_nonfinite_cases": 0,
+    "any_minmax_or_unseen_cases": 1931,
+    "any_minmax_or_unseen_excluding_complete_count_cases": 1931,
+    "weighted_tail_cases": 11489,
+    "median_features_outside_minmax": 0.0,
+    "max_features_outside_minmax": 5
+  },
+  "limits": "Source masks, local-history conditions, climatology, stations and time differ. Positive weights and training source identities do not establish independent climates or eliminate source overlap. Multiple feature flags are correlated, features can lie within marginal ranges while their joint combination is unsupported, and tree models can have active behavior outside ranges."
+}

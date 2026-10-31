@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "saved_case_rows_checked": 9840,
+  "unaffected_region_rows_compared": 3040,
+  "summary_cells_checked": 24,
+  "leave_region_cells_checked": 144,
+  "group_resamples_per_cell": 4000,
+  "scope": "Recomputes common cohorts, paired RMSE, interval summaries, group bootstrap and fixed-prediction leave-region comparisons from the same saved model outputs. Confirms strict-original versions equal original outside HUC17; no independent model refitting, source measurement validation or climate-transfer guarantee."
+}

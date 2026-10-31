@@ -1,0 +1,16 @@
+{
+  "status": "not_qualified",
+  "station": "01FW013",
+  "years_evaluated": [
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "qualified_reference_years": 0,
+  "qualified_four_year_reference": false,
+  "qualified_dates_stored": 804,
+  "reference_rule": "each UTC calendar day has exactly 96 distinct quarter-hour timestamps with finite values and author QC flag P or A; any missing, duplicate, off-grid or other flagged value fails the day",
+  "source": "CC BY 4.0, DOI 10.5281/zenodo.15053907",
+  "limitation": "author flags are recommended quality classifications, not error-free measurements; quarter-hour coverage is not continuous physical observation; same river as prior BC exploratory site 08JA017, no independent climate or natural-outage reference"
+}

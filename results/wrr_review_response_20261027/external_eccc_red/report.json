@@ -1,0 +1,12 @@
+{
+  "strict_hourly_reference_eligible": false,
+  "files_acquired": 6,
+  "unresolved_station_identity_rows": 13932,
+  "validated_word_rows_with_missing_grade": 16209,
+  "literal_v_numeric_grade12_rows": 0,
+  "complete_provider_wallclock_years": 0,
+  "previous_opened_stations_upper_bound": 13,
+  "max_possible_years_prior_cache": 2,
+  "same_river_as_source": true,
+  "limitations": "station identifier, status and grade vocabulary, and daylight-saving convention require provider clarification; no new independent basin or reconstruction score"
+}

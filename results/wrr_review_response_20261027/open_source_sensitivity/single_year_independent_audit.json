@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "source_support_rows_checked": 52,
+  "source_prediction_rows_checked": 257584,
+  "target_common_cases": 21195,
+  "target_estimator_rows_checked": 42390,
+  "target_summary_rows_checked": 48,
+  "paired_group_sensitivity_rows": 6,
+  "leave_region_out_rows": 24,
+  "bootstrap_draws": 4000,
+  "limitation": "Same stored source cases, fitted models and target data are re-evaluated. This is not a provider-native data rebuild, an independent climate test or a finite-sample coverage guarantee."
+}

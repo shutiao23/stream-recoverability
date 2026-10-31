@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "source_models_loaded": 13,
+  "models_with_version_warning": 13,
+  "warning_count_by_estimator": {
+    "LabelEncoder": 13,
+    "LogisticRegression": 13
+  },
+  "warning_count_by_version": {
+    "1.2.2 -> 1.7.2": 26
+  },
+  "other_warning_count_by_category": {},
+  "environment": {
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.1",
+    "scipy": "1.15.3",
+    "scikit-learn": "1.7.2",
+    "matplotlib": "3.10.9",
+    "torch": "2.13.0+cpu",
+    "lightgbm": "4.7.0",
+    "joblib": "1.5.3"
+  },
+  "scope": "Only warning and loadability audit on 13 trusted local saved models. Numerical outputs, other models, fitting and future library compatibility are not established by this check."
+}

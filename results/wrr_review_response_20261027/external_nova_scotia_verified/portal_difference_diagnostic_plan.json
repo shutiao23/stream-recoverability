@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-10-26T21:32:48.195252+00:00",
+  "reason": "post-hoc follow-up after the frozen 1e-6 Celsius comparison showed mismatches",
+  "scope": "same four already inspected stations and 2009-2017 calendar-label years; unique timestamp labels only, without selecting observations by prediction errors",
+  "thresholds_c": [
+    1e-06,
+    0.005,
+    0.01,
+    0.1,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "outputs": "per-station and per-year counts of shared numeric labels exceeding each absolute-difference threshold; workbook-only and portal-only unique-label counts",
+  "interpretation": "descriptive release comparison; post-hoc thresholds are sensitivity diagnostics, not prespecified inferential tests; timestamp timezone and quality flags remain unverified"
+}

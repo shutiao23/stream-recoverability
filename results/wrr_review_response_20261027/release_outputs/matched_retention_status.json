@@ -1,0 +1,9 @@
+{
+  "scope": "same numerical count on opened evaluation feature distributions; no label use in matching",
+  "n_scenarios": 10,
+  "valid_matched_scenarios": 9,
+  "source_rule_audit_passed": true,
+  "zero_output_scenarios": 1,
+  "equal_count_all": true,
+  "limitations": "transductive feature/count matching; different bounds and unknown states mean total information is not held equal; no prospective or group-safety guarantee"
+}

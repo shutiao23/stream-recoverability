@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T07:41:17.614134+00:00",
+  "status": "posthoc metadata check after daily reference values, observation witnesses and history feasibility were examined; before continuous water values or model errors",
+  "cohort": "All sites with at least one fully qualified daily target and three eligible historical years; retain all candidates regardless of continuous metadata.",
+  "request": "Public water-temperature time-series metadata for these sites, identifying instantaneous time-series IDs and comparing with the original daily series parent IDs. No instantaneous water readings requested.",
+  "interpretation": "Metadata time envelopes do not demonstrate year completeness, quality, instrument equivalence, clock convention or independent climate. A missing parent or multiple series is unknown and is not resolved by selecting temperatures.",
+  "site_count": 4,
+  "endpoint": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+}

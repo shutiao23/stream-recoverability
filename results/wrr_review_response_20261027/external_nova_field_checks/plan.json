@@ -1,0 +1,32 @@
+{
+  "created_utc": "2026-10-27T03:30:00.408845+00:00",
+  "status": "posthoc field-comparison plan after prior portal and model results; before field values are opened",
+  "dataset_id": "eb067dfa-d3f7-4f65-8e78-72dae53cf5b7",
+  "version": "6.0.0",
+  "doi": "10.25976/sfmj-kf56",
+  "catalog": "https://datastream.org/en-ca/dataset/eb067dfa-d3f7-4f65-8e78-72dae53cf5b7",
+  "catalog_description": "Two candidate rivers have field temperature observations co-located with automated probes; equipment independence and timestamp relationship not established.",
+  "sites": [
+    "NS01DL0009",
+    "NS01FB0001"
+  ],
+  "site_names": [
+    "Kelley River at Eight Mile Ford",
+    "Northeast Margaree River at Margaree Valley"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "preliminary_scope": "Acquire version 6 once, inspect schema, site identity, date, time, quality, method and units before viewing temperature values; if clock labels and unique site identities support a comparison, define a separate matching plan before scoring.",
+  "prior_exposure": "Two sites and period were previously selected using data completeness and cross-release agreement; portal water temperatures and model errors were already analyzed. Field-sample values were not accessed before this plan.",
+  "limits": "Not preregistered, prospective or independent climate. Field and automatic records are co-located in the same monitoring programme; separate instruments, independence, time zone, interpolation and point-level quality are not established. Sparse visits cannot establish annual 24-hour coverage or absolute sensor accuracy.",
+  "storage": "Keep original download and any row-level links local private until source-specific redistribution and identification conditions are confirmed; aggregate results only."
+}

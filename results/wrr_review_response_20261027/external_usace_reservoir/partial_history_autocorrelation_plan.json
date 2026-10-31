@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-27T07:13:39.215917+00:00",
+  "status": "posthoc after target scores and all-feature support audit; before observed-only autocorrelations were computed",
+  "cohort": "All 17 target years. Use only their previously fixed other-year local histories, never target-year water. Evaluate one scalar per station-year rather than treating repeated masks as independent.",
+  "comparison": "Recompute law_phi_a from the saved interpolated training panel and independently verify the previously saved value. Recalculate it with only fully observed daily means in the same history years, leaving missing days as NaN; rebuild the smooth climatology from those observed days. Hold fixed the five warm months of the interpolated version so the contrast does not change the seasonal definition.",
+  "formula": "Within the training-year index, compute daily anomaly = observed or interpolated water minus the corresponding training-only smooth climatology. Retain the fixed warm months, then Pearson lag-one correlation over pairs whose two values are finite. Report pair counts and compare each variant with the fixed global estimator-role minimum and maximum.",
+  "interpretation": "This is a retrospective sensitivity to two different historical-data treatments, including changed climatology and finite pair selection; it does not isolate the causal effect of interpolation alone or alter the saved model predictions. No alternate model accuracy is claimed.",
+  "limitations": "The original feature formula can concatenate nonconsecutive selected years; the same rule is used in both variants. Source and target climate or sensor quality are not known independent. Source training min/max are marginal bounds, not a failure probability; law_phi_r is not recomputed here."
+}

@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T07:58:48.220190+00:00",
+  "status": "posthoc after USGS accuracy, feature-support and release-gate results",
+  "procedure": "For all 144 target cases replace the complete-history count only with the estimator-role minimum where below range. Compare all seven LightGBM quantile Booster leaves/raw values and classifier leaves/probabilities and independently reconstructed projected/calibrated quantiles against original values.",
+  "interpretation": "The altered count is knowingly false and is not a valid missing-history treatment or release workaround. No target outcomes are used in this diagnostic, and identical paths do not prove accuracy or joint support.",
+  "limitations": "Frozen source model, source cases and target predictions reused; source model training, independence, point quality and model calibration are not validated."
+}

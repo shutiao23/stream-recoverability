@@ -1,0 +1,15 @@
+{
+  "status": "supplementary_sensitivity_on_already_opened_groups_not_new_confirmation",
+  "scope": "neural functional-median point; fixed old-only probability model and fixed target-development boosted heads",
+  "calibration_budgets": [3, 5, 7, 9],
+  "subset_design": "all combinations of available target calibration groups at each budget",
+  "scores": ["native_CDF", "boost_direct", "boost_window"],
+  "seed": 20261021,
+  "empirical_bootstrap_draws": 2000,
+  "risk_cap": 0.05,
+  "alpha": 0.05,
+  "illustrative_cost": {"false_negative": 5, "unknown": 0.05},
+  "original_test_pool": 945,
+  "interpretation": "conditional calibration-budget sensitivity, not whole-procedure power or acquired independent components",
+  "forbidden_use": "selecting the best calibration subset or a weaker direct reference using test performance"
+}

@@ -1,0 +1,30 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "other physical stations remain observed",
+  "family": "calendar",
+  "hidden_donor_values_present": null,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0032",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2003": "352:1",
+    "2006": "76:2",
+    "2010": "98:3;332:6",
+    "2013": "10:4;349:1",
+    "2015": "194:1",
+    "2019": "0:143",
+    "2020": "354:9",
+    "2022": "19:4;338:1",
+    "2023": "66:1",
+    "2024": "4:1;7:4;15:4;26:6;34:8;49:1"
+  },
+  "mode": "offline",
+  "n_incomplete": 10,
+  "n_years": 27,
+  "region": "gkd_bayern",
+  "replicate": 0,
+  "scenario": "heat_associated",
+  "source_model_split": "leave_one_year_out",
+  "station_key": "gkd_bayern|10026293"
+}

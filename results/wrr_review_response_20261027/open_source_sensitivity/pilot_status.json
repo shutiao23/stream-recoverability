@@ -1,0 +1,19 @@
+{
+  "status": "pilot_passed_no_accuracy_claim",
+  "mode": "offline",
+  "region": "foen",
+  "stations": 10,
+  "families": [
+    "calendar",
+    "crossed"
+  ],
+  "replicates": 1,
+  "archive_settings": 20,
+  "same_masks": true,
+  "hidden_target_values_present": 0,
+  "unchanged_plugin_and_target_slope": true,
+  "model_source_roles_strict_region_verified": true,
+  "models_completed_when_audited": 1,
+  "models_planned": 13,
+  "limitation": "Pilot checks implementation and fixed input identities on one replicate, not model accuracy or the full planned comparison. Case/model outputs remain local pending rights and provenance review."
+}

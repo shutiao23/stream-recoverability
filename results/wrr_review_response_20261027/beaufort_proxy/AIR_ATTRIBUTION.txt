@@ -1,0 +1,4 @@
+Air temperatures are extracted from the project's processed daily T2M table, documented as NASA POWER.
+NASA POWER project: https://power.larc.nasa.gov/ ; acknowledge NASA Langley Research Center POWER.
+The original API response and version for these 22 stations were not retained; this is not a raw provider snapshot.
+POWER daily air defaults to local solar time; water-day alignment is not established.

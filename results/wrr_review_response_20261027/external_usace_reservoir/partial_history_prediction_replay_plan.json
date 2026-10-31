@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T06:39:52.948481+00:00",
+  "status": "posthoc after aggregate score and thread-sensitivity findings were examined",
+  "scope": "Regenerate all fixed 17 target years and all masks in one process, with OMP, OpenBLAS, MKL and NumExpr thread counts set to 1 before numerical imports. Compare saved case identity/masks, all model features and 17 point/quantile outputs with absolute tolerance 1e-10.",
+  "limitations": "Same implementation and fixed model are reused. This does not refit source models, establish data rights, validate partial-history extrapolation or provide independent climate evidence. Other thread configurations previously gave output drift."
+}

@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T06:33:47.179882+00:00",
+  "status": "posthoc after target score summaries were examined; all cohort years and first saved mask per year fixed before this probe",
+  "procedure": "For each fixed target, add 10 C to all finite water days hidden by its first mask, replace target natural-gap placeholders by 432.1 C, rerun case generation and inference. Compare the same mask, all source-model features, plug-in, D2, risk score and stochastic quantiles.",
+  "limitations": "17 deterministic masks, not every mask; shared source model and generator are reused. Does not establish complete absence of leakage, independence, calibration or sensor accuracy.",
+  "targets": 17
+}

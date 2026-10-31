@@ -1,0 +1,15 @@
+{
+  "status": "key_probe_passed",
+  "station_id": "NS01DL0009",
+  "field_names": [
+    ":id",
+    "date",
+    "station_number",
+    "time"
+  ],
+  "date_label_example": "2009-01-01T00:00:00.000",
+  "time_label_example": "00:00",
+  "system_record_id_present": true,
+  "temperature_values_requested": false,
+  "limitation": "timestamp examples do not establish a timezone or source quality"
+}

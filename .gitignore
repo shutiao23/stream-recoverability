@@ -360,3 +360,16 @@ private/wrr_usace_reservoir_reference_20261027/
 /private/
 /data/external/
 /results/wrr_adversarial_review_20261028_round2/reviewed_candidate.zip
+
+# Historical/local result trees and delivery logs. Compact final evidence is
+# tracked explicitly; these trees are regenerable or superseded.
+/results/wrr_review_completion_20261024/
+/results/wrr_submission_ready/followup_20261021/
+/results/framework/t2_recovery_benchmark_v1/
+/results/wrr_process_experiments_20261029/delivery_logs/
+/results/wrr_target_recovery_20261021/
+/results/wrr_target_recovery_20261022/
+/data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/
+
+# Provider raw responses and request caches remain local.
+/results/wrr_review_response_20261027/**/raw/

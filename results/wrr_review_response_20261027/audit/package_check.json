@@ -1,0 +1,65 @@
+{
+  "created_utc": "2026-10-27T04:01:51.366652+00:00",
+  "archive": "/home/lzq/workspace/parttime/stream-recoverability/dist/wrr_review_response_candidate.zip",
+  "scope": "extracted package; Graphviz architecture, figures from supplied summaries, manuscript TeX compilation, the 95-station observation subset, seasonal-window and past-only screening comparisons, the processed-data interannual summer-regression proxy and the USGS observation-only replay",
+  "not_tested": [
+    "full raw-data reconstruction",
+    "original source-model and daily-reconstruction fitting",
+    "other case-level scientific validation",
+    "data rights",
+    "independent accuracy validation"
+  ],
+  "environment": {
+    "python": "3.11.7",
+    "matplotlib": "3.9.2",
+    "numpy": "1.26.4",
+    "pandas": "2.1.4"
+  },
+  "checks": {
+    "zip_crc": "passed",
+    "architecture_regeneration": "passed",
+    "architecture_pixel_match": true,
+    "main_observation_open_subset": {
+      "status": "passed",
+      "stations": 95,
+      "original_stations": 96,
+      "witness_station_years": 35,
+      "rule_decisions_checked": 210
+    },
+    "summer_snapshot_reproduction": {
+      "status": "passed",
+      "complete_station_years": 2122,
+      "witnesses": 35,
+      "tables": 7
+    },
+    "interannual_summer_proxy_reproduction": {
+      "status": "passed",
+      "stations": 22,
+      "case_masks": 11220,
+      "summary_rows": 16,
+      "leave_provider_rows": 64
+    },
+    "past_season_snapshot_reproduction": {
+      "status": "passed",
+      "station_years": 2656,
+      "rule_decisions": 13280,
+      "future_perturbation_probes": 35
+    },
+    "usgs_observation_only_replay": {
+      "status": "passed",
+      "stations": 10,
+      "complete_reference_station_years": 8,
+      "witness_station_years": 9
+    },
+    "figure_regeneration": "passed",
+    "figure_pixel_matches": {
+      "02_annual_comparators": true,
+      "03_archive_factorial": true,
+      "04_joint_uncertainty": true,
+      "05_output_boundaries": true
+    },
+    "review_completion_article_compile": "passed",
+    "review_completion_supporting_compile": "passed"
+  },
+  "status": "passed"
+}

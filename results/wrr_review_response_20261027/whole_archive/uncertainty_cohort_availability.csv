@@ -1,0 +1,9 @@
+family,mode,estimator,n_all,n_common
+calendar,forward,D2,820,818
+calendar,forward,stochastic_calibrated,820,699
+calendar,offline,D2,840,840
+calendar,offline,stochastic_calibrated,840,835
+crossed,forward,D2,820,818
+crossed,forward,stochastic_calibrated,820,736
+crossed,offline,D2,840,840
+crossed,offline,stochastic_calibrated,840,838

@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "probe": "Executed evaluation-label contamination controls",
+  "tested_module": "scripts/968_process_source_calibration.py",
+  "tested_module_sha256": "c64bd95a405616b61e3080a8d32936935ec293f51811247f01f686cf6ade6703",
+  "invoked_function": "analyse_full(source_union)",
+  "patches": [
+    "module.OUT",
+    "module.load_targets"
+  ],
+  "input_hashes_before": {
+    "plan.json": "c89d57ee3a7823d06e445eccbd8ed78c5422b622eb15e830208b560e0171c6c4",
+    "source_union_cases.parquet": "686c030f937d5fadcf5ece042250f735a64fa8e62ece45c5a0a7f760ba9e5b46",
+    "source_role_cases.csv": "d7adf7ded771cab4cdfc9f5a53425f3f3e467b01ca7bedf8a597b90f948fcb6d",
+    "fixed_target_cases.csv": "0f4b31ea4eb762efa5cce1c544425ec4bd2e26d97b89b9fb9cfc74bdc508f940",
+    "full/source_frozen_manifest.csv": "fdbf38dae0c580f00c5239a5fdde73875b536e7e3086cef55c665db5d39a18a3",
+    "full/source_native20_checks.csv": "126c00bcd61e8285154a01fba3d9326bf4eaa188fda65c731cf60f8cfe065f50",
+    "full/source_nested_draws.parquet": "cbac6722e35f0a9067e455e13b9af3c5d3b0d83d212623e881726aa68065475c",
+    "full/source_nested_quantiles.csv": "3967716cd8ffadef32a3840a799e89c940a9402a3f39aec719287d377d992d54",
+    "full/source_pool_availability.csv": "2307c6324a9dc9c0c3b6e536d5c953c7ae3fa408f8ea7fefc2f223eba396234e",
+    "full/source_unavailable_cases.csv": "0be9c18c979d3844f8ee3b165cb77db1ab69daea1c68eab89af2997159185840",
+    "full/source_reestimated_offsets.csv": "6c8c9aa0773389257c6cb9554aa6e986f49a9167b1e94d1776a757e49e37ba81",
+    "full/target_native20_checks.csv": "cf190882d96aa6cdca8e63216d588c17c6e5e22f77ad607e6505a0a9bdb3cdd7",
+    "full/target_nested_draws.parquet": "d5a1eb36a45af7897b1cf1451d4daab85cb096484d9784d27ed9fee3b2e89dc0",
+    "full/target_historical_reference.csv": "7e6514b531f7195d8a1274b5eb10484f86855b4e4833c2f07543aa0d03628e1f",
+    "full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c",
+    "full/target_three_layer_summary.csv": "2792252dea37fac215878f1fc1b17d54dfe234544e097f76fc53c7e0aae9c7f6",
+    "full/target_budget_case_deltas.csv": "36f1ddcdcc718c9aa531897d53b6a094601403af9990ed2400b31976aa565b75",
+    "full/target_budget_tail_summary.csv": "0bad79cf2e7c3ff44d400af3a4da83339114cde0b13d9d3e167dad5c508a1ecc",
+    "full/target_source_offset_stage_contrasts.csv": "568b02865192ed6597ae273ad8bee616d2267cd06119efb7c50f8a98574c0d5f"
+  },
+  "scope": "Evaluation/reference truth labels entering the annual calibration and scoring stage; fixed daily-model inputs and source trajectory draws remain unchanged.",
+  "not_tested": "Not a perturbation of original hidden water-temperature days followed by daily-model refitting; no claim about leakage in upstream daily fitting or feature construction.",
+  "executions": {
+    "baseline": {
+      "status": "source_calibration_reestimated_and_same_targets_scored",
+      "source_cases_regenerated": 2370,
+      "target_cases": 27,
+      "source_role_offsets_reestimated": true
+    },
+    "target_truth_permuted": {
+      "status": "source_calibration_reestimated_and_same_targets_scored",
+      "source_cases_regenerated": 2370,
+      "target_cases": 27,
+      "source_role_offsets_reestimated": true
+    },
+    "target_truth_plus_one": {
+      "status": "source_calibration_reestimated_and_same_targets_scored",
+      "source_cases_regenerated": 2370,
+      "target_cases": 27,
+      "source_role_offsets_reestimated": true
+    },
+    "source_truth_plus_one": {
+      "status": "source_calibration_reestimated_and_same_targets_scored",
+      "source_cases_regenerated": 2370,
+      "target_cases": 27,
+      "source_role_offsets_reestimated": true
+    }
+  },
+  "target_label_negative_controls": [
+    {
+      "scenario": "target_truth_permuted",
+      "executed": true,
+      "offset_cells_unchanged_exactly": 288,
+      "offset_scalar_values_unchanged_exactly": 2016,
+      "offset_csv_bytes_unchanged": true,
+      "source_quantile_rows_unchanged_exactly": 21330,
+      "target_quantile_rows_unchanged_exactly": 729,
+      "changed_target_bias_rows": 729,
+      "changed_target_mae_rows": 729,
+      "changed_target_crps_rows": 729
+    },
+    {
+      "scenario": "target_truth_plus_one",
+      "executed": true,
+      "offset_cells_unchanged_exactly": 288,
+      "offset_scalar_values_unchanged_exactly": 2016,
+      "offset_csv_bytes_unchanged": true,
+      "source_quantile_rows_unchanged_exactly": 21330,
+      "target_quantile_rows_unchanged_exactly": 729,
+      "changed_target_bias_rows": 729,
+      "changed_target_mae_rows": 729,
+      "changed_target_crps_rows": 729
+    }
+  ],
+  "source_label_positive_control": {
+    "executed": true,
+    "source_truth_delta": 1.0,
+    "offset_cells_checked": 288,
+    "offset_scalar_values_checked": 2016,
+    "expected_pre_target_projection_offset_shift": 1.0,
+    "maximum_abs_error_from_plus_one": 1.7763568394002505e-15,
+    "fixed_source_quantile_rows_unchanged_exactly": 21330,
+    "source_pool_and_fallback_unchanged": true,
+    "changed_reestimated_target_distribution_rows": 243,
+    "target_uncalibrated_and_fixed_old_offset_layers_unchanged": true
+  },
+  "no_calibration_guard_disabled": true,
+  "temporary_outputs_only": true,
+  "input_hashes_after": {
+    "plan.json": "c89d57ee3a7823d06e445eccbd8ed78c5422b622eb15e830208b560e0171c6c4",
+    "source_union_cases.parquet": "686c030f937d5fadcf5ece042250f735a64fa8e62ece45c5a0a7f760ba9e5b46",
+    "source_role_cases.csv": "d7adf7ded771cab4cdfc9f5a53425f3f3e467b01ca7bedf8a597b90f948fcb6d",
+    "fixed_target_cases.csv": "0f4b31ea4eb762efa5cce1c544425ec4bd2e26d97b89b9fb9cfc74bdc508f940",
+    "full/source_frozen_manifest.csv": "fdbf38dae0c580f00c5239a5fdde73875b536e7e3086cef55c665db5d39a18a3",
+    "full/source_native20_checks.csv": "126c00bcd61e8285154a01fba3d9326bf4eaa188fda65c731cf60f8cfe065f50",
+    "full/source_nested_draws.parquet": "cbac6722e35f0a9067e455e13b9af3c5d3b0d83d212623e881726aa68065475c",
+    "full/source_nested_quantiles.csv": "3967716cd8ffadef32a3840a799e89c940a9402a3f39aec719287d377d992d54",
+    "full/source_pool_availability.csv": "2307c6324a9dc9c0c3b6e536d5c953c7ae3fa408f8ea7fefc2f223eba396234e",
+    "full/source_unavailable_cases.csv": "0be9c18c979d3844f8ee3b165cb77db1ab69daea1c68eab89af2997159185840",
+    "full/source_reestimated_offsets.csv": "6c8c9aa0773389257c6cb9554aa6e986f49a9167b1e94d1776a757e49e37ba81",
+    "full/target_native20_checks.csv": "cf190882d96aa6cdca8e63216d588c17c6e5e22f77ad607e6505a0a9bdb3cdd7",
+    "full/target_nested_draws.parquet": "d5a1eb36a45af7897b1cf1451d4daab85cb096484d9784d27ed9fee3b2e89dc0",
+    "full/target_historical_reference.csv": "7e6514b531f7195d8a1274b5eb10484f86855b4e4833c2f07543aa0d03628e1f",
+    "full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c",
+    "full/target_three_layer_summary.csv": "2792252dea37fac215878f1fc1b17d54dfe234544e097f76fc53c7e0aae9c7f6",
+    "full/target_budget_case_deltas.csv": "36f1ddcdcc718c9aa531897d53b6a094601403af9990ed2400b31976aa565b75",
+    "full/target_budget_tail_summary.csv": "0bad79cf2e7c3ff44d400af3a4da83339114cde0b13d9d3e167dad5c508a1ecc",
+    "full/target_source_offset_stage_contrasts.csv": "568b02865192ed6597ae273ad8bee616d2267cd06119efb7c50f8a98574c0d5f"
+  },
+  "formal_result_files_checked": 19,
+  "formal_results_unchanged": true,
+  "runtime_seconds": 13.38275409117341,
+  "log": "results/wrr_multiview_review_20261031/calibration-probe-3ujfucs2/calibration_leakage_probe.log",
+  "reviewer_execution": "2026-10-31 Asia/Shanghai; fresh protected input copies; original experiment records were not overwritten",
+  "original_experiment_protected_hashes_match": true
+}

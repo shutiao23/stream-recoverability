@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T04:54:33.714433+00:00",
+  "status": "posthoc after published station descriptions, coordinate metadata and evidence of prior Truckee-basin USGS caches; before obtaining DWR time-series or evaluating errors",
+  "selection": "All 12 DWR stations from the source station metadata; report date-envelope possibilities and distance to named prior USGS identities with available official coordinates.",
+  "prior_scope": "Separate source-panel column identities from a wider collection of earlier source, external, cache and most recent donor-data IDs; both are best-effort inventories. Multiple coordinates per ID are retained.",
+  "interpretation": "Straight-line proximity is not proof of same gauge, same measurement, connection or independence. All 12 DWR sites belong to the same managed Truckee watershed and must not be counted as independent climates."
+}

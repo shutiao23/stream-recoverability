@@ -1,0 +1,31 @@
+{
+  "status": "metadata_only_span_screen",
+  "retrieved_utc": "2026-10-26T22:47:31.012166+00:00",
+  "station_options": 287,
+  "unique_station_ids": 286,
+  "duplicate_station_ids": 1,
+  "coordinate_matches": 287,
+  "valid_coordinate_rows": 287,
+  "water_type_counts": {
+    "fresh-water": 156,
+    "marine-water": 131
+  },
+  "station_type_code_counts": {
+    "6": 250,
+    "3": 16,
+    "4": 13,
+    "1": 6,
+    "2": 1,
+    "8": 1
+  },
+  "qa_span_dates_missing": 87,
+  "freshwater_options": 156,
+  "freshwater_with_missing_dates": 86,
+  "freshwater_with_four_possible_calendar_years": 0,
+  "freshwater_four_year_candidates_with_coordinates": 0,
+  "freshwater_four_year_candidate_unique_ids": 0,
+  "no_temperature_values_requested": true,
+  "no_predictions_scored": true,
+  "interpretation": "first/last QA dates bound possible complete years only; duplicate station IDs remain separate labeled records; freshwater label can include lakes and does not prove lotic status; blank or inconsistent fields remain unresolved",
+  "limitations": "site location, exact series parameter, QA definitions, real annual completeness, subdaily uniqueness, timezone, estimated values, prior-site identity and river-network independence are not established"
+}

@@ -1,0 +1,100 @@
+{
+  "scope": "post-hoc numerical sensitivity on saved crossed forward controlled gaps",
+  "draws": [
+    256,
+    1024,
+    4096
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "constructions": [
+    "independent",
+    "shared_parameters",
+    "residual_blocks"
+  ],
+  "fixed": "annual quantiles, observed bounds, evaluation years and point estimates",
+  "convergence_rule": "coverage change <= 0.3 percentage points and width/score relative change <= 1% between 1024 and 4096; 256 is reported as the original small-sample sensitivity",
+  "checks": [
+    {
+      "method": "D2",
+      "construction": "independent",
+      "coverage_change_256_1024_pp": 0.8149959250203787,
+      "width_relative_change_256_1024": 0.016625177481134356,
+      "score_relative_change_256_1024": -0.011872827325108417,
+      "coverage_change_1024_4096_pp": 0.0,
+      "width_relative_change_1024_4096": 0.003005555486918247,
+      "score_relative_change_1024_4096": -0.0036687903951127115,
+      "meets_numerical_stability_rule": true,
+      "stability_pair": "1024-4096"
+    },
+    {
+      "method": "D2",
+      "construction": "residual_blocks",
+      "coverage_change_256_1024_pp": 0.5704971475142484,
+      "width_relative_change_256_1024": 0.01242921869933837,
+      "score_relative_change_256_1024": -0.014525930200719848,
+      "coverage_change_1024_4096_pp": -0.08149959250203231,
+      "width_relative_change_1024_4096": 0.0022611103430637295,
+      "score_relative_change_1024_4096": -0.0026047955970022437,
+      "meets_numerical_stability_rule": true,
+      "stability_pair": "1024-4096"
+    },
+    {
+      "method": "D2",
+      "construction": "shared_parameters",
+      "coverage_change_256_1024_pp": 0.2852485737571242,
+      "width_relative_change_256_1024": 0.012622826981345465,
+      "score_relative_change_256_1024": -0.018092837870478943,
+      "coverage_change_1024_4096_pp": 0.04074979625101616,
+      "width_relative_change_1024_4096": 0.0037256458513306888,
+      "score_relative_change_1024_4096": -0.006226160246908187,
+      "meets_numerical_stability_rule": true,
+      "stability_pair": "1024-4096"
+    },
+    {
+      "method": "stochastic_cal",
+      "construction": "independent",
+      "coverage_change_256_1024_pp": 1.1775362318840688,
+      "width_relative_change_256_1024": 0.01583201215518954,
+      "score_relative_change_256_1024": -0.00447572352554965,
+      "coverage_change_1024_4096_pp": 0.13586956521738358,
+      "width_relative_change_1024_4096": 0.003561701407034668,
+      "score_relative_change_1024_4096": -0.0013838469253025436,
+      "meets_numerical_stability_rule": true,
+      "stability_pair": "1024-4096"
+    },
+    {
+      "method": "stochastic_cal",
+      "construction": "residual_blocks",
+      "coverage_change_256_1024_pp": 0.7246376811594124,
+      "width_relative_change_256_1024": 0.012978000107575228,
+      "score_relative_change_256_1024": -0.00411162691070537,
+      "coverage_change_1024_4096_pp": 0.36231884057970065,
+      "width_relative_change_1024_4096": 0.002767309606336503,
+      "score_relative_change_1024_4096": 0.0003141820371777691,
+      "meets_numerical_stability_rule": false,
+      "stability_pair": "1024-4096"
+    },
+    {
+      "method": "stochastic_cal",
+      "construction": "shared_parameters",
+      "coverage_change_256_1024_pp": 0.9510869565217295,
+      "width_relative_change_256_1024": 0.011570602928198922,
+      "score_relative_change_256_1024": -0.012737822987863443,
+      "coverage_change_1024_4096_pp": 0.27173913043477826,
+      "width_relative_change_1024_4096": 0.003521346689378888,
+      "score_relative_change_1024_4096": -0.0022639282965406767,
+      "meets_numerical_stability_rule": true,
+      "stability_pair": "1024-4096"
+    }
+  ],
+  "limits": [
+    "same opened data, not independent validation",
+    "seed range is not a confidence interval",
+    "rank couplings are dependence sensitivities, not posterior samples",
+    "the rank sequence is generated at the largest draw count and truncated for smaller counts; annual marginals are regenerated separately for each draw count"
+  ]
+}

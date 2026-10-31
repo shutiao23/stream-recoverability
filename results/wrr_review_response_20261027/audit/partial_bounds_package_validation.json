@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "environments": {
+    "clean": {
+      "report": "partial_bounds_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    },
+    "replay": {
+      "report": "partial_bounds_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    }
+  },
+  "scope": "Extracted candidate package replay, figures and manuscript compilation in two Python environments.",
+  "limitations": "No verification of the assumed missing-value range, accuracy, independent climate or model prediction; restricted source weights and per-case model results, permissions and permanent deposit remain unresolved."
+}

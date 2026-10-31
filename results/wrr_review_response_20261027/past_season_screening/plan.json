@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T01:36:26.839717+00:00",
+  "status": "post-hoc observational sensitivity after the 35 witnesses and leave-year-out rules were inspected; not prospective registration",
+  "cohort": "same 95-station project-processed current-vintage subset; 2,656 previously eligible 1981--2025 station-years and 35 retrospectively selected witnesses",
+  "season": "same 15-day-smoothed day-of-year climatology and five consecutive warm months as the existing study comparator, but using only observed water days with calendar year strictly earlier than the target year",
+  "support_variants": "past version uses any nonempty earlier observations; past-four-complete version requires at least four fully observed calendar years strictly before the target year. Complete target years are accepted without climatology because they necessarily meet any warm-season 90% threshold. Incomplete years with unavailable support are unknown, not rejected.",
+  "reference": "within 1981--2025 eligible station-years, compare each rejected year's observed 30-day maximum with maxima of the same rule's earlier accepted years only; if no earlier accepted observable window exists, reference is unknown. Accepted incomplete years can hide higher annual H30.",
+  "comparators": "complete-year, 95% annual coverage, original leave-target-year-out 90% warm season, past-only 90% warm season, and past-only with four earlier complete years. The leave-year-out comparator can use future observations.",
+  "limits": "retrospectively selected stations and witnesses and the currently available revised data vintage, not the historical data/metadata available at the time; four-year rule is a study sensitivity rather than a published standard. No physical measurement-error validation, independent climate or prospective performance guarantee."
+}

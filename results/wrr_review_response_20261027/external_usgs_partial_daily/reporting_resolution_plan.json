@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T08:28:34.303653+00:00",
+  "status": "posthoc after daily and subdaily interval coverages and cross-representation bound mismatches were examined",
+  "cohort": "All 144 fixed cases for each clock and the previously identified 54 full-hour and 18 full-quarter cases; all selected support subgroups are posthoc and come from one station.",
+  "diagnostics": "For each predictive method distinguish daily-reference coverage, definite/possible continuous-reference coverage, changes from reported-covered to continuous-definitely-uncovered, published lower bounds above continuous upper H30, and whether q05 equals the published lower bound. Record absolute gap sizes and counts <=0.01, <=0.05 and <=0.1 C.",
+  "tolerance": "Counts of non-overlap distances within fixed 0.01, 0.05 and 0.1 C are descriptive numerical sensitivities chosen after inspecting results. They are not sensor error estimates, revised predictions, calibration procedures or guarantees.",
+  "limits": "The daily and equally weighted 15-minute targets differ in rounding, reporting-day convention and possible corrections. All subdaily enclosures assume unknown values in [-5,50] C. Physical accuracy, source overlap and independent climate are unverified; repeated masks share station-year outcomes."
+}

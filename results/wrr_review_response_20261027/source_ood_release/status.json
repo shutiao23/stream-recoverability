@@ -1,0 +1,29 @@
+{
+  "status": "completed_posthoc_source_rule_evaluation",
+  "source_rule_crossed_cases": 8658,
+  "eligible_cases": 8010,
+  "eligible_groups": 19,
+  "excluded_history_or_reference_or_inference": 648,
+  "failure_threshold_c": 0.5,
+  "warning": {
+    "cases_flagged": 484,
+    "failures": 868,
+    "true_positive": 42,
+    "false_positive": 442,
+    "false_negative": 826,
+    "true_negative": 6700,
+    "failure_recall": 0.04838709677419355,
+    "false_positive_rate": 0.06188742649117894
+  },
+  "matched_comparison": {
+    "risk_plus_range_numerical": 5596,
+    "risk_only_matched_numerical": 5596,
+    "risk_plus_range_errors": 268,
+    "risk_only_matched_errors": 211,
+    "conditional_failure_difference": 0.010185847033595423,
+    "group_bootstrap_low": 0.0068280140206936546,
+    "group_bootstrap_high": 0.014055831211139078,
+    "valid_bootstrap_draws": 4000
+  },
+  "limitations": "Source rule groups and model scores are previously opened, and the warning was chosen after external outputs were inspected. Excluding different cases changes the meaning of retained outputs. There is no causal or calibration guarantee and the same warning flags every external case; source results cannot validate it as a universal failure detector."
+}

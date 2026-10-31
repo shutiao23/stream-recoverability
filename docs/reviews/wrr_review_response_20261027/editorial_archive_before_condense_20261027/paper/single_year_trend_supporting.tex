@@ -1,0 +1,27 @@
+\section{Trend sensitivity to annual interval expansion}
+After examining the source-only annual correction and the earlier trend results, we propagated it through the original 256-draw normal-spacing quantile representation. The endpoint-only scheme moves the 5th and 95th quantiles while holding the five interior quantiles fixed. The tapered scheme also shifts the 10th, 25th, 75th and 90th quantiles by 0.8, 0.4, 0.4 and 0.8 times the radius, respectively; the median and complete-year values are unchanged. Both schemes use the same adjusted 90\% endpoints and respect observed lower bounds. Their interior and normal-spacing outer tails differ. The same independent, auxiliary shared-parameter and residual-block rank matrices are reused within each scheme; no calibrated joint distribution is implied. Among 820 forward controlled-gap station--repetition settings, 760 belong to regions with source support for both methods. Seventy-three of these lack at least one annual distribution, and two have no incomplete year, leaving 685 common nontrivial settings. Original saved trend intervals are reproduced before adjustment. The target selection and calibration remain retrospective.
+\begin{table}[p]\centering\footnotesize
+\caption{Nominal 95\% finite-record trend interval comparison on the same 685 station--repetition cases, 38 stations and 14 connected groups. Width and interval score are in $^{\circ}$C per decade; repeated masks are not independent climates.}\label{tab:single-year-trend}
+\begin{tabular}{lllrrr}\toprule
+Method & Rank construction & Marginal scheme & Coverage & Width & Interval score\\\midrule
+D2 & independent & baseline & 87.9\% & 0.382 & 0.742\\
+D2 & independent & endpoints & 89.3\% & 0.409 & 0.736\\
+D2 & independent & tapered & 88.9\% & 0.403 & 0.735\\
+D2 & shared parameter & baseline & 88.0\% & 0.379 & 0.741\\
+D2 & shared parameter & endpoints & 89.2\% & 0.405 & 0.730\\
+D2 & shared parameter & tapered & 89.2\% & 0.399 & 0.733\\
+D2 & residual blocks & baseline & 88.2\% & 0.385 & 0.721\\
+D2 & residual blocks & endpoints & 89.8\% & 0.411 & 0.708\\
+D2 & residual blocks & tapered & 89.5\% & 0.406 & 0.707\\
+classical & independent & baseline & 83.4\% & 0.344 & 0.912\\
+classical & independent & endpoints & 86.9\% & 0.387 & 0.856\\
+classical & independent & tapered & 85.5\% & 0.376 & 0.866\\
+classical & shared parameter & baseline & 82.2\% & 0.342 & 0.922\\
+classical & shared parameter & endpoints & 86.3\% & 0.383 & 0.863\\
+classical & shared parameter & tapered & 85.0\% & 0.373 & 0.872\\
+classical & residual blocks & baseline & 82.6\% & 0.349 & 0.901\\
+classical & residual blocks & endpoints & 86.4\% & 0.391 & 0.845\\
+classical & residual blocks & tapered & 85.7\% & 0.381 & 0.853\\
+\bottomrule\end{tabular}
+\end{table}
+Connected-group paired bootstrap and fixed-prediction leave-one-region-out summaries are supplied. They are descriptive, use only 14 target groups and do not establish independent climates. Annual 90\% endpoint correction does not identify the inner or outer distribution, cure annual undercoverage, guarantee trend coverage, or resolve source rights. The underlying case records and rank arrays remain local pending permission.

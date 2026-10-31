@@ -1,0 +1,24 @@
+{
+  "status": "checked",
+  "created_utc": "2026-10-26T21:38:35.775566+00:00",
+  "candidates": 4,
+  "inventories": [
+    {
+      "inventory": "source_seed_zero_cases",
+      "unique_identifiers": 581,
+      "exact_candidate_matches": []
+    },
+    {
+      "inventory": "previous_eccc_opened_cache",
+      "unique_identifiers": 13,
+      "exact_candidate_matches": []
+    },
+    {
+      "inventory": "previous_bc_published_roster",
+      "unique_identifiers": 23,
+      "exact_candidate_matches": []
+    }
+  ],
+  "scope": "exact candidate identifiers only in named inventories; other formats and caches were not exhaustively searched",
+  "limitation": "different identifiers may represent the same physical site, river, basin or climate; neither prior full contact nor independence is proven"
+}

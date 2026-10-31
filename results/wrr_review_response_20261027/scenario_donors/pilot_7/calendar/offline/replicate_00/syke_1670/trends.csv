@@ -1,0 +1,14 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,retention,dependence,available,n_retained,truth_slope,slope,error,squared_error,lower95,upper95,width95,missing_coverage95,interval_score95
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,plug_in,warm90,point,True,40.0,-0.08787437261592396,-0.1334848293476123,-0.04561045673168834,0.0020803137632732145,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,plug_in,all,point,True,44.0,-0.08787437261592396,-0.12611399997209927,-0.03823962735617531,0.001462269100339151,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,stochastic_calibrated,warm90,point,False,40.0,,,,,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,stochastic_calibrated,all,point,False,44.0,,,,,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,stochastic_calibrated,all,independent,False,,,,,,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,stochastic_calibrated,all,shared_parameters,False,,,,,,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,stochastic_calibrated,all,residual_blocks,False,,,,,,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,D2,warm90,point,True,40.0,-0.08787437261592396,-0.13306542283227857,-0.04519105021635461,0.0020422310196570844,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,D2,all,point,True,44.0,-0.08787437261592396,-0.1036411342359128,-0.015766761619988842,0.0002485907719815532,,,,,
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,D2,all,independent,True,,-0.08787437261592396,-0.1036411342359128,-0.015766761619988842,0.0002485907719815532,-0.14961099534626981,-0.08436659109613365,0.06524440425013617,True,0.06524440425013617
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,D2,all,shared_parameters,True,,-0.08787437261592396,-0.1036411342359128,-0.015766761619988842,0.0002485907719815532,-0.15274876740298862,-0.07869592863418433,0.0740528387688043,True,0.0740528387688043
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,D2,all,residual_blocks,True,,-0.08787437261592396,-0.1036411342359128,-0.015766761619988842,0.0002485907719815532,-0.14778944540266953,-0.07924932137621633,0.0685401240264532,True,0.0685401240264532
+syke|1670,g0087,syke,0,offline,calendar,synchronized_donors,44,15,precomputed_plugin,all,point,True,,-0.08787437261592396,-0.12627979648667065,-0.03840542387074669,0.0014749765826917198,,,,,

@@ -1,0 +1,12 @@
+{
+  "status": "computed_posthoc",
+  "source_replays": 220,
+  "candidate_replays": 205,
+  "strict_huc17_replays": 15,
+  "stored_trend_rows": 9840,
+  "summary_rows": 48,
+  "leave_region_rows": 144,
+  "same_masks_daily_features_and_plugin_checked": true,
+  "baseline_candidate_receipts_checked": 205,
+  "limitations": "Source and target results already observed. Original HUC17 strict refit changes source sample; candidate provider, role and sample changes are inseparable. Heat templates and years change jointly. Not natural-outage, independent-climate, new model fit or a coverage guarantee. Four stations use an evaluation-period year in the seven-year air reference."
+}

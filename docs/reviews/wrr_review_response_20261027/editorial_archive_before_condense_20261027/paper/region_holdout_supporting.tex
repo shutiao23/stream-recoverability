@@ -1,0 +1,10 @@
+\section{Source role audit for partitioned forward models}
+We re-derived the seed-zero bootstrap weights and checked them against the roles saved in 98 model bundles for the four evaluated source splits. The selected held test stations and their recorded connected groups did not enter any source role. However, in the before-2010 split, the role function defines held groups from test-period cases; training-only groups in the same named region may therefore remain in the source. The table reports positive-weight same-region source cases, not held-target observations. This is not a uniformly held-region design; the distinction affects the interpretation of forward transfer. It does not establish leakage of target-station hidden values or physical independence across groups.
+\begin{table}[p]\centering\small
+\caption{Seed-zero before-2010 model roles with positive-weight source cases in the named target region. Bootstrap-weighted counts include repeated role draws and do not represent independent samples.}\label{tab:forward-region-role-audit}
+\begin{tabular}{llrrrr}\toprule
+Region & Role & Groups & Stations & Cases & Weighted cases\\\midrule
+nve\_hydapi & interval\_calibration & 2 & 3 & 431 & 695\\
+usgs\_huc17 & estimator & 1 & 1 & 140 & 280\\
+\bottomrule\end{tabular}
+\end{table}

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "sampled_case_visibility_recomputed": 156,
+  "source_role_cells_recomputed": 52,
+  "provider_summary_cells_recomputed": 13,
+  "sample_rule": "First 12 cases per provider and mode sorted by network, station, year and mask; selected without performance or visibility outcomes.",
+  "limits": "Separate mask parser, pandas donor coverage and independently reconstructed group-role bootstrap; uses the same processed panels, station catalogs, candidate cases and group definitions. Not a legal, quality, original-provider or independent-climate validation."
+}

@@ -1,0 +1,11 @@
+{
+  "status": "computed",
+  "forward_common_annual_cases": 7357,
+  "all_modes_annual_cases_before_filter": 21446,
+  "target_case_method_rows": 14714,
+  "source_frozen_first": true,
+  "limitation": "Groups and target climates are not shown exchangeable; source cases use one-year masks while target archives are jointly degraded and group sizes differ. Prior target/source outcomes and other classifier analyses were already examined. Candidate provider roles and rights remain uncertain. The finite rank does not establish 90% group coverage or a validated joint trend distribution.",
+  "summary_denominator_corrected": true,
+  "source_radii_and_target_scores_unchanged": true,
+  "correction": "See summary_correction.json; initial aggregate preserved."
+}

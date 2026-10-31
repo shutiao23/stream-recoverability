@@ -1,0 +1,6 @@
+cohort,complete_station_years,stations,connected_groups,years_above_tolerance,years_above_0p1_c,years_above_0p5_c,mean_gap_c,median_gap_c,max_gap_c
+all_95_stations,2122,95,33,779,613,304,0.2548694444534129,0.0,9.146666844685871
+excluding_two_posthoc_stations,2086,93,33,749,585,279,0.19680551059255966,0.0,4.550000000000001
+label_regulated,397,23,10,173,141,103,0.7249706132586116,0.0,9.146666844685871
+label_unknown,183,11,7,37,25,5,0.049016391427573386,0.0,0.75
+label_unmatched_gages,1542,61,16,569,447,196,0.15826824126798147,0.0,2.2500001589457206

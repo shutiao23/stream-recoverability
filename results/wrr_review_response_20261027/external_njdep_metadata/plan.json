@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-26T22:45:24.508107+00:00",
+  "status": "metadata_plan_frozen_before_location_roster",
+  "provider": "New Jersey Department of Environmental Protection, Division of Water Monitoring and Standards; Rutgers Continuous Data Monitoring Program",
+  "catalog": "https://njdep.rutgers.edu/continuous/download/",
+  "provider_description": "https://dep.nj.gov/wms/bfbm/river-streams-chemical-monitoring/",
+  "station_metadata_endpoint": "https://njdep.rutgers.edu/continuous/api/latest/station/coordinates/",
+  "selection_before_values": "collect the complete published location roster, retain identifiably fresh river/stream sites with metadata spans capable of at least four complete calendar years; leave lakes, marine, ambiguous types, missing dates and unclear river network as excluded or unresolved; freeze identities before any temperature retrieval",
+  "prior_contact": "cross-check identifiers, approximate coordinates and downstream/upstream hydrologic networks against source, prior USGS national panel and other opened external inputs; unresolved overlap is not independent confirmation",
+  "reference_requirements": "all unique expected subdaily timestamps per provider-defined 24-hour day, valid nonestimated observed temperatures and documented quality, time zone, deployment and sensor treatment; four complete reference years with three others for leave-year-out local fitting",
+  "interpretation": "provider reports that downloadable data are quality-assured, but this alone does not establish completeness, nonestimated values, correct day boundaries or physical independence",
+  "data_and_rights": "metadata-only preflight; clarify source-specific redistribution and reviewer access before packaging temperature or derived case records",
+  "no_temperature_scores_or_values_opened": true,
+  "selection_status": "new exploratory intake; not preregistered or representative of all stations"
+}

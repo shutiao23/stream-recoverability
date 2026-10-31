@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-27T00:09:59.339594+00:00",
+  "status": "clarified_before_trend_propagation",
+  "reason": "The original shorthand did not explicitly map the two positive-side weights to q75 and q90.",
+  "taper_weights_by_quantile": {
+    "q05": -1.0,
+    "q10": -0.8,
+    "q25": -0.4,
+    "q50": 0.0,
+    "q75": 0.4,
+    "q90": 0.8,
+    "q95": 1.0
+  },
+  "timing": "Clarification recorded before any trend propagation or inspection of its outcomes; the entire study remains post hoc relative to prior annual and trend results."
+}

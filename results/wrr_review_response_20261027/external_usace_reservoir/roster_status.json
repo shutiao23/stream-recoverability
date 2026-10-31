@@ -1,0 +1,13 @@
+{
+  "status": "metadata_screened",
+  "resources": 11,
+  "resources_with_referenced_gage_ids": 11,
+  "resources_with_multiple_referenced_gages": 1,
+  "resources_with_named_prior_gage": 1,
+  "metadata_candidates": 10,
+  "candidate_same_network_not_excluded": true,
+  "prior_ids_with_known_coordinates": 1495,
+  "temperature_values_opened": false,
+  "prediction_errors_opened": false,
+  "limits": "Coordinates and exact-ID filters do not establish river-network separation, source history, timestamp completeness, nonestimated quality or independent climates. Files are chosen by stated date envelope; potentially misleading names remain to be investigated."
+}

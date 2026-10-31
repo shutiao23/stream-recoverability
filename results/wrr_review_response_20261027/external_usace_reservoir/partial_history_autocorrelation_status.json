@@ -1,0 +1,16 @@
+{
+  "status": "completed_posthoc_sensitivity",
+  "target_years": 17,
+  "resources": 4,
+  "interpolated_phi_outside_training_range_years": 15,
+  "observed_only_phi_outside_training_range_years": 14,
+  "both_outside_years": 14,
+  "interpolated_outside_observed_inside_years": 1,
+  "interpolated_inside_observed_outside_years": 0,
+  "median_interpolated_minus_observed_phi": 0.003618795806847319,
+  "min_interpolated_minus_observed_phi": -0.010299265849605277,
+  "max_interpolated_minus_observed_phi": 0.006690786358356959,
+  "mean_pairs_interpolated": 554.3529411764706,
+  "mean_pairs_observed_only": 523.6470588235294,
+  "limitations": "The original feature formula can concatenate nonconsecutive selected years; the same rule is used in both variants. Source and target climate or sensor quality are not known independent. Source training min/max are marginal bounds, not a failure probability; law_phi_r is not recomputed here. This is a retrospective sensitivity to two different historical-data treatments, including changed climatology and finite pair selection; it does not isolate the causal effect of interpolation alone or alter the saved model predictions. No alternate model accuracy is claimed."
+}

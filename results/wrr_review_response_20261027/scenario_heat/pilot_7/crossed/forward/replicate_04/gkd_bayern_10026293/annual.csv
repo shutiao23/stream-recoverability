@@ -1,0 +1,4 @@
+station_key,independence_group,region,replicate,mode,family,scenario,n_years,n_incomplete,estimator,n_eligible,n_available,mae,coverage90,width90
+gkd_bayern|10026293,g0032,gkd_bayern,4,forward,crossed,heat_associated,13,9,plug_in,9,9,0.7216630890270833,,
+gkd_bayern|10026293,g0032,gkd_bayern,4,forward,crossed,heat_associated,13,9,stochastic_calibrated,9,8,0.5265692934599002,,
+gkd_bayern|10026293,g0032,gkd_bayern,4,forward,crossed,heat_associated,13,9,D2,9,9,0.4742472176962988,0.6666666666666666,0.9943354739124521

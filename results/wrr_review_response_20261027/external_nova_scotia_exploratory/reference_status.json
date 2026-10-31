@@ -1,0 +1,12 @@
+{
+  "status": "reported_clock_reference_built",
+  "stations": 2,
+  "station_years": 8,
+  "daily_values": 2922,
+  "hourly_labels_checked": 70128,
+  "source_comparison_tolerance_c": 1e-06,
+  "strict_reference_qualified": false,
+  "model_scoring_performed": true,
+  "limitation": "daily means are means of reported hourly values; timezone, nonestimated status, per-record QA and sensor error remain unresolved; same two releases of one monitoring programme",
+  "scoring_scope": "separate reported-clock exploratory experiment; strict reference remains unqualified"
+}

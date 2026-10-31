@@ -1,0 +1,20 @@
+{
+  "scope": "crossed forward controlled gaps, common finite D2 and stochastic quantiles",
+  "cases": 3683,
+  "stations": 41,
+  "groups": 17,
+  "regions": 6,
+  "peak_visible_n": 1537,
+  "peak_hidden_n": 2146,
+  "peak_hidden_D2_coverage90": 0.8322460391425909,
+  "peak_hidden_stochastic_coverage90": 0.8164026095060578,
+  "peak_hidden_D2_mae": 0.3776386575971379,
+  "peak_hidden_stochastic_mae": 0.34510544286489453,
+  "limits": [
+    "peak visibility uses the complete reference and is not available at decision time",
+    "gap, overlap and donor bins are post-hoc descriptive strata",
+    "at least half includes overlap equal to 0.5; no overlap is overlap at most 0.001",
+    "repeated masks are not independent rivers or climates",
+    "group bootstrap is descriptive, not a population guarantee"
+  ]
+}

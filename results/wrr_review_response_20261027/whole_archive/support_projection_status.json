@@ -1,0 +1,33 @@
+{
+  "archive_files": [
+    {
+      "family": "calendar",
+      "mode": "offline",
+      "n_archive_files": 840
+    },
+    {
+      "family": "calendar",
+      "mode": "forward",
+      "n_archive_files": 820
+    },
+    {
+      "family": "crossed",
+      "mode": "offline",
+      "n_archive_files": 840
+    },
+    {
+      "family": "crossed",
+      "mode": "forward",
+      "n_archive_files": 820
+    }
+  ],
+  "total_annual_rows": 21446,
+  "duplicate_keys": 0,
+  "max_quantile_below_bound": 0,
+  "quantile_crossings": 0,
+  "denominators_match_annual_summary": true,
+  "tolerance_c": 1e-08,
+  "scope": "same masked archive rows; both seven-quantile estimators compared on their shared finite-bound cohort",
+  "interpretation": "Zero-width intervals and observed bounds are checked against the finite complete reference; matches do not prove zero measurement uncertainty and no pre-projection counterfactual is computed.",
+  "passed": true
+}

@@ -1,0 +1,7 @@
+{
+  "scope": "clean retrospective source experiment, one existing model seed; group-disjoint source rule calibration for each held region and family",
+  "calibration": "source bootstrap-weighted score threshold chosen without failure labels to approximately match source three-output numerical retention; ties admitted together",
+  "target": "apply fixed source-derived threshold in held region, no target labels or target retention used for tuning",
+  "comparison": "same D2 estimates and case population, but target numerical retention need not match and bounds/unknowns differ",
+  "limitations": "model/thresholds are exploratory, source groups do not imply independent climates, and results are not a risk guarantee or natural-outage validation"
+}

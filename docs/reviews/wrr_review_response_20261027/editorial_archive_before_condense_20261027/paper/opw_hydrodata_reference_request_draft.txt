@@ -1,0 +1,19 @@
+UNSENT DRAFT — SUBJECT TO AUTHOR REVIEW
+
+Subject: Clarification of archived river-temperature data quality and reuse
+
+Dear OPW Hydrometric Section,
+
+We are evaluating methods for reconstructing sustained river-water temperature extremes in incomplete monitoring records. We found the Hydro-Data catalogue entries for historical high-resolution and daily water temperature and would appreciate clarification before treating any records as independent reference data.
+
+1. For archived water-temperature series, are temperature sensors calibrated and observations independently quality assessed? The real-time waterlevel.ie documentation describes its temperature readings as uncalibrated and unchecked; does that statement also apply to archived temperature series, or are archive-specific procedures and quality flags available?
+2. Can the archive distinguish approved observations from estimated, provisional, invalid, or manually corrected values? Are sensor deployment location and maintenance or replacement histories available?
+3. What minimum number and timing of subdaily observations are required to calculate each published daily mean, and are timestamps recorded in UTC or local civil time? Can days with fewer than 24 observed hours be identified?
+4. The government catalogue identifies the temperature dataset as CC BY 4.0. Please confirm the reuse and redistribution terms for archived observations and metadata, including any conditions or station-number restrictions that apply, and whether restricted reviewer access is permissible.
+5. Is there a documented API or download mechanism and a recommended citation for the historical water-temperature series? Are there limits or a preferred process for scientific batch access?
+
+Our immediate need is to determine whether four complete, quality-qualified daily reference years can be established at a station. We have not evaluated archived OPW temperature values and would not treat unverified records as independent ground truth.
+
+Thank you for considering these questions.
+
+[Author name, affiliation and contact: pending]

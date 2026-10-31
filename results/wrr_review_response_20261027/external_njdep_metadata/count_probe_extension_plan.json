@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-10-26T22:49:30.731329+00:00",
+  "status": "posthoc_single_station_all_year_counts",
+  "trigger": "the fixed 2018 count-only request for metadata-selected station 01399820 returned zero",
+  "station_id": "01399820",
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "controls": "also request the same station with no date bounds, to distinguish a station/filter incompatibility from no returned year records",
+  "interpretation": "counts are unvalidated record counts across selected data, not unique days or temperature-only values; zeros and request failures are not automatically converted to years with no measurements",
+  "no_temperature_values_requested": true,
+  "no_models_evaluated": true,
+  "timing": "post-hoc extension after single-year count; no independent reference claim"
+}

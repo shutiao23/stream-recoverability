@@ -1,0 +1,16 @@
+{
+  "scorecard_max_abs_difference": 2.220446049250313e-16,
+  "scorecard_metrics_checked": 52,
+  "cases": 372,
+  "stations": 4,
+  "station_years": 16,
+  "max_truth_abs_difference": 2.4868995751603507e-14,
+  "max_lower_bound_abs_difference": 1.0658141036401503e-14,
+  "mask_count_mismatch": 0,
+  "nonfinite_bound_or_point": 0,
+  "d2_below_bound": 0,
+  "stochastic_below_bound": 0,
+  "scope": "reference is the author-published daily series; unknown hourly completeness and measurement error remain",
+  "arithmetic": "30-day ordinary convolution; recompute visible windows after applying stored zero-based mask runs",
+  "passed": true
+}

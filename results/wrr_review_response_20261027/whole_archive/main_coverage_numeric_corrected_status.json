@@ -1,0 +1,13 @@
+{
+  "status": "passed_posthoc_sensitivity",
+  "rows": 24,
+  "annual_case_rows": 21446,
+  "tolerances_c": [
+    0,
+    1e-10,
+    1e-08
+  ],
+  "total_exact_to_1e10_all_strata_cases": 12947,
+  "limitations": "Same saved references, outputs and prior-outcome-defined strata; no independent reference or raw-data recomputation. Tolerances are numerical comparisons, not physical sensor error. This audit cannot establish population calibration or coverage.",
+  "storage": "temporary RAM; not durable"
+}

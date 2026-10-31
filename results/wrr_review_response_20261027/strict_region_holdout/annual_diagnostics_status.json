@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "strict_archive_settings": 120,
+  "affected_annual_cases": 456,
+  "forward_paired_finite_cases": 7357,
+  "original_annual_scores_match_existing_audit": true,
+  "same_keys_truth_bounds_and_groups": true,
+  "calibration_support_invariant": "for the affected HUC17 forward region, same rule group assignments and fewer than three contributing groups imply existing source annual expansion and task calibration remain unsupported; estimated radii and error distributions were not re-estimated",
+  "limitation": "post-hoc case-weighted sensitivity; repeated masks are not independent climates; outcome stratum is known only using the complete reference; no physical measurement-error guarantee"
+}

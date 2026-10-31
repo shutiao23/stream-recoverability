@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-10-27T07:28:46.556822+00:00",
+  "status": "posthoc after exact-range detector and model outcomes were inspected; fixed tolerance levels before this sensitivity",
+  "cohort": "All 8010 prior eligible source rule-role cases and all 306 previously scored external partial-history cases.",
+  "margins": [
+    0.0,
+    1e-06,
+    0.01
+  ],
+  "evaluation": "For each margin compute source failure recall and false-positive rate, source risk<=0.1 plus no-warning retention and error, a target-score-ranked risk-only policy with exactly the same numerical count, and 4000 connected-group bootstrap draws for the difference in conditional error. Also report flagged external cases and station-years without evaluating any new target truth.",
+  "limitations": "Margins and their scale were chosen after source and target results; no prospective selection or calibration guarantee. Source rule groups were previously opened for other analyses and source mask cases repeat. Bounds do not establish multivariate support, valid release or independent climates."
+}

@@ -1,0 +1,170 @@
+% Generated from extended evidence by script 391.
+\begin{table}
+\caption{Old-group-only probability development. Both air-conditioned CSDI configurations share data, structured masks, seed, optimizer, maximum thirty epochs and patience five. Selection uses equal-group H30 CRPS on thirty old held-out groups and five masks per group; no external recovery outcome chooses the configuration. These budgets are not a claim of optimized state of the art.}
+\label{tab:extended_probability_budget}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Config. & G & N & Avail. & CRPS C & Epoch cap & Fit minutes & selected \\
+\midrule
+air32 & 30 & 150 & 150 & 0.261 & 30.000 & 51.217 & True \\
+air64 & 30 & 150 & 150 & 0.272 & 30.000 & 61.995 & False \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}
+\caption{Developed same-air system comparison on all 945 original controlled Swiss candidates. Point availability and admission retain that full pool; MAE compares the same 828 candidates with available Air2stream-3 and conditional distributions. Every point method receives the same selected H30 distribution. Native CDF failure probability is evaluated against that method's point before any window ablation; boosted direct and window scores share capacity and roles. Case risk pools accepted candidates; group risk is the ratio of mean group failure-and-admission to mean group admission. Unavailable numerical points remain unknown. Direct cost classification uses the same H30 law regardless of delivered point. This opened-data comparison is not a new confirmation.}
+\label{tab:extended_probability_system}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrrrr}
+\toprule
+method & Score & Point N & MAE C & Accepted & Failed & Retention & Case risk & Group risk & Formal N \\
+\midrule
+Priority & Native CDF & 945 & 0.346 & 447 & 9 & 0.473 & 0.020 & 0.020 & 0 \\
+Priority & Direct head & 945 & 0.346 & 316 & 1 & 0.334 & 0.003 & 0.003 & 0 \\
+Priority & Window head & 945 & 0.346 & 330 & 3 & 0.349 & 0.009 & 0.009 & 0 \\
+Air2stream-3 & Native CDF & 828 & 0.283 & 449 & 20 & 0.475 & 0.045 & 0.045 & 0 \\
+Air2stream-3 & Direct head & 828 & 0.283 & 404 & 11 & 0.428 & 0.027 & 0.027 & 0 \\
+Air2stream-3 & Window head & 828 & 0.283 & 380 & 7 & 0.402 & 0.018 & 0.018 & 0 \\
+Neural point & Native CDF & 945 & 0.306 & 474 & 12 & 0.502 & 0.025 & 0.025 & 0 \\
+Neural point & Direct head & 945 & 0.306 & 370 & 6 & 0.392 & 0.016 & 0.016 & 0 \\
+Neural point & Window head & 945 & 0.306 & 446 & 16 & 0.472 & 0.036 & 0.036 & 0 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}
+\caption{Full-procedure joint planning for the original priority-point direct/window heads under the empirical source laws, 1,000 complete paired refits per training budget. Simulated calibration budgets range from 60 to 3,840 and evaluation budgets from 60 to 7,680 groups. Actual source supports contain 59 fitting, 21 calibration and 24 evaluation components; larger budgets are simulated iid draws, not acquired independent histories. Formal and empirical calibration are both evaluated. Primary success requires risk evidence for both methods and a Hoeffding lower retention-gain bound above five points; the normal approximation is sensitivity only. Each column maximizes over calibration/test budgets. Monte Carlo upper bounds cover the entire planning grid. No evaluated cell supports eighty-percent success. This does not plan a new neural-point candidate.}
+\label{tab:extended_joint_planning}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{rlrrrr}
+\toprule
+Train G & Rule & Joint & MC upper & Normal & Population met \\
+\midrule
+60 & empirical & 0.001 & 0.012 & 0.020 & 0.022 \\
+60 & formal & 0.039 & 0.068 & 0.131 & 0.139 \\
+120 & empirical & 0.001 & 0.012 & 0.013 & 0.017 \\
+120 & formal & 0.027 & 0.052 & 0.097 & 0.105 \\
+240 & empirical & 0.002 & 0.014 & 0.005 & 0.007 \\
+240 & formal & 0.024 & 0.048 & 0.071 & 0.083 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}
+\caption{Redundant-logger resource qualification before reconstruction errors. There are 180 candidate sensor-pair-years, not 180 independent rivers. No case meets the unchanged three-complete-prior-primary-year protocol. Three compatible-reference pair-years correspond to two primary logger-years; they fail only historical support and remain a separately labelled short-history sensitivity. Source quality is project aggregation, not certified daily means.}
+\label{tab:extended_backup_qualification}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lr}
+\toprule
+qualification & pair\_years \\
+\midrule
+Annual boundary outside verified primary support & 151 \\
+Backup does not cover all missing days & 11 \\
+Fewer than three complete prior primary years & 3 \\
+Primary year already complete & 14 \\
+Sensors fail prespecified comparability checks & 1 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}
+\caption{Short-history backup-reference sensitivity, retaining all three pair references and two primary years. The four unavailable daily means arise from 8--19 hourly samples per day, occur in winter, and are not demonstrated full-day sensor failures. Their observed hot windows remain intact. Air2stream unavailability is charged as unknown in use, not counted as zero numerical risk. Free backup union completes the recorded reference by definition and establishes no costly-query advantage. All cases form one dependent provincial cohort; they do not validate risk under long warm-season outages.}
+\label{tab:extended_natural_sensitivity}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+method & References & Primary years & Available & MAE C & Failures & Available years \\
+\midrule
+Interpolation & 3 & 2 & 3 & 0.000 & 0 & 2 \\
+Air2stream-3 & 3 & 2 & 1 & 0.000 & 0 & 1 \\
+Fixed CSDI (8) & 3 & 2 & 3 & 0.000 & 0 & 2 \\
+Developed CSDI & 3 & 2 & 3 & 0.000 & 0 & 2 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}
+\caption{Developed distribution quality and prefix-sampling sensitivity on available opened cases; unavailable numerical outputs remain explicit in the original-pool system table. Warm-year and low-flow subsets are diagnostic conditions, not additional neural inputs. Low-flow rows require complete forcing coverage; incomplete flow is retained separately. The nominal band is 90 percent, probabilities are raw before Platt calibration, and point shifts compare nested 8/16/32-draw prefixes. Small Monte Carlo shifts cannot establish distributional reliability. Repeated masks are not independent observations.}
+\label{tab:extended_probability_quality}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrlrrrrrrrr}
+\toprule
+Role & Draws & Subset & N & G & Bias C & MAE C & CRPS C & Cov. 90 & Width C & Brier \\
+\midrule
+Dev. & 8 & All & 1485 & 11 & -0.045 & 0.264 & 0.203 & 0.727 & 0.730 & 0.057 \\
+Dev. & 16 & All & 1485 & 11 & -0.052 & 0.261 & 0.194 & 0.791 & 0.785 & 0.054 \\
+Dev. & 32 & All & 1485 & 11 & -0.051 & 0.258 & 0.189 & 0.823 & 0.744 & 0.054 \\
+Cal. & 8 & All & 1161 & 9 & -0.068 & 0.218 & 0.173 & 0.674 & 0.475 & 0.049 \\
+Cal. & 16 & All & 1161 & 9 & -0.070 & 0.212 & 0.167 & 0.742 & 0.533 & 0.048 \\
+Cal. & 32 & All & 1161 & 9 & -0.071 & 0.212 & 0.164 & 0.761 & 0.501 & 0.048 \\
+Test & 8 & All & 945 & 7 & -0.124 & 0.347 & 0.259 & 0.702 & 0.841 & 0.046 \\
+Test & 16 & All & 945 & 7 & -0.132 & 0.340 & 0.247 & 0.774 & 0.957 & 0.044 \\
+Test & 32 & All & 945 & 7 & -0.133 & 0.329 & 0.239 & 0.810 & 0.931 & 0.044 \\
+Test & 32 & Warm & 378 & 7 & -0.334 & 0.422 & 0.304 & 0.778 & 0.913 & 0.109 \\
+Test & 32 & Other years & 567 & 7 & 0.000 & 0.267 & 0.196 & 0.831 & 0.944 & 0.001 \\
+Test & 32 & Low flow & 124 & 7 & -0.267 & 0.390 & 0.290 & 0.710 & 0.927 & 0.115 \\
+Test & 32 & Other flow & 758 & 7 & -0.081 & 0.303 & 0.219 & 0.834 & 0.945 & 0.013 \\
+Test & 32 & Incomplete flow & 63 & 7 & -0.501 & 0.519 & 0.383 & 0.714 & 0.772 & 0.287 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}
+\caption{Developed-system absolute use loss on all 945 original controlled Swiss candidates, at missed-hot cost five and unknown cost 0.05. Native-CDF/direct/window admission heads screen each point separately. Reconstruction, screening and matched-random references are method specific; the calibrated H30-law decision and constant answers are shared across points. Random counts are exact expectations, and unavailable point answers remain unknown. These secondary cost parameters are experimental, and results are opened-data supplements, not new confirmation.}
+\label{tab:extended_system_costs}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+method & Head & Action & N & loss & FN & FP & Unknown \\
+\midrule
+Priority & -- & All reconstructed & 945 & 0.370 & 70.000 & 0.000 & 0 \\
+Priority & CDF & Magnitude screen & 945 & 0.058 & 6.000 & 0.000 & 498 \\
+Shared & -- & CDF cost decision & 945 & 0.053 & 7.000 & 0.000 & 301 \\
+Shared & -- & All unknown & 945 & 0.050 & 0.000 & 0.000 & 945 \\
+Shared & -- & All hot & 945 & 0.838 & 0.000 & 792.000 & 0 \\
+Shared & -- & All cool & 945 & 0.810 & 153.000 & 0.000 & 0 \\
+Priority & CDF & Matched random & 945 & 0.202 & 33.111 & 0.000 & 498 \\
+Priority & Direct & Magnitude screen & 945 & 0.039 & 1.000 & 0.000 & 629 \\
+Priority & Direct & Matched random & 945 & 0.157 & 23.407 & 0.000 & 629 \\
+Priority & Window & Magnitude screen & 945 & 0.038 & 1.000 & 0.000 & 615 \\
+Priority & Window & Matched random & 945 & 0.162 & 24.444 & 0.000 & 615 \\
+Air2stream-3 & -- & All reconstructed & 945 & 0.183 & 32.000 & 7.000 & 117 \\
+Air2stream-3 & CDF & Magnitude screen & 945 & 0.069 & 8.000 & 0.000 & 496 \\
+Air2stream-3 & CDF & Matched random & 945 & 0.122 & 17.353 & 3.796 & 496 \\
+Air2stream-3 & Direct & Magnitude screen & 945 & 0.060 & 6.000 & 0.000 & 541 \\
+Air2stream-3 & Direct & Matched random & 945 & 0.115 & 15.614 & 3.415 & 541 \\
+Air2stream-3 & Window & Magnitude screen & 945 & 0.046 & 3.000 & 0.000 & 565 \\
+Air2stream-3 & Window & Matched random & 945 & 0.111 & 14.686 & 3.213 & 565 \\
+Neural point & -- & All reconstructed & 945 & 0.271 & 50.000 & 6.000 & 0 \\
+Neural point & CDF & Magnitude screen & 945 & 0.067 & 8.000 & 0.000 & 471 \\
+Neural point & CDF & Matched random & 945 & 0.161 & 25.079 & 3.010 & 471 \\
+Neural point & Direct & Magnitude screen & 945 & 0.030 & 0.000 & 0.000 & 575 \\
+Neural point & Direct & Matched random & 945 & 0.136 & 19.577 & 2.349 & 575 \\
+Neural point & Window & Magnitude screen & 945 & 0.063 & 7.000 & 0.000 & 499 \\
+Neural point & Window & Matched random & 945 & 0.154 & 23.598 & 2.832 & 499 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

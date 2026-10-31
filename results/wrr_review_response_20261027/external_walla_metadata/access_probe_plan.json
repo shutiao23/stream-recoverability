@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-26T23:01:48.363414+00:00",
+  "status": "public_link_probe_before_model_scoring",
+  "trigger": "provider metadata pages for three fixed sites were available through search, while direct page requests from this environment returned HTTP 406",
+  "first_probe": "open the provider-labeled all-QA/QC water-temperature download for fixed station s107 using the public site link; inspect availability and schema, not model errors",
+  "restriction": "do not use alternate credentials or bypass an explicit access restriction; respect provider terms; if the file is accessible preserve it locally pending redistribution clarification",
+  "interpretation": "opening observations makes any future analysis an opened-data exploratory evaluation, never a new confirmatory cohort; page-wide provisional warning remains unresolved",
+  "no_model_errors_examined": true
+}

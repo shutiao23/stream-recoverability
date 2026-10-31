@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "scope": "Adversarial arithmetic and data-denominator checks on existing saved cases; no new independent population or daily reconstruction validation.",
+  "baseline": "Previous revision results are unchanged; a content-hashed local copy is retained in baseline_snapshot.",
+  "actual_data": {
+    "regional_cases": 3102,
+    "regional_unique_station_year_replicates": 3102,
+    "water_raw_mask_rows": 25135,
+    "water_unique_station_years": 1106,
+    "water_nonfinite_excluded": 0,
+    "mixed_missing_duplicate_conflicts": 0,
+    "station_metadata_conflicts": 0,
+    "regional_nonfinite_outcomes": 0
+  },
+  "independent_cell_max_absolute_difference": 3.3306690738754696e-16,
+  "independent_training_year_balance_max_absolute_difference": 8.881784197001252e-16,
+  "regional_max_difference_from_previous_revision": 3.3306690738754696e-16,
+  "direct_observation_bootstrap": {
+    "draws_per_region_and_unit": 10000,
+    "comparisons": 72,
+    "maximum_absolute_difference": 2.220446049250313e-15,
+    "same_units_sampled_in_both_periods": true
+  },
+  "new_sensitivity_results": [
+    "regional_leave_group_out.csv",
+    "water_air_weight_and_leave_group_sensitivity.csv"
+  ],
+  "new_sensitivity_summary": {
+    "geometry": {
+      "minimum_gap_pp": 12.392460813093486,
+      "maximum_gap_pp": 17.7721957070598,
+      "n_sign_reversals": 0,
+      "interpretation": "Common support and target weights are recomputed after deletion; this is not a fixed-population causal contrast."
+    },
+    "geometry_plus_policy": {
+      "minimum_gap_pp": -1.1201079622132126,
+      "maximum_gap_pp": 5.291849415204675,
+      "n_sign_reversals": 2,
+      "interpretation": "Common support and target weights are recomputed after deletion; this is not a fixed-population causal contrast."
+    },
+    "foen_within": {
+      "annual_weight_delta": -0.014320960619926049,
+      "equal_station_delta": -0.013700168689770975,
+      "leave_group_delta_min": -0.015234175695596486,
+      "leave_group_delta_max": -0.004725561120263677
+    },
+    "gkd_bayern_within": {
+      "annual_weight_delta": -0.005384618633329952,
+      "equal_station_delta": -0.034290436864140794,
+      "leave_group_delta_min": -0.08822551412577906,
+      "leave_group_delta_max": 0.10892007586225017
+    }
+  },
+  "defensive_fixes": [
+    "Missing/finite duplicate disagreement now fails in either row order; current data have no such conflict.",
+    "Missing/inconsistent group or region identities and duplicate annual fitting rows cannot disappear silently inside groupby.",
+    "2026 is no longer included in the bin labeled 2020-2025; actual data stop in 2025.",
+    "Nonfinite regional outcomes and missing common-cell fields fail rather than becoming coverage misses or shared missing cells.",
+    "Pooled second-moment calculation now uses a shared region-period origin; no physical effect is inferred from this arithmetic repair.",
+    "Undefined point associations fail clearly; undefined resampled statistics report their valid-draw counts."
+  ],
+  "remaining_weak_evidence": [
+    "Only two FOEN connected groups; group intervals have three possible compositions and do not establish equivalence.",
+    "Common cell weights do not balance training years or all within-bin continuous quantities; no causal reconstructor or process attribution.",
+    "Leave-group deletion changes common-support populations; it is an influence diagnostic, not an independent validation or an identified regional effect.",
+    "Equal-station weighting changes the annual-observation estimand and is a sensitivity only.",
+    "Annual air/water maxima need not coincide in date; annual associations do not validate daily gap reconstruction stability."
+  ],
+  "input_sha256": {
+    "results/wrr_adversarial_review_20261027/failure_strata/failure_strata_cases.parquet": "445a7b556027e125cc0a929125e5c0047d3c60cf994444a30db9cf5715fe34d5",
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
+    "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf"
+  }
+}

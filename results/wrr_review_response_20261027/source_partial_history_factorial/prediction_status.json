@@ -1,0 +1,8 @@
+{
+  "status": "factorial_predictions_complete_not_scored",
+  "stations": 15,
+  "groups": 6,
+  "rows": 540,
+  "scored": false,
+  "limitations": "This is an in-source, posthoc mechanism experiment, one target year, six connected groups and two regions; not independent-climate validation. Target calendar and source models reuse earlier analyses, source water quality and NASA POWER vintage/day alignment remain unresolved, and source-model rights remain restricted."
+}

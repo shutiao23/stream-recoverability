@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "stations": 15,
+  "complete_station_years": 135,
+  "target_h30_values_checked": 15,
+  "air_rows": 49305,
+  "finite_air_values": 49305,
+  "scope": "Open processed water-year eligibility and complete-target H30, plus the selected saved air input snapshot.",
+  "limitations": "The air table is a processed historical snapshot, not a raw source-service replay; no model is fitted or scored, and source quality, physical clock, climate independence and restricted-model rights remain unresolved."
+}

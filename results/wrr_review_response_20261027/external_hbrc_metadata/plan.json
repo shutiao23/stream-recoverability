@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-26T22:51:45.597663+00:00",
+  "status": "metadata_endpoint_probe_after_initial_522",
+  "initial_observation": "four metadata-only Hilltop/WFS requests returned HTTP 522 in the current environment; no observation request was made",
+  "official_documentation": "https://www.hbrc.govt.nz/assets/Uploads/2025Council-Data-Access-Working-Examples.pdf",
+  "official_data_policy": "https://www.hbrc.govt.nz/our-council/open-data/",
+  "published_hilltop_endpoint": "https://data.hbrc.govt.nz/Envirodata/EMAR.hts",
+  "recheck": "one metadata-only SiteList request and the public ArcGIS item metadata; preserve HTTP status and do not infer absence of measurements",
+  "data_use": "no GetData requests, no water temperature readings, no reconstruction scoring; source station identity, time span and water quality remain unresolved",
+  "quality_caveat": "the council document describes QC500 and QC600 for a buoy example; code mapping and status for any river-temperature series must be checked against the responsible source"
+}

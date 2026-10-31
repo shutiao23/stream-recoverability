@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "archive_settings": 760,
+  "status_counts": {
+    "passed": 685,
+    "one_or_both_annual_distributions_unavailable": 73,
+    "no_incomplete_years": 2
+  },
+  "scope": "post-hoc paired trend propagation with same target masks and rank matrices; no guaranteed joint calibration"
+}

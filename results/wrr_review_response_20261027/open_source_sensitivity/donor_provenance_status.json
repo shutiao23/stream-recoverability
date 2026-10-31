@@ -1,0 +1,12 @@
+{
+  "status": "completed_with_unresolved_provenance",
+  "source_cases": {
+    "offline": 129235,
+    "forward": 65135
+  },
+  "source_panels_checked": 170,
+  "donor_visibility_counts_match_saved_cases": true,
+  "roles_checked": 52,
+  "limits": "The same processed panels and saved source cases are reused. This does not independently reproduce every daily regression or its historical inputs, prove actual provider-native lineage, determine derivative permissions, or grant publication rights.",
+  "privacy": "Station-case flags and input manifest are retained locally in an ignored directory."
+}

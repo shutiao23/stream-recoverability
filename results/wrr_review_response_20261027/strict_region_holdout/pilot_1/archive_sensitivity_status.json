@@ -1,0 +1,12 @@
+{
+  "status": "affected_archives_reanalyzed",
+  "region": "usgs_huc17",
+  "replicates": 1,
+  "archive_settings": 6,
+  "stations": 3,
+  "paired_trend_rows": 72,
+  "same_masks_verified": true,
+  "unchanged_plugin_verified": true,
+  "source_calibration": "recomputed after filtering all same-region groups",
+  "limitation": "post-hoc paired sensitivity of three stations in one region; remaining source groups and bootstrap weights retained, but smaller source estimator sample changes fitted model; not an independent climate test"
+}

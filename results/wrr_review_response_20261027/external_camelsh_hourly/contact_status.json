@@ -1,0 +1,20 @@
+{
+  "status": "metadata_only",
+  "counts": {
+    "archive_files": 1297,
+    "temperature_station_files": 1296,
+    "distinct_station_ids": 1296,
+    "nonstation_files": 1,
+    "source_panels_inspected": 121,
+    "source_panel_column": 264,
+    "source_station_year": 212,
+    "named_prior_inventory": 759,
+    "previous_donor_api_fetch": 30,
+    "prior_reference_metadata_screen": 4,
+    "no_named_prior_contact": 533
+  },
+  "member_contents_opened": false,
+  "temperature_values_opened": false,
+  "model_errors_opened": false,
+  "interpretation": "Exact identifier screening over named local inventories and source panel headers only; missing links do not demonstrate uncontacted data, distinct catchments, complete or quality-qualified years, or new climates."
+}

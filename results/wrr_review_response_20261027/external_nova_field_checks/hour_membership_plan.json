@@ -1,0 +1,13 @@
+{
+  "created_utc": "2026-10-27T03:32:43.720732+00:00",
+  "status": "posthoc after same-day range and duplicate-value results were viewed",
+  "scope": "The same two previously selected Nova Scotia stations, all reported field dates 2009-2017; retain duplicate rows and distinguish site-date counts.",
+  "comparison": "For each finite field value, calculate its minimum absolute difference from any of the 24 reported hourly values on that date; separately use 72 hours from three complete adjacent reported dates. Require each day to have exactly 24 unique finite hour labels.",
+  "thresholds_c": [
+    1e-06,
+    0.01
+  ],
+  "stratification": "After seeing the range summary, separately describe the eight station-years used in the earlier exploratory model score and the remaining years; no error-driven site or record exclusion.",
+  "selection_warning": "Field times and zones are absent. A close value anywhere in a day or three days may occur by chance. Exact numerical proximity does not establish simultaneous measurement, separate instruments, quality, physical truth, climate independence or model validation.",
+  "privacy": "Field rows, hourly pair information and source workbook remain private; aggregated counts only."
+}

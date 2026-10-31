@@ -1,0 +1,9 @@
+{
+  "status": "computed",
+  "target_masked_cases": 7583,
+  "target_archives": 1640,
+  "reference_used_to_choose_threshold_or_match": false,
+  "groups_in_target": 17,
+  "source_models_and_cutoffs_frozen_first": true,
+  "limitations": "posthoc and motivated by previously seen outcomes, no unopened independent reference, one source model seed, source single-year masks vs target multi-year archives, risk role groups may share source histories and climates; projected scores are not certified or necessarily calibrated probabilities, equal source retention need not give equal target retention"
+}

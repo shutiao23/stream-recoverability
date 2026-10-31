@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "cases": 35156,
+  "same_keys_truth_and_groups": true,
+  "original_matched_counts_reproduced": true,
+  "scope": "future-year same-number numerical-output score comparator recalculated separately for original and strict source models",
+  "limitation": "threshold is selected using the evaluated unlabeled score distribution and three-output count; selected cases and counts differ across versions, and lower-bound information is not matched; no prospective or climate-transfer guarantee"
+}

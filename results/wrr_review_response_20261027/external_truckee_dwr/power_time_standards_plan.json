@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-27T05:15:24.966070+00:00",
+  "status": "posthoc after viewing Truckee results and NASA documentation; before inspecting hourly UTC/LST values",
+  "source_documentation": "https://power.larc.nasa.gov/docs/services/api/temporal/hourly/",
+  "cohort": "All four reference years at the same rounded coordinates used in the original daily T2M query; retrieve current hourly UTC and LST, not water observations.",
+  "expected_rule": "At longitude -120.21 degrees, NASA 15-degree longitude bands imply LST=UTC-8 hours. Compare LST hours with UTC timestamps eight hours later, for January 1 through December 30 of each year; exclude December 31 to keep all UTC hours inside the same annual request.",
+  "daily_comparison": "Compare the mean of 24 finite LST hourly T2M values against the previously retrieved POWER daily T2M for the same dates; report actual differences, missing values and rounding, without assuming equality.",
+  "site_water_clock": "Provider EML labels water times PST; if that means fixed UTC-8, expected hourly label boundaries agree. This cannot establish whether the provider actually applied daylight saving or other historical clock shifts.",
+  "years": [
+    2011,
+    2013,
+    2014,
+    2020
+  ],
+  "latitude": 39.23,
+  "longitude": -120.21,
+  "expected_utc_minus_lst_hours": 8,
+  "limits": "A current API comparison at one grid point does not validate water sensor clocks, historical API vintage, spatial representation, physical air-temperature accuracy or independent climates."
+}

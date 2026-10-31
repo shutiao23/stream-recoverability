@@ -1,0 +1,128 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+........................................................................ [ 13%]
+........................................................................ [ 18%]
+........................................................................ [ 22%]
+........................................................................ [ 27%]
+........................................................................ [ 31%]
+........................................................................ [ 36%]
+........................................................................ [ 40%]
+........................................................................ [ 45%]
+........................................................................ [ 50%]
+........................................................................ [ 54%]
+........................................................................ [ 59%]
+........................................................................ [ 63%]
+........................................................................ [ 68%]
+........................................F............................... [ 72%]
+........................................................................ [ 77%]
+........................................................................ [ 81%]
+........................s............................................... [ 86%]
+........................................................................ [ 91%]
+........................................................................ [ 95%]
+.....................................................................    [100%]
+=================================== FAILURES ===================================
+_______ test_nested_power_manifest_is_included_and_snapshot_hashes_match _______
+
+    def test_nested_power_manifest_is_included_and_snapshot_hashes_match():
+        root=Path(__file__).resolve().parents[1]/'data/external/wrr_usgs_partial_daily_20261027'
+        metadata=json.loads((root/'manifest.json').read_text())
+        paths={item['path'] for item in metadata['files']}
+        assert 'power/manifest.json' in paths
+        for item in metadata['files']:
+            file=(root/item['path']).resolve()
+            assert file.is_relative_to(root.resolve()) and file.is_file()
+
+tests/test_usgs_public_snapshot_manifest.py:14: KeyError
+=============================== warnings summary ===============================
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+  /mnt/lzq-nvme2p4/lzq/stream-recoverability/src/stream_recoverability/experiments/runner.py:4130: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    pd.concat(daily_frames, ignore_index=True).drop_duplicates(DAILY_KEY)
+
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+  /mnt/lzq-nvme2p4/lzq/stream-recoverability/src/stream_recoverability/experiments/runner.py:4135: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    pd.concat(event_frames, ignore_index=True).drop_duplicates(EVENT_KEY)
+
+tests/test_formal_results_aggregation.py::test_model_children_layout_uses_only_explicit_dynamic_roster
+  /mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/13_aggregate_formal_results.py:1374: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    daily = pd.concat(daily_parts, ignore_index=True, sort=False)
+
+tests/test_formal_results_aggregation.py::test_model_children_layout_uses_only_explicit_dynamic_roster
+  /mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/13_aggregate_formal_results.py:1375: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    events = pd.concat(event_parts, ignore_index=True, sort=False)
+
+tests/test_recovery_roster.py: 192 warnings
+tests/test_wrr_backup_and_developed_system.py: 472 warnings
+tests/test_wrr_revision.py: 1256 warnings
+tests/test_wrr_submission_ready_p0.py: 900 warnings
+tests/test_wrr_universe.py: 32 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/algorithms.py:1814: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+    return lib.map_infer(values, mapper, convert=convert)
+
+tests/test_recovery_roster.py: 198 warnings
+tests/test_regulation_panel.py: 406 warnings
+tests/test_regulation_panel_auc_diagnosis.py: 208 warnings
+tests/test_t6_seplains_bfi.py: 125 warnings
+tests/test_wrr_backup_and_developed_system.py: 304 warnings
+tests/test_wrr_revision.py: 1261 warnings
+tests/test_wrr_submission_ready_p0.py: 909 warnings
+tests/test_wrr_universe.py: 32 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:605: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+    if is_sparse(pd_dtype):
+
+tests/test_recovery_roster.py: 198 warnings
+tests/test_regulation_panel.py: 406 warnings
+tests/test_regulation_panel_auc_diagnosis.py: 208 warnings
+tests/test_t6_seplains_bfi.py: 125 warnings
+tests/test_wrr_backup_and_developed_system.py: 304 warnings
+tests/test_wrr_revision.py: 1261 warnings
+tests/test_wrr_submission_ready_p0.py: 909 warnings
+tests/test_wrr_universe.py: 32 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:614: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+    if is_sparse(pd_dtype) or not is_extension_array_dtype(pd_dtype):
+
+tests/test_reference_baselines.py::test_reference_extra_pins_exact_pypots_version
+  /home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f4fd7a10f40>
+  
+  Traceback (most recent call last):
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 400, in match_module_callback
+      self._make_module_from_path(filepath)
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+      module = module_class(filepath, prefix, user_api, internal_api)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 606, in __init__
+      self.version = self.get_version()
+                     ^^^^^^^^^^^^^^^^^^
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 646, in get_version
+      config = get_config().split()
+               ^^^^^^^^^^^^^^^^^^
+  AttributeError: 'NoneType' object has no attribute 'split'
+  
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+tests/test_reference_baselines.py::test_official_cpu_tiny_smoke_and_diagnostics[brits]
+tests/test_reference_baselines.py::test_reference_checkpoint_round_trip_is_strict[csdi]
+  /home/lzq/anaconda3/lib/python3.11/site-packages/pypots/nn/modules/csdi/layers.py:17: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+    return nn.TransformerEncoder(encoder_layer, num_layers=layers)
+
+tests/test_wrr_review_completion.py: 12 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+    duals[candidate_idx] += step_size_clip
+
+tests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups
+tests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization
+  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: 
+      You didn't specify the order of the vec expression. The default order
+      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's
+      default order ('C') in a future version of CVXPY.
+      To suppress this warning, please specify the order explicitly.
+      
+    warnings.warn(vec_order_warning, FutureWarning)
+
+tests/test_wrr_submission_ready_p0.py::test_outage_simulation_preserves_declared_length_across_year_end
+  <frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_usgs_public_snapshot_manifest.py::test_nested_power_manifest_is_included_and_snapshot_hashes_match

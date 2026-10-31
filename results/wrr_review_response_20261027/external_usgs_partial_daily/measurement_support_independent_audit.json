@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "source_calibration_cases": 13007,
+  "source_calibration_groups": 13,
+  "weighted_offset_values_checked": 868,
+  "target_summary_cells_checked": 32,
+  "scope": "Independent group bootstrap-multiplicity reconstruction, sorted order-statistic source offsets, Booster quantiles, conditional error/coverage/interval-score formulas and observed daily differences.",
+  "limitations": "Measurements, sensor accuracy, time alignment, source role exchangeability, independent climates, partial-history extrapolation and held-out pre-registration are unresolved. Changing support requires a changed estimand and measurement-error assumption, and the experiment is not a full operational recalibration or deployment safety assessment.",
+  "storage": "temporary RAM filesystem; not durable"
+}

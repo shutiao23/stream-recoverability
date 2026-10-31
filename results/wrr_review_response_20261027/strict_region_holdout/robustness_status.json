@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "original_pooled_and_leave_region_out_reproduced": true,
+  "bootstrap_resamples": 4000,
+  "cohort": "same station and mask repetition cases available for D2 and comparator in both original and strict source versions",
+  "resampling": "resample recorded connected groups jointly across versions and estimators; report case-weighted and equal-group contrasts",
+  "limitation": "post-hoc descriptive sensitivity, 17 forward connected groups maximum; region removal is not refitting and group/climate exchangeability is not established"
+}

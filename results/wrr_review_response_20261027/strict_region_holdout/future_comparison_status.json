@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "total_future_cases": 35156,
+  "affected_region_cases": 6198,
+  "matched_original_values_max_difference": 0.0,
+  "original_state_mismatches": 0,
+  "same_case_keys_and_truth": true,
+  "strict_regions_replaced": [
+    "nve_hydapi",
+    "usgs_huc17"
+  ],
+  "scope": "original and strict before-2010 held-test cases; two affected regional models refitted, other regions unchanged; gate thresholds recomputed from filtered estimator role",
+  "limitation": "post-hoc sensitivity with different source sample sizes; raw classifier scores and selected risk do not provide group or climate-transfer guarantees"
+}

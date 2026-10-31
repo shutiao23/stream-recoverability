@@ -1,0 +1,10 @@
+NASA POWER daily T2M forcing
+
+Source: NASA Langley Research Center Prediction of Worldwide Energy Resources
+(POWER) Project, NASA Earth Science/Applied Science Program.
+https://power.larc.nasa.gov/ and https://power.larc.nasa.gov/docs/services/api/temporal/daily/
+
+These two API responses were requested at the rounded provincial-map coordinates
+recorded in the accompanying request files, for 2009–2023 and local solar time.
+They are gridded meteorological products, not river-site air observations.
+No temporal equivalence to the reported water-day labels has been established.

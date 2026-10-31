@@ -1,0 +1,17 @@
+{
+  "eligible_stations": 96,
+  "reference_station_years_recomputed": 2139,
+  "incomplete_station_years_recomputed": 545,
+  "certificate_station_years": 35,
+  "certificate_stations": 20,
+  "certificate_groups": 15,
+  "max_complete_year_h30_discrepancy_c": 3.433228350502304e-07,
+  "max_witness_mean_discrepancy_c": 3.552713678800501e-15,
+  "max_witness_daily_value_discrepancy_c": 3.9456438116758363e-11,
+  "all_incomplete_year_bounds_match": true,
+  "witness_identity_and_counts_match": true,
+  "tolerance_c": 5e-06,
+  "passed": true,
+  "scope": "independent convolution and calendar arithmetic on the same canonical float32 daily archive, not provider-native raw data",
+  "limitations": "finite reported series; no independent measurement error assessment, external validation, or proof about unobserved partial-year maxima"
+}

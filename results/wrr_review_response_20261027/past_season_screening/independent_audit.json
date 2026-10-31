@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "station_years_independently_reconstructed": 2656,
+  "rule_decisions_checked": 13280,
+  "prior_record_rows_checked": 13280,
+  "witness_decisions_checked": 175,
+  "transition_cells_checked": 7,
+  "four_complete_unknown_with_observed_window": 122,
+  "target_and_future_perturbation_probes": 35,
+  "changed_season_probes": 0,
+  "scope": "Independent rolling day-of-year means and prior-record arithmetic on the same 95-station processed snapshot; 35 future perturbations exercise the original past-only implementation. Current data vintage, station selection, reference metadata and sensor quality are not independently validated."
+}

@@ -1,0 +1,27 @@
+{
+  "donor_availability": "same target masks applied to donors",
+  "draws": 256,
+  "eligible_complete_years_minimum": 20,
+  "families": [
+    "calendar",
+    "crossed"
+  ],
+  "first_seven_years": "observed burn-in",
+  "forward_source_cutoff": 2010,
+  "modes": [
+    "offline",
+    "forward"
+  ],
+  "replicates": 5,
+  "scenario": "synchronized_donors",
+  "station_keys": [
+    "foen|2016",
+    "gkd_bayern|10026293",
+    "syke|1670",
+    "usgs|02172020",
+    "usgs|04137030",
+    "usgs|06036905",
+    "usgs|13342500"
+  ],
+  "year_missing_probability": 0.35
+}

@@ -1,0 +1,17 @@
+{
+  "status": "passed_audit_with_finding",
+  "models_checked": 98,
+  "role_rows_checked": 392,
+  "same_region_positive_weight_role_rows": 2,
+  "affected_region_models_by_split": {
+    "before_2010": 2
+  },
+  "held_test_group_overlap": 0,
+  "held_test_station_overlap": 0,
+  "forward_usgs_huc17_archive_station_repetitions": 120,
+  "forward_usgs_huc17_archive_stations": 3,
+  "future_release_target_cases_in_affected_regions": 6198,
+  "scope": "seed-zero source model roles for the four source splits used by release/stress analyses; recorded role assignments and bootstrap weights, not re-trained models",
+  "finding": "for partitioned splits, held test groups are excluded but other training-only groups within the same named region can enter source roles; this is not evidence that a held target station was in model fitting",
+  "limitation": "stored roles and reproducible bootstrap weights identify positive-weight source cases; hidden observations, model sensitivity and non-seed-zero split variants are not audited here"
+}

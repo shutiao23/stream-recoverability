@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "metadata_candidates_before_prior_exclusions": 24,
+  "prior_contact_excluded": 11,
+  "candidate_sites": 13,
+  "count_confirmed_four_years": 0,
+  "sites_with_no_approved_annual_statistic": 1,
+  "network_status_counts": {
+    "complete": 7,
+    "pending_identity_or_schema_review": 6
+  },
+  "temperature_values_saved": false,
+  "new_reconstruction_errors_computed": false,
+  "limitation": "A pass requires at least four full calendar years of approved sample counts, but does not establish point-level quality, independence, river suitability or rights. Unreturned annual statistics are unknown, not zeros; candidates with fewer than four confirmed years are not definitive failures."
+}

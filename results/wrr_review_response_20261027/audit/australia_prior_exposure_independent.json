@@ -1,0 +1,9 @@
+{
+  "status": "independent_prior_exposure_recount_passed",
+  "reference_station_years": 80,
+  "roles_checked": 3,
+  "round1_evaluation_case_count": 30728,
+  "round2_development_case_count": 32694,
+  "scope": "independent Arrow/Python identity, eligibility-presence and overlapping time-window recount; no model inference or error comparison",
+  "limitation": "does not prove identical masks, source-training leakage, physical independence or 24-hour completeness"
+}

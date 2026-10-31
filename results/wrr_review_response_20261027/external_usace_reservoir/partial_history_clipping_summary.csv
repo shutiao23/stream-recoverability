@@ -1,0 +1,5 @@
+scenario,cases,cases_with_clipped_inputs,cases_raw_quantile_changed_gt_1e_10,cases_postcal_quantile_changed_gt_1e_10,cases_point_changed_gt_1e_10,cases_score_changed_gt_1e_10,max_raw_quantile_change_c,max_postcal_quantile_change_c,max_point_change_c,max_classifier_score_change
+count_only,306,306,0,0,0,0,0.0,0.0,0.0,0.0
+anomaly_autocorrelation_only,306,270,0,0,0,0,0.0,0.0,0.0,0.0
+residual_autocorrelation_only,306,36,0,0,0,0,0.0,0.0,0.0,0.0
+all_three,306,306,0,0,0,0,0.0,0.0,0.0,0.0

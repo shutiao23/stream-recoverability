@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "requested": 22,
+  "completed": 22,
+  "gages": 11,
+  "gages_both_directions": 11,
+  "gages_with_prior_hits": 6,
+  "gages_with_source_panel_hits": 2,
+  "gages_with_other_candidate_hits": 10,
+  "temperature_values_opened": false,
+  "prediction_errors_opened": false,
+  "limitations": "The monitoring site may be offset from its referenced USGS gage. NLDI indexes catchments and can return off-flowpath sites; 200 km is bounded, not proof of disconnection beyond the search. USGS source records or coordinates may be incomplete; neither a clean result nor a missing response establishes independent climate or no prior exposure."
+}

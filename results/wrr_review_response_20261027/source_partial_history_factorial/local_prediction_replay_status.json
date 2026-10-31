@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "stations": 15,
+  "factorial_rows": 540,
+  "matching_masks_stations": 15,
+  "matching_features_stations": 15,
+  "matching_outputs_stations": 15,
+  "max_output_difference": 0.0,
+  "numerical_threads": 1,
+  "limitations": "Same code and restricted fixed models, calibrations and processed data are reused. This is not independent model fitting, a raw-data rebuild or proof of climate independence."
+}

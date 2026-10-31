@@ -1,0 +1,9 @@
+{
+  "status": "completed",
+  "requested_resources": 10,
+  "downloaded_resources": 10,
+  "raw_water_values_downloaded": true,
+  "water_values_qualified_or_scored": false,
+  "model_errors_opened": false,
+  "limits": "Authors describe quality control plus fouling/calibration corrections, but timestamp completeness does not establish finite, nonestimated, uncorrected or physically accurate water values. Unknown point flags, metadata vintage, sensor clocks and reservoir operations remain."
+}

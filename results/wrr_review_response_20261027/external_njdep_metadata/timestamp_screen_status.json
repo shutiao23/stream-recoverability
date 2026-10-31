@@ -1,0 +1,22 @@
+{
+  "status": "reported_timestamp_label_screen_only",
+  "station_year_files": 8,
+  "stations": 2,
+  "station_years_with_missing_reported_date_labels": 8,
+  "station_years_with_unparseable_times": 0,
+  "station_years_requiring_further_quality_review": 0,
+  "stations_with_at_least_four_possible_label_years": 0,
+  "provider_time_zone_labels": [
+    "EST"
+  ],
+  "columns_read": [
+    "Station",
+    "Date_Time",
+    "Date_Time_TZ",
+    "Submission ID"
+  ],
+  "temperature_values_read_for_scoring": false,
+  "models_scored": false,
+  "scope": "year-by-year checks of returned source timestamp labels; per-station/year details remain local",
+  "limitation": "post-hoc two-site availability selection; reported-clock labels and timezone abbreviations do not prove physical day boundaries, complete subdaily intervals, nonestimated water data, sensor QA or independent rivers"
+}

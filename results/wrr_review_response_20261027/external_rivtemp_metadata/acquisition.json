@@ -1,0 +1,14 @@
+{
+  "status": "downloaded_digest_matched",
+  "source_dataset": "RivTemp--MFFP_QC",
+  "doi": "10.25976/sz2k-b624",
+  "data_version": "1.0.0",
+  "acquired_utc": "2026-10-26T22:36:19.160025+00:00",
+  "bytes": 49614462,
+  "catalog": "https://datastream.org/en-ca/dataset/09ab9bf0-789b-4487-918e-b5c8cf258225",
+  "terms": "https://datastream.org/en-ca/terms",
+  "access": "public dataset download through the provider endpoint; website states use is subject to terms and dataset disclaimer",
+  "local_storage": "private/wrr_rivtemp_reference_20261026/rivtemp_mffp_v1.csv",
+  "redistribution": "not included in candidate package while ODC-BY and database-transfer disclaimer are clarified",
+  "scope": "file retrieval and published digest verification only; no rows or model outcomes inspected"
+}

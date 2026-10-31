@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-10-27T06:36:28.620308+00:00",
+  "status": "posthoc diagnostic after observing all-target probe failure",
+  "target_rule": "The first failed target, as recorded by the fixed all-target first-mask probe; use its first saved mask.",
+  "conditions": [
+    "repeat unchanged input",
+    "change natural-gap placeholders only",
+    "perturb observed hidden target days only",
+    "both changes"
+  ],
+  "perturbation": "Add 10 C to finite target days hidden by the first mask; replace natural-gap placeholders with 432.1 C where applicable.",
+  "measure": "Compare regenerated features and all 17 output columns against saved and repeated unchanged runs; inspect LightGBM branch differences when output differs. No target error calculation.",
+  "limitations": "After-the-fact diagnosis of one failing mask; even a repeatability explanation would not validate all target masks or fix the scientific distribution shift.",
+  "resource_id": "518f1782309742a39cea7e08b677ca48",
+  "year": 2024
+}

@@ -1,0 +1,185 @@
+{
+  "scope": "saved-case arithmetic and numerical sensitivity; no model refitting",
+  "units": {
+    "stations": 42,
+    "groups": 18,
+    "regions": 7,
+    "by_region": {
+      "gkd_bayern": 24,
+      "foen": 10,
+      "usgs_huc17": 3,
+      "usgs_huc10": 2,
+      "usgs_huc03": 1,
+      "usgs_huc04": 1,
+      "syke": 1
+    }
+  },
+  "paired_trends": [
+    {
+      "family": "calendar",
+      "mode": "forward",
+      "n": 701,
+      "d2_rmse": 0.06177746858048615,
+      "stochastic_rmse": 0.051338857164025364,
+      "mse_difference": 0.001180777369304755,
+      "group_equal_mse_difference": 0.0005446703868243446,
+      "without_bavaria_mse_difference": -0.00021281350532050225
+    },
+    {
+      "family": "calendar",
+      "mode": "offline",
+      "n": 835,
+      "d2_rmse": 0.00873187665388506,
+      "stochastic_rmse": 0.011235232330643581,
+      "mse_difference": -4.998477562487585e-05,
+      "group_equal_mse_difference": -9.683095928856409e-05,
+      "without_bavaria_mse_difference": -9.15999750936819e-05
+    },
+    {
+      "family": "crossed",
+      "mode": "forward",
+      "n": 738,
+      "d2_rmse": 0.16381449672878745,
+      "stochastic_rmse": 0.14657745637426337,
+      "mse_difference": 0.005350238621356838,
+      "group_equal_mse_difference": 0.003497118590282296,
+      "without_bavaria_mse_difference": -0.00014294687633026006
+    },
+    {
+      "family": "crossed",
+      "mode": "offline",
+      "n": 838,
+      "d2_rmse": 0.027802263577496544,
+      "stochastic_rmse": 0.03207789965451221,
+      "mse_difference": -0.00025602578621236393,
+      "group_equal_mse_difference": -0.0004838738869505819,
+      "without_bavaria_mse_difference": -0.000468350205793562
+    }
+  ],
+  "factorial_identity_max_error": 1.7763568394002505e-15,
+  "offline_controlled_retention_share": 0.9303916082254415,
+  "forward_controlled_task": {
+    "n": 39,
+    "stations": 2,
+    "groups": 2,
+    "width_min": 0.00446150806009,
+    "coverage": 1.0,
+    "source_group_counts": [
+      3
+    ]
+  },
+  "truth_source": "Complete-reference seed_00 table, joined by station/year/family; masked feature files intentionally omit target truth",
+  "saved_archive_designs": {
+    "count": 3320,
+    "old_unqualified_region_exclusion_text": 3320
+  },
+  "annual_support": {
+    "cases": 21446,
+    "below_bound_values": 0
+  },
+  "annual_common_strata": [
+    {
+      "family": "calendar",
+      "mode": "forward",
+      "method": "D2",
+      "n": 3674,
+      "hidden_n": 549,
+      "coverage": 0.9825802939575394,
+      "hidden_coverage": 0.8834244080145719,
+      "zero_width": 1476,
+      "zero_width_uncovered": 0
+    },
+    {
+      "family": "calendar",
+      "mode": "forward",
+      "method": "stochastic_cal",
+      "n": 3674,
+      "hidden_n": 549,
+      "coverage": 0.9809471965160588,
+      "hidden_coverage": 0.8779599271402551,
+      "zero_width": 2977,
+      "zero_width_uncovered": 0
+    },
+    {
+      "family": "calendar",
+      "mode": "offline",
+      "method": "D2",
+      "n": 6919,
+      "hidden_n": 1028,
+      "coverage": 0.9849689261453968,
+      "hidden_coverage": 0.9056420233463035,
+      "zero_width": 4538,
+      "zero_width_uncovered": 0
+    },
+    {
+      "family": "calendar",
+      "mode": "offline",
+      "method": "stochastic_cal",
+      "n": 6919,
+      "hidden_n": 1028,
+      "coverage": 0.9744182685359156,
+      "hidden_coverage": 0.830739299610895,
+      "zero_width": 5482,
+      "zero_width_uncovered": 0
+    },
+    {
+      "family": "crossed",
+      "mode": "forward",
+      "method": "D2",
+      "n": 3683,
+      "hidden_n": 2146,
+      "coverage": 0.8995384197664947,
+      "hidden_coverage": 0.8322460391425909,
+      "zero_width": 323,
+      "zero_width_uncovered": 0
+    },
+    {
+      "family": "crossed",
+      "mode": "forward",
+      "method": "stochastic_cal",
+      "n": 3683,
+      "hidden_n": 2146,
+      "coverage": 0.869671463480858,
+      "hidden_coverage": 0.8164026095060578,
+      "zero_width": 1091,
+      "zero_width_uncovered": 3
+    },
+    {
+      "family": "crossed",
+      "mode": "offline",
+      "method": "D2",
+      "n": 6919,
+      "hidden_n": 4132,
+      "coverage": 0.9414655297008239,
+      "hidden_coverage": 0.9065827686350436,
+      "zero_width": 1391,
+      "zero_width_uncovered": 0
+    },
+    {
+      "family": "crossed",
+      "mode": "offline",
+      "method": "stochastic_cal",
+      "n": 6919,
+      "hidden_n": 4132,
+      "coverage": 0.9265789854025148,
+      "hidden_coverage": 0.8787512100677638,
+      "zero_width": 2030,
+      "zero_width_uncovered": 1
+    }
+  ],
+  "normal_sanity": {
+    "constant": [
+      -1.6448536269514729,
+      1.6448536269514722
+    ],
+    "normal": [
+      -1.9598827188169263,
+      1.9598827188169246
+    ]
+  },
+  "passed_tests": 282,
+  "package": {
+    "workspace_files": 2732,
+    "changed": []
+  }
+}

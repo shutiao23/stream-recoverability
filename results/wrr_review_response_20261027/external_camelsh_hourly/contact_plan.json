@@ -1,0 +1,7 @@
+{
+  "created_utc": "2026-10-27T04:43:53.719334+00:00",
+  "status": "posthoc after examining archive file names and multiple earlier reference screens; no archive member temperatures or prediction errors read",
+  "correction": "The original index recognized zero IDs because its generic filename pattern omitted the observed _temperature suffix; retain that initial record and extract suffix-form names separately.",
+  "selection": "Extract exactly 8–15 decimal digit USGS-like IDs from *_temperature.nc members; classify all by named source panel headers, station-year inventory, earlier USGS prior-contact lists, previously fetched donor API IDs and named metadata screens.",
+  "uncontacted_candidate": "No exact ID in any of these inventories; conservative identity screen only. No estimate of unrecorded contacts, hidden network relationships, quality or climate independence."
+}

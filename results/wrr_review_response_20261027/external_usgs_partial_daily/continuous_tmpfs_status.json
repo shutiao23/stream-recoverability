@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "requested_station_years": 8,
+  "completed_station_years": 8,
+  "downloaded_features": 281392,
+  "values_analyzed": false,
+  "predictions_evaluated": false,
+  "storage": "temporary RAM filesystem; not durable",
+  "limitations": "Parent ID does not prove an unchanged sensor or error-free values. Strict criteria, date basis and hourly vs quarter-hour sensitivity require explicit follow-up. Source river-network overlap, previously inspected daily values, flowpath and climate independence remain unresolved. This is not a blind evaluation."
+}

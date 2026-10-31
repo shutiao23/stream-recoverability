@@ -1,0 +1,20 @@
+{
+  "donor_availability": "observed neighboring stations, same for every method",
+  "draws": 256,
+  "eligible_complete_years_minimum": 20,
+  "families": [
+    "crossed"
+  ],
+  "first_seven_years": "observed burn-in",
+  "forward_source_cutoff": 2010,
+  "modes": [
+    "offline"
+  ],
+  "replicates": 1,
+  "scenario": "heat_associated",
+  "station_keys": [
+    "foen|2016",
+    "gkd_bayern|10026293"
+  ],
+  "year_missing_probability": "0.90 for air-hot years and 0.18 otherwise, relative to first-seven-year air H30 80th percentile"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "test_count": 275,
+  "pytest_commands": 32,
+  "python": "3.11.7",
+  "scope": "Full review-test suite in temporary staging, including continuous-slot bounds and measurement-support projection tests.",
+  "limitations": "Does not establish actual clock, physical error bounds, independent climate, source rights or public end-to-end model reconstruction."
+}

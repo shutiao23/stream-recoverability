@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T07:39:39.125071+00:00",
+  "status": "posthoc after all ten USGS station records, qualification outcomes and observation-only witnesses were examined; no model scores for this cohort have been computed",
+  "cohort": "All ten previously acquired additional USGS stations; consider every full calendar year within 1981-2025. Do not select by H30 magnitude or model prediction.",
+  "reference": "A target year needs every calendar day finite, approved, not ambiguous and no qualifier recognized as estimated by the existing parser. The source is USGS daily mean, not proven complete subdaily observations or error-free physical truth.",
+  "history": "For each target, retain other years with >=75% finite usable days, finite endpoints and longest missing run <=45 days. Mark actual fully complete history count separately. This exploratory availability rule was already used in the reservoir partial-history analysis and was fixed before this USGS history scan; it is not a known accuracy guarantee.",
+  "future_evaluation": "Any qualifying target with at least three other eligible histories may enter an explicitly posthoc partial-history model sensitivity. Do not score until a separate cohort, source exposure, time convention, weather and scoring plan is fixed. Do not call this the original four-complete-year protocol.",
+  "limitations": "Previously opened, selected and nonrandom stations; approved does not mean error-free or nonestimated when qualifier vocabulary is incomplete. Daily values may conceal subdaily gaps, ice, repairs and timing changes. No source-network or independent-climate conclusion is available from this scan.",
+  "stations": 10
+}

@@ -1,0 +1,156 @@
+{
+  "scope": "saved-case recomputation, metadata hashes, paper/table/figure consistency; no full model refit",
+  "rule_accounting": {
+    "years": 2700,
+    "stations": 96,
+    "groups": 34,
+    "checks": [
+      {
+        "rule": "complete_100",
+        "admitted": 2139,
+        "excluded": 561,
+        "admitted_new_window_facts": 0,
+        "excluded_new_window_facts": 35
+      },
+      {
+        "rule": "annual_95",
+        "admitted": 2591,
+        "excluded": 109,
+        "admitted_new_window_facts": 18,
+        "excluded_new_window_facts": 3
+      },
+      {
+        "rule": "warm_90_station_specific",
+        "admitted": 2634,
+        "excluded": 66,
+        "admitted_new_window_facts": 19,
+        "excluded_new_window_facts": 2
+      },
+      {
+        "rule": "warm_90_fixed_original",
+        "admitted": 2635,
+        "excluded": 65,
+        "admitted_new_window_facts": 19,
+        "excluded_new_window_facts": 2
+      },
+      {
+        "rule": "july_aug_complete",
+        "admitted": 2509,
+        "excluded": 191,
+        "admitted_new_window_facts": 18,
+        "excluded_new_window_facts": 3
+      },
+      {
+        "rule": "gap_le_49_days_context",
+        "admitted": 2653,
+        "excluded": 47,
+        "admitted_new_window_facts": 19,
+        "excluded_new_window_facts": 1
+      }
+    ]
+  },
+  "failure_strata": {
+    "cases": 3683,
+    "regions": [
+      "foen",
+      "gkd_bayern",
+      "usgs_huc03",
+      "usgs_huc04",
+      "usgs_huc10",
+      "usgs_huc17"
+    ],
+    "foen_n": 1119,
+    "foen_stations": 10,
+    "foen_groups": 2,
+    "foen_D2_coverage": 0.9874888293118856,
+    "half_overlap_mislabelled_partial": 47,
+    "currently_labelled_at_least_half": 1827,
+    "actually_at_least_half": 1874
+  },
+  "rank_check": {
+    "rows": 41958,
+    "maximum_absolute_per_seed_coverage_change_pp": 0.8152173913043459,
+    "maximum_absolute_three_seed_mean_change_pp": 0.3623188405797006,
+    "three_seed_mean_stable_combinations": 5,
+    "coverage_4096_min": 0.873641304347826,
+    "coverage_4096_max": 0.8985330073349633
+  },
+  "figure_uncertainty_denominators": [
+    {
+      "name": "D2 displayed",
+      "archives": 818,
+      "annual_cases": 3777,
+      "annual_coverage": 0.9009796134498279,
+      "independent_trend_coverage": 0.8801955990220048
+    },
+    {
+      "name": "D2 common to both methods",
+      "archives": 736,
+      "annual_cases": 3328,
+      "annual_coverage": 0.9071514423076923,
+      "independent_trend_coverage": 0.8913043478260869
+    },
+    {
+      "name": "stochastic common",
+      "archives": 736,
+      "annual_cases": 3328,
+      "annual_coverage": 0.8810096153846154,
+      "independent_trend_coverage": 0.8627717391304348
+    }
+  ],
+  "metadata_manifest": {
+    "rows": 3320,
+    "mismatches": []
+  },
+  "external_reference_facts": {
+    "BC_cases_by_family": {
+      "crossed": 288,
+      "calendar": 84
+    },
+    "Truckee_scored_cases": 72,
+    "reservoir_scored_cases": 306,
+    "reservoir_scored_station_years": 17,
+    "fresh_USGS_complete_daily_station_years": 8,
+    "fresh_USGS_stations_with_four_complete_years": 0
+  },
+  "candidate": {
+    "changed_workspace_files": [
+      "Makefile",
+      "paper/wrr_tr/figures/simple_research/01_observed_records.pdf",
+      "paper/wrr_tr/figures/simple_research/02_annual_comparators.pdf",
+      "paper/wrr_tr/figures/simple_research/03_archive_factorial.pdf",
+      "paper/wrr_tr/figures/simple_research/03_archive_factorial.png",
+      "paper/wrr_tr/figures/simple_research/04_joint_uncertainty.pdf",
+      "paper/wrr_tr/figures/simple_research/04_joint_uncertainty.png",
+      "paper/wrr_tr/figures/simple_research/05_output_boundaries.pdf",
+      "paper/wrr_tr/review_completion_article.pdf",
+      "paper/wrr_tr/review_completion_article.tex",
+      "paper/wrr_tr/review_completion_supporting.pdf",
+      "paper/wrr_tr/review_completion_supporting.tex",
+      "paper/wrr_tr/simple_core_figures.tex",
+      "paper/wrr_tr/simple_external_results.tex",
+      "paper/wrr_tr/simple_research_methods.tex",
+      "paper/wrr_tr/simple_research_results.tex",
+      "scripts/524_research_report.py",
+      "scripts/552_recreate_aggregate_figures.py",
+      "src/stream_recoverability/experiments/tr_revision/review_figures.py"
+    ],
+    "missing_new_scripts": [
+      "scripts/926_rule_accounting.py",
+      "scripts/927_failure_strata.py",
+      "scripts/928_rank_convergence.py",
+      "scripts/929_manuscript_inputs.py"
+    ]
+  },
+  "abstract_whitespace_word_count": 262,
+  "keypoint_character_counts": [
+    136,
+    125,
+    127
+  ],
+  "SI_page42": {
+    "contains_failure_table": true,
+    "contains_huc17_rows": false,
+    "float_warning": true
+  }
+}

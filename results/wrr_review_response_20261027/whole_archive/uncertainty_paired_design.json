@@ -1,0 +1,10 @@
+{
+  "unit": "station and masked-archive repetition",
+  "common_cohort": "all annual values and all three coupling and both tail sensitivity outputs available",
+  "annual_weighting": "weighted by number of incomplete reference years; also report station-repetition mean",
+  "tail_contrast": "constant vs normal spacing with identical marginals except outside observed quantile levels, same random order within tail experiment",
+  "coupling_contrast": "same normal-tailed marginal draws re-ranked by independent, auxiliary shared-parameter, or residual-block ranks",
+  "caution": "tail experiment and coupling experiment use distinct random draws; annual fit is not experimentally corrected; these are not additive causal contributions",
+  "bootstrap": "2000 resamples of connected groups, pooled-case mean, descriptive and not a guarantee; 18 groups at most",
+  "scope": "retrospective finite archive, repeated masks within stations; full source models and observed data are needed for reproduction"
+}

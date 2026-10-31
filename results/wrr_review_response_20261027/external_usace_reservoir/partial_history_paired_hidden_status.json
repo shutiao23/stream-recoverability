@@ -1,0 +1,8 @@
+{
+  "status": "incomplete_no_observed_hidden_day",
+  "targets_compared": 6,
+  "paired_feature_passes": 6,
+  "paired_output_passes": 6,
+  "reason": "The first saved mask for target 7 hides no previously observed complete daily value; remaining targets were not evaluated.",
+  "interpretation": "Cannot claim all-target leakage probe passed; revise the mask choice based only on observed mask geometry."
+}

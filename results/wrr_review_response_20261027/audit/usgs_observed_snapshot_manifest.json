@@ -1,0 +1,60 @@
+{
+  "scope": "USGS additional observation-only evidence; source API data and project-produced metadata/results, frozen for local offline replay",
+  "station_count": 10,
+  "files": [
+    {
+      "path": "results/additional_usgs_observed/cohort_metadata.csv"
+    },
+    {
+      "path": "results/additional_usgs_observed/acquisition.json"
+    },
+    {
+      "path": "results/additional_usgs_observed/plan.json"
+    },
+    {
+      "path": "results/additional_usgs_observed/qualification.csv"
+    },
+    {
+      "path": "results/additional_usgs_observed/raw_reference_summary.csv"
+    },
+    {
+      "path": "results/additional_usgs_observed/robust_record_witnesses.csv"
+    },
+    {
+      "path": "results/additional_usgs_observed/all_approved_window_bounds.csv"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/0212378405.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/07364133.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08048000.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08227000.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08375300.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08377900.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08405200.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08405400.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08407500.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/16303000.json.gz"
+    },
+    {
+      "path": "data/external/additional_usgs_observed/ATTRIBUTION.txt"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "cohort_count": 8,
+  "selection": "up to two earliest metadata-supported stations per HUC2 beginning by 2016, distinct indexed components; exclude prior source, E10, downloaded raw series, processed national sites and first attempted cohort; no known HUC8 contact; exclude named nonriver structures",
+  "candidate_years": "1981-2025; no target temperature or prediction outcome used in selection",
+  "reference": "approved nonestimated, QC-passing daily mean on every calendar day; at least four complete years",
+  "scope": "unregistered exploratory new-station test; metadata-only prior-contact and river-index screens do not prove climate independence",
+  "previous_protocol_change": "after an audit discovered prior national/E10 contact in an initial cohort, the revised roster excludes those later datasets; this is a new narrowly scoped exploratory study, not a frozen formal-risk confirmation",
+  "prior_access_limit": "best-effort inventory of the named archives; absence of a recorded match is not proof of complete repository-wide independence"
+}

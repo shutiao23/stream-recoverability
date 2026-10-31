@@ -1,0 +1,106 @@
+{
+  "status": "count_probe_completed",
+  "completed_utc": "2026-10-26T22:49:37.947005+00:00",
+  "station_id": "01399820",
+  "control_all_dates": {
+    "status": "returned",
+    "http_status": 200,
+    "count": 36347
+  },
+  "year_counts": [
+    {
+      "year": 2010,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2011,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2012,
+      "status": "returned",
+      "http_status": 200,
+      "count": 1960
+    },
+    {
+      "year": 2013,
+      "status": "returned",
+      "http_status": 200,
+      "count": 6577
+    },
+    {
+      "year": 2014,
+      "status": "returned",
+      "http_status": 200,
+      "count": 1245
+    },
+    {
+      "year": 2015,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2016,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2017,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2018,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2019,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2020,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2021,
+      "status": "returned",
+      "http_status": 200,
+      "count": 0
+    },
+    {
+      "year": 2022,
+      "status": "returned",
+      "http_status": 200,
+      "count": 5161
+    },
+    {
+      "year": 2023,
+      "status": "returned",
+      "http_status": 200,
+      "count": 17472
+    },
+    {
+      "year": 2024,
+      "status": "returned",
+      "http_status": 200,
+      "count": 3714
+    }
+  ],
+  "no_water_temperature_values_requested": true,
+  "no_model_predictions_scored": true,
+  "interpretation": "provider count endpoint; counts can aggregate parameters or records with missing/estimated measurements; no unique timestamps or water-specific completeness established",
+  "limitation": "post-hoc single-site probe; zero or error may reflect endpoint filtering, access, data absence or date conventions; not a reference-quality conclusion"
+}

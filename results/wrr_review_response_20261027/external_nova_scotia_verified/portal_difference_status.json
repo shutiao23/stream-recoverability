@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "stations": 4,
+  "site_years": 35,
+  "both_numeric": 262667,
+  "difference_gt_1e-06": 12810,
+  "difference_gt_0p01": 2397,
+  "difference_gt_0p1": 2009,
+  "difference_gt_0p5": 1086,
+  "maximum_abs_difference_c": 4.492664199814998,
+  "year_pairs_both_complete_labels": 14,
+  "year_pairs_only_workbook_complete_labels": 2,
+  "year_pairs_only_portal_complete_labels": 3,
+  "limitation": "post-hoc descriptive thresholds, different releases of one programme, no independent sensor comparison, unverified timezone and per-observation QA; duplicate labels excluded, not averaged"
+}

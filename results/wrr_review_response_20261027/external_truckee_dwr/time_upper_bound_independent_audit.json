@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "stations": 12,
+  "station_years_recomputed": 171,
+  "possible_complete_years_recomputed": 147,
+  "scope": "Separate csv/datetime/set implementation over the same 12 downloaded files; only station and timestamp fields interpreted.",
+  "limitations": "Ignores temperature missingness, sensor QC, estimated/corrected values, daylight convention, prior network contact and independence; identical inputs are not independent physical validation."
+}

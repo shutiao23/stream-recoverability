@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-27T06:54:19.512161+00:00",
+  "status": "posthoc after the USACE partial-history outcomes and earlier source comparisons have been inspected; before this factorial target predictions or scores",
+  "cohort": "All 15 FOEN and Bavarian stations in the previously defined 22-station processed-data cohort, with nine complete 2009-2017 water years; six recorded connected groups. Selection is inherited from previous availability and source-result inspection, not random or independently sampled.",
+  "target": "2017 calendar-year H30 from processed complete daily series, treated as the reference reported-series statistic. Target daily observations are hidden by identical synthetic masks and excluded from local history fitting.",
+  "history": "Eight complete historical years 2009-2016. Full history retains all days. Partial history hides July 1-30 of every history year, then linearly interpolates those 240 missing days separately within each year, never using the hidden values. This fixed warm-season loss is a synthetic mechanism, not a sampled operational outage.",
+  "target_masks": "Fixed starts at zero-based day indices 75, 165 and 255, each combined with lengths 30, 60 and 90 days; nine masks per station, identical across both history modes. Overlap with a training-derived climatological peak may differ between modes.",
+  "estimators": "Fixed candidate-provider strict-held-region source model and source calibration for each provider; no same-target-region source role and no target donor. Compare original plug-in and calibrated stochastic across history modes, and D2 in four combinations of history mode and n_complete_years feature (0 or 8).",
+  "counterfactual": "For the full-history mode count 8 and partial mode count 0 are the truthful inputs. Setting 0 for full or 8 for partial misstates the actual data and is used solely to diagnose feature sensitivity, never recommended for deployment.",
+  "score": "Per-case and paired absolute error, 90% interval coverage, width and interval score on common available samples. Report station, region and six-group dependence, station-equal and group-equal summaries, and all results including degradations. A 2x2 comparison describes combined interventions, not a universal causal decomposition.",
+  "limitations": "This is an in-source, posthoc mechanism experiment, one target year, six connected groups and two regions; not independent-climate validation. Target calendar and source models reuse earlier analyses, source water quality and NASA POWER vintage/day alignment remain unresolved, and source-model rights remain restricted.",
+  "stations": 15,
+  "groups": 6,
+  "target_cases_expected": 135,
+  "finite_air_days": 49305,
+  "air_days": 49305
+}

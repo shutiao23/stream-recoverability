@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "source_supported_archive_settings": 820,
+  "status_counts": {
+    "passed": 736,
+    "one_or_both_annual_distributions_unavailable": 82,
+    "no_incomplete_years": 2
+  },
+  "matched_nontrivial_archives": 736,
+  "stations": 41,
+  "groups": 17,
+  "per_case_treatment_rows_checked": 13248,
+  "baseline_reproduced": true,
+  "same_marginals_and_ranks_checked": true,
+  "previous_empirical_overlap_archives": 685,
+  "previous_empirical_rows_compared": 12330,
+  "bootstrap_draws": 4000,
+  "limitations": "source group maxima come from single-year masks, target archives have multiple joint gaps and different source/target group sizes; source and target groups are not known exchangeable. The 90% annual calibration and assumed shape/rank coupling do not establish 95% trend coverage or any guarantee. Previous empirical and group-max results have been viewed.",
+  "audit_scope": "independent reconstruction from stored per-case quantiles and rank arrays, not regeneration of ranks from raw histories or proof of provider rights"
+}

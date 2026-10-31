@@ -1,0 +1,28 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "same gaps simultaneously hidden",
+  "family": "calendar",
+  "hidden_donor_values_present": 0,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0032",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2003": "55:4",
+    "2004": "158:9",
+    "2006": "1:2;66:3;85:1",
+    "2007": "208:2;229:33",
+    "2014": "220:2",
+    "2015": "226:2",
+    "2023": "279:1",
+    "2024": "23:2;49:1;104:1"
+  },
+  "mode": "offline",
+  "n_incomplete": 8,
+  "n_years": 27,
+  "region": "gkd_bayern",
+  "replicate": 2,
+  "scenario": "synchronized_donors",
+  "source_model_split": "leave_one_year_out",
+  "station_key": "gkd_bayern|10026293"
+}

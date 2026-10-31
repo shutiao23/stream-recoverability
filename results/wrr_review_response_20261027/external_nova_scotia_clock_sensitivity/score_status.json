@@ -1,0 +1,18 @@
+{
+  "status": "scored_sensitivity",
+  "base_cases": 144,
+  "all_shift_common_cases": 144,
+  "available_case_fraction": 1.0,
+  "station_years": 8,
+  "sites": 2,
+  "shifts_hours": [
+    -1,
+    0,
+    1
+  ],
+  "max_zero_shift_replay_difference": 0.0,
+  "max_abs_reference_h30_change_c": 0.00226736628579971,
+  "mask_identity": "identical original station/year/realization/mask runs; danger subset fixed to baseline training-period overlap",
+  "strict_reference_qualified": false,
+  "limitation": "one-hour shifts do not identify the actual source time basis, resolve estimated-value/QC status, represent every possible local solar-time discrepancy, or establish climate independence; annual outputs and local fits are recomputed for each shifted day definition; NASA POWER forcing is held fixed in local solar time"
+}

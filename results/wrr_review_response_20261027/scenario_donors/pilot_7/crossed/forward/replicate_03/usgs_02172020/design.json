@@ -1,0 +1,28 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "same gaps simultaneously hidden",
+  "family": "crossed",
+  "hidden_donor_values_present": 0,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0181",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2012": "189:30",
+    "2016": "281:30",
+    "2019": "58:60",
+    "2020": "1:60",
+    "2021": "253:30",
+    "2023": "195:30",
+    "2024": "259:90",
+    "2025": "217:60"
+  },
+  "mode": "forward",
+  "n_incomplete": 8,
+  "n_years": 14,
+  "region": "usgs_huc03",
+  "replicate": 3,
+  "scenario": "synchronized_donors",
+  "source_model_split": "before_2010",
+  "station_key": "usgs|02172020"
+}

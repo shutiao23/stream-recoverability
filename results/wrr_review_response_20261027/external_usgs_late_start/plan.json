@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-26T23:13:50.687429+00:00",
+  "initial_candidates": 24,
+  "known_prior_contacts_excluded": 11,
+  "frozen_candidates": 13,
+  "selection": "Current-vintage metadata candidates flagged not yet excluded, no known prior HUC8, begin during 2017-2021, end in or after 2025, and no obvious non-river term in name. Existing source/E10/fresh/cache contacts are also excluded. Missing timezone or unresolved network status is retained and must be resolved before any reference claim.",
+  "count_preflight": "Query 2017-2025 annual approved daily sample counts for matching daily mean series. Keep only count and interval metadata, no annual temperature statistics or prediction errors. Four full calendar years of 365/366 approved daily observations are necessary but not sufficient. Absent records are unknown.",
+  "caveat": "Post hoc exploratory availability screening after earlier negative screens, not a prospective or random reference cohort. River suitability, separation from prior analyses, local-day support, point-level quality and rights remain to be checked before use."
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "stations": 22,
+  "case_masks": 11220,
+  "summary_rows": 16,
+  "leave_provider_rows": 64,
+  "source_air_table_included": false,
+  "scope": "Recomputes fixed proxy regressions and summaries using bundled processed water and the small processed-air snapshot; original full air table is not included or checked.",
+  "limitations": "Same underlying data and post-hoc cohort, not the authors' original code, raw-provider rebuild, independent climate, sensor validation or model-training replay."
+}

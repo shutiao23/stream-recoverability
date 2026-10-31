@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "resources": 4,
+  "daily_rows": 7304,
+  "finite_air_values": 7304,
+  "scope": "Rebuild daily air forcing from attributed saved NASA POWER JSON responses.",
+  "limitations": "The replay does not establish meteorological accuracy, water-day alignment or model prediction reproducibility."
+}

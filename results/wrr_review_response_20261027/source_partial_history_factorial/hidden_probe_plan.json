@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-27T06:58:18.170858+00:00",
+  "status": "posthoc after factorial scores; first sorted station and fixed spring 30-day mask chosen before perturbation",
+  "target_probe": "Add 10 C to the 30 target days hidden by the fixed spring mask. Compare both history modes and both count settings for that mask using same-process controls.",
+  "history_probe": "Add 1000 C to all 240 target-station historical July 1-30 values that are deliberately hidden in the partial-history treatment. Compare all nine target masks and both count settings under partial history.",
+  "limitations": "One selected station and target mask are not an exhaustive proof of leakage absence. Same code and models are reused; calibration, data quality and climate independence are not evaluated.",
+  "station_key": "foen|2016"
+}

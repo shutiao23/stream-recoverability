@@ -1,0 +1,14 @@
+\section{Nova Scotia reported-day boundary sensitivity}
+After inspecting the exploratory results, we tested hypothetical daily bins shifted by $-1$, 0 and $+1$ hour relative to the recorded clock labels. We required all original eight station-years and the adjacent boundary hours to be unique, finite and equal within $10^{-6}$ $^{\circ}$C across the two releases; missing or disputed hours were not filled. Daily water inputs and local leave-one-year-out models were rebuilt for each shift, with the original masks, global source model, source calibration and NASA POWER local-solar-time forcing held fixed. All 144 masks are available across all three shifts for both methods; the zero-shift replay agrees with the original outputs. Across the eight reported reference years the largest H30 change is 0.0023 $^{\circ}$C, while a post-hoc casewise diagnostic finds a largest D2 point-prediction change of 0.094 $^{\circ}$C. This does not identify the true timezone or explain the cause of prediction changes; hourly values, quality and meteorological day alignment remain uncertain. The two sites and repeated masks do not justify a population-level ranking or independent-climate inference.
+\begin{table}[p]\centering\small
+\caption{Paired exploratory reported-day boundary sensitivity with identical original masks. Coverage is percent and error, width and interval score are in $^{\circ}$C. Local stages are refit; source model, source calibration and forcing are held fixed. Two sites and eight station-years are not independent climatic replications.}\label{tab:ns-clock-sensitivity}
+\begin{tabular}{rlrrrrr}\toprule
+Shift (h) & Method & Cases & MAE & 90\% coverage & Width & Interval score\\\midrule
+-1 & D2 & 144 & 0.310 & 88.9 & 1.000 & 1.555\\
+-1 & Stochastic & 144 & 0.313 & 92.4 & 1.283 & 1.704\\
+0 & D2 & 144 & 0.311 & 88.2 & 1.000 & 1.572\\
+0 & Stochastic & 144 & 0.313 & 93.1 & 1.281 & 1.706\\
+1 & D2 & 144 & 0.315 & 86.8 & 0.998 & 1.572\\
+1 & Stochastic & 144 & 0.313 & 93.1 & 1.278 & 1.731\\
+\bottomrule\end{tabular}
+\end{table}

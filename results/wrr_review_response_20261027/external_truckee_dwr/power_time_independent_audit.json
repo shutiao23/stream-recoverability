@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "hour_pairs_recomputed": 34968,
+  "daily_pairs_recomputed": 1457,
+  "hourly_api_versions": [
+    "v2.10.3"
+  ],
+  "daily_api_version": "v2.10.1",
+  "scope": "Independent datetime and scalar arithmetic over the same current NASA POWER responses.",
+  "limitations": "This tests NASA POWER UTC/LST product alignment, not whether the provider water sensor used a fixed PST clock, source vintage, meteorological accuracy or independent-climate performance."
+}

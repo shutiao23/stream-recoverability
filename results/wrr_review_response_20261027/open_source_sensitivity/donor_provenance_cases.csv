@@ -1,0 +1,14 @@
+mode,provider,cases,stations,visible_outside_station_inventory,visible_outside_all_local_catalogs,finite_donor_estimate_outside_all_catalogs,policy_donor_outside_all_catalogs
+offline,chmi,18352,73,0,0,0,0
+offline,foen,5244,11,0,0,0,0
+offline,gkd_bayern,29118,53,3684,1998,1040,1040
+offline,nve_hydapi,6775,41,2552,0,0,0
+offline,rws_waterwebservices,768,5,0,0,0,0
+offline,syke,1662,3,0,0,0,0
+offline,usgs,67316,319,17690,5833,3553,3553
+forward,chmi,2893,9,0,0,0,0
+forward,foen,5187,11,0,0,0,0
+forward,gkd_bayern,22303,30,3193,1736,0,0
+forward,nve_hydapi,2968,18,1055,0,0,0
+forward,syke,1662,3,0,0,0,0
+forward,usgs,30122,101,3491,992,553,553

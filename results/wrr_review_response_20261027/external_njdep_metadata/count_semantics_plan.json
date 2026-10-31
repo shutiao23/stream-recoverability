@@ -1,0 +1,32 @@
+{
+  "created_utc": "2026-10-26T22:50:06.063824+00:00",
+  "status": "posthoc_two_station_count_semantics_probe",
+  "trigger": "after a single-station 2018 zero and annual counts revealed positive counts in other years",
+  "primary_station": "01399820",
+  "boundary_comparison_years": [
+    2013,
+    2023
+  ],
+  "boundary_test": "compare provider counts ending on 12/31 versus 01/01 of next year; count equality or difference does not establish inclusion rules or daily quality",
+  "secondary_station": "01403075",
+  "secondary_selection": "next-longest non-buoy brook-labeled QA metadata span; selected post-hoc after examining roster metadata, not temperature observations or model errors",
+  "secondary_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "scope": "public count endpoint only; empty other filters; no individual temperature values or predictions requested",
+  "interpretation": "provider counts may include non-temperature parameters, duplicate or estimated records, and lack unique-date evidence; no reference qualification or group independence is inferred"
+}

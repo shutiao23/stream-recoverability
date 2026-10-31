@@ -1,0 +1,27 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "other physical stations remain observed",
+  "family": "crossed",
+  "hidden_donor_values_present": null,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0166",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2012": "316:30",
+    "2013": "196:30",
+    "2016": "244:90",
+    "2018": "175:60",
+    "2020": "243:60",
+    "2022": "207:30",
+    "2024": "214:60"
+  },
+  "mode": "offline",
+  "n_incomplete": 7,
+  "n_years": 20,
+  "region": "usgs_huc04",
+  "replicate": 1,
+  "scenario": "heat_associated",
+  "source_model_split": "leave_one_year_out",
+  "station_key": "usgs|04137030"
+}

@@ -1,0 +1,6 @@
+{
+  "created_utc": "2026-10-27T10:19:19.338019+00:00",
+  "status": "posthoc after detecting USGS coverage boundary instability and inspecting original main scoring code",
+  "scope": "All saved incomplete-year whole-archive cases on common finite D2 and stochastic quantile/reference/bound inputs. Compare inclusive exact coverage against absolute 1e-10 and 1e-8 C tolerances in each family/mode and peak-visibility stratum. Reproduce stored 1e-8 pooled coverage in peak_visibility_annual.csv; also report equal case weights and equal group weights, not treated as independent stations.",
+  "limits": "Same saved references, outputs and prior-outcome-defined strata; no independent reference or raw-data recomputation. Tolerances are numerical comparisons, not physical sensor error. This audit cannot establish population calibration or coverage."
+}

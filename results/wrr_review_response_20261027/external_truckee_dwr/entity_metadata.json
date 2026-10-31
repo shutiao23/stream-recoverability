@@ -1,0 +1,216 @@
+[
+  {
+    "entity_name": "Stations Metadata",
+    "object_name": "StationsMetadata.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/a059f5eea4f8500fe1a43566451ec593"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Station_Name",
+      "Latitude",
+      "Longitude",
+      "Hydrologic_Area",
+      "Basin",
+      "County",
+      "Habitat_Type",
+      "Station_Access_Type",
+      "Parameters",
+      "Dataset_Begin_Date",
+      "Dataset_End_Date",
+      "WDL_Station_Code"
+    ]
+  },
+  {
+    "entity_name": "Instrument Type Date Ranges",
+    "object_name": "EXO_Upgrade_Dates.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/e17dad699f88336b8292998747907088"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Start_Date_YSI6600",
+      "Start_Time_YSI6600",
+      "Start_Date_YSIEXO2",
+      "Start_Time_YSIEXO2",
+      "Start_Date_ONSETHOBO",
+      "Start_Time_ONSETHOBO"
+    ]
+  },
+  {
+    "entity_name": "Instrument Specifications",
+    "object_name": "SondeSensorSpecs.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/fdd78a720d73647b800de97732cc8d09"
+    ],
+    "attribute_names": [
+      "Constituent",
+      "EXO_Accuracy",
+      "EXO_Range",
+      "6_Series_Accuracy",
+      "6_Series_Range",
+      "HOBO_Accuracy",
+      "HOBO_Range"
+    ]
+  },
+  {
+    "entity_name": "TRB8",
+    "object_name": "TRB8_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/75e83c43ce9f4c7445c4e21d7fbed727"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature",
+      "Specific_Conductance",
+      "DO",
+      "Turbidity",
+      "pH"
+    ]
+  },
+  {
+    "entity_name": "TRTT",
+    "object_name": "TRTT_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/6daf5894605cf80d5aba71564388d2d8"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature",
+      "Specific_Conductance",
+      "DO",
+      "Turbidity",
+      "pH"
+    ]
+  },
+  {
+    "entity_name": "LAB",
+    "object_name": "LAB_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/a18771cf7e181cdf9dad769d494bafef"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature",
+      "Specific_Conductance",
+      "DO",
+      "Turbidity",
+      "pH"
+    ]
+  },
+  {
+    "entity_name": "FAR",
+    "object_name": "FAR_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/31234537adb52d5df18dc9596010708b"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature",
+      "Specific_Conductance",
+      "DO",
+      "Turbidity",
+      "pH"
+    ]
+  },
+  {
+    "entity_name": "TrkAbvDnc",
+    "object_name": "TrkAbvDnc_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/a3405a6b450f9f2991a1d0f2337d89b0"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "DncAbvTrk",
+    "object_name": "DncAbvTrk_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/37c90c10068d544ad6ecab6515cbf0b2"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "TrkAbvPr",
+    "object_name": "TrkAbvPr_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/d0dc935b84bfe12381612c55cc687805"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "PrAbvTrk",
+    "object_name": "PrAbvTrk_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/f2c69f2d2c1c0d0152ae5255b92002c8"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "TrkBlwPr",
+    "object_name": "TrkBlwPr_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/09c1829f5eee8f75fc2845cb99d1efa9"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "TrkAbvLtk",
+    "object_name": "TrkAbvLtk_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/f4a1db72895e8fbe0f1a3062db807049"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "LtkAbvTrk",
+    "object_name": "LtkAbvTrk_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/d5235cc4a313bc6c48936c1f42681c71"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  },
+  {
+    "entity_name": "TrkBlwDnc",
+    "object_name": "TrkBlwDnc_POR.csv",
+    "urls": [
+      "https://pasta.lternet.edu/package/data/eml/edi/2411/1/6f9cbcc9f6d6575cfd20dc9c718cab07"
+    ],
+    "attribute_names": [
+      "Station_Code",
+      "Date_Time",
+      "Water_Temperature"
+    ]
+  }
+]

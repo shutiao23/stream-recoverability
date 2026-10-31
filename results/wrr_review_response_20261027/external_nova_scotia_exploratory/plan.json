@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-26T21:42:51.815545+00:00",
+  "status": "frozen_exploratory_amendment",
+  "previous_plan": "The original Nova Scotia intake retained no model scores because strict reference quality and timezone were unresolved; that strict status is unchanged.",
+  "selection": "after comparing the two releases, select all sites with at least four complete reported-clock years whose hourly numeric values match at 1e-6 C; two sites, eight station-years; selection uses data availability and cross-release agreement, not prediction errors",
+  "prior_access": "temperature records and release differences had been inspected algorithmically before this plan; no Nova Scotia model prediction errors were evaluated before the plan",
+  "reference": "means of the 24 unique finite hourly numeric cells for each reported-clock day from the Nova Scotia Open Data Portal; exact workbook agreement is checked at every selected hour; no claim that observations are nonestimated, error-free or on a known physical day",
+  "training": "three other selected complete years at the same site; target-year daily values are hidden by each mask before local fit; no other site donors; original global annual source model and independent source calibration held fixed",
+  "masks": "existing source settings: controlled 30, 60 and 90 day gaps and 2 realizations per overlap cell; use no empirical calendar gaps because the panel intentionally omits other years",
+  "estimators": "source-fixed D2, source-calibrated stochastic regression and plug-in; all constrained by observed H30 lower bound; compare D2 and stochastic on common available cases",
+  "metrics": "point MAE, bias, failure above 0.5 C, 90 percent interval coverage, width and score, CRPS, counts and availability; masks are not independent stations",
+  "forcing": "NASA POWER daily T2M in local solar time at provincial-map coordinates rounded to 0.01 degree; water timestamp basis unresolved, so day-boundary alignment is not established",
+  "limitations": "unregistered post-hoc availability and version-agreement selection; two stations in one province, source QC and timezone not established; single-year leave-out with three other years is not whole-archive degradation, climate-independent confirmation or natural-outage evaluation",
+  "source_model": "results/wrr_review_completion_20261024/deployment/global_source_candidate.joblib"
+}

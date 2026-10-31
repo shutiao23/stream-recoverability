@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "source_models_refitted": 6,
+  "source_family_cutoffs_checked": 24,
+  "max_source_model_score_difference": 0.0,
+  "target_archives_checked": 1640,
+  "target_masked_cases_checked": 7583,
+  "target_predictions_checked": 7583,
+  "masked_cases_without_predictions": 0,
+  "selection_cases_checked": 7583,
+  "summary_cells_checked": 4,
+  "region_deletion_cells_checked": 24,
+  "group_resamples_per_cell": 4000,
+  "reference_cases_rechecked": 7583,
+  "scope": "Re-fits classifiers on the same source data and feature implementation, reconstructs disjoint roles and source cutoffs, rechecks reference attachment against two saved records and checks target predictions, label-free selections and aggregates. It does not independently reconstruct physical observations or prove prospective group risk."
+}

@@ -1,0 +1,32 @@
+{
+  "status": "all_location_metadata_frozen_before_qualification",
+  "created_utc": "2026-10-26T22:36:49.972716+00:00",
+  "source_rows_read_metadata_only": 140300,
+  "unique_location_ids": 248,
+  "distinct_location_metadata_rows": 248,
+  "ids_with_multiple_metadata_rows": 0,
+  "metadata_rows_with_valid_coordinates": 248,
+  "all_location_types": {
+    "River/Stream": 248
+  },
+  "columns_read": [
+    "MonitoringLocationID",
+    "MonitoringLocationName",
+    "MonitoringLocationLatitude",
+    "MonitoringLocationLongitude",
+    "MonitoringLocationHorizontalCoordinateReferenceSystem",
+    "MonitoringLocationHorizontalAccuracyMeasure",
+    "MonitoringLocationHorizontalAccuracyUnit",
+    "MonitoringLocationType"
+  ],
+  "excluded_from_read": [
+    "ResultValue",
+    "ActivityStartDate",
+    "ActivityEndDate",
+    "result quality and flags"
+  ],
+  "local_roster": "private/wrr_rivtemp_reference_20261026/all_locations_before_qualification.csv",
+  "selection": "all published location IDs; no filter on year coverage, water temperature, data status or model predictions",
+  "next_step": "resolve duplicate station metadata and independently audit geographic/network and previous-contact overlap before selecting a candidate for the fixed 2010-2020 year-qualification plan",
+  "limitation": "a frozen metadata roster neither establishes unique physical station identity, usable complete years, subdaily quality, nor independence"
+}

@@ -1,0 +1,61 @@
+{
+  "status": "in_progress",
+  "pages": [
+    {
+      "station_id": "NS01DL0009",
+      "offset": 0,
+      "rows": 50000,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01DL0009_000000.json.gz",
+      "uncompressed_bytes": 6545135
+    },
+    {
+      "station_id": "NS01DL0009",
+      "offset": 50000,
+      "rows": 31279,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01DL0009_050000.json.gz",
+      "uncompressed_bytes": 4185353
+    },
+    {
+      "station_id": "NS01EF0002",
+      "offset": 0,
+      "rows": 50000,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01EF0002_000000.json.gz",
+      "uncompressed_bytes": 6628173
+    },
+    {
+      "station_id": "NS01EF0002",
+      "offset": 50000,
+      "rows": 28007,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01EF0002_050000.json.gz",
+      "uncompressed_bytes": 3757901
+    },
+    {
+      "station_id": "NS01FB0001",
+      "offset": 0,
+      "rows": 50000,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01FB0001_000000.json.gz",
+      "uncompressed_bytes": 6565826
+    },
+    {
+      "station_id": "NS01FB0001",
+      "offset": 50000,
+      "rows": 28890,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01FB0001_050000.json.gz",
+      "uncompressed_bytes": 3796559
+    },
+    {
+      "station_id": "NS01ED9111",
+      "offset": 0,
+      "rows": 50000,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01ED9111_000000.json.gz",
+      "uncompressed_bytes": 6564291
+    },
+    {
+      "station_id": "NS01ED9111",
+      "offset": 50000,
+      "rows": 10962,
+      "file": "data/external/wrr_nova_scotia_open_20261026/NS01ED9111_050000.json.gz",
+      "uncompressed_bytes": 1441628
+    }
+  ]
+}

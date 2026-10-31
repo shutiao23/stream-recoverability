@@ -1,0 +1,27 @@
+{
+  "created_utc": "2026-10-26T21:28:51.059416+00:00",
+  "stations": [
+    "NS01DL0009",
+    "NS01EF0002",
+    "NS01FB0001",
+    "NS01ED9111"
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "comparison": "all records from each of the four frozen sites in 2009\u20132017, irrespective of prior completeness result; no prediction outcomes used",
+  "columns": "portal station ID, reported date, reported time, temperature and unique system record ID; match to workbook by station and reported timestamp",
+  "temperature_difference_tolerance_c": 1e-06,
+  "matching": "do not silently combine duplicate timestamps; report unmatched, missing, duplicated and mismatched values separately",
+  "purpose": "determine whether openly licensed portal data numerically reproduce the separately obtained provider-verified workbooks, not independent validation of either source",
+  "prior_access": "workbook time-label completeness and numeric-value presence previously examined; the workbook and portal may be different releases of the same programme",
+  "limits": "timezone and per-observation quality remain unresolved regardless of an exact match; sources and fixed sites cannot be treated as independent climates"
+}

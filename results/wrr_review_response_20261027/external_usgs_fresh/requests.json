@@ -1,0 +1,58 @@
+[
+  {
+    "station_id": "14302480",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=bab51aaeae1d40bbbd4edcfe8c944c33&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:26.725770+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "11451800",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=e33be02a1159462db42099e224abb2b4&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:30.585476+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "11458433",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=038d1c92d3ee488c9ed9efc8d73a43d9&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:34.535141+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "01484272",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=945067b2ced4440bace169b2000fc8e7&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:38.696000+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "02453500",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=b51260a109154ce98383296633e60966&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:43.079485+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "02299734",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=a28a81c08e3c4a17a7f6cdf5ea4a7da8&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:47.166520+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "04059500",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=2f2b9fe8d85943abb926395cae2dff62&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:51.068055+00:00",
+    "status": 200,
+    "retry_after": null
+  },
+  {
+    "station_id": "04165500",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&time_series_id=48d82e596a8e46e6befda5e196232d7d&properties=time%2Cvalue%2Capproval_status%2Cqualifier&skipGeometry=true&limit=50000&datetime=1980-01-01T00%3A00%3A00Z%2F2026-01-01T00%3A00%3A00Z",
+    "requested_utc": "2026-10-26T18:56:55.139001+00:00",
+    "status": 200,
+    "retry_after": null
+  }
+]

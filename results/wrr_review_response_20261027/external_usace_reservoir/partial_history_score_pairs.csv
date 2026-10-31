@@ -1,0 +1,5 @@
+cohort,contrast,common_cases,mean_absolute_error_difference_lower_c,mean_absolute_error_difference_upper_c
+all,D2_minus_plug_in,306,-0.11986949988587217,0.05781269917789326
+all,D2_minus_stochastic,306,-0.06821527591295035,0.11069850359727258
+reference_width_at_most_0.1_posthoc,D2_minus_plug_in,180,0.04458133417713095,0.052492803234118174
+reference_width_at_most_0.1_posthoc,D2_minus_stochastic,180,0.026499393844354933,0.03329824290136091

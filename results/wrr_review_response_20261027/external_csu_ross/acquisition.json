@@ -1,0 +1,28 @@
+{
+  "status": "acquired",
+  "source_doi": "10.4211/hs.521e317e189e498581d0aaa08c3f32bc",
+  "license": "CC BY 4.0",
+  "files": [
+    {
+      "file_name": "CSU_ROSS_2020_raw.parquet",
+      "size": 11471898
+    },
+    {
+      "file_name": "CSU_ROSS_2021_raw.parquet",
+      "size": 7755088
+    },
+    {
+      "file_name": "CSU_ROSS_2022_raw.parquet",
+      "size": 8684697
+    },
+    {
+      "file_name": "CSU_ROSS_2023_raw.parquet",
+      "size": 18211251
+    },
+    {
+      "file_name": "CSU_ROSS_2024_raw.parquet",
+      "size": 30641626
+    }
+  ],
+  "scope": "each source file contains multiple sites and parameters; only frozen candidates will be read for qualification"
+}

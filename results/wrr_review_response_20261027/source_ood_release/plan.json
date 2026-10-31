@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-27T07:26:30.293292+00:00",
+  "status": "posthoc after the global model, source calibration, external scores and training-range audit were examined; before this fixed-role warning evaluation",
+  "source_cohort": "All source crossed-mask cases with positive bootstrap weight in the global candidate rule-calibration role. The role is disjoint from estimator, interval-calibration and risk-learning groups, but source outcomes and other source analyses were previously seen and the rule role participated in threshold calibration. This is not new independent climate validation.",
+  "eligible": "A finite D2 estimate and individual score, finite reported H30 and observed lower bound, and at least four observed complete training years. Quality flags and optional operating-range limits are not evaluated, so policies are hypothetical and do not reproduce the full three-output release rule.",
+  "warning": "Without using outcomes, flag any feature other than n_complete_years that is outside its global estimator-role finite min/max, or has a nonfinite category never present in that role. This fixed marginal detector was developed after seeing external support results; one-dimensional support is not a reliable multivariate distribution test.",
+  "outcomes": "Failure = abs(D2 - reported reference H30) >0.5 C. For warning alone report confusion counts, recall and false-positive rate. Repeated masks are not independent years; source sensor accuracy is not independently established.",
+  "policies": "Compare individual score <=0.1 alone, score <=0.1 plus no support warning, and a posthoc score-only ranking that retains exactly the same number of numeric cases as the combined rule. The matched cutoff uses this target cohort score distribution, not outcomes, and is transductive rather than a prospective policy.",
+  "scoring": "Report retention and conditional failure, both case-equal and equal-group-weighted; compare errors among equally many numeric outputs. Use 4000 group bootstrap resamples for the difference in conditional failure rate, retaining only draws with both policies selecting a case. Group bootstrap does not establish independent-climate safety.",
+  "limitations": "Source rule groups and model scores are previously opened, and the warning was chosen after external outputs were inspected. Excluding different cases changes the meaning of retained outputs. There is no causal or calibration guarantee and the same warning flags every external case; source results cannot validate it as a universal failure detector.",
+  "source_rule_crossed_cases": 8658,
+  "source_rule_positive_groups": 20,
+  "source_estimator_positive_groups": 68,
+  "model_features": 68
+}

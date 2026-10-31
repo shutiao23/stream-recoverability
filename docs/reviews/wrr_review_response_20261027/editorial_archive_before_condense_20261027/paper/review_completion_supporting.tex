@@ -1,0 +1,79 @@
+\documentclass[draft]{agujournal2025}
+\usepackage{booktabs,amsmath,amssymb,url,graphicx,microtype}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thesection}{S\arabic{section}}
+\input{review_completion_claims.tex}
+\input{strict_region_values.tex}
+\input{au_prior_exposure_values.tex}
+\makeatletter
+\def\@oddhead{\vbox to 0pt{\vss\centerline{\color{ltgray}\small supporting information for {\it Water Resources Research}}\vskip24pt}}
+\let\@evenhead\@oddhead
+\makeatother
+\begin{document}
+\journalname{Water Resources Research}
+\title{Supporting information: recovery, screening and trend inference}
+\authors{Author information to be completed by the authors}
+\authorrunninghead{Anonymous}\titlerunninghead{Supporting information}
+\maketitle\par
+\section*{Contents}
+The following sections document source-comparison denominators, whole-archive and interval procedures, reference qualification, and sensitivity tables for the main article. Source data, model outputs and software require the separate access arrangements described in the article's Open Research section; this file does not substitute for those materials.
+
+\section{Design and information separation}
+The source comparison uses twenty repetitions of masks and group-role assignment on the same assembled archive; these are not independent climates. Held test connected groups are excluded from estimator fitting, interval calibration, risk learning and rule calibration. In the original partitioned forward models, other training-only groups in a named target region can remain in source roles. The source-role audit and subsequent strict-region sensitivities distinguish this exception from the held target-group exclusion.
+
+In each whole-archive setting, selected gaps in the target station are masked together before local daily fitting. Unmasked target observations and the designated donor observations remain available. The source annual model is fitted separately and held fixed within that archive reanalysis. The first seven years are observed burn-in; the forward evaluation masks only years from 2010 onward. Twenty repetitions at the same station are not twenty independent rivers. The heat-associated and synchronized-donor stresses have small station samples; the former also changes the selected missing years and their number.
+
+\section{Scoring and interval construction}
+For ensemble $x_1,\ldots,x_M$ and outcome $y$, the continuous ranked probability score is
+\[ M^{-1}\sum_m|x_m-y|-(2M^2)^{-1}\sum_{m,l}|x_m-x_l|. \]
+Threshold-weighted scoring replaces samples and outcome by their maxima with the training H30 threshold. The 90\% interval score adds twenty times the distance outside the interval to its width. A 95\% trend interval score uses the corresponding factor forty. Missing predictions remain unavailable rather than being assigned zero error.
+
+Both annual estimators use the observed-window support projection where a finite bound exists. Seven stored quantiles do not determine their outer tails; the normal-spacing continuation and the alternative constant tail are assumptions. Cross-year rank constructions preserve annual marginal samples but are not a posterior for the fitted annual model. The source-only corrections and the post-hoc propagation reported below do not establish a finite-sample or independent-climate coverage guarantee.
+
+For the exploratory release-then-trend analysis, an observed lower bound $L$ contributes $\log\Phi\{(\mu-L)/\sigma\}$ to a Gaussian working likelihood. Released numerical estimates are treated as exact, unknown cases remain unavailable, and the working interval includes regression variability. It is not a calibrated missingness-only interval.
+
+\input{focused_supporting_tables.tex}
+\clearpage
+\input{simple_research_supporting.tex}
+\input{archive_matched_values.tex}
+\input{archive_matched_supporting.tex}
+\input{expanded_stress_values.tex}
+\input{expanded_stress_supporting.tex}
+\input{stress_source_values.tex}
+\input{stress_source_supporting.tex}
+\input{projected_risk_values.tex}
+\input{projected_risk_supporting.tex}
+\input{summer_window_values.tex}
+\input{summer_window_supporting.tex}
+\input{past_season_values.tex}
+\input{past_season_supporting.tex}
+\input{groupmax_values.tex}
+\input{groupmax_supporting.tex}
+\clearpage
+\section{Annual support and hidden-peak diagnostics}
+The projection-stage and peak-visibility tables use common finite cases. The peak-visibility stratum depends on the withheld complete reference and is unavailable for an operational decision. Repeated masks can place the same physical station-year in both strata.
+\input{projection_stage_table.tex}
+\input{peak_visibility_table.tex}
+\input{annual_interval_expansion_table.tex}
+\clearpage
+\input{region_holdout_supporting.tex}
+\input{strict_region_supporting.tex}
+\clearpage
+\input{source_rights_supporting.tex}
+\input{open_source_sensitivity_supporting.tex}
+\clearpage
+\input{open_source_annual_supporting.tex}
+\input{single_year_calibration_supporting.tex}
+\input{single_year_trend_supporting.tex}
+\clearpage
+\input{focused_external_qualification.tex}
+\input{au_prior_exposure_supporting.tex}
+\input{bc_exploratory_supporting.tex}
+\input{nova_scotia_reference_supporting.tex}
+\input{nova_scotia_exploratory_supporting.tex}
+\input{nova_clock_sensitivity_supporting.tex}
+\clearpage
+\input{record_reaudit_supporting.tex}
+\end{document}

@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "archive": "/dev/shm/wrr_source_ood_candidate_20261027.zip",
+  "archive_storage": "temporary RAM filesystem; copy to durable storage after free space is available",
+  "package_checks": {
+    "clean": {
+      "report": "source_ood_clean_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.10.9",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3"
+      },
+      "source_reference": {
+        "status": "passed",
+        "stations": 15,
+        "complete_station_years": 135,
+        "target_h30_values": 15
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    },
+    "replay": {
+      "report": "source_ood_replay_package_check.json",
+      "environment": {
+        "python": "3.11.7",
+        "matplotlib": "3.9.2",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4"
+      },
+      "source_reference": {
+        "status": "passed",
+        "stations": 15,
+        "complete_station_years": 135,
+        "target_h30_values": 15
+      },
+      "reservoir_bounds": {
+        "status": "passed",
+        "station_years": 50,
+        "complete_days": 14335,
+        "accepted_year_record_witnesses": 1
+      },
+      "article_compile": "passed",
+      "supporting_compile": "passed"
+    }
+  },
+  "source_warning_independent_audit": {
+    "status": "passed",
+    "eligible_cases": 8010,
+    "groups": 19,
+    "model_cases_recomputed": 8010,
+    "warning_cases": 484,
+    "warning_failures_detected": 42,
+    "matched_numeric_cases_per_policy": 5596,
+    "group_bootstrap_draws": 4000,
+    "scope": "Direct Booster inference with independently applied calibration/support projection, feature warnings, truth-free matched-score ranking, per-group confusion counts and cluster bootstrap.",
+    "limits": "Same source cases, feature-design code and fixed model are reused; does not establish unseen climates, sensor accuracy, prospective threshold validity or an operational risk guarantee."
+  },
+  "source_margin_independent_audit": {
+    "status": "passed",
+    "source_cases": 8010,
+    "source_groups": 19,
+    "external_cases": 306,
+    "margins_checked": 3,
+    "bootstrap_draws_per_margin": 4000,
+    "scope": "Independent feature-margin flags, deterministic score ranking, group totals and bootstrap summaries.",
+    "limitations": "Same observed features, frozen source extrema and model outputs are reused. Tolerances are posthoc and do not establish error calibration, prospective release or independent climates."
+  },
+  "restricted_model_environment": {
+    "status": "passed",
+    "python": "3.11.7",
+    "versions": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "sklearn": "1.2.2",
+      "lightgbm": "4.7.0"
+    },
+    "cases": 8010,
+    "groups": 19,
+    "margin_scenarios": 3,
+    "environment": "Existing isolated Python environment with user site disabled; source-case table and model were supplied from restricted local paths.",
+    "limitations": "The same fitted model, source cases and feature-design code are reused. This does not resolve source data rights, establish independent climates or reproduce training from raw observations."
+  },
+  "limitations": "The source-warning audits explicitly use local restricted source cases and fixed model; those inputs are not in the candidate ZIP. Neither the source evaluation nor group bootstrap establishes independent-climate validity, quality, calibrated risk or a prospective policy."
+}

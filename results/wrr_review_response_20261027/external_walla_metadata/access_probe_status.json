@@ -1,0 +1,17 @@
+{
+  "status": "data_access_unavailable_in_current_environment",
+  "recorded_utc": "2026-10-26T23:04:13.471910+00:00",
+  "metadata_pages": [
+    "https://wwbwc.org/streamflow/s103",
+    "https://wwbwc.org/streamflow/s107",
+    "https://wwbwc.org/streamflow/s142"
+  ],
+  "direct_page_requests_http_status": 406,
+  "s107_public_qa_csv": "https://wwbwc.org/images/Monitoring/SW/S107_AllTempData.csv",
+  "direct_csv_request_http_status": 406,
+  "web_search_service_csv_result": "HTTP 400 unsupported text/csv; no CSV content returned",
+  "temperature_data_saved_or_scored": false,
+  "station_year_qualification": "not performed",
+  "provider_note": "the site pages label data provisional while providing a separately labeled QA/QC temperature download; definitions and historic versions require clarification",
+  "scope": "three fixed Walla Walla watershed sites; no statement about all other sites, quality or independent climate; no alternate credentials or access-control bypass"
+}

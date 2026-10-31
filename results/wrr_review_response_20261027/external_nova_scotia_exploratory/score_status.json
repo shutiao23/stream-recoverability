@@ -1,0 +1,13 @@
+{
+  "status": "exploratory_scored",
+  "cases": 144,
+  "stations": 2,
+  "station_years": 8,
+  "mask_family": "controlled crossed gaps only",
+  "strict_reference_qualified": false,
+  "prior_water_values_opened": true,
+  "prior_prediction_outcomes_before_plan": false,
+  "source_model": "fixed global source model with frozen source-only calibration",
+  "reference": "reported-clock means of 24 numeric hourly cells, matched between two releases of one provincial programme",
+  "limitations": "unregistered post-hoc availability and version-agreement selection; two stations in one province, source QC and timezone not established; single-year leave-out with three other years is not whole-archive degradation, climate-independent confirmation or natural-outage evaluation; NASA POWER and water day may use different time bases; source-tail model remains assumed"
+}

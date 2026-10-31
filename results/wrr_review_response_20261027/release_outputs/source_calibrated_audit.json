@@ -1,0 +1,11 @@
+{
+  "n_target_cases": 145684,
+  "n_source_thresholds": 54,
+  "n_held_region_families": 54,
+  "missing_threshold_cases": 0,
+  "min_source_calibration_groups": 14,
+  "max_source_retention_gap": 0.00033003300330036733,
+  "summary_mismatches": [],
+  "passed": true,
+  "caveat": "Checks target application and denominator; does not by itself validate role assignment, prospective transfer or reference quality."
+}

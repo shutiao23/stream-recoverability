@@ -1,0 +1,80 @@
+{
+  "created_utc": "2026-10-27T05:54:56.101044+00:00",
+  "status": "posthoc after collection metadata and preliminary prior-ID probe, before reading any candidate sensor-file contents or prediction errors",
+  "cohort": "All 10 metadata candidates; request only their small README files and public USGS metadata for all referenced gauge IDs.",
+  "requests": [
+    {
+      "resource_id": "518f1782309742a39cea7e08b677ca48",
+      "readme_url": "https://www.hydroshare.org/resource/518f1782309742a39cea7e08b677ca48/data/contents/README.md",
+      "gage_ids": [
+        "07124000",
+        "07128500"
+      ]
+    },
+    {
+      "resource_id": "53bdd4a98c0e46dfaf0e5c67cf5be2e5",
+      "readme_url": "https://www.hydroshare.org/resource/53bdd4a98c0e46dfaf0e5c67cf5be2e5/data/contents/README.md",
+      "gage_ids": [
+        "08287000"
+      ]
+    },
+    {
+      "resource_id": "6b8443e801424ed7933581b054fc4fac",
+      "readme_url": "https://www.hydroshare.org/resource/6b8443e801424ed7933581b054fc4fac/data/contents/README.md",
+      "gage_ids": [
+        "08382830"
+      ]
+    },
+    {
+      "resource_id": "6dfb4f3681f443cd8c2017cb9304081c",
+      "readme_url": "https://www.hydroshare.org/resource/6dfb4f3681f443cd8c2017cb9304081c/data/contents/README.md",
+      "gage_ids": [
+        "08286500"
+      ]
+    },
+    {
+      "resource_id": "7ee7252127f145818035c34ae5edfbe0",
+      "readme_url": "https://www.hydroshare.org/resource/7ee7252127f145818035c34ae5edfbe0/data/contents/README.md",
+      "gage_ids": [
+        "07124200"
+      ]
+    },
+    {
+      "resource_id": "814f3b12af614c56a4932eed9568eeaf",
+      "readme_url": "https://www.hydroshare.org/resource/814f3b12af614c56a4932eed9568eeaf/data/contents/README.md",
+      "gage_ids": [
+        "07221500"
+      ]
+    },
+    {
+      "resource_id": "9cf09ae6b59448ca89ba1b582339979c",
+      "readme_url": "https://www.hydroshare.org/resource/9cf09ae6b59448ca89ba1b582339979c/data/contents/README.md",
+      "gage_ids": [
+        "08382650"
+      ]
+    },
+    {
+      "resource_id": "9e912c8455d64899a323d3fc11e9f27f",
+      "readme_url": "https://www.hydroshare.org/resource/9e912c8455d64899a323d3fc11e9f27f/data/contents/README.md",
+      "gage_ids": [
+        "08319000"
+      ]
+    },
+    {
+      "resource_id": "c1065841703b4cddb5279ba6672911a3",
+      "readme_url": "https://www.hydroshare.org/resource/c1065841703b4cddb5279ba6672911a3/data/contents/README.md",
+      "gage_ids": [
+        "07124410"
+      ]
+    },
+    {
+      "resource_id": "f57c3e1508674f77acd613061264c945",
+      "readme_url": "https://www.hydroshare.org/resource/f57c3e1508674f77acd613061264c945/data/contents/README.md",
+      "gage_ids": [
+        "07130500"
+      ]
+    }
+  ],
+  "interpretation": "README content can contain examples but is not a quality guarantee. USGS coordinates or HUC labels are not proof of same monitoring sensor or independent watershed; unresolved flags are retained.",
+  "license": "Authors specify CC BY 4.0 and request courtesy notification of derivative work. No notification or external message is sent by this local metadata check."
+}

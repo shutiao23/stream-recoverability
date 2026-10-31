@@ -1,0 +1,16 @@
+{
+  "status": "computed_posthoc",
+  "wqp_rows": 60,
+  "eligible_field_rows": 60,
+  "comparable_rows": 60,
+  "unavailable_logger_rows": 0,
+  "distinct_comparable_dates": 59,
+  "source_years_with_wqp_rows": [
+    2011,
+    2013,
+    2014
+  ],
+  "independent_sensor_verified": false,
+  "quality_interpretation": "WQP labels these accepted actual field observations, but instrument identity and processing overlap with DWR logger are unverified.",
+  "limitations": "Field visits are sparse and potentially selected around service events; 2020 had no WQP rows. Agreement cannot validate all annual readings, the source quality flags, model error, or sensor independence. Both records use the same DWR station and provider. WQP labels a field observation using EPA thermometric method 170.1, but instrument identity and processing overlap are not documented; do not claim a separate or independent sensor, calibrated accuracy, or independent climate. Both sources label the time PST. Interpret both as fixed UTC-8 only for this comparison; actual provider clock and daylight conventions remain unverified."
+}

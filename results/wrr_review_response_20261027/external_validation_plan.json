@@ -1,0 +1,12 @@
+{
+  "status": "prospective_plan_no_qualified_data",
+  "primary_claim": "Annual H30 recovery and predictive-interval performance in a new, quality-qualified monitoring cohort.",
+  "population": "New river-temperature stations with independent access to quality-qualified daily observations and at least four complete reference years; use catchment and prior-record overlap audits before role assignment.",
+  "evaluation": "Hide the same prescribed calendar and controlled-gap masks from each complete reference year; compare the source-fixed D2, equally treated stochastic regression and daily plug-in on common available cases. Retain unavailable and excluded records in denominators.",
+  "primary_metrics": ["paired annual H30 MAE", "90 percent interval coverage and width", "CRPS", "prediction availability"],
+  "unit_of_uncertainty": "Hydrologic groups or catchment blocks, with regional weather dependence explicitly evaluated; repeated masks are not independent groups.",
+  "reference_requirements": "Provider-approved, nonestimated daily means on every day of the target year, with documented time zone, sensor deployment and quality criteria. At least three other complete years must be usable as local history for a leave-year-out analysis.",
+  "natural_outages": "A separate natural-outage test additionally requires an independently documented backup reference and sensor comparability. Masked complete years cannot establish natural-outage accuracy.",
+  "planning": "Choose sample size using the final paired effect, group-level variability, coverage precision and availability; do not infer a guaranteed pass from added masks or assume a fixed number of sites equals independent groups.",
+  "transparency": "This is a prospective plan only. Do not call the current NZ, NEON or USGS qualification attempts a successful or preregistered independent accuracy validation. Record a dated protocol before examining any new target prediction errors."
+}

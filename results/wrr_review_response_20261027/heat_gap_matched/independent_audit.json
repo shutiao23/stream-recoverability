@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "independent_masks_checked": 205,
+  "paired_summary_rows_checked": 32,
+  "leave_region_rows_checked": 96,
+  "original_target_values_in_scheduled_gaps": {
+    "baseline_slots": 55950,
+    "baseline_finite_target_values": 55950,
+    "matched_slots": 55950,
+    "matched_finite_target_values": 55950
+  },
+  "scope": "Reconstructs selected masks from the original seed and air series, then directly pairs saved trend results and recomputes summary cells and seeded group-bootstrap quantiles. The data, fitted models and daily refits are shared; physical data quality, causal attribution and external validity are not independently established."
+}

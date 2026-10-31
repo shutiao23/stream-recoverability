@@ -1,0 +1,16 @@
+{
+  "status": "completed_source_only_recalibration",
+  "margins_c": [
+    0.0,
+    0.01,
+    0.05,
+    0.2
+  ],
+  "baseline_offsets_match_saved": true,
+  "source_calibration_cases": 13007,
+  "source_calibration_groups": 13,
+  "source_calibration_total_weight": 32397,
+  "target_values_used_for_calibration": false,
+  "limitations": "Measurements, sensor accuracy, time alignment, source role exchangeability, independent climates, partial-history extrapolation and held-out pre-registration are unresolved. Changing support requires a changed estimand and measurement-error assumption, and the experiment is not a full operational recalibration or deployment safety assessment.",
+  "storage": "temporary RAM filesystem; not durable"
+}

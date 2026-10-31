@@ -1,0 +1,10 @@
+{
+  "status": "completed_metadata_only",
+  "sites_requested": 4,
+  "temperature_values_requested": false,
+  "limitations": "Metadata time envelopes do not demonstrate year completeness, quality, instrument equivalence, clock convention or independent climate. A missing parent or multiple series is unknown and is not resolved by selecting temperatures.",
+  "http_status": 200,
+  "instantaneous_series": 4,
+  "sites_with_instantaneous_series": 4,
+  "sites_with_exact_daily_parent": 4
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "station_years": 8,
+  "day_clock_rows_recomputed": 5844,
+  "fixed_standard_hourly_complete_years": 3,
+  "fixed_standard_quarter_complete_years": 1,
+  "scope": "Recompute all eight years using Python datetime, scalar qualification, UTC slot sets, independent daily means and both fixed-standard and civil reporting days. Recheck all saved day/year counts and numeric comparisons.",
+  "limitations": "Same underlying source observations and previously processed daily records; a passed audit does not establish time convention, instrument accuracy, unrecorded corrections or source/climate independence.",
+  "storage": "temporary RAM filesystem; not durable"
+}

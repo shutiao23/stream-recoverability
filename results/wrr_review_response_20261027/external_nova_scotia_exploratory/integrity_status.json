@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "cases": 144,
+  "stations": 2,
+  "station_years": 8,
+  "max_truth_difference_c": 1.4210854715202004e-14,
+  "max_bound_difference_c": 7.105427357601002e-15,
+  "mask_count_mismatches": 0,
+  "nonfinite_bound_cases": 0,
+  "quantile_order_or_bound_violations": 0,
+  "score_summary_cells_checked": 58,
+  "paired_summary_cells_checked": 22,
+  "station_year_cells_checked": 56,
+  "scope": "recomputed daily H30, visible bound, masks and scores using the same saved inputs; no refit or independent sensor validation",
+  "limitations": "reported-clock time basis, nonestimated status and sensor quality remain unverified; population and climate independence are not established"
+}

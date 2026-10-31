@@ -1,0 +1,6 @@
+{
+  "status": "computed_posthoc",
+  "cases_per_method": 738,
+  "frozen_original_point_scores_reproduced": true,
+  "interpretation": "Conditional on the existing approximate quantile interpolation, normal-spacing tails and support projection. No new model training or external validation. Annual median is the original delivered point; mean is a review sensitivity for squared slope loss."
+}

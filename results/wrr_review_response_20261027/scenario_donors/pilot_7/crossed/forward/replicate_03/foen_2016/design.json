@@ -1,0 +1,26 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "same gaps simultaneously hidden",
+  "family": "crossed",
+  "hidden_donor_values_present": 0,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0029",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2016": "192:90",
+    "2017": "147:60",
+    "2019": "201:30",
+    "2020": "140:30",
+    "2023": "221:30",
+    "2025": "159:60"
+  },
+  "mode": "forward",
+  "n_incomplete": 6,
+  "n_years": 16,
+  "region": "foen",
+  "replicate": 3,
+  "scenario": "synchronized_donors",
+  "source_model_split": "before_2010",
+  "station_key": "foen|2016"
+}

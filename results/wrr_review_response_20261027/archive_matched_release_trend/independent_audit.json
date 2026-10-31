@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "archive_settings_checked": 3320,
+  "selection_masks_checked": 3320,
+  "score_ols_slopes_checked": 3319,
+  "aggregate_cells_checked": 8,
+  "scope": "Independent Python sorting and OLS reconstruction from the same saved cases, plus aggregate reconstruction; original likelihood replay performed during primary analysis. Censored likelihood slopes here are checked only in aggregate, not independently refitted.",
+  "not_tested": "Physical sensors and original third-party data, model fitting, prospective thresholds, climate transfer, and data rights."
+}

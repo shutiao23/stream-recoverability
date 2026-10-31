@@ -1,0 +1,39 @@
+{
+  "status": "metadata_feasibility_before_new_temperature_qualification",
+  "parent_specification": "configs/wrr_next_confirmation_20261021.yaml",
+  "source": "USGS Water Data OGC API v1",
+  "parameter_code": "00010",
+  "statistic_id": "00003",
+  "computation_period_identifier": "Daily",
+  "computation_identifier": "Mean",
+  "primary_series": "Primary",
+  "unit_of_measure": "degC",
+  "reference_site_type_code": "ST",
+  "country_code": "US",
+  "minimum_complete_prior_history_years": 3,
+  "role_target_years": {"development": [2016, 2018, 2020], "calibration": [2021, 2022], "test": [2024]},
+  "native_coverage_and_approval_are_not_inferred_from_metadata_periods": true,
+  "multiple_primary_daily_channels": "pending_identity_and_sampling_position_review_no_error_based_selection",
+  "engineered_name_review_tokens": ["CANAL", "DITCH", "OUTFALL", "WASTEWATER", "AQUEDUCT"],
+  "prior_record_screen": {
+    "exact_station_number": "all_current_header_inventory_station_numbers_and_public_backup_sites",
+    "near_duplicate_tolerance_m": 250,
+    "same_HUC8": "conservative_connection_review_flag_not_proof_of_nested_catchments",
+    "different_HUC8": "does_not_prove_flow_disjointness_or_independent_regional_weather",
+    "complete_repository_prior_access_audit_still_required": true
+  },
+  "new_temperature_values_may_be_requested": false,
+  "new_roles_may_be_assigned": false,
+  "new_prediction_errors_may_be_opened": false,
+  "next_release_requires": [
+    "verified_network_and_prior_pool_connections",
+    "metadata_fixed_independent_component_roles",
+    "source_predictive_bank_and_reference_quality_protocol",
+    "reference_qualification_then_joint_power_and_evaluation_lock"
+  ],
+  "source_documentation": [
+    "https://api.waterdata.usgs.gov/docs/ogcapi/migration/",
+    "https://api.waterdata.usgs.gov/ogcapi/v1/collections/time-series-metadata/schema?f=html",
+    "https://api.water.usgs.gov/docs/nldi/navigation/"
+  ]
+}

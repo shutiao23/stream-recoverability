@@ -1,0 +1,28 @@
+{
+  "all_masks_applied_before_fitting": true,
+  "annual_model": "held region and connected groups excluded; source calibration roles unchanged",
+  "donors": "other physical stations remain observed",
+  "family": "calendar",
+  "hidden_donor_values_present": null,
+  "hidden_values_present_in_visible_archive": 0,
+  "independence_group": "g0181",
+  "marginals": "identical annual samples for all three dependence modes; normal-spacing tail extrapolation, constrained by observed-window support",
+  "masks": {
+    "2016": "36:1;278:1",
+    "2017": "48:9;157:6",
+    "2019": "56:1;61:7;324:1",
+    "2020": "26:2;33:3;309:2",
+    "2022": "257:1",
+    "2023": "201:14",
+    "2024": "171:5",
+    "2025": "274:12"
+  },
+  "mode": "forward",
+  "n_incomplete": 8,
+  "n_years": 14,
+  "region": "usgs_huc03",
+  "replicate": 4,
+  "scenario": "heat_associated",
+  "source_model_split": "before_2010",
+  "station_key": "usgs|02172020"
+}

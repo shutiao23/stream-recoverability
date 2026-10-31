@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-10-27T03:08:54.247677+00:00",
+  "status": "post-hoc after original, source-sensitivity and matched-gap results were viewed; not preregistered",
+  "cohort": "41 original forward stations, first five replicates, one matched-gap heat scenario; 205 archives",
+  "strict_original": "Replace only the affected HUC17 annual model for its three stations with the earlier strict-region model; retain original source models elsewhere.",
+  "candidate": "Use six earlier target-region-excluded candidate-provider models; providers, source sample size and roles change together.",
+  "fixed_inputs": "Retain matched-gap masks and stored daily features, target reference and source baselines; recompute annual and trend predictions with alternate source models.",
+  "comparison": "Three source versions by baseline and stress on the six-way common archive subset for each estimator and rank structure; also report a common subset across both methods.",
+  "limitations": "Source and target results already observed. Original HUC17 strict refit changes source sample; candidate provider, role and sample changes are inseparable. Heat templates and years change jointly. Not natural-outage, independent-climate, new model fit or a coverage guarantee. Four stations use an evaluation-period year in the seven-year air reference.",
+  "privacy": "Station-level predictions, input manifest, source models and receipts stay local private; aggregate outputs only.",
+  "input_count": 1505
+}

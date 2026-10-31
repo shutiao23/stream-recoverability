@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "saved_trend_rows_checked": 9840,
+  "unaffected_region_rows_compared": 3040,
+  "summary_rows_checked": 48,
+  "leave_region_rows_checked": 144,
+  "bootstrap_draws_per_cell": 4000,
+  "daily_feature_files_compared": 220,
+  "daily_feature_rows_compared": 1003,
+  "scope": "Independently recounts availability, scores and seeded group resampling from shared saved model outputs; checks original and strict versions agree outside HUC17. Not an independent model fit, provider-data validation, climate test or causal interpretation."
+}

@@ -1,0 +1,8 @@
+{
+  "passed": 1579,
+  "failed": 1,
+  "skipped": 1,
+  "total": 1581,
+  "scope": "Live working tree changed during this run; this is not a fixed-candidate test result",
+  "failure": "one nested manifest inclusion test failed with KeyError"
+}

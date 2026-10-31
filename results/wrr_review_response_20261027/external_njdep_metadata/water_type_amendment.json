@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-26T22:47:47.640923+00:00",
+  "status": "posthoc_all_water_types_metadata_audit",
+  "trigger": "after observing duplicate station 01398065 with the same Neshanic River location carrying both fresh-water and marine-water labels, and no four-year candidate under the original freshwater-label filter",
+  "selection": "evaluate all 287 already-frozen station options for the same 2010-2024 QA-span upper bound regardless of water-type label; retain freshwater/river identity as unresolved for every option until independently verified",
+  "prior_results_seen": "station IDs, coordinate metadata, water-type labels and the freshwater-label span aggregate; no temperature observations, individual-year completeness or model outcomes",
+  "interpretation": "post-hoc check for potential false exclusion; provider water-type inconsistencies mean neither a freshwater nor a marine label is conclusive",
+  "no_temperature_requested": true
+}

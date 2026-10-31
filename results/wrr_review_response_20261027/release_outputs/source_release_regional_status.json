@@ -1,0 +1,48 @@
+{
+  "cohort": "clean source archive; held-region predictions and source-rule thresholds frozen, one model seed",
+  "regions_by_family": [
+    {
+      "design_family": "calendar",
+      "n_regions": 27,
+      "n_both_defined": 26,
+      "n_three_higher": 20,
+      "n_three_lower": 0,
+      "n_equal": 6,
+      "n_undefined": 1
+    },
+    {
+      "design_family": "crossed",
+      "n_regions": 27,
+      "n_both_defined": 26,
+      "n_three_higher": 24,
+      "n_three_lower": 2,
+      "n_equal": 0,
+      "n_undefined": 1
+    }
+  ],
+  "common_group_statistics": [
+    {
+      "design_family": "calendar",
+      "n_groups": 185,
+      "n_both_defined": 172,
+      "n_score_zero": 0,
+      "n_three_zero": 13,
+      "score_mean_group_error": 0.00014905318987164603,
+      "three_mean_group_error": 0.008289381563840965,
+      "group_mean_error_difference": 0.008140328373969321
+    },
+    {
+      "design_family": "crossed",
+      "n_groups": 185,
+      "n_both_defined": 172,
+      "n_score_zero": 0,
+      "n_three_zero": 13,
+      "score_mean_group_error": 0.04598309843568008,
+      "three_mean_group_error": 0.059605327589672415,
+      "group_mean_error_difference": 0.013622229153992338
+    }
+  ],
+  "missing_policy_risk": "undefined if that rule releases no numeric values; excluded from paired region/group means",
+  "deletion": "drop one held-region evaluation subset only; other models and source calibrations are not refit",
+  "interpretation": "descriptive sensitivity under chosen masks; target retention differs and lower-bound/unknown information is not equated"
+}

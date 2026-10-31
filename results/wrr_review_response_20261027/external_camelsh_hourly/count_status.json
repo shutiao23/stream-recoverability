@@ -1,0 +1,36 @@
+{
+  "status": "completed",
+  "sites": 12,
+  "batches": [
+    {
+      "batch": 1,
+      "sites_requested": 4,
+      "status": "completed",
+      "http_status": 200,
+      "count_records": 30,
+      "features": 4
+    },
+    {
+      "batch": 2,
+      "sites_requested": 4,
+      "status": "completed",
+      "http_status": 200,
+      "count_records": 24,
+      "features": 4
+    },
+    {
+      "batch": 3,
+      "sites_requested": 4,
+      "status": "completed",
+      "http_status": 200,
+      "count_records": 24,
+      "features": 4
+    }
+  ],
+  "reported_site_year_counts": 78,
+  "sites_with_reported_years": 12,
+  "sites_four_confirmed_complete_count_years": 0,
+  "raw_response_retained": false,
+  "annual_temperatures_retained_or_used": false,
+  "limitations": "Posthoc and selected for availability, not random or independently climate-confirmed. Annual count may contain estimated days and does not establish full subdaily sampling. Unreturned statistics are unknown; no reference values or model errors were scored."
+}

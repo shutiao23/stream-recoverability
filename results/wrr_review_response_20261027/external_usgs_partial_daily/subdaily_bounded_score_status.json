@@ -1,0 +1,9 @@
+{
+  "status": "completed_posthoc_conditional_subdaily_scoring",
+  "cases_per_clock": 144,
+  "clocks": 2,
+  "summary_rows": 18,
+  "paired_rows": 12,
+  "limitations": "Posthoc, previously opened sites and target scores, unknown actual missing-value range, clock, corrections, sensor accuracy, source overlap and independence. Model histories use interpolation and only 0-2 genuinely complete years. Repeated masks and the one-station 3-year subgroup do not give independent-climate accuracy or coverage guarantees.",
+  "storage": "temporary RAM filesystem; not durable"
+}

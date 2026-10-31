@@ -1,0 +1,421 @@
+{
+  "status": "temporary_staging_only",
+  "description": "Compare workspace_before and expected absent paths before later promotion; never overwrite user changes silently. Snapshot destination was expected absent.",
+  "workspace_changed_since_capture": [],
+  "snapshot_destination": "data/external/wrr_usgs_partial_daily_20261027",
+  "snapshot_destination_exists": false,
+  "files": [
+    {
+      "path": "DATA_RIGHTS.md",
+      "workspace_before": "1236d51bd2445983a3aac3f0ddc1a9a65146b4048bae6a845ee65200e7c9bc63"
+    },
+    {
+      "path": "Makefile",
+      "workspace_before": "9351d2082ddeb4aa956ea0871d0028d940f4bb9845efaee50255f9b444d67594"
+    },
+    {
+      "path": "docs/reviews/wrr_review_response_20261027/ADVERSARIAL_REVIEW_ZH.md",
+      "workspace_before": "432c8c2cf8a610cafe5f199d96df83c3032be43d54607aceb335eefeca2b9097"
+    },
+    {
+      "path": "docs/reviews/wrr_review_response_20261027/USGS_EXPLORATORY_REPORT_ZH.md",
+      "workspace_before": null
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_article.pdf",
+      "workspace_before": "2ceb2096862ee6bdab90a45770a852673e773e8c268115553a1e8245475a0ad0"
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_article.tex",
+      "workspace_before": "0e1631806af2913d2f273b6a1a3d8890dfccff0c08c5d7b06ddf42c3aac5e4a4"
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_supporting.pdf",
+      "workspace_before": "3781df0f12c96f9fbad6ad35776ebf5c15cf68a7ade2254fde0e1f90040be03b"
+    },
+    {
+      "path": "paper/wrr_tr/review_completion_supporting.tex",
+      "workspace_before": "fc52b7cee356573c77af93e24bf5eb19cd52453b668ae5df0c460abf8854c87c"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_metadata_plan.json",
+      "workspace_before": "a4df4de8bb06b3e3196b5e003189f4d4fbfb952ceed4abefe167ebd920961e83"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_metadata_status.json",
+      "workspace_before": "73af4091cbcf1358687a4014e5b2751b008bedb7731dc24c446a9268fff0e3c6"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_qualification_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_qualification_years.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_target_acquisition.json",
+      "workspace_before": "22d113b10cc856d533c86ecff68c0920fcc52f6d34f534d1f19976d9101dbc8b"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_target_plan.json",
+      "workspace_before": "058b7213b9487d10a0e31f61f797f1d9262650f08ee61a1ce29fd06530a30b0a"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/continuous_tmpfs_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/corrected_driver_amendment.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/feasibility_plan.json",
+      "workspace_before": "31a1e499467697dcde6ee6266a7fef8dc0ea14cd2d3e4d047f19f930db5efeb2"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/feasibility_status.json",
+      "workspace_before": "7607b71c00b3bb49b05a062ca02df446c887cbec73a1a81022f03cc12fe80e5e"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/feature_support_independent_audit.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/feature_support_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/feature_support_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/forcing_repair_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/forcing_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/hidden_all_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/hidden_all_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/history_count_leaf_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/history_count_leaf_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/independent_audit_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/independent_audit_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_daily_difference_counts.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_support_audit_correction.txt",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_support_calibration_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_support_independent_audit.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_support_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_support_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/measurement_support_summary.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/network_plan.json",
+      "workspace_before": "46beed1ec1c85cebae1cbf45a9a88f162803c36339f14acbd776ecaaf04d5272"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/network_status.json",
+      "workspace_before": "01f1352eb28386ca11c7d9adde597f0b868e1cc3fb6807b4122edf0322e71091"
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/packaging_correction.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/prediction_replay_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/prediction_replay_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/public_reference_replay.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/qualification_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/raw_daily_reference_replay.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/reference_clock_comparison.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/reporting_resolution_independent_audit.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/reporting_resolution_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/reporting_resolution_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/reporting_resolution_summary.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/score_execution_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/score_independent_audit.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/score_pairs.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/score_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/score_summary.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/scoring_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/storage_amendment.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_bounded_score_independent_audit.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_bounded_score_pairs.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_bounded_score_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_bounded_score_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_bounded_score_summary.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_bounds_reference_replay.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_h30_bounds_independent_audit.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_h30_bounds_plan.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_h30_bounds_status.json",
+      "workspace_before": null
+    },
+    {
+      "path": "results/wrr_review_response_20261027/external_usgs_partial_daily/subdaily_h30_bounds_years.csv",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/536_prepare_review_bundle.py",
+      "workspace_before": "a3341e3c428fe2c096b0211b378ed27965bbd9d6201443f059441d6b3093cf41"
+    },
+    {
+      "path": "scripts/553_verify_review_package.py",
+      "workspace_before": "a0e9ab9937c3327830744c65024890ccaab8762602cfef7308684e28d39ff6c1"
+    },
+    {
+      "path": "scripts/871_usgs_partial_daily_feasibility.py",
+      "workspace_before": "2d779207364c6cbd1da5e36a2aa057c30dd53134a08e51585df5bf4bd9ac54ad"
+    },
+    {
+      "path": "scripts/872_usgs_partial_continuous_metadata.py",
+      "workspace_before": "8e8e56eb3dcd4abcd3a5a6322d0f982b60f1da5f3818dcaf74e4ead16ff94204"
+    },
+    {
+      "path": "scripts/873_usgs_partial_network.py",
+      "workspace_before": "45f3a4652507b3a35fff514c9e40d220469b8deb957262202f27b396738e70a0"
+    },
+    {
+      "path": "scripts/874_usgs_continuous_target_intake.py",
+      "workspace_before": "d8a7e7b2593d31361230594c018b1b8f7b83ccf2de12ff231b53fa9c4257a96d"
+    },
+    {
+      "path": "scripts/875_continuous_tmpfs_intake.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/876_continuous_qualification.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/877_continuous_independent_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/878_usgs_partial_scoring_plan.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/879_usgs_partial_power.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/880_usgs_partial_predict.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/881_usgs_partial_score.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/882_usgs_partial_hidden_probe.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/883_usgs_forcing_status_repair.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/884_usgs_score_independent_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/885_usgs_hidden_all_targets.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/886_usgs_partial_prediction_replay.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/887_usgs_feature_support.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/888_usgs_history_count_leaf_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/889_usgs_feature_support_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/890_public_usgs_reference_replay.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/891_usgs_partial_power_corrected.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/892_public_usgs_raw_daily_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/893_subdaily_h30_bounds.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/894_subdaily_h30_bounds_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/895_subdaily_bounded_model_scores.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/896_subdaily_score_independent_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/897_reporting_resolution_diagnostic.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/898_reporting_resolution_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/899_measurement_support_sensitivity.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/900_measurement_support_independent_audit.py",
+      "workspace_before": null
+    },
+    {
+      "path": "scripts/901_public_subdaily_bounds_replay.py",
+      "workspace_before": null
+    },
+    {
+      "path": "tests/test_usgs_partial_daily_feasibility.py",
+      "workspace_before": "2ae285877afe83f8837fd6e71c62dc9adc2e149b020d4e8a95b74d48a0103b88"
+    },
+    {
+      "path": "tests/test_usgs_partial_power_status.py",
+      "workspace_before": null
+    },
+    {
+      "path": "tests/test_usgs_public_snapshot_manifest.py",
+      "workspace_before": null
+    },
+    {
+      "path": "tests/test_usgs_subdaily_measurement_bounds.py",
+      "workspace_before": null
+    }
+  ]
+}

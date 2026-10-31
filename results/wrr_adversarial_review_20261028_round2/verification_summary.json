@@ -1,0 +1,20 @@
+{
+  "isolated_delivery_check": "passed at start of audit",
+  "isolated_figure_regeneration": "failed: whole_archive/trends.csv missing",
+  "frozen_test_failure": "whole_archive/figure_cohort_common.csv missing",
+  "tests": {
+    "frozen_tests": {
+      "passed": 32,
+      "failed": 1,
+      "skipped": 0,
+      "total": 33
+    },
+    "pytest": {
+      "passed": 1579,
+      "failed": 1,
+      "skipped": 1,
+      "total": 1581
+    }
+  },
+  "live_tree_warning": "changed during audit; mixed-state live test is not a fixed-package test"
+}

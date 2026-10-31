@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "calendar_forward_common": 3674,
+  "calendar_reference_bound_matches": 3125,
+  "calendar_reference_above_bound": 549,
+  "calendar_hidden_d2_coverage90": 0.8834244080145719,
+  "calendar_hidden_stochastic_coverage90": 0.8779599271402551,
+  "controlled_forward_common": 3683,
+  "controlled_reference_above_bound": 2146,
+  "controlled_hidden_d2_coverage90": 0.8322460391425909,
+  "controlled_hidden_stochastic_coverage90": 0.8164026095060578,
+  "limitation": "retrospective strata depend on complete reference, can overlap in station-years, and are unavailable for deployment; group bootstrap does not establish transfer or physical measurement certainty"
+}

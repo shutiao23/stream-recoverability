@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "target_years": 8,
+  "sites": 4,
+  "feature_passes": 8,
+  "output_passes": 8,
+  "observed_hidden_days_perturbed": 240,
+  "saved_vs_control_drift_cases": 0,
+  "saved_vs_control_max_abs": 0.0,
+  "limitations": "One mask per target and same implementation/models; no exhaustive proof of no hidden leakage, instrument accuracy, clock agreement, independence or calibration.",
+  "storage": "temporary RAM filesystem; not durable"
+}

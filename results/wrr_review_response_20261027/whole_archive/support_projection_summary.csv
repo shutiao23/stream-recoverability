@@ -1,0 +1,9 @@
+family,mode,estimator,annual_rows,complete_quantile_rows,nonfinite_median_rows,bound_finite_rows,paired_rows,stations,groups,below_bound,quantile_crossings,lower_endpoint_at_bound,median_at_bound,median_at_bound_truth_equal,median_at_bound_truth_above,truth_below_bound,truth_equal_bound,zero_width90,zero_width90_at_bound,zero_width90_covered,zero_width90_missed,zero_width90_missed_stations,zero_width90_missed_station_years,zero_width90_truth_above_bound,zero_width90_missed_max_abs_error,zero_width90_missed_error_over_half_c,mean_width90,n_eligible,n_available
+calendar,forward,D2,3806,3806,0,3804,3674,41,17,0,0,3254,2874,2856,18,0,3125,1476,1476,1476,0,0,0,0,0.0,0,0.11798116379674661,3806,3806
+calendar,forward,stochastic_calibrated,3806,3676,130,3804,3674,41,17,0,0,3194,3117,3107,10,0,3125,2977,2977,2977,0,0,0,0,0.0,0,0.08806372217279852,3806,3676
+calendar,offline,D2,6942,6942,0,6935,6919,42,18,0,0,5984,4913,4909,4,0,5891,4538,4538,4538,0,0,0,0,0.0,0,0.09450051656408792,6942,6942
+calendar,offline,stochastic_calibrated,6942,6926,16,6935,6919,42,18,0,0,5967,5875,5865,10,0,5891,5482,5482,5482,0,0,0,0,0.0,0,0.06605113630398234,6942,6926
+crossed,forward,D2,3777,3777,0,3777,3683,41,17,0,0,2090,1186,1122,64,0,1537,323,323,323,0,0,0,0,0.0,0,0.8262003217245293,3777,3777
+crossed,forward,stochastic_calibrated,3777,3683,94,3777,3683,41,17,0,0,1821,1375,1314,61,0,1537,1091,1091,1088,3,2,3,3,0.14333333333331133,0,0.6930545213853687,3777,3683
+crossed,offline,D2,6921,6921,0,6921,6919,42,18,0,0,3408,2052,2020,32,0,2787,1391,1391,1391,0,0,0,0,0.0,0,0.7304147220898598,6921,6921
+crossed,offline,stochastic_calibrated,6921,6919,2,6921,6919,42,18,0,0,3460,2753,2674,79,0,2787,2030,2030,2029,1,1,1,1,0.20999999999999375,0,0.6598041030239651,6921,6919

@@ -1,0 +1,5 @@
+{
+  "created_utc": "2026-10-27T00:54:48.525996+00:00",
+  "clarification": "The frozen plan used the word above for the first-seven-year 80th percentile. The frozen analysis implementation, like the original heat-associated scenario, uses greater-than-or-equal-to the cutoff. This clarification was written after computation; it changes no masks, predictions or outcomes.",
+  "aggregation_fix": "The initial aggregate reporter failed when all 410 scenario settings were available because the unavailable-reason column did not exist; the reporter was corrected to initialize that optional field before producing aggregate results."
+}

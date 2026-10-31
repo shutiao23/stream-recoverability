@@ -1,0 +1,2694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="edi.2411.1" system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+   <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+      system="https://pasta.edirepository.org">
+      <allow>
+         <principal>EDI-166ebf44ac70835c7ebce152e2219ae5eab16418</principal>
+         <permission>all</permission>
+      </allow>
+      <allow>
+         <principal>https://orcid.org/0009-0001-5939-0889</principal>
+         <permission>all</permission>
+      </allow>
+      <allow>
+         <principal>public</principal>
+         <permission>read</permission>
+      </allow>
+   </access>
+   <dataset>
+      <alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/aefcf302d088aeacc40459091d7e990c</alternateIdentifier><title>Truckee River Continuous (15 minute) Water Quality Monitoring: collected by the North Central Region Office, California Department of Water Resources, 1998-2025</title>
+      <creator>
+         <individualName>
+            <givenName>Jared</givenName>
+            <surName>Frantzich</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Senior Environmental Scientist Supervisor</positionName>
+         <electronicMailAddress>Jared.Frantzich@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0001-7714-0659</userId>
+      </creator>
+      <creator>
+         <individualName>
+            <givenName>Logan</givenName>
+            <surName>Davis</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>logan.davis@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0001-5939-0889</userId>
+      </creator>
+      <metadataProvider>
+         <individualName>
+            <givenName>Jared</givenName>
+            <surName>Frantzich</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Senior Environmental Scientist Supervisor</positionName>
+         <electronicMailAddress>Jared.Frantzich@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0001-7714-0659</userId>
+      </metadataProvider>
+      <metadataProvider>
+         <individualName>
+            <givenName>Logan</givenName>
+            <surName>Davis</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>logan.davis@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0001-5939-0889</userId>
+      </metadataProvider>
+      <associatedParty>
+         <individualName>
+            <givenName>Tyler</givenName>
+            <surName>Salman</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <electronicMailAddress>tyler.salman@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0003-0634-5405</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>David</givenName>
+            <surName>Colvin</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>David.Colvin@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0000-8376-5874</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Brooke</givenName>
+            <surName>Rosenow</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>brooke.rosenow@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0009-6664-4857</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Elena</givenName>
+            <surName>Huynh</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>Elena.Huynh@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0006-4675-5419</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Patrick</givenName>
+            <surName>Scott</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Senior Environmental Scientist Specialist</positionName>
+         <electronicMailAddress>Patrick.Scott@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0002-1037-0817</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Reed</givenName>
+            <surName>Hoshovsky</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>Reed.Hoshovsky@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0001-5944-041X</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Katherine</givenName>
+            <surName>Cabras</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>Katherine.Cabras@water.ca.gov</electronicMailAddress>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>David</givenName>
+            <surName>Bosworth</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Senior Ecological Data Scientist</positionName>
+         <electronicMailAddress>David.Bosworth@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0003-0740-3390</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Shaun</givenName>
+            <surName>Philippart</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Section Manager: Environmental Monitoring &amp; Assessment</positionName>
+         <electronicMailAddress>Shaun.Philippart@water.ca.gov</electronicMailAddress>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Brian</givenName>
+            <surName>Jones</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>Brian.Jones@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0002-0359-9421</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Amanda</givenName>
+            <surName>Maguire</surName>
+         </individualName>
+         <organizationName>California Department of Fish and Wildlife</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>Amanda.maguire@wildlife.ca.gov</electronicMailAddress>
+         <userId
+      directory="https://orcid.org">0009-0005-4243-4194</userId>
+         <role>field crew, data entry</role>
+      </associatedParty>
+      <associatedParty>
+         <individualName>
+            <givenName>Paul</givenName>
+            <surName>Larson</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Resources Assessment Branch Manager</positionName>
+         <electronicMailAddress>paul.larson@water.ca.gov</electronicMailAddress>
+         <role>Senior Manager</role>
+      </associatedParty>
+      <pubDate>2026-07-28</pubDate>
+      <abstract>
+         <para>The California Department of Water Resources (DWR) Water Quality Evaluation Section (WQES) provides technical expertise and program support for regulatory compliance, water operations, emergency response, and environmental restoration. The dataset details information at 15-minute intervals from 4 monitoring stations, using Xylem’s Yellow Spring's Instrument's (YSI) EXO2 and 6600 multiparameter sondes to document individual water quality measurements of multiple parameters. The dataset also details information at 15-minute intervals from 8 monitoring stations, using ONSET HOBO Water Temperature Pro V2 Data Loggers to document individual water quality measurements of water temperature.</para>
+         <para/>
+         <para>The data set consists of water quality data collected to fulfill a DWR agreement to implement and manage a Water Quality Monitoring Plan (WQMP) for the Truckee River Watershed between 1998 and 2025. The stations included in this data package are: Truckee River at Bridge 8 (TRB8), Truckee River above TTSA (TRTT), Little Truckee River Above Boca (LAB), Truckee River at Farad (FAR), Truckee River Above Donner Creek (TrkAbvDnc), Donner Creek Above Truckee River (DncAbvTrk), Truckee River Below Donner Creek (TrkBlwDnc), Truckee River Above Prosser Creek (TrkAbvPr), Prosser Creek Above Truckee River (PrAbvTrk), Truckee River Below Prosser Creek (TrkBlwPr), Truckee River Above Little Truckee River (TrkAbvLtk), Little Truckee River Above Truckee River (LtkAbvTrk). Parameters measured at TRB8, TRTT, LAB and FAR include water temperature, dissolved oxygen, turbidity, pH and specific conductance at 25 C. Only water temperature was collected at the other stations. (Note: Sondes were removed from TRB8, TRTT, LAB and FAR on 10/09/2024 and replaced with ONSET HOBO data loggers that only measure water temperature)</para>
+         <para/>
+         <para>The purpose of the project was to identify any water management impacts to Truckee River water quality from the implementation of the Truckee River Operating Agreement (TROA), prior to the tributary flowing into Nevada. It is important to note that the start dates and subsequent equipment upgrades vary between stations and equipment leading to discrepancies in the dataset’s date ranges. </para>
+      </abstract>
+      <keywordSet>
+         <keyword>WQES - Water Quality Evaluation Section</keyword>
+         <keyword>real-time monitoring</keyword>
+         <keyword>NCRO - North Central Region Office</keyword>
+         <keyword>CDEC - California Data Exchange Center</keyword>
+         <keyword>Truckee</keyword>
+         <keyword>Truckee River</keyword>
+         <keyword>DWR - California Department of Water Resources</keyword>
+      </keywordSet>
+      <keywordSet>
+         <keyword>water</keyword>
+         <keyword>water quality</keyword>
+         <keyword>water temperature</keyword>
+         <keyword>dissolved oxygen</keyword>
+         <keyword>specific conductivity</keyword>
+         <keyword>turbidity</keyword>
+         <keyword>long term monitoring</keyword>
+         <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+      </keywordSet>
+      <intellectualRights>
+         <para>This data package is released to the "public domain" under Creative Commons CC0 1.0 "No Rights Reserved" (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available "as is" and with no warranty of accuracy or fitness for use. The creators of this data package, the California Department of Water Resources, and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. Periodic updates of this data package may be available from the website. Thank you.</para>
+      </intellectualRights>
+      <distribution
+      id="10.6073/pasta/aefcf302d088aeacc40459091d7e990c" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+        function="information">https://doi.org/10.6073/pasta/aefcf302d088aeacc40459091d7e990c</url></online></distribution><coverage>
+         <geographicCoverage>
+            <geographicDescription>TRB8</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.205161</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.205161</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.229335</northBoundingCoordinate>
+               <southBoundingCoordinate>39.229335</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>TRTT</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.133247</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.133247</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.338195</northBoundingCoordinate>
+               <southBoundingCoordinate>39.338195</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>LAB</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.084524</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.084524</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.43586</northBoundingCoordinate>
+               <southBoundingCoordinate>39.43586</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>FAR</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.034051</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.034051</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.427682</northBoundingCoordinate>
+               <southBoundingCoordinate>39.427682</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>TrkAbvDnc</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.20126</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.20126</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.31582</northBoundingCoordinate>
+               <southBoundingCoordinate>39.31582</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>DncAbvTrk</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.20146</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.20146</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.31672</northBoundingCoordinate>
+               <southBoundingCoordinate>39.31672</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>TrkBlwDnc</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.19946</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.19946</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.3168</northBoundingCoordinate>
+               <southBoundingCoordinate>39.3168</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>TrkAbvPr</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.1169</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.1169</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.36974</northBoundingCoordinate>
+               <southBoundingCoordinate>39.36974</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>PrAbvTrk</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.11786</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.11786</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.37037</northBoundingCoordinate>
+               <southBoundingCoordinate>39.37037</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>TrkBlwPr</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.116552</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.116552</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.37095</northBoundingCoordinate>
+               <southBoundingCoordinate>39.37095</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>TrkAbvLtk</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.09491</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.09491</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.38362</northBoundingCoordinate>
+               <southBoundingCoordinate>39.38362</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>LtkAbvTrk</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-120.09502</westBoundingCoordinate>
+               <eastBoundingCoordinate>-120.09502</eastBoundingCoordinate>
+               <northBoundingCoordinate>39.38517</northBoundingCoordinate>
+               <southBoundingCoordinate>39.38517</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <temporalCoverage>
+            <rangeOfDates>
+               <beginDate>
+                  <calendarDate>1998-10-16</calendarDate>
+               </beginDate>
+               <endDate>
+                  <calendarDate>2025-08-21</calendarDate>
+               </endDate>
+            </rangeOfDates>
+         </temporalCoverage>
+      </coverage>
+      <maintenance>
+         <description>
+            <para>Data collection for this project ended August 21, 2025. All data published has been QAQC'd</para>
+         </description>
+      </maintenance>
+      <contact>
+         <individualName>
+            <givenName>Jared</givenName>
+            <surName>Frantzich</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Senior Environmental Scientist Supervisor</positionName>
+         <electronicMailAddress>Jared.Frantzich@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0001-7714-0659</userId>
+      </contact>
+      <contact>
+         <individualName>
+            <givenName>Logan</givenName>
+            <surName>Davis</surName>
+         </individualName>
+         <organizationName>California Department of Water Resources</organizationName>
+         <positionName>Environmental Scientist</positionName>
+         <electronicMailAddress>logan.davis@water.ca.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0001-5939-0889</userId>
+      </contact>
+      <publisher>
+         <organizationName>Environmental Data Initiative</organizationName>
+         <electronicMailAddress>info@edirepository.org</electronicMailAddress>
+         <onlineUrl>https://edirepository.org</onlineUrl>
+         <userId
+          directory="https://ror.org">0330j0z60</userId>
+      </publisher>
+      <pubPlace>Environmental Data Initiative</pubPlace>
+      <methods>
+         <methodStep>
+            <description>
+               <para>I. Continuous Water Quality Collection Methods</para>
+               <para/>
+               <para>All water quality parameters were collected using Xylem YSI EXO2 multiparameter water quality sondes (https://www.ysi.com/exo2) or YSI 6600 Series multiparameter water quality sondes (https://www.ysi.com/file%20library/documents/manuals/069300-ysi-6-series-manual-revj.pdf) or ONSET HOBO Water Temperature Pro v2 Data Loggers (https://www.onsetcomp.com/sites/default/files/2025-05/10366-J%20U22-001%20Manual.pdf?_gl=1*1tbu4v3*_up*MQ..*_gs*MQ..&amp;gclid=EAIaIQobChMI69D2m_z6lAMV3iGtBh1S4DpoEAAYASAAEgIn9vD_BwE). Water quality parameters included in this dataset are: water temperature (°C), specific conductance at 25 °C (SC [µS/cm]), pH, dissolved oxygen (DO [mg/L and %]), and turbidity (FNU). Data readings were collected at 15-minute intervals. The field stations included in this data set are TRB8, TRTT, LAB, FAR, TrkAbvDnc, DncAbvTrk, TrkBlwDnc, TrkAbvPr, PrAbvTrk, TrkBlwPr, TrkAbvLtk and LtkAbvTrk. The North-Central Regional Office (NCRO) is the data manager and performs a daily preliminary visual inspection of the data to verify data transmission to CDEC (for LAB and FAR) and that the data reported is within expected ranges for the conditions. NCRO additionally performs a monthly visual and computational inspection to identify irregular data or other non-representative outliers. Stations are serviced at a minimum of once per month for equipment maintenance and to perform quality control checks.</para>
+            </description>
+         </methodStep>
+         <methodStep>
+            <description>
+               <para>II. Quality Assurance and Control </para>
+               <para/>
+               <para>Calibrations</para>
+               <para/>
+               <para>NCRO adheres to strict calibration standard operating procedures. Sondes are calibrated by NCRO in a laboratory setting within 72 hours of a field deployment. Sensor functionality for water temperature, and SC are verified prior to calibration in standards of known quality.</para>
+               <para/>
+               <para>Fouling Error Measurements</para>
+               <para/>
+               <para>At the end of a field deployment, fouling error measurements are recorded for all parameters. The purpose of taking fouling error measurements is to calculate fouling error that the removed YSI EXO2 sonde accrued during deployment. This is fouling error data obtained by recording pre-clean and post-clean readings from the removed sonde alongside a freshly calibrated verification sonde in a stable environment, i.e., a 5-gallon bucket of ambient water (https://pubs.usgs.gov/tm/2006/tm1D3/pdf/TM1D3.pdf). Pre-clean readings represent the YSI EXO2 sonde’s performance in the environment and post-clean readings represent the YSI EXO2 sonde’s performance free of environmental interference from fouling and debris.</para>
+               <para/>
+               <para>Post-Measurement Calibration Checks</para>
+               <para/>
+               <para>A post-measurement calibration drift check is completed in a laboratory setting for every sonde that returns from deployment using a known calibration standard. The post-measurement calibration drift check quantifies calibration sensor drift that occurred over the course of the deployment for each water quality parameter.</para>
+               <para/>
+               <para>Data Entry</para>
+               <para/>
+               <para>Field data are reviewed by field crews prior to leaving each field site. Data sheets are reviewed again by data entry staff when field data is manually entered into a Microsoft Access database, which also features customized error-flagging and data validation check tools.</para>
+               <para/>
+               <para>Data Validation</para>
+               <para/>
+               <para>Datasets are rated by a total error to account for calculated fouling error and calibration drift error (fouling error + calibration drift error = total error). Datasets also undergo visual quality checks within DWR’s KISTERS Hydstra continuous database management system used for collection of high frequency continuous time series data for water quality, surface water, groundwater and tidal station types. Each parameter is visually inspected for outliers and periods of noise. Data that is determined to be non-representative of the environment is either removed or flagged as not available. This dataset is filtered for data which have passed NCRO’s WQES data validation procedures. Data in this dataset that did not pass validation or was not collected due to equipment malfunction are reported as “NA”.</para>
+               <para/>
+               <para>Data Publication</para>
+               <para/>
+               <para>Data was downloaded from DWR’s Hydstra continuous database management system and processed and compiled in R version 4.5.3. </para>
+            </description>
+         </methodStep>
+         <methodStep>
+            <description>
+               <para>III. Archiving </para>
+               <para/>
+               <para>Data Management and Archiving</para>
+               <para/>
+               <para>Field data are collected and recorded on paper datasheets by NCRO field crews, then entered into a Microsoft Access database. Paper datasheets are archived in binders that are stored at the West Sacramento DWR office, and electronic copies are archived on DWR/NCRO Network drives. Continuous raw datasets are downloaded to YSI Kor Software or ONSET HOBO Software and exported as a comma-separated values (CSV) file which are stored on DWR/NCRO Network drives. Final continuous datasets are archived within DWR’s KISTERS Hydstra continuous database management system and published publicly to DWR’s Water Data Library (https://wdl.water.ca.gov/).</para>
+            </description>
+         </methodStep>
+      </methods>
+      <project>
+         <title>Water Quality Monitoring at the Division of Regional Assistance, North Central Region Office, Water Quality Evaluation Section in the California Department of Water Resources</title>
+         <personnel>
+            <individualName>
+               <givenName>Jared</givenName>
+               <surName>Frantzich</surName>
+            </individualName>
+            <organizationName>California Department of Water Resources</organizationName>
+            <positionName>Senior Environmental Scientist Supervisor</positionName>
+            <electronicMailAddress>Jared.Frantzich@water.ca.gov</electronicMailAddress>
+            <userId
+          directory="https://orcid.org">0000-0001-7714-0659</userId>
+            <role>Senior Environmental Scientist Supervisor</role>
+         </personnel>
+         <personnel>
+            <individualName>
+               <givenName>Logan</givenName>
+               <surName>Davis</surName>
+            </individualName>
+            <organizationName>California Department of Water Resources</organizationName>
+            <positionName>Environmental Scientist</positionName>
+            <electronicMailAddress>logan.davis@water.ca.gov</electronicMailAddress>
+            <userId
+      directory="https://orcid.org">0009-0001-5939-0889</userId>
+            <role>Data manager</role>
+         </personnel>
+         <abstract>
+            <para>Truckee River Water Quality Monitoring Plan</para>
+            <para/>
+            <para>This project was established to collect data to: 1) fulfill a DWR agreement to implement and manage a Water Quality Monitoring Plan (WQMP) for the Truckee River Watershed; 2) identify any water management impacts to Truckee River water quality from the implementation of the Truckee River Operating Agreement (TROA), prior to the tributary flowing into Nevada; 3) provide regional baseline water quality data for TROA implementation and for local agency support.</para>
+            <para/>
+            <para>Truckee River Operating Agreement</para>
+            <para/>
+            <para>A multi-state and agency agreement, TROA is used to manage water operation releases from regional dams to improve water temperature control within the Truckee River. In 2008, the final TROA Environmental Impact Statement and Environmental Impact Report (EIS/EIR) were certified and no significant impacts to water quality in the Truckee River Watershed were found. While the EIS/EIR found no significant impacts DWR has been collecting continuous baseline water quality data in the Truckee River Watershed for 10 years in anticipation of TROA implementation and continued that monitoring through August 2025.</para>
+         </abstract>
+      </project>
+      <dataTable
+      id="a059f5eea4f8500fe1a43566451ec593" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>Stations Metadata</entityName>
+         <entityDescription>Station names, locations, habitat type, parameters measured and dataset start and end dates</entityDescription>
+         <physical>
+            <objectName>StationsMetadata.csv</objectName>
+            <size
+          unit="byte">2085</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/a059f5eea4f8500fe1a43566451ec593</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="796e82e7-ed70-4e8b-91aa-81de4856defa">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Short station name and also the character CDEC station code.</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="06ad834e-c95a-4a0d-b9ad-37d0c6bc6877">
+               <attributeName>Station_Name</attributeName>
+               <attributeLabel>Station_Name</attributeLabel>
+               <attributeDefinition>Full name of the water quality station</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="9f33ead2-68b3-4673-9813-683c1fa41012">
+               <attributeName>Latitude</attributeName>
+               <attributeLabel>Latitude</attributeLabel>
+               <attributeDefinition>The station's angular distance of a place north or south of the earth's equator</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>degree</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree">http://qudt.org/vocab/unit/DEG</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="a56c0bbb-5bf3-407e-a273-bf2df5ed429f">
+               <attributeName>Longitude</attributeName>
+               <attributeLabel>Longitude</attributeLabel>
+               <attributeDefinition>The station's angular distance of a place east or west of the meridian at Greenwich, England</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>degree</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree">http://qudt.org/vocab/unit/DEG</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="178018d3-b713-4462-b2f7-06e98453b953">
+               <attributeName>Hydrologic_Area</attributeName>
+               <attributeLabel>Hydrologic_Area</attributeLabel>
+               <attributeDefinition>Hydrologic Basin, specified by CDEC</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>North Lahontan</code>
+                              <definition>North Lahontan hydrologic basin</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="1c7f6418-ec72-492a-b6d6-ca8da788a47d">
+               <attributeName>Basin</attributeName>
+               <attributeLabel>Basin</attributeLabel>
+               <attributeDefinition>Water basin as defined by CDEC</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>Truckee River</code>
+                              <definition>Truckee River</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="73e0fe7b-1d2a-4e3a-82a2-8835cd68aa95">
+               <attributeName>County</attributeName>
+               <attributeLabel>County</attributeLabel>
+               <attributeDefinition>County in which station is located</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>Nevada</code>
+                              <definition>Nevada County</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>Placer</code>
+                              <definition>Placer County</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="477dac42-c279-4f2a-be68-5ef4e65d2b83">
+               <attributeName>Habitat_Type</attributeName>
+               <attributeLabel>Habitat_Type</attributeLabel>
+               <attributeDefinition>Habitat type standardized and assigned by water quality team</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>River Channel</code>
+                              <definition>A freshwater river</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="4d88d64f-5ae1-40e3-93f5-366f18b4ec90">
+               <attributeName>Station_Access_Type</attributeName>
+               <attributeLabel>Station_Access_Type</attributeLabel>
+               <attributeDefinition>How the station is accessed and its location type</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>Land</code>
+                              <definition>Land sites are accessed by vehicle and are located on the banks of river channels</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="29371d38-b907-4b24-a380-f0f86d3c34d1">
+               <attributeName>Parameters</attributeName>
+               <attributeLabel>Parameters</attributeLabel>
+               <attributeDefinition>Water quality parameters measured</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>WT</code>
+                              <definition>Water Temperature</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>SC</code>
+                              <definition>Specific Conductance at 25 C</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>DO</code>
+                              <definition>Dissolved Oxygen</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>pH</code>
+                              <definition>pH</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>Turbidity</code>
+                              <definition>Turbidity</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="12e007f3-a5de-44e6-9e2d-3efbba186118">
+               <attributeName>Dataset_Begin_Date</attributeName>
+               <attributeLabel>Dataset_Begin_Date</attributeLabel>
+               <attributeDefinition>The start date for the data provided in this publication</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="d9671f07-d1fa-4f13-b9f5-4cdf77190bf3">
+               <attributeName>Dataset_End_Date</attributeName>
+               <attributeLabel>Dataset_End_Date</attributeLabel>
+               <attributeDefinition>The end date for the data provided in this publication</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="f7e58065-5338-4441-8efd-b8a0eff23ebb">
+               <attributeName>WDL_Station_Code</attributeName>
+               <attributeLabel>WDL_Station_Code</attributeLabel>
+               <attributeDefinition>Station code associated with continuous data available on Water Data Library (https://wdl.water.ca.gov/waterdatalibrary/ContinuousData.aspx?ReloadData=False)</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>12</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="e17dad699f88336b8292998747907088" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>Instrument Type Date Ranges</entityName>
+         <entityDescription>Date and times of instrument types used for data collection. YSI 6600 sondes, YSI EXO2 sondes and ONSET HOBO Pro v2 water temperature data loggers.</entityDescription>
+         <physical>
+            <objectName>EXO_Upgrade_Dates.csv</objectName>
+            <size
+          unit="byte">631</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/e17dad699f88336b8292998747907088</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="1d636d29-210a-4c9e-8594-fab72fba399c">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of water quality station name. See Station metadata for station name and location.</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="12d1f364-82e2-4693-a6a3-c725abe42904">
+               <attributeName>Start_Date_YSI6600</attributeName>
+               <attributeLabel>Start_Date_YSI6600</attributeLabel>
+               <attributeDefinition>The start date of YSI 6600 measurements</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this station</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="b78cc67a-6124-46ad-aba9-86568f54f85f">
+               <attributeName>Start_Time_YSI6600</attributeName>
+               <attributeLabel>Start_Time_YSI6600</attributeLabel>
+               <attributeDefinition>Time of first YSI 6600 measurement</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>hh:mm</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this station</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="4067ffa0-e907-449a-b980-e396d41ab7d5">
+               <attributeName>Start_Date_YSIEXO2</attributeName>
+               <attributeLabel>Start_Date_YSIEXO2</attributeLabel>
+               <attributeDefinition>The start date of YSI EXO2 measurements</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this station</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="ef889c2b-3ba7-46de-9e76-8a48bea9add3">
+               <attributeName>Start_Time_YSIEXO2</attributeName>
+               <attributeLabel>Start_Time_YSIEXO2</attributeLabel>
+               <attributeDefinition>Time of first YSI EXO2 measurement</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>hh:mm</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this station</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="e8207e2a-d6e0-49b5-8a42-0f19a66f15d8">
+               <attributeName>Start_Date_ONSETHOBO</attributeName>
+               <attributeLabel>Start_Date_ONSETHOBO</attributeLabel>
+               <attributeDefinition>The start date of ONSET HOBO measurements</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this station</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="7fdec4d7-c92c-4569-b3c3-87e392caf1e6">
+               <attributeName>Start_Time_ONSETHOBO</attributeName>
+               <attributeLabel>Start_Time_ONSETHOBO</attributeLabel>
+               <attributeDefinition>Time of first ONSET HOBO measurement</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>hh:mm</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this station</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>12</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="fdd78a720d73647b800de97732cc8d09" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>Instrument Specifications</entityName>
+         <entityDescription>Quantifiable descriptions of instrument performance as described by the manufacturer</entityDescription>
+         <physical>
+            <objectName>SondeSensorSpecs.csv</objectName>
+            <size
+          unit="byte">799</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/fdd78a720d73647b800de97732cc8d09</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="c1ee8b6b-a245-4ae7-8bd9-a53f4a3e138e">
+               <attributeName>Constituent</attributeName>
+               <attributeLabel>Constituent</attributeLabel>
+               <attributeDefinition>Water quality sensor type</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="8fec9c1b-f846-4ed4-aa84-ef7df5c24164">
+               <attributeName>EXO_Accuracy</attributeName>
+               <attributeLabel>EXO_Accuracy</attributeLabel>
+               <attributeDefinition>Accuracy of EXO sensor</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="f966bd69-c84a-4cac-b507-7ffcc1f1a940">
+               <attributeName>EXO_Range</attributeName>
+               <attributeLabel>EXO_Range</attributeLabel>
+               <attributeDefinition>Range of EXO sensor</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="f1023f6e-efc1-4672-8759-403645851b73">
+               <attributeName>6_Series_Accuracy</attributeName>
+               <attributeLabel>6_Series_Accuracy</attributeLabel>
+               <attributeDefinition>Accuracy of 6-series sensor</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="8c4cf699-728a-45f7-b0ac-01a9adc1f65b">
+               <attributeName>6_Series_Range</attributeName>
+               <attributeLabel>6_Series_Range</attributeLabel>
+               <attributeDefinition>Range of 6-series sensor</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="4e23d4cb-b818-4978-b787-c9818df7b5e4">
+               <attributeName>HOBO_Accuracy</attributeName>
+               <attributeLabel>HOBO_Accuracy</attributeLabel>
+               <attributeDefinition>Accuracy of HOBO sensor</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this instrument</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="6ae5dc6e-cb59-45e6-8733-5a3f58db725b">
+               <attributeName>HOBO_Range</attributeName>
+               <attributeLabel>HOBO_Range</attributeLabel>
+               <attributeDefinition>Range of HOBO sensor</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>Not applicable to this instrument</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>5</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="75e83c43ce9f4c7445c4e21d7fbed727" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TRB8</entityName>
+         <entityDescription>Truckee River at Bridge 8 water quality station</entityDescription>
+         <physical>
+            <objectName>TRB8_POR.csv</objectName>
+            <size
+          unit="byte">40515480</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/75e83c43ce9f4c7445c4e21d7fbed727</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="71341552-0444-467d-ac6d-fd352b4b346f">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TRB8</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="a01a280d-76a0-4616-80b5-edc667a0bfad">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="ff1b9f37-7853-4ed9-926c-e3fccfee97f8">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/19/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="b3d206b5-796e-4cba-b0ef-3db019b32c35">
+               <attributeName>Specific_Conductance</attributeName>
+               <attributeLabel>Specific_Conductance</attributeLabel>
+               <attributeDefinition>Specific conductivity measurement of water in microsiemens per centimeter at 25 degrees celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>microsiemens per centimeter</customUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/19/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Microsiemens per Centimetre">http://qudt.org/vocab/unit/MicroS-PER-CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="777941aa-96d1-4c74-902e-dcba75e4bbb3">
+               <attributeName>DO</attributeName>
+               <attributeLabel>DO</attributeLabel>
+               <attributeDefinition>Dissolved oxygen measurement of water in milligrams per liter</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>milligramPerLiter</standardUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/19/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Milligram per Litre">http://qudt.org/vocab/unit/MilliGM-PER-L</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="ae1fd702-61f2-41a7-8d8c-011b75e95b81">
+               <attributeName>Turbidity</attributeName>
+               <attributeLabel>Turbidity</attributeLabel>
+               <attributeDefinition>Turbidity measurement of water in formazin nephelometric units</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>FNU</customUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Turbidity data prior to 2010 was removed from the data set due to uncertainty</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="5ea94e78-e6f4-41d6-9538-e1275ad04c3b">
+               <attributeName>pH</attributeName>
+               <attributeLabel>pH</attributeLabel>
+               <attributeDefinition>pH measurement of water</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>pH unit</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/19/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>895370</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="6daf5894605cf80d5aba71564388d2d8" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TRTT</entityName>
+         <entityDescription>Truckee River above TTSA water quality station</entityDescription>
+         <physical>
+            <objectName>TRTT_POR.csv</objectName>
+            <size
+          unit="byte">30434806</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/6daf5894605cf80d5aba71564388d2d8</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="218d0720-b8b5-405e-97be-ac47a8c00ed5">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TRTT</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="e6abc931-876f-495c-a1db-2894ad4f6fe8">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="cdf482fc-1acb-4150-ae35-4eb53657b490">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="6de78d10-01af-42a3-a5b0-dbdffc4c607d">
+               <attributeName>Specific_Conductance</attributeName>
+               <attributeLabel>Specific_Conductance</attributeLabel>
+               <attributeDefinition>Specific conductivity measurement of water in microsiemens per centimeter at 25 degrees celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>microsiemens per centimeter</customUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Microsiemens per Centimetre">http://qudt.org/vocab/unit/MicroS-PER-CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="1672db5a-f781-4957-bbf9-e892edfb411b">
+               <attributeName>DO</attributeName>
+               <attributeLabel>DO</attributeLabel>
+               <attributeDefinition>Dissolved oxygen measurement of water in milligrams per liter</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>milligramPerLiter</standardUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Milligram per Litre">http://qudt.org/vocab/unit/MilliGM-PER-L</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="deeb25ea-906c-4c02-88b6-9093692dad4f">
+               <attributeName>Turbidity</attributeName>
+               <attributeLabel>Turbidity</attributeLabel>
+               <attributeDefinition>Turbidity measurement of water in formazin nephelometric units</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>FNU</customUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Turbidity data prior to 2010 was removed from the data set due to uncertainty</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="5c717cc6-3775-47c9-8509-e65b58c1f3bb">
+               <attributeName>pH</attributeName>
+               <attributeLabel>pH</attributeLabel>
+               <attributeDefinition>pH measurement of water</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>pH unit</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>674785</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="a18771cf7e181cdf9dad769d494bafef" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>LAB</entityName>
+         <entityDescription>Little Truckee River above Boca water quality station</entityDescription>
+         <physical>
+            <objectName>LAB_POR.csv</objectName>
+            <size
+          unit="byte">28396656</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/a18771cf7e181cdf9dad769d494bafef</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="b711feed-a802-4ba0-ba06-2a7e4837dfe4">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>LAB</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="4125de38-5525-4a5b-b096-0d120bcb50f0">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="3c60d9e9-1cf1-4556-a6e8-d18b0142843a">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="e329bac4-c9d2-4d00-ad1f-96cf9bbdad4e">
+               <attributeName>Specific_Conductance</attributeName>
+               <attributeLabel>Specific_Conductance</attributeLabel>
+               <attributeDefinition>Specific conductivity measurement of water in microsiemens per centimeter at 25 degrees celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>microsiemens per centimeter</customUnit>
+                     </unit>
+                     <precision>1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Microsiemens per Centimetre">http://qudt.org/vocab/unit/MicroS-PER-CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="9c9ce234-8402-4389-81b5-869242ba4dca">
+               <attributeName>DO</attributeName>
+               <attributeLabel>DO</attributeLabel>
+               <attributeDefinition>Dissolved oxygen measurement of water in milligrams per liter</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>milligramPerLiter</standardUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Milligram per Litre">http://qudt.org/vocab/unit/MilliGM-PER-L</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="3cf69976-178a-4b6d-9531-f7d2027b8190">
+               <attributeName>Turbidity</attributeName>
+               <attributeLabel>Turbidity</attributeLabel>
+               <attributeDefinition>Turbidity measurement of water in formazin nephelometric units</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>FNU</customUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Turbidity data prior to 2010 was removed from the data set due to uncertainty</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="6dd137d9-7aa5-4541-9b55-daf2c5f21181">
+               <attributeName>pH</attributeName>
+               <attributeLabel>pH</attributeLabel>
+               <attributeDefinition>pH measurement of water</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>pH unit</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>647219</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="31234537adb52d5df18dc9596010708b" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>FAR</entityName>
+         <entityDescription>Truckee River at Farad water quality station</entityDescription>
+         <physical>
+            <objectName>FAR_POR.csv</objectName>
+            <size
+          unit="byte">40972260</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/31234537adb52d5df18dc9596010708b</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="b2402969-cd29-46b6-af6a-81c233b1c5f8">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>FAR</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="f3c5a8dc-7856-4e8a-8fd0-f60e65916af4">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="1d7e5924-d772-4d7c-94f7-c6b33f2c8b7f">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/12/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="ae049185-2d03-4d29-8293-5b81dccff759">
+               <attributeName>Specific_Conductance</attributeName>
+               <attributeLabel>Specific_Conductance</attributeLabel>
+               <attributeDefinition>Specific conductivity measurement of water in microsiemens per centimeter at 25 degrees celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>microsiemens per centimeter</customUnit>
+                     </unit>
+                     <precision>1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/12/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Microsiemens per Centimetre">http://qudt.org/vocab/unit/MicroS-PER-CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="2c633b9c-dece-443d-bc64-cf5552f87041">
+               <attributeName>DO</attributeName>
+               <attributeLabel>DO</attributeLabel>
+               <attributeDefinition>Dissolved oxygen measurement of water in milligrams per liter</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>milligramPerLiter</standardUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/12/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Milligram per Litre">http://qudt.org/vocab/unit/MilliGM-PER-L</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="3ea3c79b-fd20-4082-a2ac-e7a4650416ee">
+               <attributeName>Turbidity</attributeName>
+               <attributeLabel>Turbidity</attributeLabel>
+               <attributeDefinition>Turbidity measurement of water in formazin nephelometric units</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>FNU</customUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Turbidity data prior to 2010 was removed from the data set due to uncertainty</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute
+            id="9e4a7458-8636-458b-8f2c-630f410ae0f4">
+               <attributeName>pH</attributeName>
+               <attributeLabel>pH</attributeLabel>
+               <attributeDefinition>pH measurement of water</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>pH unit</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water. Note data collected prior to 7/12/2001 was collected hourly</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>941355</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="a3405a6b450f9f2991a1d0f2337d89b0" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TrkAbvDnc</entityName>
+         <entityDescription>Truckee River above Donner Creek water quality station</entityDescription>
+         <physical>
+            <objectName>TrkAbvDnc_POR.csv</objectName>
+            <size
+          unit="byte">11294304</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/a3405a6b450f9f2991a1d0f2337d89b0</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="acd02905-627a-4180-8402-837bb3aa8aad">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TrkAbvDnc</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="54d61d6a-9d7d-412d-be47-3b918d28ed13">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="d9e9b14b-6b84-44cf-a66a-9585578c56eb">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321988</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="37c90c10068d544ad6ecab6515cbf0b2" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>DncAbvTrk</entityName>
+         <entityDescription>Donner Creek above Truckee River water quality station</entityDescription>
+         <physical>
+            <objectName>DncAbvTrk_POR.csv</objectName>
+            <size
+          unit="byte">11257322</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/37c90c10068d544ad6ecab6515cbf0b2</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="ece145b5-9d78-4b3a-8ff1-d9834cc971ca">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>DncAbvTrk</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="44afcc77-992b-4e2f-88ae-9d4a4395c26b">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="9f65526a-7e31-4c7c-b5d2-458f1c00dc48">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321987</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="d0dc935b84bfe12381612c55cc687805" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TrkAbvPr</entityName>
+         <entityDescription>Truckee River above Prosser Creek water quality station</entityDescription>
+         <physical>
+            <objectName>TrkAbvPr_POR.csv</objectName>
+            <size
+          unit="byte">8622253</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/d0dc935b84bfe12381612c55cc687805</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="bc067fd9-40f3-45e0-8ec2-1a454fa3a0c9">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TrkAbvPr</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="a9544c9b-b85f-4b92-8660-4e496624d867">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="1b21c03a-7326-4d55-bfc5-40b9b70511dd">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>252573</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="f2c69f2d2c1c0d0152ae5255b92002c8" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>PrAbvTrk</entityName>
+         <entityDescription>Prosser Creek above Truckee River water quality station</entityDescription>
+         <physical>
+            <objectName>PrAbvTrk_POR.csv</objectName>
+            <size
+          unit="byte">10985048</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/f2c69f2d2c1c0d0152ae5255b92002c8</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="0b11a846-787b-4a6f-8015-52a5d93545a3">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>PrAbvTrk</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="1887f5c7-3c14-47d6-85d7-3537a1192f86">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="84cde45b-94a7-47bd-b06f-b4276b522c5a">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321982</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="09c1829f5eee8f75fc2845cb99d1efa9" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TrkBlwPr</entityName>
+         <entityDescription>Truckee River below Prosser Creek water quality station</entityDescription>
+         <physical>
+            <objectName>TrkBlwPr_POR.csv</objectName>
+            <size
+          unit="byte">10896754</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/09c1829f5eee8f75fc2845cb99d1efa9</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="7932d178-9373-4bd0-9f9a-01d0ef27b0a7">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TrkBlwPr</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="a5cec062-f3db-4ab5-b797-8f035b6ad26e">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="d77da886-6dbd-4606-bc1f-e1e5ec69bb38">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321979</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="f4a1db72895e8fbe0f1a3062db807049" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TrkAbvLtk</entityName>
+         <entityDescription>Truckee River above Little Truckee River water quality station</entityDescription>
+         <physical>
+            <objectName>TrkAbvLtk_POR.csv</objectName>
+            <size
+          unit="byte">11273314</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/f4a1db72895e8fbe0f1a3062db807049</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="612f2371-4673-4e3b-ac9e-d7e524b634a5">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TrkAbvLtk</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="cfdaad5c-61c8-420a-9f16-30dcd6ff120e">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="17b75ddc-fa51-4b86-a07d-156a8ea165b5">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321983</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="d5235cc4a313bc6c48936c1f42681c71" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>LtkAbvTrk</entityName>
+         <entityDescription>Little Truckee River above Truckee River water quality station</entityDescription>
+         <physical>
+            <objectName>LtkAbvTrk_POR.csv</objectName>
+            <size
+          unit="byte">11309339</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/d5235cc4a313bc6c48936c1f42681c71</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="e1856200-ccea-4224-8dc2-67795e129729">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>LtkAbvTrk</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="06133ff4-696b-4db3-8387-be1bbbecf218">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="3447b80d-8f25-4500-9368-53a1e43bbdc1">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321983</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="6f9cbcc9f6d6575cfd20dc9c718cab07" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>TrkBlwDnc</entityName>
+         <entityDescription>Truckee River below Donner Creek water quality station</entityDescription>
+         <physical>
+            <objectName>TrkBlwDnc_POR.csv</objectName>
+            <size
+          unit="byte">11226519</size>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/edi/2411/1/6f9cbcc9f6d6575cfd20dc9c718cab07</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="d73af15a-70ed-4a13-be7d-14b8db8d3d0b">
+               <attributeName>Station_Code</attributeName>
+               <attributeLabel>Station_Code</attributeLabel>
+               <attributeDefinition>Acronym of the water quality station name. See Stations Metadata for full station name and location.</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>TrkBlwDnc</code>
+                              <definition>Station acronym</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="de117ce8-5799-41fd-bca3-9b27ff4c6ab1">
+               <attributeName>Date_Time</attributeName>
+               <attributeLabel>Date_Time</attributeLabel>
+               <attributeDefinition>Date and time of measurement in PST</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>MM/DD/YYYY hh:mm:ss</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="c8f9be93-4dfb-463f-b168-87c96208e2b0">
+               <attributeName>Water_Temperature</attributeName>
+               <attributeLabel>Water_Temperature</attributeLabel>
+               <attributeDefinition>Temperature of water in degrees Celsius</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>celsius</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>data may be missing for multiple reasons not limited to: removed outliers, failed sonde/sensors, fouling, and erroneous readings from sensor out of water</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Degree Celsius">http://qudt.org/vocab/unit/DEG_C</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>321985</numberOfRecords>
+      </dataTable>
+   </dataset>
+   <additionalMetadata>
+      <metadata>
+         <stmml:unitList>
+            <stmml:unit
+          id="microsiemens per centimeter"
+          name="microsiemens per centimeter">
+               <stmml:description/>
+            </stmml:unit>
+            <stmml:unit
+          id="FNU"
+          name="FNU">
+               <stmml:description/>
+            </stmml:unit>
+            <stmml:unit
+          id="pH unit"
+        name="pH unit">
+               <stmml:description/>
+            </stmml:unit>
+         </stmml:unitList>
+      </metadata>
+   </additionalMetadata>
+   <additionalMetadata>
+      <metadata>
+         <emlEditor
+        app="ezEML" release="2026.04.08"/>
+      </metadata>
+   </additionalMetadata>
+</eml:eml>

@@ -1,0 +1,9 @@
+family,stratum,estimator,seeds,exact_median,tolerance_1e10_median,tolerance_1e8_median,max_1e10_to_1e8_changed,saved_median_reproduced
+calendar,all,distribution_regression,20,0.620166009102074,0.9710474559716963,0.9710474559716963,2,True
+calendar,all,stochastic_regression_calibrated,20,0.6261412075171437,0.9669688161912278,0.9669688161912278,0,True
+calendar,danger,distribution_regression,20,0.8421130461606113,0.8670093902574814,0.8670093902574814,0,True
+calendar,danger,stochastic_regression_calibrated,20,0.831675764421258,0.8595275763075627,0.8595275763075627,0,True
+crossed,all,distribution_regression,20,0.7409702487457461,0.923437883731537,0.923437883731537,4,True
+crossed,all,stochastic_regression_calibrated,20,0.7447358981135834,0.9257635031684798,0.9257635031684798,0,True
+crossed,danger,distribution_regression,20,0.8563648098479104,0.8930644965105619,0.8930644965105619,0,True
+crossed,danger,stochastic_regression_calibrated,20,0.8599067743308375,0.8977019488217093,0.8977019488217093,0,True

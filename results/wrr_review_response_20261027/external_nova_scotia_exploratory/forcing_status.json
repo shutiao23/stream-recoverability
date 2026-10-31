@@ -1,0 +1,11 @@
+{
+  "status": "forcing_complete",
+  "candidate_station_years": 8,
+  "forcing_complete_station_years": 8,
+  "coordinates": "provincial map, rounded to 0.01 degree",
+  "source": "NASA POWER T2M, daily local solar time",
+  "strict_reference_qualified": false,
+  "model_scoring_performed": true,
+  "limitation": "POWER is a gridded forcing, not station measurements; reported water day timezone remains unverified",
+  "scoring_scope": "separate reported-clock exploratory experiment; strict reference remains unqualified"
+}

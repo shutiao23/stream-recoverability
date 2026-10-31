@@ -1,0 +1,20 @@
+\section{Expanded missingness-mechanism sensitivities}
+After the earlier results and seven-site pilot had been inspected, we fixed an expansion to the first five masks for all 41 forward-eligible original archive stations in 17 connected groups. Only controlled gaps and one seed-zero source-model assignment are studied. For the donor sensitivity, the target masks are unchanged and those same dates are hidden in every other panel column before local fitting. All 205 settings have at least one finite donor-panel observation removed; the total of \ESDonorCells{} finite donor-panel cells counts repeated masks and may include columns not ultimately selected by the local estimator. It is not a count of independent outages or necessarily of observations the estimator would have used.
+
+For the heat-associated sensitivity, the original 35\% Bernoulli draw determines the number of masked years in each station--repetition archive. An independent seeded exponential-race sample chooses exactly that number of eligible years, with weight five for years whose annual air H30 is at least the first-seven-year 80th percentile, and weight one otherwise. Air information determines a synthetic test mask; it is not a hidden water-temperature outcome. The full cohort has \ESYears{} masked years in either design, of which \ESHotBaseline{} and \ESHotHeat{} are classified as air-hot. However, the selected years have different existing within-year gap shapes and positions, so the total hidden target days change from \ESDaysBaseline{} to \ESDaysHeat{}. These paired scenarios cannot isolate the causal effect of heat association alone or represent a measured outage mechanism.
+
+Table~\ref{tab:expanded-stress} compares fixed-prediction cohorts for both estimators, with availability reported on the common subset. Nominal trend interval coverage, widths and scores use independent annual ranks and the original normal-spacing tails; the intervals are not validated climate-transfer guarantees. Connected-group resampling of paired D2 squared-error differences gives [\ESDonorLow, \ESDonorHigh] for synchronized donors and [\ESHeatLow, \ESHeatHigh] for heat-associated masking, in $({}^{\circ}\mathrm{C}/\mathrm{decade})^2$. These describe a selected archive and depend on group exchangeability. Removing Bavaria without refitting changes baseline and donor RMSE to \ESBavariaDonorBase{} and \ESBavariaDonorStress{}, and baseline and heat RMSE to \ESBavariaHeatBase{} and \ESBavariaHeatStress{}. Other fixed-prediction leave-region-out summaries are supplied in the aggregate files. Repeated masks are not independent climates; original forward source roles are not uniformly strict named-region holdouts.
+
+\begin{table}[ht]
+\caption{Expanded paired controlled-gap stresses, original / stress. RMSE and interval widths are $^{\circ}$C per decade. Coverage is for nominal 95\% trend intervals; scores are also in $^{\circ}$C per decade. Common fitted cohorts differ between estimators and scenarios.}
+\label{tab:expanded-stress}\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{llrrrrr}\toprule
+Scenario & Estimator & Cases & RMSE & Coverage & Width & Score \\
+\midrule
+Donor gaps & D2 & 205 & 0.1555 / 0.2024 & 92.2 / 86.8 & 0.465 / 0.479 & 0.756 / 1.039 \\
+Donor gaps & Stochastic & 190 & 0.1386 / 0.1877 & 87.4 / 76.3 & 0.404 / 0.418 & 0.808 / 1.257 \\
+Heat, fixed years & D2 & 205 & 0.1555 / 0.1655 & 92.2 / 88.8 & 0.465 / 0.456 & 0.756 / 0.806 \\
+Heat, fixed years & Stochastic & 187 & 0.1370 / 0.1552 & 87.7 / 87.2 & 0.403 / 0.383 & 0.776 / 0.884 \\
+\bottomrule\end{tabular}}\end{table}
+
+An independent audit reconstructs all 205 baseline masks, 205 synchronized masks and 205 heat-associated masks, and recomputes eight paired RMSE and mean-squared-error cells. It uses the same source observations, random seeds and saved fitted predictions; it does not independently refit the models, check bootstrap intervals or establish sensor quality.

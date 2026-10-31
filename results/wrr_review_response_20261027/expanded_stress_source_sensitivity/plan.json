@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-27T01:01:23.419895+00:00",
+  "status": "post-hoc after the source-role, original archive and expanded stress results were examined; not prospective registration",
+  "expected_archives_per_scenario": 205,
+  "target_stations": 41,
+  "target_groups": 17,
+  "strict_original": "Replace the affected forward HUC17 source model for its three stations with the previously refitted model excluding all HUC17 connected groups; retain original models for other target regions. Source sample size changes.",
+  "candidate": "Use the six previously refitted candidate-provider models that exclude all target-region groups; provider pool, sample size and role assignment all change together.",
+  "fixed_inputs": "Use the existing baseline and stress target masks and already fitted daily features for all versions; source annual predictions and calibration offsets are recomputed. The previous daily feature fits and test masks are not regenerated.",
+  "comparison": "For each scenario and estimator, compare baseline and stress under all three source versions on the six-way common available archives. Report availability, bias, RMSE, interval coverage and scores and connected-group resamples. Report matched stress effect as stress minus baseline; do not equate different selected cohorts.",
+  "bootstrap": "4000 connected-group resamples of paired squared-error stress-minus-baseline difference, seed 694; descriptive, not an independent-climate interval.",
+  "limitations": "All source-role and stress results are already viewed. Retrospective sensitivity changes model sample size; candidate version also changes providers and roles. Group bootstrap and leave-region-out do not establish general transfer. Heat-selected years may change gap days and positions. Not natural-outage or external validation. Provider and derivative rights remain unresolved.",
+  "privacy": "case-level predictions, source models, input manifest and local output receipts remain private; only aggregate summaries in candidate package",
+  "input_count": 2104
+}

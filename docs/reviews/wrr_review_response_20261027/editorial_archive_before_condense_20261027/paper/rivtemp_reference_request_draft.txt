@@ -1,0 +1,20 @@
+UNSENT DRAFT — AUTHOR AND CONTACT DETAILS PENDING
+
+To: info@rivtemp.ca
+Subject: Question about daily observation completeness, time basis and reuse for RivTemp data
+
+Dear RivTemp team,
+
+We are preparing a study on the recovery of sustained river-temperature maxima from incomplete records. We are exploring whether some RivTemp records could provide an independent reference, and would appreciate clarification before selecting stations or evaluating predictions.
+
+1. For the RivTemp--MFFP_QC dataset available through DataStream (DOI 10.25976/sz2k-b624), can the number of valid underlying observations and the expected sampling interval be obtained for each daily mean? Can a day with a complete 24-hour observed record be distinguished from a day that meets the more-than-90% completeness threshold but has missing intervals?
+2. What time zone and day-boundary convention apply to these daily observations, including daylight-saving transitions and older station records? Are there station-specific changes to the convention?
+3. Which point-level quality or estimated-value flags, sensor change records and station watershed identifiers are available for determining whether at least four complete, nonestimated reference years exist at a station?
+4. The DataStream page displays an ODC-BY licence as well as a disclaimer stating that the database cannot be transferred in whole or in part to another organization. Please clarify the intended conditions for redistribution of original and derived station-year values, reviewer-only access, publication in a trusted repository and required attribution.
+5. What process should researchers follow to request access to station metadata and observations, and may the detailed selection and quality criteria be documented publicly without redistributing the restricted records?
+
+We would preserve the distinction between daily summaries and underlying subdaily measurements, acknowledge RivTemp and the contributing organizations, and provide a reviewable description of any use consistent with your terms.
+
+Thank you for your guidance.
+
+[Author name, affiliation and contact: pending]

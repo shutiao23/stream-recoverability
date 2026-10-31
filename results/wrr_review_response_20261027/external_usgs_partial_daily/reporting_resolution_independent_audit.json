@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "summary_cells_recomputed": 12,
+  "case_clock_rows": 288,
+  "scope": "Independent scalar daily/subdaily coverage, observed-bound mismatch, tolerance-distance and station-year counts.",
+  "limitations": "The daily and equally weighted 15-minute targets differ in rounding, reporting-day convention and possible corrections. All subdaily enclosures assume unknown values in [-5,50] C. Physical accuracy, source overlap and independent climate are unverified; repeated masks share station-year outcomes. Counts of non-overlap distances within fixed 0.01, 0.05 and 0.1 C are descriptive numerical sensitivities chosen after inspecting results. They are not sensor error estimates, revised predictions, calibration procedures or guarantees.",
+  "storage": "temporary RAM filesystem; not durable"
+}

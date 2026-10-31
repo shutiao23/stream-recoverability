@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "environments": {
+    "clean_lock": {
+      "packages": {
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "pyarrow": "25.0.1",
+        "scipy": "1.15.3",
+        "scikit-learn": "1.7.2",
+        "matplotlib": "3.10.9",
+        "torch": "2.13.0+cpu",
+        "lightgbm": "4.7.0",
+        "joblib": "1.5.3"
+      },
+      "models_loaded": 13,
+      "models_with_cross_version_warning": 13,
+      "checks": {
+        "groupmax": "clean_lock_groupmax_check.json",
+        "private": "clean_lock_private_check.json",
+        "package": "clean_lock_package_check.json"
+      },
+      "interannual_proxy_replay": {
+        "status": "passed",
+        "stations": 22,
+        "case_masks": 11220,
+        "summary_rows": 16,
+        "leave_provider_rows": 64
+      },
+      "usgs_donor_snapshot": {
+        "site_identifiers": 69,
+        "metadata_responses": 2,
+        "daily_numeric_values": 305075,
+        "scope": "Source responses only; excludes private source-panel mappings and local comparisons."
+      },
+      "truckee_reference_snapshot": {
+        "stations": 12,
+        "station_years": 171,
+        "complete_finite_years": 18,
+        "power_days": 3653,
+        "scope": "Replays public provider reference and forcing only, not source models or model scores."
+      }
+    },
+    "replay": {
+      "packages": {
+        "numpy": "1.26.4",
+        "pandas": "2.1.4",
+        "pyarrow": "14.0.2",
+        "scipy": "1.11.4",
+        "scikit-learn": "1.2.2",
+        "matplotlib": "3.9.2",
+        "torch": "2.13.0+cpu",
+        "lightgbm": "4.7.0",
+        "joblib": "1.2.0"
+      },
+      "models_loaded": 13,
+      "models_with_cross_version_warning": 0,
+      "checks": {
+        "groupmax": "replay_groupmax_check.json",
+        "private": "replay_private_check.json",
+        "package": "replay_package_check.json"
+      },
+      "interannual_proxy_replay": {
+        "status": "passed",
+        "stations": 22,
+        "case_masks": 11220,
+        "summary_rows": 16,
+        "leave_provider_rows": 64
+      },
+      "usgs_donor_snapshot": {
+        "site_identifiers": 69,
+        "metadata_responses": 2,
+        "daily_numeric_values": 305075,
+        "scope": "Source responses only; excludes private source-panel mappings and local comparisons."
+      },
+      "truckee_reference_snapshot": {
+        "stations": 12,
+        "station_years": 171,
+        "complete_finite_years": 18,
+        "power_days": 3653,
+        "scope": "Replays public provider reference and forcing only, not source models or model scores."
+      }
+    }
+  },
+  "limitations": "Checks reuse processed water, air, target cases and source models. The field clean-room separately reacquires public data. The new Truckee reference files and daily means are replayed, but source-model weights and Truckee case predictions are not in the candidate and its scores are not independently regenerated here. Donor provenance and direct annual H30 archive proxy use local restricted evidence. No complete source-model training, physical sensor validation, new independent climate, permission or deposit determination.",
+  "fresh_public_field_check": "isolated_nova_field_review_check.json",
+  "checked_utc": "2026-10-27T05:12:10.592652+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-27T04:46:45.641441+00:00",
+  "status": "posthoc fixed preflight after archive and existing metadata screening, before requesting annual statistics and before any target prediction errors",
+  "cohort": "All 12 single-series candidates from the metadata screen; no sampling by temperature or prediction error.",
+  "count_rule": "USGS approved annual 00010/00003 counts for 2000–2025; the exact candidate time-series ID and full calendar interval must match. Count 365/366 as potentially complete; absence is unknown, not zero.",
+  "handling": "The API may return annual temperature statistics; extract only dates, series identities, approval state and sample_count, and retain no returned temperature statistic or raw response. Two independent count extractions must agree.",
+  "next_step": "A candidate with four count-complete years is only a necessary-condition pass. Resolve catchment and prior contacts, nonestimated observations, time-zone/day support and sensor quality before considering reference scoring.",
+  "cohort_count": 12,
+  "limitations": "Posthoc and selected for availability, not random or independently climate-confirmed. Annual count may contain estimated days and does not establish full subdaily sampling."
+}

@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "threeway_summary_rows_checked": 24,
+  "threeway_contrast_rows_checked": 16,
+  "scope": "Independently selects the same three-way shared cases and recalculates means and seeded group resampling. This shares all prediction and input data; it is not a new fit or an external validation."
+}

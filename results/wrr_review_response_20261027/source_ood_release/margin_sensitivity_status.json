@@ -1,0 +1,12 @@
+{
+  "status": "completed_posthoc_sensitivity",
+  "margins": [
+    0.0,
+    1e-06,
+    0.01
+  ],
+  "source_cases": 8010,
+  "external_cases": 306,
+  "source_groups": 19,
+  "limitations": "Margins and their scale were chosen after source and target results; no prospective selection or calibration guarantee. Source rule groups were previously opened for other analyses and source mask cases repeat. Bounds do not establish multivariate support, valid release or independent climates."
+}

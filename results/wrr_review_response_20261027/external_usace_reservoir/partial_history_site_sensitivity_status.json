@@ -1,0 +1,7 @@
+{
+  "status": "completed",
+  "resources": 4,
+  "site_summary_rows": 8,
+  "network_summary_rows": 4,
+  "limitations": "No-hit is not proof of independence: sensor and gage can differ, search is truncated, networks and climate can overlap. Mask cases repeat years, and no site or uncertainty inference is claimed. Results depend on assumed missing-value bounds, quality, training interpolation and out-of-support model inputs."
+}

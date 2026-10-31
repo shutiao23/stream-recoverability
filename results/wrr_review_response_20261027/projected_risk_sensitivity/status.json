@@ -1,0 +1,11 @@
+{
+  "status": "computed_with_separately_verified_reference",
+  "target_masked_cases": 7583,
+  "target_archives": 1640,
+  "reference_available": 7583,
+  "reference_used_to_choose_threshold_or_match": false,
+  "source_models_and_cutoffs_frozen_first": true,
+  "unscored_first_pass_preserved": true,
+  "group_count": 17,
+  "limitations": "Post-hoc, previously opened source and target archives. Scores, source cutoffs and target count matching preceded this reference join. Repeated masks and group correlations do not establish prospective risk or independent-climate transfer."
+}

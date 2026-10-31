@@ -1,0 +1,14 @@
+{
+  "station_count": 96,
+  "witness_count": 35,
+  "warm_definition": "five consecutive months from leave-target-year-out station climatology",
+  "reference": "largest fully observed 30-day window among years passing each rule",
+  "limits": [
+    "screened incomplete years can have true H30 above their observed bound",
+    "July-August completion is a proxy, not the exact Beaufort procedure",
+    "49-day gap is a contextual Johnson annual-signal criterion, not an H30 rule",
+    "measurement margins are sensitivity assumptions, not quantified sensor errors"
+  ],
+  "source_johnson": "https://doi.org/10.1016/j.ecolind.2020.107229",
+  "source_beaufort": "https://doi.org/10.5194/hess-26-3477-2022"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "target_years": 17,
+  "interpolated_phi_outside_training_range_years": 15,
+  "observed_only_phi_outside_training_range_years": 14,
+  "both_outside_years": 14,
+  "interpolated_outside_observed_inside_years": 1,
+  "scope": "Independent day-of-year accumulation, linear interpolation, 15-day smoothing and scalar Pearson correlation for both history treatments.",
+  "limits": "Same fixed history roster, season and source inputs are reused; this does not establish sensor quality, predictive validity, causal attribution or independent climates."
+}

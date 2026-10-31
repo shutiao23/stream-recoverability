@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "features": 68,
+  "source_estimator_cases": 43804,
+  "source_other_crossed_cases": 30384,
+  "target_cases": 306,
+  "scope": "Independent reconstruction of source group bootstrap multiplicities, expanded weighted quantiles and scalar source/target support flags for all 68 design features.",
+  "limits": "The same case tables and feature-design routine are reused; this does not verify hidden-case construction, interpret support as a calibrated risk, or establish independence."
+}
