@@ -1,0 +1,29 @@
+{
+  "command": "select-finalists",
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "diagnostics": {
+    "bytes": 1759,
+    "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/stage2_diagnostics.csv"
+  },
+  "evaluation_split": "validation",
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "mask_schema_version": "mask_schema_v2",
+  "model_schema_version": "model_schema_v3",
+  "output": {
+    "bytes": 2186,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/design_freeze_v4_variant03/stage2_finalist_selection.csv"
+  },
+  "ranking": {
+    "bytes": 4422,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/design_freeze_v4_variant03/validation_model_ranking.csv"
+  },
+  "schema_version": "validation_stage2_selection_manifest_v1",
+  "selected_models": [
+    "brits_ref",
+    "proposed",
+    "csdi"
+  ],
+  "statistics_schema_version": "statistics_schema_v3"
+}

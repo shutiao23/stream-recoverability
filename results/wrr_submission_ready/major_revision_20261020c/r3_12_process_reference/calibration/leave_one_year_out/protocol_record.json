@@ -1,0 +1,22 @@
+{
+  "anchor": "last visible target observation preceding each interior outage",
+  "created_at_utc": "2026-10-20T17:29:44.219385+00:00",
+  "inputs": {
+    "air": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/external/wrr_revision_20261020c/hydroshare/CERRA_Ta"
+    },
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/calibration/leave_one_year_out/crossed/cofailure_0/cases.parquet"
+    },
+    "flow": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/external/wrr_revision_20261020c/hydroshare/MEAS_Qt"
+    },
+    "published_equation_implementation": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/src/stream_recoverability/experiments/air2stream_equivalent.py"
+    }
+  },
+  "normalization": "training forcing only; target year excluded; strictly earlier segment prospectively",
+  "script": {
+    "path": "scripts/362_wrr_process_reference.py"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "anchor_catalog_path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/validation_anchors_v2.csv",
+  "anchor_catalog_rows": 15,
+  "anchor_ids": [
+    "VALANCHOR-publishedv2-validation-B1-R0101",
+    "VALANCHOR-publishedv2-validation-B1-R0102",
+    "VALANCHOR-publishedv2-validation-B1-R0103",
+    "VALANCHOR-publishedv2-validation-B1-R0104",
+    "VALANCHOR-publishedv2-validation-B1-R0105",
+    "VALANCHOR-publishedv2-validation-P3-R0101",
+    "VALANCHOR-publishedv2-validation-P3-R0102",
+    "VALANCHOR-publishedv2-validation-P3-R0103",
+    "VALANCHOR-publishedv2-validation-P3-R0104",
+    "VALANCHOR-publishedv2-validation-P3-R0105",
+    "VALANCHOR-publishedv2-validation-S2-R0101",
+    "VALANCHOR-publishedv2-validation-S2-R0102",
+    "VALANCHOR-publishedv2-validation-S2-R0103",
+    "VALANCHOR-publishedv2-validation-S2-R0104",
+    "VALANCHOR-publishedv2-validation-S2-R0105"
+  ],
+  "anchor_integration_status": "bound_centered_anchor_v1",
+  "anchor_season_counts": {
+    "DJF": 4,
+    "JJA": 4,
+    "MAM": 4,
+    "SON": 3
+  },
+  "condition_count": 21,
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "mask_schema_version": "mask_schema_v2",
+  "mask_seed_placeholders": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "mask_unit_count": 105,
+  "mask_units_per_condition": 5,
+  "model_schema_version": "model_schema_v3",
+  "stages": [
+    {
+      "models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "name": "traditional",
+      "requires_explicit_finalists": false,
+      "training_seeds": []
+    },
+    {
+      "models": [
+        "brits_ref",
+        "saits_ref",
+        "csdi",
+        "proposed"
+      ],
+      "name": "deep_single_seed",
+      "requires_explicit_finalists": false,
+      "training_seeds": [
+        11
+      ]
+    },
+    {
+      "models": [
+        "brits_ref",
+        "saits_ref",
+        "csdi",
+        "proposed"
+      ],
+      "name": "deep_stability",
+      "requires_explicit_finalists": true,
+      "training_seeds": [
+        11,
+        22,
+        33
+      ]
+    }
+  ],
+  "statistics_schema_version": "statistics_schema_v3",
+  "suite": "validation_funnel"
+}

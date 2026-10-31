@@ -1,0 +1,5 @@
+model,finite_predictions,finite_validation_score,best_epoch,epochs_run,hit_epoch_limit,training_seed,checkpoint_path,event_rows,evaluation_split,evidence_role,formal_evidence,data_version
+brits_ref,True,True,125,145,False,11,results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/checkpoints/brits_ref-S11-W368-seen_length.pt,105,validation,model_selection_only,False,published_v2
+saits_ref,True,True,67,87,False,11,results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/checkpoints/saits_ref-S11-W368-seen_length.pt,105,validation,model_selection_only,False,published_v2
+csdi,True,True,81,101,False,11,results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/checkpoints/csdi-S11-W368-seen_length.pt,105,validation,model_selection_only,False,published_v2
+proposed,True,True,214,234,False,11,results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/checkpoints/proposed-S11-W368-seen_length.pt,105,validation,model_selection_only,False,published_v2

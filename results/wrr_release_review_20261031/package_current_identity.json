@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "archive_sha256": "b9a1762e99e4a531c303920279fd893aacf1887ed9e6134cf5e5fd55dc13ac5a",
+  "members": 3329,
+  "workspace_files_compared": 3325,
+  "manifest_entries": 3328,
+  "current_differences": [],
+  "abstract_words": 218,
+  "manuscripts": {
+    "article": {
+      "tex": "paper/wrr_tr/review_completion_article.tex",
+      "tex_sha256": "c2aa6f1e8b70dcbb06b0c0075287b230004a843fba01ccdf7b6abeb88c799081",
+      "pdf": "paper/wrr_tr/review_completion_article.pdf",
+      "pdf_sha256": "3aeb27d01440a093fde78f97d4c368c6285956143837dd8d2eedbcf2c65bf5c6",
+      "pdf_bytes": 571673,
+      "pdf_pages": 41
+    },
+    "supporting": {
+      "tex": "paper/wrr_tr/review_completion_supporting.tex",
+      "tex_sha256": "093bded739e59719e4bff87e649cd37859198f66e725c8c30df4e136e32e2017",
+      "pdf": "paper/wrr_tr/review_completion_supporting.pdf",
+      "pdf_sha256": "c887ed7b8a86715ec410997b7de3b01229089225fabd6cba06319294cec53c54",
+      "pdf_bytes": 480671,
+      "pdf_pages": 102
+    }
+  }
+}

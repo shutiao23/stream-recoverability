@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-31 Asia/Shanghai",
+  "scientific_recommendation": "minor_revision",
+  "new_major_scientific_requests": 0,
+  "previous_six_minor_items": "closed",
+  "current_package_identity": "passed",
+  "current_extracted_compile": "passed",
+  "new_findings": [
+    "Abstract omits absolute from median endpoint-change statistic",
+    "Clarify noncontiguous eligible reference-year sets",
+    "accept() does not reject a current manuscript changed after its cached verification"
+  ],
+  "probe_changed_real_manuscript": false,
+  "report": "docs/reviews/wrr_release_review_20261031/ADVERSARIAL_REVIEW_ZH.md"
+}

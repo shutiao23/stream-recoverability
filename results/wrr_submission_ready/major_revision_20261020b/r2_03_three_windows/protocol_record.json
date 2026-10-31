@@ -1,0 +1,14 @@
+{
+  "elapsed_seconds": 30.5,
+  "inputs": {
+    "crossed_panel_cases": {
+      "path": "results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet"
+    }
+  },
+  "n_permutations": 25,
+  "note": "daily series regenerated from the same seeds as scripts/317 (stratified arm, lengths 30/60/90)",
+  "numpy": "1.26.4",
+  "pandas": "2.1.4",
+  "python": "3.11.7",
+  "script": "scripts/342_wrr_three_window_decomposition.py"
+}

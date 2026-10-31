@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-25T19:49:53.378082+00:00",
+  "selection": "all five metadata-only, default-sublocation 8--14-year stream candidates in source-unseen HUC2 regions 13/20, excluding reservoir/lake/pond/canal/ditch/tunnel/outfall names",
+  "n_candidates": 10,
+  "source_unseen_huc2": [
+    "13",
+    "20"
+  ],
+  "source_model": "results/wrr_review_completion_20261024/deployment/global_source_candidate.joblib",
+  "source_calibration": "results/wrr_review_completion_20261024/deployment/classical_calibration.json",
+  "annual_target": "H30 from agency approved daily mean Celsius",
+  "minimum_complete_years": 4,
+  "analysis": "source-fixed annual comparison and descriptive selected risk; unregistered; HUC13 treated as one connected region; no broad risk or new-climate guarantee",
+  "no_performance_based_replacement": true,
+  "extension_utc": "2026-10-25T20:21:44.975981+00:00",
+  "qualification_extension": "Retain all original five candidates and add both source-unseen metadata candidates with 4--7 supported years, matching the unchanged minimum of four complete reference years. No masked reconstruction errors have been inspected.",
+  "maximum_candidates": 10,
+  "final_recruitment_utc": "2026-10-25T20:47:17.626318+00:00",
+  "additional_station_check": "Three metadata-selected, previously unmeasured stations from HUC2 03/08/12 are added as a separate station holdout check. They are not new source-unseen climate regions. No reconstruction errors have been evaluated; all ten qualification results are retained. Stop recruitment at ten candidates.",
+  "final_analysis_scope": "Observation-only corroboration of the paper's primary record-omission claim on all ten acquired candidates; original four-complete-year reconstruction-reference criterion remains unchanged and no candidate qualifies. No imputer is fitted or scored. Approved contiguous windows are compared against all approved-complete reference years, including references not retained by extra heuristic QC.",
+  "registration": "Unregistered exploratory corroboration; no preregistered or blind confirmation claim."
+}

@@ -1,0 +1,118 @@
+{
+  "air_agreement_threshold_c": 0.05,
+  "bound_assumption": "reported water observations are comparable and valid; flagged possible exposure gives unknown, not a bound",
+  "feature_quantile": 0.99,
+  "limits_by_held_region": {
+    "arso": {
+      "air_gap_z_mean": 2.0933146224968273,
+      "visible_edge_anomaly": 3.304166163021975
+    },
+    "chmi": {
+      "air_gap_z_mean": 2.172789536107618,
+      "visible_edge_anomaly": 3.2769286297526747
+    },
+    "foen": {
+      "air_gap_z_mean": 2.1598503502624307,
+      "visible_edge_anomaly": 3.5407961326231776
+    },
+    "gkd_bayern": {
+      "air_gap_z_mean": 2.1946399446505587,
+      "visible_edge_anomaly": 3.388699502777282
+    },
+    "hubeau": {
+      "air_gap_z_mean": 2.1004970937597323,
+      "visible_edge_anomaly": 3.473680816292283
+    },
+    "lubw": {
+      "air_gap_z_mean": 2.0914244268524285,
+      "visible_edge_anomaly": 3.226960742434152
+    },
+    "nve_hydapi": {
+      "air_gap_z_mean": 2.0538540824371,
+      "visible_edge_anomaly": 3.435253731029688
+    },
+    "rws_waterwebservices": {
+      "air_gap_z_mean": 2.1047198675539547,
+      "visible_edge_anomaly": 3.4127038894438906
+    },
+    "syke": {
+      "air_gap_z_mean": 2.0879642950039954,
+      "visible_edge_anomaly": 3.4809022222222215
+    },
+    "usgs_huc01": {
+      "air_gap_z_mean": 2.201545752696684,
+      "visible_edge_anomaly": 3.4234703218489426
+    },
+    "usgs_huc02": {
+      "air_gap_z_mean": 2.0922085545367795,
+      "visible_edge_anomaly": 3.476237574149921
+    },
+    "usgs_huc03": {
+      "air_gap_z_mean": 2.021523691740114,
+      "visible_edge_anomaly": 3.466840316126833
+    },
+    "usgs_huc04": {
+      "air_gap_z_mean": 2.047128765716747,
+      "visible_edge_anomaly": 3.501462800650333
+    },
+    "usgs_huc05": {
+      "air_gap_z_mean": 2.039522339545789,
+      "visible_edge_anomaly": 3.4085278271754076
+    },
+    "usgs_huc06": {
+      "air_gap_z_mean": 2.0875815213533286,
+      "visible_edge_anomaly": 3.5508627184614836
+    },
+    "usgs_huc07": {
+      "air_gap_z_mean": 2.0663061083839733,
+      "visible_edge_anomaly": 3.5441992138438656
+    },
+    "usgs_huc08": {
+      "air_gap_z_mean": 2.0678880674144233,
+      "visible_edge_anomaly": 3.448768286195285
+    },
+    "usgs_huc09": {
+      "air_gap_z_mean": 2.2079052722219186,
+      "visible_edge_anomaly": 3.5034258489957097
+    },
+    "usgs_huc10": {
+      "air_gap_z_mean": 2.050924490624018,
+      "visible_edge_anomaly": 3.4167555997046453
+    },
+    "usgs_huc11": {
+      "air_gap_z_mean": 2.127165989352683,
+      "visible_edge_anomaly": 3.4692638226735126
+    },
+    "usgs_huc12": {
+      "air_gap_z_mean": 2.0587599748601404,
+      "visible_edge_anomaly": 3.5397710539733835
+    },
+    "usgs_huc14": {
+      "air_gap_z_mean": 2.087575343623195,
+      "visible_edge_anomaly": 3.3822506910031636
+    },
+    "usgs_huc15": {
+      "air_gap_z_mean": 2.193610543212943,
+      "visible_edge_anomaly": 3.5130467527322065
+    },
+    "usgs_huc16": {
+      "air_gap_z_mean": 2.1497514290308977,
+      "visible_edge_anomaly": 3.419175009231614
+    },
+    "usgs_huc17": {
+      "air_gap_z_mean": 2.1762270453491266,
+      "visible_edge_anomaly": 3.482605064484128
+    },
+    "usgs_huc18": {
+      "air_gap_z_mean": 2.054367130333298,
+      "visible_edge_anomaly": 3.416833333333334
+    },
+    "usgs_huc19": {
+      "air_gap_z_mean": 2.102327216120742,
+      "visible_edge_anomaly": 3.5457999868529804
+    }
+  },
+  "quality_window_days": 7,
+  "scope": "one source model seed and existing stress cases; thresholds not tuned on stressed outcomes",
+  "stress_prevalence": "unknown; mixture rates are scenarios, not estimates"
+}

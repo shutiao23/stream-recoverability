@@ -1,0 +1,7 @@
+# Python 3.11 Linux x86-64: supplements the separately verified model replay
+# environment for local case generation. Exact restricted model and calibration
+# files, source generator and the roster are also required; see package README.
+-r requirements-wrr-review-replay.txt
+xgboost==2.1.4
+numba==0.59.0
+llvmlite==0.42.0

@@ -1,0 +1,35 @@
+{
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "event_metrics": {
+    "bytes": 203805,
+    "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/event_metrics.parquet"
+  },
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "mask_schema_version": "mask_schema_v2",
+  "model_schema_version": "model_schema_v3",
+  "models": [
+    "brits_ref",
+    "saits_ref",
+    "csdi",
+    "proposed"
+  ],
+  "output": {
+    "bytes": 1759,
+    "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/stage2_diagnostics.csv"
+  },
+  "run_manifest": {
+    "bytes": 648273,
+    "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/run_manifest.json"
+  },
+  "schema_version": "validation_stage2_diagnostics_manifest_v1",
+  "stage": "deep_single_seed",
+  "stage_manifest": {
+    "bytes": 3226,
+    "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/validation_stage_manifest.json"
+  },
+  "statistics_schema_version": "statistics_schema_v3",
+  "training_seed": 11
+}

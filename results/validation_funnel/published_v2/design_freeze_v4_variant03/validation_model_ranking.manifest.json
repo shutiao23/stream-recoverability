@@ -1,0 +1,27 @@
+{
+  "command": "rank",
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "event_metrics": [
+    {
+      "bytes": 208388,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/design_freeze_v4_variant03/traditional/event_metrics.parquet"
+    },
+    {
+      "bytes": 203805,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/design_freeze_v4_variant03/deep_single_seed/event_metrics.parquet"
+    }
+  ],
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "mask_schema_version": "mask_schema_v2",
+  "model_schema_version": "model_schema_v3",
+  "models_ranked": 13,
+  "output": {
+    "bytes": 4422,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/design_freeze_v4_variant03/validation_model_ranking.csv"
+  },
+  "schema_version": "validation_model_ranking_manifest_v1",
+  "statistics_schema_version": "statistics_schema_v3"
+}

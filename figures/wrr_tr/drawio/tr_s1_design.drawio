@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="tr_s1_design" name="Page-1">
+    <mxGraphModel dx="528" dy="252" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="528" pageHeight="252" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="page" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="528" height="252" as="geometry"/>
+        </mxCell>
+        <mxCell id="b0" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#faf9f6;strokeColor=#e6e3dc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="6" y="4" width="516" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="t0" value="archive and case populations" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=9;fontStyle=1;fontColor=#111111;spacing=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="14" y="6" width="300" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#faf9f6;strokeColor=#e6e3dc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="6" y="88" width="516" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="t1" value="design" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=9;fontStyle=1;fontColor=#111111;spacing=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="14" y="90" width="300" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#faf9f6;strokeColor=#e6e3dc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="6" y="170" width="516" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="tests" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=9;fontStyle=1;fontColor=#111111;spacing=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="14" y="172" width="300" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" value="Opened archive&#10;600 stations&#10;12,064 station-years" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="16" y="22" width="112" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="E1 missingness audit&#10;heat, flow, time" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="144" y="22" width="116" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="Complete hot years&#10;6,170 at 581 stations&#10;station seasons" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="276" y="22" width="116" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="Cases&#10;114,012 controlled gaps&#10;31,702 real calendars" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="408" y="22" width="108" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="d1" value="D1 recovery law&#10;training-only error law" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3eefb;strokeColor=#2a78d6;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="16" y="106" width="112" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="d2" value="D2 target-aware estimator&#10;D2*, intervals calibrated&#10;by difficulty" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3eefb;strokeColor=#2a78d6;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="144" y="106" width="116" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="d3" value="D3 applicability&#10;rules, scores and&#10;label-free rule" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3eefb;strokeColor=#2a78d6;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="276" y="106" width="116" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="d4" value="D4 multiple imputation&#10;trends and hot years" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3eefb;strokeColor=#2a78d6;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="408" y="106" width="108" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1" value="Leave-one-region-out&#10;27 regions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="16" y="188" width="112" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="Test 1: Australia&#10;114 stations, fixed&#10;thresholds (recomputed)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="144" y="188" width="116" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="Test 2: new USGS&#10;70 stations, label-free&#10;rule (recomputed)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="276" y="188" width="116" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="Downstream, archive, flow&#10;42 long records, 3,876&#10;real years; 255 gauges" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=8;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=3;" vertex="1" parent="1">
+          <mxGeometry x="408" y="188" width="108" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="a1" target="a2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="a3" target="a4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="d1" target="d2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="d2" target="d3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="d3" target="d4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="s1" target="s2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=8;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="s2" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

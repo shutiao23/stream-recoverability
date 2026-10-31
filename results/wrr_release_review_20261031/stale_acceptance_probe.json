@@ -1,0 +1,13 @@
+{
+  "test": "Fault injection in a temporary manuscript copy only",
+  "baseline_status": "complete",
+  "mutation": "Only the temporary abstract RMSE literal changed from 0.170 to 9.170 after prior verification; no new build, verify, or tests",
+  "rejected": false,
+  "rejection_message": null,
+  "returned_status": "complete",
+  "recorded_current_tex_matches_packaged_tex": false,
+  "cached_pdf_text_match_flag": true,
+  "scope": "accept() reuses old verification and captures current paper hashes without comparing them to the verified package. This does not establish that the real current candidate is mismatched.",
+  "original_manuscript_unchanged": true,
+  "original_acceptance_record_unchanged": true
+}

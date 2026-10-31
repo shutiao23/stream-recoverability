@@ -1,0 +1,20 @@
+{
+  "max_exact_weight_identity_error": 5.3153037526953995e-12,
+  "annual_design_prediction_digest": "6d5198e94dff05e188b4799e5a1fbd8cf36edfa21fc522618ef1e0debc41f570",
+  "case_rows": 8115,
+  "archives": 1623,
+  "scope": "Post-hoc reviewer diagnostics. The iid linear variance benchmark is assumption-dependent; no percentage of error is causally attributed to geometry. Calendar tests are simulated empirical-calendar masks, not accuracy validation on genuinely unknown missing values.",
+  "date": "2026-10-31 Asia/Shanghai",
+  "exploratory": true,
+  "new_models_fit": false,
+  "manuscript_or_existing_outputs_changed": false,
+  "seed": 20261031,
+  "bootstraps": 10000,
+  "input_sha256": {
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
+    "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925",
+    "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
+    "paper/wrr_tr/review_completion_article.tex": "c2aa6f1e8b70dcbb06b0c0075287b230004a843fba01ccdf7b6abeb88c799081",
+    "scripts/980_final_release.py": "205dec76f3ee5d70a7e323f30c73c860f7acc4f573791d716b9c0287416fb00a"
+  }
+}

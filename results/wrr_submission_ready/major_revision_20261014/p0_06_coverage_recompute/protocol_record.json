@@ -1,0 +1,531 @@
+{
+  "script": "scripts/315_wrr_p0_06_coverage_and_recompute.py",
+  "generated_utc": "2026-10-15T10:07:22Z",
+  "python": "3.11.7 (main, Dec 15 2023, 18:12:31) [GCC 11.2.0]",
+  "platform": "Linux-6.6.20-x86_64-with-glibc2.35",
+  "thread_cap": {
+    "env": "P0_06_THREADS",
+    "value": "4"
+  },
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.1.4",
+    "sklearn": "1.2.2"
+  },
+  "protocol_constants": {
+    "primary_endpoint": "hottest_30_mean_C",
+    "primary_tolerance_C": 0.5,
+    "primary_tolerance_source": "stream_recoverability.experiments.v17_fitness.paths.PRIMARY_TOLERANCE_C",
+    "primary_retention": 0.7,
+    "primary_retention_source": "local constant in scripts/297_wrr_p0_07_wave2_score.py and scripts/187_v17_confirm.py (not defined in src/)",
+    "step2_protocol_file": "docs/reviews/wrr_major_revision_20261014/STEP2_PROTOCOL.md",
+    "step2_seed": 17,
+    "step2_draws": 1000,
+    "step2_n_splits": 5,
+    "step2_model": "HistGradientBoostingRegressor(loss='quantile', quantile=0.9, max_depth=4, max_iter=350, learning_rate=0.06, min_samples_leaf=40)",
+    "wave2_seed": 0,
+    "wave2_draws": 2000,
+    "reserved_step5_seed": 131,
+    "reserved_v17_seed": 0,
+    "reserved_draws": 2000,
+    "step3_position_seed": 23,
+    "step3_length_seed": 30,
+    "step3_draws": 2000
+  },
+  "inputs": {
+    "station_roster": {
+      "path": "results/v17_fitness/step1_panel/station_roster.csv",
+      "bytes": 69779
+    },
+    "network_split": {
+      "path": "results/v17_fitness/step1_panel/network_split.csv",
+      "bytes": 9904
+    },
+    "trusted_complete_years": {
+      "path": "results/wrr_revision/step1_universe/trusted_river_complete_years.csv",
+      "bytes": 1192450
+    },
+    "current_data_manifest": {
+      "path": "results/wrr_submission_ready/current_data_manifest.csv",
+      "bytes": 33072
+    },
+    "current_data_acquisition": {
+      "path": "results/wrr_submission_ready/current_data_acquisition.csv",
+      "bytes": 57468
+    },
+    "measurement_provenance_dictionary": {
+      "path": "results/wrr_submission_ready/measurement_provenance_dictionary.csv",
+      "bytes": 26044
+    },
+    "data_rights": {
+      "path": "metadata/data_rights.csv",
+      "bytes": 22539
+    },
+    "measurement_provenance_stations": {
+      "path": "results/wrr_submission_ready/measurement_provenance_stations.csv",
+      "bytes": 160718
+    },
+    "wave2_station_roster": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_station_roster.csv",
+      "bytes": 5440
+    },
+    "wave2_inputs_manifest": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_inputs_manifest.csv",
+      "bytes": 12928
+    },
+    "wave2_cases": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+      "bytes": 5220529
+    },
+    "wave2_certificates": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_certificates.parquet",
+      "bytes": 1102189
+    },
+    "wave2_verdict": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json",
+      "bytes": 1831
+    },
+    "transfer_report": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step7_transfer_reporting/transfer_report.json",
+      "bytes": 2744
+    },
+    "arm_and_thermal_contrasts": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step5_monitoring_tasks/arm_and_thermal_contrasts.csv",
+      "bytes": 1842
+    },
+    "v17_reserved_verdict": {
+      "path": "results/v17_fitness/step10_confirmation/verdict.json",
+      "bytes": 1382
+    },
+    "development_cases": {
+      "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "bytes": 17491833
+    },
+    "reserved_cases": {
+      "path": "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
+      "bytes": 4601766
+    },
+    "reserved_certificates": {
+      "path": "results/v17_fitness/step10_confirmation/reserved_certificates.parquet",
+      "bytes": 920218
+    },
+    "step2_contrasts": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step2_same_info_ablation/contrasts_network_ci.json",
+      "bytes": 2931
+    },
+    "step2_operating_points": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step2_same_info_ablation/operating_points_development_oof.csv",
+      "bytes": 811
+    },
+    "crossed_development_cases": {
+      "path": "results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet",
+      "bytes": 980854
+    },
+    "step3_position_contrasts": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+      "bytes": 1531
+    },
+    "step3_length_contrasts": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+      "bytes": 1656
+    },
+    "step3_summary": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step3_fixed_reconstructor_mechanism/summary.json",
+      "bytes": 11332
+    }
+  },
+  "wave2_network_artifacts": {
+    "usgs_wave2_1023": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1023/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1023/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_1024": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1024/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1024/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_1070": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1070/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1070/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_1080": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1080/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1080/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_1090": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1090/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1090/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_1101": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1101/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1101/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_1103": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1103/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_1103/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_2050": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2050/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2050/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_2060": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2060/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2060/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_2070": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2070/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2070/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_2080": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2080/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_2080/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_3060": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_3060/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_3060/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_3150": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_3150/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_3150/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_3160": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_3160/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_3160/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_4020": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4020/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4020/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_4060": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4060/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4060/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_4070": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4070/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4070/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_4080": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4080/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_4080/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5020": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5020/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5020/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5030": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5030/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5030/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5040": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5040/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5040/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5090": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5090/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5090/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5100": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5100/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5100/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5110": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5110/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5110/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5120": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5120/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5120/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_5140": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5140/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_5140/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_8090": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_8090/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_8090/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_010900": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_010900/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_010900/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_020401": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020401/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020401/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_020402": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020402/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020402/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_020503": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020503/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020503/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_020700": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020700/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_020700/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_030402": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030402/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030402/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_030501": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030501/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030501/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_030502": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030502/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030502/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_030601": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030601/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030601/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_030701": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030701/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_030701/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_031300": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_031300/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_031300/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_031501": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_031501/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_031501/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_050100": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_050100/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_050100/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_050301": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_050301/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_050301/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_050400": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_050400/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_050400/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_051202": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_051202/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_051202/station_eligibility.csv"
+      }
+    },
+    "usgs_wave2_huc6_071200": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_071200/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/networks/usgs_wave2_huc6_071200/station_eligibility.csv"
+      }
+    },
+    "hubeau_loir": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_loir/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_loir/station_eligibility.csv"
+      }
+    },
+    "hubeau_truyere": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_truyere/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_truyere/station_eligibility.csv"
+      }
+    },
+    "hubeau_vienne": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_vienne/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_vienne/station_eligibility.csv"
+      }
+    },
+    "hubeau_vire": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_vire/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/networks/hubeau_vire/station_eligibility.csv"
+      }
+    },
+    "uk_ea_wave2_s50_004": {
+      "daily_wide": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/uk_ea/networks/uk_ea_wave2_s50_004/daily_wide_temperature.csv"
+      },
+      "eligibility": {
+        "path": "results/wrr_submission_ready/p0_07_wave2_ingest/uk_ea/networks/uk_ea_wave2_s50_004/station_eligibility.csv"
+      }
+    }
+  }
+}

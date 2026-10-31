@@ -1,0 +1,11 @@
+{
+  "scope": "Saved crossed forward annual cases; matching is descriptive and not a causal identification of river process.",
+  "n_bavaria": 1983,
+  "n_foen": 1119,
+  "excluded": [
+    "unmatched_gages is not an unregulated label",
+    "peak_hidden uses withheld complete-year truth",
+    "region and provider are confounded",
+    "no credible flow or regulation subset is used"
+  ]
+}

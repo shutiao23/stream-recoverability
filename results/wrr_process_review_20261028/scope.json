@@ -1,0 +1,20 @@
+{
+  "scope": "Post-hoc description of saved crossed/forward annual cases; reference-peak strata require withheld complete truth and are not deployable or causal.",
+  "regions_compared": {
+    "Bavaria": {
+      "stations": 24,
+      "groups": 8
+    },
+    "Switzerland_FOEN": {
+      "stations": 10,
+      "groups": 2
+    }
+  },
+  "limits": [
+    "Not an independent external validation",
+    "No matched-confounder analysis performed",
+    "Region and provider are confounded in these two groups",
+    "unmatched_gages does not mean unregulated"
+  ],
+  "source": "results/wrr_adversarial_review_20261027/failure_strata/failure_strata_cases.parquet"
+}

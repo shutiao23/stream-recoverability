@@ -1,0 +1,22 @@
+{
+  "created_at_utc": "2026-10-20T12:01:07.819064+00:00",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/case_information.parquet"
+    },
+    "erratum": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/docs/reviews/wrr_major_revision_20261020c/NONPREDICTIVE_ERRATUM.md"
+    },
+    "label_function": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/scripts/wrr_r3_hydrology.py"
+    },
+    "method_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/method_lock.json"
+    }
+  },
+  "predictive_decisions_changed": false,
+  "script": {
+    "path": "scripts/373_wrr_hydrological_strata.py"
+  },
+  "snow_units": "percent; majority threshold 50"
+}

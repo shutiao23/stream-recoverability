@@ -1,0 +1,176 @@
+{
+  "checks": [
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "paper/wrr_tr/review_completion_article.tex",
+      "unchanged": false
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "paper/wrr_tr/review_completion_article.pdf",
+      "unchanged": false
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "paper/wrr_tr/review_completion_supporting.tex",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "paper/wrr_tr/review_completion_supporting.pdf",
+      "unchanged": false
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "scripts/968_process_source_calibration.py",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "scripts/969_time_gap_sensitivity.py",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "results/wrr_process_experiments_20261029/time_frozen_replay/annual_inputs.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/source_nested_draws.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/source_reestimated_offsets.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/audit_scope.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/source_union_cases.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/source_role_cases.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/fixed_target_cases.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/source_nested_quantiles.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/source_nested_draws.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/source_frozen_manifest.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/source_reestimated_offsets.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/target_nested_draws.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_process_experiments_20261029/source_calibration/full/target_historical_reference.csv",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/cases/before_2010/seed_00.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "configs/wrr_review_completion_20261024.json",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_response_20261027/whole_archive/classical_calibration.json",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "scripts/968_process_source_calibration.py",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/refits/before_2010/seed_00/foen.json",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/refits/before_2010/seed_00/foen.joblib",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/refits/before_2010/seed_00/gkd_bayern.json",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/source_roles_reaudit.json",
+      "input": "results/wrr_review_completion_20261024/refits/before_2010/seed_00/gkd_bayern.joblib",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/region_water/region_water_audit_report.json",
+      "input": "results/wrr_adversarial_review_20261027/failure_strata/failure_strata_cases.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/region_water/region_water_audit_report.json",
+      "input": "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet",
+      "unchanged": true
+    },
+    {
+      "record": "results/wrr_multiview_review_20261031/region_water/region_water_audit_report.json",
+      "input": "results/wrr_review_response_20261027/whole_archive/trends.csv",
+      "unchanged": true
+    }
+  ],
+  "n_checked": 33,
+  "changed": [
+    "paper/wrr_tr/review_completion_article.tex",
+    "paper/wrr_tr/review_completion_article.pdf",
+    "paper/wrr_tr/review_completion_supporting.pdf"
+  ],
+  "note": "Earlier executed scientific audits are reused where their bound input content is unchanged; this is not a claim that every old test was run anew."
+}

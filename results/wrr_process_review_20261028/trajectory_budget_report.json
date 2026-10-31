@@ -1,0 +1,24 @@
+{
+  "predeclared_stations": [
+    "foen|2016",
+    "foen|2019",
+    "foen|2029",
+    "gkd_bayern|10026293",
+    "gkd_bayern|10039802",
+    "gkd_bayern|10046105"
+  ],
+  "predeclared_rule": "First three sorted FOEN and Bavaria station keys in replicate 0 of crossed forward archives.",
+  "counts": [
+    20,
+    100,
+    500
+  ],
+  "d2_not_refit": true,
+  "offset_check": {
+    "median_abs_q05_change_500_vs_20": 0.0,
+    "median_abs_q95_change_500_vs_20": 0.007091923184464832,
+    "tails_moved": false,
+    "source_role_offsets_reestimated": false,
+    "reason": "Uncalibrated 5% and 95% quantiles changed by at most 0.05 C; original source offsets were kept."
+  }
+}
