@@ -7,7 +7,6 @@ fresh scaler fitted only on that version's training values.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import Iterable, Mapping
 from dataclasses import asdict, dataclass
@@ -256,9 +255,10 @@ def apply_data_version(long_data: pd.DataFrame, data_version: str) -> pd.DataFra
         result.loc[target, "data_version_action"] = "hypothetical_b1_level_minus_8.48_m"
     if data_version in _V2_VERSIONS:
         flagged = result["known_issue_flag"].fillna(False).astype(bool)
-        result.loc[flagged & result["data_version_action"].eq("unchanged"), "data_version_action"] = (
-            "flagged_known_issue"
-        )
+        result.loc[
+            flagged & result["data_version_action"].eq("unchanged"),
+            "data_version_action",
+        ] = "flagged_known_issue"
 
     if _changed_count(raw_before, result["raw_value"]):
         raise RuntimeError("A data-version transformation altered raw_value")
@@ -293,14 +293,6 @@ def build_version_frames(
         for column in excluded_columns
     }
     return versioned_long, versioned_wide, scaler
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _portable_input_path(path: Path) -> str:
@@ -368,10 +360,7 @@ def _counts(
         "quality_approved_values": int(
             source_long["quality_approved"].fillna(False).sum()
         ),
-        **{
-            f"source_{key}": value
-            for key, value in qc_counts(source_long).items()
-        },
+        **{f"source_{key}": value for key, value in qc_counts(source_long).items()},
     }
     output_counts: dict[str, Any] = {
         "long_rows": len(versioned_long),
@@ -398,7 +387,6 @@ def _counts(
 def _write_one_version(
     source_long: pd.DataFrame,
     input_path: Path,
-    input_sha256: str,
     output_root: Path,
     data_version: str,
 ) -> dict[str, Any]:
@@ -427,25 +415,30 @@ def _write_one_version(
     scaler_path = version_dir / "scaler.json"
     versioned_long.to_parquet(long_path, index=False)
     versioned_wide.to_parquet(wide_path, index=False)
-    split_paths: dict[str, Path] = {}
+    split_rows: dict[str, tuple[Path, int]] = {}
     for split in ("train", "validation", "test"):
         split_path = split_dir / f"{split}.parquet"
-        versioned_wide.loc[versioned_wide["split"] == split].to_parquet(
-            split_path, index=False
-        )
-        split_paths[split] = split_path
+        split_frame = versioned_wide.loc[versioned_wide["split"] == split]
+        split_frame.to_parquet(split_path, index=False)
+        split_rows[split] = (split_path, len(split_frame))
     with scaler_path.open("w", encoding="utf-8") as handle:
         json.dump(scaler, handle, ensure_ascii=False, indent=2, allow_nan=False)
 
     artifacts = {
-        "daily_long.parquet": {"sha256": _sha256_file(long_path)},
-        "daily_wide.parquet": {"sha256": _sha256_file(wide_path)},
-        "scaler.json": {"sha256": _sha256_file(scaler_path)},
+        "daily_long.parquet": {
+            "bytes": long_path.stat().st_size,
+            "rows": len(versioned_long),
+        },
+        "daily_wide.parquet": {
+            "bytes": wide_path.stat().st_size,
+            "rows": len(versioned_wide),
+        },
+        "scaler.json": {"bytes": scaler_path.stat().st_size},
     }
     artifacts.update(
         {
-            f"splits/{split}.parquet": {"sha256": _sha256_file(path)}
-            for split, path in split_paths.items()
+            f"splits/{split}.parquet": {"bytes": path.stat().st_size, "rows": rows}
+            for split, (path, rows) in split_rows.items()
         }
     )
     manifest: dict[str, Any] = {
@@ -453,7 +446,7 @@ def _write_one_version(
         "data_version": data_version,
         "definition": asdict(definition),
         "input_path": _portable_input_path(input_path),
-        "input_sha256": input_sha256,
+        "input_bytes": input_path.stat().st_size,
         "input_counts": input_counts,
         "output_counts": output_counts,
         "transformation_counts": transformation_counts,
@@ -500,13 +493,11 @@ def build_data_versions(
 
     source_long = pd.read_parquet(input_path)
     _validate_source_long(source_long)
-    input_sha256 = _sha256_file(input_path)
     manifests: dict[str, dict[str, Any]] = {}
     for data_version in requested:
         manifests[data_version] = _write_one_version(
             source_long=source_long,
             input_path=input_path,
-            input_sha256=input_sha256,
             output_root=root,
             data_version=data_version,
         )

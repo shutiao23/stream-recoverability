@@ -16,7 +16,7 @@ least as well as the strongest fitting-record baseline — NOT big gains from
 seasonal stratification, and NOT uniqueness in magnitude.
 
 Evidence roles (used throughout): **frozen pre-outcome** = first-panel
-analyses and the second panel (internally hash-bound, frozen before outcome
+analyses and the second panel (internally frozen before outcome
 scoring; not externally verifiable preregistration because amendment and
 outcomes share one commit); **post-hoc v12 development** = all revision
 analyses on already-scored panels; **v13 harmonization** = re-runs on unified
@@ -354,7 +354,7 @@ outcome-disjoint panel).
   (C2d).
 - **No automatic filling or station removal.** Nothing in the revision adds
   a certified safe-fill or placement margin (t09; v11 protocol history).
-- **No external preregistration claim.** v2 is internally hash-bound,
+- **No external preregistration claim.** v2 is internally frozen,
   same-commit; v3 is drafted, not registered; v4 is required for decision
   endpoints; no third-panel outcomes exist.
 

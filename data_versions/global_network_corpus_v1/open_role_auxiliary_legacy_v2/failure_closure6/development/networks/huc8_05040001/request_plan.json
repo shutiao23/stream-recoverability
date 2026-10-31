@@ -8,7 +8,7 @@
         "00060",
         "00065"
       ],
-      "request_id": "legacy_dv_25b62bc464ad6ddbf54b",
+      "request_id": "legacy_dv_huc8_05040001_2015-06-22_2025-11-19",
       "role": "development",
       "site_ids": [
         "03119341",
@@ -31,7 +31,6 @@
   "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
   "n_provider_requests": 12,
   "network_id": "huc8_05040001",
-  "network_plan_sha256": "d6185cc77c984173dfce86fb4549de790d46a89ccb5dcf0d7a8e83a8457f89f6",
   "performance_metrics_computed": false,
   "power_requests": [
     {
@@ -102,7 +101,6 @@
     }
   ],
   "previous_attempt_archive": "attempts/attempt_0003",
-  "request_plan_sha256": "4f186acf9cbebfce7fc9e02b1d54d5ee88e7b5d834ae436c0bc7fdb6cb53091d",
   "role": "development",
   "sealed_paths_traversed": false,
   "temperature_columns_read": []

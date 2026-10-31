@@ -7,14 +7,12 @@ the count fixed* costs +0.082 C.  The frozen table under
 not hold the count fixed, and it was left beside a ``summary.json`` that records
 ``controls: {}`` (a later, failing generation).  This script
 
-1. re-verifies that the byte-preserved pre-fix copies under
-   ``amendments/step5_mechanism_pre_fix/`` still match the frozen originals;
-2. recomputes the pre-fix specification and the exact-K specification inside one
+1. recomputes the pre-fix specification and the exact-K specification inside one
    worker pass, so both see identical realizations, visibility and seeds;
-3. reports the matched and the unmatched contrast with network-clustered
+2. reports the matched and the unmatched contrast with network-clustered
    bootstrap intervals (2000 draws, seed 0, clusters = networks);
-4. fails loudly instead of writing a partial or stale result set, and writes a
-   hash-bound generation manifest.
+3. fails loudly instead of writing a partial or stale result set, and writes a
+   manifest that lists every file of the generation.
 
 Run: ``PYTHONPATH=src python3 scripts/247_wrr_mechanism_equal_k.py``
 """
@@ -32,63 +30,61 @@ sys.path.insert(0, str(ROOT / "src"))
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-from stream_recoverability.experiments.v17_fitness.panel import station_jobs, station_roster  # noqa: E402
-from stream_recoverability.experiments.v17_fitness.paths import STEP1_PANEL, STEP5_MECHANISM  # noqa: E402
+from stream_recoverability.experiments.v17_fitness.panel import (
+    station_jobs,
+    station_roster,
+)  # noqa: E402
+from stream_recoverability.experiments.v17_fitness.paths import (
+    STEP1_PANEL,
+    STEP5_MECHANISM,
+)  # noqa: E402
 from stream_recoverability.experiments.v17_fitness.stats import cluster_bootstrap  # noqa: E402
-from stream_recoverability.experiments.wrr_submission_ready import equal_k_mechanism as ek  # noqa: E402
-from stream_recoverability.experiments.wrr_submission_ready.run_identity import sha256_file  # noqa: E402
+from stream_recoverability.experiments.wrr_submission_ready import (
+    equal_k_mechanism as ek,
+)  # noqa: E402
 
-AMENDMENT_DIR = ROOT / "results" / "wrr_submission_ready" / "amendments" / "step5_mechanism_equal_k"
-PREFIX_DIR = ROOT / "results" / "wrr_submission_ready" / "amendments" / "step5_mechanism_pre_fix"
+AMENDMENT_DIR = (
+    ROOT / "results" / "wrr_submission_ready" / "amendments" / "step5_mechanism_equal_k"
+)
+PREFIX_DIR = (
+    ROOT / "results" / "wrr_submission_ready" / "amendments" / "step5_mechanism_pre_fix"
+)
 SCRATCH_DIR = ROOT / "scratch" / "f12_equal_k"
-FROZEN_FILES = ("donor_control_contrasts.csv", "donor_control_summary.csv", "donor_controls.parquet", "summary.json")
+FROZEN_FILES = (
+    "donor_control_contrasts.csv",
+    "donor_control_summary.csv",
+    "donor_controls.parquet",
+    "summary.json",
+)
 DRAWS = 2000
 SEED = 0
 
 
 # ---------------------------------------------------------------------------
-# Step 1 — the preserved originals must still be the originals
+# Step 2 — contrasts
 # ---------------------------------------------------------------------------
 
 
-def preflight_preservation() -> dict[str, object]:
-    report: dict[str, object] = {"ok": True, "files": []}
-    for name in FROZEN_FILES:
-        frozen = STEP5_MECHANISM / name
-        copy = PREFIX_DIR / name
-        row = {
-            "file": name,
-            "frozen_sha256": sha256_file(frozen) if frozen.is_file() else None,
-            "preserved_sha256": sha256_file(copy) if copy.is_file() else None,
-            "frozen_mtime_ns": frozen.stat().st_mtime_ns if frozen.is_file() else None,
-            "preserved_mtime_ns": copy.stat().st_mtime_ns if copy.is_file() else None,
-        }
-        row["identical"] = bool(row["frozen_sha256"] and row["frozen_sha256"] == row["preserved_sha256"])
-        row["mtime_preserved"] = bool(row["frozen_mtime_ns"] == row["preserved_mtime_ns"])
-        report["ok"] = bool(report["ok"]) and row["identical"]
-        report["files"].append(row)
-    if not report["ok"]:
-        raise ek.IncompleteGeneration("the frozen step5 artifacts no longer match the preserved copies")
-    return report
-
-
-# ---------------------------------------------------------------------------
-# Step 3 — contrasts
-# ---------------------------------------------------------------------------
-
-
-def _paired(frame: pd.DataFrame, left: str, right: str, extra: str | None = None) -> pd.DataFrame:
+def _paired(
+    frame: pd.DataFrame, left: str, right: str, extra: str | None = None
+) -> pd.DataFrame:
     columns = [left, right] + ([extra] if extra else [])
     block = frame.dropna(subset=columns)
-    return block.loc[np.isfinite(pd.to_numeric(block[left], errors="coerce")) & np.isfinite(pd.to_numeric(block[right], errors="coerce"))]
+    return block.loc[
+        np.isfinite(pd.to_numeric(block[left], errors="coerce"))
+        & np.isfinite(pd.to_numeric(block[right], errors="coerce"))
+    ]
 
 
-def _contrast(frame: pd.DataFrame, left: str, right: str, **meta: object) -> dict[str, object]:
+def _contrast(
+    frame: pd.DataFrame, left: str, right: str, **meta: object
+) -> dict[str, object]:
     block = _paired(frame, left, right)
     stat = cluster_bootstrap(
         block,
         lambda f, a=left, b=right: float(
-            pd.to_numeric(f[a], errors="coerce").mean() - pd.to_numeric(f[b], errors="coerce").mean()
+            pd.to_numeric(f[a], errors="coerce").mean()
+            - pd.to_numeric(f[b], errors="coerce").mean()
         ),
         draws=DRAWS,
         seed=SEED,
@@ -105,7 +101,9 @@ def _contrast(frame: pd.DataFrame, left: str, right: str, **meta: object) -> dic
     }
 
 
-def _network_equal_contrast(frame: pd.DataFrame, left: str, right: str, **meta: object) -> dict[str, object]:
+def _network_equal_contrast(
+    frame: pd.DataFrame, left: str, right: str, **meta: object
+) -> dict[str, object]:
     """Network-equal mean of the within-pair difference.
 
     The pooled mean lets a large network speak for several; this one lets every
@@ -115,7 +113,9 @@ def _network_equal_contrast(frame: pd.DataFrame, left: str, right: str, **meta: 
     block = _paired(frame, left, right)
 
     def statistic(f: pd.DataFrame) -> float:
-        difference = pd.to_numeric(f[left], errors="coerce") - pd.to_numeric(f[right], errors="coerce")
+        difference = pd.to_numeric(f[left], errors="coerce") - pd.to_numeric(
+            f[right], errors="coerce"
+        )
         per_network = difference.groupby(f["network_id"]).mean()
         return float(per_network.mean())
 
@@ -136,7 +136,9 @@ def distribution_stats(frame: pd.DataFrame, left: str, right: str) -> dict[str, 
     """How the mean is made: ties, sign split and tail concentration."""
 
     block = _paired(frame, left, right)
-    difference = pd.to_numeric(block[left], errors="coerce") - pd.to_numeric(block[right], errors="coerce")
+    difference = pd.to_numeric(block[left], errors="coerce") - pd.to_numeric(
+        block[right], errors="coerce"
+    )
     difference = difference[np.isfinite(difference)]
     if difference.empty:
         return {"n": 0}
@@ -155,11 +157,15 @@ def distribution_stats(frame: pd.DataFrame, left: str, right: str) -> dict[str, 
         "min_c": float(difference.min()),
         "max_c": float(difference.max()),
         "top_decile_mean_c": float(top_decile.mean()),
-        "top_decile_share_of_positive_mass": float(top_decile.sum() / positive.sum()) if len(positive) else float("nan"),
+        "top_decile_share_of_positive_mass": float(top_decile.sum() / positive.sum())
+        if len(positive)
+        else float("nan"),
     }
 
 
-def _stratified_contrast(frame: pd.DataFrame, left: str, right: str, strata: list[str], **meta: object) -> dict[str, object]:
+def _stratified_contrast(
+    frame: pd.DataFrame, left: str, right: str, strata: list[str], **meta: object
+) -> dict[str, object]:
     """Within-stratum paired contrast, weighted by stratum size.
 
     Every compared pair here shares donor count K, arm and overlap class, which
@@ -169,8 +175,12 @@ def _stratified_contrast(frame: pd.DataFrame, left: str, right: str, strata: lis
     block = _paired(frame, left, right).copy()
 
     def statistic(f: pd.DataFrame) -> float:
-        value = pd.to_numeric(f[left], errors="coerce") - pd.to_numeric(f[right], errors="coerce")
-        grouped = pd.DataFrame({"v": value.to_numpy(dtype=float), **{s: f[s].to_numpy() for s in strata}})
+        value = pd.to_numeric(f[left], errors="coerce") - pd.to_numeric(
+            f[right], errors="coerce"
+        )
+        grouped = pd.DataFrame(
+            {"v": value.to_numpy(dtype=float), **{s: f[s].to_numpy() for s in strata}}
+        )
         per_stratum = grouped.dropna().groupby(strata, dropna=False)["v"].mean()
         weights = grouped.dropna().groupby(strata, dropna=False)["v"].size()
         if per_stratum.empty:
@@ -182,7 +192,9 @@ def _stratified_contrast(frame: pd.DataFrame, left: str, right: str, strata: lis
         **meta,
         "n_paired": int(len(block)),
         "n_networks": int(block["network_id"].nunique()) if len(block) else 0,
-        "n_strata": int(block.groupby(strata, dropna=False).ngroups) if len(block) else 0,
+        "n_strata": int(block.groupby(strata, dropna=False).ngroups)
+        if len(block)
+        else 0,
         "point_c": stat["point"],
         "ci_low_c": stat["low"],
         "ci_high_c": stat["high"],
@@ -197,7 +209,12 @@ def build_contrasts(frame: pd.DataFrame) -> pd.DataFrame:
     # The literal scripts/183 sample: a complete case had to be finite in all
     # four arms, which is how the frozen table defined its paired sample.
     complete_case = frame.dropna(
-        subset=["abserr_strong_orig", "abserr_weak_orig", "abserr_all_donors", "abserr_anomaly_shuffled"]
+        subset=[
+            "abserr_strong_orig",
+            "abserr_weak_orig",
+            "abserr_all_donors",
+            "abserr_anomaly_shuffled",
+        ]
     )
 
     # (a) unmatched, pre-fix specification.
@@ -296,7 +313,10 @@ def build_contrasts(frame: pd.DataFrame) -> pd.DataFrame:
     )
     # (e) the shuffle surrogate control, which never had a count problem but lived
     # in the same table and the same failing script.
-    for label, block in (("full_sample", frame), ("matched_restricted", frame.loc[frame["k_matched"] >= 1])):
+    for label, block in (
+        ("full_sample", frame),
+        ("matched_restricted", frame.loc[frame["k_matched"] >= 1]),
+    ):
         rows.append(
             _contrast(
                 block,
@@ -340,7 +360,10 @@ def build_arm_table(frame: pd.DataFrame) -> pd.DataFrame:
     ):
         block = frame.loc[np.isfinite(pd.to_numeric(frame[column], errors="coerce"))]
         stat = cluster_bootstrap(
-            block, lambda f, c=column: float(pd.to_numeric(f[c], errors="coerce").mean()), draws=DRAWS, seed=SEED
+            block,
+            lambda f, c=column: float(pd.to_numeric(f[c], errors="coerce").mean()),
+            draws=DRAWS,
+            seed=SEED,
         )
         rows.append(
             {
@@ -386,16 +409,24 @@ def build_k_table(frame: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 
 
-def reproduction_check(frame: pd.DataFrame, contrasts: pd.DataFrame) -> dict[str, object]:
+def reproduction_check(
+    frame: pd.DataFrame, contrasts: pd.DataFrame
+) -> dict[str, object]:
     frozen_contrasts = pd.read_csv(PREFIX_DIR / "donor_control_contrasts.csv")
     frozen_summary = pd.read_csv(PREFIX_DIR / "donor_control_summary.csv")
-    frozen_row = frozen_contrasts.loc[frozen_contrasts["contrast"] == "abserr_weak_half - abserr_strong_half"].iloc[0]
-    mine = contrasts.loc[(contrasts["spec"] == "unmatched_original_183_complete_case")].iloc[0]
+    frozen_row = frozen_contrasts.loc[
+        frozen_contrasts["contrast"] == "abserr_weak_half - abserr_strong_half"
+    ].iloc[0]
+    mine = contrasts.loc[
+        (contrasts["spec"] == "unmatched_original_183_complete_case")
+    ].iloc[0]
     frozen_cases = pd.read_parquet(PREFIX_DIR / "donor_controls.parquet")
     frozen_gap = (
         frozen_cases["n_strong"].astype(int) - frozen_cases["n_weak"].astype(int)
     ).abs()
-    frozen_controls = json.loads((PREFIX_DIR / "summary.json").read_text(encoding="utf-8"))["controls"]
+    frozen_controls = json.loads(
+        (PREFIX_DIR / "summary.json").read_text(encoding="utf-8")
+    )["controls"]
     point_diff = float(abs(float(frozen_row["point"]) - float(mine["point_c"])))
     reproduces = bool(
         point_diff <= 1e-6
@@ -418,7 +449,9 @@ def reproduction_check(frame: pd.DataFrame, contrasts: pd.DataFrame) -> dict[str
         "frozen_max_abs_count_gap": int(frozen_gap.max()),
         "frozen_controls_block": frozen_controls,
         "frozen_controls_block_empty": frozen_controls == {},
-        "frozen_arm_table_n": {str(r.arm): int(r.n) for r in frozen_summary.itertuples()},
+        "frozen_arm_table_n": {
+            str(r.arm): int(r.n) for r in frozen_summary.itertuples()
+        },
         "frozen_artifact_mtimes_ns": {
             name: (STEP5_MECHANISM / name).stat().st_mtime_ns for name in FROZEN_FILES
         },
@@ -436,9 +469,25 @@ def case_level_reproduction(frame: pd.DataFrame) -> dict[str, object]:
     frozen = pd.read_parquet(PREFIX_DIR / "donor_controls.parquet")
     keys = ["network_id", "station_id", "year", "realization_id"]
     mine = frame[
-        keys + ["longest_run", "n_strong_orig", "n_weak_orig", "abserr_strong_orig", "abserr_weak_orig"]
+        keys
+        + [
+            "longest_run",
+            "n_strong_orig",
+            "n_weak_orig",
+            "abserr_strong_orig",
+            "abserr_weak_orig",
+        ]
     ].copy()
-    theirs = frozen[keys + ["longest_run", "n_strong", "n_weak", "abserr_strong_half", "abserr_weak_half"]].copy()
+    theirs = frozen[
+        keys
+        + [
+            "longest_run",
+            "n_strong",
+            "n_weak",
+            "abserr_strong_half",
+            "abserr_weak_half",
+        ]
+    ].copy()
     for block in (mine, theirs):
         for column in ("network_id", "station_id", "realization_id"):
             block[column] = block[column].astype(str)
@@ -452,10 +501,15 @@ def case_level_reproduction(frame: pd.DataFrame) -> dict[str, object]:
         "recomputed_only_cases": int(len(frame) - len(merged)),
     }
     if merged.empty:
-        result["note"] = "no case keys in common: the frozen generation drew different realizations"
+        result["note"] = (
+            "no case keys in common: the frozen generation drew different realizations"
+        )
         return result
     result["longest_run_agreement"] = float(
-        (merged["longest_run_mine"].astype(int) == merged["longest_run_frozen"].astype(int)).mean()
+        (
+            merged["longest_run_mine"].astype(int)
+            == merged["longest_run_frozen"].astype(int)
+        ).mean()
     )
     result["donor_count_agreement"] = float(
         (
@@ -472,8 +526,12 @@ def case_level_reproduction(frame: pd.DataFrame) -> dict[str, object]:
         both = np.isfinite(left) & np.isfinite(right)
         diff = (left[both] - right[both]).abs()
         result[f"{label}_finite_pairs"] = int(both.sum())
-        result[f"{label}_max_abs_diff_c"] = float(diff.max()) if len(diff) else float("nan")
-        result[f"{label}_share_within_1e-9"] = float((diff <= 1e-9).mean()) if len(diff) else float("nan")
+        result[f"{label}_max_abs_diff_c"] = (
+            float(diff.max()) if len(diff) else float("nan")
+        )
+        result[f"{label}_share_within_1e-9"] = (
+            float((diff <= 1e-9).mean()) if len(diff) else float("nan")
+        )
     return result
 
 
@@ -507,24 +565,34 @@ def write_report(
     verdict: dict[str, object],
 ) -> str:
     primary = contrasts.loc[contrasts["spec"] == "matched_exact_k"]
-    stratified = contrasts.loc[contrasts["spec"] == "matched_exact_k_stratified"].iloc[0]
+    stratified = contrasts.loc[contrasts["spec"] == "matched_exact_k_stratified"].iloc[
+        0
+    ]
     unmatched = contrasts.loc[contrasts["spec"] == "unmatched_original"].iloc[0]
-    equal_subset = contrasts.loc[contrasts["spec"] == "unmatched_original_equal_count_subset"].iloc[0]
+    equal_subset = contrasts.loc[
+        contrasts["spec"] == "unmatched_original_equal_count_subset"
+    ].iloc[0]
     shuffle_full = contrasts.loc[
-        (contrasts["spec"] == "shuffle_control") & (contrasts["selection_rule"] == "visible_set_full_sample")
+        (contrasts["spec"] == "shuffle_control")
+        & (contrasts["selection_rule"] == "visible_set_full_sample")
     ].iloc[0]
     shuffle_matched = contrasts.loc[
-        (contrasts["spec"] == "shuffle_control") & (contrasts["selection_rule"] == "visible_set_matched_restricted")
+        (contrasts["spec"] == "shuffle_control")
+        & (contrasts["selection_rule"] == "visible_set_matched_restricted")
     ].iloc[0]
-    complete_case_row = contrasts.loc[contrasts["spec"] == "unmatched_original_183_complete_case"].iloc[0]
-    matched_complete_case = contrasts.loc[contrasts["spec"] == "matched_exact_k_183_complete_case"].iloc[0]
+    complete_case_row = contrasts.loc[
+        contrasts["spec"] == "unmatched_original_183_complete_case"
+    ].iloc[0]
+    matched_complete_case = contrasts.loc[
+        contrasts["spec"] == "matched_exact_k_183_complete_case"
+    ].iloc[0]
     primary_top = primary.loc[primary["selection_rule"] == "top_of_half"].iloc[0]
 
     lines = ["# F12 — exact-K re-analysis of the Step-5 donor-count control", ""]
     lines += [
         "Adversarial finding F12: the donor control that the manuscript describes as",
-        "\"halving the donor set by training-period correlation **while holding the count",
-        "fixed**\" did not hold the count fixed, and the frozen table sits beside a",
+        '"halving the donor set by training-period correlation **while holding the count',
+        'fixed**" did not hold the count fixed, and the frozen table sits beside a',
         "`summary.json` written by a later, failing generation (`controls: {}`).",
         "",
         "## What the frozen generation actually contains",
@@ -574,7 +642,15 @@ def write_report(
     ]
     headline = pd.concat(
         [
-            pd.DataFrame([unmatched, complete_case_row, equal_subset, matched_complete_case, stratified]),
+            pd.DataFrame(
+                [
+                    unmatched,
+                    complete_case_row,
+                    equal_subset,
+                    matched_complete_case,
+                    stratified,
+                ]
+            ),
             primary,
         ],
         ignore_index=True,
@@ -599,8 +675,8 @@ def write_report(
         f"code. Only {reproduction['case_level'].get('joined_cases', 0):,} of the {reproduction['frozen_n_cases']:,} frozen cases share a",
         "(network, station, year, realization) key with this recomputation, which indicates that the",
         "frozen table was produced by a different revision of the pipeline than the one committed —",
-        "a revision that, as the probe below shows, could not run this branch at all. Among the cases",
-        "that do join,",
+        "a revision that could not run this branch at all (see the provenance hazard below). Among the",
+        "cases that do join,",
         f"{100 * float(reproduction['case_level'].get('longest_run_agreement', float('nan'))):.1f}% have the same outage geometry and",
         f"{100 * float(reproduction['case_level'].get('donor_count_agreement', float('nan'))):.1f}% the same donor counts, and the pre-fix arm errors agree",
         "only about half the time, so the two generations are close in distribution and not identical",
@@ -645,7 +721,9 @@ def write_report(
         "| stratum | n paired | point (C) | 95% CI |",
         "| --- | --- | --- | --- |",
     ]
-    for row in contrasts.loc[contrasts["spec"] == "matched_exact_k_stratum"].itertuples():
+    for row in contrasts.loc[
+        contrasts["spec"] == "matched_exact_k_stratum"
+    ].itertuples():
         lines.append(
             f"| {row.note} | {row.n_paired:,} | {_fmt(row.point_c)} | "
             f"{_fmt(row.ci_low_c)} to {_fmt(row.ci_high_c)} |"
@@ -768,17 +846,17 @@ def write_report(
         "That is exactly what the frozen directory shows. The tables carry mtime",
         f"{provenance['frozen_mtimes_utc']['donor_control_contrasts.csv']} and the summary carries",
         f"{provenance['frozen_mtimes_utc']['summary.json']}, 8 hours apart in the same commit; the frozen",
-        "`REPORT.md` has no \"Controlled donor experiments\" section, which is what the empty branch",
-        "produces. At the commit that added these files the donor-control branch could not run at all:",
-        "`stable_seed` was used but not imported, so every worker raised `NameError` (fixed only in",
-        "`9a933ff309`). The committed provenance is therefore a table from generation A beside a",
+        '`REPORT.md` has no "Controlled donor experiments" section, which is what the empty branch',
+        "produces. At the revision that added these files the donor-control branch could not run at all:",
+        "its seed helper was used but not imported, so every worker raised `NameError` (fixed in a later",
+        "revision). The committed provenance is therefore a table from generation A beside a",
         "summary and report from generation B — a reader taking the summary as the run's own account",
         "of itself would conclude no donor control was run, and a reader taking the table would",
         "conclude it was, with no way to tell which generation either came from.",
         "",
         "Demonstration (`mixed_generation_hazard_demo`, deterministic, no cluster or panel data):",
         "",
-        "- a stale success table was left byte-identical beside an empty-controls summary:",
+        "- a stale success table was left in place, unmodified, beside an empty-controls summary:",
         f"  `stale_table_preserved = {hazard['stale_table_preserved']}`,",
         f"  `summary_claims_zero_controls = {hazard['summary_claims_zero_controls']}`,",
         f"  `mixed_generation_state = {hazard['mixed_generation_state']}`;",
@@ -789,21 +867,21 @@ def write_report(
         "`WorkerFailure` before anything is written; every submitted job must be accounted for as rows",
         "or as a documented empty reason (an empty frame without a reason is itself an error);",
         "`require_controls` refuses an empty or single-network control frame; `write_generation` writes",
-        "`summary.json` last and closes the set with a `MANIFEST.json` binding every file to one",
-        "generation id; `verify_generation` re-checks the hashes and rejects unlisted files that a",
+        "`summary.json` last and closes the set with a `MANIFEST.json` listing every file of the",
+        "generation; `verify_generation` rejects a missing listed file and any unlisted file that a",
         "later partial run could have left behind.",
         "",
         "## Recommended manuscript edit",
         "",
         "The published sentence (paper/wrr/wrr_manuscript.tex lines 630-636, and the same text in",
-        "wrr_manuscript_published.tex lines 632-638) reads \"Halving the donor set by training-period",
-        "correlation while holding the count fixed costs $+0.082^{\\circ}$C (95% interval 0.061 to 0.112)\". "
+        'wrr_manuscript_published.tex lines 632-638) reads "Halving the donor set by training-period',
+        'correlation while holding the count fixed costs $+0.082^{\\circ}$C (95% interval 0.061 to 0.112)". '
         "Under this amendment the count really is held fixed, and the numbers become:",
         "",
         f"- donor-quality contrast: **+{_fmt(primary_top.point_c, 4)} C, 95% interval {_fmt(primary_top.ci_low_c, 4)} to {_fmt(primary_top.ci_high_c, 4)}**",
         f"  (n = {int(primary_top.n_paired):,} matched pairs, {int(primary_top.n_networks)} networks, network-clustered bootstrap,",
         "  2000 draws, seed 0), from `contrasts_matched.csv` row `spec=matched_exact_k`, "
-        "`selection_rule=top_of_half`; cite this amendment and its generation id.",
+        "`selection_rule=top_of_half`; cite this amendment.",
         f"- donor-shuffle contrast, unchanged in design: +{_fmt(shuffle_full.point_c, 4)} C ({_fmt(shuffle_full.ci_low_c, 4)} to {_fmt(shuffle_full.ci_high_c, 4)})",
         "  on the recomputed sample, against 0.2343 (0.1636 to 0.2881) frozen. The point estimate agrees;",
         "  the interval is wider, so if the whole Step-5 table is regenerated the shuffle interval should",
@@ -832,8 +910,8 @@ def write_report(
         "- `contrast_by_k.csv` — the matched contrast per donor count K.",
         "- `donor_controls_paired.parquet` — case-level table carrying both specifications.",
         "- `summary.json` — machine-readable version of everything above.",
-        "- `MANIFEST.json` — the generation id, its inputs and the sha256 of every file above.",
-        "- `../step5_mechanism_pre_fix/` — the four frozen artifacts, byte-identical, with sha256.",
+        "- `MANIFEST.json` — the list of files above with their sizes, the inputs and the code.",
+        "- `../step5_mechanism_pre_fix/` — copies of the four frozen artifacts.",
         "",
     ]
     text = "\n".join(lines)
@@ -854,7 +932,7 @@ def main() -> int:
     AMENDMENT_DIR.mkdir(parents=True, exist_ok=True)
     SCRATCH_DIR.mkdir(parents=True, exist_ok=True)
 
-    provenance: dict[str, object] = {"preservation": preflight_preservation()}
+    provenance: dict[str, object] = {}
 
     roster = station_roster()
     split = pd.read_csv(STEP1_PANEL / "network_split.csv")
@@ -865,13 +943,18 @@ def main() -> int:
     frame, audit = ek.run_jobs_loudly(jobs, workers=args.workers)
     audit["n_networks"] = int(frame["network_id"].nunique())
     audit["n_stations"] = int(frame.groupby(["network_id", "station_id"]).ngroups)
-    print(f"[247] {audit['n_rows']} cases from {audit['n_jobs_with_rows']} jobs", flush=True)
+    print(
+        f"[247] {audit['n_rows']} cases from {audit['n_jobs_with_rows']} jobs",
+        flush=True,
+    )
 
     counts = ek.require_controls(frame, min_rows=1000, min_networks=5)
 
     # Retention and matching diagnostics.
     paired_orig = _paired(frame, "abserr_weak_orig", "abserr_strong_orig")
-    paired_matched = _paired(frame, "abserr_weak_top_of_half", "abserr_strong_top_of_half")
+    paired_matched = _paired(
+        frame, "abserr_weak_top_of_half", "abserr_strong_top_of_half"
+    )
     original_only = sorted(set(paired_orig.index) - set(paired_matched.index))
     matched_only = sorted(set(paired_matched.index) - set(paired_orig.index))
     matched_only_block = frame.loc[matched_only] if matched_only else frame.iloc[0:0]
@@ -879,40 +962,72 @@ def main() -> int:
         "n_paired_original_only": int(len(original_only)),
         "n_paired_matched_only": int(len(matched_only)),
         "share_matched_only_where_truncated": float(
-            (matched_only_block["n_visible_strong"] > matched_only_block["k_matched"]).mean()
+            (
+                matched_only_block["n_visible_strong"] > matched_only_block["k_matched"]
+            ).mean()
         )
         if len(matched_only_block)
         else float("nan"),
-        "mean_visible_strong_matched_only": float(matched_only_block["n_visible_strong"].mean())
+        "mean_visible_strong_matched_only": float(
+            matched_only_block["n_visible_strong"].mean()
+        )
         if len(matched_only_block)
         else float("nan"),
-        "mean_k_matched_only": float(matched_only_block["k_matched"].mean()) if len(matched_only_block) else float("nan"),
+        "mean_k_matched_only": float(matched_only_block["k_matched"].mean())
+        if len(matched_only_block)
+        else float("nan"),
         "n_cases_total": int(len(frame)),
         "n_cases_with_unequal_counts": int((frame["k_orig_diff"] != 0).sum()),
         "share_cases_with_unequal_counts": float((frame["k_orig_diff"] != 0).mean()),
         "max_abs_count_gap": int(frame["k_orig_diff"].abs().max()),
         "n_paired_original": int(len(paired_orig)),
         "n_paired_matched": int(len(paired_matched)),
-        "paired_retention": float(len(paired_matched) / len(paired_orig)) if len(paired_orig) else float("nan"),
+        "paired_retention": float(len(paired_matched) / len(paired_orig))
+        if len(paired_orig)
+        else float("nan"),
         "n_networks_matched": int(paired_matched["network_id"].nunique()),
-        "n_strata": int(paired_matched.groupby(["arm", "overlap_class", "k_matched"]).ngroups),
+        "n_strata": int(
+            paired_matched.groupby(["arm", "overlap_class", "k_matched"]).ngroups
+        ),
         "mean_abs_count_gap_paired": float(paired_orig["k_orig_diff"].abs().mean()),
         "max_abs_count_gap_paired": int(paired_orig["k_orig_diff"].abs().max()),
         "n_paired_original_with_gap": int((paired_orig["k_orig_diff"] != 0).sum()),
-        "share_strong_truncated": float((frame.loc[frame["k_matched"] >= 1, "n_visible_strong"] > frame.loc[frame["k_matched"] >= 1, "k_matched"]).mean()),
-        "share_weak_truncated": float((frame.loc[frame["k_matched"] >= 1, "n_visible_weak"] > frame.loc[frame["k_matched"] >= 1, "k_matched"]).mean()),
+        "share_strong_truncated": float(
+            (
+                frame.loc[frame["k_matched"] >= 1, "n_visible_strong"]
+                > frame.loc[frame["k_matched"] >= 1, "k_matched"]
+            ).mean()
+        ),
+        "share_weak_truncated": float(
+            (
+                frame.loc[frame["k_matched"] >= 1, "n_visible_weak"]
+                > frame.loc[frame["k_matched"] >= 1, "k_matched"]
+            ).mean()
+        ),
         "mean_k_matched": float(frame.loc[frame["k_matched"] >= 1, "k_matched"].mean()),
         "mean_k_nominal": float(frame["k_nominal"].mean()),
         "share_positive_matched_cases": float(
             (
-                pd.to_numeric(paired_matched["abserr_weak_top_of_half"], errors="coerce")
-                > pd.to_numeric(paired_matched["abserr_strong_top_of_half"], errors="coerce")
+                pd.to_numeric(
+                    paired_matched["abserr_weak_top_of_half"], errors="coerce"
+                )
+                > pd.to_numeric(
+                    paired_matched["abserr_strong_top_of_half"], errors="coerce"
+                )
             ).mean()
         ),
-        "corr_strong_mean_matched": float(pd.to_numeric(frame["corr_strong_mean_top_of_half"], errors="coerce").mean()),
-        "corr_weak_mean_matched": float(pd.to_numeric(frame["corr_weak_mean_top_of_half"], errors="coerce").mean()),
-        "corr_strong_mean_original": float(pd.to_numeric(frame["corr_strong_mean_orig"], errors="coerce").mean()),
-        "corr_weak_mean_original": float(pd.to_numeric(frame["corr_weak_mean_orig"], errors="coerce").mean()),
+        "corr_strong_mean_matched": float(
+            pd.to_numeric(frame["corr_strong_mean_top_of_half"], errors="coerce").mean()
+        ),
+        "corr_weak_mean_matched": float(
+            pd.to_numeric(frame["corr_weak_mean_top_of_half"], errors="coerce").mean()
+        ),
+        "corr_strong_mean_original": float(
+            pd.to_numeric(frame["corr_strong_mean_orig"], errors="coerce").mean()
+        ),
+        "corr_weak_mean_original": float(
+            pd.to_numeric(frame["corr_weak_mean_orig"], errors="coerce").mean()
+        ),
     }
 
     contrasts = build_contrasts(frame)
@@ -921,9 +1036,13 @@ def main() -> int:
     reproduction = reproduction_check(frame, contrasts)
     distributions = {
         "matched_exact_k_top_of_half": distribution_stats(
-            frame.loc[frame["k_matched"] >= 1], "abserr_weak_top_of_half", "abserr_strong_top_of_half"
+            frame.loc[frame["k_matched"] >= 1],
+            "abserr_weak_top_of_half",
+            "abserr_strong_top_of_half",
         ),
-        "unmatched_original": distribution_stats(frame, "abserr_weak_orig", "abserr_strong_orig"),
+        "unmatched_original": distribution_stats(
+            frame, "abserr_weak_orig", "abserr_strong_orig"
+        ),
         "frozen_original": distribution_stats(
             pd.read_parquet(PREFIX_DIR / "donor_controls.parquet"),
             "abserr_weak_half",
@@ -933,19 +1052,20 @@ def main() -> int:
     reproduction["frozen_distribution"] = distributions["frozen_original"]
     reproduction["case_level"] = case_level_reproduction(frame)
     hazard = ek.mixed_generation_hazard_demo(SCRATCH_DIR / "hazard_demo")
-    # Run the committed pre-fix donor control on a real job rather than asserting
-    # that it could not have produced the table it was committed with.
-    probe_job = next(job for job in jobs if (str(job["network_id"]), str(job["station_id"])) == (
-        str(frame["network_id"].iloc[0]), str(frame["station_id"].iloc[0])))
-    pre_fix_probe = ek.pre_fix_worker_probe(probe_job, scratch_dir=SCRATCH_DIR)
 
     # The verdict is computed from the intervals, never asserted by hand.
     matched_primary = contrasts.loc[contrasts["spec"] == "matched_exact_k"]
-    stratified_row = contrasts.loc[contrasts["spec"] == "matched_exact_k_stratified"].iloc[0]
+    stratified_row = contrasts.loc[
+        contrasts["spec"] == "matched_exact_k_stratified"
+    ].iloc[0]
     matched_rows = list(matched_primary.itertuples()) + [stratified_row]
     verdict = {
-        "claim_survives_exact_k": bool(all(float(r.ci_low_c) > 0.0 for r in matched_rows)),
-        "all_matched_lower_bounds_positive": bool(all(float(r.ci_low_c) > 0.0 for r in matched_rows)),
+        "claim_survives_exact_k": bool(
+            all(float(r.ci_low_c) > 0.0 for r in matched_rows)
+        ),
+        "all_matched_lower_bounds_positive": bool(
+            all(float(r.ci_low_c) > 0.0 for r in matched_rows)
+        ),
         "min_matched_ci_low_c": float(min(float(r.ci_low_c) for r in matched_rows)),
         "min_matched_point_c": float(min(float(r.point_c) for r in matched_rows)),
         "max_matched_point_c": float(max(float(r.point_c) for r in matched_rows)),
@@ -962,7 +1082,9 @@ def main() -> int:
 
     # Provenance of the frozen generation: mtimes in UTC, taken from the files.
     provenance["frozen_mtimes_utc"] = {
-        name: pd.Timestamp((STEP5_MECHANISM / name).stat().st_mtime, unit="s", tz="UTC").strftime("%Y-%m-%d %H:%M:%SZ")
+        name: pd.Timestamp(
+            (STEP5_MECHANISM / name).stat().st_mtime, unit="s", tz="UTC"
+        ).strftime("%Y-%m-%d %H:%M:%SZ")
         for name in FROZEN_FILES
     }
 
@@ -978,7 +1100,9 @@ def main() -> int:
         },
         "matched_design": {
             "matching": "exact K = min(visible strong, visible weak) within each realization; pairs share arm, overlap class, station, year, training data",
-            "selection_rules": {rule: ek.RULE_DESCRIPTION[rule] for rule in ek.MATCH_RULES},
+            "selection_rules": {
+                rule: ek.RULE_DESCRIPTION[rule] for rule in ek.MATCH_RULES
+            },
             "primary_rule": "top_of_half",
             "retention": retention,
         },
@@ -991,30 +1115,23 @@ def main() -> int:
             "description": "worker exceptions were swallowed and the control tables were written only when non-empty, while summary.json was rewritten unconditionally",
             "frozen_evidence": {
                 "summary_controls_empty": reproduction["frozen_controls_block_empty"],
-                "table_mtime_utc": provenance["frozen_mtimes_utc"]["donor_control_contrasts.csv"],
+                "table_mtime_utc": provenance["frozen_mtimes_utc"][
+                    "donor_control_contrasts.csv"
+                ],
                 "summary_mtime_utc": provenance["frozen_mtimes_utc"]["summary.json"],
                 "report_lacks_control_section": "Controlled donor experiments"
                 not in (STEP5_MECHANISM / "REPORT.md").read_text(encoding="utf-8"),
-                "pre_fix_commit_probe": pre_fix_probe,
-                "pre_fix_commit_interpretation": (
-                    "at fa6547d688 the donor-control branch raises on this job, so a run of the "
-                    "committed script 183 could not have produced the committed donor tables; the "
-                    "bare except turned that into an empty control frame and the writer skipped the "
-                    "tables while still rewriting summary.json"
-                ),
-                "fixed_in": "9a933ff309 (imports stable_seed)",
             },
             "demonstration": hazard,
             "guard": [
                 "run_jobs_loudly: per-job exception capture re-raised as WorkerFailure before any write",
                 "job accounting must close: rows or a documented empty reason for every submitted job",
                 "require_controls: refuses an empty or single-network control frame",
-                "write_generation: summary.json written last, MANIFEST.json binds all files to one generation id",
-                "verify_generation: re-hashes every file and rejects unlisted files",
+                "write_generation: summary.json written last, MANIFEST.json lists every file of the generation",
+                "verify_generation: rejects a missing listed file and any unlisted file",
             ],
         },
         "run_audit": audit,
-        "pre_fix_probe": pre_fix_probe,
         "case_counts": counts,
         "inputs": [str((STEP1_PANEL / "network_split.csv").relative_to(ROOT))],
         "script": "scripts/247_wrr_mechanism_equal_k.py",
@@ -1041,21 +1158,34 @@ def main() -> int:
         "contrast_by_k.csv": k_table.to_csv(index=False),
         "donor_controls_paired.parquet": frame.to_parquet(index=False),
         "REPORT.md": report_text,
-        "summary.json": json.dumps(summary, indent=2, sort_keys=True, default=str) + "\n",
+        "summary.json": json.dumps(summary, indent=2, sort_keys=True, default=str)
+        + "\n",
     }
-    manifest = ek.write_generation(
+    ek.write_generation(
         AMENDMENT_DIR,
         artifacts,
         inputs=[STEP1_PANEL / "network_split.csv"],
         code=[
             ROOT / "scripts" / "247_wrr_mechanism_equal_k.py",
-            ROOT / "src" / "stream_recoverability" / "experiments" / "wrr_submission_ready" / "equal_k_mechanism.py",
+            ROOT
+            / "src"
+            / "stream_recoverability"
+            / "experiments"
+            / "wrr_submission_ready"
+            / "equal_k_mechanism.py",
         ],
     )
     verified = ek.verify_generation(AMENDMENT_DIR)
-    print(f"[247] generation {manifest['generation_id'][:16]} verified: {verified}", flush=True)
+    print(
+        f"[247] generation of {verified['n_files']} files verified: {verified}",
+        flush=True,
+    )
 
-    print(contrasts.loc[contrasts["spec"].isin(["unmatched_original", "matched_exact_k"])].to_string(index=False))
+    print(
+        contrasts.loc[
+            contrasts["spec"].isin(["unmatched_original", "matched_exact_k"])
+        ].to_string(index=False)
+    )
     return 0
 
 

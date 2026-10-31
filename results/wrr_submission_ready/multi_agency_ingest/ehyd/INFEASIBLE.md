@@ -14,8 +14,7 @@ emitted; nothing was scored.
 
 ## 1. The station catalogue has no daily surface-water temperature file type
 
-`GET https://ehyd.gv.at/services/Messstellen/json?filter=alle` (HTTP 200, 6,722,863 bytes,
-sha256 `9253bb55c0612c5ee4269a34f24515b484cfa27357aae0511df53583b768e022`) returns a GeoJSON FeatureCollection of
+`GET https://ehyd.gv.at/services/Messstellen/json?filter=alle` (HTTP 200, 6,722,863 bytes) returns a GeoJSON FeatureCollection of
 **5,662 stations** whose `fjson`
 property lists every published file per station:
 **26,819 file entries,**
@@ -42,7 +41,7 @@ is groundwater temperature and monthly in any case.
 
 `GET https://gis.lfrz.gv.at/api/ehyd/messstellen/paket/ehyd_messstellen_all_owf.zip` (HTTP 200, content-length
 105735422 declared; downloaded
-105,735,422 bytes, sha256 `2fb165ee97520cdef280a9e8ee9921a6f0f1d1a727c1e98db3bb9a9ad9aa7265`) unpacks to
+105,735,422 bytes) unpacks to
 5,336 entries in 12 folders
 (`results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/package_folder_census.csv`):
 
@@ -91,8 +90,7 @@ i.e. the package namespace exists, the daily WT member does not.
 
 ## 4. The shipped web application offers monthly only
 
-The eHYD Angular bundle (`https://ehyd.gv.at/main-UFXEVZGM.js`, sha256
-`3d3fcf632b915cc1f6468dded6c3f477e05db8befa264aeecd14e4b0b5752826`) builds its data-type menu with the same ids.
+The eHYD Angular bundle (`https://ehyd.gv.at/main-UFXEVZGM.js`) builds its data-type menu with the same ids.
 Under "Oberflächengewässer" the temperature entry is
 `owf_wassertemp_monatsmittel` (Wassertemperatur-Monatsmittel). `Wassertemperatur-Monatsmittel` is the only temperature option;
 the daily options there are discharge, water level, snow height, bedload and

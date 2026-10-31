@@ -14,9 +14,9 @@ roster, but it never imports or trains a deep model.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
+import re
 from collections import Counter, defaultdict
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, replace
@@ -41,6 +41,7 @@ from stream_recoverability.models.baselines import (
     PCHIPInterpolation,
     XGBoostBaseline,
 )
+from stream_recoverability.seeds import plain_seed
 
 DESIGN_RELATIVE_PATH = Path("configs/design_freeze_v9.yaml")
 CATALOG_RELATIVE_PATH = Path("configs/network_catalog_v3_split.yaml")
@@ -74,73 +75,55 @@ RUNNER_CONTRACT_VERSION = "t2_v91_runner_v3_frozen_geometry_bindings"
 
 @dataclass(frozen=True)
 class FitCacheKey:
-    """Identity of one fit, excluding held-out truth, predictions, and skill."""
+    """Identity of one fit, excluding held-out truth, predictions, and skill.
 
-    input_sha256: str
+    An execution cache reads each network panel once, so the network, the
+    named fit inputs, and the exact dated training rows identify the fit.
+    """
+
+    network_id: str
     target_station: str
     model: str
     information_condition: str
     meteorology_lag_days: int | None
-    training_mask_sha256: str
-    training_features_sha256: str
+    feature_columns: tuple[str, ...]
+    training_date_runs: tuple[tuple[str, str, int], ...]
 
 
 FitResolver = Callable[[FitCacheKey, Callable[[], Any]], Any]
 
 
-def _sha256_bytes(payload: bytes) -> str:
-    return hashlib.sha256(payload).hexdigest()
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _training_mask_sha256(mask: pd.Series) -> str:
-    """Hash the exact dated boolean mask presented to a model fit."""
-
-    if not isinstance(mask.index, pd.DatetimeIndex):
-        raise TypeError("fit-cache training mask requires a DatetimeIndex")
-    digest = hashlib.sha256()
-    digest.update(np.asarray(mask.index.view("i8"), dtype="<i8").tobytes())
-    digest.update(mask.to_numpy(dtype=np.uint8).tobytes())
-    return digest.hexdigest()
-
-
-def _training_features_sha256(
+def _training_date_runs(
     frame: pd.DataFrame,
     mask: pd.Series,
     columns: Sequence[str],
-) -> str:
-    """Hash only dated training rows and the named raw fit inputs.
+) -> tuple[tuple[str, str, int], ...]:
+    """Describe the dated training rows presented to a fit as contiguous runs.
 
-    The target is intentionally included because it is a fit input.  Held-out
-    target values, predictions, MAE, and skill never enter this digest.
+    Each run is ``(first date, last date, number of rows)``.  The named fit
+    inputs must exist; held-out target values, predictions, MAE, and skill
+    never enter the description.
     """
 
-    selected = mask.reindex(frame.index, fill_value=False).to_numpy(dtype=bool)
+    if not isinstance(mask.index, pd.DatetimeIndex):
+        raise TypeError("fit-cache training mask requires a DatetimeIndex")
     names = [str(value) for value in columns]
     missing = [name for name in names if name not in frame.columns]
     if missing:
         raise KeyError(f"fit-cache feature columns are absent: {missing}")
-    digest = hashlib.sha256()
-    digest.update(
-        json.dumps(names, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
-    )
+    selected = mask.reindex(frame.index, fill_value=False).to_numpy(dtype=bool)
     index = pd.DatetimeIndex(frame.index)
-    digest.update(np.asarray(index.view("i8")[selected], dtype="<i8").tobytes())
-    values = frame.loc[selected, names].apply(pd.to_numeric, errors="coerce")
-    digest.update(np.asarray(values.to_numpy(dtype=float), dtype="<f8").tobytes())
-    return digest.hexdigest()
+    edges = np.flatnonzero(
+        np.diff(np.concatenate(([0], selected.astype(np.int8), [0])))
+    )
+    return tuple(
+        (index[start].isoformat(), index[stop - 1].isoformat(), int(stop - start))
+        for start, stop in zip(edges[0::2], edges[1::2], strict=True)
+    )
 
 
 def _fit_cache_key(
     *,
-    input_sha256: str,
     target_station: str,
     model: str,
     information_condition: str,
@@ -148,21 +131,20 @@ def _fit_cache_key(
     frame: pd.DataFrame,
     train_mask: pd.Series,
     feature_columns: Sequence[str],
+    network_id: str = "",
 ) -> FitCacheKey:
     """Build the strict fit identity used by all T2 v4 fit caches."""
 
     return FitCacheKey(
-        input_sha256=str(input_sha256),
+        network_id=str(network_id),
         target_station=str(target_station),
         model=str(model),
         information_condition=str(information_condition),
         meteorology_lag_days=(
             None if meteorology_lag_days is None else int(meteorology_lag_days)
         ),
-        training_mask_sha256=_training_mask_sha256(train_mask),
-        training_features_sha256=_training_features_sha256(
-            frame, train_mask, feature_columns
-        ),
+        feature_columns=tuple(str(value) for value in feature_columns),
+        training_date_runs=_training_date_runs(frame, train_mask, feature_columns),
     )
 
 
@@ -174,11 +156,23 @@ def _resolve_fit(
     return factory() if resolver is None else resolver(key, factory)
 
 
-def _canonical_sha(rows: Sequence[Mapping[str, Any]]) -> str:
-    payload = json.dumps(
-        list(rows), sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    return _sha256_bytes(payload)
+_ITEM_ID_COMPONENT = re.compile(r"[A-Za-z0-9_-]+")
+
+
+def _readable_item_id(*components: Any) -> str:
+    """Join identity components into a readable, filesystem-safe work-item id.
+
+    Components may not contain the ``.`` separator or any character outside
+    ``[A-Za-z0-9_-]``, so distinct component tuples always give distinct ids.
+    """
+
+    tokens = [str(value) for value in components]
+    for token in tokens:
+        if not _ITEM_ID_COMPONENT.fullmatch(token):
+            raise ValueError(
+                f"work-item id component is not filesystem-safe: {token!r}"
+            )
+    return ".".join(tokens)
 
 
 def json_safe(value: Any) -> Any:
@@ -222,18 +216,24 @@ def load_v91_budget(repo_root: str | Path) -> dict[str, Any]:
     expected_information = BASE_INFORMATION_CONDITIONS + EXTENDED_INFORMATION_CONDITIONS
     if information != expected_information:
         raise ValueError("v9.1 information-condition roster changed")
-    gaps = tuple(int(value) for value in benchmark["gap_geometries"]["artificial_stress"])
+    gaps = tuple(
+        int(value) for value in benchmark["gap_geometries"]["artificial_stress"]
+    )
     if gaps != (7, 14, 30, 60, 90, 180, 365):
         raise ValueError("v9.1 artificial gap roster changed")
     if tuple(tier2.get("models") or ()) != TIER2_MODELS:
         raise ValueError("v9.1 Tier-2 roster changed")
-    if tuple(int(value) for value in tier2.get("gaps_all_required") or ()) != TIER2_GAPS:
+    if (
+        tuple(int(value) for value in tier2.get("gaps_all_required") or ())
+        != TIER2_GAPS
+    ):
         raise ValueError("v9.1 Tier-2 gap roster changed")
-    if int(tier2.get("n_target", 0)) != 30 or tuple(tier2.get("n_allowed_range") or ()) != (28, 32):
+    if int(tier2.get("n_target", 0)) != 30 or tuple(
+        tier2.get("n_allowed_range") or ()
+    ) != (28, 32):
         raise ValueError("v9.1 Tier-2 sample size contract changed")
     return {
         "design_path": str(DESIGN_RELATIVE_PATH),
-        "design_sha256": _sha256_file(path),
         "design_id": document["design_id"],
         "protocol_amendment": benchmark["protocol_amendment"],
         "placements": int(benchmark["placements_per_cell_min"]),
@@ -241,7 +241,9 @@ def load_v91_budget(repo_root: str | Path) -> dict[str, Any]:
         "gaps": gaps,
         "tier_1_models": tuple(tier1["models"]),
         "tier_2": tier2,
-        "primary_evidence_forbids": tuple(benchmark.get("primary_evidence_forbids") or ()),
+        "primary_evidence_forbids": tuple(
+            benchmark.get("primary_evidence_forbids") or ()
+        ),
     }
 
 
@@ -251,7 +253,6 @@ class OpenNetwork:
     role: str
     source_key: str
     wide_path: str
-    wide_sha256: str
     manifest_path: str
     n_days: int
     n_stations: int
@@ -273,26 +274,30 @@ def _network_manifest(directory: Path) -> Path | None:
     return None
 
 
-def _locked_catalog_roles(repo: Path) -> tuple[str, dict[str, str]]:
-    """Return the declared split SHA and network roles from the locked catalog."""
+def _locked_catalog_roles(repo: Path) -> dict[str, str]:
+    """Return the network roles from the locked catalog."""
 
     path = repo / CATALOG_RELATIVE_PATH
     if not path.is_file():
         raise FileNotFoundError(f"locked catalog split is required: {path}")
     catalog = yaml.safe_load(path.read_text(encoding="utf-8"))
-    if not isinstance(catalog, dict) or catalog.get("status") != "locked_before_download":
-        raise ValueError("open-role discovery requires the locked-before-download catalog")
-    split_sha = str(catalog.get("sha256") or "")
-    if len(split_sha) != 64:
-        raise ValueError("locked catalog has no valid declared split SHA")
+    if (
+        not isinstance(catalog, dict)
+        or catalog.get("status") != "locked_before_download"
+    ):
+        raise ValueError(
+            "open-role discovery requires the locked-before-download catalog"
+        )
     roles: dict[str, str] = {}
     for row in catalog.get("networks") or []:
         network_id = str(row.get("network_id") or "")
         role = str(row.get("role") or "")
         if not network_id or network_id in roles:
-            raise ValueError("locked catalog contains a missing or duplicate network_id")
+            raise ValueError(
+                "locked catalog contains a missing or duplicate network_id"
+            )
         roles[network_id] = role
-    return split_sha, roles
+    return roles
 
 
 def discover_open_networks(
@@ -305,7 +310,7 @@ def discover_open_networks(
 
     repo = Path(repo_root).resolve()
     corpus = repo / "data_versions/global_network_corpus_v1"
-    catalog_split_sha, catalog_roles = _locked_catalog_roles(repo)
+    catalog_roles = _locked_catalog_roles(repo)
     selected: dict[str, OpenNetwork] = {}
     roots: list[dict[str, Any]] = []
     rejected = Counter()
@@ -343,11 +348,10 @@ def discover_open_networks(
             if role != expected_role or overlap_role != expected_role:
                 rejected["role_mismatch_or_sealed"] += 1
                 continue
-            if role == "sealed" or bool(manifest.get("sealed_temperature_records_read")):
+            if role == "sealed" or bool(
+                manifest.get("sealed_temperature_records_read")
+            ):
                 rejected["sealed_or_opened_input"] += 1
-                continue
-            if str(manifest.get("split_sha256") or "") != catalog_split_sha:
-                rejected["catalog_split_sha_mismatch"] += 1
                 continue
             if catalog_roles.get(network_id) != role:
                 rejected["catalog_role_mismatch_or_network_absent"] += 1
@@ -379,7 +383,6 @@ def discover_open_networks(
                 role=role,
                 source_key=source_key,
                 wide_path=str(wide_path.relative_to(repo)),
-                wide_sha256=_sha256_file(wide_path),
                 manifest_path=str(manifest_path.relative_to(repo)),
                 n_days=n_days,
                 n_stations=n_stations,
@@ -394,7 +397,6 @@ def discover_open_networks(
         "allowed_input_roots": [value for value, _ in input_roots],
         "sealed_input_roots_allowed": [],
         "catalog_path": str(CATALOG_RELATIVE_PATH),
-        "catalog_split_sha256": catalog_split_sha,
         "catalog_roles_cross_checked": True,
         "qualification_mode": (
             "failure_closure6" if require_failure_closure6 else "primary8_or_pilot"
@@ -427,8 +429,6 @@ def read_panel(repo_root: str | Path, network: OpenNetwork) -> pd.DataFrame:
     ]
     if not any(root.is_dir() and _inside(path, root) for root in allowed):
         raise ValueError(f"refusing a panel outside the open-role allowlist: {path}")
-    if _sha256_file(path) != network.wide_sha256:
-        raise ValueError(f"panel changed after workload inventory: {network.network_id}")
     frame = pd.read_csv(path, index_col=0, parse_dates=True)
     frame.index = pd.DatetimeIndex(pd.to_datetime(frame.index))
     frame = frame.apply(pd.to_numeric, errors="coerce").sort_index()
@@ -437,7 +437,9 @@ def read_panel(repo_root: str | Path, network: OpenNetwork) -> pd.DataFrame:
     return frame
 
 
-def _year_split(index: pd.DatetimeIndex, fraction: float = 0.7) -> tuple[np.ndarray, np.ndarray]:
+def _year_split(
+    index: pd.DatetimeIndex, fraction: float = 0.7
+) -> tuple[np.ndarray, np.ndarray]:
     years = np.asarray(sorted(pd.unique(index.year)), dtype=int)
     if years.size < 2:
         return np.ones(len(index), dtype=bool), np.zeros(len(index), dtype=bool)
@@ -459,11 +461,19 @@ def deterministic_placements(
     values = panel[target].to_numpy(dtype=float)
     train, test = _year_split(panel.index)
     gap = int(gap_length)
-    if gap < 1 or len(values) < gap or int(np.isfinite(values[train]).sum()) < MIN_TRAIN_OBSERVATIONS:
+    if (
+        gap < 1
+        or len(values) < gap
+        or int(np.isfinite(values[train]).sum()) < MIN_TRAIN_OBSERVATIONS
+    ):
         return []
     observed = np.isfinite(values)
-    target_run = np.convolve(observed.astype(int), np.ones(gap, dtype=int), mode="valid") == gap
-    test_run = np.convolve(test.astype(int), np.ones(gap, dtype=int), mode="valid") == gap
+    target_run = (
+        np.convolve(observed.astype(int), np.ones(gap, dtype=int), mode="valid") == gap
+    )
+    test_run = (
+        np.convolve(test.astype(int), np.ones(gap, dtype=int), mode="valid") == gap
+    )
     eligible = target_run & test_run
     boundary = np.zeros_like(eligible)
     starts = np.arange(len(eligible))
@@ -474,7 +484,9 @@ def deterministic_placements(
     if donors.shape[1] == 0:
         return []
     donor_any = np.isfinite(donors).any(axis=1)
-    donor_run = np.convolve(donor_any.astype(int), np.ones(gap, dtype=int), mode="valid") == gap
+    donor_run = (
+        np.convolve(donor_any.astype(int), np.ones(gap, dtype=int), mode="valid") == gap
+    )
     eligible &= donor_run
     candidates = np.flatnonzero(eligible)
     if candidates.size <= count:
@@ -499,8 +511,6 @@ class WorkItem:
     task: str = "offline_archival"
     geometry: str = "artificial_stress"
     geometry_id: str = ""
-    geometry_catalog_file_sha256: str = ""
-    geometry_row_sha256: str = ""
     truth_start_date: str = ""
     observed_missing_start_date: str = ""
     donor_mask_rule: str = "preserve_observed_donors"
@@ -526,7 +536,9 @@ def iter_work_items(
     network_filter = None if network_ids is None else set(network_ids)
     selected_models = tuple(models or budget["tier_1_models"])
     selected_gaps = tuple(int(value) for value in (gaps or budget["gaps"]))
-    selected_information = tuple(information_conditions or budget["information_conditions"])
+    selected_information = tuple(
+        information_conditions or budget["information_conditions"]
+    )
     if not set(selected_models).issubset(TIER1_MODELS):
         raise ValueError("model filter contains a non-Tier-1 model")
     if not set(selected_gaps).issubset(set(budget["gaps"])):
@@ -557,23 +569,17 @@ def iter_work_items(
                 for information in selected_information:
                     for placement, start in enumerate(padded_starts):
                         for model in selected_models:
-                            identity = {
-                                "design_sha256": budget["design_sha256"],
-                                "input_sha256": network.wide_sha256,
-                                "network_id": network.network_id,
-                                "target_station": target,
-                                "model": model,
-                                "gap_length": gap,
-                                "placement": placement,
-                                "start_index": start,
-                                "information_condition": information,
-                                "task": "offline_archival",
-                                "geometry": "artificial_stress",
-                                "runner_contract_version": RUNNER_CONTRACT_VERSION,
-                            }
                             yield WorkItem(
                                 ordinal=ordinal,
-                                item_id=_canonical_sha([identity])[:24],
+                                item_id=_readable_item_id(
+                                    network.network_id,
+                                    target,
+                                    f"gap{gap}",
+                                    f"placement{placement}",
+                                    f"start{start}",
+                                    information,
+                                    model,
+                                ),
                                 network_id=network.network_id,
                                 role=network.role,
                                 source_key=network.source_key,
@@ -617,17 +623,15 @@ def iter_frozen_geometry_work_items(
     """Expand frozen natural/adversarial rows without selecting new geometry."""
 
     selected_models = tuple(models or budget["tier_1_models"])
-    selected_information = tuple(information_conditions or budget["information_conditions"])
+    selected_information = tuple(
+        information_conditions or budget["information_conditions"]
+    )
     if not set(selected_models).issubset(TIER1_MODELS):
         raise ValueError("model filter contains a non-Tier-1 model")
     if not set(selected_information).issubset(set(budget["information_conditions"])):
         raise ValueError("information filter contains a non-frozen condition")
     lookup = {network.network_id: network for network in networks}
     panel_cache: dict[str, pd.DataFrame] = {}
-    catalog_file_sha = {
-        "natural_outage": str(geometry_manifest["natural_outage"]["file_sha256"]),
-        "adversarial_stress": str(geometry_manifest["adversarial"]["file_sha256"]),
-    }
     natural_ready = natural.loc[natural["benchmark_eligible"].map(_bool_value)].copy()
     geometry_rows = chain(
         (("natural_outage", row) for _, row in natural_ready.iterrows()),
@@ -640,14 +644,18 @@ def iter_frozen_geometry_work_items(
         station_id = str(record["station_id"])
         network = lookup.get(network_id)
         if network is None:
-            raise ValueError(f"frozen geometry network absent from closure6 corpus: {network_id}")
+            raise ValueError(
+                f"frozen geometry network absent from closure6 corpus: {network_id}"
+            )
         if str(record["role"]) != network.role:
             raise ValueError(f"frozen geometry role mismatch: {network_id}")
         if network_id not in panel_cache:
             panel_cache[network_id] = read_panel(repo_root, network)
         panel = panel_cache[network_id]
         if station_id not in panel.columns:
-            raise ValueError(f"frozen geometry station absent from panel: {network_id}/{station_id}")
+            raise ValueError(
+                f"frozen geometry station absent from panel: {network_id}/{station_id}"
+            )
         if geometry == "natural_outage":
             if _bool_value(record["actual_missing_truth_available"]):
                 raise ValueError("natural missing days may not be used as truth")
@@ -675,25 +683,18 @@ def iter_frozen_geometry_work_items(
             expected_dates = pd.date_range(stamp, periods=length, freq="D")
             observed_dates = panel.index[start_index : start_index + length]
             truth = panel[station_id].iloc[start_index : start_index + length]
-            if not observed_dates.equals(expected_dates) or not np.isfinite(
-                truth.to_numpy(dtype=float)
-            ).all():
+            if (
+                not observed_dates.equals(expected_dates)
+                or not np.isfinite(truth.to_numpy(dtype=float)).all()
+            ):
                 start_index = -1
-        row_sha = _canonical_sha([record])
         for information in selected_information:
             for model in selected_models:
-                identity = {
-                    "runner_contract_version": RUNNER_CONTRACT_VERSION,
-                    "geometry_catalog_file_sha256": catalog_file_sha[geometry],
-                    "geometry_id": str(record["geometry_id"]),
-                    "geometry_row_sha256": row_sha,
-                    "model": model,
-                    "information_condition": information,
-                    "input_sha256": network.wide_sha256,
-                }
                 yield WorkItem(
                     ordinal=ordinal,
-                    item_id=_canonical_sha([identity])[:24],
+                    item_id=_readable_item_id(
+                        str(record["geometry_id"]), information, model
+                    ),
                     network_id=network_id,
                     role=network.role,
                     source_key=network.source_key,
@@ -706,8 +707,6 @@ def iter_frozen_geometry_work_items(
                     task="offline_archival",
                     geometry=geometry,
                     geometry_id=str(record["geometry_id"]),
-                    geometry_catalog_file_sha256=catalog_file_sha[geometry],
-                    geometry_row_sha256=row_sha,
                     truth_start_date=truth_start,
                     observed_missing_start_date=observed_missing_start,
                     donor_mask_rule=donor_mask_rule,
@@ -727,7 +726,7 @@ def load_t2_geometry_workload(
     models: Iterable[str] | None = None,
     information_conditions: Iterable[str] | None = None,
 ) -> tuple[Iterable[WorkItem], dict[str, Any]]:
-    """Validate frozen catalog bytes, then return a lazy T2 work-item stream."""
+    """Validate the frozen catalogs, then return a lazy T2 work-item stream."""
 
     binding_root = (
         Path(directory)
@@ -890,16 +889,13 @@ def _boundary_predictions(
             result.iloc[start:stop] = masked_target.iloc[stop]
         return result
     try:
-        return PCHIPInterpolation(target_col=str(masked_target.name)).predict(masked_target)
+        return PCHIPInterpolation(target_col=str(masked_target.name)).predict(
+            masked_target
+        )
     except (ValueError, np.linalg.LinAlgError):
         return OfflineLinearInterpolation(target_col=str(masked_target.name)).predict(
             masked_target
         )
-
-
-def _prediction_sha256(values: np.ndarray) -> str:
-    array = np.asarray(values, dtype="<f8")
-    return _sha256_bytes(array.shape.__repr__().encode() + b"|" + array.tobytes())
 
 
 def _combined_model_frame(
@@ -920,9 +916,7 @@ def _combined_model_frame(
 
     feature_name = "__boundary_B_prediction"
     training_target = panel[target].where(train_mask)
-    train_boundary = (
-        training_target.shift(1) + training_target.shift(-1)
-    ) / 2.0
+    train_boundary = (training_target.shift(1) + training_target.shift(-1)) / 2.0
     masked_target = panel[target].copy()
     masked_target.iloc[start:stop] = np.nan
     gap_boundary = _boundary_predictions(
@@ -945,9 +939,7 @@ def execute_item(
     item: WorkItem,
     *,
     panel: pd.DataFrame | None = None,
-    climatology_cache: dict[
-        tuple[str, str, int, int], tuple[pd.Series, float]
-    ]
+    climatology_cache: dict[tuple[str, str, int, int], tuple[pd.Series, float]]
     | None = None,
     fit_resolver: FitResolver | None = None,
     meteorology_lag_days: int | None = None,
@@ -956,15 +948,13 @@ def execute_item(
 
     ``panel`` and the caches are optional execution accelerators.
     Callers supplying a panel must first obtain it through :func:`read_panel`,
-    which retains the open-role path allowlist and byte-level custody check.
-    The default path is deliberately unchanged for compatibility and A/B
-    equivalence checks.
+    which retains the open-role path allowlist.  The default path is
+    deliberately unchanged for compatibility and A/B equivalence checks.
     """
 
     contract = _cell_contract(item)
     base: dict[str, Any] = {
         **asdict(item),
-        "input_sha256": network.wide_sha256,
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
         "available_information_condition": item.information_condition,
         "consumed_information": contract["consumed_information"],
@@ -1003,7 +993,7 @@ def execute_item(
     donors = [str(value) for value in panel.columns if str(value) != target]
     began = perf_counter()
     try:
-        legacy_climate_key = (network.wide_sha256, target, start, stop)
+        legacy_climate_key = (network.network_id, target, start, stop)
         cached_climate = (
             None
             if climatology_cache is None
@@ -1013,7 +1003,7 @@ def execute_item(
             climate_prediction, climate_mae = cached_climate
         else:
             climate_key = _fit_cache_key(
-                input_sha256=network.wide_sha256,
+                network_id=network.network_id,
                 target_station=target,
                 model="climatology",
                 information_condition=item.information_condition,
@@ -1029,9 +1019,9 @@ def execute_item(
                     panel, dates=panel.index, train_mask=train_mask
                 ),
             )
-            climate_prediction = climatology.predict(
-                panel, dates=panel.index
-            ).iloc[start:stop]
+            climate_prediction = climatology.predict(panel, dates=panel.index).iloc[
+                start:stop
+            ]
             climate_mae = float(
                 np.mean(np.abs(climate_prediction.to_numpy(dtype=float) - truth))
             )
@@ -1063,7 +1053,7 @@ def execute_item(
             implementation = "pchip_with_linear_fallback_B"
         elif item.model == "kalman":
             key = _fit_cache_key(
-                input_sha256=network.wide_sha256,
+                network_id=network.network_id,
                 target_station=target,
                 model=item.model,
                 information_condition=item.information_condition,
@@ -1092,7 +1082,7 @@ def execute_item(
                     boundary_mode=item.boundary_mode,
                 )
                 key = _fit_cache_key(
-                    input_sha256=network.wide_sha256,
+                    network_id=network.network_id,
                     target_station=target,
                     model=item.model,
                     information_condition=item.information_condition,
@@ -1110,11 +1100,13 @@ def execute_item(
                         covariate_cols=[boundary_feature],
                     ).fit(model_frame, dates=panel.index, train_mask=train_mask),
                 )
-                prediction = model.predict(model_frame, dates=panel.index).iloc[start:stop]
+                prediction = model.predict(model_frame, dates=panel.index).iloc[
+                    start:stop
+                ]
                 implementation = "seasonal_ridge_donor_plus_train_loo_boundary_BD"
             else:
                 key = _fit_cache_key(
-                    input_sha256=network.wide_sha256,
+                    network_id=network.network_id,
                     target_station=target,
                     model=item.model,
                     information_condition=item.information_condition,
@@ -1150,7 +1142,7 @@ def execute_item(
                     boundary_mode=item.boundary_mode,
                 )
                 key = _fit_cache_key(
-                    input_sha256=network.wide_sha256,
+                    network_id=network.network_id,
                     target_station=target,
                     model=item.model,
                     information_condition=item.information_condition,
@@ -1166,11 +1158,13 @@ def execute_item(
                         [*donors, boundary_feature], target_col=target
                     ).fit(model_frame, dates=panel.index, train_mask=train_mask),
                 )
-                prediction = model.predict(model_frame, dates=panel.index).iloc[start:stop]
+                prediction = model.predict(model_frame, dates=panel.index).iloc[
+                    start:stop
+                ]
                 implementation = "xgboost_donor_plus_train_loo_boundary_BD"
             else:
                 key = _fit_cache_key(
-                    input_sha256=network.wide_sha256,
+                    network_id=network.network_id,
                     target_station=target,
                     model=item.model,
                     information_condition=item.information_condition,
@@ -1205,13 +1199,18 @@ def execute_item(
             "mae_deg_c": climate_mae if reference else mae,
             "climatology_mae_deg_c": climate_mae,
             "achieved_skill": 0.0 if reference else recoverability(mae, climate_mae),
-            "prediction_sha256": _prediction_sha256(predicted),
             "reference_ignores_available_information": reference,
             "runtime_seconds": float(perf_counter() - began),
             "formal_evidence": False,
             "sealed_temperature_records_read": False,
         }
-    except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+    except (
+        ImportError,
+        KeyError,
+        RuntimeError,
+        ValueError,
+        np.linalg.LinAlgError,
+    ) as error:
         if (
             isinstance(error, ValueError)
             and str(error) == "no finite training targets are available"
@@ -1269,7 +1268,8 @@ def run_items(
         result = execute_item(repo_root, lookup[item.network_id], item)
         temporary = path.with_suffix(".json.tmp")
         temporary.write_text(
-            json.dumps(json_safe(result), indent=2, sort_keys=True, allow_nan=False) + "\n",
+            json.dumps(json_safe(result), indent=2, sort_keys=True, allow_nan=False)
+            + "\n",
             encoding="utf-8",
         )
         temporary.replace(path)
@@ -1310,7 +1310,6 @@ def build_workload_manifest(
     category_counts = Counter()
     reason_counts = Counter()
     geometry_item_counts = Counter()
-    workload_digest = hashlib.sha256()
     n_items = 0
     geometry_binding: dict[str, Any] | None = None
     item_stream: Iterable[WorkItem] = iter_work_items(repo_root, networks, budget)
@@ -1321,32 +1320,15 @@ def build_workload_manifest(
         )
         if int(frozen_manifest["n_networks"]) != len(networks):
             raise ValueError("frozen geometry/network corpus count mismatch")
-        if frozen_manifest.get("split_sha256") != inventory.get(
-            "catalog_split_sha256"
-        ):
-            raise ValueError("frozen geometry/catalog split SHA mismatch")
         geometry_binding = {
             "directory": str(GEOMETRY_BINDING_RELATIVE_PATH),
             "manifest_schema": frozen_manifest["manifest_schema"],
             "qualification_mode": frozen_manifest["qualification_mode"],
             "n_networks": int(frozen_manifest["n_networks"]),
-            "natural_catalog_file_sha256": frozen_manifest["natural_outage"][
-                "file_sha256"
-            ],
-            "natural_catalog_canonical_sha256": frozen_manifest["natural_outage"][
-                "canonical_table_sha256"
-            ],
             "natural_geometry_rows": int(
                 frozen_manifest["natural_outage"]["n_benchmark_eligible"]
             ),
-            "adversarial_catalog_file_sha256": frozen_manifest["adversarial"][
-                "file_sha256"
-            ],
-            "adversarial_catalog_canonical_sha256": frozen_manifest["adversarial"][
-                "canonical_table_sha256"
-            ],
             "adversarial_geometry_rows": int(frozen_manifest["adversarial"]["n_rows"]),
-            "split_sha256": frozen_manifest["split_sha256"],
             "geometry_reselected_by_runner": False,
             "runner_truth_rules": {
                 "natural_outage": (
@@ -1374,8 +1356,6 @@ def build_workload_manifest(
             item = replace(raw_item, ordinal=global_ordinal)
             n_items += 1
             geometry_item_counts[item.geometry] += 1
-            workload_digest.update(item.item_id.encode())
-            workload_digest.update(b"\n")
             counts[(item.role, item.model, item.information_condition)] += 1
             contract = _cell_contract(item)
             category = str(contract["category"])
@@ -1418,7 +1398,6 @@ def build_workload_manifest(
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
         "design_id": budget["design_id"],
         "protocol_amendment": budget["protocol_amendment"],
-        "design_sha256": budget["design_sha256"],
         "purpose": "pipeline_preparation_not_evidence",
         "formal_evidence": False,
         "headline_claim_licensed": False,
@@ -1462,12 +1441,6 @@ def build_workload_manifest(
             "online_causal_runner_contract": "t2_v91_online_causal_runner_v1",
             "online_causal_manifest": "results/framework/t2_online_causal_v1/workload_manifest.json",
             "n_work_items": n_items if count_items else None,
-            "workload_item_identity_sha256": (
-                workload_digest.hexdigest() if count_items else None
-            ),
-            "work_item_identity_sha256": (
-                workload_digest.hexdigest() if count_items else None
-            ),
             "work_items_by_geometry": dict(sorted(geometry_item_counts.items())),
             "n_executable": category_counts["executable"] if count_items else None,
             "n_reference": category_counts["reference"] if count_items else None,
@@ -1506,10 +1479,6 @@ def build_workload_manifest(
     }
 
 
-def _hash_order(seed: int, value: str) -> str:
-    return _sha256_bytes(f"{int(seed)}|{value}".encode())
-
-
 def lock_tier2_sample(repo_root: str | Path, *, n_target: int = 30) -> dict[str, Any]:
     """Select Tier-2 only from frozen catalog fields; never inspect data availability."""
 
@@ -1520,7 +1489,13 @@ def lock_tier2_sample(repo_root: str | Path, *, n_target: int = 30) -> dict[str,
     if catalog.get("status") != "locked_before_download":
         raise ValueError("Tier-2 selection requires the pre-download catalog lock")
     eligible_roles = {"development", "validation", "sealed"}
-    fields = ("network_id", "role", "climate_band", "regulation_stratum", "size_tertile")
+    fields = (
+        "network_id",
+        "role",
+        "climate_band",
+        "regulation_stratum",
+        "size_tertile",
+    )
     rows = [
         {field: item[field] for field in fields}
         for item in catalog.get("networks", [])
@@ -1533,33 +1508,43 @@ def lock_tier2_sample(repo_root: str | Path, *, n_target: int = 30) -> dict[str,
     for row in rows:
         key = (row["climate_band"], row["regulation_stratum"], row["size_tertile"])
         grouped[key].append(row)
+    strata = sorted(grouped, key=lambda key: tuple(str(part) for part in key))
+    # A seeded permutation of the sorted strata breaks equal-remainder ties;
+    # stratum k then draws its networks with a seeded permutation of its
+    # network_id-sorted rows.
+    tie_rank = np.random.default_rng(plain_seed(seed, 0)).permutation(len(strata))
     quotas: dict[tuple[str, str, str], int] = {}
-    fractions: list[tuple[float, str, tuple[str, str, str]]] = []
-    for key, group in grouped.items():
-        exact = n_target * len(group) / len(rows)
+    fractions: list[tuple[float, int, tuple[str, str, str]]] = []
+    for position, key in enumerate(strata):
+        exact = n_target * len(grouped[key]) / len(rows)
         quotas[key] = math.floor(exact)
-        fractions.append((exact - quotas[key], _hash_order(seed, "|".join(key)), key))
+        fractions.append((exact - quotas[key], int(tie_rank[position]), key))
     remainder = n_target - sum(quotas.values())
-    for _, _, key in sorted(fractions, key=lambda item: (-item[0], item[1]))[:remainder]:
+    for _, _, key in sorted(fractions, key=lambda item: (-item[0], item[1]))[
+        :remainder
+    ]:
         quotas[key] += 1
     selected: list[dict[str, Any]] = []
-    for key, group in grouped.items():
-        ordered = sorted(group, key=lambda row: _hash_order(seed, row["network_id"]))
-        selected.extend(ordered[: quotas[key]])
+    for position, key in enumerate(strata):
+        group = sorted(grouped[key], key=lambda row: str(row["network_id"]))
+        order = np.random.default_rng(plain_seed(seed, position + 1)).permutation(
+            len(group)
+        )
+        selected.extend(group[int(index)] for index in order[: quotas[key]])
     selected.sort(key=lambda row: row["network_id"])
     if len(selected) != n_target:
         raise AssertionError("Tier-2 proportional allocation did not reach n_target")
-    sample_sha = _canonical_sha(selected)
     return {
         "manifest_schema": "t2_v91_tier2_postdownload_metadata_sample_freeze_v2",
         "status": "retrospective_metadata_only_sample_freeze_not_preregistered",
         "design_id": budget["design_id"],
         "protocol_amendment": budget["protocol_amendment"],
         "catalog_path": str(CATALOG_RELATIVE_PATH),
-        "catalog_file_sha256": _sha256_file(path),
-        "catalog_declared_sha256": catalog.get("sha256"),
         "selection_seed": seed,
-        "selection_rule": "proportional_largest_remainder_by_climate_x_regulation_x_size_then_seeded_sha256",
+        "selection_rule": (
+            "proportional_largest_remainder_by_climate_x_regulation_x_size_"
+            "then_seeded_random_permutation"
+        ),
         "selection_fields_only": list(fields),
         "data_availability_inspected": False,
         "preregistered": False,
@@ -1569,7 +1554,6 @@ def lock_tier2_sample(repo_root: str | Path, *, n_target: int = 30) -> dict[str,
         "n_networks": len(selected),
         "n_target": int(budget["tier_2"]["n_target"]),
         "n_allowed_range": list(budget["tier_2"]["n_allowed_range"]),
-        "sample_sha256": sample_sha,
         "models": list(TIER2_MODELS),
         "pgdl_or_graph_wavenet": budget["tier_2"]["pgdl_or_graph_wavenet"],
         "gaps_all_required": list(TIER2_GAPS),
@@ -1592,7 +1576,6 @@ def tier2_timing_exception_ledger(sample: Mapping[str, Any]) -> dict[str, Any]:
         "design_id": sample["design_id"],
         "protocol_amendment": sample["protocol_amendment"],
         "deviation": "tier2_sample_artifact_instantiated_after_open_role_downloads_started",
-        "sample_sha256": sample["sample_sha256"],
         "sample_preregistered": False,
         "sample_may_be_called_preregistered": False,
         "sample_frozen_before_tier2_model_execution": True,

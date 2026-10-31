@@ -8,7 +8,6 @@ T5 passed. SEPlains is recorded as a T6 candidate slice, not a confirmed zone.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 import sys
@@ -22,8 +21,8 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 GAGES = ROOT / "results/regulation_panel_v1_legacy_transport/station_metrics.csv"
-# Reuse the immutable GAGES-II archive already downloaded and identity-audited by
-# the frozen regulation-panel run.  Keeping a second cache here made an offline
+# Reuse the immutable GAGES-II archive already downloaded by the frozen
+# regulation-panel run.  Keeping a second cache here made an offline
 # T6 run silently report ``bfi_joined: false`` despite the source being on disk.
 GAGES_CACHE = ROOT / "data/cache/regulation_panel_v1"
 FREEZE = ROOT / "configs/regulation_panel_freeze_v1.yaml"
@@ -69,15 +68,21 @@ def network_gages_rows() -> pd.DataFrame:
             piece = pd.DataFrame(matched)
             maj = pd.to_numeric(piece.get("MAJ_NDAMS_2009"), errors="coerce")
             drain = pd.to_numeric(piece.get("DRAIN_SQKM"), errors="coerce")
-            eco = piece["AGGECOREGION"].mode().iloc[0] if "AGGECOREGION" in piece else ""
+            eco = (
+                piece["AGGECOREGION"].mode().iloc[0] if "AGGECOREGION" in piece else ""
+            )
             rows.append(
                 {
                     "network_id": network_id,
                     "n_sites": len(site_ids),
                     "n_gages_matched": int(len(piece)),
-                    "frac_major_dam": float(maj.ge(1).mean()) if len(maj) else float("nan"),
+                    "frac_major_dam": float(maj.ge(1).mean())
+                    if len(maj)
+                    else float("nan"),
                     "regulated": bool(maj.ge(1).mean() >= 0.5) if len(maj) else False,
-                    "mean_drain_sqkm": float(drain.mean()) if len(drain) else float("nan"),
+                    "mean_drain_sqkm": float(drain.mean())
+                    if len(drain)
+                    else float("nan"),
                     "aggecoregion": str(eco),
                     "seplains": str(eco) == "SEPlains",
                     "matchable": True,
@@ -89,7 +94,10 @@ def network_gages_rows() -> pd.DataFrame:
 def join_network_bfi(networks: pd.DataFrame) -> tuple[pd.DataFrame, bool]:
     """Mean GAGES-II BFI_AVE per network. Failure to load is recorded, not invented."""
 
-    from stream_recoverability.analysis.regulation_panel import load_freeze, load_gages_ii_bfi
+    from stream_recoverability.analysis.regulation_panel import (
+        load_freeze,
+        load_gages_ii_bfi,
+    )
 
     try:
         config = load_freeze(FREEZE)
@@ -138,7 +146,11 @@ def join_network_bfi(networks: pd.DataFrame) -> tuple[pd.DataFrame, bool]:
 def seplains_bfi_slice(frame: pd.DataFrame) -> dict[str, object]:
     """T6 candidate: SEPlains recoverability split by BFI. Not a passed zone."""
 
-    if frame.empty or "seplains" not in frame.columns or "mean_bfi" not in frame.columns:
+    if (
+        frame.empty
+        or "seplains" not in frame.columns
+        or "mean_bfi" not in frame.columns
+    ):
         return {"n_seplains_with_bfi": 0, "passed": False}
     piece = frame.loc[frame["seplains"].fillna(False)].copy()
     piece = piece.loc[np.isfinite(pd.to_numeric(piece["mean_bfi"], errors="coerce"))]
@@ -188,7 +200,11 @@ def matched_contrast(frame: pd.DataFrame) -> dict[str, object]:
         if candidates.empty or "recoverability_r" not in candidates.columns:
             continue
         drain = pd.to_numeric(candidates["mean_drain_sqkm"], errors="coerce")
-        target = float(row.mean_drain_sqkm) if np.isfinite(row.mean_drain_sqkm) else float(drain.median())
+        target = (
+            float(row.mean_drain_sqkm)
+            if np.isfinite(row.mean_drain_sqkm)
+            else float(drain.median())
+        )
         order = (drain - target).abs()
         partner = candidates.iloc[int(order.argsort().iloc[0])]
         used_control.add(str(partner.network_id))
@@ -196,12 +212,17 @@ def matched_contrast(frame: pd.DataFrame) -> dict[str, object]:
             {
                 "regulated_id": row.network_id,
                 "control_id": partner.network_id,
-                "delta_r": float(row.recoverability_r) - float(partner.recoverability_r),
+                "delta_r": float(row.recoverability_r)
+                - float(partner.recoverability_r),
                 "aggecoregion": row.aggecoregion,
             }
         )
     if not pairs:
-        return {"n_matched_pairs": 0, "mean_delta_r_regulated_minus_unregulated": float("nan"), "passed": False}
+        return {
+            "n_matched_pairs": 0,
+            "mean_delta_r_regulated_minus_unregulated": float("nan"),
+            "passed": False,
+        }
     table = pd.DataFrame(pairs)
     return {
         "n_matched_pairs": int(len(table)),
@@ -242,14 +263,14 @@ def main() -> None:
         "t5_passed": False,
         "t6_passed": False,
         "n_networks": int(len(networks)),
-        "n_gages_matched_networks": int(networks["matchable"].fillna(False).sum()) if not networks.empty else 0,
-        "n_regulated": int(networks["regulated"].fillna(False).sum()) if not networks.empty else 0,
+        "n_gages_matched_networks": int(networks["matchable"].fillna(False).sum())
+        if not networks.empty
+        else 0,
+        "n_regulated": int(networks["regulated"].fillna(False).sum())
+        if not networks.empty
+        else 0,
         "n_seplains": int(len(seplains)),
-        "matched_contrast": {
-            key: contrast[key]
-            for key in contrast
-            if key != "pairs"
-        },
+        "matched_contrast": {key: contrast[key] for key in contrast if key != "pairs"},
         "seplains_is_candidate_failure_zone": bool(len(seplains) > 0),
         "seplains_bfi": t6,
         "bfi_joined": bool(bfi_joined),
@@ -262,7 +283,6 @@ def main() -> None:
         "bfi_source": (
             {
                 "archive": GAGES_ARCHIVE.relative_to(ROOT).as_posix(),
-                "sha256": hashlib.sha256(GAGES_ARCHIVE.read_bytes()).hexdigest(),
                 "offline_reuse": True,
             }
             if GAGES_ARCHIVE.is_file()
@@ -271,7 +291,9 @@ def main() -> None:
         "last_check_temperatures_opened": False,
     }
     if contrast.get("pairs"):
-        pd.DataFrame(contrast["pairs"]).to_csv(OUTPUT / "matched_regulation_pairs.csv", index=False)
+        pd.DataFrame(contrast["pairs"]).to_csv(
+            OUTPUT / "matched_regulation_pairs.csv", index=False
+        )
     (OUTPUT / "matched_regulation_manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True, default=str) + "\n",
         encoding="utf-8",

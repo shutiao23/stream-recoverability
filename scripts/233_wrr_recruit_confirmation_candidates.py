@@ -25,7 +25,13 @@ from stream_recoverability.experiments.wrr_submission_ready.run_identity import 
 OUT = ROOT / "results" / "wrr_submission_ready"
 SPLIT = ROOT / "results" / "v17_fitness" / "step1_panel" / "network_split.csv"
 ROSTER = ROOT / "results" / "wrr_revision" / "step1_universe" / "network_roster.csv"
-TRUSTED = ROOT / "results" / "wrr_revision" / "step1_universe" / "trusted_river_complete_years.csv"
+TRUSTED = (
+    ROOT
+    / "results"
+    / "wrr_revision"
+    / "step1_universe"
+    / "trusted_river_complete_years.csv"
+)
 
 
 def build_worksheet(directory: Path, manifest) -> list[Path]:
@@ -39,7 +45,9 @@ def build_worksheet(directory: Path, manifest) -> list[Path]:
     if "v16_role" in outside.columns:
         # Prefer never-scored; still require later complete-year audit after fetch
         outside = outside.loc[
-            ~outside["v16_role"].astype(str).isin(["v16_confirmation_scored", "first_panel_development"])
+            ~outside["v16_role"]
+            .astype(str)
+            .isin(["v16_confirmation_scored", "first_panel_development"])
         ]
     cols = [
         c
@@ -83,8 +91,8 @@ def build_worksheet(directory: Path, manifest) -> list[Path]:
         "parsers_ready": parsers,
         "next_human_or_agent_action": (
             "Fetch ≥30 new river networks with ≥4 complete years/station from USGS/NVE/"
-            "Hub'Eau/UK EA/SMHI into a sealed root outside development_v11 confirmation "
-            "paths; write confirmation_inputs_manifest.csv; then unseal once."
+            "Hub'Eau/UK EA/SMHI into a separate root outside development_v11 confirmation "
+            "paths; write confirmation_inputs_manifest.csv; then score."
         ),
     }
     summary_path = OUT / "confirmation_external_worksheet_summary.json"
@@ -113,8 +121,8 @@ def pilot_fetch_usgs(directory: Path) -> list[Path]:
     note.write_text(
         f"# Pilot fetch placeholder for `{network_id}`\n\n"
         "This entry records intent. Full multi-station NWIS pulls should use the "
-        "project's confirmation acquisition scripts with request hashing, not an "
-        "ad-hoc one-off, before unseal.\n"
+        "project's confirmation acquisition scripts, not an ad-hoc one-off, before "
+        "scoring.\n"
     )
     # Do not invent site lists here; require an explicit site file if present.
     sites_file = OUT / "confirmation_pilot_site_lists" / f"{network_id}.txt"
@@ -131,11 +139,19 @@ def pilot_fetch_usgs(directory: Path) -> list[Path]:
             + "\n"
         )
         return [directory / "pilot_skipped.json", note]
-    site_ids = [line.strip() for line in sites_file.read_text().splitlines() if line.strip()]
+    site_ids = [
+        line.strip() for line in sites_file.read_text().splitlines() if line.strip()
+    ]
     frames = {}
     for site_id in site_ids:
         frames[site_id] = download_daily_means(site_id)
-    wide = pd.DataFrame({sid: df.set_index("date")["temperature_c"] for sid, df in frames.items() if len(df)})
+    wide = pd.DataFrame(
+        {
+            sid: df.set_index("date")["temperature_c"]
+            for sid, df in frames.items()
+            if len(df)
+        }
+    )
     out_csv = pilot_root / "daily_wide_temperature.csv"
     wide.sort_index().to_csv(out_csv)
     meta = {
@@ -160,7 +176,11 @@ def main() -> None:
             outputs.extend(pilot_fetch_usgs(directory))
         return outputs
 
-    run_fail_closed("P0-07 external confirmation recruitment worksheet", work, inputs=[SPLIT, ROSTER])
+    run_fail_closed(
+        "P0-07 external confirmation recruitment worksheet",
+        work,
+        inputs=[SPLIT, ROSTER],
+    )
 
 
 if __name__ == "__main__":

@@ -51,54 +51,45 @@
   "relaxation_trigger": "open_survival_projection_lt_100",
   "role": "development",
   "sealed_temperature_records_read": false,
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "stations": {
     "04136000": {
       "n_rows": 10858,
       "registry_reused": true,
-      "registry_sha256": "770bd3dcbce592690a8c8af68e722178c72723ebeb6c9cbbe50404830c2786f2",
       "status": "parsed"
     },
     "04136500": {
       "n_rows": 10915,
       "registry_reused": true,
-      "registry_sha256": "4cf1a2137eddd7765f2dc8d49925a57b3bb3aff16ae55ce10a25195c95743ad5",
       "status": "parsed"
     },
     "04136900": {
       "n_rows": 10557,
       "registry_reused": true,
-      "registry_sha256": "bc51c34aef6f3330982ae6a4297d416708f62213321815f2103c0d8061bd516e",
       "status": "parsed"
     },
     "04137005": {
       "n_rows": 10763,
       "registry_reused": true,
-      "registry_sha256": "43d7835deaa736fb5eb9735e984d8eb929eaf50e4d91613493d39e1f4c2cfd50",
       "status": "parsed"
     },
     "04137020": {
       "n_rows": 10816,
       "registry_reused": true,
-      "registry_sha256": "0ea019ef2afffce7b90b5d27a4cf8d6a4fc8b4bf3c2270ab58fd6de3fed35c4d",
       "status": "parsed"
     },
     "04137025": {
       "n_rows": 10838,
       "registry_reused": true,
-      "registry_sha256": "0ef2ee7116759ef5eea251f136e66456b5287db19fc8e7b3a584953802cb072d",
       "status": "parsed"
     },
     "04137030": {
       "n_rows": 10580,
       "registry_reused": true,
-      "registry_sha256": "f0c09f325f03f14ae74c89099a6ba1fc9db0402b353ac32cb3734865148c3fb1",
       "status": "parsed"
     },
     "04137500": {
       "n_rows": 10930,
       "registry_reused": true,
-      "registry_sha256": "ad001f1f2b01a7e0b47cb44dd0d8c297075bf33d6ffaf4b2588875db8621c010",
       "status": "parsed"
     }
   },

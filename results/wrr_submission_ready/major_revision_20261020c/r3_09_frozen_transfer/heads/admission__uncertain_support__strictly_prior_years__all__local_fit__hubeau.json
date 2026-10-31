@@ -58,7 +58,6 @@
   "identity": "admission__uncertain_support__strictly_prior_years__all__local_fit__hubeau",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__uncertain_support__strictly_prior_years__all__local_fit__hubeau.joblib",
-  "model_sha256": "c666d0cdd78bb047e46318a5f5fdf795e260ec3e6b60761f55cfa3daceaf80ab",
   "n_training_cases": 165,
   "n_training_groups": 9,
   "name": "uncertain_support",
@@ -68,8 +67,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

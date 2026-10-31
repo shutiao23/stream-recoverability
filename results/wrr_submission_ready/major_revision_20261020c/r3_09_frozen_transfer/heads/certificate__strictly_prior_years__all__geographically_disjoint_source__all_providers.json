@@ -50,7 +50,6 @@
   "identity": "certificate__strictly_prior_years__all__geographically_disjoint_source__all_providers",
   "kind": "certificate",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/certificate__strictly_prior_years__all__geographically_disjoint_source__all_providers.joblib",
-  "model_sha256": "055b995a9b7b760a87c69c1bdbe53e4ed74cf04539f773ee61d6137185b3b561",
   "n_training_cases": 50355,
   "n_training_groups": 54,
   "name": "certificate",
@@ -60,8 +59,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
-      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet"
     }
   ],
   "source_thresholds": {

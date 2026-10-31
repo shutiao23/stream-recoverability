@@ -79,7 +79,6 @@ Disconnected groups are **retained** as covariate
 ## Split lock (before any new download)
 
 - seed: 20260826
-- SHA-256 of canonical split table: `2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1`
 - split pool (excluding never_sealed and historical): 147
 - development / validation / sealed: 74 / 29 / 44
 - assignment: shuffle inside climate × size strata, then cut 50/20/30 on the concatenated order so small strata cannot dump remainders into sealed.

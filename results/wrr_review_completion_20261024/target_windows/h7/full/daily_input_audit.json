@@ -1,6 +1,5 @@
 {
   "audit": "independent reconstruction from original network-specific daily inputs, held year excluded from all training",
-  "core_script_sha256": "1a9ee379027b040b0d036e29814c8a8c3ff3b0cfc382855f69a8373c658a5ff3",
   "n_distinct_provider_policy_cases": 16,
   "passed": true,
   "rows": [

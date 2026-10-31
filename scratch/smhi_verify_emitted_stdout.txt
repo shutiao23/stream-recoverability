@@ -160,7 +160,6 @@
     "n_rows": 143,
     "n_eligible_ge_4_years": 101,
     "n_complete_station_years_eligible": 1372,
-    "sha256": "7ee0e9ad8ecf62e2b1dc6c2bea643ae0a5839bd112efb82613f4368bac8595f9",
     "measurement_statistic_unique": [
       "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record"
     ]

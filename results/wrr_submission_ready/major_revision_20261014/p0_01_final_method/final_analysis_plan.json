@@ -1,7 +1,6 @@
 {
   "schema_version": 1,
   "generated_utc": "2026-10-15T09:44:33Z",
-  "git_head": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
   "question": "Given an incomplete river-temperature year, should an agency admit it to an archive that will be used to compute the hottest 30-day mean?",
   "primary_method": {
     "id": "fitted_risk_calibrated",

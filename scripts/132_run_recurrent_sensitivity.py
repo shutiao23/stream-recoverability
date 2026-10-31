@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -35,14 +34,6 @@ EMPIRICAL = (
     / "results/development_v11/reviewer_completion/confirmation_empirical_predictions.csv"
 )
 DEFAULT_OUTPUT = ROOT / "results/development_v11/reviewer_completion"
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def spearman(frame: pd.DataFrame, left: str, right: str) -> float | None:
@@ -77,7 +68,7 @@ def main() -> None:
     )
     predictions: list[pd.DataFrame] = []
     training_rows: list[dict[str, object]] = []
-    panel_hashes: dict[str, str] = {}
+    panel_paths: list[str] = []
     for item in selected.itertuples(index=False):
         network = str(item.network_id)
         panel_path = PANELS / network / "daily_wide_temperature.csv"
@@ -97,10 +88,9 @@ def main() -> None:
             max_windows=max(6, args.max_windows // 4),
             seed=args.seed + 1,
         )
-        usable_features = (
-            (np.isfinite(train_values) & ~train_mask).any(axis=(0, 1))
-            & (np.isfinite(validation_values) & ~validation_mask).any(axis=(0, 1))
-        )
+        usable_features = (np.isfinite(train_values) & ~train_mask).any(axis=(0, 1)) & (
+            np.isfinite(validation_values) & ~validation_mask
+        ).any(axis=(0, 1))
         if int(usable_features.sum()) < 2:
             raise RuntimeError(
                 f"{network} has fewer than two recurrent features represented "
@@ -138,7 +128,7 @@ def main() -> None:
         )
         scored["provider"] = str(item.provider)
         predictions.append(scored)
-        panel_hashes[str(panel_path.relative_to(ROOT))] = sha256(panel_path)
+        panel_paths.append(str(panel_path.relative_to(ROOT)))
         training_rows.append(
             {
                 "network_id": network,
@@ -150,25 +140,19 @@ def main() -> None:
                 ),
                 "fit_years": "|".join(map(str, fit_years)),
                 "validation_years": "|".join(map(str, validation_years)),
-                "outer_evaluation_years": "|".join(
-                    map(str, outer_evaluation_years)
-                ),
+                "outer_evaluation_years": "|".join(map(str, outer_evaluation_years)),
                 "n_training_windows": len(train_values),
                 "n_validation_windows": len(validation_values),
                 "epochs_ran": int(model.history_["epochs_ran"]),
                 "best_epoch": int(model.history_["best_epoch"]),
-                "best_validation_loss": float(
-                    model.history_["best_validation_loss"]
-                ),
+                "best_validation_loss": float(model.history_["best_validation_loss"]),
             }
         )
         print(f"exploratory BRITS sensitivity: {network}", flush=True)
 
     prediction = pd.concat(predictions, ignore_index=True)
     if EMPIRICAL.is_file():
-        empirical = pd.read_csv(
-            EMPIRICAL, dtype={"network_id": str, "station_id": str}
-        )
+        empirical = pd.read_csv(EMPIRICAL, dtype={"network_id": str, "station_id": str})
         empirical["gap_start"] = pd.to_datetime(empirical["gap_start"])
         prediction = prediction.merge(
             empirical[
@@ -274,16 +258,12 @@ def main() -> None:
                 "brits_mae_deg_c",
             ),
         },
-        "input_sha256": {
-            str(qualified_path.relative_to(ROOT)): sha256(qualified_path),
-            str(placements_path.relative_to(ROOT)): sha256(placements_path),
-            **panel_hashes,
-        },
-        "output_sha256": {
-            prediction_path.name: sha256(prediction_path),
-            training_path.name: sha256(training_path),
-            metrics_path.name: sha256(metrics_path),
-        },
+        "inputs": [
+            str(qualified_path.relative_to(ROOT)),
+            str(placements_path.relative_to(ROOT)),
+            *panel_paths,
+        ],
+        "outputs": [prediction_path.name, training_path.name, metrics_path.name],
     }
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(manifest["results"], indent=2))

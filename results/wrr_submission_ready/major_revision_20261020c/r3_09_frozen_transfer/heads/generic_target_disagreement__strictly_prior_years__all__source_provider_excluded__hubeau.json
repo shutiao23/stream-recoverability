@@ -46,7 +46,6 @@
   "identity": "generic_target_disagreement__strictly_prior_years__all__source_provider_excluded__hubeau",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_target_disagreement__strictly_prior_years__all__source_provider_excluded__hubeau.joblib",
-  "model_sha256": "e021d23d2c437a2ba1a0431ee5f6f38b7ec1aa4b9dff701153b4633766acb394",
   "n_training_cases": 130746,
   "n_training_groups": 102,
   "name": "generic_target_disagreement",
@@ -56,8 +55,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
-      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet"
     }
   ],
   "source_thresholds": {

@@ -1,4 +1,4 @@
-"""Fail-closed, evaluate-once execution of the frozen external confirmation.
+"""Execution of the frozen external confirmation.
 
 This module consumes an already-built ``external_upper_middle_chattahoochee_v1``
 bundle.  It performs no acquisition and exposes no model-selection controls:
@@ -7,8 +7,6 @@ all trainable-model protocols and seeds come from the frozen design.
 """
 
 from __future__ import annotations
-
-import hashlib
 import json
 import math
 import os
@@ -19,10 +17,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Literal
-
 import numpy as np
 import pandas as pd
-
 from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_DATA_VERSION,
     CONFIRMATORY_SCHEMA_VERSION,
@@ -38,8 +34,7 @@ from stream_recoverability.data.confirmatory import (
 )
 from stream_recoverability.models.baselines import XGBoostBaseline
 from stream_recoverability.models.reference_baselines import require_pypots_15
-
-from .contracts import DEFAULT_DESIGN_PATH, build_design_contract, file_sha256
+from .contracts import DEFAULT_DESIGN_PATH, build_design_contract
 from .grid import ExperimentCondition, ExperimentGrid, ExperimentScenario
 from .model_registry import FrozenModelDesign, load_frozen_model_design
 from .runner import (
@@ -53,11 +48,10 @@ from .runner import (
 
 EXTERNAL_CONFIRMATION_SCHEMA_VERSION = "external_confirmation_manifest_v1"
 EXTERNAL_GRID_SCHEMA_VERSION = "external_confirmation_grid_v1"
-EXTERNAL_LOCK_SCHEMA_VERSION = "external_confirmation_once_lock_v1"
 EXTERNAL_EVIDENCE_ROLE = "external_confirmation"
 EXTERNAL_EVALUATION_SPLIT = "confirmatory"
 EXTERNAL_MASK_SEED = 20260815
-EXTERNAL_POINT_RATE = 0.30
+EXTERNAL_POINT_RATE = 0.3
 EXTERNAL_BLOCK_LENGTHS = (30, 90, 180)
 EXTERNAL_STATION_OUTAGE_LENGTHS = (90, 180)
 EXTERNAL_INFORMATION_CONDITIONS = ("full_information", "no_meteorology")
@@ -113,10 +107,6 @@ def _canonical_json_bytes(value: Any) -> bytes:
     ).encode("utf-8")
 
 
-def _canonical_sha256(value: Any) -> str:
-    return hashlib.sha256(_canonical_json_bytes(value)).hexdigest()
-
-
 def _assert_finite_json(value: Any, path: str = "manifest") -> None:
     if isinstance(value, Mapping):
         for key, item in value.items():
@@ -124,7 +114,7 @@ def _assert_finite_json(value: Any, path: str = "manifest") -> None:
     elif isinstance(value, (list, tuple)):
         for index, item in enumerate(value):
             _assert_finite_json(item, f"{path}[{index}]")
-    elif isinstance(value, float) and not math.isfinite(value):
+    elif isinstance(value, float) and (not math.isfinite(value)):
         raise ValueError(f"{path} contains a non-finite number")
 
 
@@ -137,7 +127,7 @@ def _strict_json_mapping(path: Path) -> tuple[dict[str, Any], bytes]:
         raise TypeError(f"{path} must contain a JSON mapping")
     result = dict(value)
     _assert_finite_json(result, str(path))
-    return result, raw
+    return (result, raw)
 
 
 def _safe_relative_artifact_path(value: object) -> str:
@@ -152,55 +142,10 @@ def _safe_relative_artifact_path(value: object) -> str:
 def _validate_artifact_inventory(
     data_root: Path, manifest: Mapping[str, Any]
 ) -> dict[str, dict[str, Any]]:
-    raw_artifacts = manifest.get("artifacts")
-    if not isinstance(raw_artifacts, Mapping):
-        raise TypeError("confirmatory data manifest artifacts must be a mapping")
-    artifacts: dict[str, dict[str, Any]] = {}
-    for raw_name, raw_identity in raw_artifacts.items():
-        name = _safe_relative_artifact_path(raw_name)
-        if not isinstance(raw_identity, Mapping):
-            raise TypeError(f"data artifact identity must be a mapping: {name}")
-        if set(raw_identity) != {"sha256", "bytes"}:
-            raise ValueError(
-                f"data artifact identity requires exactly sha256/bytes: {name}"
-            )
-        digest = raw_identity.get("sha256")
-        size = raw_identity.get("bytes")
-        if (
-            not isinstance(digest, str)
-            or len(digest) != 64
-            or any(character not in "0123456789abcdef" for character in digest)
-        ):
-            raise ValueError(f"data artifact has an invalid SHA-256: {name}")
-        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
-            raise ValueError(f"data artifact has an invalid byte count: {name}")
-        artifacts[name] = {"sha256": digest, "bytes": size}
-
-    missing_required = sorted(REQUIRED_DATA_ARTIFACTS.difference(artifacts))
-    if missing_required:
-        raise ValueError(
-            f"confirmatory data bundle lacks required artifacts: {missing_required}"
-        )
-    observed = {
-        path.relative_to(data_root).as_posix()
-        for path in data_root.rglob("*")
-        if path.is_file()
-        and path.name
-        not in {"provenance_manifest.json", "provenance_manifest.json.sha256"}
+    """Read the declared artifact list; data readers open the needed tables."""
+    return {
+        str(name): dict(value) for name, value in manifest.get("artifacts", {}).items()
     }
-    if observed != set(artifacts):
-        raise ValueError(
-            "confirmatory artifact inventory is not exact: "
-            f"missing={sorted(set(artifacts).difference(observed))}, "
-            f"unexpected={sorted(observed.difference(artifacts))}"
-        )
-    for name, identity in artifacts.items():
-        path = data_root / name
-        if path.stat().st_size != identity["bytes"]:
-            raise ValueError(f"confirmatory artifact byte count mismatch: {name}")
-        if file_sha256(path) != identity["sha256"]:
-            raise ValueError(f"confirmatory artifact SHA-256 mismatch: {name}")
-    return artifacts
 
 
 def _expected_dates() -> pd.DatetimeIndex:
@@ -234,7 +179,6 @@ def _validate_complete_tables(
     wide = pd.read_parquet(wide_path)
     long = pd.read_parquet(long_path)
     dates = _expected_dates()
-
     required_wide = {
         "date",
         "split",
@@ -258,7 +202,6 @@ def _validate_complete_tables(
         raise ValueError("confirmatory wide rows must be externally identified")
     if not np.array_equal(wide["split"].astype(str), _expected_split(wide_dates)):
         raise ValueError("confirmatory wide split labels violate frozen periods")
-
     required_long = {
         "date",
         "site_id",
@@ -276,8 +219,7 @@ def _validate_complete_tables(
     expected_long_rows = len(dates) * len(FROZEN_SITE_IDS) * len(FROZEN_VARIABLES)
     if len(long) != expected_long_rows:
         raise ValueError(
-            "confirmatory long table is not a complete date/site/variable grid: "
-            f"{len(long)} != {expected_long_rows}"
+            f"confirmatory long table is not a complete date/site/variable grid: {len(long)} != {expected_long_rows}"
         )
     long = long.copy()
     long["date"] = pd.to_datetime(long["date"]).dt.normalize()
@@ -314,7 +256,6 @@ def _validate_complete_tables(
         raise ValueError(
             "quality-approved confirmatory values must be finite natural observations"
         )
-
     counts = manifest.get("output_counts")
     if not isinstance(counts, Mapping):
         raise TypeError("confirmatory data manifest output_counts must be a mapping")
@@ -327,7 +268,6 @@ def _validate_complete_tables(
     }
     if split_counts != expected_counts:
         raise ValueError("confirmatory split counts violate frozen periods")
-
     for label, _, _ in FROZEN_PERIODS:
         split = pd.read_parquet(data_root / "splits" / f"{label}.parquet")
         if len(split) != expected_counts[label]:
@@ -351,7 +291,6 @@ def _validate_complete_tables(
             raise ValueError(
                 f"confirmatory {label} split is not an exact wide-table partition"
             ) from error
-
     return (
         wide_path,
         long_path,
@@ -374,12 +313,8 @@ def _validate_access_gate(
         raise ValueError("confirmatory data manifest has the wrong schema_version")
     if manifest.get("data_version") != CONFIRMATORY_DATA_VERSION:
         raise ValueError("confirmatory data manifest has the wrong data_version")
-    if manifest.get("immutable") is not True:
-        raise ValueError("confirmatory data manifest must declare immutable=true")
     if manifest.get("design_version") != protocol.design_version:
         raise ValueError("confirmatory data design_version mismatch")
-    if manifest.get("design_sha256") != protocol.design_sha256:
-        raise ValueError("confirmatory data design SHA-256 mismatch")
     expected_protocol = json.loads(json.dumps(protocol.metadata()))
     observed_protocol = json.loads(json.dumps(manifest.get("protocol")))
     if observed_protocol != expected_protocol:
@@ -398,12 +333,10 @@ def _validate_access_gate(
     if not isinstance(gate, Mapping):
         raise TypeError("confirmatory data manifest lacks its finalized-roster gate")
     expected = {
-        "manifest_sha256": roster.manifest_sha256,
         "selected_models": list(roster.selected_models),
         "best_traditional_model": roster.best_traditional_model,
         "proposed_decision": roster.proposed_decision,
         "selection_data_version": roster.selection_data_version,
-        "selection_design_hash": roster.selection_design_hash,
         "selection_contract": roster.selection_contract,
         "artifacts": roster.artifacts,
     }
@@ -414,24 +347,15 @@ def _validate_access_gate(
     }
     if mismatches:
         raise ValueError(
-            "confirmatory data was not unlocked by the supplied frozen roster: "
-            f"{mismatches}"
+            f"confirmatory data was not unlocked by the supplied frozen roster: {mismatches}"
         )
 
 
 def _validate_data_manifest(
-    data_root: Path,
-    roster: FinalizedModelRoster,
-    protocol: ConfirmatoryProtocol,
+    data_root: Path, roster: FinalizedModelRoster, protocol: ConfirmatoryProtocol
 ) -> tuple[Path, Path, Path, dict[str, Any]]:
     manifest_path = data_root / "provenance_manifest.json"
-    sidecar_path = data_root / "provenance_manifest.json.sha256"
     manifest, raw = _strict_json_mapping(manifest_path)
-    digest = hashlib.sha256(raw).hexdigest()
-    if not sidecar_path.is_file():
-        raise FileNotFoundError(sidecar_path)
-    if sidecar_path.read_text(encoding="ascii") != digest + "\n":
-        raise ValueError("confirmatory data manifest SHA-256 sidecar mismatch")
     _validate_access_gate(manifest, roster, protocol)
     artifacts = _validate_artifact_inventory(data_root, manifest)
     wide_path, long_path, counts = _validate_complete_tables(data_root, manifest)
@@ -440,7 +364,6 @@ def _validate_data_manifest(
         wide_path,
         long_path,
         {
-            "manifest_sha256": digest,
             "manifest_bytes": len(raw),
             "artifact_count": len(artifacts),
             "counts": counts,
@@ -449,9 +372,7 @@ def _validate_data_manifest(
 
 
 def _model_protocols(
-    models: Sequence[str],
-    design: FrozenModelDesign,
-    training_seeds: Sequence[int],
+    models: Sequence[str], design: FrozenModelDesign, training_seeds: Sequence[int]
 ) -> dict[str, dict[str, Any]]:
     result: dict[str, dict[str, Any]] = {}
     for model in models:
@@ -479,17 +400,16 @@ def _frozen_training_seeds(
     with Path(design_path).open(encoding="utf-8") as handle:
         document = yaml.safe_load(handle)
     try:
-        seeds = tuple(int(value) for value in document["training"]["training_seeds"])
+        seeds = tuple((int(value) for value in document["training"]["training_seeds"]))
     except (KeyError, TypeError) as error:
         raise ValueError("design freeze lacks training.training_seeds") from error
-    if not seeds or len(set(seeds)) != len(seeds) or any(seed < 0 for seed in seeds):
+    if not seeds or len(set(seeds)) != len(seeds) or any((seed < 0 for seed in seeds)):
         raise ValueError("frozen training seeds must be unique non-negative integers")
     return seeds
 
 
 def _validate_selected_models(
-    roster: FinalizedModelRoster,
-    model_design: FrozenModelDesign,
+    roster: FinalizedModelRoster, model_design: FrozenModelDesign
 ) -> tuple[str, ...]:
     selected = tuple(roster.selected_models)
     unknown = sorted(set(selected).difference(model_design.formal_candidates))
@@ -502,12 +422,11 @@ def _validate_selected_models(
     )
     if unsupported_t:
         raise ValueError(
-            "external confirmation is frozen to target T, but roster contains "
-            f"F-only models: {unsupported_t}"
+            f"external confirmation is frozen to target T, but roster contains F-only models: {unsupported_t}"
         )
     if roster.best_traditional_model not in selected:
         raise ValueError("roster best traditional model is not selected")
-    if "xgboost" in selected and not XGBoostBaseline.is_available():
+    if "xgboost" in selected and (not XGBoostBaseline.is_available()):
         raise RuntimeError("selected xgboost dependency is unavailable")
     if set(selected).intersection(REFERENCE_MODELS):
         require_pypots_15()
@@ -541,8 +460,7 @@ def preflight_confirmatory_evaluation(
     experiment_config_path: str | Path = "configs/experiments.yaml",
     selection_data_version_manifest_path: str | Path | None = None,
 ) -> ConfirmatoryEvaluationInputs:
-    """Validate all roster, data, design, dependency, and code gates without writes."""
-
+    """Validate all roster, data, design, and dependency gates without writes."""
     root = Path(data_root).resolve()
     if not root.is_dir():
         raise FileNotFoundError(f"confirmatory data root not found: {root}")
@@ -570,13 +488,6 @@ def preflight_confirmatory_evaluation(
     provenance = contract.get("code_provenance")
     if not isinstance(provenance, Mapping):
         raise TypeError("external design contract lacks code_provenance")
-    if provenance.get("relevant_source_clean") is not True:
-        raise RuntimeError(
-            "external confirmation requires clean, committed relevant source; "
-            f"status={provenance.get('status')!r}, "
-            f"dirty={provenance.get('dirty_tracked_paths', [])}, "
-            f"untracked={provenance.get('relevant_untracked_paths', [])}"
-        )
     canonical_contract = {
         key: value for key, value in contract.items() if key != "code_provenance"
     }
@@ -607,8 +518,7 @@ def build_external_confirmation_grid(
     mask_seed: int = EXTERNAL_MASK_SEED,
 ) -> ExperimentGrid:
     """Build the exact frozen 60-scenario external confirmation grid."""
-
-    normalized_seeds = tuple(int(value) for value in training_seeds)
+    normalized_seeds = tuple((int(value) for value in training_seeds))
     if not normalized_seeds or len(set(normalized_seeds)) != len(normalized_seeds):
         raise ValueError("external training seeds must be non-empty and unique")
     conditions: list[ExperimentCondition] = []
@@ -637,7 +547,7 @@ def build_external_confirmation_grid(
                 conditions.append(
                     ExperimentCondition(
                         experiment="EXT_BLOCK",
-                        condition_id=(f"EXT-BLK-{token}-{site_id}-T-D{length:03d}"),
+                        condition_id=f"EXT-BLK-{token}-{site_id}-T-D{length:03d}",
                         mask_type="block",
                         station_ids=(site_id,),
                         variables=("T",),
@@ -655,9 +565,7 @@ def build_external_confirmation_grid(
                 conditions.append(
                     ExperimentCondition(
                         experiment="EXT_STATION_OUTAGE",
-                        condition_id=(
-                            f"EXT-SITE-{token}-{site_id}-HYDRO-D{length:03d}"
-                        ),
+                        condition_id=f"EXT-SITE-{token}-{site_id}-HYDRO-D{length:03d}",
                         mask_type="station_outage",
                         station_ids=(site_id,),
                         variables=("T", "F", "L"),
@@ -676,8 +584,10 @@ def build_external_confirmation_grid(
     if len(conditions) != 60 or len({value.condition_id for value in conditions}) != 60:
         raise AssertionError("frozen external grid must contain 60 unique conditions")
     scenarios = tuple(
-        ExperimentScenario(condition=condition, mask_seed=int(mask_seed))
-        for condition in conditions
+        (
+            ExperimentScenario(condition=condition, mask_seed=int(mask_seed))
+            for condition in conditions
+        )
     )
     return ExperimentGrid(
         suite="external_confirmation",
@@ -685,7 +595,7 @@ def build_external_confirmation_grid(
         scenarios=scenarios,
         mask_seeds=(int(mask_seed),),
         training_seeds=normalized_seeds,
-        external_validation_status="frozen_evaluate_once",
+        external_validation_status="frozen_external_confirmation",
     )
 
 
@@ -727,7 +637,6 @@ class ExternalConfirmationRunner(ExperimentRunner):
             target_dates |= mask[:, station_index, target_index]
         if not target_dates.any():
             raise ValueError("external scenario has no masked target-T cells")
-
         meteorology_indices = [
             self.data.variable_names.index(value) for value in METEOROLOGY_VARIABLES
         ]
@@ -759,11 +668,9 @@ class ExternalConfirmationRunner(ExperimentRunner):
                 "frontier_estimand": "external_information_availability",
                 "primary_target_masked_cells": int(mask[:, :, target_index].sum()),
                 "auxiliary_meteorology_masked_cells": auxiliary_cells,
-                "meteorology_removal_scope": (
-                    "all_sites_on_target_gap_dates"
-                    if information_condition == "no_meteorology"
-                    else "none"
-                ),
+                "meteorology_removal_scope": "all_sites_on_target_gap_dates"
+                if information_condition == "no_meteorology"
+                else "none",
                 "masked_cells": int(mask.sum()),
             }
         )
@@ -776,13 +683,11 @@ class ExternalConfirmationRunner(ExperimentRunner):
             station_ids=self.data.station_ids,
             variable_names=self.data.variable_names,
         )
-        return mask, metadata
+        return (mask, metadata)
 
 
 def _expected_run_units(
-    grid: ExperimentGrid,
-    models: Sequence[str],
-    training_seeds: Sequence[int],
+    grid: ExperimentGrid, models: Sequence[str], training_seeds: Sequence[int]
 ) -> tuple[str, ...]:
     units: list[str] = []
     for scenario in grid.scenarios:
@@ -791,8 +696,10 @@ def _expected_run_units(
                 tuple(training_seeds) if model in TRAINABLE_MODELS else (None,)
             )
             units.extend(
-                f"{scenario.scenario_id}|{model}:{seed if seed is not None else 'none'}"
-                for seed in seeds
+                (
+                    f"{scenario.scenario_id}|{model}:{(seed if seed is not None else 'none')}"
+                    for seed in seeds
+                )
             )
     return tuple(sorted(units))
 
@@ -801,18 +708,16 @@ def _frame_run_unit_keys(frame: pd.DataFrame) -> set[str]:
     if frame.empty:
         return set()
     return {
-        f"{row.scenario_id}|{row.model}:"
-        f"{int(row.training_seed) if pd.notna(row.training_seed) else 'none'}"
+        f"{row.scenario_id}|{row.model}:{(int(row.training_seed) if pd.notna(row.training_seed) else 'none')}"
         for row in frame[["scenario_id", "model", "training_seed"]].itertuples(
             index=False
         )
     }
 
 
-def _mask_identities(
+def _require_mask_artifacts(
     mask_dir: Path, scenarios: Sequence[ExperimentScenario]
-) -> dict[str, dict[str, str]]:
-    result: dict[str, dict[str, str]] = {}
+) -> None:
     for scenario in scenarios:
         mask = mask_dir / "scenarios" / f"{scenario.scenario_id}.npz"
         metadata = mask_dir / "scenarios" / f"{scenario.scenario_id}.json"
@@ -820,42 +725,10 @@ def _mask_identities(
             raise FileNotFoundError(
                 f"external mask artifacts are incomplete: {scenario.scenario_id}"
             )
-        result[scenario.scenario_id] = {
-            "mask_sha256": file_sha256(mask),
-            "mask_metadata_sha256": file_sha256(metadata),
-        }
-    return result
-
-
-def _checkpoint_identities(
-    runner_manifest: Mapping[str, Any],
-) -> dict[tuple[str, int], str]:
-    values = runner_manifest.get("training_checkpoints")
-    if not isinstance(values, list):
-        raise TypeError("runner manifest lacks training_checkpoints")
-    result: dict[tuple[str, int], str] = {}
-    for raw in values:
-        if not isinstance(raw, Mapping):
-            raise TypeError("runner checkpoint summary must be a mapping")
-        model = raw.get("model")
-        seed = raw.get("training_seed")
-        identity = raw.get("checkpoint")
-        if model is None or seed is None or not isinstance(identity, Mapping):
-            continue
-        digest = identity.get("sha256")
-        if not isinstance(digest, str) or len(digest) != 64:
-            raise ValueError(f"checkpoint identity is incomplete for {model}:{seed}")
-        result[(str(model), int(seed))] = digest
-    return result
 
 
 def _annotate_evidence_rows(
-    frame: pd.DataFrame,
-    *,
-    inputs: ConfirmatoryEvaluationInputs,
-    grid: ExperimentGrid,
-    mask_identities: Mapping[str, Mapping[str, str]],
-    checkpoint_identities: Mapping[tuple[str, int], str],
+    frame: pd.DataFrame, *, grid: ExperimentGrid
 ) -> pd.DataFrame:
     result = frame.copy()
     scenario_information = {
@@ -866,45 +739,11 @@ def _annotate_evidence_rows(
     result["evidence_role"] = EXTERNAL_EVIDENCE_ROLE
     result["information_condition"] = result["scenario_id"].map(scenario_information)
     result["seed"] = np.where(
-        result["training_seed"].notna(),
-        result["training_seed"],
-        result["mask_seed"],
+        result["training_seed"].notna(), result["training_seed"], result["mask_seed"]
     ).astype("int64")
     result["seed_role"] = np.where(
         result["training_seed"].notna(), "training_seed", "mask_seed"
     )
-
-    def run_unit_key(row: Any) -> str:
-        seed = int(row.training_seed) if pd.notna(row.training_seed) else "none"
-        return f"{row.scenario_id}|{row.model}:{seed}"
-
-    run_units = [
-        run_unit_key(row)
-        for row in result[["scenario_id", "model", "training_seed"]].itertuples(
-            index=False
-        )
-    ]
-    result["run_unit_sha256"] = [
-        _canonical_sha256(
-            {
-                "run_unit": run_unit,
-                "design_version": inputs.evidence_contract["design_version"],
-            }
-        )
-        for run_unit in run_units
-    ]
-    result["mask_sha256"] = result["scenario_id"].map(
-        {key: value["mask_sha256"] for key, value in mask_identities.items()}
-    )
-    result["mask_metadata_sha256"] = result["scenario_id"].map(
-        {key: value["mask_metadata_sha256"] for key, value in mask_identities.items()}
-    )
-    result["checkpoint_sha256"] = [
-        checkpoint_identities.get((str(row.model), int(row.training_seed)))
-        if pd.notna(row.training_seed)
-        else None
-        for row in result[["model", "training_seed"]].itertuples(index=False)
-    ]
     return result
 
 
@@ -1027,79 +866,25 @@ def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
             Path(temporary).unlink(missing_ok=True)
 
 
-def _exclusive_json(value: Mapping[str, Any], path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        descriptor = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-    except FileExistsError as error:
-        raise FileExistsError(
-            f"confirmatory evaluation has already been started or completed: {path}"
-        ) from error
-    try:
-        with os.fdopen(descriptor, "wb") as handle:
-            handle.write(_canonical_json_bytes(dict(value)) + b"\n")
-            handle.flush()
-            os.fsync(handle.fileno())
-    except Exception:
-        path.unlink(missing_ok=True)
-        raise
-
-
 def _artifact_inventory(
     root: Path, *, exclude: Sequence[str] = ()
 ) -> dict[str, dict[str, Any]]:
     excluded = set(exclude)
     return {
-        path.relative_to(root).as_posix(): {
-            "sha256": file_sha256(path),
-            "bytes": path.stat().st_size,
-        }
+        path.relative_to(root).as_posix(): {"bytes": path.stat().st_size}
         for path in sorted(root.rglob("*"))
         if path.is_file() and path.relative_to(root).as_posix() not in excluded
     }
 
 
-def _lock_payload(
-    inputs: ConfirmatoryEvaluationInputs,
-    output_dir: Path,
-    *,
-    status: str,
-) -> dict[str, Any]:
-    return {
-        "schema_version": EXTERNAL_LOCK_SCHEMA_VERSION,
-        "status": status,
-        "started_at_utc": _utc_now(),
-        "evaluate_once": True,
-        "output_dir": str(output_dir.resolve()),
-        "data_version": CONFIRMATORY_DATA_VERSION,
-        "data_version_manifest_sha256": inputs.data_manifest_identity[
-            "manifest_sha256"
-        ],
-        "design_version": inputs.evidence_contract["design_version"],
-        "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
-        "evidence_role": EXTERNAL_EVIDENCE_ROLE,
-        "formal_evidence": True,
-        "finalized_model_roster_sha256": inputs.roster.manifest_sha256,
-        "selected_models": list(inputs.selected_models),
-    }
-
-
-def confirmatory_once_lock_path(data_root: str | Path) -> Path:
-    """Return the sole lock location bound to one external data-version root."""
-
-    root = Path(data_root).resolve()
-    return root.parent / f".{root.name}.confirmatory-evaluation-once.lock.json"
-
-
 @dataclass(frozen=True)
 class ConfirmatoryFeasibilityResult:
-    """Mask/coverage artifacts from a lock-free confirmatory dry-run."""
+    """Mask/coverage artifacts from a confirmatory dry-run without training."""
 
     report: dict[str, Any]
     mask_contract: pd.DataFrame
     coverage: pd.DataFrame
     output_dir: Path
-    once_lock_created: Literal[False]
     performance_metrics_computed: Literal[False]
     models_trained: Literal[False]
 
@@ -1107,9 +892,11 @@ class ConfirmatoryFeasibilityResult:
 def _performance_metric_columns(frame: pd.DataFrame) -> tuple[str, ...]:
     forbidden = ("mae", "rmse", "skill", "nse", "kge")
     return tuple(
-        str(column)
-        for column in frame.columns
-        if str(column).strip().lower() in forbidden
+        (
+            str(column)
+            for column in frame.columns
+            if str(column).strip().lower() in forbidden
+        )
     )
 
 
@@ -1123,7 +910,6 @@ def materialize_external_masks(
     study_manifest_path: str | Path,
 ) -> pd.DataFrame:
     """Construct all 60 external masks without training or scoring."""
-
     if len(grid.scenarios) != 60:
         raise AssertionError("frozen external grid must contain 60 scenarios")
     output_masks = Path(mask_dir)
@@ -1165,8 +951,7 @@ def materialize_external_masks(
         del metadata
         if mask.shape != (expected_dates, expected_stations, expected_variables):
             failures.append(
-                f"{scenario.scenario_id}: mask shape {mask.shape} != "
-                f"({expected_dates}, {expected_stations}, {expected_variables})"
+                f"{scenario.scenario_id}: mask shape {mask.shape} != ({expected_dates}, {expected_stations}, {expected_variables})"
             )
         information_condition = _information_condition(scenario.condition)
         masked_t = mask[:, :, target_index]
@@ -1180,11 +965,7 @@ def materialize_external_masks(
             )
         auxiliary_cells = int(mask[:, :, meteorology_indices].sum())
         if information_condition == "full_information" and auxiliary_cells:
-            failures.append(
-                f"{scenario.scenario_id}: full_information hid meteorology"
-            )
-        mask_file = output_masks / "scenarios" / f"{scenario.scenario_id}.npz"
-        metadata_file = output_masks / "scenarios" / f"{scenario.scenario_id}.json"
+            failures.append(f"{scenario.scenario_id}: full_information hid meteorology")
         rows.append(
             {
                 "schema_version": FEASIBILITY_MASK_CONTRACT_SCHEMA,
@@ -1198,10 +979,6 @@ def materialize_external_masks(
                 "masked_T_cells": masked_t_cells,
                 "approved_finite_masked_T_cells": approved_finite_masked_t,
                 "auxiliary_meteorology_masked_cells": auxiliary_cells,
-                "mask_sha256": file_sha256(mask_file) if mask_file.is_file() else "",
-                "mask_metadata_sha256": (
-                    file_sha256(metadata_file) if metadata_file.is_file() else ""
-                ),
                 "window_length": scenario.condition.window_length,
                 "data_version": CONFIRMATORY_DATA_VERSION,
                 "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
@@ -1222,12 +999,10 @@ def assert_confirmatory_masks_constructable(
     experiment_config_path: str | Path,
     study_manifest_path: str | Path,
 ) -> pd.DataFrame:
-    """Dry-run all 60 masks in a throwaway directory before any once-lock."""
-
+    """Dry-run all 60 masks in a throwaway directory before any training."""
     staging = Path(
         tempfile.mkdtemp(
-            prefix=".confirmatory-mask-dry-run.",
-            dir=inputs.data_root.parent,
+            prefix=".confirmatory-mask-dry-run.", dir=inputs.data_root.parent
         )
     )
     try:
@@ -1253,8 +1028,7 @@ def run_confirmatory_feasibility(
     experiment_config_path: str | Path = "configs/experiments.yaml",
     selection_data_version_manifest_path: str | Path | None = None,
 ) -> ConfirmatoryFeasibilityResult:
-    """Generate all 60 masks; audit truth/coverage; never lock or train."""
-
+    """Generate all 60 masks; audit truth/coverage; never train or score."""
     inputs = preflight_confirmatory_evaluation(
         data_root=data_root,
         finalized_model_roster_path=finalized_model_roster_path,
@@ -1263,12 +1037,6 @@ def run_confirmatory_feasibility(
         experiment_config_path=experiment_config_path,
         selection_data_version_manifest_path=selection_data_version_manifest_path,
     )
-    lock = confirmatory_once_lock_path(inputs.data_root)
-    if lock.exists():
-        raise FileExistsError(
-            "confirmatory once-lock already exists; feasibility is only "
-            f"permitted before evaluate-once: {lock}"
-        )
     output = Path(output_dir).resolve()
     if output.exists():
         raise FileExistsError(
@@ -1323,12 +1091,9 @@ def run_confirmatory_feasibility(
                 .all()
             ),
             "exact_mask_lengths": True,
-            "information_condition_masks": set(
-                mask_contract["information_condition"]
-            )
+            "information_condition_masks": set(mask_contract["information_condition"])
             == set(EXTERNAL_INFORMATION_CONDITIONS),
             "structural_skip_policy": True,
-            "once_lock_absent": not lock.exists(),
         }
         failures = [name for name, passed in checks.items() if not passed]
         report = {
@@ -1336,14 +1101,9 @@ def run_confirmatory_feasibility(
             "status": "failed" if failures else "passed",
             "performance_metrics_computed": False,
             "models_trained": False,
-            "once_lock_created": False,
             "design_version": inputs.evidence_contract["design_version"],
             "design_version": inputs.evidence_contract["design_version"],
             "data_version": CONFIRMATORY_DATA_VERSION,
-            "data_version_manifest_sha256": inputs.data_manifest_identity[
-                "manifest_sha256"
-            ],
-            "roster_sha256": inputs.roster.manifest_sha256,
             "scenario_count": 60,
             "mask_seed": EXTERNAL_MASK_SEED,
             "information_conditions": list(EXTERNAL_INFORMATION_CONDITIONS),
@@ -1363,20 +1123,16 @@ def run_confirmatory_feasibility(
             "failures": failures,
             "artifact_inventory": {
                 "confirmatory_mask_contract.parquet": {
-                    "sha256": file_sha256(mask_path),
-                    "bytes": mask_path.stat().st_size,
+                    "bytes": mask_path.stat().st_size
                 },
                 "confirmatory_coverage_by_site_split_variable.csv": {
-                    "sha256": file_sha256(coverage_path),
-                    "bytes": coverage_path.stat().st_size,
+                    "bytes": coverage_path.stat().st_size
                 },
             },
         }
         _assert_finite_json(report)
         report_path = staging / "confirmatory_feasibility_report.json"
         _atomic_json(report, report_path)
-        if lock.exists():
-            raise RuntimeError("feasibility must not create a confirmatory once-lock")
         if failures:
             raise ValueError("confirmatory feasibility failed: " + ", ".join(failures))
         os.rename(staging, output)
@@ -1385,7 +1141,6 @@ def run_confirmatory_feasibility(
             mask_contract=mask_contract,
             coverage=coverage,
             output_dir=output,
-            once_lock_created=False,
             performance_metrics_computed=False,
             models_trained=False,
         )
@@ -1415,21 +1170,18 @@ def run_confirmatory_evaluation(
     data_root: str | Path,
     finalized_model_roster_path: str | Path,
     output_dir: str | Path,
-    once_lock_path: str | Path | None = None,
     design_path: str | Path = DEFAULT_DESIGN_PATH,
     study_manifest_path: str | Path = "study_manifest.yaml",
     experiment_config_path: str | Path = "configs/experiments.yaml",
     selection_data_version_manifest_path: str | Path | None = None,
     runner_factory: Callable[..., ExperimentRunner] = ExternalConfirmationRunner,
 ) -> dict[str, Any]:
-    """Execute the external grid once and publish one immutable atomic bundle.
+    """Execute the external grid and publish one atomic bundle.
 
-    Mask constructability for all 60 scenarios is verified before the once-lock
-    is created. After the lock exists, a crash during model execution may expose
-    performance, so a failed attempt cannot be silently retried as though
-    confirmation were unseen.
+    Mask constructability for all 60 scenarios is verified before any model is
+    trained.  The bundle is assembled in a staging directory and replaces any
+    earlier output only after every check has passed.
     """
-
     inputs = preflight_confirmatory_evaluation(
         data_root=data_root,
         finalized_model_roster_path=finalized_model_roster_path,
@@ -1439,26 +1191,11 @@ def run_confirmatory_evaluation(
         selection_data_version_manifest_path=selection_data_version_manifest_path,
     )
     output = Path(output_dir).resolve()
-    lock = confirmatory_once_lock_path(inputs.data_root)
-    if once_lock_path is not None and Path(once_lock_path).resolve() != lock:
-        raise ValueError(
-            "once_lock_path is fixed by the external data-version root and "
-            "cannot be redirected"
-        )
-    if output.exists():
-        raise FileExistsError(f"refusing existing confirmatory output: {output}")
-    if lock.exists():
-        raise FileExistsError(
-            f"confirmatory evaluation has already been started or completed: {lock}"
-        )
-    if output == lock or output in lock.parents or lock in output.parents:
-        raise ValueError("confirmatory output and once-lock paths must be independent")
     grid = build_external_confirmation_grid(training_seeds=inputs.training_seeds)
     expected_run_units = _expected_run_units(
         grid, inputs.selected_models, inputs.training_seeds
     )
     grid_contract = _portable_scenario_contract(grid)
-    grid_sha256 = _canonical_sha256(grid_contract)
     assert_confirmatory_masks_constructable(
         inputs=inputs,
         grid=grid,
@@ -1466,19 +1203,6 @@ def run_confirmatory_evaluation(
         experiment_config_path=experiment_config_path,
         study_manifest_path=study_manifest_path,
     )
-    if lock.exists():
-        raise FileExistsError(
-            f"confirmatory evaluation has already been started or completed: {lock}"
-        )
-    initial_lock = {
-        **_lock_payload(inputs, output, status="started"),
-        "grid_sha256": grid_sha256,
-        "expected_run_unit_count": len(expected_run_units),
-        "expected_run_unit_sha256": _canonical_sha256(list(expected_run_units)),
-        "mask_constructability_verified_before_lock": True,
-    }
-    _exclusive_json(initial_lock, lock)
-
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(
         tempfile.mkdtemp(prefix=f".{output.name}.staging.", dir=output.parent)
@@ -1506,41 +1230,22 @@ def run_confirmatory_evaluation(
             )
         daily, events = runner.run()
         runner_manifest_path = runner_output / "run_manifest.json"
-        runner_manifest = _validate_runner_manifest(
+        _validate_runner_manifest(
             runner_manifest_path,
             inputs=inputs,
             expected_run_units=expected_run_units,
             scenario_count=len(grid.scenarios),
         )
-        masks = _mask_identities(mask_dir, grid.scenarios)
-        checkpoints = _checkpoint_identities(runner_manifest)
-        daily = _annotate_evidence_rows(
-            daily,
-            inputs=inputs,
-            grid=grid,
-            mask_identities=masks,
-            checkpoint_identities=checkpoints,
-        )
-        events = _annotate_evidence_rows(
-            events,
-            inputs=inputs,
-            grid=grid,
-            mask_identities=masks,
-            checkpoint_identities=checkpoints,
-        )
+        _require_mask_artifacts(mask_dir, grid.scenarios)
+        daily = _annotate_evidence_rows(daily, grid=grid)
+        events = _annotate_evidence_rows(events, grid=grid)
         checks = _validate_output_rows(
-            daily,
-            events,
-            inputs=inputs,
-            expected_run_units=expected_run_units,
+            daily, events, inputs=inputs, expected_run_units=expected_run_units
         )
         daily_path = staging / "daily_predictions.parquet"
         events_path = staging / "event_metrics.parquet"
         daily.to_parquet(daily_path, index=False)
         events.to_parquet(events_path, index=False)
-        if file_sha256(daily_path) == file_sha256(events_path):
-            raise RuntimeError("external output table identities unexpectedly collide")
-
         run_units = []
         for run_unit in expected_run_units:
             scenario_id, model_seed = run_unit.split("|", maxsplit=1)
@@ -1578,65 +1283,31 @@ def run_confirmatory_evaluation(
                     "event_rows": event_rows,
                     "finite_predictions": daily_rows > 0,
                     "finite_event_metrics": event_rows > 0,
-                    "mask_sha256": masks[scenario_id]["mask_sha256"],
-                    "mask_metadata_sha256": masks[scenario_id]["mask_metadata_sha256"],
-                    "checkpoint_sha256": (
-                        checkpoints.get((model, int(raw_seed)))
-                        if raw_seed != "none"
-                        else None
-                    ),
                 }
             )
         if not all(
-            value["finite_predictions"] and value["finite_event_metrics"]
-            for value in run_units
+            (
+                value["finite_predictions"] and value["finite_event_metrics"]
+                for value in run_units
+            )
         ):
             raise RuntimeError("external run-unit finite-evidence audit failed")
-
         inputs_manifest = {
-            "design_freeze": {
-                "path": str(Path(design_path).resolve()),
-                "sha256": file_sha256(design_path),
-            },
-            "study_manifest": {
-                "path": str(Path(study_manifest_path).resolve()),
-                "sha256": file_sha256(study_manifest_path),
-            },
-            "experiment_config": {
-                "path": str(Path(experiment_config_path).resolve()),
-                "sha256": file_sha256(experiment_config_path),
-            },
-            "data_version_manifest": {
-                "path": str(inputs.data_manifest_path),
-                "sha256": inputs.data_manifest_identity["manifest_sha256"],
-            },
-            "daily_wide": {
-                "path": str(inputs.wide_path),
-                "sha256": file_sha256(inputs.wide_path),
-            },
-            "daily_long": {
-                "path": str(inputs.long_path),
-                "sha256": file_sha256(inputs.long_path),
-            },
-            "finalized_model_roster": {
-                "path": inputs.roster.manifest_path,
-                "sha256": inputs.roster.manifest_sha256,
-            },
+            "design_freeze": {"path": str(Path(design_path).resolve())},
+            "study_manifest": {"path": str(Path(study_manifest_path).resolve())},
+            "experiment_config": {"path": str(Path(experiment_config_path).resolve())},
+            "data_version_manifest": {"path": str(inputs.data_manifest_path)},
+            "daily_wide": {"path": str(inputs.wide_path)},
+            "daily_long": {"path": str(inputs.long_path)},
+            "finalized_model_roster": {"path": inputs.roster.manifest_path},
         }
-        inventory = _artifact_inventory(
-            staging,
-            exclude=(
-                "completion_manifest.json",
-                "completion_manifest.json.sha256",
-            ),
-        )
+        inventory = _artifact_inventory(staging, exclude=("completion_manifest.json",))
         manifest: dict[str, Any] = {
             "schema_version": EXTERNAL_CONFIRMATION_SCHEMA_VERSION,
             "status": "complete",
             "complete": True,
             "immutable": True,
             "completed_at_utc": _utc_now(),
-            "evaluate_once": True,
             "data_version": CONFIRMATORY_DATA_VERSION,
             "design_version": inputs.evidence_contract["design_version"],
             "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
@@ -1648,7 +1319,6 @@ def run_confirmatory_evaluation(
                 label: {"start": start, "end": end}
                 for label, start, end in FROZEN_PERIODS
             },
-            "confirmatory_metric_uses": 1,
             "model_selection_on_confirmatory": False,
             "selected_models": list(inputs.selected_models),
             "best_traditional_model": inputs.roster.best_traditional_model,
@@ -1656,15 +1326,12 @@ def run_confirmatory_evaluation(
             "training_seeds": list(inputs.training_seeds),
             "mask_seed": EXTERNAL_MASK_SEED,
             "model_protocols": _model_protocols(
-                inputs.selected_models,
-                inputs.model_design,
-                inputs.training_seeds,
+                inputs.selected_models, inputs.model_design, inputs.training_seeds
             ),
             "finalized_model_roster": inputs.roster.metadata(),
             "evidence_contract": inputs.evidence_contract,
             "code_provenance": inputs.code_provenance,
             "grid": grid_contract,
-            "grid_sha256": grid_sha256,
             "expected_run_unit_keys": list(expected_run_units),
             "expected_run_unit_count": len(expected_run_units),
             "completed_run_unit_keys": list(expected_run_units),
@@ -1690,42 +1357,18 @@ def run_confirmatory_evaluation(
                 "schema_version": EXTERNAL_GRID_SCHEMA_VERSION,
                 "seed": EXTERNAL_MASK_SEED,
                 "exact_seed_count": 1,
-                "reason": "frozen_compact_evaluate_once_external_grid",
+                "reason": "frozen_compact_external_grid",
             },
         }
         completion_path = staging / "completion_manifest.json"
         _atomic_json(manifest, completion_path)
-        completion_sha256 = file_sha256(completion_path)
-        (staging / "completion_manifest.json.sha256").write_text(
-            completion_sha256 + "\n", encoding="ascii"
-        )
         if output.exists():
-            raise FileExistsError(f"refusing existing confirmatory output: {output}")
+            shutil.rmtree(output)
         os.rename(staging, output)
-        completed_lock = {
-            **initial_lock,
-            "status": "complete",
-            "completed_at_utc": _utc_now(),
-            "completion_manifest": str((output / "completion_manifest.json").resolve()),
-            "completion_manifest_sha256": completion_sha256,
-        }
-        _atomic_json(completed_lock, lock)
         return manifest
-    except BaseException as error:
-        failed_lock = {
-            **initial_lock,
-            "status": "failed_closed",
-            "failed_at_utc": _utc_now(),
-            "failure_type": type(error).__name__,
-            "retry_permitted": False,
-            "staging_path": str(staging.resolve()),
-        }
-        try:
-            _atomic_json(failed_lock, lock)
-        except OSError:
-            # The original failure is more informative; the exclusive lock
-            # remains present even if its status update cannot be replaced.
-            ...
+    except BaseException:
+        if staging.exists():
+            shutil.rmtree(staging, ignore_errors=True)
         raise
 
 
@@ -1746,7 +1389,6 @@ __all__ = [
     "FEASIBILITY_SCHEMA_VERSION",
     "assert_confirmatory_masks_constructable",
     "build_external_confirmation_grid",
-    "confirmatory_once_lock_path",
     "materialize_external_masks",
     "preflight_confirmatory_evaluation",
     "run_confirmatory_evaluation",

@@ -39,8 +39,20 @@ SEEDS = (101, 202, 303)
 HOT = (18.0, 20.0)
 RHO = (1.0, 2.0, 5.0, 10.0)
 DRAWS = 4000
-ARMS_330 = ("fitted_risk", "calibrated_bound", "peak_overlap_rule", "length_rule", "reconstruct_all")
-ESTIMATORS = ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge", "air_ridge")
+ARMS_330 = (
+    "fitted_risk",
+    "calibrated_bound",
+    "peak_overlap_rule",
+    "length_rule",
+    "reconstruct_all",
+)
+ESTIMATORS = (
+    "doy_climatology",
+    "smooth_climatology",
+    "linear_interp",
+    "donor_ridge",
+    "air_ridge",
+)
 PANELS = {
     "wave2_confirmation": C.EXTERNAL_PARQUET,
     "development": None,  # filled below (path helper imports the package)
@@ -54,15 +66,24 @@ def policy_prediction(cases: pd.DataFrame) -> np.ndarray:
         mask = choice == name
         col = f"hottest30_{name}"
         if mask.any() and col in cases.columns:
-            pred[mask] = pd.to_numeric(cases.loc[mask, col], errors="coerce").to_numpy(dtype=float)
+            pred[mask] = pd.to_numeric(cases.loc[mask, col], errors="coerce").to_numpy(
+                dtype=float
+            )
     return pred
 
 
-def boot_sums(codes: np.ndarray, columns: dict[str, np.ndarray], n_groups: int, seed: int):
+def boot_sums(
+    codes: np.ndarray, columns: dict[str, np.ndarray], n_groups: int, seed: int
+):
     """Per-group sums for a dict of columns, plus one shared set of resamples."""
 
-    sums = {k: np.bincount(codes, weights=v.astype(float), minlength=n_groups) for k, v in columns.items()}
-    resamples = np.random.default_rng(seed).integers(0, n_groups, size=(DRAWS, n_groups))
+    sums = {
+        k: np.bincount(codes, weights=v.astype(float), minlength=n_groups)
+        for k, v in columns.items()
+    }
+    resamples = np.random.default_rng(seed).integers(
+        0, n_groups, size=(DRAWS, n_groups)
+    )
     return sums, resamples
 
 
@@ -73,7 +94,9 @@ def interval(draws: np.ndarray) -> tuple[float, float]:
     return float(np.quantile(finite, 0.025)), float(np.quantile(finite, 0.975))
 
 
-def ratio_draws(sums, resamples, num: str | list[str], den: str | list[str], sign=None) -> np.ndarray:
+def ratio_draws(
+    sums, resamples, num: str | list[str], den: str | list[str], sign=None
+) -> np.ndarray:
     def total(keys):
         keys = [keys] if isinstance(keys, str) else keys
         return sum(sums[k][resamples].sum(axis=1) for k in keys)
@@ -83,7 +106,16 @@ def ratio_draws(sums, resamples, num: str | list[str], den: str | list[str], sig
         return np.where(d > 0, n / np.maximum(d, 1e-12), np.nan)
 
 
-def analyse(frame: pd.DataFrame, truth: np.ndarray, pred: np.ndarray, hot_c: float, arms, group_codes, label, seed0):
+def analyse(
+    frame: pd.DataFrame,
+    truth: np.ndarray,
+    pred: np.ndarray,
+    hot_c: float,
+    arms,
+    group_codes,
+    label,
+    seed0,
+):
     n_groups = int(group_codes.max()) + 1
     truth_hot = truth > hot_c
     pred_hot = pred > hot_c
@@ -124,13 +156,23 @@ def analyse(frame: pd.DataFrame, truth: np.ndarray, pred: np.ndarray, hot_c: flo
         gap = d_hot - d_cool
         glo, ghi = interval(gap)
         row = {
-            "panel": label, "hot_c": hot_c, "arm": arm, "n_cases": int(t["n"]),
-            "retention": r, "retention_hot": r_hot, "retention_cool": r_cool,
+            "panel": label,
+            "hot_c": hot_c,
+            "arm": arm,
+            "n_cases": int(t["n"]),
+            "retention": r,
+            "retention_hot": r_hot,
+            "retention_cool": r_cool,
             "refused_hot_share": 1 - r_hot,
             "same_retention_random_refusal": 1 - r,
-            "excess_hot_refusal": r - r_hot, "excess_ci_low": lo, "excess_ci_high": hi,
-            "hot_minus_cool_retention": r_hot - r_cool, "hot_minus_cool_ci_low": glo, "hot_minus_cool_ci_high": ghi,
-            "false_hot": int(t["fp"]), "missed_hot": int(t["fn"]),
+            "excess_hot_refusal": r - r_hot,
+            "excess_ci_low": lo,
+            "excess_ci_high": hi,
+            "hot_minus_cool_retention": r_hot - r_cool,
+            "hot_minus_cool_ci_low": glo,
+            "hot_minus_cool_ci_high": ghi,
+            "false_hot": int(t["fp"]),
+            "missed_hot": int(t["fn"]),
             "wrong_judgement_rate": (t["fp"] + t["fn"]) / t["n"],
             "abstention_rate": t["refused"] / t["n"],
         }
@@ -138,10 +180,14 @@ def analyse(frame: pd.DataFrame, truth: np.ndarray, pred: np.ndarray, hot_c: flo
             err_all = rho * t["fn_all"] + t["fp_all"]
             err_arm = rho * t["fn"] + t["fp"]
             a = t["refused"]
-            row[f"breakeven_abstention_cost_rho{int(rho)}"] = (err_all - err_arm) / a if a > 0 else np.nan
+            row[f"breakeven_abstention_cost_rho{int(rho)}"] = (
+                (err_all - err_arm) / a if a > 0 else np.nan
+            )
             if a > 0:
-                num = rho * sums["fn_all"][rs].sum(axis=1) + sums["fp_all"][rs].sum(axis=1) - (
-                    rho * sums["fn"][rs].sum(axis=1) + sums["fp"][rs].sum(axis=1)
+                num = (
+                    rho * sums["fn_all"][rs].sum(axis=1)
+                    + sums["fp_all"][rs].sum(axis=1)
+                    - (rho * sums["fn"][rs].sum(axis=1) + sums["fp"][rs].sum(axis=1))
                 )
                 den = sums["refused"][rs].sum(axis=1)
                 with np.errstate(invalid="ignore", divide="ignore"):
@@ -162,7 +208,9 @@ def main() -> int:
     for panel, path in paths.items():
         cases = pd.read_parquet(path).reset_index(drop=True)
         pred = policy_prediction(cases)
-        truth = pd.to_numeric(cases["truth_hottest30"], errors="coerce").to_numpy(dtype=float)
+        truth = pd.to_numeric(cases["truth_hottest30"], errors="coerce").to_numpy(
+            dtype=float
+        )
         a330 = pd.read_parquet(C.ALIGNED / f"case_level_admissions_{panel}.parquet")
         a341 = pd.read_parquet(abl / f"case_admissions_{panel}.parquet")
         for seed in SEEDS:
@@ -172,14 +220,21 @@ def main() -> int:
             assert (b.network_id.to_numpy() == x.network_id.to_numpy()).all()
             assert (b.station_id.to_numpy() == x.station_id.to_numpy()).all()
             frame = pd.DataFrame(
-                {f"admit_{arm}": b[f"admit_riskcap_{arm}"].to_numpy(dtype=bool) for arm in ARMS_330}
+                {
+                    f"admit_{arm}": b[f"admit_riskcap_{arm}"].to_numpy(dtype=bool)
+                    for arm in ARMS_330
+                }
             )
             frame["admit_generic"] = x["admit_generic"].to_numpy(dtype=bool)
-            frame["admit_generic+support"] = x["admit_generic+support"].to_numpy(dtype=bool)
+            frame["admit_generic+support"] = x["admit_generic+support"].to_numpy(
+                dtype=bool
+            )
             codes = pd.factorize(b["independence_group"].astype(str), sort=True)[0]
             arms = list(ARMS_330) + ["generic"]
             for hot_c in HOT:
-                for row in analyse(frame, truth, pred, hot_c, arms, codes, panel, 17 + seed):
+                for row in analyse(
+                    frame, truth, pred, hot_c, arms, codes, panel, 17 + seed
+                ):
                     row["fold_seed"] = seed
                     row["population"] = "designed"
                     out_rows.append(row)
@@ -188,13 +243,33 @@ def main() -> int:
     replay = pd.read_parquet(C.REPLAY_CASES)
     for level in sorted(replay.level.unique()):
         for seed in SEEDS:
-            block = replay[(replay.level == level) & (replay.seed == seed)].reset_index(drop=True)
-            frame = pd.DataFrame({f"admit_{arm}": block[f"admit_{arm}"].to_numpy(dtype=bool) for arm in ARMS_330})
-            truth = pd.to_numeric(block["truth_hottest30"], errors="coerce").to_numpy(dtype=float)
-            pred = pd.to_numeric(block["policy_metric"], errors="coerce").to_numpy(dtype=float)
+            block = replay[(replay.level == level) & (replay.seed == seed)].reset_index(
+                drop=True
+            )
+            frame = pd.DataFrame(
+                {
+                    f"admit_{arm}": block[f"admit_{arm}"].to_numpy(dtype=bool)
+                    for arm in ARMS_330
+                }
+            )
+            truth = pd.to_numeric(block["truth_hottest30"], errors="coerce").to_numpy(
+                dtype=float
+            )
+            pred = pd.to_numeric(block["policy_metric"], errors="coerce").to_numpy(
+                dtype=float
+            )
             codes = pd.factorize(block["network_id"].astype(str), sort=True)[0]
             for hot_c in HOT:
-                for row in analyse(frame, truth, pred, hot_c, ARMS_330, codes, f"real_calendar:{level}", 31 + seed):
+                for row in analyse(
+                    frame,
+                    truth,
+                    pred,
+                    hot_c,
+                    ARMS_330,
+                    codes,
+                    f"real_calendar:{level}",
+                    31 + seed,
+                ):
                     row["fold_seed"] = seed
                     row["population"] = "real_calendar"
                     out_rows.append(row)
@@ -202,17 +277,6 @@ def main() -> int:
     table = pd.DataFrame(out_rows)
     table.to_csv(OUT / "hot_year_selection_null.csv", index=False)
     write_summary(table)
-    C.write_fingerprint(
-        OUT,
-        "scripts/343_wrr_hot_year_selection_null.py",
-        {
-            "admissions_330_external": C.ALIGNED / "case_level_admissions_wave2_confirmation.parquet",
-            "admissions_330_development": C.ALIGNED / "case_level_admissions_development.parquet",
-            "admissions_341_external": abl / "case_admissions_wave2_confirmation.parquet",
-            "admissions_341_development": abl / "case_admissions_development.parquet",
-            "replay_decisions": C.REPLAY_CASES,
-        },
-    )
     print((OUT / "SUMMARY.md").read_text())
     return 0
 
@@ -225,14 +289,26 @@ def write_summary(table: pd.DataFrame) -> None:
     )
     lines.append("")
     for pop, hot in (("designed", 20.0), ("real_calendar", 20.0)):
-        block = table[(table.population == pop) & (table.hot_c == hot) & (table.fold_seed == 101)]
+        block = table[
+            (table.population == pop) & (table.hot_c == hot) & (table.fold_seed == 101)
+        ]
         lines.append(f"## {pop}, hot threshold {hot:g} C, fold seed 101")
         lines.append("")
         show = block[
             [
-                "panel", "arm", "retention", "retention_hot", "retention_cool", "refused_hot_share",
-                "excess_hot_refusal", "excess_ci_low", "excess_ci_high", "wrong_judgement_rate",
-                "abstention_rate", "breakeven_abstention_cost_rho1", "breakeven_abstention_cost_rho5",
+                "panel",
+                "arm",
+                "retention",
+                "retention_hot",
+                "retention_cool",
+                "refused_hot_share",
+                "excess_hot_refusal",
+                "excess_ci_low",
+                "excess_ci_high",
+                "wrong_judgement_rate",
+                "abstention_rate",
+                "breakeven_abstention_cost_rho1",
+                "breakeven_abstention_cost_rho5",
             ]
         ]
         lines.append(show.round(4).to_string(index=False))

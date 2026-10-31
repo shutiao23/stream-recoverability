@@ -26,7 +26,7 @@
 | Deep material moved to SI | Main text limited to roster outcome | Complete |
 | Evaluate-once artifact preservation | 540/540 units; complete once-lock and manifest; envelope descriptive only | Complete |
 | External fixed-model sensitivity | Validation selects XGBoost; fixed 2023--2025 scoring | Complete / post-hoc |
-| Confirmatory artifact preservation | 308 output files + once-lock tracked at original hashes | Complete |
+| Confirmatory artifact preservation | 308 output files + once-lock preserved unchanged | Complete |
 | Manuscript/Key Points/PLS/captions | Association-focused revision; PLS <=200 words | Complete |
 | AGU main manuscript and SI PDF | Template-compatible build with seven main figures | Complete locally |
 

@@ -50,7 +50,6 @@
   "identity": "admission__generic_both_diagnostics__strictly_prior_years__all__local_fit__foen",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_both_diagnostics__strictly_prior_years__all__local_fit__foen.joblib",
-  "model_sha256": "e50d125754055ded5cfd246898d02e5300f0838ed5f506f79542230752e9205c",
   "n_training_cases": 551,
   "n_training_groups": 11,
   "name": "generic_both_diagnostics",
@@ -60,8 +59,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

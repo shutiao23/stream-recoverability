@@ -10,13 +10,9 @@ computed.
 `scripts/78_acquire_t2_information_corpus.py` discovers only the overlap-
 qualified `failure_closure6` development and validation inputs already bound to
 the T2 workload. The current deterministic roster contains 67 networks and 340
-T2 stations. Each network plan binds the source QC manifest hash, an outcome-
-free `site_id,date` projection hash, coordinates, source-specific date windows,
-the catalog split SHA, and its own SHA-256. The corpus plan SHA-256 is:
-
-```text
-db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a
-```
+T2 stations. Each network plan records the source QC manifest, an outcome-free
+`site_id,date` projection, coordinates, source-specific date windows, and the
+catalog split.
 
 POWER begins at 1981-01-01, so earlier target windows are explicitly left as
 pre-archive attrition rather than sent as invalid requests. USGS F/L requests
@@ -30,9 +26,8 @@ retain the full open target window.
   bounded selection uses `--network-id` or `--max-networks` plus
   `--acknowledge-network-count N`. The full roster requires `--all` plus
   `--acknowledge-all-network-count 67`.
-- Each network writes its own request plan, raw exchanges, response hashes,
-  auxiliary Parquet, coverage, provider metadata, failures, schema, and terminal
-  manifest. Resume skips a network only after re-hashing every declared artifact
+- Each network writes its own request plan, raw exchanges, auxiliary Parquet,
+  coverage, provider metadata, failures, schema, and terminal manifest. Resume skips a network only after checking every declared artifact
   and every raw response. A corrupt or plan-mismatched boundary fails closed.
   A transport or parser failure is `acquisition_retry_required`, not a terminal
   partial result, so the next invocation retries that network. Provider-confirmed
@@ -52,7 +47,7 @@ all 67 networks as not yet materialized in that isolated dry-run root.
 
 The first new production-path execution was explicitly bounded to
 `huc8_02040103` (three development stations). It wrote 205,044 auxiliary rows
-from 14 hashed raw responses. POWER M is present for all 15 station-variable
+from 14 raw responses. POWER M is present for all 15 station-variable
 cells with mean eligible coverage 1.0. Approved discharge F is present at all
 three stations; daily-mean gage height L is unavailable at all three, so the
 network is honestly `materialized_partial`. Its 402 provisional USGS rows all

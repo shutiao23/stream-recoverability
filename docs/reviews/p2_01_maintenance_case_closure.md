@@ -15,7 +15,7 @@ richest per-day metadata in this panel. `results/wrr_submission_ready/amendments
 classifies **every** missing day of the USGS part of the real incomplete-year
 population — 200 stations, 1,361 station-years, 2,921 interior gaps, 68,180
 missing days — against USGS's own daily-value qualifier codes, retrieved through
-three separate NWIS endpoints (709 raw responses, SHA-256 in
+three separate NWIS endpoints (709 raw responses, listed in
 `raw_cache/manifest.csv`).
 
 Findings:

@@ -8,10 +8,17 @@ full comparator; the experiments do not assume that D2 must win.
 The [current experiments](docs/reviews/wrr_process_experiments_20261029/EXPERIMENT_RESPONSE_ZH.md)
 complete the original-source recalibration sensitivity and enumerate every
 same-count year subset. Calendar-based choices that include fixed complete years
-improve on the warm-season screen; all-year recovery improves further. Recalibrating
+improve on the warm-season screen in aggregate; all-year recovery improves further.
+The same-count gains are not uniform across stations and groups. Recalibrating
 2,370 source cases changes endpoints and local comparisons on the fixed 27 targets.
 The data catalog distinguishes source calibration, target scoring, mask repetitions,
 Monte Carlo seeds, historical native20 and nested samples.
+
+The 2026-10-31 minor revision rebuilt both PDFs from the current sources, updated
+the SI title and the 1981--2025 annual-gap row, and clarified controlled-gap scope,
+the RMSE-to-median ratio, local heterogeneity and conditional group intervals. The
+new package and acceptance record are listed under Current artifacts; the earlier
+ZIP remains a historical frozen candidate.
 
 Run `make review-process-experiments` to reproduce the analyses and manuscript,
 then `make review-process-experiments-check` for independent arithmetic and
@@ -76,9 +83,13 @@ Current artifacts:
 
 - [Main manuscript](paper/wrr_tr/review_completion_article.pdf)
 - [Supporting information](paper/wrr_tr/review_completion_supporting.pdf)
+- [Minor-revision completion report](docs/reviews/wrr_multiview_review_20261031/MINOR_REVISION_COMPLETION_ZH.md)
+- [Final candidate package](dist/wrr_final_candidate_20261031.zip)
+- [Final candidate manifest](dist/wrr_final_candidate_20261031.manifest.json)
+- [Current acceptance record](results/final_release_20261031/acceptance.json)
 - [Current experiment response](docs/reviews/wrr_process_experiments_20261029/EXPERIMENT_RESPONSE_ZH.md)
 - [Independent source-calibration audit](results/wrr_process_experiments_20261029/source_calibration/independent_audit.json)
-- [Frozen local experiment package](dist/wrr_process_experiments_20261029.zip)
+- [Previous frozen experiment package](dist/wrr_process_experiments_20261029.zip)
 - [Current experiment validation](results/wrr_process_experiments_20261029/validation.json)
 - [Revised review-response results](results/wrr_review_response_20261027/)
 - [Original whole-archive results](results/whole_archive/)

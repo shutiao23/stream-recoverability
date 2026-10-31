@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -30,14 +29,6 @@ OPEN_ROLE_ROOTS = (
     "open_role_qc/validation",
 )
 BURNED_SMOKE_VERSION = "external_upper_middle_chattahoochee_v1"
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _open_role_inventory() -> dict[str, object]:
@@ -116,13 +107,6 @@ def _burned_smoke_grid() -> dict[str, object]:
                     "all_features_have_train_values": all(
                         count > 0 for count in adapter.train_counts.values()
                     ),
-                    "adapter_manifest_sha256": hashlib.sha256(
-                        json.dumps(
-                            adapter.manifest(),
-                            sort_keys=True,
-                            separators=(",", ":"),
-                        ).encode("utf-8")
-                    ).hexdigest(),
                 }
             )
     return {
@@ -130,7 +114,6 @@ def _burned_smoke_grid() -> dict[str, object]:
         "data_version": BURNED_SMOKE_VERSION,
         "data_role": "historical_burned_never_sealed_external_model_fitting_only",
         "input_path": str(path.relative_to(ROOT)),
-        "input_sha256": _sha256_file(path),
         "parquet_filter": "split == train",
         "fit_period": "2012-01-01/2018-12-31",
         "transform_period": f"{index.min().date()}/{index.max().date()}",
@@ -197,7 +180,7 @@ def build_manifest() -> dict[str, object]:
         },
         "downloads_performed": False,
         "required_unblock_actions": [
-            "materialize station-specific NASA POWER daily M for open roles with raw-response hashes",
+            "materialize station-specific NASA POWER daily M for open roles with retained raw responses",
             "query and materialize USGS 00060/00065 daily availability for open roles",
             "apply the frozen provider QC contract and record per-feature coverage",
             "wire adapter bundles into model-specific B+D+M and B+D+M+H consumers",

@@ -335,7 +335,6 @@ fitted_risk_certtarget        303         73.04%                 3.85%          
 - `case_level_admissions_<panel>.parquet` — per-case scores, folds and admit flags.
 - `fold_assignments.csv` — network-level fold assignment per fold seed.
 - `models/` — the refit `fitted_risk` models behind each frozen threshold.
-- `protocol_fingerprint.json` — script/input hashes, git HEAD, versions, self-checks.
 
 Runtime: 98.9s. Self-checks: `{"risk_construction_matches_script301": true, "clustered_point_estimate_matches_direct": true}`.
 

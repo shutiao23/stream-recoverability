@@ -29,7 +29,7 @@ A network is eligible only if all of the following hold before freeze:
 2. Absent from the v17 fitness panel (`network_split.csv`)
 3. Absent from all v18 exploratory scoring/caption selection
 4. River waterbody; reference years without imputation; ≥4 complete years per station
-5. Input hashes recorded in a new seal file before any feature engineering for confirmation
+5. Inputs listed in a new seal file before any feature engineering for confirmation
 
 ## External sources already have parsers (ingest, then seal)
 
@@ -50,8 +50,8 @@ mostly empty placeholders (5-byte files) and are **not** a ready panel.
 
 ```bash
 # 1) ingest ≥30 networks into a new sealed root (not the v17 panel roots)
-# 2) write results/wrr_submission_ready/confirmation_inputs_manifest.csv with sha256
-# 3) update confirmation_seal.json hashes
+# 2) write results/wrr_submission_ready/confirmation_inputs_manifest.csv
+# 3) update confirmation_seal.json
 # 4) dry-run, then single unseal score against P0_06_method_freeze.json
 PYTHONPATH=src python3 scripts/230_wrr_sealed_confirmation.py --dry-run
 PYTHONPATH=src python3 scripts/230_wrr_sealed_confirmation.py --unseal

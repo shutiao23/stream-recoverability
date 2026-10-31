@@ -22,8 +22,8 @@ Data contract
 Every plotted number is read at build time from a named artifact under
 ``results/``, and each row of the side-car JSON carries the artifact path, the
 filter applied and the fields read. Nothing is typed by hand, no value is
-recomputed here, and no artifact is written. The read-only inputs are hashed and
-the digests are recorded in ``figures/wrr/f2_heterogeneity_data.json``.
+recomputed here, and no artifact is written. The read-only inputs are listed
+with their byte sizes in ``figures/wrr/f2_heterogeneity_data.json``.
 
 One row the brief asks for is not available: a *real-archive empirical arm*.
 The 2422 real incomplete station-years carry no truth by construction, so no
@@ -59,7 +59,6 @@ Usage
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import re
@@ -137,18 +136,18 @@ A_DEVELOPMENT_CASES = "results/v17_fitness/step4_ceiling/development_cases.parqu
 A_STEP10_VERDICT = "results/v17_fitness/step10_confirmation/verdict.json"
 A_ARM_CONTRASTS = "results/v17_fitness/step11_arm_robustness/arm_contrasts.csv"
 A_SEALED_VERDICT = "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json"
-A_SEALED_CASES = "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet"
-A_SEALED_DIAGNOSTIC = (
-    "results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json"
+A_SEALED_CASES = (
+    "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet"
 )
+A_SEALED_DIAGNOSTIC = "results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json"
 A_TRANSPORT_VERDICT = (
     "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json"
 )
-A_WAVE2_VERDICT = (
-    "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json"
-)
+A_WAVE2_VERDICT = "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json"
 A_ARCHIVE_SUMMARY = "results/v18_closure/e2_archive_deployment/summary.json"
-A_ARCHIVE_DISAGREEMENT = "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv"
+A_ARCHIVE_DISAGREEMENT = (
+    "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv"
+)
 
 # 2026-10-13 freeze: first sealed USGS / transport scores are withdrawn and must
 # not be plotted as confirmation. Wave-2 is the live confirmation row.
@@ -209,14 +208,6 @@ def disp(text: str) -> str:
     """Typographic minus for display, matching the axis tick labels."""
 
     return text.replace("-", "\u2212")
-
-
-def sha256_of(rel: str) -> str:
-    digest = hashlib.sha256()
-    with (ROOT / rel).open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 # --------------------------------------------------------------------------- #
@@ -368,7 +359,9 @@ def draw_panel_a(rows: list[dict]) -> plt.Figure:
         capthick=1.0,
         zorder=3,
     )
-    ax.scatter(values, y, s=26, color=colours, edgecolor=SURFACE, linewidth=1.0, zorder=4)
+    ax.scatter(
+        values, y, s=26, color=colours, edgecolor=SURFACE, linewidth=1.0, zorder=4
+    )
 
     # Value and interval next to each estimate, on whichever side is free.
     for rank, row in enumerate(rows):
@@ -401,7 +394,9 @@ def draw_panel_a(rows: list[dict]) -> plt.Figure:
 
     ax.set_yticks(y, [row["label"] for row in rows], fontsize=FS_TICK)
     ax.set_xlabel("AUC(timing axis) − AUC(outage-length rule)", fontsize=FS_LABEL)
-    ax.set_title("a  Which endpoints keep the gain", loc="left", pad=6, fontsize=FS_TITLE)
+    ax.set_title(
+        "a  Which endpoints keep the gain", loc="left", pad=6, fontsize=FS_TITLE
+    )
     ax.grid(axis="y", visible=False)
     ax.tick_params(axis="x", labelsize=FS_TICK)
 
@@ -431,7 +426,9 @@ def panel_b_rows() -> list[dict]:
     step10 = read_json(A_STEP10_VERDICT)
 
     # 1. v17 development, pooled (retrospective).
-    development = arms[(arms["panel"] == "development") & (arms["arm"] == "pooled")].iloc[0]
+    development = arms[
+        (arms["panel"] == "development") & (arms["arm"] == "pooled")
+    ].iloc[0]
     development_networks = int(
         pd.read_parquet(ROOT / A_DEVELOPMENT_CASES)["network_id"].nunique()
     )
@@ -485,10 +482,19 @@ def panel_b_rows() -> list[dict]:
             "source": {
                 "artifact": A_STEP10_VERDICT,
                 "filter": "(whole file; 'primary' block = the reserved panel at 70% retention)",
-                "fields": ["primary.contrast_points", "primary.ci_points", "n_cases", "n_networks"],
+                "fields": [
+                    "primary.contrast_points",
+                    "primary.ci_points",
+                    "n_cases",
+                    "n_networks",
+                ],
             },
             "n_source": {
-                "n_cases": {"artifact": A_STEP10_VERDICT, "filter": "whole file", "field": "n_cases"},
+                "n_cases": {
+                    "artifact": A_STEP10_VERDICT,
+                    "filter": "whole file",
+                    "field": "n_cases",
+                },
                 "n_networks": {
                     "artifact": A_STEP10_VERDICT,
                     "filter": "whole file",
@@ -572,7 +578,13 @@ def panel_b_rows() -> list[dict]:
             "source": {
                 "artifact": A_SEALED_VERDICT,
                 "filter": "whole file (pooled panel, 70% retention, scored once)",
-                "fields": ["contrast_points", "ci_low_points", "ci_high_points", "n_cases", "n_networks"],
+                "fields": [
+                    "contrast_points",
+                    "ci_low_points",
+                    "ci_high_points",
+                    "n_cases",
+                    "n_networks",
+                ],
             },
         }
     )
@@ -583,9 +595,15 @@ def panel_b_rows() -> list[dict]:
             "label": "Sealed USGS, empirical arm",
             "identity": "sealed",
             "marker": "empirical",
-            "estimate_points": float(sealed["by_arm_points"]["empirical"]["contrast_points"]),
-            "ci_low_points": float(sealed["by_arm_points"]["empirical"]["ci_low_points"]),
-            "ci_high_points": float(sealed["by_arm_points"]["empirical"]["ci_high_points"]),
+            "estimate_points": float(
+                sealed["by_arm_points"]["empirical"]["contrast_points"]
+            ),
+            "ci_low_points": float(
+                sealed["by_arm_points"]["empirical"]["ci_low_points"]
+            ),
+            "ci_high_points": float(
+                sealed["by_arm_points"]["empirical"]["ci_high_points"]
+            ),
             "n_cases": len(empirical),
             "n_networks": int(empirical["network_id"].nunique()),
             "source": {
@@ -609,7 +627,9 @@ def panel_b_rows() -> list[dict]:
     )
     diagnostic = read_json(A_SEALED_DIAGNOSTIC)
     clean = next(
-        row for row in diagnostic["rows"] if row["subset"] == "networks_clean_of_outcome_use"
+        row
+        for row in diagnostic["rows"]
+        if row["subset"] == "networks_clean_of_outcome_use"
     )
     rows.append(
         {
@@ -655,7 +675,13 @@ def panel_b_rows() -> list[dict]:
             "source": {
                 "artifact": A_TRANSPORT_VERDICT,
                 "filter": "primary_panel (agencies absent from the v17/v18 development programme)",
-                "fields": ["contrast_points", "ci_low_points", "ci_high_points", "n_cases", "n_networks"],
+                "fields": [
+                    "contrast_points",
+                    "ci_low_points",
+                    "ci_high_points",
+                    "n_cases",
+                    "n_networks",
+                ],
             },
         }
     )
@@ -705,7 +731,13 @@ def panel_b_rows() -> list[dict]:
             "source": {
                 "artifact": A_TRANSPORT_VERDICT,
                 "filter": "secondary_panel (development provider, individually never-used stations)",
-                "fields": ["contrast_points", "ci_low_points", "ci_high_points", "n_cases", "n_networks"],
+                "fields": [
+                    "contrast_points",
+                    "ci_low_points",
+                    "ci_high_points",
+                    "n_cases",
+                    "n_networks",
+                ],
             },
             "note": (
                 "Secondary stratum: the provider took part in v17 development, so this row is "
@@ -748,9 +780,7 @@ def draw_panel_b(rows: list[dict], threshold_points: float) -> plt.Figure:
         axn.axhline(boundary, color=GRID, lw=0.8, zorder=0.6)
 
     ax.axvline(0.0, color=INK_2, lw=1.0, zorder=1)
-    ax.axvline(
-        threshold_points, color=INK, lw=1.1, ls=(0, (3, 2.5)), zorder=1
-    )
+    ax.axvline(threshold_points, color=INK, lw=1.1, ls=(0, (3, 2.5)), zorder=1)
     ax.text(
         threshold_points - 0.3,
         -1.78,
@@ -828,17 +858,43 @@ def draw_panel_b(rows: list[dict], threshold_points: float) -> plt.Figure:
     )
 
     handles = [
-        plt.Line2D([], [], color=MUTED, marker="o", ms=3.6, ls="none", label="retrospective"),
+        plt.Line2D(
+            [], [], color=MUTED, marker="o", ms=3.6, ls="none", label="retrospective"
+        ),
     ]
     if INCLUDE_WAVE2_CONFIRMATION:
         handles.append(
-            plt.Line2D([], [], color=GREEN, marker="o", ms=3.6, ls="none", label="wave-2 confirmation")
+            plt.Line2D(
+                [],
+                [],
+                color=GREEN,
+                marker="o",
+                ms=3.6,
+                ls="none",
+                label="wave-2 confirmation",
+            )
         )
     if INCLUDE_PENDING_CONFIRMATION:
         handles.extend(
             [
-                plt.Line2D([], [], color=BLUE, marker="o", ms=3.6, ls="none", label="withdrawn first seal"),
-                plt.Line2D([], [], color=ORANGE, marker="o", ms=3.6, ls="none", label="transport"),
+                plt.Line2D(
+                    [],
+                    [],
+                    color=BLUE,
+                    marker="o",
+                    ms=3.6,
+                    ls="none",
+                    label="withdrawn first seal",
+                ),
+                plt.Line2D(
+                    [],
+                    [],
+                    color=ORANGE,
+                    marker="o",
+                    ms=3.6,
+                    ls="none",
+                    label="transport",
+                ),
                 plt.Line2D(
                     [],
                     [],
@@ -986,11 +1042,15 @@ def check_pdf(name: str) -> dict:
 
     heights = sorted(w["y_max"] - w["y_min"] for w in words)
     named_heights = sorted(
-        w["y_max"] - w["y_min"] for w in words if any(c.isupper() or c.isdigit() for c in w["text"])
+        w["y_max"] - w["y_min"]
+        for w in words
+        if any(c.isupper() or c.isdigit() for c in w["text"])
     )
     # Placed at the printed column width, a page narrower than 5.5 in is scaled
     # up, never down, so the natural size is the worst case.
-    scale_to_column = (COLUMN_INCHES * 72.0) / page_width if page_width < COLUMN_INCHES * 72 else 1.0
+    scale_to_column = (
+        (COLUMN_INCHES * 72.0) / page_width if page_width < COLUMN_INCHES * 72 else 1.0
+    )
     ratio = _font_box_ratio()
 
     return {
@@ -1016,7 +1076,9 @@ def check_pdf(name: str) -> dict:
         "min_word_box_height_pt_at_column_width": round(heights[0] * scale_to_column, 3)
         if heights
         else None,
-        "min_cap_or_digit_word_height_pt": round(named_heights[0], 3) if named_heights else None,
+        "min_cap_or_digit_word_height_pt": round(named_heights[0], 3)
+        if named_heights
+        else None,
         "min_cap_or_digit_word_height_pt_at_column_width": round(
             named_heights[0] * scale_to_column, 3
         )
@@ -1024,7 +1086,9 @@ def check_pdf(name: str) -> dict:
         else None,
         "font_box_ratio_em": round(ratio, 4),
         "min_implied_type_size_pt": round(heights[0] / ratio, 3) if heights else None,
-        "min_implied_type_size_pt_at_column_width": round(heights[0] * scale_to_column / ratio, 3)
+        "min_implied_type_size_pt_at_column_width": round(
+            heights[0] * scale_to_column / ratio, 3
+        )
         if heights
         else None,
         "scale_to_column_width": round(scale_to_column, 4),
@@ -1231,24 +1295,41 @@ def main() -> int:
 
     figure_a = draw_panel_a(rows_a)
     figure_a.savefig(
-        FIGURES / "f2a_endpoint_ordering.pdf", dpi=300, bbox_inches="tight", pad_inches=0.02
+        FIGURES / "f2a_endpoint_ordering.pdf",
+        dpi=300,
+        bbox_inches="tight",
+        pad_inches=0.02,
     )
     figure_a.savefig(
-        FIGURES / "f2a_endpoint_ordering.png", dpi=300, bbox_inches="tight", pad_inches=0.02
+        FIGURES / "f2a_endpoint_ordering.png",
+        dpi=300,
+        bbox_inches="tight",
+        pad_inches=0.02,
     )
     plt.close(figure_a)
 
     figure_b = draw_panel_b(rows_b, threshold_points)
     figure_b.savefig(
-        FIGURES / "f2b_panel_heterogeneity.pdf", dpi=300, bbox_inches="tight", pad_inches=0.02
+        FIGURES / "f2b_panel_heterogeneity.pdf",
+        dpi=300,
+        bbox_inches="tight",
+        pad_inches=0.02,
     )
     figure_b.savefig(
-        FIGURES / "f2b_panel_heterogeneity.png", dpi=300, bbox_inches="tight", pad_inches=0.02
+        FIGURES / "f2b_panel_heterogeneity.png",
+        dpi=300,
+        bbox_inches="tight",
+        pad_inches=0.02,
     )
     plt.close(figure_b)
 
-    checks = {name: check_pdf(name) for name in ("f2a_endpoint_ordering", "f2b_panel_heterogeneity")}
-    (SCRATCH / "render_checks.json").write_text(json.dumps(checks, indent=2), encoding="utf-8")
+    checks = {
+        name: check_pdf(name)
+        for name in ("f2a_endpoint_ordering", "f2b_panel_heterogeneity")
+    }
+    (SCRATCH / "render_checks.json").write_text(
+        json.dumps(checks, indent=2), encoding="utf-8"
+    )
 
     disagreement = pd.read_csv(ROOT / A_ARCHIVE_DISAGREEMENT).iloc[0]
     payload = {
@@ -1321,8 +1402,7 @@ def main() -> int:
             }
         ],
         "artifacts": [
-            {"path": rel, "sha256": sha256_of(rel), "bytes": (ROOT / rel).stat().st_size}
-            for rel in ARTIFACTS
+            {"path": rel, "bytes": (ROOT / rel).stat().st_size} for rel in ARTIFACTS
         ],
         "render_checks": checks,
         "font_sizes_pt": {
@@ -1358,7 +1438,9 @@ def main() -> int:
             f"[{row['ci_low_points']:+7.2f}, {row['ci_high_points']:+7.2f}]  "
             f"n {row['n_cases']:,}/{row['n_networks']}"
         )
-    print(f"\nnot plotted: {REAL_ARCHIVE_ROW['requested_row']} — {REAL_ARCHIVE_ROW['reason']}")
+    print(
+        f"\nnot plotted: {REAL_ARCHIVE_ROW['requested_row']} — {REAL_ARCHIVE_ROW['reason']}"
+    )
 
     for name, check in checks.items():
         print(

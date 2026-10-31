@@ -93,7 +93,7 @@ order-stable case table; everything produced before those repairs is discarded.
 
 | ID | Claim | Artifact | Status |
 |---|---|---|---|
-| R1 | The case table's content is reproducible | `tests/test_v17_fitness.py` | **stands after repair** — seeded from a deterministic digest. Before the repair it was not |
+| R1 | The case table's content is reproducible | `tests/test_v17_fitness.py` | **stands after repair** — seeded deterministically. Before the repair it was not |
 | R2 | The case table's row order is reproducible | `tests/test_v17_fitness.py` | **stands after repair** — written in a declared order. Before the repair it was not, and the headline moved by 0.1 points between runs |
 | R3 | The manuscript's numbers equal the artifacts | `paper_numbers.json`, `manuscript_audit.json`, test suite | **stands after repair** — 101 automated checks over every table cell and the audited inline claims; four prose errors were found and corrected, and the check is now a test rather than a proofread |
 

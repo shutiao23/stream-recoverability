@@ -77,7 +77,7 @@ split_rule:
     - climate_or_ecoregion
     - regulation_status
     - network_size
-  split_seed_and_sha256_required: true
+  split_seed_required: true
   development_fraction_target: 0.50
   validation_fraction_target: 0.20
   sealed_confirmatory_fraction_target: 0.30

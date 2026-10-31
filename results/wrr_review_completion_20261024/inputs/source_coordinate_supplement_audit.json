@@ -1,9 +1,6 @@
 {
   "cached_catalog": "results/framework/public_catalog/hubeau_all_stations.csv",
-  "cached_catalog_sha256": "780f2a8a16efd4120b5e08804e6b0b72887e666de6eaf294ec9ea4ca5c606185",
   "fresh_metadata": "results/wrr_review_completion_20261024/inputs/hubeau_coordinate_metadata/stations.json",
-  "fresh_metadata_sha256": "38d3fbc6bbd4f6c72d2925f8a7cc1f029908a01fd3ea04014a6aafb3f23d6f06",
-  "frozen_source_model_sha256": "1c7cbc30ce0d60e894f4d195e6381310caf6927ec324b80f4b11c4be23f4d78c",
   "geographic_geometry_tolerance_degrees": 1e-07,
   "join": "exact provider and original eight-character station code; no nearest-site or performance selection",
   "matched_existing_plan_hashes": [

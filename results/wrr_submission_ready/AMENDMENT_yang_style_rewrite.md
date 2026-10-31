@@ -51,8 +51,8 @@ conditional response, mechanism, consequence.
   5.16-6.17 pt with zero words outside the page and zero overlaps.
 * **Data figures are Python-generated PDFs**, all embedded TrueType
   (`pdf.fonttype = 42`).  The new heterogeneity figure (`scripts/267_...`) reads
-  every plotted value from a named artifact and records the artifact path,
-  filter and input hash in `figures/wrr/f2_heterogeneity_data.json`.
+  every plotted value from a named artifact and records the artifact path
+  and filter in `figures/wrr/f2_heterogeneity_data.json`.
 * Main text: 10 figures (design, phenomenon, heterogeneity, continuum,
   seasonality, mechanism, calibration, frontier, archive deployment,
   representativeness).  SI: 7 figures; the catchment-attribute figure moved from

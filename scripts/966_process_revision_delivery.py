@@ -40,7 +40,10 @@ SOURCE_FLAGS = (
     "target_subset_even_odd_calibration_executed", "trajectory_count_convergence_established",
     "fine_method_ranking_robustness_established",
 )
-GENERATED_PACKAGE_FILES = {"REVIEW_PACKAGE_README.txt", "dependency_inventory.json"}
+GENERATED_PACKAGE_FILES = {
+    "REVIEW_PACKAGE_README.txt", "dependency_inventory.json",
+    "RELEASE_RECEIPT.json", "CONTENT_MANIFEST.sha256",
+}
 EXCLUDED_VALIDATION_BASENAMES = {"validation.json", "delivery_check.json"}
 
 

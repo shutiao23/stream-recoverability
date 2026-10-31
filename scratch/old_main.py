@@ -352,11 +352,6 @@ def main(argv: list[str] | None = None) -> int:
     }
 
     record["caveats"] = build_caveats(record, stations_frame, candidates)
-    record["inputs_sha256"] = {
-        str(V17_ROSTER.relative_to(ROOT)): sha256_file(V17_ROSTER),
-        str(PROTOCOL.relative_to(ROOT)): sha256_file(PROTOCOL),
-        str(Path(__file__).relative_to(ROOT)): sha256_file(Path(__file__)),
-    }
     (OUT_ROOT / "ingest.json").write_text(json.dumps(record, indent=1, ensure_ascii=False, default=str))
     print(json.dumps(record["final_counts"], indent=1), flush=True)
     return 0

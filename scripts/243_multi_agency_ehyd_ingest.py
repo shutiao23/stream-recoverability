@@ -12,7 +12,7 @@ Evidence collected:
   1. official station/file listing          https://ehyd.gv.at/services/Messstellen/json?filter=alle
   2. official bulk package                  https://gis.lfrz.gv.at/api/ehyd/messstellen/paket/ehyd_messstellen_all_owf.zip
   3. server-side download type enumeration  https://ehyd.gv.at/services/AreaSelection/download?cat=...&reg=0
-  4. web-app data-type menu (client bundle) https://ehyd.gv.at/ + main-<hash>.js
+  4. web-app data-type menu (client bundle) https://ehyd.gv.at/ + main-<build-id>.js
   5. per-station monthly payload samples    WT-Monatsmittel/<file> inside the package
   6. long-term diagram service probes       https://ehyd.gv.at/services/Diagram/pegelLongterm?hzbnr=...
 
@@ -25,7 +25,6 @@ Verdict logic (fixed before the run, reported in ingest.json):
 from __future__ import annotations
 
 import argparse
-import hashlib
 import io
 import json
 import re
@@ -90,14 +89,6 @@ def head_headers(url: str) -> dict[str, str]:
         return {"http_status": str(error.code)}
 
 
-def sha256_of(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def fetch_cached(url: str, dest: Path, *, force: bool) -> dict:
     dest.parent.mkdir(parents=True, exist_ok=True)
     fetched = False
@@ -109,7 +100,6 @@ def fetch_cached(url: str, dest: Path, *, force: bool) -> dict:
         "url": url,
         "cache_file": str(dest.relative_to(ROOT)),
         "bytes": int(dest.stat().st_size),
-        "sha256": sha256_of(dest),
         "fetched_this_run": fetched,
         "server_head": head_headers(url),
     }
@@ -149,16 +139,20 @@ def app_bundle_evidence(*, force: bool) -> dict:
         if force or not bundle_path.is_file():
             bundle_path.write_bytes(get_bytes(bundle_url, timeout=180))
         text = bundle_path.read_text(encoding="utf-8", errors="replace")
-        menu = re.search(r'\{id:"owf",label:"[^"]*",togglable:!0,icon:"owf_mst",children:\[(.*?)\]\}', text)
+        menu = re.search(
+            r'\{id:"owf",label:"[^"]*",togglable:!0,icon:"owf_mst",children:\[(.*?)\]\}',
+            text,
+        )
         surface_types = []
         if menu is not None:
-            surface_types = re.findall(r'\{id:"([^"]+)",label:"([^"]+)"\}', menu.group(1))
+            surface_types = re.findall(
+                r'\{id:"([^"]+)",label:"([^"]+)"\}', menu.group(1)
+            )
         all_types = re.findall(r'\{id:"([a-z0-9_]+)",label:"([^"]+)"\}', text)
         return {
             "ok": True,
             "index_url": INDEX_URL,
             "bundle_url": bundle_url,
-            "bundle_sha256": sha256_of(bundle_path),
             "bundle_bytes": int(bundle_path.stat().st_size),
             "surface_water_menu": [
                 {"id": i, "label": label} for i, label in surface_types
@@ -186,7 +180,9 @@ def download_type_probe(*, force: bool) -> dict:
             try:
                 cache.write_bytes(get_bytes(url, timeout=120))
             except Exception as error:  # noqa: BLE001
-                cache.write_text(f"ERROR {type(error).__name__}: {error}\n", encoding="utf-8")
+                cache.write_text(
+                    f"ERROR {type(error).__name__}: {error}\n", encoding="utf-8"
+                )
         probes[cat] = {
             "url": url,
             "response": cache.read_text(encoding="utf-8", errors="replace").strip(),
@@ -203,8 +199,11 @@ def download_type_probe(*, force: bool) -> dict:
         "n_allowed_download_types": len(allowed),
         "temperature_types": temperature_types,
         "daily_surface_temperature_types": [
-            t for t in allowed
-            if TEMP_TOKEN.search(t) and DAILY_TOKEN.search(t) and SURFACE_TOKEN.search(t)
+            t
+            for t in allowed
+            if TEMP_TOKEN.search(t)
+            and DAILY_TOKEN.search(t)
+            and SURFACE_TOKEN.search(t)
         ],
         "daily_temperature_types_any_compartment": [
             t for t in temperature_types if DAILY_TOKEN.search(t)
@@ -226,7 +225,8 @@ def monthly_payload_samples(
             payload = archive.read(name)
             lines = payload.decode("cp1252", errors="replace").splitlines()
             data_lines = [
-                line for line in lines
+                line
+                for line in lines
                 if re.match(r"^\d{2}\.\d{2}\.\d{4}\s+00:00:00;\s*[-+]?\d", line.strip())
             ]
             samples.append(
@@ -255,7 +255,9 @@ def monthly_payload_samples(
                         int(d) for d in group["date"].dt.day.unique()
                     ),
                     "n_distinct_years": int(years.nunique()),
-                    "rows_per_year": round(len(group) / max(1, int(years.nunique())), 3),
+                    "rows_per_year": round(
+                        len(group) / max(1, int(years.nunique())), 3
+                    ),
                 }
             )
     return {"file_samples": samples, "parsed_monthly_series": per_station}
@@ -317,12 +319,16 @@ def main() -> int:
     retrieved_utc = datetime.now(timezone.utc).isoformat()
 
     listing = fetch_cached(STATION_URL, RAW / "messstellen_alle.json", force=args.force)
-    feature_document = json.loads((ROOT / listing["cache_file"]).read_text(encoding="utf-8"))
+    feature_document = json.loads(
+        (ROOT / listing["cache_file"]).read_text(encoding="utf-8")
+    )
     census = ftyp_census(feature_document)
     census.to_csv(RAW / "ftyp_census.csv", index=False)
     log(f"file-type census rows={len(census)} types={census['file_type'].nunique()}")
 
-    package = fetch_cached(PACKAGE_URL, RAW / "ehyd_messstellen_all_owf.zip", force=args.force)
+    package = fetch_cached(
+        PACKAGE_URL, RAW / "ehyd_messstellen_all_owf.zip", force=args.force
+    )
     package_bytes = (ROOT / package["cache_file"]).read_bytes()
     with zipfile.ZipFile(io.BytesIO(package_bytes)) as archive:
         names = archive.namelist()
@@ -390,18 +396,24 @@ def main() -> int:
             "n_wt_monthly_files": int((census["file_type"] == FILE_KIND).sum()),
             "n_wt_monthly_stations_with_metadata": int(stations["site_id"].nunique()),
             "n_wt_monthly_unique_rivers": int(stations["river_name"].nunique()),
-            "n_monthly_river_candidates_ge3_stations_ge8_common_years": int(len(candidates)),
+            "n_monthly_river_candidates_ge3_stations_ge8_common_years": int(
+                len(candidates)
+            ),
             "n_daily_surface_temperature_file_types": len(
                 daily_surface_temperature_file_types
             ),
-            "n_daily_temperature_file_types_any_compartment": len(daily_any_compartment),
+            "n_daily_temperature_file_types_any_compartment": len(
+                daily_any_compartment
+            ),
         },
         "observations": {
             "temperature_token_file_types": [
                 t for t in available_types if TEMP_TOKEN.search(t)
             ],
             "surface_water_temperature_file_types": [
-                t for t in available_types if TEMP_TOKEN.search(t) and SURFACE_TOKEN.search(t)
+                t
+                for t in available_types
+                if TEMP_TOKEN.search(t) and SURFACE_TOKEN.search(t)
             ],
             "daily_temperature_file_types_any_compartment": daily_any_compartment,
             "daily_surface_temperature_file_types": daily_surface_temperature_file_types,
@@ -420,9 +432,13 @@ def main() -> int:
         "artifacts": {
             "raw_cache": str(RAW.relative_to(ROOT)),
             "ftyp_census": str((RAW / "ftyp_census.csv").relative_to(ROOT)),
-            "package_folder_census": str((RAW / "package_folder_census.csv").relative_to(ROOT)),
+            "package_folder_census": str(
+                (RAW / "package_folder_census.csv").relative_to(ROOT)
+            ),
             "monthly_station_table": str(
-                (RAW / "ehyd_surface_temperature_stations_monthly.csv").relative_to(ROOT)
+                (RAW / "ehyd_surface_temperature_stations_monthly.csv").relative_to(
+                    ROOT
+                )
             ),
             "monthly_river_candidates": str(
                 (RAW / "ehyd_monthly_river_candidates.csv").relative_to(ROOT)
@@ -446,7 +462,8 @@ def main() -> int:
     }
 
     (OUT / "ingest.json").write_text(
-        json.dumps(ingest, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8"
+        json.dumps(ingest, indent=2, sort_keys=True, default=str) + "\n",
+        encoding="utf-8",
     )
 
     if feasible:
@@ -473,9 +490,7 @@ def write_infeasible_md(
     bundle = ingest["sources"]["app_bundle"]
     samples = ingest["observations"]["monthly_payload_samples"]
 
-    type_rows = "\n".join(
-        f"| {t} |" for t in download_types["allowed_download_types"]
-    )
+    type_rows = "\n".join(f"| {t} |" for t in download_types["allowed_download_types"])
     folder_rows = "\n".join(
         f"| {name} | {int(value)} |" for name, value in folders.items()
     )
@@ -528,65 +543,64 @@ emitted; nothing was scored.
 
 ## 1. The station catalogue has no daily surface-water temperature file type
 
-`GET {listing['url']}` (HTTP 200, {listing['bytes']:,} bytes,
-sha256 `{listing['sha256']}`) returns a GeoJSON FeatureCollection of
-**{counts['n_stations_in_official_listing']:,} stations** whose `fjson`
+`GET {listing["url"]}` (HTTP 200, {listing["bytes"]:,} bytes) returns a GeoJSON FeatureCollection of
+**{counts["n_stations_in_official_listing"]:,} stations** whose `fjson`
 property lists every published file per station:
-**{counts['n_file_entries_in_listing']:,} file entries,**
-**{counts['n_distinct_file_types_in_listing']} distinct file types**.
-Census written to `{ingest['artifacts']['ftyp_census']}`.
+**{counts["n_file_entries_in_listing"]:,} file entries,**
+**{counts["n_distinct_file_types_in_listing"]} distinct file types**.
+Census written to `{ingest["artifacts"]["ftyp_census"]}`.
 
 Temperature file types present anywhere in the catalogue:
 
-- every catalogue file type whose identifier contains `wassertemp`: {', '.join(f'`{t}`' for t in ingest['observations']['temperature_token_file_types'])}
-- of those, surface-water (`owf_*`): {', '.join(f'`{t}`' for t in ingest['observations']['surface_water_temperature_file_types']) or '(none)'}
+- every catalogue file type whose identifier contains `wassertemp`: {", ".join(f"`{t}`" for t in ingest["observations"]["temperature_token_file_types"])}
+- of those, surface-water (`owf_*`): {", ".join(f"`{t}`" for t in ingest["observations"]["surface_water_temperature_file_types"]) or "(none)"}
 
 Daily (`*tages*`) temperature file types **for surface water**: none
-(`daily_surface_temperature_file_types = {ingest['observations']['daily_surface_temperature_file_types']}`).
+(`daily_surface_temperature_file_types = {ingest["observations"]["daily_surface_temperature_file_types"]}`).
 
 The only daily *temperature* type in the whole catalogue is
 `qu_quellwassertemp` ("Quellwassertemperatur-Tagesmittel", spring water
-temperature) with {int((census['file_type'] == 'qu_quellwassertemp').sum())} files.
+temperature) with {int((census["file_type"] == "qu_quellwassertemp").sum())} files.
 It is a spring/groundwater-source series, not a river waterbody series, so it
 fails protocol rule 2 (river-only) and rule 3 (station is not a river site).
-`gw_temp_monatsmittel` ({int((census['file_type'] == 'gw_temp_monatsmittel').sum())} files)
+`gw_temp_monatsmittel` ({int((census["file_type"] == "gw_temp_monatsmittel").sum())} files)
 is groundwater temperature and monthly in any case.
 
 ## 2. The official bulk package contains monthly WT only
 
-`GET {package['url']}` (HTTP 200, content-length
-{package['server_head'].get('content-length')} declared; downloaded
-{package['bytes']:,} bytes, sha256 `{package['sha256']}`) unpacks to
-{counts['n_package_entries']:,} entries in {counts['n_package_folders']} folders
-(`{ingest['artifacts']['package_folder_census']}`):
+`GET {package["url"]}` (HTTP 200, content-length
+{package["server_head"].get("content-length")} declared; downloaded
+{package["bytes"]:,} bytes) unpacks to
+{counts["n_package_entries"]:,} entries in {counts["n_package_folders"]} folders
+(`{ingest["artifacts"]["package_folder_census"]}`):
 
 | folder | entries |
 |---|---|
 {folder_rows}
 
 The only surface-water temperature folder is `WT-Monatsmittel`
-({counts['n_wt_monthly_files']} files = {counts['n_wt_monthly_stations_with_metadata']} stations
-with metadata, {counts['n_wt_monthly_unique_rivers']} distinct official river names).
+({counts["n_wt_monthly_files"]} files = {counts["n_wt_monthly_stations_with_metadata"]} stations
+with metadata, {counts["n_wt_monthly_unique_rivers"]} distinct official river names).
 There is no `WT-Tageswerte` / `WT-Tagesmittel` folder, and the data folders that
 do carry daily values are `Q-Tagesmittel` (discharge), `W-Tagesmittel` (water
 level), `Geschiebe-`/`Schwebstoff-Tagesfracht` (sediment).
 
 ## 3. eHYD's own download service enumerates the allowed types server-side
 
-`GET {download_types['probes']['owf_wassertemp_monatsmittel']['url']}` returns
+`GET {download_types["probes"]["owf_wassertemp_monatsmittel"]["url"]}` returns
 HTTP 200 with the server's own list of the
-{download_types['n_allowed_download_types']} downloadable data types:
+{download_types["n_allowed_download_types"]} downloadable data types:
 
 ```
-{download_types['probes']['owf_wassertemp_monatsmittel']['response']}
+{download_types["probes"]["owf_wassertemp_monatsmittel"]["response"]}
 ```
 
-Temperature entries in that list: {', '.join(f'`{t}`' for t in download_types['temperature_types'])}.
+Temperature entries in that list: {", ".join(f"`{t}`" for t in download_types["temperature_types"])}.
 Daily surface-water temperature entries:
-`{download_types['daily_surface_temperature_types']}`.
+`{download_types["daily_surface_temperature_types"]}`.
 A daily surface-water temperature type was probed explicitly
 (`...&cat=owf_wassertemp_tagesmittel`) and is rejected by the same
-server-side enumeration (`{download_types['probes']['owf_wassertemp_tagesmittel']['url']}`).
+server-side enumeration (`{download_types["probes"]["owf_wassertemp_tagesmittel"]["url"]}`).
 Direct guesses at a daily WT package URL are also 404
 (`ehyd_messstellen_all_owf_wassertemp_tagesmittel.zip`,
 `ehyd_messstellen_all_wt.zip`), while `ehyd_messstellen_all_gw.zip` returns 200 —
@@ -594,8 +608,8 @@ i.e. the package namespace exists, the daily WT member does not.
 
 ## 4. The shipped web application offers monthly only
 
-The eHYD Angular bundle (`{bundle.get('bundle_url')}`, sha256
-`{bundle.get('bundle_sha256')}`) builds its data-type menu with the same ids.
+The eHYD Angular bundle (`{bundle.get("bundle_url")}`) builds its data-type menu
+with the same ids.
 Under "Oberflächengewässer" the temperature entry is
 {surface_menu}. `Wassertemperatur-Monatsmittel` is the only temperature option;
 the daily options there are discharge, water level, snow height, bedload and
@@ -628,7 +642,7 @@ station 200048 measures both discharge and water temperature and returns
 
 ## 6. What would have been available if monthly were admissible (not used)
 
-The 324 monthly WT stations yield {counts['n_monthly_river_candidates_ge3_stations_ge8_common_years']}
+The 324 monthly WT stations yield {counts["n_monthly_river_candidates_ge3_stations_ge8_common_years"]}
 river-name groups with ≥3 stations and ≥8 common metadata years (the module's
 own candidate rule), e.g.:
 
@@ -639,14 +653,14 @@ own candidate rule), e.g.:
 This is recorded only to show the shortfall is the *temporal resolution*, not the
 station count. Several groups are lakes in the official river-name field
 (e.g. `ehyd_neusiedler_see`, Altausseer See), which would also require river-only
-filtering. `{ingest['artifacts']['monthly_river_candidates']}` holds the full table;
+filtering. `{ingest["artifacts"]["monthly_river_candidates"]}` holds the full table;
 its `candidate_status` is `source_qc_failed_monthly_only`.
 
 ## 7. Roster check
 
 v17 roster overlap for the eHYD HZB station numbers:
-{ingest['observations']['roster_overlap']['n_overlap']} overlapping ids
-({ingest['observations']['roster_overlap'].get('overlap_ids')}). Not applicable in
+{ingest["observations"]["roster_overlap"]["n_overlap"]} overlapping ids
+({ingest["observations"]["roster_overlap"].get("overlap_ids")}). Not applicable in
 practice because no series is ingested.
 
 ## 8. What a reviewer should check

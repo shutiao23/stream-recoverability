@@ -1,5 +1,4 @@
 {
-  "batch_plan_sha256": "c41ea5b7f39f98cfc66ab3eadd15186c42e6ba5bd4675dc5e00311e52cd0f756",
   "chunk_manifest_paths": [],
   "completed_chunk_count": 0,
   "expected_workload_item_count": 2491245,
@@ -43,7 +42,5 @@
   "planned_chunk_count": 8,
   "purpose": "aggregation_input_custody_not_evidence",
   "ready_for_aggregation": false,
-  "sealed_temperature_records_read": false,
-  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
-  "workload_manifest_sha256": "6abed0f6cd7360e237384b282546c0395e690d481d256c90fc6ae495c32c52b2"
+  "sealed_temperature_records_read": false
 }

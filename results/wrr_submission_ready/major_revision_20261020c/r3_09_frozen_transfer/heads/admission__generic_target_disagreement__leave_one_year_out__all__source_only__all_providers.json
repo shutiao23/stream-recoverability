@@ -44,7 +44,6 @@
   "identity": "admission__generic_target_disagreement__leave_one_year_out__all__source_only__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_target_disagreement__leave_one_year_out__all__source_only__all_providers.joblib",
-  "model_sha256": "3f5e04a1bdb9a640d8d33a97c4ee1c29555f547c8482ed5d7aaadb6eed07723e",
   "n_training_cases": 55569,
   "n_training_groups": 145,
   "name": "generic_target_disagreement",
@@ -54,8 +53,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
-      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

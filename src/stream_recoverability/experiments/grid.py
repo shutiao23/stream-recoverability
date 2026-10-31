@@ -14,12 +14,11 @@ import yaml
 from stream_recoverability.masks.anchors import load_frontier_anchor_catalog
 from stream_recoverability.masks.event_catalog import (
     EVENT_DEFINITIONS,
-    event_catalog_sha256,
     event_stress_identity,
     load_event_episode_catalog,
 )
 
-from .contracts import canonical_evaluation_split, file_sha256
+from .contracts import canonical_evaluation_split
 
 CORE_EXPECTED_COUNTS = {"M1": 36, "M2": 48, "M3": 48, "M4": 24}
 DEFAULT_FRONTIER_ANCHOR_PATH = (
@@ -171,16 +170,12 @@ class ExperimentGrid:
     training_seeds: tuple[int, ...]
     external_validation_status: str
     event_catalog_path: str | None = None
-    event_catalog_sha256: str | None = None
     event_catalog_episode_count: int = 0
     event_catalog_analysis_count: int = 0
     frontier_anchor_catalog_path: str | None = None
-    frontier_anchor_catalog_sha256: str | None = None
     frontier_anchor_count: int = 0
     validation_anchor_catalog_path: str | None = None
-    validation_anchor_catalog_sha256: str | None = None
     validation_anchor_count: int = 0
-    validation_anchor_catalog_logical_sha256: str | None = None
     validation_anchor_ids: tuple[str, ...] = ()
 
     @property
@@ -210,18 +205,12 @@ class ExperimentGrid:
             training_seeds=self.training_seeds,
             external_validation_status=self.external_validation_status,
             event_catalog_path=self.event_catalog_path,
-            event_catalog_sha256=self.event_catalog_sha256,
             event_catalog_episode_count=self.event_catalog_episode_count,
             event_catalog_analysis_count=self.event_catalog_analysis_count,
             frontier_anchor_catalog_path=self.frontier_anchor_catalog_path,
-            frontier_anchor_catalog_sha256=self.frontier_anchor_catalog_sha256,
             frontier_anchor_count=self.frontier_anchor_count,
             validation_anchor_catalog_path=self.validation_anchor_catalog_path,
-            validation_anchor_catalog_sha256=self.validation_anchor_catalog_sha256,
             validation_anchor_count=self.validation_anchor_count,
-            validation_anchor_catalog_logical_sha256=(
-                self.validation_anchor_catalog_logical_sha256
-            ),
             validation_anchor_ids=self.validation_anchor_ids,
         )
 
@@ -917,9 +906,6 @@ def build_experiment_grid(
         event_catalog_path=(
             str(Path(event_catalog_path)) if event_catalog_path is not None else None
         ),
-        event_catalog_sha256=(
-            event_catalog_sha256(event_catalog) if event_catalog is not None else None
-        ),
         event_catalog_episode_count=(
             len(event_catalog) if event_catalog is not None else 0
         ),
@@ -930,11 +916,6 @@ def build_experiment_grid(
         ),
         frontier_anchor_catalog_path=(
             str(Path(frontier_anchor_path))
-            if frontier_catalog is not None and frontier_anchor_path is not None
-            else None
-        ),
-        frontier_anchor_catalog_sha256=(
-            file_sha256(frontier_anchor_path)
             if frontier_catalog is not None and frontier_anchor_path is not None
             else None
         ),

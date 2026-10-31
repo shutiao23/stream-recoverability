@@ -7,7 +7,7 @@ paper and it does not waive the submission gate.
 | --- | --- | --- |
 | P0-00 | Protocol complete; GitHub admin settings not flipped from here | Snapshot helper and CI record exist. Branch protection needs repository admin. |
 | P0-01 | Complete at current public tip | The current hosting audit finds zero restricted tracked paths. Historical remediation is not reasserted by this wave. |
-| P0-02 | Complete | Split QC fields are implemented. `published_v2` and the three v2 sensitivities were built from `published_v1`. Provider QC is `unknown`, never `approved`. Artifact hashes are not pinned in the freeze. |
+| P0-02 | Complete | Split QC fields are implemented. `published_v2` and the three v2 sensitivities were built from `published_v1`. Provider QC is `unknown`, never `approved`. |
 | P0-03 | Complete | `design_freeze_v4.yaml` and `docs/protocol_change_v3_to_v4.md`. Formal epoch budget remains 400. |
 | P0-04 | Complete | Selection, roster, formal, confirmatory, registry, aggregation, and analysis derive `published_v2` from v4. Old runs remain historical. |
 | P0-05 | Complete | The finalized roster contains nine stable traditional models. Stage 3 excludes a finalist whose required seed is training- or budget-unstable. |

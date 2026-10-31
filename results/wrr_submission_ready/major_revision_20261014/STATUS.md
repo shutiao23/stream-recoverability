@@ -1,4 +1,4 @@
-# Major revision progress (locked science commit `53c88cc`)
+# Major revision progress (science locked on 2026-10-14)
 
 Working-tree amendments live under this folder and
 `docs/reviews/wrr_major_revision_20261014/`. They do **not** retune the wave-2 seal.

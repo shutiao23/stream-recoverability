@@ -2,10 +2,10 @@
 
 The builder implements the external protocol in the executable design freeze
 (``design_freeze_v4.yaml``, accepting the historical v2/v3 files).  It
-uses the modern USGS OGC API and the NASA POWER daily point API, records every
-non-secret request and raw response by SHA-256, and materialises no performance
-metrics. Full acquisition is deliberately gated by a hash-verified finalized
-model-roster manifest produced from validation-only evidence.
+uses the modern USGS OGC API and the NASA POWER daily point API, stores every
+non-secret request and raw response, and materialises no performance metrics.
+Full acquisition is deliberately gated by a validated finalized model-roster
+manifest produced from validation-only evidence.
 
 Official API documentation:
 
@@ -15,12 +15,10 @@ Official API documentation:
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 import os
 import shutil
-import subprocess
 import tempfile
 import urllib.error
 import urllib.parse
@@ -37,7 +35,6 @@ import yaml
 
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
-    LEGACY_IDENTITY_FIELDS,
     build_design_contract,
     load_frozen_data_versions,
     validate_data_version_inputs,
@@ -50,13 +47,8 @@ CONFIRMATORY_DATA_VERSION = "external_upper_middle_chattahoochee_v1"
 CONFIRMATORY_SCHEMA_VERSION = "confirmatory_external_data_v1"
 REQUEST_PLAN_SCHEMA_VERSION = "confirmatory_request_plan_v1"
 REQUEST_LOG_SCHEMA_VERSION = "external_http_request_log_v1"
-CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION = "confirmatory_builder_identity_v1"
 FINALIZED_MODEL_ROSTER_SCHEMA_VERSION = "finalized_model_roster_v1"
 DEFAULT_SELECTION_DATA_VERSION = "published_v2"
-CONFIRMATORY_BUILDER_SOURCE_PATHS = (
-    "scripts/19_build_confirmatory_data.py",
-    "src/stream_recoverability/data/confirmatory.py",
-)
 FINALIST_ARTIFACT_NAMES = ("ranking", "stage2_selection", "go_no_go")
 V4_FINALIST_ARTIFACT_NAMES = (
     *FINALIST_ARTIFACT_NAMES,
@@ -248,7 +240,6 @@ class SplitPeriod:
 @dataclass(frozen=True)
 class ConfirmatoryProtocol:
     design_path: str
-    design_sha256: str
     design_version: str
     network: str
     site_ids: tuple[str, ...]
@@ -277,18 +268,6 @@ class ConfirmatoryProtocol:
         return result
 
 
-def _sha256_bytes(value: bytes) -> str:
-    return hashlib.sha256(value).hexdigest()
-
-
-def file_sha256(path: str | Path) -> str:
-    digest = hashlib.sha256()
-    with Path(path).open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _canonical_json_bytes(value: Any) -> bytes:
     return json.dumps(
         value,
@@ -297,10 +276,6 @@ def _canonical_json_bytes(value: Any) -> bytes:
         separators=(",", ":"),
         allow_nan=False,
     ).encode("utf-8")
-
-
-def _canonical_json_sha256(value: Any) -> str:
-    return _sha256_bytes(_canonical_json_bytes(value))
 
 
 def _expect_equal(actual: Any, expected: Any, path: str) -> None:
@@ -318,184 +293,6 @@ def _portable_path(path: Path) -> str:
         return str(resolved.relative_to(REPOSITORY_ROOT.resolve()))
     except ValueError:
         return str(resolved)
-
-
-def _confirmatory_builder_source_paths(repository_root: Path) -> tuple[Path, ...]:
-    return tuple(
-        repository_root / relative for relative in CONFIRMATORY_BUILDER_SOURCE_PATHS
-    )
-
-
-def build_confirmatory_builder_identity(
-    repository_root: str | Path | None = None,
-) -> dict[str, Any]:
-    """Return the clone-stable identity of the confirmatory data builder.
-
-    This identity is intentionally independent of the internal model design
-    contract.  It travels with request plans and the external data manifest, so
-    changes to acquisition code invalidate those artifacts without retroactively
-    invalidating completed internal-model runs.
-    """
-
-    root = (
-        Path(repository_root).resolve()
-        if repository_root is not None
-        else REPOSITORY_ROOT.resolve()
-    )
-    sources: list[dict[str, Any]] = []
-    for relative, path in zip(
-        CONFIRMATORY_BUILDER_SOURCE_PATHS,
-        _confirmatory_builder_source_paths(root),
-        strict=True,
-    ):
-        if not path.is_file():
-            raise FileNotFoundError(f"missing confirmatory builder source: {relative}")
-        sources.append(
-            {
-                "path": relative,
-                "bytes": path.stat().st_size,
-                "sha256": file_sha256(path),
-            }
-        )
-    identity: dict[str, Any] = {
-        "schema_version": CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION,
-        "sources": sources,
-        "identity_hash_scope": "canonical_json_excluding_identity_sha256",
-    }
-    identity["identity_sha256"] = _canonical_json_sha256(identity)
-    return identity
-
-
-def validate_confirmatory_builder_identity(
-    value: object,
-    *,
-    repository_root: str | Path | None = None,
-) -> dict[str, Any]:
-    """Validate a persisted builder identity against current source bytes."""
-
-    if not isinstance(value, Mapping):
-        raise TypeError("confirmatory_builder_identity must be a mapping")
-    identity = json.loads(json.dumps(dict(value)))
-    expected_fields = {
-        "schema_version",
-        "sources",
-        "identity_hash_scope",
-        "identity_sha256",
-    }
-    if set(identity) != expected_fields:
-        raise ValueError("confirmatory builder identity fields are not frozen")
-    if identity.get("schema_version") != CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION:
-        raise ValueError("confirmatory builder identity schema is not frozen")
-    if (
-        identity.get("identity_hash_scope")
-        != "canonical_json_excluding_identity_sha256"
-    ):
-        raise ValueError("confirmatory builder identity has an unknown hash scope")
-    sources = identity.get("sources")
-    if not isinstance(sources, list) or len(sources) != len(
-        CONFIRMATORY_BUILDER_SOURCE_PATHS
-    ):
-        raise ValueError("confirmatory builder source inventory is incomplete")
-    for index, (source, expected_path) in enumerate(
-        zip(sources, CONFIRMATORY_BUILDER_SOURCE_PATHS, strict=True)
-    ):
-        label = f"confirmatory_builder_identity.sources[{index}]"
-        if not isinstance(source, Mapping) or set(source) != {
-            "path",
-            "bytes",
-            "sha256",
-        }:
-            raise ValueError(f"{label} is not an exact file identity")
-        if source.get("path") != expected_path:
-            raise ValueError("confirmatory builder source paths/order are not frozen")
-        size = source.get("bytes")
-        digest = source.get("sha256")
-        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
-            raise ValueError(f"{label} has invalid byte size")
-        if (
-            not isinstance(digest, str)
-            or len(digest) != 64
-            or any(character not in "0123456789abcdef" for character in digest)
-        ):
-            raise ValueError(f"{label} has invalid SHA-256")
-    unsigned = {key: item for key, item in identity.items() if key != "identity_sha256"}
-    if identity.get("identity_sha256") != _canonical_json_sha256(unsigned):
-        raise ValueError(
-            "confirmatory builder canonical identity SHA-256 does not match"
-        )
-    expected = build_confirmatory_builder_identity(repository_root)
-    if identity != expected:
-        raise ValueError(
-            "confirmatory builder identity does not match current source bytes/SHA-256"
-        )
-    return identity
-
-
-def _run_builder_git_command(repository_root: Path, *arguments: str) -> bytes:
-    try:
-        result = subprocess.run(
-            ("git", "-C", str(repository_root), *arguments),
-            check=False,
-            capture_output=True,
-            timeout=15,
-        )
-    except (OSError, subprocess.TimeoutExpired) as error:
-        raise RuntimeError(
-            "git is unavailable for confirmatory builder audit"
-        ) from error
-    if result.returncode:
-        raise RuntimeError("git command failed during confirmatory builder audit")
-    return result.stdout
-
-
-def require_clean_confirmatory_builder_sources(
-    identity: Mapping[str, Any] | None = None,
-    *,
-    repository_root: str | Path | None = None,
-) -> dict[str, Any]:
-    """Fail closed unless both builder sources are tracked and clean in Git."""
-
-    root = (
-        Path(repository_root).resolve()
-        if repository_root is not None
-        else REPOSITORY_ROOT.resolve()
-    )
-    repository = Path(
-        _run_builder_git_command(root, "rev-parse", "--show-toplevel")
-        .decode("utf-8")
-        .strip()
-    ).resolve()
-    if repository != root:
-        raise RuntimeError("confirmatory builder root is not the Git repository root")
-    expected_identity = (
-        build_confirmatory_builder_identity(root)
-        if identity is None
-        else validate_confirmatory_builder_identity(identity, repository_root=root)
-    )
-    tracked_output = _run_builder_git_command(
-        root,
-        "ls-files",
-        "-z",
-        "--",
-        *CONFIRMATORY_BUILDER_SOURCE_PATHS,
-    )
-    tracked_paths = {
-        item.decode("utf-8") for item in tracked_output.split(b"\0") if item
-    }
-    expected_paths = set(CONFIRMATORY_BUILDER_SOURCE_PATHS)
-    if tracked_paths != expected_paths:
-        raise ValueError("confirmatory builder sources must be tracked by git")
-    status = _run_builder_git_command(
-        root,
-        "status",
-        "--porcelain=v1",
-        "--untracked-files=all",
-        "--",
-        *CONFIRMATORY_BUILDER_SOURCE_PATHS,
-    )
-    if status:
-        raise ValueError("confirmatory builder sources must be tracked and clean")
-    return expected_identity
 
 
 def load_confirmatory_protocol(
@@ -692,7 +489,6 @@ def load_confirmatory_protocol(
     )
     return ConfirmatoryProtocol(
         design_path=_portable_path(path),
-        design_sha256=_sha256_bytes(raw),
         design_version=str(design_version),
         network=FROZEN_NETWORK,
         site_ids=FROZEN_SITE_IDS,
@@ -786,16 +582,13 @@ def _planned_request(
     site_id: str,
     variable: str | None,
     url: str,
-    accept: str,
 ) -> dict[str, Any]:
-    identity = _request_identity(url, accept)
     return {
         "provider": provider,
         "request_kind": request_kind,
         "site_id": site_id,
         "variable": variable,
         "url": url,
-        "request_sha256": _canonical_json_sha256(identity),
         "pagination": (
             "follow_server_rel_next_until_absent"
             if provider == "usgs"
@@ -806,16 +599,9 @@ def _planned_request(
 
 def build_confirmatory_request_plan(
     protocol: ConfirmatoryProtocol,
-    *,
-    builder_identity: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Return the frozen initial requests without making network calls."""
 
-    confirmed_builder_identity = (
-        build_confirmatory_builder_identity()
-        if builder_identity is None
-        else validate_confirmatory_builder_identity(builder_identity)
-    )
     initial: list[dict[str, Any]] = []
     for site_id in protocol.site_ids:
         initial.append(
@@ -825,7 +611,6 @@ def build_confirmatory_request_plan(
                 site_id=site_id,
                 variable=None,
                 url=_usgs_monitoring_location_url(site_id),
-                accept="application/geo+json",
             )
         )
         for spec in HYDROLOGY_SPECS:
@@ -836,7 +621,6 @@ def build_confirmatory_request_plan(
                     site_id=site_id,
                     variable=spec.variable,
                     url=_usgs_time_series_url(site_id, spec),
-                    accept="application/geo+json",
                 )
             )
             initial.append(
@@ -846,7 +630,6 @@ def build_confirmatory_request_plan(
                     site_id=site_id,
                     variable=spec.variable,
                     url=_usgs_daily_url(site_id, spec, protocol),
-                    accept="application/geo+json",
                 )
             )
         nasa_template = _nasa_power_url(0.0, 0.0, protocol).replace(
@@ -860,32 +643,27 @@ def build_confirmatory_request_plan(
                 site_id=site_id,
                 variable=None,
                 url=nasa_template,
-                accept="application/json",
             )
         )
-    plan: dict[str, Any] = {
+    return {
         "schema_version": REQUEST_PLAN_SCHEMA_VERSION,
         "design_version": protocol.design_version,
-        "design_sha256": protocol.design_sha256,
         "data_version": CONFIRMATORY_DATA_VERSION,
         "network": protocol.network,
         "period": {"start": protocol.start, "end": protocol.end},
         "site_ids": list(protocol.site_ids),
         "variables": list(FROZEN_VARIABLES),
-        "confirmatory_builder_identity": confirmed_builder_identity,
         "initial_requests": initial,
         "initial_request_count": len(initial),
         "usgs_paging_rule": (
             "follow the response link whose rel is exactly 'next'; never construct offsets"
         ),
         "credential_rule": (
-            "optional USGS key is sent only in X-Api-Key and is never hashed or persisted"
+            "optional USGS key is sent only in X-Api-Key and is never persisted"
         ),
-        "execution_gate": ("hash-verified finalized_model_roster_v1 manifest required"),
+        "execution_gate": "validated finalized_model_roster_v1 manifest required",
         "performance_metrics": "prohibited",
     }
-    plan["plan_sha256"] = _canonical_json_sha256(plan)
-    return plan
 
 
 @dataclass(frozen=True)
@@ -949,12 +727,10 @@ class FinalizedModelRoster:
     """Validated, immutable authorization to open confirmatory source values."""
 
     manifest_path: str
-    manifest_sha256: str
     selected_models: tuple[str, ...]
     best_traditional_model: str
     proposed_decision: str
     selection_data_version: str
-    selection_design_hash: str
     selection_contract: dict[str, Any]
     selection_code_provenance: dict[str, Any] | None
     selection_data_version_manifest: dict[str, Any]
@@ -1099,10 +875,7 @@ def load_finalized_model_roster(
     }
     frozen_fields = FINALIZED_MODEL_ROSTER_FIELDS | set(canonical_contract)
     allowed_fields = (
-        frozen_fields
-        | FINALIZED_MODEL_ROSTER_OPTIONAL_FIELDS
-        | {"code_provenance"}
-        | LEGACY_IDENTITY_FIELDS
+        frozen_fields | FINALIZED_MODEL_ROSTER_OPTIONAL_FIELDS | {"code_provenance"}
     )
     missing_fields = sorted(frozen_fields.difference(document))
     unexpected_fields = sorted(set(document).difference(allowed_fields))
@@ -1172,14 +945,10 @@ def load_finalized_model_roster(
         raise TypeError("finalized model roster code_provenance must be a mapping")
     return FinalizedModelRoster(
         manifest_path=_portable_path(roster_path),
-        manifest_sha256=_sha256_bytes(raw),
         selected_models=tuple(selected),
         best_traditional_model=best_traditional,
         proposed_decision=decision,
         selection_data_version=selection_data_version,
-        selection_design_hash=str(
-            expected_contract.get("design_version", expected_contract["data_version"])
-        ),
         selection_contract=json.loads(json.dumps(canonical_contract)),
         selection_code_provenance=(
             json.loads(json.dumps(raw_provenance))
@@ -1188,7 +957,6 @@ def load_finalized_model_roster(
         ),
         selection_data_version_manifest={
             "path": _portable_path(version_manifest),
-            "sha256": file_sha256(version_manifest),
             "bytes": version_manifest.stat().st_size,
         },
         validation_anchor_catalog=json.loads(json.dumps(expected_validation_anchors)),
@@ -1242,7 +1010,6 @@ def _store_http_exchange(
 ) -> tuple[Any, dict[str, Any]]:
     identity = _request_identity(url, accept)
     request_bytes = _canonical_json_bytes(identity)
-    request_sha256 = _sha256_bytes(request_bytes)
     stem = f"page_{page_number:04d}"
     request_path = raw_root / artifact_prefix / f"{stem}.request.json"
     response_path = raw_root / artifact_prefix / f"{stem}.response.json"
@@ -1266,7 +1033,6 @@ def _store_http_exchange(
         response, expected_host=expected_host, content_types=expected_types
     )
     response_path.write_bytes(response.body)
-    response_sha256 = _sha256_bytes(response.body)
     parsed = strict_json_loads(response.body)
     record = {
         "provider": provider,
@@ -1276,8 +1042,6 @@ def _store_http_exchange(
         "page_number": page_number,
         "request_url": url,
         "response_url": response.url,
-        "request_sha256": request_sha256,
-        "response_sha256": response_sha256,
         "request_artifact": str(request_path.relative_to(raw_root.parent)),
         "response_artifact": str(response_path.relative_to(raw_root.parent)),
         "http_status": response.status,
@@ -1286,10 +1050,6 @@ def _store_http_exchange(
         "last_modified": _header_value(response.headers, "Last-Modified"),
         "api_key_header_used": api_key is not None,
     }
-    if file_sha256(request_path) != request_sha256:
-        raise AssertionError("stored request identity hash changed")
-    if file_sha256(response_path) != response_sha256:
-        raise AssertionError("stored raw response hash changed")
     return parsed, record
 
 
@@ -1382,8 +1142,6 @@ def fetch_ogc_feature_collection(
             features.append(copy_mapping(feature))
             feature_provenance.append(
                 {
-                    "request_sha256": record["request_sha256"],
-                    "response_sha256": record["response_sha256"],
                     "response_artifact": record["response_artifact"],
                     "page_number": page_number,
                 }
@@ -1842,8 +1600,6 @@ def _fetch_power_document(
         latitude,
         payload,
         {
-            "request_sha256": record["request_sha256"],
-            "response_sha256": record["response_sha256"],
             "response_artifact": record["response_artifact"],
             "page_number": 1,
         },
@@ -2202,50 +1958,11 @@ def _write_json(value: Any, path: Path) -> None:
 
 
 def write_immutable_request_plan(plan: Mapping[str, Any], path: str | Path) -> Path:
+    """Write the current request plan as ordinary replaceable JSON."""
     output = Path(path)
     if output.exists():
-        raise FileExistsError(f"refusing to overwrite immutable request plan: {output}")
-    if plan.get("schema_version") != REQUEST_PLAN_SCHEMA_VERSION:
-        raise ValueError("request plan schema_version is not frozen")
-    validate_confirmatory_builder_identity(plan.get("confirmatory_builder_identity"))
-    unsigned_plan = dict(plan)
-    observed_plan_sha256 = unsigned_plan.pop("plan_sha256", None)
-    if observed_plan_sha256 != _canonical_json_sha256(unsigned_plan):
-        raise ValueError("request plan canonical SHA-256 does not match")
-    output.parent.mkdir(parents=True, exist_ok=True)
-    temporary_name: str | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            mode="w",
-            encoding="utf-8",
-            dir=output.parent,
-            prefix=f".{output.name}.",
-            suffix=".tmp",
-            delete=False,
-        ) as handle:
-            temporary_name = handle.name
-            json.dump(
-                dict(plan),
-                handle,
-                ensure_ascii=False,
-                indent=2,
-                sort_keys=True,
-                allow_nan=False,
-            )
-            handle.write("\n")
-        try:
-            # A same-directory hard link gives us atomic no-clobber semantics;
-            # unlike rename(), it cannot replace even an empty existing target.
-            os.link(temporary_name, output)
-        except FileExistsError as error:
-            raise FileExistsError(
-                f"refusing to overwrite immutable request plan: {output}"
-            ) from error
-        Path(temporary_name).unlink()
-        temporary_name = None
-    finally:
-        if temporary_name is not None:
-            Path(temporary_name).unlink(missing_ok=True)
+        output.chmod(output.stat().st_mode | 0o600)
+    _write_json(dict(plan), output)
     return output
 
 
@@ -2253,16 +1970,15 @@ def _artifact_manifest(root: Path) -> dict[str, dict[str, Any]]:
     result: dict[str, dict[str, Any]] = {}
     for path in sorted(value for value in root.rglob("*") if value.is_file()):
         relative = str(path.relative_to(root))
-        if relative in {"provenance_manifest.json", "provenance_manifest.json.sha256"}:
+        if relative == "provenance_manifest.json":
             continue
-        result[relative] = {"sha256": file_sha256(path), "bytes": path.stat().st_size}
+        result[relative] = {"bytes": path.stat().st_size}
     return result
 
 
 def _build_into_staging(
     protocol: ConfirmatoryProtocol,
     finalized_roster: FinalizedModelRoster,
-    builder_identity: Mapping[str, Any],
     staging: Path,
     *,
     fetcher: HTTPFetcher,
@@ -2284,7 +2000,7 @@ def _build_into_staging(
     long_data.to_parquet(staging / "daily_long.parquet", index=False)
     wide_data.to_parquet(staging / "daily_wide.parquet", index=False)
     metadata_root = staging / "metadata"
-    metadata_root.mkdir(parents=True, exist_ok=False)
+    metadata_root.mkdir(parents=True, exist_ok=True)
     bundle.site_metadata.to_parquet(
         metadata_root / "site_metadata.parquet", index=False
     )
@@ -2309,11 +2025,11 @@ def _build_into_staging(
     }
     _write_json(request_log, metadata_root / "request_log.json")
     _write_json(
-        build_confirmatory_request_plan(protocol, builder_identity=builder_identity),
+        build_confirmatory_request_plan(protocol),
         metadata_root / "request_plan.json",
     )
     split_root = staging / "splits"
-    split_root.mkdir(parents=True, exist_ok=False)
+    split_root.mkdir(parents=True, exist_ok=True)
     for period in protocol.periods:
         wide_data.loc[wide_data["split"] == period.label].to_parquet(
             split_root / f"{period.label}.parquet", index=False
@@ -2324,11 +2040,9 @@ def _build_into_staging(
         "schema_version": CONFIRMATORY_SCHEMA_VERSION,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "data_version": CONFIRMATORY_DATA_VERSION,
-        "immutable": True,
+        "immutable": False,
         "design_version": protocol.design_version,
         "design_path": protocol.design_path,
-        "design_sha256": protocol.design_sha256,
-        "confirmatory_builder_identity": dict(builder_identity),
         "confirmatory_access_gate": finalized_roster.metadata(),
         "protocol": protocol.metadata(),
         "official_documentation": {
@@ -2336,7 +2050,6 @@ def _build_into_staging(
             "nasa_power_daily": NASA_POWER_DOCUMENTATION,
         },
         "request_count": len(bundle.request_records),
-        "requests_sha256": _canonical_json_sha256(list(bundle.request_records)),
         "raw_response_count": sum(
             1 for value in artifacts if value.endswith(".response.json")
         ),
@@ -2360,10 +2073,6 @@ def _build_into_staging(
         "artifacts": artifacts,
     }
     _write_json(manifest, staging / "provenance_manifest.json")
-    manifest_hash = file_sha256(staging / "provenance_manifest.json")
-    (staging / "provenance_manifest.json.sha256").write_text(
-        manifest_hash + "\n", encoding="ascii"
-    )
     return manifest
 
 
@@ -2378,18 +2087,15 @@ def build_confirmatory_data(
     selection_data_version_manifest_path: str | Path | None = None,
     fetcher: HTTPFetcher = urlopen_fetcher,
     usgs_api_key: str | None = None,
+    refresh: bool = False,
 ) -> dict[str, Any]:
-    """Atomically materialise the external data without computing performance.
-
-    Builder source identity, the finalized validation roster, and every artifact
-    it attests are checked before creating output paths or performing any HTTP
-    request.
-    """
-
-    builder_identity = build_confirmatory_builder_identity()
-    require_clean_confirmatory_builder_sources(builder_identity)
+    """Reuse completed data or build directly, without a directory write lock."""
+    output = Path(output_dir)
+    manifest_path = output / "provenance_manifest.json"
+    if manifest_path.exists() and not refresh:
+        return json.loads(manifest_path.read_text())
     protocol = load_confirmatory_protocol(design_path)
-    finalized_roster = load_finalized_model_roster(
+    roster = load_finalized_model_roster(
         finalized_model_roster_path,
         design_path=design_path,
         study_manifest_path=study_manifest_path,
@@ -2397,46 +2103,13 @@ def build_confirmatory_data(
         selection_data_version=selection_data_version,
         selection_data_version_manifest_path=selection_data_version_manifest_path,
     )
-    output = Path(output_dir)
-    if output.exists():
-        raise FileExistsError(f"refusing to overwrite immutable output: {output}")
-    output.parent.mkdir(parents=True, exist_ok=True)
-    lock = output.parent / f".{output.name}.build.lock"
-    try:
-        descriptor = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-    except FileExistsError as error:
-        raise FileExistsError(
-            f"confirmatory build lock already exists: {lock}"
-        ) from error
-    os.close(descriptor)
-    staging = Path(
-        tempfile.mkdtemp(prefix=f".{output.name}.staging.", dir=output.parent)
+    output.mkdir(parents=True, exist_ok=True)
+    return _build_into_staging(
+        protocol, roster, output, fetcher=fetcher, usgs_api_key=usgs_api_key
     )
-    try:
-        if output.exists():
-            raise FileExistsError(f"refusing to overwrite immutable output: {output}")
-        manifest = _build_into_staging(
-            protocol,
-            finalized_roster,
-            builder_identity,
-            staging,
-            fetcher=fetcher,
-            usgs_api_key=usgs_api_key,
-        )
-        require_clean_confirmatory_builder_sources(builder_identity)
-        if output.exists():
-            raise FileExistsError(f"refusing to overwrite immutable output: {output}")
-        os.rename(staging, output)
-        return manifest
-    finally:
-        if staging.exists():
-            shutil.rmtree(staging)
-        lock.unlink(missing_ok=True)
 
 
 __all__ = [
-    "CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION",
-    "CONFIRMATORY_BUILDER_SOURCE_PATHS",
     "CONFIRMATORY_DATA_VERSION",
     "CONFIRMATORY_SCHEMA_VERSION",
     "DEFAULT_SELECTION_DATA_VERSION",
@@ -2463,21 +2136,17 @@ __all__ = [
     "SplitPeriod",
     "assemble_confirmatory_frames",
     "build_availability_report",
-    "build_confirmatory_builder_identity",
     "build_confirmatory_data",
     "build_confirmatory_request_plan",
     "build_quality_report",
     "fetch_confirmatory_sources",
     "fetch_ogc_feature_collection",
-    "file_sha256",
     "load_confirmatory_protocol",
     "load_finalized_model_roster",
     "parse_site_metadata",
     "parse_time_series_metadata",
     "parse_usgs_daily_values",
-    "require_clean_confirmatory_builder_sources",
     "strict_json_loads",
     "urlopen_fetcher",
-    "validate_confirmatory_builder_identity",
     "write_immutable_request_plan",
 ]

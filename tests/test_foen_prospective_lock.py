@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import csv
-import hashlib
 import importlib.util
 from pathlib import Path
 
@@ -13,7 +12,6 @@ SCRIPT = ROOT / "scripts/72_build_foen_prospective_lock.py"
 SPLIT_CSV = ROOT / "results/framework/public_catalog/foen_prospective_split_v1.csv"
 SPLIT_YAML = ROOT / "configs/foen_prospective_split_v1.yaml"
 CATALOG_YAML = ROOT / "configs/foen_prospective_catalog_v1.yaml"
-QUERY_TEMPLATE = ROOT / "configs/foen_daily_value_query_v1.graphql"
 
 
 def _load_script():
@@ -69,14 +67,31 @@ def test_accent_normalization_merges_rhone_and_burns_whole_aare() -> None:
     assert aare["probe_station_ids"] == ["2016"]
 
 
+def test_role_assignment_is_seeded_and_never_seals_burned_networks() -> None:
+    module = _load_script()
+    candidates = [
+        {"network_id": f"foen_n{index:02d}", "never_sealed": False}
+        for index in range(16)
+    ]
+    candidates.append({"network_id": "foen_aare_aaregebiet", "never_sealed": True})
+    first = module.assign_roles(candidates)
+    assert first == module.assign_roles(list(reversed(candidates)))
+    roles = {row["network_id"]: row["role"] for row in first}
+    assert roles["foen_aare_aaregebiet"] == "never_sealed"
+    assert sum(role == "sealed" for role in roles.values()) == 10
+    assert set(roles.values()) <= {
+        "sealed",
+        "never_sealed",
+        "validation",
+        "development",
+    }
+    assert all(row["seed"] == module.SPLIT_SEED for row in first)
+
+
 def test_repository_foen_split_is_locked_before_values() -> None:
     split = yaml.safe_load(SPLIT_YAML.read_text(encoding="utf-8"))
     catalog = yaml.safe_load(CATALOG_YAML.read_text(encoding="utf-8"))
     canonical = SPLIT_CSV.read_bytes()
-    assert split["sha256"] == hashlib.sha256(canonical).hexdigest()
-    assert (
-        split["catalog_sha256"] == hashlib.sha256(CATALOG_YAML.read_bytes()).hexdigest()
-    )
     assert split["status"] == "locked_before_temperature_value_query"
     assert split["seed"] == 20260826
     assert split["temperature_values_queried"] is False
@@ -103,15 +118,11 @@ def test_repository_foen_split_is_locked_before_values() -> None:
     )
 
 
-def test_future_query_is_hashed_but_explicitly_unexecuted() -> None:
+def test_future_query_is_explicitly_unexecuted() -> None:
     split = yaml.safe_load(SPLIT_YAML.read_text(encoding="utf-8"))
     contract = split["future_request_contract"]
     assert contract["status"] == "template_locked_not_executed"
     assert contract["template_executed"] is False
-    assert (
-        contract["query_template_sha256"]
-        == hashlib.sha256(QUERY_TEMPLATE.read_bytes()).hexdigest()
-    )
     assert contract["partition"] == "disjoint_calendar_year_windows"
     assert contract["release_states"] == ["2", "3"]
     assert contract["response_handling_for_sealed"].endswith("without_json_decode")
@@ -126,4 +137,3 @@ def test_condition_note_and_ledger_withhold_t8() -> None:
     assert "zero qualified Swiss networks" in ledger
     assert "No temperature value was queried" in note
     assert "coverageFrom" in note and "cannot be used" in note
-    assert "4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59" in note

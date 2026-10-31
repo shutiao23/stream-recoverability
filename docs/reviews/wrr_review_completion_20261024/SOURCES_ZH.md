@@ -19,9 +19,9 @@
 完整文献背景及 120 条条目仍以原 [审稿意见参考文献](../wrr_mit_style_review_20261023/REVIEW_ZH.md)为准；新增论文引用位于 `paper/wrr_tr/references_review_completion.bib`。上述核对不构成重新声称本轮逐条在线审计了全部 120 条文献。
 ## 补充核实：法国源站坐标（2026-10-24）
 
-此前九个 Hub’Eau 源站未出现在既有 v18 坐标表中。已按原八位站号查询[机构温度站点目录](https://hubeau.eaufrance.fr/api/v1/temperature/station)，九站均返回地理坐标；其经纬度与 CRS84 Point 几何坐标及既有全站目录一致。这里没有请求河温观测。原始响应、请求地址、SHA256 与逐站连接保存在 `inputs/hubeau_coordinate_metadata/` 和 `inputs/source_coordinate_supplement_audit.json`；`513_review_completion_source_coordinates.py` 可复核。
+此前九个 Hub’Eau 源站未出现在既有 v18 坐标表中。已按原八位站号查询[机构温度站点目录](https://hubeau.eaufrance.fr/api/v1/temperature/station)，九站均返回地理坐标；。原始响应、请求地址与逐站连接保存在 `inputs/hubeau_coordinate_metadata/` 和 `inputs/source_coordinate_supplement_audit.json`；`513_review_completion_source_coordinates.py` 可复核。
 
 
 ## 湖泊出口的明确机构标注
 
-[USGS 14158500 官方站点资料](https://waterdata.usgs.gov/monitoring-location/USGS-14158500/)明确将该站标为 Clear Lake 出口。与已缓存 USGS 站点名称一致，元数据网页及 SHA256 保存在 `inputs/lake_outlet_metadata/`。失败地图仅将此站记为机构明确标注的出口；其他站保持未知，不因站名含 lake 或靠近湖泊推断分类。一个站的结果不支持河流类型的普遍效应或热惯性因果解释。
+[USGS 14158500 官方站点资料](https://waterdata.usgs.gov/monitoring-location/USGS-14158500/)明确将该站标为 Clear Lake 出口。与已缓存 USGS 站点名称一致，元数据网页保存在 `inputs/lake_outlet_metadata/`。失败地图仅将此站记为机构明确标注的出口；其他站保持未知，不因站名含 lake 或靠近湖泊推断分类。一个站的结果不支持河流类型的普遍效应或热惯性因果解释。

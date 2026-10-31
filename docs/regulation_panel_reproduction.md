@@ -2,8 +2,8 @@
 
 The nationwide result is reproducible without any Chattahoochee data. Its cache is
 deliberately ignored by Git because it contains 3.38 million re-downloadable USGS
-rows and the 55 MB GAGES-II source archive. Compact aggregate results and content
-identities are versioned.
+rows and the 55 MB GAGES-II source archive. Compact aggregate results are
+versioned.
 
 ## Clean online bootstrap
 
@@ -37,8 +37,7 @@ PYTHONPATH=src python scripts/38_run_regulation_panel.py \
 
 The offline command fails rather than contacting the network if any required source
 or batch is absent. Machine-readable cache readiness and the exact commands are in
-`results/regulation_panel_v1_legacy_transport/bootstrap_status.json`; portable SHA-256
-identities are in `artifact_manifest.json`.
+`results/regulation_panel_v1_legacy_transport/bootstrap_status.json`.
 
 ## Test and format checks
 

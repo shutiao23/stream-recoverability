@@ -99,9 +99,7 @@ def _write_synthetic_proposed_checkpoint(
             "best_validation_loss": 1.0,
             "epochs_run": 1,
             "hit_epoch_limit": False,
-            "history": [
-                {"epoch": 1.0, "train_loss": 1.1, "validation_loss": 1.0}
-            ],
+            "history": [{"epoch": 1.0, "train_loss": 1.1, "validation_loss": 1.0}],
         },
         checkpoint_path,
     )
@@ -179,9 +177,7 @@ def test_full_grid_has_windows_protocols_and_honest_validation_labels() -> None:
     } == {101}
     assert grid.external_validation_status == "pending_frozen_protocol"
     variable_async = [
-        condition
-        for condition in grid.conditions
-        if condition.experiment == "M6a"
+        condition for condition in grid.conditions if condition.experiment == "M6a"
     ]
     station_async = [
         condition for condition in grid.conditions if condition.experiment == "M6b"
@@ -301,9 +297,7 @@ def test_smoke_and_formal_training_profiles_are_separate(tmp_path: Path) -> None
 
     scenario = formal_grid.scenarios[0]
     proposed_checkpoint = tmp_path / "legacy-proposed.pt"
-    payload = _write_runner_proposed_checkpoint(
-        formal, scenario, proposed_checkpoint
-    )
+    payload = _write_runner_proposed_checkpoint(formal, scenario, proposed_checkpoint)
     payload["training_config"]["epochs"] = 20
     payload["training_config"]["patience"] = 5
     torch.save(payload, proposed_checkpoint)
@@ -396,9 +390,7 @@ def test_cached_mask_rejects_changed_axes_and_rebuilds_changed_quality_or_metada
     rebuilt_mask, _ = runner._generate_mask(scenario)
     assert not rebuilt_mask[position]
 
-    metadata_path = (
-        runner.mask_dir / "scenarios" / f"{scenario.scenario_id}.json"
-    )
+    metadata_path = runner.mask_dir / "scenarios" / f"{scenario.scenario_id}.json"
     changed_metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     changed_metadata["window_length"] += 1
     metadata_path.write_text(json.dumps(changed_metadata), encoding="utf-8")
@@ -441,9 +433,7 @@ def test_event_thresholds_use_only_approved_finite_training_values(
         if value.condition.experiment == "M7a"
         and value.condition.event_type == "high_temperature"
     )
-    station = runner.data.station_ids.index(
-        high_temperature.condition.station_ids[0]
-    )
+    station = runner.data.station_ids.index(high_temperature.condition.station_ids[0])
     target = runner.data.variable_names.index("T")
     runner.data.quality_approved[runner.train_rows, station, target] = False
     with pytest.raises(ValueError, match="insufficient_training_climatology_samples"):
@@ -589,9 +579,10 @@ def test_proposed_scaler_is_train_only_and_is_recorded_in_checkpoint(
     assert checkpoint["quantile_levels"] == [0.05, 0.25, 0.5, 0.75, 0.95]
     assert checkpoint["training_config"]["epochs"] == 3
     assert checkpoint["training_config"]["patience"] == 2
-    assert checkpoint["training_context"] == runner._proposed_contract(
-        11, 184, "seen_length"
-    )[2]
+    assert (
+        checkpoint["training_context"]
+        == runner._proposed_contract(11, 184, "seen_length")[2]
+    )
 
 
 def test_proposed_batches_use_half_window_stride_and_final_alignment(
@@ -611,9 +602,7 @@ def test_proposed_batches_use_half_window_stride_and_final_alignment(
         artificial.reshape(len(artificial), -1),
         736,
     )
-    starts = [
-        int(batch["curriculum_metadata"]["window_start"]) for batch in batches
-    ]
+    starts = [int(batch["curriculum_metadata"]["window_start"]) for batch in batches]
 
     assert starts == _window_starts(len(selected), 736)
     assert starts[1] - starts[0] == 368
@@ -633,31 +622,22 @@ def test_proposed_curriculum_batches_are_deterministic_and_unseen_capped(
         "protocol": "unseen_length",
         "repeats": 2,
     }
-    first = runner._proposed_batches(
-        normalized, runner.train_rows, None, 184, **kwargs
-    )
+    first = runner._proposed_batches(normalized, runner.train_rows, None, 184, **kwargs)
     second = runner._proposed_batches(
         normalized, runner.train_rows, None, 184, **kwargs
     )
 
     assert len(first) == len(_window_starts(int(runner.train_rows.sum()), 184)) * 2
-    assert {batch["training_mask_type"] for batch in first} == set(
-        CURRICULUM_SCENARIOS
-    )
+    assert {batch["training_mask_type"] for batch in first} == set(CURRICULUM_SCENARIOS)
     for left, right in zip(first, second, strict=True):
         assert left["curriculum_metadata"] == right["curriculum_metadata"]
         assert torch.equal(left["artificial_mask"], right["artificial_mask"])
         metadata = left["curriculum_metadata"]
         assert metadata["training_gap_length"] <= 90
-        assert metadata["training_masked_cells"] == int(
-            left["artificial_mask"].sum()
-        )
+        assert metadata["training_masked_cells"] == int(left["artificial_mask"].sum())
         assert torch.all(
             ~left["artificial_mask"]
-            | (
-                left["natural_mask"]
-                & torch.isfinite(left["values"])
-            )
+            | (left["natural_mask"] & torch.isfinite(left["values"]))
         )
 
 
@@ -747,9 +727,7 @@ def test_no_resume_reuses_shared_trainable_model_and_completes_manifest(
         assert list(train_batches) and list(validation_batches)
         _write_synthetic_proposed_checkpoint(model, config, checkpoint_path)
 
-    def fake_prediction_rows(
-        scenario, metadata, artificial, model_name, training_seed
-    ):
+    def fake_prediction_rows(scenario, metadata, artificial, model_name, training_seed):
         del metadata, artificial
         runner._proposed_model(
             int(training_seed),
@@ -1284,9 +1262,9 @@ def test_proposed_checkpoint_axes_must_match_current_data(tmp_path: Path) -> Non
 
     assert runner._run_scenario(scenario) == "retryable_failure"
     status = json.loads(
-        (runner.output_dir / "scenarios" / scenario.scenario_id / "status.json").read_text(
-            encoding="utf-8"
-        )
+        (
+            runner.output_dir / "scenarios" / scenario.scenario_id / "status.json"
+        ).read_text(encoding="utf-8")
     )
     assert status["skipped_runs"][0]["reason_code"] == "checkpoint_incompatible_axes"
 
@@ -1326,8 +1304,6 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
     )
     assert run_manifest["completed_daily_rows"] == len(first_daily)
     assert run_manifest["completed_event_rows"] == len(first_events)
-    assert "code_identity" not in runner.evidence_contract
-    assert "design_hash" not in runner.evidence_contract
     assert run_manifest["code_provenance"] == runner.code_provenance
     scenario_status = json.loads(
         (
@@ -1338,8 +1314,6 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
         ).read_text(encoding="utf-8")
     )
     first_contract = next(iter(scenario_status["run_contracts"].values()))
-    assert "code_identity" not in first_contract
-    assert "design_hash" not in first_contract
     assert first_contract["code_provenance"] == runner.code_provenance
     assert len(first_events) == 12
     assert {"q25", "q75", "season", "event_type"}.issubset(first_daily)
@@ -1442,10 +1416,7 @@ def test_unavailable_fixed_anchor_is_a_terminal_structural_skip(
     assert runner._run_scenario(scenario) == "complete"
     status = json.loads(
         (
-            runner.output_dir
-            / "scenarios"
-            / scenario.scenario_id
-            / "status.json"
+            runner.output_dir / "scenarios" / scenario.scenario_id / "status.json"
         ).read_text(encoding="utf-8")
     )
     assert status["terminal_run_keys"] == ["linear:none"]
@@ -1467,10 +1438,7 @@ def test_wholly_unavailable_scenario_channel_is_a_terminal_skip(
     assert runner._run_scenario(scenario) == "complete"
     status = json.loads(
         (
-            runner.output_dir
-            / "scenarios"
-            / scenario.scenario_id
-            / "status.json"
+            runner.output_dir / "scenarios" / scenario.scenario_id / "status.json"
         ).read_text(encoding="utf-8")
     )
     assert status["terminal_run_keys"] == ["linear:none"]
@@ -1531,9 +1499,9 @@ def test_nonfinite_model_output_is_not_marked_complete(
 
     assert runner._run_scenario(scenario) == "retryable_failure"
     status = json.loads(
-        (runner.output_dir / "scenarios" / scenario.scenario_id / "status.json").read_text(
-            encoding="utf-8"
-        )
+        (
+            runner.output_dir / "scenarios" / scenario.scenario_id / "status.json"
+        ).read_text(encoding="utf-8")
     )
     assert status["completed_runs"] == []
     assert status["retryable_run_keys"] == ["linear:none"]

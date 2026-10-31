@@ -8,7 +8,7 @@ off as the negative-result note (`paper/v14_plan/negative_result_note.md`) and c
 prior work we no longer claim.
 
 Evidence roles (unchanged vocabulary; Pfister & Kirchner \cite{pfister2017debates} defense
-applies): **frozen** (internal, hash-bound; not externally verifiable preregistration),
+applies): **frozen** (internal; not externally verifiable preregistration),
 **exploratory / descriptive** (P0-era and earlier analyses on already-scored panels),
 **confirmatory** (only protocol-v5 gated endpoints on a prospective, externally registered
 panel — none exist yet). Status column vocabulary: confirmatory (gated in protocol v5 §3),
@@ -124,7 +124,7 @@ claim, not a claim that long-gap treatment becomes beneficial on average.
   per-stratum budget separation (C1) is the claim, not pooled rank.
 - **No 365-day or extrapolated-horizon claims** without real same-horizon fitting support.
 - **No "preregistered confirmation" for internal panels.** Second-panel results are
-  hash-bound, same-commit → not externally verifiable preregistration (wording frozen);
+  internally frozen, same-commit → not externally verifiable preregistration (wording frozen);
   confirmatory status requires protocol v5's external OSF/Zenodo registration.
 - **No model-selection claims** (PLAN §5.6): two-sentence negative only (oracle space
   0.100 °C; 54:45 family split; coverage-floor criteria 10–12% < 20% success line).

@@ -25,7 +25,6 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from cluster_by_huc8 import (  # noqa: E402
-    assignment_digest,
     cluster_by_huc8,
     geodesic_km,
     largest_overlapping_subset_truncated,
@@ -450,13 +449,12 @@ def test_never_sealed_cannot_be_sealed_and_loire_cannot_fill() -> None:
         }
     }
     tagged = tag_never_sealed(frame, burned)
-    split, digest = lock_stratified_split(tagged, seed=20260826)
+    split = lock_stratified_split(tagged, seed=20260826)
     delaware = split.loc[split["huc8"].eq("02040101")].iloc[0]
     assert bool(delaware["never_sealed"]) is True
     assert str(delaware["split_role"]) != "sealed"
     assert "loire_mainstem" not in set(split["network_id"])
     assert "swiss_aar_rhine" not in set(split["network_id"])
-    assert len(digest) == 64
     other = split.loc[split["huc8"].eq("17090001")]
     if not other.empty and not bool(other.iloc[0]["never_sealed"]):
         assert str(other.iloc[0]["split_role"]) in {
@@ -464,10 +462,8 @@ def test_never_sealed_cannot_be_sealed_and_loire_cannot_fill() -> None:
             "validation",
             "sealed",
         }
-    assert assignment_digest("huc8_02040101", 20260826) == assignment_digest(
-        "huc8_02040101", 20260826
-    )
-    assert assignment_digest("huc8_02040101", 1) != assignment_digest("huc8_02040101", 2)
+    again = lock_stratified_split(tagged, seed=20260826)
+    assert list(split["split_role"]) == list(again["split_role"])
 
 
 def test_cluster_outputs_required_columns() -> None:

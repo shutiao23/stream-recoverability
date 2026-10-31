@@ -1,6 +1,5 @@
 {
   "aggregation_manifest_list_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/batch_orchestration_v1/aggregation_chunk_manifests.json",
-  "batch_plan_sha256": "9d9adb6d9b3d45409ec24ea2ba46be394bc26f0b4b25e7882ebf590ce4e634de",
   "chunk_size": 5000,
   "chunks": [
     {
@@ -1947,7 +1946,6 @@
     "chunk_manifest_schema": "t2_v91_result_chunk_v1",
     "executor_adapter": "t2_v91_chunk_executor",
     "item_count_pointer": "/tier_1/n_work_items",
-    "item_identity_sha256_pointer": "/tier_1/work_item_identity_sha256",
     "name": "legacy_v3",
     "runner_contract_pointer": "/runner_contract_version",
     "sealed_read_pointer": "/sealed_temperature_records_read",
@@ -3078,7 +3076,5 @@
   "results_format": "parquet",
   "sealed_temperature_records_read": false,
   "start_ordinal": 0,
-  "status": "planned",
-  "workload_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
-  "workload_manifest_sha256": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
+  "status": "planned"
 }

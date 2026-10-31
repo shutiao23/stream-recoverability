@@ -861,6 +861,6 @@ Daily temperature records are from the nine public providers listed in the
 supporting information. Basin characteristics are from GAGES-II (Falcone,
 2011). All analysis code, artifacts, figures and the frozen pre-registration
 are in the accompanying repository; `results/v17_fitness/evidence_ledger.csv`
-maps each claim to the script, artifact and digest behind it, and every table
+maps each claim to the script and artifact behind it, and every table
 in this article is re-derived from those artifacts by an automated audit that
 runs in the test suite.

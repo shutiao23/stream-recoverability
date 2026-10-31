@@ -46,30 +46,25 @@
   "relaxation_trigger": "open_survival_projection_lt_100",
   "role": "development",
   "sealed_temperature_records_read": false,
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "stations": {
     "06610000": {
       "n_rows": 3722,
       "registry_reused": true,
-      "registry_sha256": "7a5556c46b981a2c4b3a9e0cdf720987176aa4be7c2ed3ac46951025e9d58f3a",
       "status": "parsed"
     },
     "06610505": {
       "n_rows": 4664,
       "registry_reused": true,
-      "registry_sha256": "5bfc112cc3522ad3f16e65590cc21696cf2b20cf3e18e8dc2e7f08e9ac75e9f3",
       "status": "parsed"
     },
     "410333095530101": {
       "n_rows": 3460,
       "registry_reused": true,
-      "registry_sha256": "28b6a2fb166a25b11aa76857d2c56bae750aaac13c73417b3f4a5c270420801c",
       "status": "parsed"
     },
     "412126095565201": {
       "n_rows": 3837,
       "registry_reused": true,
-      "registry_sha256": "be2c19db2254b2cca1e5e0f34e757f4b1e3ac982f43f402d7b512d37526c8f8f",
       "status": "parsed"
     }
   },

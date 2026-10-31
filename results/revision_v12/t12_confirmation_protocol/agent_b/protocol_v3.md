@@ -12,9 +12,10 @@
 
 ## 0. Why a v3 protocol and what it fixes
 
-The v2 second confirmation was frozen by an **internal, hash-bound, same-commit
-mechanism** (`package_manifest.json` → `second_confirmation.amendment_status`:
-"internally frozen and hash_bound_before_scoring_same_commit_as_outcomes_not_external_preregistration").
+The v2 second confirmation was frozen by an **internal, same-commit
+mechanism** (`package_manifest.json` → `second_confirmation.amendment_status`
+records it as frozen internally before scoring, in the same commit as the
+outcomes, and not as an external preregistration).
 The freeze, roster, and outcomes landed in the same commit, so an external
 observer cannot verify that the rules preceded the outcomes. Reviewers require
 an **externally verifiable** confirmation protocol. v3 therefore:
@@ -155,8 +156,8 @@ reused as v3 candidates **only if**:
   except by a written, externally timestamped amendment that is itself
   registered before any affected outcome is scored.
 - All v3 outcomes remain unviewed by the modeling team until the frozen
-  pipeline runs; the pipeline binds input hashes (roster, protocol, baseline
-  tables) into its output manifest.
+  pipeline runs; the pipeline records its inputs (roster, protocol, baseline
+  tables) in its output manifest.
 
 ## 7. Missingness mechanisms (frozen taxonomy)
 
@@ -275,11 +276,11 @@ the registration archive):
    or permanent URL and a recorded registration timestamp; or
 2. **Separate public commit**: a commit containing exactly the same frozen
    artifacts, pushed to the public remote as its own commit **before** the
-   outcome-scoring run, whose SHA-256 and commit timestamp are recorded in
-   the protocol; the outcome-scoring commit must be a **later, distinct
-   commit** whose manifest binds the frozen-commit SHA-256.
+   outcome-scoring run, whose commit timestamp is recorded in the protocol;
+   the outcome-scoring commit must be a **later, distinct commit** whose
+   manifest references the frozen commit.
 
-The registration record (DOI/URL, timestamp, SHA-256 of the frozen archive)
+The registration record (DOI/URL and timestamp of the frozen archive)
 is itself an artifact of this protocol and is deposited with the results.
 Outcome files written before the registration timestamp invalidate the panel.
 
@@ -336,7 +337,7 @@ looked favorable (5%: +0.012, 80% power only at n ≈ 140–160).
 2. Metadata pilot and daily-concurrency QC (pre-outcome).
 3. Roster freeze (sorted network_id list; domain counts recorded).
 4. **External registration** (Section 11) — gate: nothing scored yet.
-5. Outcome scoring with input-hash binding (roster, protocol, baseline
+5. Outcome scoring with recorded inputs (roster, protocol, baseline
    tables, registration record).
 6. Endpoint computation per the frozen definitions (tiers, budgets, margins).
 7. Primary tests (one-sided paired Wilcoxon per endpoint) and margins.
@@ -350,7 +351,7 @@ looked favorable (5%: +0.012, 80% power only at n ≈ 140–160).
 
 | item | v2 (second panel) | v3 (this protocol) |
 | --- | --- | --- |
-| timestamping | internal, hash-bound, same commit as outcomes | external registration (OSF/Zenodo DOI or separate public commit) strictly before outcomes (§11) |
+| timestamping | internal, same commit as outcomes | external registration (OSF/Zenodo DOI or separate public commit) strictly before outcomes (§11) |
 | panel | 60 attempted / 57 scored (US 35, CZ 15, NO 10) | 80–120 scored; US ≥ 40 + ≥ 2 non-US domains (§4) |
 | endpoints | rank, calibration, intervals, triage, placement (mixed confirmatory status) | frozen paired network-level primaries (a) ΔRho, (b) ΔCapturedLoss ladder @5/10/20/30%, (c) ΔNDCG, (d) thermal protection; secondaries retained (§9) |
 | power analysis | none (directional margins only) | network-bootstrap power curves, margins 0.5x/1x/1.5x, sizes 40–160, 80% power targets (§3) |

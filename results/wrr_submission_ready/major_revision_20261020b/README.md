@@ -1,7 +1,7 @@
 # Attribution round, 2026-10-20b
 
-This round answers the second simulated review of 2026-10-20 (commit
-`e7fc9050df3d215afa7aa60d0c1410bbadc4c83f`). That review accepted the aligned-policy
+This round answers the second simulated review of 2026-10-20. That review
+accepted the aligned-policy
 chain of `major_revision_20261020/` and asked a different question: *which design
 element earns the result, and does the mechanism the paper names explain the error?*
 The point-by-point answer is `paper/wrr/RESPONSE_TO_REVIEW.md`.

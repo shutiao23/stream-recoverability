@@ -25,8 +25,6 @@
     "ingest_n_stations_with_accepted_days": 176
   },
   "cross_check_mismatches": [],
-  "n_stations_with_bad_sha256": 0,
-  "bad_sha256_station_ids": [],
   "coverage": {
     "min_first_date": "1946-04-01",
     "max_last_date": "2003-05-05",

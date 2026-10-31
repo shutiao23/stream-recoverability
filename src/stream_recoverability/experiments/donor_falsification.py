@@ -138,7 +138,6 @@ def build_donor_falsification_grid(
         training_seeds=base.training_seeds,
         external_validation_status=base.external_validation_status,
         frontier_anchor_catalog_path=base.frontier_anchor_catalog_path,
-        frontier_anchor_catalog_sha256=base.frontier_anchor_catalog_sha256,
         frontier_anchor_count=base.frontier_anchor_count,
     )
     if len(grid.scenarios) != len(base.scenarios) * 2 * len(specs):
@@ -373,9 +372,7 @@ def _score_donor_regression_unit(
         & runner.data.quality_approved[:, station, target_index]
         & np.isfinite(transformed[:, station, target_index])
     )
-    other_stations = [
-        value for value in runner.data.station_ids if value != station_id
-    ]
+    other_stations = [value for value in runner.data.station_ids if value != station_id]
     model = DonorRegressionBaseline(
         [f"{value}_T" for value in other_stations],
         f"{station_id}_T",
@@ -661,9 +658,7 @@ def _run_donor_regression_falsification(
     counts["checkpoint_required_run_count"] = counts.pop(
         "checkpoint_required_run_unit_count"
     )
-    counts["checkpoint_valid_run_count"] = counts.pop(
-        "checkpoint_valid_run_unit_count"
-    )
+    counts["checkpoint_valid_run_count"] = counts.pop("checkpoint_valid_run_unit_count")
     manifest = {
         "schema_version": "donor_c_falsification_run_v1",
         "suite": SUITE,
@@ -695,14 +690,11 @@ def _run_donor_regression_falsification(
         "data_version_input_identity": runner.data_version_input_identity,
         "evaluation_split": runner.evaluation_split,
         "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
-        "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
         "frontier_anchor_count": grid.frontier_anchor_count,
         "formal_evidence": complete,
         "evidence_role": "formal_development_evaluation",
         "formal_execution_authorization": runner.formal_authorization,
-        "finalized_model_roster": runner.formal_authorization[
-            "finalized_model_roster"
-        ],
+        "finalized_model_roster": runner.formal_authorization["finalized_model_roster"],
         "interpretation": interpretation,
         **runner.evidence_contract,
         "code_provenance": runner.code_provenance,
@@ -959,9 +951,7 @@ def run_donor_falsification(
                 "checkpoint": {
                     "path": str(checkpoint.resolve()),
                     "size": artifact["size"],
-                    "sha256": artifact["sha256"],
                 },
-                "checkpoint_sidecar": None,
                 "checkpoint_contract_valid": True,
             }
         )
@@ -1014,7 +1004,6 @@ def run_donor_falsification(
         "data_version_input_identity": runner.data_version_input_identity,
         "evaluation_split": runner.evaluation_split,
         "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
-        "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
         "frontier_anchor_count": grid.frontier_anchor_count,
         "formal_grid_contract_complete": runner.formal_grid_contract is not None,
         "formal_grid_contract": runner.formal_grid_contract,
@@ -1023,7 +1012,6 @@ def run_donor_falsification(
         "formal_execution_authorization": runner.formal_authorization,
         "finalized_model_roster": {
             "path": roster.manifest_path,
-            "sha256": roster.manifest_sha256,
             "selected_models": list(roster.selected_models),
             "proposed_decision": roster.proposed_decision,
         },

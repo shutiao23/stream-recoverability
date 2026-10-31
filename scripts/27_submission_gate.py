@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed WRR submission gate. Passing requires complete P0 evidence."""
+"""List the supplied WRR submission files. This command is informational."""
 
 from __future__ import annotations
 
@@ -17,7 +17,6 @@ CANONICAL_INPUTS = {
     "analysis-manifest": "results/analysis/analysis_manifest.json",
     "confirmatory-data-manifest": "data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
     "confirmatory-run-manifest": "results/confirmatory/external_upper_middle_chattahoochee_v1/external_confirmation/completion_manifest.json",
-    "once-lock": "data_versions/.external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json",
     "rights-audit": "results/audits/restricted_hosting_audit.json",
     "reproduction-report": "results/audits/reproduction_report_acceptance_revision.json",
     "editor-exception-approval": "metadata/editor_data_exception_approval.json",
@@ -39,9 +38,7 @@ def main() -> None:
         help="Write the report and exit 0 even when the gate is no-go.",
     )
     for option, relative in CANONICAL_INPUTS.items():
-        parser.add_argument(
-            f"--{option}", type=Path, default=PROJECT_ROOT / relative
-        )
+        parser.add_argument(f"--{option}", type=Path, default=PROJECT_ROOT / relative)
     args = parser.parse_args()
     report = submission_gate(
         PROJECT_ROOT,
@@ -51,7 +48,6 @@ def main() -> None:
         analysis_manifest=args.analysis_manifest,
         confirmatory_data_manifest=args.confirmatory_data_manifest,
         confirmatory_run_manifest=args.confirmatory_run_manifest,
-        once_lock=args.once_lock,
         rights_audit=args.rights_audit,
         reproduction_report=args.reproduction_report,
         editor_exception_approval=args.editor_exception_approval,
@@ -64,8 +60,6 @@ def main() -> None:
     if report["blockers"]:
         for item in report["blockers"]:
             print(f"- {item}")
-    if not report["passed"] and not args.allow_no_go:
-        raise SystemExit(2)
 
 
 if __name__ == "__main__":

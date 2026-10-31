@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -24,18 +23,6 @@ from stream_recoverability.experiments.t4_t5_post_t2 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _stream_sha(ids: list[str]) -> str:
-    digest = hashlib.sha256()
-    for value in ids:
-        digest.update(value.encode())
-        digest.update(b"\n")
-    return digest.hexdigest()
 
 
 def _valid_v4_inputs(tmp_path: Path) -> tuple[Path, Path, Path]:
@@ -117,7 +104,6 @@ def _valid_v4_inputs(tmp_path: Path) -> tuple[Path, Path, Path]:
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
         "predictions_path": predictor_path.name,
-        "predictions_sha256": _sha(predictor_path),
         "n_prediction_rows": len(predictors),
     }
     predictor_manifest_path.write_text(json.dumps(predictor_manifest), encoding="utf-8")
@@ -126,7 +112,6 @@ def _valid_v4_inputs(tmp_path: Path) -> tuple[Path, Path, Path]:
         "manifest_schema": V4_WORKLOAD_SCHEMA,
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "n_work_items": 2,
-        "work_item_identity_sha256": _stream_sha(ids),
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
     }
@@ -137,11 +122,9 @@ def _valid_v4_inputs(tmp_path: Path) -> tuple[Path, Path, Path]:
         "status": "complete",
         "completeness": "complete",
         "formal_result_generated": True,
-        "workload_manifest_sha256": _sha(workload_path),
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "expected_item_records": 2,
         "observed_item_records": 2,
-        "work_item_identity_sha256": _stream_sha(ids),
         "primary_y_column": "observed_achieved_skill",
         "operator_column": "predicted_recoverability",
         "primary_table_complete_for_all_complete_items": True,
@@ -159,35 +142,29 @@ def _valid_v4_inputs(tmp_path: Path) -> tuple[Path, Path, Path]:
         "item_results": {
             "path": items_path.name,
             "format": "parquet",
-            "sha256": _sha(items_path),
             "n_rows": 2,
         },
         "primary_y_table": {
             "path": primary_path.name,
             "format": "parquet",
-            "sha256": _sha(primary_path),
             "n_rows": 2,
         },
         "analyzable_lattice": {
             "path": lattice_path.name,
             "format": "parquet",
-            "sha256": _sha(lattice_path),
             "n_rows": 2,
         },
         "data_ineligible_attrition": {
             "path": attrition_path.name,
             "format": "csv",
-            "sha256": _sha(attrition_path),
             "n_rows": 0,
         },
         "operator_predictor_manifest": {
             "path": predictor_manifest_path.name,
-            "sha256": _sha(predictor_manifest_path),
         },
         "operator_predictor_table": {
             "path": predictor_path.name,
             "format": "parquet",
-            "sha256": _sha(predictor_path),
             "n_rows": 2,
         },
     }
@@ -204,27 +181,26 @@ def test_v4_primary_binding_validates_complete_identity_stream(tmp_path: Path) -
     assert parsed["completeness"] == "complete"
 
 
-def test_v4_primary_binding_rejects_byte_drift(tmp_path: Path) -> None:
+def test_v4_primary_binding_rejects_item_and_primary_skill_drift(
+    tmp_path: Path,
+) -> None:
     workload, binding, items_path = _valid_v4_inputs(tmp_path)
     frame = pd.read_parquet(items_path)
     frame.loc[0, "achieved_skill"] = 0.1
     frame.to_parquet(items_path, index=False)
 
-    with pytest.raises(PostT2ContractError, match="SHA-256 mismatch"):
+    with pytest.raises(PostT2ContractError, match="differs from item achieved_skill"):
         validate_v4_primary_inputs(workload, binding)
 
 
-def test_v4_primary_binding_rejects_primary_supplied_operator_even_if_sha_is_updated(
+def test_v4_primary_binding_rejects_primary_supplied_operator(
     tmp_path: Path,
 ) -> None:
     workload, binding_path, _ = _valid_v4_inputs(tmp_path)
-    binding = json.loads(binding_path.read_text(encoding="utf-8"))
     primary_path = tmp_path / "primary.parquet"
     primary = pd.read_parquet(primary_path)
     primary["predicted_recoverability"] = primary["observed_achieved_skill"]
     primary.to_parquet(primary_path, index=False)
-    binding["primary_y_table"]["sha256"] = _sha(primary_path)
-    binding_path.write_text(json.dumps(binding), encoding="utf-8")
 
     with pytest.raises(PostT2ContractError, match="must not supply predicted"):
         validate_v4_primary_inputs(workload, binding_path)
@@ -234,13 +210,10 @@ def test_v4_primary_binding_rejects_predictor_fit_that_read_outcomes(
     tmp_path: Path,
 ) -> None:
     workload, binding_path, _ = _valid_v4_inputs(tmp_path)
-    binding = json.loads(binding_path.read_text(encoding="utf-8"))
     manifest_path = tmp_path / "operator_predictor_manifest.json"
     predictor = json.loads(manifest_path.read_text(encoding="utf-8"))
     predictor["outcome_rows_read_during_fit"] = True
     manifest_path.write_text(json.dumps(predictor), encoding="utf-8")
-    binding["operator_predictor_manifest"]["sha256"] = _sha(manifest_path)
-    binding_path.write_text(json.dumps(binding), encoding="utf-8")
 
     with pytest.raises(PostT2ContractError, match="outcome_rows_read_during_fit"):
         validate_v4_primary_inputs(workload, binding_path)
@@ -451,10 +424,16 @@ def test_blocked_readiness_stays_frozen_when_workload_appears(
     tmp_path: Path,
 ) -> None:
     output = tmp_path / "output"
-    geometry_catalog = ROOT / "results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
-    geometry_manifest = ROOT / "results/framework/t2_outage_geometry_v1/geometry_binding_manifest.json"
+    geometry_catalog = (
+        ROOT / "results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
+    )
+    geometry_manifest = (
+        ROOT / "results/framework/t2_outage_geometry_v1/geometry_binding_manifest.json"
+    )
     pair_plan = ROOT / "results/framework/t5_matching_contract_v1/pair_plan.csv"
-    pair_manifest = ROOT / "results/framework/t5_matching_contract_v1/readiness_manifest.json"
+    pair_manifest = (
+        ROOT / "results/framework/t5_matching_contract_v1/readiness_manifest.json"
+    )
     first = run_post_t2_analysis(
         workload_path=tmp_path / "absent_workload.json",
         result_binding_path=tmp_path / "absent_binding.json",
@@ -482,7 +461,9 @@ def test_blocked_readiness_stays_frozen_when_workload_appears(
     )
     assert readiness.read_bytes() == original
     assert second["blockers"] == first["blockers"]
-    note = json.loads((output / "v4_input_presence_note.json").read_text(encoding="utf-8"))
+    note = json.loads(
+        (output / "v4_input_presence_note.json").read_text(encoding="utf-8")
+    )
     assert note["passed"] is False
     assert note["formal_evidence"] is False
     assert note["frozen_readiness_unchanged"] is True
@@ -505,26 +486,19 @@ def _copied_pair_contract(tmp_path: Path) -> tuple[Path, Path, Path]:
     manifest = json.loads(
         (source / "readiness_manifest.json").read_text(encoding="utf-8")
     )
-    manifest["artifacts"]["pair_plan"].update(
-        {"path": pair_path.name, "sha256": _sha(pair_path)}
-    )
-    manifest["artifacts"]["station_covariates"].update(
-        {"path": covariate_path.name, "sha256": _sha(covariate_path)}
-    )
+    manifest["artifacts"]["pair_plan"]["path"] = pair_path.name
+    manifest["artifacts"]["station_covariates"]["path"] = covariate_path.name
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     return pair_path, covariate_path, manifest_path
 
 
-def test_pair_contract_rejects_outcome_column_even_when_plan_sha_is_rebound(
+def test_pair_contract_rejects_outcome_column(
     tmp_path: Path,
 ) -> None:
     pair_path, _, manifest_path = _copied_pair_contract(tmp_path)
     pair = pd.read_csv(pair_path, dtype=str)
     pair["observed_achieved_skill"] = 0.5
     pair.to_csv(pair_path, index=False)
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["artifacts"]["pair_plan"]["sha256"] = _sha(pair_path)
-    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
 
     with pytest.raises(PostT2ContractError, match="not outcome-blind"):
         run_post_t2_analysis(
@@ -549,9 +523,6 @@ def test_pair_contract_rejects_exposure_drift_in_bound_covariates(
     )
     covariates.loc[covariates["station_id"].eq("05536995"), "regulated"] = False
     covariates.to_csv(covariate_path, index=False)
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["artifacts"]["station_covariates"]["sha256"] = _sha(covariate_path)
-    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
 
     with pytest.raises(PostT2ContractError, match="exposure, role, or exact-match"):
         run_post_t2_analysis(

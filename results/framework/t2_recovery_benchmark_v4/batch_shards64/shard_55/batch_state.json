@@ -2,11 +2,9 @@
   "acknowledgements": {
     "full_workload_execution_allowed": false,
     "planned_chunk_count": 7,
-    "workload_item_count": 2491245,
-    "workload_sha256": "9c5769f6818b456b9e5ded8aaf7cf250bf7befb74f8a3b9a4a338d60395b7f89"
+    "workload_item_count": 2491245
   },
   "aggregation_manifest_list_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64/shard_55/aggregation_chunk_manifests.json",
-  "batch_plan_sha256": "9acf8df2b960e8a1da4af2ac9cf5c3107ca3ce1035090bb009895d22d0f69fe7",
   "chunk_size": 5000,
   "chunks": [
     {
@@ -14,7 +12,6 @@
       "chunk_index": 0,
       "end_ordinal_exclusive": 2185000,
       "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_2180000_2185000/manifest.json",
-      "manifest_sha256": "c2dc3b2b9ecd0dde6da0ba2d3bd816bcdee2d642a30f60aaf052ba3da2a50412",
       "start_ordinal": 2180000,
       "status": "succeeded"
     },
@@ -65,7 +62,6 @@
     "chunk_manifest_schema": "t2_v91_result_chunk_v4",
     "executor_adapter": "t2_v91_chunk_executor_v4",
     "item_count_pointer": "/n_work_items",
-    "item_identity_sha256_pointer": "/work_item_identity_sha256",
     "name": "t2_v4_legacy_mh_frozen_index",
     "runner_contract_pointer": "/runner_contract_version",
     "sealed_read_pointer": "/sealed_temperature_records_read",
@@ -116,7 +112,5 @@
   "results_format": "parquet",
   "sealed_temperature_records_read": false,
   "start_ordinal": 2180000,
-  "status": "running",
-  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
-  "workload_manifest_sha256": "9c5769f6818b456b9e5ded8aaf7cf250bf7befb74f8a3b9a4a338d60395b7f89"
+  "status": "running"
 }

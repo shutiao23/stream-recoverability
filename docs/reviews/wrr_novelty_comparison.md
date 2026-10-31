@@ -5,7 +5,6 @@ find any others at least as relevant, and state honestly what the manuscript's
 claims already have prior art behind them.
 
 Revision examined: `paper/wrr/wrr_manuscript.tex`,
-sha256 `5f91dcbc2619b0776b216f84b5fd1ef3007f593ab60d8b14bdd64eb38aaa01e0`,
 1450 lines, mtime 2026-10-12T10:09:22Z. **The file was edited while this review was
 running** (it grew from 1388 to 1450 lines between my first and second read), so
 every line number below refers to this revision only; re-check before applying.
@@ -122,7 +121,8 @@ the illustration that follows.
 
 ## 5. (c) Sentences to soften
 
-Quoted verbatim from revision `5f91dcbc…`. Line numbers are from that revision.
+Quoted verbatim from the revision examined (1450 lines, mtime 2026-10-12T10:09:22Z).
+Line numbers are from that revision.
 
 1. **Lines 152–154.** "Across the completeness thresholds in common use the
    conditioning variable is a property of the record. None is a property of the

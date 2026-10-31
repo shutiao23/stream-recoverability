@@ -48,7 +48,6 @@
   "identity": "generic_direct_h30_uncertainty__strictly_prior_years__all__geographically_disjoint_source__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_direct_h30_uncertainty__strictly_prior_years__all__geographically_disjoint_source__all_providers.joblib",
-  "model_sha256": "6e6ddd14531225c3909e6dc7eb648ccf964e2287b4c598bb08e20d71e7c8bed1",
   "n_training_cases": 50355,
   "n_training_groups": 54,
   "name": "generic_direct_h30_uncertainty",
@@ -58,8 +57,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
-      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet"
     }
   ],
   "source_thresholds": {

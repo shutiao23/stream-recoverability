@@ -46,7 +46,6 @@
   "identity": "admission__generic_both_diagnostics__strictly_prior_years__all__source_only__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_both_diagnostics__strictly_prior_years__all__source_only__all_providers.joblib",
-  "model_sha256": "c2beb62f9c5c258e9acb6e8a494771ea347301d8ffbaa0c406b9b8880f7864d1",
   "n_training_cases": 20608,
   "n_training_groups": 105,
   "name": "generic_both_diagnostics",
@@ -56,8 +55,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

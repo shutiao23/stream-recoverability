@@ -23,14 +23,11 @@
   "data_version": "external_upper_middle_chattahoochee_v1",
   "data_input": {
     "source_manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
-    "source_manifest_sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb",
     "source_split_identities": {
       "splits/train.parquet": {
-        "sha256": "3cf8a82e7ea5b2927b7090cdf3e0a283a49af5ae454bf983bcabc9cdae129041",
         "bytes": 466638
       },
       "splits/validation.parquet": {
-        "sha256": "404f6d9cfdfc261867238a7b5de5fd2344af55f714a38b5d2425ffc05a2264ca",
         "bytes": 166956
       }
     },
@@ -40,8 +37,7 @@
     "confirmatory_period_rows": 0
   },
   "finalized_model_roster": {
-    "path": "results/validation_funnel/published_v2/finalized_model_roster.json",
-    "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c"
+    "path": "results/validation_funnel/published_v2/finalized_model_roster.json"
   },
   "grid": {
     "evaluation_split": "validation",
@@ -1797,41 +1793,33 @@
       }
     ]
   },
-  "grid_sha256": "8bb632d47dfd8b09242dadd1dd89c703be3352c4d74125d82fd036a5ad4cc1ec",
   "sd_definition": "sample_standard_deviation_across_20_mask_seeds_ddof_1",
   "artifacts": {
     "external_validation_uncertainty_seed_cells.csv": {
-      "sha256": "69ca9a8960d4e25c781ad0a56d1f59dd3fd22d6a1c4998d1d1009a7a7dfa62e5",
       "bytes": 366649,
       "rows": 2700
     },
     "external_validation_uncertainty_cells.csv": {
-      "sha256": "07a77681dd7cc047bf2109513b0c9d7a9c2475b4afb5f72610e091a806186888",
       "bytes": 25127,
       "rows": 135
     },
     "external_validation_uncertainty_seed_envelope.csv": {
-      "sha256": "38fbc5e28b917ee169ee612c1766b1261a4b36d4a53b706a418d9b2d19c517e9",
       "bytes": 41473,
       "rows": 300
     },
     "external_validation_uncertainty_envelope.csv": {
-      "sha256": "af9024db6bd6b1a5b76c934a98abb4dc7fb697beacd72c6e67f6ce6c72ede4c4",
       "bytes": 2314,
       "rows": 15
     },
     "external_validation_uncertainty_paired_seed_differences.csv": {
-      "sha256": "22424718e0307e74443474485cbdcb6293971c3a291947ead6295b7a106041cd",
       "bytes": 42541,
       "rows": 240
     },
     "external_validation_uncertainty_paired_differences.csv": {
-      "sha256": "4a62dacfe2265bf2f720dac88e3ff92ab7cc45e77eea6fe2eef1818d748308f2",
       "bytes": 2068,
       "rows": 12
     },
     "external_validation_uncertainty_summary.csv": {
-      "sha256": "931e400c444db1d9c1d14b335f49944d9fc29995fa0c1b34b6bba9a95b859928",
       "bytes": 1965,
       "rows": 13
     }

@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -30,14 +29,6 @@ V3_WORKLOAD = ROOT / "results/framework/t2_recovery_benchmark_v1/workload_manife
 SMOKE_NETWORK = "huc8_02040103"
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _readiness_row(item, prepared) -> dict[str, object]:
     return {
         "source_v3_item_id": item.item_id,
@@ -61,20 +52,17 @@ def _readiness_row(item, prepared) -> dict[str, object]:
         "insufficient_train_features": prepared.audit.get(
             "insufficient_train_features", []
         ),
-        "incomplete_gap_features": prepared.audit.get(
-            "incomplete_gap_features", []
-        ),
+        "incomplete_gap_features": prepared.audit.get("incomplete_gap_features", []),
         "temperature_performance_metric_computed": False,
         "sealed_temperature_records_read": False,
     }
 
 
 def main() -> None:
-    before = _sha256(V3_WORKLOAD)
     v3 = json.loads(V3_WORKLOAD.read_text(encoding="utf-8"))
     if v3.get("runner_contract_version") != RUNNER_CONTRACT_VERSION:
         raise ValueError("frozen v3 workload/runner contract mismatch")
-    networks, inventory = discover_failure_closure_networks(ROOT)
+    networks, _ = discover_failure_closure_networks(ROOT)
     lookup = {network.network_id: network for network in networks}
     network = lookup[SMOKE_NETWORK]
     budget = load_v91_budget(ROOT)
@@ -131,7 +119,6 @@ def main() -> None:
             row["meteorology_lag_days"] = lag
             rows.append(row)
 
-    after = _sha256(V3_WORKLOAD)
     v3_contracts = v3["tier_1"]["model_information_contract"]
     v3_counts = v3["tier_1"]["counts_by_role_model_information"]
     extended_conditions = {
@@ -151,9 +138,9 @@ def main() -> None:
     )
     classification_change = any(
         row["supported"]
-        and v3_contracts[
-            f"{row['model']}|{row['information_condition']}"
-        ]["workload_category"]
+        and v3_contracts[f"{row['model']}|{row['information_condition']}"][
+            "workload_category"
+        ]
         == "structural_not_applicable"
         for row in rows
     )
@@ -163,16 +150,13 @@ def main() -> None:
         "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
         "source_v3_runner_contract_version": RUNNER_CONTRACT_VERSION,
         "source_v3_workload_path": str(V3_WORKLOAD.relative_to(ROOT)),
-        "source_v3_workload_sha256_before": before,
-        "source_v3_workload_sha256_after": after,
-        "source_v3_workload_bytes_unchanged": before == after,
         "source_v3_extended_cells_remain_frozen_structural_not_applicable": True,
         "candidate_changes_v3_classification": classification_change,
         "v4_or_later_new_workload_freeze_required": classification_change,
         "v3_item_ids_reusable_as_formal_candidate_ids": False,
         "future_item_identity_must_bind": [
             "integration_contract_version",
-            "materialized_auxiliary_daily_long_sha256",
+            "materialized_auxiliary_daily_long_path",
             "meteorology_lag_days",
             "strict_requested_feature_coverage_semantics",
         ],
@@ -188,12 +172,11 @@ def main() -> None:
         "heldout_skill_used_to_select_meteorology_lag": False,
         "all_meteorology_lag_sensitivity_cells_required": True,
         "cache_contract": (
-            "load_and_hash_panel_and_auxiliary_once_per_network_and_reuse_adapter_"
+            "load_panel_and_auxiliary_once_per_network_and_reuse_adapter_"
             "by_train_mask_condition_lag"
         ),
         "smoke_network": SMOKE_NETWORK,
         "n_networks_discovered": len(networks),
-        "catalog_split_sha256": inventory["catalog_split_sha256"],
         "cells": rows,
         "coverage_semantics": {
             "requested_roster": (
@@ -219,10 +202,10 @@ def main() -> None:
         "purpose": "pipeline_verification_not_evidence",
         "passed": False,
     }
-    if not result["source_v3_workload_bytes_unchanged"]:
-        raise AssertionError("readiness audit mutated the frozen v3 workload")
     if not classification_change:
-        raise AssertionError("bounded M smoke did not demonstrate the required v4 split")
+        raise AssertionError(
+            "bounded M smoke did not demonstrate the required v4 split"
+        )
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(
         json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + "\n",

@@ -4,7 +4,6 @@
   "full_region_basis": "held region absent from source calibration; full/empty randomized set, or conservative full set; no singleton release",
   "guarantee_target": "conditional prediction-set coverage, hence false-admission frequency per eligible case; NOT failure probability conditional on release",
   "implementation_version": "group-units-v4-binary-LAC",
-  "package_core_sha256": "55402700151b75b8b2b0bf973b322b7bf25a9009f929fb9f3dc5ee6bbf7b4b31",
   "package_version": "0.0.4",
   "randomization": "independent uniform dual weight per case; exact tilted boundary LP; monotone endpoint caching with conservative <=1e-8 numerical enlargement",
   "sampling": "one uniform case per unique source rule-calibration group; held group never in calibration",

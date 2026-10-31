@@ -34,7 +34,6 @@
   "identity": "small_logit_plus_support__leave_one_year_out__all__local_fit__hubeau",
   "kind": "logit",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/small_logit_plus_support__leave_one_year_out__all__local_fit__hubeau.joblib",
-  "model_sha256": "630a0902409289e77cae59622993e891aeabe62b221b9e245e193b829154c6e7",
   "n_training_cases": 4928,
   "n_training_groups": 10,
   "name": "small_logit_plus_support",
@@ -44,8 +43,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
-      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

@@ -52,7 +52,6 @@
   "identity": "admission__policy_certificate__strictly_prior_years__all__source_provider_excluded__foen",
   "kind": "policy_certificate",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__policy_certificate__strictly_prior_years__all__source_provider_excluded__foen.joblib",
-  "model_sha256": "33d48d25464fe0b4a611f38d79b2a9f68d8696fae0248a18a8d0bcb9b21f06ea",
   "n_training_cases": 15588,
   "n_training_groups": 104,
   "name": "policy_certificate",
@@ -62,8 +61,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

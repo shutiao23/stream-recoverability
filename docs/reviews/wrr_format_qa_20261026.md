@@ -1,5 +1,7 @@
 # WRR 稿件格式与字体检查（2026-10-26）
 
+**后续版本说明：**本报告对应2026-10-26的历史稿件，不是2026-10-27修订后的页数、图件或测试结论。当前稿件与测试状态以 `results/wrr_review_response_20261027/audit/` 及重新编译的PDF为准。
+
 检查对象：`paper/wrr_tr/review_completion_article.tex` 及其编译产物 `review_completion_article.pdf`（32 页）。
 模板：官方 `agujournal2025.cls`（AGU/WRR），`draft,linenumbers` 选项，Letter 纸，正文双倍行距并带行号。
 本报告只记录可重复的机械检查与逐页目视检查；不代替期刊 production 的最终排版。

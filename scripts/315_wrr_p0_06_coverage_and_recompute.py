@@ -29,11 +29,9 @@ Reads are read-only.  Writes are confined to the P0-06 output folder and
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import platform
-import subprocess
 import sys
 import time
 from pathlib import Path
@@ -93,9 +91,12 @@ INPUTS: dict[str, Path] = {
     # PART A
     "station_roster": ROOT / "results/v17_fitness/step1_panel/station_roster.csv",
     "network_split": ROOT / "results/v17_fitness/step1_panel/network_split.csv",
-    "trusted_complete_years": ROOT / "results/wrr_revision/step1_universe/trusted_river_complete_years.csv",
-    "current_data_manifest": ROOT / "results/wrr_submission_ready/current_data_manifest.csv",
-    "current_data_acquisition": ROOT / "results/wrr_submission_ready/current_data_acquisition.csv",
+    "trusted_complete_years": ROOT
+    / "results/wrr_revision/step1_universe/trusted_river_complete_years.csv",
+    "current_data_manifest": ROOT
+    / "results/wrr_submission_ready/current_data_manifest.csv",
+    "current_data_acquisition": ROOT
+    / "results/wrr_submission_ready/current_data_acquisition.csv",
     "measurement_provenance_dictionary": ROOT
     / "results/wrr_submission_ready/measurement_provenance_dictionary.csv",
     "data_rights": ROOT / "metadata/data_rights.csv",
@@ -108,15 +109,19 @@ INPUTS: dict[str, Path] = {
     "wave2_certificates": W2 / "p0_07_wave2_confirmation/wave2_certificates.parquet",
     "wave2_verdict": W2 / "p0_07_wave2_confirmation/verdict.json",
     "transfer_report": MR / "step7_transfer_reporting/transfer_report.json",
-    "arm_and_thermal_contrasts": MR / "step5_monitoring_tasks/arm_and_thermal_contrasts.csv",
-    "v17_reserved_verdict": ROOT / "results/v17_fitness/step10_confirmation/verdict.json",
-    "development_cases": ROOT / "results/v17_fitness/step4_ceiling/development_cases.parquet",
-    "reserved_cases": ROOT / "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
+    "arm_and_thermal_contrasts": MR
+    / "step5_monitoring_tasks/arm_and_thermal_contrasts.csv",
+    "v17_reserved_verdict": ROOT
+    / "results/v17_fitness/step10_confirmation/verdict.json",
+    "development_cases": ROOT
+    / "results/v17_fitness/step4_ceiling/development_cases.parquet",
+    "reserved_cases": ROOT
+    / "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
     "reserved_certificates": ROOT
     / "results/v17_fitness/step10_confirmation/reserved_certificates.parquet",
     "step2_contrasts": MR / "step2_same_info_ablation/contrasts_network_ci.json",
-    "step2_operating_points": MR / "step2_same_info_ablation/operating_points_development_oof.csv",
-    "step2_fingerprint": MR / "step2_same_info_ablation/protocol_fingerprint.json",
+    "step2_operating_points": MR
+    / "step2_same_info_ablation/operating_points_development_oof.csv",
     "crossed_development_cases": ROOT
     / "results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet",
     "step3_position_contrasts": MR
@@ -129,7 +134,9 @@ INPUTS: dict[str, Path] = {
 COLUMNS_USED: list[dict] = []
 
 
-def note_columns(file_key: str, role: str, columns: list[str], *, present: bool = True) -> None:
+def note_columns(
+    file_key: str, role: str, columns: list[str], *, present: bool = True
+) -> None:
     COLUMNS_USED.append(
         {
             "input_key": file_key,
@@ -139,14 +146,6 @@ def note_columns(file_key: str, role: str, columns: list[str], *, present: bool 
             "file_present": bool(present),
         }
     )
-
-
-def sha256_file(path: Path, chunk: int = 1 << 20) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as handle:
-        for block in iter(lambda: handle.read(chunk), b""):
-            h.update(block)
-    return h.hexdigest()
 
 
 def require(path: Path, what: str) -> Path:
@@ -202,7 +201,10 @@ def classify_statistic(documented: str, parsed: str = "") -> tuple[str, str]:
         return CLASS_PROJECT_SUBDAILY, CLASS_RULES[1][0]
     if "NOT a daily mean" in documented[:60]:
         return CLASS_NON_DAILY_REFERENCE, CLASS_RULES[2][0]
-    return CLASS_UNDOCUMENTED, "no rule matched (dictionary leaves the statistic unverified)"
+    return (
+        CLASS_UNDOCUMENTED,
+        "no rule matched (dictionary leaves the statistic unverified)",
+    )
 
 
 # The station-level provenance file (script 232) uses its own vocabulary; the
@@ -265,7 +267,9 @@ def build_provider_contract() -> pd.DataFrame:
     classes, rules = zip(
         *[
             classify_statistic(doc, parsed)
-            for doc, parsed in zip(frame["statistic_documented"], frame["statistic_as_parsed"])
+            for doc, parsed in zip(
+                frame["statistic_documented"], frame["statistic_as_parsed"]
+            )
         ]
     )
     frame["statistic_class"] = list(classes)
@@ -292,13 +296,17 @@ def build_v17_station_table(
     # eligible_station == False.  Keep them visible as unassigned (NaN) rather
     # than stringifying them.
     base["split_role_raw"] = base["split_role"]
-    base["split_role"] = base["split_role"].fillna("unassigned_not_in_development_or_reserved")
+    base["split_role"] = base["split_role"].fillna(
+        "unassigned_not_in_development_or_reserved"
+    )
     base["first_year_source"] = "station_roster.csv:first_year"
     base["last_year_source"] = "station_roster.csv:last_year"
     base["n_complete_years_source"] = "station_roster.csv:n_complete_years"
 
     recount = (
-        trusted.groupby(["network_id", "station_id"], as_index=False)["full_calendar_year"]
+        trusted.groupby(["network_id", "station_id"], as_index=False)[
+            "full_calendar_year"
+        ]
         .sum()
         .rename(columns={"full_calendar_year": "n_complete_years_recount"})
     )
@@ -307,14 +315,16 @@ def build_v17_station_table(
         "trusted_river_complete_years.csv: sum(full_calendar_year) per station"
     )
 
-    trusted_span = trusted.groupby(["network_id", "station_id"], as_index=False)["year"].agg(
-        trusted_first_year="min", trusted_last_year="max"
-    )
+    trusted_span = trusted.groupby(["network_id", "station_id"], as_index=False)[
+        "year"
+    ].agg(trusted_first_year="min", trusted_last_year="max")
     base = base.merge(trusted_span, on=["network_id", "station_id"], how="left")
     base["first_year_cross_check"] = np.where(
         base["trusted_first_year"].isna(),
         "not_in_trusted_file",
-        np.where(base["first_year"].eq(base["trusted_first_year"]), "match", "MISMATCH"),
+        np.where(
+            base["first_year"].eq(base["trusted_first_year"]), "match", "MISMATCH"
+        ),
     )
     base["last_year_cross_check"] = np.where(
         base["trusted_last_year"].isna(),
@@ -323,19 +333,32 @@ def build_v17_station_table(
     )
 
     strata = net_split[
-        ["network_id", "stratum", "donor_regime", "median_donors", "n_stations", "split_role"]
-    ].rename(columns={"split_role": "network_split_role", "donor_regime": "network_donor_regime"})
+        [
+            "network_id",
+            "stratum",
+            "donor_regime",
+            "median_donors",
+            "n_stations",
+            "split_role",
+        ]
+    ].rename(
+        columns={
+            "split_role": "network_split_role",
+            "donor_regime": "network_donor_regime",
+        }
+    )
     base = base.merge(strata, on="network_id", how="left", suffixes=("", "_netsplit"))
     base["quality_stratum"] = base["stratum"]
     base["donor_regime"] = base["network_donor_regime"]
-    base["quality_stratum_source"] = "network_split.csv:stratum (provider|donor_regime, network level)"
+    base["quality_stratum_source"] = (
+        "network_split.csv:stratum (provider|donor_regime, network level)"
+    )
     base["eligible_station_source"] = "station_roster.csv:eligible_station"
 
-    man = manifest[["network_id", "status", "input_path", "sha256", "bytes"]].rename(
+    man = manifest[["network_id", "status", "input_path", "bytes"]].rename(
         columns={
             "status": "manifest_status",
             "input_path": "manifest_input_path",
-            "sha256": "manifest_sha256",
             "bytes": "manifest_bytes",
         }
     )
@@ -379,7 +402,9 @@ def wave2_network_paths(manifest: pd.DataFrame) -> dict[str, dict]:
     return out
 
 
-def wave2_recount_years(series: pd.Series, years: pd.Series, upper_bound: float) -> tuple[int, int]:
+def wave2_recount_years(
+    series: pd.Series, years: pd.Series, upper_bound: float
+) -> tuple[int, int]:
     """Two independent recounts of 'complete calendar year' from daily_wide_temperature.csv.
 
     ``ge_expm1`` implements the rule as written in the wave-2 ingest scripts
@@ -476,7 +501,9 @@ def build_wave2_station_table(
                         "n_complete_years_recount_all_days": np.nan,
                     }
                 )
-                file_notes.append({"network_id": net, "note": f"daily_wide missing: {daily}"})
+                file_notes.append(
+                    {"network_id": net, "note": f"daily_wide missing: {daily}"}
+                )
             else:
                 wide = pd.read_csv(daily, dtype=str)
                 dates = pd.to_datetime(wide["date"])
@@ -492,7 +519,10 @@ def build_wave2_station_table(
                         }
                     )
                     file_notes.append(
-                        {"network_id": net, "note": f"station column {sid} absent from {daily.name}"}
+                        {
+                            "network_id": net,
+                            "note": f"station column {sid} absent from {daily.name}",
+                        }
                     )
                 else:
                     values = pd.to_numeric(wide[sid], errors="coerce")
@@ -520,7 +550,9 @@ def build_wave2_station_table(
                 entry["n_complete_years"] = (
                     int(hit["n_complete_years"].iloc[0]) if len(hit) else np.nan
                 )
-                entry["n_complete_years_source"] = str(elig_path.relative_to(ROOT)) + ":n_complete_years"
+                entry["n_complete_years_source"] = (
+                    str(elig_path.relative_to(ROOT)) + ":n_complete_years"
+                )
                 entry["wave2_complete_years_list"] = (
                     str(hit["complete_years"].iloc[0]) if len(hit) else ""
                 )
@@ -534,19 +566,27 @@ def build_wave2_station_table(
     table = table.merge(reg_variation, on=["network_id", "station_id"], how="left")
     table = table.merge(reg_status, on=["network_id", "station_id"], how="left")
     table["quality_stratum"] = (
-        table["provider"].astype(str) + "|" + table["donor_regime"].fillna("").astype(str)
+        table["provider"].astype(str)
+        + "|"
+        + table["donor_regime"].fillna("").astype(str)
     )
     table.loc[table["donor_regime"].isna(), "quality_stratum"] = np.nan
     table["quality_stratum_source"] = (
         "wave2_cases.parquet: modal donor_regime per network/station -> provider|donor_regime "
         "(wave-2 networks are not present in network_split.csv)"
     )
-    table["eligible_station"] = pd.to_numeric(table["n_complete_years"], errors="coerce").ge(4)
+    table["eligible_station"] = pd.to_numeric(
+        table["n_complete_years"], errors="coerce"
+    ).ge(4)
     table["eligible_station_source"] = (
         "derived: station_eligibility.csv:n_complete_years >= 4 (wave-2 MIN_YEARS gate)"
     )
-    table["first_year_source"] = "daily_wide_temperature.csv: first date with a non-null value"
-    table["last_year_source"] = "daily_wide_temperature.csv: last date with a non-null value"
+    table["first_year_source"] = (
+        "daily_wide_temperature.csv: first date with a non-null value"
+    )
+    table["last_year_source"] = (
+        "daily_wide_temperature.csv: last date with a non-null value"
+    )
     table["n_complete_years_recount_rule"] = (
         "recount from daily_wide_temperature.csv; see n_complete_years_recount_ge_expm1 / _all_days"
     )
@@ -569,20 +609,29 @@ def harmonise(
 
     out = pd.concat([v17, wave2], ignore_index=True, sort=False)
     providers = out["provider"].astype(str)
-    out["statistic_class"] = [contract_cols.loc[p, "statistic_class"] if p in contract_cols.index else np.nan for p in providers]
+    out["statistic_class"] = [
+        contract_cols.loc[p, "statistic_class"] if p in contract_cols.index else np.nan
+        for p in providers
+    ]
     out["statistic_class_rule_matched"] = [
-        contract_cols.loc[p, "statistic_class_rule_matched"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "statistic_class_rule_matched"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
     out["statistic_documented"] = [
-        contract_cols.loc[p, "statistic_documented"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "statistic_documented"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
     out["statistic_evidence_file"] = str(
         INPUTS["measurement_provenance_dictionary"].relative_to(ROOT)
     )
     out["provider_qc_route"] = [
-        contract_cols.loc[p, "quality_codes_kept"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "quality_codes_kept"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
 
@@ -603,7 +652,11 @@ def harmonise(
             rights_cite.append(record.get("required_citation"))
             rights_source.append("metadata/data_rights.csv")
         else:
-            rights_artifact.append("MISSING: no row in metadata/data_rights.csv" if artifact is None else f"MISSING: {artifact}")
+            rights_artifact.append(
+                "MISSING: no row in metadata/data_rights.csv"
+                if artifact is None
+                else f"MISSING: {artifact}"
+            )
             rights_license.append(np.nan)
             rights_redis.append(np.nan)
             rights_derived.append(np.nan)
@@ -620,25 +673,34 @@ def harmonise(
     # licence, with the data_rights register carried alongside (never merged
     # silently).
     out["licence_route"] = [
-        contract_cols.loc[p, "license"] if p in contract_cols.index else np.nan for p in providers
+        contract_cols.loc[p, "license"] if p in contract_cols.index else np.nan
+        for p in providers
     ]
-    out["licence_route_source"] = str(
-        INPUTS["measurement_provenance_dictionary"].relative_to(ROOT)
-    ) + ":license"
+    out["licence_route_source"] = (
+        str(INPUTS["measurement_provenance_dictionary"].relative_to(ROOT)) + ":license"
+    )
     out["redistribution_allowed"] = [
-        contract_cols.loc[p, "redistribution_allowed"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "redistribution_allowed"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
     out["derived_output_allowed"] = [
-        contract_cols.loc[p, "derived_output_allowed"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "derived_output_allowed"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
     out["required_citation"] = [
-        contract_cols.loc[p, "required_citation"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "required_citation"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
     out["acquisition_route"] = [
-        contract_cols.loc[p, "acquisition_route"] if p in contract_cols.index else np.nan
+        contract_cols.loc[p, "acquisition_route"]
+        if p in contract_cols.index
+        else np.nan
         for p in providers
     ]
 
@@ -661,8 +723,15 @@ def harmonise(
 def provider_summary(table: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for provider, block in table.groupby("provider", sort=True):
-        regimes = block.dropna(subset=["donor_regime"]).groupby("donor_regime")["network_id"].nunique()
-        mix = "; ".join(f"{k}={int(v)}" for k, v in regimes.sort_index().items()) or "MISSING"
+        regimes = (
+            block.dropna(subset=["donor_regime"])
+            .groupby("donor_regime")["network_id"]
+            .nunique()
+        )
+        mix = (
+            "; ".join(f"{k}={int(v)}" for k, v in regimes.sort_index().items())
+            or "MISSING"
+        )
         class_mix = block["statistic_class"].value_counts(dropna=False)
         panels = sorted(block["panel"].dropna().unique())
         years = pd.to_numeric(block["first_year"], errors="coerce").dropna()
@@ -671,7 +740,9 @@ def provider_summary(table: pd.DataFrame) -> pd.DataFrame:
         rows.append(
             {
                 "provider": provider,
-                "n_stations": int(block[["network_id", "station_id"]].drop_duplicates().shape[0]),
+                "n_stations": int(
+                    block[["network_id", "station_id"]].drop_duplicates().shape[0]
+                ),
                 "n_stations_definition": "distinct (network_id, station_id) rows",
                 "n_distinct_station_ids": int(block["station_id"].nunique()),
                 "n_networks": int(block["network_id"].nunique()),
@@ -701,7 +772,9 @@ def provider_summary(table: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def measurement_class_shares(case_tables: dict[str, pd.DataFrame], contract: pd.DataFrame) -> dict:
+def measurement_class_shares(
+    case_tables: dict[str, pd.DataFrame], contract: pd.DataFrame
+) -> dict:
     """Cases / networks / stations in each measurement class, per analysis panel."""
 
     lookup = contract.set_index("provider")["statistic_class"].to_dict()
@@ -717,7 +790,9 @@ def measurement_class_shares(case_tables: dict[str, pd.DataFrame], contract: pd.
                 "n_cases": int(len(part)),
                 "share_of_cases": float(len(part) / len(frame)),
                 "n_networks": int(part["network_id"].nunique()),
-                "n_stations": int(part[["network_id", "station_id"]].drop_duplicates().shape[0]),
+                "n_stations": int(
+                    part[["network_id", "station_id"]].drop_duplicates().shape[0]
+                ),
                 "providers": sorted(
                     set(providers.loc[part.index].astype(str)),
                 ),
@@ -725,7 +800,9 @@ def measurement_class_shares(case_tables: dict[str, pd.DataFrame], contract: pd.
         out[panel] = {
             "n_cases": int(len(frame)),
             "n_networks": int(frame["network_id"].nunique()),
-            "n_stations": int(frame[["network_id", "station_id"]].drop_duplicates().shape[0]),
+            "n_stations": int(
+                frame[["network_id", "station_id"]].drop_duplicates().shape[0]
+            ),
             "by_measurement_class": block,
         }
     return out
@@ -763,7 +840,11 @@ def resample_positions(
 ) -> np.ndarray:
     """Row positions of the resampled block, in cluster-pick order (pandas concat order)."""
 
-    return np.concatenate([parts[int(i)] for i in picked]) if len(picked) else np.empty(0, dtype=np.int64)
+    return (
+        np.concatenate([parts[int(i)] for i in picked])
+        if len(picked)
+        else np.empty(0, dtype=np.int64)
+    )
 
 
 def failure_rate(err: np.ndarray, tolerance: float) -> float:
@@ -826,18 +907,34 @@ def independent_contrast(
     """
 
     networks = cases[cluster].astype(str).to_numpy()
-    cert_score = pd.to_numeric(certificates["certificate_bound"], errors="coerce").to_numpy(dtype=float)
-    cert_error = pd.to_numeric(certificates["certificate_abs_error"], errors="coerce").to_numpy(dtype=float)
+    cert_score = pd.to_numeric(
+        certificates["certificate_bound"], errors="coerce"
+    ).to_numpy(dtype=float)
+    cert_error = pd.to_numeric(
+        certificates["certificate_abs_error"], errors="coerce"
+    ).to_numpy(dtype=float)
     rng = np.random.default_rng(int(seed) + 991)
-    length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(dtype=float) + rng.random(len(cases))
-    policy_error = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(dtype=float)
+    length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(
+        dtype=float
+    ) + rng.random(len(cases))
+    policy_error = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(
+        dtype=float
+    )
     cert_score = np.where(np.isfinite(cert_score), cert_score, np.inf)
 
-    keys, parts, arrays = cluster_arrays(networks, cert_score, cert_error, length, policy_error)
+    keys, parts, arrays = cluster_arrays(
+        networks, cert_score, cert_error, length, policy_error
+    )
     sizes = arrays["__sizes"]
     full = np.arange(len(cases))
     point = contrast_from_arrays(
-        arrays["c0"], arrays["c1"], arrays["c2"], arrays["c3"], full, retention, tolerance
+        arrays["c0"],
+        arrays["c1"],
+        arrays["c2"],
+        arrays["c3"],
+        full,
+        retention,
+        tolerance,
     )
 
     draws = int(draws)
@@ -851,7 +948,13 @@ def independent_contrast(
             else np.empty(0, dtype=np.int64)
         )
         values[draw] = contrast_from_arrays(
-            arrays["c0"], arrays["c1"], arrays["c2"], arrays["c3"], rows, retention, tolerance
+            arrays["c0"],
+            arrays["c1"],
+            arrays["c2"],
+            arrays["c3"],
+            rows,
+            retention,
+            tolerance,
         )
     finite = values[np.isfinite(values)]
     return {
@@ -878,10 +981,17 @@ def shared_contrast_interval(
 ) -> dict:
     """Same contrast computed with the shared cluster_bootstrap, to fix the interval definition."""
 
-    from stream_recoverability.experiments.v17_fitness.frontier import operating_point_contrast
+    from stream_recoverability.experiments.v17_fitness.frontier import (
+        operating_point_contrast,
+    )
 
     stat = operating_point_contrast(
-        cases, certificates, retention=retention, tolerance=tolerance, seed=seed, draws=draws
+        cases,
+        certificates,
+        retention=retention,
+        tolerance=tolerance,
+        seed=seed,
+        draws=draws,
     )
     return {
         "point": float(stat["point"]),
@@ -932,9 +1042,16 @@ def independent_net_equal_bootstrap(
         acc: dict[int, list[int]] = {}
         for j in picked:
             acc.setdefault(int(j), []).append(int(j))
-        means = [values[np.concatenate([parts[j] for j in js])].mean() for js in acc.values()]
+        means = [
+            values[np.concatenate([parts[j] for j in js])].mean() for js in acc.values()
+        ]
         out[i] = float(np.mean(means))
-    return {"point": point, "low": float(np.quantile(out, 0.025)), "high": float(np.quantile(out, 0.975)), "draws": int(draws)}
+    return {
+        "point": point,
+        "low": float(np.quantile(out, 0.025)),
+        "high": float(np.quantile(out, 0.975)),
+        "draws": int(draws),
+    }
 
 
 # ---------------------------------------------------------------- Part B.1/B.2
@@ -955,11 +1072,19 @@ def per_network_op_contrast(
     """
 
     networks = cases["network_id"].astype(str).to_numpy()
-    cert_score = pd.to_numeric(certificates["certificate_bound"], errors="coerce").to_numpy(dtype=float)
-    cert_error = pd.to_numeric(certificates["certificate_abs_error"], errors="coerce").to_numpy(dtype=float)
+    cert_score = pd.to_numeric(
+        certificates["certificate_bound"], errors="coerce"
+    ).to_numpy(dtype=float)
+    cert_error = pd.to_numeric(
+        certificates["certificate_abs_error"], errors="coerce"
+    ).to_numpy(dtype=float)
     rng = np.random.default_rng(int(seed) + int(jitter_offset))
-    length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(dtype=float) + rng.random(len(cases))
-    policy_error = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(dtype=float)
+    length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(
+        dtype=float
+    ) + rng.random(len(cases))
+    policy_error = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(
+        dtype=float
+    )
     cert_score = np.where(np.isfinite(cert_score), cert_score, np.inf)
 
     rows = []
@@ -1013,8 +1138,12 @@ def verdict_row(
         point_verdict = "NO_TOLERANCE_STATED"
     else:
         point_verdict = "AGREE" if d <= tolerance else "DISAGREE"
-    d_lo = diff(stored_ci[0] if stored_ci else None, recomputed_ci[0] if recomputed_ci else None)
-    d_hi = diff(stored_ci[1] if stored_ci else None, recomputed_ci[1] if recomputed_ci else None)
+    d_lo = diff(
+        stored_ci[0] if stored_ci else None, recomputed_ci[0] if recomputed_ci else None
+    )
+    d_hi = diff(
+        stored_ci[1] if stored_ci else None, recomputed_ci[1] if recomputed_ci else None
+    )
     if stored_ci is None or recomputed_ci is None:
         ci_verdict = "NOT_RECOMPUTED"
     elif tolerance_ci is None:
@@ -1077,7 +1206,9 @@ def prep_cases(raw: pd.DataFrame) -> pd.DataFrame:
 
     frame = raw.copy()
     metric_cols = [
-        c for c in frame.columns if c.startswith("metric_") and c != "metric_observed_days"
+        c
+        for c in frame.columns
+        if c.startswith("metric_") and c != "metric_observed_days"
     ]
     block = frame[metric_cols].apply(pd.to_numeric, errors="coerce")
     frame["estimator_disagreement"] = block.max(axis=1) - block.min(axis=1)
@@ -1100,7 +1231,9 @@ def design_matrix(frame: pd.DataFrame, features: tuple[str, ...]) -> pd.DataFram
         else:
             column = frame[name]
             out[name] = (
-                column.astype(float) if column.dtype == bool else pd.to_numeric(column, errors="coerce")
+                column.astype(float)
+                if column.dtype == bool
+                else pd.to_numeric(column, errors="coerce")
             )
     return out[list(features)]
 
@@ -1153,13 +1286,17 @@ def independent_rule_scores(frame: pd.DataFrame, *, seed: int) -> dict[str, pd.S
 
     return {
         "length_rule": jitter(frame["longest_run"], 1.0),
-        "warm_coverage_rule": jitter(-pd.to_numeric(frame["warm_observed_fraction"], errors="coerce"), 1e-3),
+        "warm_coverage_rule": jitter(
+            -pd.to_numeric(frame["warm_observed_fraction"], errors="coerce"), 1e-3
+        ),
         "peak_overlap_rule": jitter(frame["peak_overlap"], 1e-3),
         "estimator_disagreement_rule": jitter(frame["estimator_disagreement"], 1e-3),
     }
 
 
-def rate_at_retention(errors: np.ndarray, score: np.ndarray, retention: float, tolerance: float) -> float:
+def rate_at_retention(
+    errors: np.ndarray, score: np.ndarray, retention: float, tolerance: float
+) -> float:
     good = np.isfinite(errors)
     values = np.where(np.isfinite(score), score, np.inf)[good]
     err = errors[good]
@@ -1168,9 +1305,7 @@ def rate_at_retention(errors: np.ndarray, score: np.ndarray, retention: float, t
     return float((err[keep] > tolerance).mean())
 
 
-def network_equal_arrays(
-    values: np.ndarray, parts: list[np.ndarray]
-) -> float:
+def network_equal_arrays(values: np.ndarray, parts: list[np.ndarray]) -> float:
     return float(np.mean([values[p].mean() for p in parts]))
 
 
@@ -1198,7 +1333,9 @@ def independent_paired_contrast(
             return float("nan")
         keep_a = rows[topk_stable(sa[rows], k)]
         keep_b = rows[topk_stable(sb[rows], k)]
-        return failure_rate(err[keep_a], tolerance) - failure_rate(err[keep_b], tolerance)
+        return failure_rate(err[keep_a], tolerance) - failure_rate(
+            err[keep_b], tolerance
+        )
 
     point = stat(full)
     rng = np.random.default_rng(int(seed))
@@ -1218,7 +1355,12 @@ def independent_paired_contrast(
 
 
 # ---------------------------------------------------------------- Part B.4
-STEP3_RECONSTRUCTORS = ("doy_climatology", "smooth_climatology", "donor_ridge", "linear_interp")
+STEP3_RECONSTRUCTORS = (
+    "doy_climatology",
+    "smooth_climatology",
+    "donor_ridge",
+    "linear_interp",
+)
 STEP3_LENGTHS = (30, 60, 90)
 STEP3_OVERLAPS = ("none", "partial", "full")
 
@@ -1228,7 +1370,8 @@ def step3_station_year_means(cases: pd.DataFrame, column: str) -> pd.DataFrame:
     block["value"] = pd.to_numeric(block[column], errors="coerce")
     return (
         block.groupby(
-            ["network_id", "station_id", "year", "longest_run", "overlap_class"], as_index=False
+            ["network_id", "station_id", "year", "longest_run", "overlap_class"],
+            as_index=False,
         )["value"]
         .mean()
         .rename(columns={"value": "abserr"})
@@ -1243,7 +1386,9 @@ def step3_position_table(cases: pd.DataFrame, column: str) -> pd.DataFrame:
         if block.empty:
             continue
         wide = block.pivot_table(
-            index=["network_id", "station_id", "year"], columns="overlap_class", values="abserr"
+            index=["network_id", "station_id", "year"],
+            columns="overlap_class",
+            values="abserr",
         )
         if not {"full", "none"}.issubset(set(map(str, wide.columns))):
             continue
@@ -1272,7 +1417,9 @@ def step3_length_table(cases: pd.DataFrame, column: str) -> pd.DataFrame:
         if block.empty:
             continue
         wide = block.pivot_table(
-            index=["network_id", "station_id", "year"], columns="longest_run", values="abserr"
+            index=["network_id", "station_id", "year"],
+            columns="longest_run",
+            values="abserr",
         )
         available = [c for c in STEP3_LENGTHS if c in wide.columns]
         if len(available) < 2:
@@ -1297,7 +1444,9 @@ def step3_length_table(cases: pd.DataFrame, column: str) -> pd.DataFrame:
     return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
 
 
-def step3_network_ci(deltas: pd.DataFrame, value: str, by: list[str], seed: int, draws: int) -> pd.DataFrame:
+def step3_network_ci(
+    deltas: pd.DataFrame, value: str, by: list[str], seed: int, draws: int
+) -> pd.DataFrame:
     rows = []
     for keys, block in deltas.groupby(by, sort=True):
         keys = keys if isinstance(keys, tuple) else (keys,)
@@ -1313,7 +1462,9 @@ def step3_network_ci(deltas: pd.DataFrame, value: str, by: list[str], seed: int,
             acc: dict[int, np.ndarray] = {}
             for j in picked:
                 j = int(j)
-                acc[j] = parts[j] if j not in acc else np.concatenate([acc[j], parts[j]])
+                acc[j] = (
+                    parts[j] if j not in acc else np.concatenate([acc[j], parts[j]])
+                )
             out[i] = float(np.mean([vals[p].mean() for p in acc.values()]))
         low, high = float(np.quantile(out, 0.025)), float(np.quantile(out, 0.975))
         row = {name: key for name, key in zip(by, keys)}
@@ -1328,7 +1479,11 @@ def step3_network_ci(deltas: pd.DataFrame, value: str, by: list[str], seed: int,
             }
         )
         rows.append(row)
-    return pd.DataFrame(rows).sort_values(by).reset_index(drop=True) if rows else pd.DataFrame()
+    return (
+        pd.DataFrame(rows).sort_values(by).reset_index(drop=True)
+        if rows
+        else pd.DataFrame()
+    )
 
 
 # ==========================================================================
@@ -1399,8 +1554,16 @@ def main() -> int:  # noqa: C901
     manifest = pd.read_csv(INPUTS["current_data_manifest"], dtype={"network_id": str})
     note_columns(
         "current_data_manifest",
-        "per-network data presence, artifact path and sha256, PART A",
-        ["network_id", "provider", "source_root", "split_role", "input_path", "bytes", "sha256", "status"],
+        "per-network data presence and artifact path, PART A",
+        [
+            "network_id",
+            "provider",
+            "source_root",
+            "split_role",
+            "input_path",
+            "bytes",
+            "status",
+        ],
     )
     acq = pd.read_csv(INPUTS["current_data_acquisition"], dtype={"network_id": str})
     note_columns(
@@ -1434,7 +1597,8 @@ def main() -> int:  # noqa: C901
         ],
     )
     prov_stations = pd.read_csv(
-        INPUTS["measurement_provenance_stations"], dtype={"station_id": str, "network_id": str}
+        INPUTS["measurement_provenance_stations"],
+        dtype={"station_id": str, "network_id": str},
     )
     note_columns(
         "measurement_provenance_stations",
@@ -1457,7 +1621,9 @@ def main() -> int:  # noqa: C901
         "wave-2 confirmation panel station membership, PART A",
         ["network_id", "provider", "station_id"],
     )
-    w2_manifest = pd.read_csv(INPUTS["wave2_inputs_manifest"], dtype={"network_id": str})
+    w2_manifest = pd.read_csv(
+        INPUTS["wave2_inputs_manifest"], dtype={"network_id": str}
+    )
     note_columns(
         "wave2_inputs_manifest",
         "wave-2 network -> artifact path, context and panel role, PART A",
@@ -1470,7 +1636,6 @@ def main() -> int:  # noqa: C901
             "station_ids_ge4",
             "input_path",
             "bytes",
-            "sha256",
         ],
     )
 
@@ -1479,7 +1644,15 @@ def main() -> int:  # noqa: C901
         "wave2_cases",
         "wave-2 case panel: modal donor_regime + regulation_status per station (PART A) and "
         "the step 5/7 contrast inputs (PART B)",
-        ["network_id", "station_id", "provider", "donor_regime", "regulation_status", "longest_run", "abserr_policy"],
+        [
+            "network_id",
+            "station_id",
+            "provider",
+            "donor_regime",
+            "regulation_status",
+            "longest_run",
+            "abserr_policy",
+        ],
     )
 
     v17_table = build_v17_station_table(
@@ -1490,7 +1663,9 @@ def main() -> int:  # noqa: C901
 
     coverage["first_year"] = pd.to_numeric(coverage["first_year"], errors="coerce")
     coverage["last_year"] = pd.to_numeric(coverage["last_year"], errors="coerce")
-    coverage["n_complete_years"] = pd.to_numeric(coverage["n_complete_years"], errors="coerce")
+    coverage["n_complete_years"] = pd.to_numeric(
+        coverage["n_complete_years"], errors="coerce"
+    )
     coverage["n_complete_years_recount"] = pd.to_numeric(
         coverage["n_complete_years_recount"], errors="coerce"
     )
@@ -1507,7 +1682,9 @@ def main() -> int:  # noqa: C901
     coverage["n_complete_years_recount_matches"] = np.where(
         combined_recount.isna() | coverage["n_complete_years"].isna(),
         "not_comparable",
-        np.where(combined_recount.eq(coverage["n_complete_years"]), "match", "MISMATCH"),
+        np.where(
+            combined_recount.eq(coverage["n_complete_years"]), "match", "MISMATCH"
+        ),
     )
     coverage["complete_year_convention"] = np.where(
         coverage["panel"].eq("v17"),
@@ -1523,9 +1700,8 @@ def main() -> int:  # noqa: C901
         "(stations of the 49 scored wave-2 confirmation networks)",
     )
     coverage["in_final_analysis_panel"] = (
-        (coverage["panel"].eq("v17") & coverage["eligible_station"].eq(True))
-        | coverage["panel"].eq("wave2_confirmation")
-    )
+        coverage["panel"].eq("v17") & coverage["eligible_station"].eq(True)
+    ) | coverage["panel"].eq("wave2_confirmation")
 
     column_order = [
         "panel",
@@ -1583,7 +1759,6 @@ def main() -> int:  # noqa: C901
         "acquisition_route",
         "manifest_status",
         "manifest_input_path",
-        "manifest_sha256",
     ]
     coverage_out = coverage.reindex(columns=column_order)
     coverage_out = coverage_out.sort_values(
@@ -1595,7 +1770,9 @@ def main() -> int:  # noqa: C901
     summary_table.to_csv(OUT / "provider_coverage_summary.csv", index=False)
 
     # cross-check of the panel sentence printed in the manuscript
-    v17_ok = coverage.loc[coverage["panel"].eq("v17") & coverage["eligible_station"].eq(True)]
+    v17_ok = coverage.loc[
+        coverage["panel"].eq("v17") & coverage["eligible_station"].eq(True)
+    ]
     panel_crosscheck = {
         "manuscript_claim": "146 networks, 457 stations and 5114 fully observed station-years "
         "(paper/wrr/wrr_manuscript.tex:331)",
@@ -1609,20 +1786,30 @@ def main() -> int:  # noqa: C901
         "matches": bool(
             v17_ok["network_id"].nunique() == 146
             and v17_ok["station_id"].nunique() == 457
-            and int(pd.to_numeric(v17_ok["n_complete_years"], errors="coerce").sum()) == 5114
+            and int(pd.to_numeric(v17_ok["n_complete_years"], errors="coerce").sum())
+            == 5114
         ),
         "full_roster_station_years": int(
-            pd.to_numeric(coverage.loc[coverage["panel"].eq("v17"), "n_complete_years"], errors="coerce").sum()
+            pd.to_numeric(
+                coverage.loc[coverage["panel"].eq("v17"), "n_complete_years"],
+                errors="coerce",
+            ).sum()
         ),
         "note": "the 90 ineligible roster rows carry 193 further complete station-years that are "
         "outside the 5114 used by the manuscript",
         "wave2_panel": {
             "n_networks": int(
-                coverage.loc[coverage["panel"].eq("wave2_confirmation"), "network_id"].nunique()
+                coverage.loc[
+                    coverage["panel"].eq("wave2_confirmation"), "network_id"
+                ].nunique()
             ),
-            "n_station_network_rows": int(coverage["panel"].eq("wave2_confirmation").sum()),
+            "n_station_network_rows": int(
+                coverage["panel"].eq("wave2_confirmation").sum()
+            ),
             "n_distinct_station_ids": int(
-                coverage.loc[coverage["panel"].eq("wave2_confirmation"), "station_id"].nunique()
+                coverage.loc[
+                    coverage["panel"].eq("wave2_confirmation"), "station_id"
+                ].nunique()
             ),
             "n_scored_cases": int(len(wave2_cases)),
         },
@@ -1652,8 +1839,10 @@ def main() -> int:  # noqa: C901
             "evidence_file",
         ]
     ].copy()
-    contract_out["data_rights_artifact"] = contract_out["provider"].map(RIGHTS_ARTIFACT).fillna(
-        "MISSING: no row in metadata/data_rights.csv"
+    contract_out["data_rights_artifact"] = (
+        contract_out["provider"]
+        .map(RIGHTS_ARTIFACT)
+        .fillna("MISSING: no row in metadata/data_rights.csv")
     )
     contract_out.to_csv(OUT / "measurement_contract_table.csv", index=False)
 
@@ -1681,7 +1870,9 @@ def main() -> int:  # noqa: C901
 
     # gap list
     gap = coverage.loc[
-        coverage["statistic_class"].isin([CLASS_UNDOCUMENTED, CLASS_NON_DAILY_REFERENCE])
+        coverage["statistic_class"].isin(
+            [CLASS_UNDOCUMENTED, CLASS_NON_DAILY_REFERENCE]
+        )
     ].copy()
     cross_check_disagreements = coverage.loc[
         coverage["statistic_class_cross_check_agrees"].eq("DISAGREES")
@@ -1691,7 +1882,9 @@ def main() -> int:  # noqa: C901
         coverage["first_year_cross_check"].eq("MISMATCH")
         | coverage["last_year_cross_check"].eq("MISMATCH")
     ]
-    recount_mismatch = coverage.loc[coverage["n_complete_years_recount_matches"].eq("MISMATCH")]
+    recount_mismatch = coverage.loc[
+        coverage["n_complete_years_recount_matches"].eq("MISMATCH")
+    ]
 
     gap_lines = [
         "# P0-06 coverage gaps",
@@ -1714,7 +1907,10 @@ def main() -> int:  # noqa: C901
     if len(undoc):
         group = (
             undoc.groupby(["provider", "network_id", "statistic_class_rule_matched"])
-            .agg(n_stations=("station_id", "nunique"), stations=("station_id", lambda s: ";".join(sorted(s))))
+            .agg(
+                n_stations=("station_id", "nunique"),
+                stations=("station_id", lambda s: ";".join(sorted(s))),
+            )
             .reset_index()
         )
         gap_lines.append("| provider | network | n_stations | stations |")
@@ -1734,7 +1930,7 @@ def main() -> int:  # noqa: C901
         ]
         for provider in providers_undoc:
             text = contract.set_index("provider").loc[provider, "statistic_documented"]
-            gap_lines.append(f"- **{provider}**: \"{text}\"")
+            gap_lines.append(f'- **{provider}**: "{text}"')
         gap_lines.append("")
     else:
         gap_lines.append("(none)")
@@ -1748,7 +1944,10 @@ def main() -> int:  # noqa: C901
     if len(nondaily):
         group = (
             nondaily.groupby(["provider", "network_id"])
-            .agg(n_stations=("station_id", "nunique"), stations=("station_id", lambda s: ";".join(sorted(s))))
+            .agg(
+                n_stations=("station_id", "nunique"),
+                stations=("station_id", lambda s: ";".join(sorted(s))),
+            )
             .reset_index()
         )
         gap_lines.append("| provider | network | n_stations | stations |")
@@ -1759,7 +1958,7 @@ def main() -> int:  # noqa: C901
             )
         for provider in sorted(nondaily["provider"].unique()):
             text = contract.set_index("provider").loc[provider, "statistic_documented"]
-            gap_lines += ["", f"- **{provider}**: \"{text}\""]
+            gap_lines += ["", f'- **{provider}**: "{text}"']
         gap_lines += [
             "",
             "These stations are flagged "
@@ -1785,7 +1984,7 @@ def main() -> int:  # noqa: C901
     for provider, block in agg.groupby("provider"):
         text = contract.set_index("provider").loc[provider, "statistic_as_parsed"]
         gap_lines.append(
-            f"| {provider} | {block[['network_id','station_id']].drop_duplicates().shape[0]} | "
+            f"| {provider} | {block[['network_id', 'station_id']].drop_duplicates().shape[0]} | "
             f"{block['network_id'].nunique()} | {text} |"
         )
     gap_lines.append("")
@@ -1807,7 +2006,9 @@ def main() -> int:  # noqa: C901
             .agg(n_stations=("station_id", "nunique"))
             .reset_index()
         )
-        gap_lines.append("| provider | station-file class | dictionary class | n_stations |")
+        gap_lines.append(
+            "| provider | station-file class | dictionary class | n_stations |"
+        )
         gap_lines.append("|---|---|---|---|")
         for row in group.itertuples():
             gap_lines.append(
@@ -1829,7 +2030,9 @@ def main() -> int:  # noqa: C901
         "## 2b. Stations with no development/reserved assignment",
         "",
     ]
-    unassigned = coverage.loc[coverage["split_role"].eq("unassigned_not_in_development_or_reserved")]
+    unassigned = coverage.loc[
+        coverage["split_role"].eq("unassigned_not_in_development_or_reserved")
+    ]
     gap_lines.append(
         f"`results/v17_fitness/step1_panel/station_roster.csv:split_role` is empty for "
         f"**{len(unassigned)} stations**; these are exactly the roster rows with "
@@ -1843,11 +2046,17 @@ def main() -> int:  # noqa: C901
     )
     gap_lines.append("")
     if len(unassigned):
-        group = unassigned.groupby(["provider", "network_id"]).size().reset_index(name="n_stations")
+        group = (
+            unassigned.groupby(["provider", "network_id"])
+            .size()
+            .reset_index(name="n_stations")
+        )
         gap_lines.append("| provider | network | n stations |")
         gap_lines.append("|---|---|---|")
         for row in group.itertuples():
-            gap_lines.append(f"| {row.provider} | {row.network_id} | {row.n_stations} |")
+            gap_lines.append(
+                f"| {row.provider} | {row.network_id} | {row.n_stations} |"
+            )
         gap_lines.append("")
 
     gap_lines += [
@@ -1855,7 +2064,9 @@ def main() -> int:  # noqa: C901
         "",
     ]
     w2_rows = coverage.loc[coverage["panel"].eq("wave2_confirmation")]
-    below = w2_rows.loc[pd.to_numeric(w2_rows["n_complete_years"], errors="coerce").lt(4)]
+    below = w2_rows.loc[
+        pd.to_numeric(w2_rows["n_complete_years"], errors="coerce").lt(4)
+    ]
     gap_lines.append(
         f"`results/wrr_submission_ready/p0_07_wave2_ingest/wave2_station_roster.csv` lists "
         f"**{len(w2_rows)} station-network rows**; **{len(below)}** of them have "
@@ -1865,11 +2076,17 @@ def main() -> int:  # noqa: C901
     )
     gap_lines.append("")
     if len(below):
-        group = below.groupby(["provider", "network_id"]).size().reset_index(name="n_stations")
+        group = (
+            below.groupby(["provider", "network_id"])
+            .size()
+            .reset_index(name="n_stations")
+        )
         gap_lines.append("| provider | network | n stations below the gate |")
         gap_lines.append("|---|---|---|")
         for row in group.itertuples():
-            gap_lines.append(f"| {row.provider} | {row.network_id} | {row.n_stations} |")
+            gap_lines.append(
+                f"| {row.provider} | {row.network_id} | {row.n_stations} |"
+            )
         gap_lines.append("")
 
     gap_lines += [
@@ -1896,8 +2113,14 @@ def main() -> int:  # noqa: C901
         "",
     ]
     if len(recount_mismatch):
-        group = recount_mismatch.groupby(["panel", "provider"]).size().reset_index(name="n_stations")
-        gap_lines.append("| panel | provider | n station rows with a recount mismatch |")
+        group = (
+            recount_mismatch.groupby(["panel", "provider"])
+            .size()
+            .reset_index(name="n_stations")
+        )
+        gap_lines.append(
+            "| panel | provider | n station rows with a recount mismatch |"
+        )
         gap_lines.append("|---|---|---|")
         for row in group.itertuples():
             gap_lines.append(f"| {row.panel} | {row.provider} | {row.n_stations} |")
@@ -1910,8 +2133,14 @@ def main() -> int:  # noqa: C901
             "",
         ]
         for column, label in (
-            ("n_complete_years_recount_ge_expm1", "len(values) >= year_length - 1 (rule as written)"),
-            ("n_complete_years_recount_all_days", "every calendar day present (strict)"),
+            (
+                "n_complete_years_recount_ge_expm1",
+                "len(values) >= year_length - 1 (rule as written)",
+            ),
+            (
+                "n_complete_years_recount_all_days",
+                "every calendar day present (strict)",
+            ),
         ):
             w2 = coverage.loc[coverage["panel"].eq("wave2_confirmation")]
             agree = pd.to_numeric(w2[column], errors="coerce").eq(
@@ -1928,7 +2157,9 @@ def main() -> int:  # noqa: C901
             "",
         ]
     for note in w2_notes:
-        gap_lines.append(f"- wave-2 artifact note: `{note['network_id']}` {note['note']}")
+        gap_lines.append(
+            f"- wave-2 artifact note: `{note['network_id']}` {note['note']}"
+        )
     gap_lines.append("")
 
     gap_lines += [
@@ -1944,9 +2175,9 @@ def main() -> int:  # noqa: C901
         "repository-level licence entry exists for the two non-USGS wave-2 providers.",
         "- There is no water-temperature record-span table anywhere in the repository. The only "
         "`1981 to 2026` span in the submission is the air-temperature forcing: "
-        "`paper/wrr/wrr_supporting_information.tex` line 94 reads \"Daily 2\\,m air temperature is "
+        '`paper/wrr/wrr_supporting_information.tex` line 94 reads "Daily 2\\,m air temperature is '
         "NASA POWER (MERRA-2), 1 January 1981 to 31 August 2026 ... 16{,}679 days for each of the "
-        "457 stations\". The water-temperature span per station is available only as "
+        '457 stations". The water-temperature span per station is available only as '
         "`first_year`/`last_year` in this table, with the source column named per row.",
         "",
     ]
@@ -1973,7 +2204,12 @@ def main() -> int:  # noqa: C901
         draws=2000,
     )
     w2_shared = shared_contrast_interval(
-        wave2_cases, wave2_certificates, retention=0.7, tolerance=0.5, seed=0, draws=2000
+        wave2_cases,
+        wave2_certificates,
+        retention=0.7,
+        tolerance=0.5,
+        seed=0,
+        draws=2000,
     )
     w2_alt = independent_contrast(
         wave2_cases,
@@ -1985,7 +2221,12 @@ def main() -> int:  # noqa: C901
         boot_seed=500000,
     )
     w2_per_network = per_network_op_contrast(
-        wave2_cases, wave2_certificates, retention=0.7, tolerance=0.5, seed=61, jitter_offset=0
+        wave2_cases,
+        wave2_certificates,
+        retention=0.7,
+        tolerance=0.5,
+        seed=61,
+        jitter_offset=0,
     )
     w2_net_equal = independent_network_equal(
         dict(zip(w2_per_network["network_id"], w2_per_network["contrast_points"])),
@@ -2003,10 +2244,13 @@ def main() -> int:  # noqa: C901
             "independent numpy re-implementation of operating_point_contrast "
             "(scripts/315 independent_contrast)",
             "shared-definition cross-check: point "
-            f"{float(w2_shared['point'])*100:.12f}; independent resampler with an "
-            f"unrelated bootstrap seed gives [{float(w2_alt['low'])*100:.4f}, "
-            f"{float(w2_alt['high'])*100:.4f}] (Monte-Carlo sensitivity only).",
-            stored_ci=(float(wave2_verdict["ci_low_points"]), float(wave2_verdict["ci_high_points"])),
+            f"{float(w2_shared['point']) * 100:.12f}; independent resampler with an "
+            f"unrelated bootstrap seed gives [{float(w2_alt['low']) * 100:.4f}, "
+            f"{float(w2_alt['high']) * 100:.4f}] (Monte-Carlo sensitivity only).",
+            stored_ci=(
+                float(wave2_verdict["ci_low_points"]),
+                float(wave2_verdict["ci_high_points"]),
+            ),
             recomputed_ci=(float(w2_ind["low"]) * 100.0, float(w2_ind["high"]) * 100.0),
             tolerance_ci=1e-9,
         )
@@ -2043,10 +2287,20 @@ def main() -> int:  # noqa: C901
     arm_row = arm.loc[arm["label"].eq("reserved_retrospective|pooled")].iloc[0]
     v17_verdict = json.loads(INPUTS["v17_reserved_verdict"].read_text())
     res_seed131 = independent_contrast(
-        reserved_cases, reserved_certificates, retention=0.7, tolerance=0.5, seed=131, draws=2000
+        reserved_cases,
+        reserved_certificates,
+        retention=0.7,
+        tolerance=0.5,
+        seed=131,
+        draws=2000,
     )
     res_seed0 = independent_contrast(
-        reserved_cases, reserved_certificates, retention=0.7, tolerance=0.5, seed=0, draws=2000
+        reserved_cases,
+        reserved_certificates,
+        retention=0.7,
+        tolerance=0.5,
+        seed=0,
+        draws=2000,
     )
     verdicts.append(
         verdict_row(
@@ -2059,12 +2313,18 @@ def main() -> int:  # noqa: C901
             1e-9,
             "independent numpy re-implementation with the step-5 tie-break seed (31+100=131)",
             "same inputs, seed 0 instead of 131, reproduces the v17 verdict value "
-            f"{float(res_seed0['point'])*100:.10f} pp. The two stored numbers differ by "
+            f"{float(res_seed0['point']) * 100:.10f} pp. The two stored numbers differ by "
             f"{abs(float(arm_row['contrast_points']) - float(v17_verdict['primary']['contrast_points'])):.4f} pp "
             "purely through the tie-break jitter on `longest_run`, because the length arm's "
             "70% slice is decided inside a very large tied block.",
-            stored_ci=(float(arm_row["ci_low_points"]), float(arm_row["ci_high_points"])),
-            recomputed_ci=(float(res_seed131["low"]) * 100.0, float(res_seed131["high"]) * 100.0),
+            stored_ci=(
+                float(arm_row["ci_low_points"]),
+                float(arm_row["ci_high_points"]),
+            ),
+            recomputed_ci=(
+                float(res_seed131["low"]) * 100.0,
+                float(res_seed131["high"]) * 100.0,
+            ),
             tolerance_ci=1e-9,
         )
     )
@@ -2082,7 +2342,10 @@ def main() -> int:  # noqa: C901
                 float(v17_verdict["primary"]["ci_points"][0]),
                 float(v17_verdict["primary"]["ci_points"][1]),
             ),
-            recomputed_ci=(float(res_seed0["low"]) * 100.0, float(res_seed0["high"]) * 100.0),
+            recomputed_ci=(
+                float(res_seed0["low"]) * 100.0,
+                float(res_seed0["high"]) * 100.0,
+            ),
             tolerance_ci=1e-9,
         )
     )
@@ -2090,7 +2353,12 @@ def main() -> int:  # noqa: C901
     seed_sweep = []
     for seed in (0, 5, 17, 31, 61, 131):
         stat = independent_contrast(
-            reserved_cases, reserved_certificates, retention=0.7, tolerance=0.5, seed=seed, draws=200
+            reserved_cases,
+            reserved_certificates,
+            retention=0.7,
+            tolerance=0.5,
+            seed=seed,
+            draws=200,
         )
         seed_sweep.append({"seed": seed, "point_pp": float(stat["point"]) * 100.0})
     seed_sweep_frame = pd.DataFrame(seed_sweep)
@@ -2098,7 +2366,6 @@ def main() -> int:  # noqa: C901
 
     # B3 -- step 2 same-info ablation
     step2_stored = json.loads(INPUTS["step2_contrasts"].read_text())
-    step2_protocol = json.loads(INPUTS["step2_fingerprint"].read_text())
     step2_ops_stored = pd.read_csv(INPUTS["step2_operating_points"])
     dev_prepared = prep_cases(development_cases)
     step2_scores = independent_rule_scores(dev_prepared, seed=17)
@@ -2112,18 +2379,26 @@ def main() -> int:  # noqa: C901
 
     # validate the reproduced scores against the stored operating points
     op_checks = []
-    dev_errors = pd.to_numeric(dev_prepared["abserr_policy"], errors="coerce").to_numpy(dtype=float)
+    dev_errors = pd.to_numeric(dev_prepared["abserr_policy"], errors="coerce").to_numpy(
+        dtype=float
+    )
     for name in ("generic", "generic_plus_support", "peak_overlap_rule"):
         stored_row = step2_ops_stored.loc[step2_ops_stored["screen"].eq(name)]
         if stored_row.empty:
             continue
-        mine = rate_at_retention(dev_errors, step2_scores[name].to_numpy(dtype=float), 0.7, 0.5)
+        mine = rate_at_retention(
+            dev_errors, step2_scores[name].to_numpy(dtype=float), 0.7, 0.5
+        )
         op_checks.append(
             {
                 "screen": name,
-                "stored_rate_above_0.5_at_70": float(stored_row["rate_above_0.5_at_70"].iloc[0]),
+                "stored_rate_above_0.5_at_70": float(
+                    stored_row["rate_above_0.5_at_70"].iloc[0]
+                ),
                 "recomputed_rate_above_0.5_at_70": mine,
-                "abs_diff": abs(mine - float(stored_row["rate_above_0.5_at_70"].iloc[0])),
+                "abs_diff": abs(
+                    mine - float(stored_row["rate_above_0.5_at_70"].iloc[0])
+                ),
             }
         )
     (OUT / "step2_score_reproduction_check.csv").write_text(
@@ -2133,7 +2408,11 @@ def main() -> int:  # noqa: C901
     networks_dev = development_cases["network_id"].astype(str).to_numpy()
     for left, right, key in (
         ("generic_plus_support", "generic", "generic_plus_support__minus__generic"),
-        ("generic_plus_support", "peak_overlap_rule", "generic_plus_support__minus__peak_overlap_rule"),
+        (
+            "generic_plus_support",
+            "peak_overlap_rule",
+            "generic_plus_support__minus__peak_overlap_rule",
+        ),
     ):
         stored = step2_stored[key]
         ind = independent_paired_contrast(
@@ -2146,12 +2425,20 @@ def main() -> int:  # noqa: C901
             seed=17,
             draws=1000,
         )
-        from stream_recoverability.experiments.v17_fitness.stats import cluster_bootstrap
+        from stream_recoverability.experiments.v17_fitness.stats import (
+            cluster_bootstrap,
+        )
 
         boot = pd.DataFrame({"network_id": networks_dev})
         boot["error"] = dev_errors
-        boot[left] = pd.to_numeric(step2_scores[left], errors="coerce").fillna(np.inf).to_numpy()
-        boot[right] = pd.to_numeric(step2_scores[right], errors="coerce").fillna(np.inf).to_numpy()
+        boot[left] = (
+            pd.to_numeric(step2_scores[left], errors="coerce").fillna(np.inf).to_numpy()
+        )
+        boot[right] = (
+            pd.to_numeric(step2_scores[right], errors="coerce")
+            .fillna(np.inf)
+            .to_numpy()
+        )
 
         def statistic(block: pd.DataFrame, _l=left, _r=right) -> float:
             k = max(1, int(round(0.7 * len(block))))
@@ -2172,7 +2459,7 @@ def main() -> int:  # noqa: C901
                 1e-9,
                 "independent pipeline: own feature frame, own network K-fold, own "
                 "HistGradientBoostingRegressor, own rule jitter, own resampler",
-                f"shared cluster_bootstrap cross-check point {float(shared['point'])*100:.12f}; "
+                f"shared cluster_bootstrap cross-check point {float(shared['point']) * 100:.12f}; "
                 f"n_clusters={ind['n_clusters']} vs stored {stored['n_clusters']}.",
                 stored_ci=(float(stored["ci_low_pp"]), float(stored["ci_high_pp"])),
                 recomputed_ci=(float(ind["low"]) * 100.0, float(ind["high"]) * 100.0),
@@ -2208,24 +2495,37 @@ def main() -> int:  # noqa: C901
         column = f"abserr_{recon}"
         if column not in crossed.columns:
             unrecomputable.append(
-                {"quantity": f"step3_{recon}", "reason": f"{column} absent from crossed panel"}
+                {
+                    "quantity": f"step3_{recon}",
+                    "reason": f"{column} absent from crossed panel",
+                }
             )
             continue
         pos = step3_position_table(crossed, column)
         leng = step3_length_table(crossed, column)
         if not pos.empty:
-            ci = step3_network_ci(pos, "delta_full_minus_none", ["length"], seed=23, draws=2000)
+            ci = step3_network_ci(
+                pos, "delta_full_minus_none", ["length"], seed=23, draws=2000
+            )
             ci["reconstructor"] = recon
             ci["contrast"] = "full_minus_none_at_fixed_length"
             pos_rows.append(ci)
         if not leng.empty:
-            ci = step3_network_ci(leng, "delta_long_minus_short", ["overlap_class"], seed=30, draws=2000)
+            ci = step3_network_ci(
+                leng, "delta_long_minus_short", ["overlap_class"], seed=30, draws=2000
+            )
             ci["reconstructor"] = recon
             ci["contrast"] = "long_minus_short_at_fixed_overlap"
             len_rows.append(ci)
-    recomputed_position = pd.concat(pos_rows, ignore_index=True) if pos_rows else pd.DataFrame()
-    recomputed_length = pd.concat(len_rows, ignore_index=True) if len_rows else pd.DataFrame()
-    recomputed_position.to_csv(OUT / "step3_position_contrasts_recomputed.csv", index=False)
+    recomputed_position = (
+        pd.concat(pos_rows, ignore_index=True) if pos_rows else pd.DataFrame()
+    )
+    recomputed_length = (
+        pd.concat(len_rows, ignore_index=True) if len_rows else pd.DataFrame()
+    )
+    recomputed_position.to_csv(
+        OUT / "step3_position_contrasts_recomputed.csv", index=False
+    )
     recomputed_length.to_csv(OUT / "step3_length_contrasts_recomputed.csv", index=False)
 
     for label, stored_frame, mine, keys, quantity_prefix in (
@@ -2245,16 +2545,25 @@ def main() -> int:  # noqa: C901
         ),
     ):
         if mine.empty:
-            unrecomputable.append({"quantity": quantity_prefix, "reason": "recompute produced no rows"})
+            unrecomputable.append(
+                {"quantity": quantity_prefix, "reason": "recompute produced no rows"}
+            )
             continue
         merged = stored_frame.merge(
-            mine, on=keys, suffixes=("_stored", "_recomputed"), how="outer", indicator=True
+            mine,
+            on=keys,
+            suffixes=("_stored", "_recomputed"),
+            how="outer",
+            indicator=True,
         ).rename(columns={"_merge": "merge_status"})
         for row in merged.itertuples():
             tag = "|".join(str(getattr(row, k)) for k in keys)
             if row.merge_status != "both":
                 unrecomputable.append(
-                    {"quantity": f"{quantity_prefix}:{tag}", "reason": f"row only in {row.merge_status}"}
+                    {
+                        "quantity": f"{quantity_prefix}:{tag}",
+                        "reason": f"row only in {row.merge_status}",
+                    }
                 )
                 continue
             verdicts.append(
@@ -2263,7 +2572,11 @@ def main() -> int:  # noqa: C901
                     f"crossed development panel, {label}",
                     float(row.point_C_stored),
                     "…/step3_fixed_reconstructor_mechanism/"
-                    + ("position_contrasts_network_ci.csv" if "position" in quantity_prefix else "length_contrasts_network_ci.csv"),
+                    + (
+                        "position_contrasts_network_ci.csv"
+                        if "position" in quantity_prefix
+                        else "length_contrasts_network_ci.csv"
+                    ),
                     float(row.point_C_recomputed),
                     1e-9,
                     "independent station-year aggregation + own cluster resampler "
@@ -2272,7 +2585,10 @@ def main() -> int:  # noqa: C901
                     f"{row.n_station_years_recomputed}; n_networks stored "
                     f"{row.n_networks_stored} / recomputed {row.n_networks_recomputed}.",
                     stored_ci=(float(row.ci_low_C_stored), float(row.ci_high_C_stored)),
-                    recomputed_ci=(float(row.ci_low_C_recomputed), float(row.ci_high_C_recomputed)),
+                    recomputed_ci=(
+                        float(row.ci_low_C_recomputed),
+                        float(row.ci_high_C_recomputed),
+                    ),
                     tolerance_ci=1e-9,
                 )
             )
@@ -2288,44 +2604,61 @@ def main() -> int:  # noqa: C901
         "part_a": {
             "coverage_table_rows": int(len(coverage_out)),
             "coverage_table_stations": int(
-                coverage_out[["panel", "network_id", "station_id"]].drop_duplicates().shape[0]
+                coverage_out[["panel", "network_id", "station_id"]]
+                .drop_duplicates()
+                .shape[0]
             ),
             "panels": {
                 k: int(v)
-                for k, v in coverage_out.groupby("panel")["station_id"].nunique().items()
+                for k, v in coverage_out.groupby("panel")["station_id"]
+                .nunique()
+                .items()
             },
             "providers": int(coverage_out["provider"].nunique()),
             "networks": int(coverage_out["network_id"].nunique()),
             "n_stations_undocumented_statistic": int(
-                coverage_out.loc[coverage_out["statistic_class"].eq(CLASS_UNDOCUMENTED), "station_id"].nunique()
+                coverage_out.loc[
+                    coverage_out["statistic_class"].eq(CLASS_UNDOCUMENTED), "station_id"
+                ].nunique()
             ),
             "n_stations_non_daily_reference": int(
                 coverage_out.loc[
-                    coverage_out["statistic_class"].eq(CLASS_NON_DAILY_REFERENCE), "station_id"
+                    coverage_out["statistic_class"].eq(CLASS_NON_DAILY_REFERENCE),
+                    "station_id",
                 ].nunique()
             ),
             "n_stations_project_aggregated": int(
                 coverage_out.loc[
-                    coverage_out["statistic_class"].eq(CLASS_PROJECT_SUBDAILY), "station_id"
+                    coverage_out["statistic_class"].eq(CLASS_PROJECT_SUBDAILY),
+                    "station_id",
                 ].nunique()
             ),
             "n_stations_daily_mean": int(
-                coverage_out.loc[coverage_out["statistic_class"].eq(CLASS_DAILY_MEAN), "station_id"].nunique()
+                coverage_out.loc[
+                    coverage_out["statistic_class"].eq(CLASS_DAILY_MEAN), "station_id"
+                ].nunique()
             ),
             "n_stations_without_split_role": int(
                 coverage_out.loc[
-                    coverage_out["split_role"].eq("unassigned_not_in_development_or_reserved"), "station_id"
+                    coverage_out["split_role"].eq(
+                        "unassigned_not_in_development_or_reserved"
+                    ),
+                    "station_id",
                 ].nunique()
             ),
             "n_wave2_station_rows_below_4_complete_years": int(
                 coverage_out.loc[
                     coverage_out["panel"].eq("wave2_confirmation")
-                    & pd.to_numeric(coverage_out["n_complete_years"], errors="coerce").lt(4)
+                    & pd.to_numeric(
+                        coverage_out["n_complete_years"], errors="coerce"
+                    ).lt(4)
                 ].shape[0]
             ),
             "n_cross_check_disagreements": int(len(cross_check_disagreements)),
             "n_stations_missing_data_rights_row": int(
-                coverage_out.loc[coverage_out["data_rights_source"].eq("MISSING"), "station_id"].nunique()
+                coverage_out.loc[
+                    coverage_out["data_rights_source"].eq("MISSING"), "station_id"
+                ].nunique()
             ),
             "manuscript_panel_crosscheck": panel_crosscheck,
             "measurement_class_shares_by_panel": shares,
@@ -2333,7 +2666,13 @@ def main() -> int:  # noqa: C901
             "missing_columns": [
                 {
                     "file": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_inputs_manifest.csv",
-                    "missing": ["first_year", "last_year", "n_complete_years", "regulation_status", "donor_regime"],
+                    "missing": [
+                        "first_year",
+                        "last_year",
+                        "n_complete_years",
+                        "regulation_status",
+                        "donor_regime",
+                    ],
                     "handling": "first/last year recomputed from daily_wide_temperature.csv; "
                     "n_complete_years taken from the sibling station_eligibility.csv; "
                     "regulation_status and donor_regime read from wave2_cases.parquet",
@@ -2379,35 +2718,32 @@ def main() -> int:  # noqa: C901
         "seed_sensitivity_reserved_panel": seed_sweep,
         "step2_score_reproduction_check": op_checks,
     }
-    (OUT / "recompute_report.json").write_text(json.dumps(report, indent=2, default=str) + "\n")
+    (OUT / "recompute_report.json").write_text(
+        json.dumps(report, indent=2, default=str) + "\n"
+    )
 
-    # protocol fingerprint
-    try:
-        git_head = subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True
-        ).stdout.strip()
-    except Exception as exc:  # noqa: BLE001
-        git_head = f"unavailable: {exc}"
-    input_hashes = {}
+    # protocol record
+    input_files = {}
     for key, path in INPUTS.items():
-        input_hashes[key] = {
+        input_files[key] = {
             "path": str(path.relative_to(ROOT)),
-            "sha256": sha256_file(path),
             "bytes": path.stat().st_size,
         }
-    wave2_hashes = {}
+    wave2_files = {}
     for net, info in wave2_network_paths(w2_manifest).items():
-        entry = {}
-        for label, path in (("daily_wide", info["daily_wide"]), ("eligibility", info["eligibility"])):
-            entry[label] = {
-                "path": str(path.relative_to(ROOT)) if path.exists() else f"MISSING {path}",
-                "sha256": sha256_file(path) if path.exists() else None,
+        wave2_files[net] = {
+            label: {
+                "path": str(path.relative_to(ROOT))
+                if path.exists()
+                else f"MISSING {path}"
             }
-        wave2_hashes[net] = entry
-    fingerprint = {
+            for label, path in (
+                ("daily_wide", info["daily_wide"]),
+                ("eligibility", info["eligibility"]),
+            )
+        }
+    record = {
         "script": "scripts/315_wrr_p0_06_coverage_and_recompute.py",
-        "script_sha256": sha256_file(Path(__file__).resolve()),
-        "git_head": git_head,
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "python": sys.version,
         "platform": platform.platform(),
@@ -2424,8 +2760,8 @@ def main() -> int:  # noqa: C901
             "primary_retention": RETENTION,
             "primary_retention_source": "local constant in scripts/297_wrr_p0_07_wave2_score.py and "
             "scripts/187_v17_confirm.py (not defined in src/)",
-            "step2_protocol_file": step2_protocol.get("protocol"),
-            "step2_seed": step2_protocol.get("seed"),
+            "step2_protocol_file": "docs/reviews/wrr_major_revision_20261014/STEP2_PROTOCOL.md",
+            "step2_seed": 17,
             "step2_draws": 1000,
             "step2_n_splits": 5,
             "step2_model": "HistGradientBoostingRegressor(loss='quantile', quantile=0.9, "
@@ -2439,12 +2775,10 @@ def main() -> int:  # noqa: C901
             "step3_length_seed": 30,
             "step3_draws": 2000,
         },
-        "inputs": input_hashes,
-        "wave2_network_artifacts": wave2_hashes,
+        "inputs": input_files,
+        "wave2_network_artifacts": wave2_files,
     }
-    (OUT / "protocol_fingerprint.json").write_text(
-        json.dumps(fingerprint, indent=2, default=str) + "\n"
-    )
+    (OUT / "protocol.json").write_text(json.dumps(record, indent=2, default=str) + "\n")
     pd.DataFrame(COLUMNS_USED).to_csv(OUT / "input_columns_used.csv", index=False)
 
     # ------------------------------------------------------------------ SUMMARY
@@ -2464,7 +2798,6 @@ def main() -> int:  # noqa: C901
         missing_rights,
         panel_crosscheck,
         elapsed=time.time() - started,
-        fingerprint=fingerprint,
     )
     print(recompute_table.to_string(index=False))
     print(f"\nwrote {OUT}")
@@ -2488,15 +2821,12 @@ def write_summary(  # noqa: C901
     panel_crosscheck: dict,
     *,
     elapsed: float,
-    fingerprint: dict,
 ) -> None:
     lines: list[str] = []
     lines.append("# P0-06 — coverage / measurement contract and independent recompute")
     lines.append("")
     lines.append(
-        "Generated by `scripts/315_wrr_p0_06_coverage_and_recompute.py` "
-        f"(git HEAD `{fingerprint['git_head'][:12]}`, script sha256 "
-        f"`{fingerprint['script_sha256'][:16]}…`, {elapsed:.1f} s)."
+        f"Generated by `scripts/315_wrr_p0_06_coverage_and_recompute.py` ({elapsed:.1f} s)."
     )
     lines.append("")
     lines.append(
@@ -2523,8 +2853,8 @@ def write_summary(  # noqa: C901
     lines.append("### Panel-size cross-check against the manuscript sentence")
     lines.append("")
     lines.append(
-        "The manuscript states *\"146 networks, 457 stations and 5114 fully observed "
-        "station-years\"* (`paper/wrr/wrr_manuscript.tex:331`). Recomputed from the coverage "
+        'The manuscript states *"146 networks, 457 stations and 5114 fully observed '
+        'station-years"* (`paper/wrr/wrr_manuscript.tex:331`). Recomputed from the coverage '
         "table over the rows with `in_final_analysis_panel == True` and `panel == v17`:"
     )
     lines.append("")
@@ -2598,12 +2928,14 @@ def write_summary(  # noqa: C901
 
     lines.append("### Share of each analysis panel by measurement class")
     lines.append("")
-    lines.append("| panel | measurement class | cases | share of cases | networks | stations |")
+    lines.append(
+        "| panel | measurement class | cases | share of cases | networks | stations |"
+    )
     lines.append("|---|---|---|---|---|---|")
     for panel, block in shares.items():
         for cls, stats in sorted(block["by_measurement_class"].items()):
             lines.append(
-                f"| {panel} | `{cls}` | {stats['n_cases']} | {stats['share_of_cases']*100:.1f}% | "
+                f"| {panel} | `{cls}` | {stats['n_cases']} | {stats['share_of_cases'] * 100:.1f}% | "
                 f"{stats['n_networks']} | {stats['n_stations']} |"
             )
     lines.append("")
@@ -2623,8 +2955,12 @@ def write_summary(  # noqa: C901
         for cls, stats in sorted(
             block["by_measurement_class"].items(), key=lambda kv: -kv[1]["n_cases"]
         ):
-            parts.append(f"{stats['n_cases']} cases ({stats['share_of_cases']*100:.1f}%) from {cls}")
-        lines.append(f"- *{description}* — {block['n_cases']} cases, " + "; ".join(parts) + ".")
+            parts.append(
+                f"{stats['n_cases']} cases ({stats['share_of_cases'] * 100:.1f}%) from {cls}"
+            )
+        lines.append(
+            f"- *{description}* — {block['n_cases']} cases, " + "; ".join(parts) + "."
+        )
     lines.append("")
     lines.append(
         "Read this as the measurement contract of the paper: a result computed on a panel whose "
@@ -2638,15 +2974,15 @@ def write_summary(  # noqa: C901
     lines.append("")
     lines.append(
         f"- stations with an `undocumented` daily statistic: "
-        f"**{coverage.loc[coverage['statistic_class'].eq(CLASS_UNDOCUMENTED),'station_id'].nunique()}**"
+        f"**{coverage.loc[coverage['statistic_class'].eq(CLASS_UNDOCUMENTED), 'station_id'].nunique()}**"
     )
     lines.append(
         f"- stations whose provider documents a non-daily reference reading: "
-        f"**{coverage.loc[coverage['statistic_class'].eq(CLASS_NON_DAILY_REFERENCE),'station_id'].nunique()}**"
+        f"**{coverage.loc[coverage['statistic_class'].eq(CLASS_NON_DAILY_REFERENCE), 'station_id'].nunique()}**"
     )
     lines.append(
         f"- stations whose daily value is a project aggregate from sub-daily source values: "
-        f"**{coverage.loc[coverage['statistic_class'].eq(CLASS_PROJECT_SUBDAILY),'station_id'].nunique()}**"
+        f"**{coverage.loc[coverage['statistic_class'].eq(CLASS_PROJECT_SUBDAILY), 'station_id'].nunique()}**"
     )
     lines.append(
         f"- stations where the two project provenance artifacts disagree on the class: "
@@ -2656,7 +2992,9 @@ def write_summary(  # noqa: C901
         f"- stations whose provider has no row in `metadata/data_rights.csv`: "
         f"**{len(missing_rights)}**"
     )
-    unassigned = coverage.loc[coverage["split_role"].eq("unassigned_not_in_development_or_reserved")]
+    unassigned = coverage.loc[
+        coverage["split_role"].eq("unassigned_not_in_development_or_reserved")
+    ]
     lines.append(
         f"- roster stations with no development/reserved `split_role` (all ineligible): "
         f"**{len(unassigned)}**"
@@ -2669,7 +3007,9 @@ def write_summary(  # noqa: C901
         f"- wave-2 station rows below the ingest `MIN_YEARS = 4` gate: **{len(below_gate)}**"
     )
     lines.append("")
-    lines.append("See `coverage_gaps.md` for the full station lists and the verbatim evidence.")
+    lines.append(
+        "See `coverage_gaps.md` for the full station lists and the verbatim evidence."
+    )
     lines.append("")
 
     # ---- Part B
@@ -2739,7 +3079,7 @@ def write_summary(  # noqa: C901
     lines.append("")
     lines.append(
         f"Spread across the six seeds: **{min(values):.4f} to {max(values):.4f} pp** "
-        f"(range {max(values)-min(values):.4f} pp). Both stored reserved-panel numbers "
+        f"(range {max(values) - min(values):.4f} pp). Both stored reserved-panel numbers "
         "(`results/v17_fitness/step10_confirmation/verdict.json`, seed 0, and "
         "`step5_monitoring_tasks/arm_and_thermal_contrasts.csv`, seed 131) lie inside it."
     )
@@ -2792,7 +3132,7 @@ def write_summary(  # noqa: C901
         "coverage_gaps.md",
         "recompute_table.csv",
         "recompute_report.json",
-        "protocol_fingerprint.json",
+        "protocol.json",
         "input_columns_used.csv",
         "step2_score_reproduction_check.csv",
         "step3_position_contrasts_recomputed.csv",

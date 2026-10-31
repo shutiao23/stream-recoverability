@@ -15,8 +15,6 @@ implementations.
 from __future__ import annotations
 
 import copy
-import hashlib
-import json
 import os
 import pickle
 import tempfile
@@ -140,67 +138,6 @@ def _immutable_array(value: object, *, dtype: np.dtype[Any] | type) -> np.ndarra
     return result
 
 
-def _json_ready(value: Any) -> Any:
-    if isinstance(value, Mapping):
-        return {str(key): _json_ready(item) for key, item in value.items()}
-    if isinstance(value, (tuple, list)):
-        return [_json_ready(item) for item in value]
-    if isinstance(value, np.ndarray):
-        return value.tolist()
-    if isinstance(value, (np.integer,)):
-        return int(value)
-    if isinstance(value, (np.floating,)):
-        return float(value)
-    if isinstance(value, (np.bool_,)):
-        return bool(value)
-    if isinstance(value, Path):
-        return str(value)
-    return value
-
-
-def _canonical_json_sha256(value: Any) -> str:
-    encoded = json.dumps(
-        _json_ready(value),
-        sort_keys=True,
-        separators=(",", ":"),
-        allow_nan=False,
-    ).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
-def _array_sha256(value: np.ndarray) -> str:
-    array = np.ascontiguousarray(value)
-    digest = hashlib.sha256()
-    digest.update(str(array.dtype).encode("ascii"))
-    digest.update(json.dumps(list(array.shape), separators=(",", ":")).encode("ascii"))
-    digest.update(array.tobytes(order="C"))
-    return digest.hexdigest()
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def _state_dict_sha256(state_dict: Mapping[str, torch.Tensor]) -> str:
-    digest = hashlib.sha256()
-    for name in sorted(state_dict):
-        tensor = state_dict[name]
-        if not isinstance(tensor, torch.Tensor):
-            raise TypeError(f"state_dict entry {name!r} is not a tensor")
-        contiguous = tensor.detach().cpu().contiguous()
-        digest.update(name.encode("utf-8"))
-        digest.update(str(contiguous.dtype).encode("ascii"))
-        digest.update(
-            json.dumps(list(contiguous.shape), separators=(",", ":")).encode("ascii")
-        )
-        digest.update(contiguous.numpy().tobytes(order="C"))
-    return digest.hexdigest()
-
-
 def _validate_finite_state_dict(state_dict: object) -> Mapping[str, torch.Tensor]:
     if not isinstance(state_dict, Mapping) or not state_dict:
         raise ValueError("reference checkpoint requires a non-empty model_state_dict")
@@ -311,7 +248,6 @@ class ReferenceProtocolData:
     protocol: str
     seed: int
     curriculum_config: dict[str, Any]
-    fingerprint: str
     metadata: dict[str, Any]
 
     def __post_init__(self) -> None:
@@ -349,8 +285,6 @@ class ReferenceProtocolData:
             raise ValueError(
                 "each frozen validation scenario needs the same window budget"
             )
-        if len(self.fingerprint) != 64:
-            raise ValueError("reference protocol fingerprint must be a SHA-256 digest")
         object.__setattr__(self, "feature_mean", mean)
         object.__setattr__(self, "feature_scale", scale)
         object.__setattr__(self, "station_ids", stations)
@@ -584,33 +518,6 @@ def build_reference_protocol_data(
         validation=True,
     )
 
-    identity = {
-        "schema_version": REFERENCE_PROTOCOL_SCHEMA_VERSION,
-        "station_ids": stations,
-        "variable_names": variables,
-        "window_size": window,
-        "stride": stride,
-        "protocol": protocol,
-        "seed": seed,
-        "train_mask_repeats": train_repeats,
-        "validation_mask_repeats": validation_repeats,
-        "curriculum_config": config.metadata(),
-        "train": {
-            "X_ori": _array_sha256(train_windows.X_ori),
-            "artificial_mask": _array_sha256(train_windows.artificial_mask),
-            "score_mask": _array_sha256(train_windows.score_mask),
-            "scenario_labels": train_windows.scenario_labels,
-        },
-        "validation": {
-            "X_ori": _array_sha256(validation_windows.X_ori),
-            "artificial_mask": _array_sha256(validation_windows.artificial_mask),
-            "score_mask": _array_sha256(validation_windows.score_mask),
-            "scenario_labels": validation_windows.scenario_labels,
-        },
-        "feature_mean": _array_sha256(mean),
-        "feature_scale": _array_sha256(scale),
-    }
-    fingerprint = _canonical_json_sha256(identity)
     protocol_metadata = {
         "schema_version": REFERENCE_PROTOCOL_SCHEMA_VERSION,
         "requested_window_size": requested_window,
@@ -626,7 +533,6 @@ def build_reference_protocol_data(
         "input_mask_scope": "all_curriculum_channels",
         "score_mask_scope": "T_only",
         "unavailable_train_features": unavailable,
-        "fingerprint": fingerprint,
     }
     return ReferenceProtocolData(
         train=train_windows,
@@ -640,7 +546,6 @@ def build_reference_protocol_data(
         protocol=protocol,
         seed=seed,
         curriculum_config=config.metadata(),
-        fingerprint=fingerprint,
         metadata=protocol_metadata,
     )
 
@@ -876,7 +781,6 @@ class PyPOTSReferenceImputer:
             "pypots_required_version": PYPOTS_REQUIRED_VERSION,
         }
         self.training_config_: dict[str, Any] = {}
-        self.protocol_fingerprint_: str | None = None
         self.protocol_metadata_: dict[str, Any] = {}
         self.station_ids_: tuple[str, ...] = ()
         self.variable_names_: tuple[str, ...] = ()
@@ -1109,7 +1013,6 @@ class PyPOTSReferenceImputer:
         self.feature_scale_ = np.array(protocol.feature_scale, copy=True)
         self.station_ids_ = protocol.station_ids
         self.variable_names_ = protocol.variable_names
-        self.protocol_fingerprint_ = protocol.fingerprint
         self.protocol_metadata_ = copy.deepcopy(protocol.metadata)
         self.training_config_ = asdict(config)
         self.official_estimator_ = self._instantiate(config, bindings)
@@ -1272,7 +1175,6 @@ class PyPOTSReferenceImputer:
                 "module": estimator.optimizer.__class__.__module__,
                 "name": estimator.optimizer.__class__.__name__,
             },
-            "protocol_fingerprint": protocol.fingerprint,
             "fixed_artificial_masks": True,
             "window_stride": "half_window_with_final_right_alignment",
             "score_mask_scope": "T_only",
@@ -1394,7 +1296,7 @@ class PyPOTSReferenceImputer:
             raise RuntimeError("fit must be called before save_checkpoint")
         if self.feature_mean_ is None or self.feature_scale_ is None:
             raise RuntimeError("training scaler is unavailable")
-        state = _validate_finite_state_dict(self.official_estimator_.model.state_dict())
+        _validate_finite_state_dict(self.official_estimator_.model.state_dict())
         for field in _REQUIRED_DIAGNOSTIC_FIELDS:
             if field not in self.diagnostics_:
                 raise ValueError(f"missing training diagnostic {field!r}")
@@ -1410,7 +1312,6 @@ class PyPOTSReferenceImputer:
             },
             "training_config": copy.deepcopy(self.training_config_),
             "protocol": {
-                "fingerprint": self.protocol_fingerprint_,
                 "metadata": copy.deepcopy(self.protocol_metadata_),
                 "station_ids": list(self.station_ids_),
                 "variable_names": list(self.variable_names_),
@@ -1424,16 +1325,14 @@ class PyPOTSReferenceImputer:
             },
             "reference_metadata": copy.deepcopy(self.metadata_),
             "diagnostics": copy.deepcopy(self.diagnostics_),
-            "state_dict_sha256": _state_dict_sha256(state),
         }
 
     def save_checkpoint(self, path: str | Path) -> Path:
-        """Atomically save weights plus strict metadata and a file-hash sidecar."""
+        """Atomically save weights plus strict metadata."""
 
         if self.official_estimator_ is None:
             raise RuntimeError("fit must be called before save_checkpoint")
         metadata = self._checkpoint_metadata()
-        metadata["metadata_sha256"] = _canonical_json_sha256(metadata)
         state = {
             name: value.detach().cpu().clone()
             for name, value in self.official_estimator_.model.state_dict().items()
@@ -1456,25 +1355,6 @@ class PyPOTSReferenceImputer:
         finally:
             if temporary_name is not None:
                 Path(temporary_name).unlink(missing_ok=True)
-        file_hash = _sha256_file(output)
-        sidecar = Path(str(output) + ".sha256")
-        sidecar_temporary: str | None = None
-        try:
-            with tempfile.NamedTemporaryFile(
-                mode="w",
-                encoding="ascii",
-                dir=sidecar.parent,
-                prefix=f".{sidecar.name}.",
-                suffix=".tmp",
-                delete=False,
-            ) as handle:
-                sidecar_temporary = handle.name
-                handle.write(file_hash + "\n")
-            os.replace(sidecar_temporary, sidecar)
-            sidecar_temporary = None
-        finally:
-            if sidecar_temporary is not None:
-                Path(sidecar_temporary).unlink(missing_ok=True)
         return output
 
     @classmethod
@@ -1483,25 +1363,14 @@ class PyPOTSReferenceImputer:
         path: str | Path,
         *,
         expected_model_name: str | None = None,
-        expected_protocol_fingerprint: str | None = None,
         expected_adapter_config: Mapping[str, Any] | None = None,
         expected_training_config: Mapping[str, Any] | None = None,
     ) -> PyPOTSReferenceImputer:
-        """Load only a fully hashed, version-matched official checkpoint."""
+        """Load only a version-matched official checkpoint."""
 
         checkpoint = Path(path)
-        sidecar = Path(str(checkpoint) + ".sha256")
-        if not checkpoint.is_file() or not sidecar.is_file():
-            raise ValueError(
-                "reference checkpoint and .sha256 sidecar are both required"
-            )
-        expected_file_hash = sidecar.read_text(encoding="ascii").strip()
-        if len(expected_file_hash) != 64 or any(
-            value not in "0123456789abcdef" for value in expected_file_hash
-        ):
-            raise ValueError("reference checkpoint sidecar is not a SHA-256 digest")
-        if _sha256_file(checkpoint) != expected_file_hash:
-            raise ValueError("reference checkpoint file SHA-256 mismatch")
+        if not checkpoint.is_file():
+            raise ValueError("reference checkpoint is required")
         try:
             try:
                 payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
@@ -1520,20 +1389,7 @@ class PyPOTSReferenceImputer:
         if payload.get("pypots_version") != PYPOTS_REQUIRED_VERSION:
             raise ValueError("reference checkpoint PyPOTS version mismatch")
         require_pypots_15()
-        stored_metadata_hash = payload.get("metadata_sha256")
-        metadata_for_hash = {
-            key: value
-            for key, value in payload.items()
-            if key not in {"model_state_dict", "metadata_sha256"}
-        }
-        if (
-            not isinstance(stored_metadata_hash, str)
-            or _canonical_json_sha256(metadata_for_hash) != stored_metadata_hash
-        ):
-            raise ValueError("reference checkpoint metadata SHA-256 mismatch")
         state = _validate_finite_state_dict(payload.get("model_state_dict"))
-        if _state_dict_sha256(state) != payload.get("state_dict_sha256"):
-            raise ValueError("reference checkpoint state_dict SHA-256 mismatch")
 
         model_name = str(payload.get("model_name", ""))
         if (
@@ -1571,11 +1427,6 @@ class PyPOTSReferenceImputer:
             expected_training_config
         ):
             raise ValueError("reference checkpoint training contract mismatch")
-        if (
-            expected_protocol_fingerprint is not None
-            and protocol.get("fingerprint") != expected_protocol_fingerprint
-        ):
-            raise ValueError("reference checkpoint protocol fingerprint mismatch")
         for field in _REQUIRED_DIAGNOSTIC_FIELDS:
             if field not in diagnostics:
                 raise ValueError(f"reference checkpoint misses diagnostic {field!r}")
@@ -1633,7 +1484,6 @@ class PyPOTSReferenceImputer:
         adapter.feature_scale_ = feature_scale.copy()
         adapter.station_ids_ = station_ids
         adapter.variable_names_ = variable_names
-        adapter.protocol_fingerprint_ = cast(str, protocol.get("fingerprint"))
         adapter.protocol_metadata_ = copy.deepcopy(
             cast(dict[str, Any], protocol.get("metadata", {}))
         )

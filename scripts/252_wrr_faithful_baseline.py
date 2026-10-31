@@ -60,9 +60,9 @@ DEFAULT_CASES = ROOT / "results/v17_fitness/step3_cases/cases_air.parquet"
 OUT = ROOT / "results/wrr_submission_ready/amendments/faithful_baseline"
 
 # --- the cited method's constants -------------------------------------------
-BEAUFORT_LAGS = tuple(range(2, 11))          # 2-10 d moving-average windows
-SUMMER_MONTHS = (7, 8)                       # paper: July-August ("summer")
-MIN_FIT_DAYS = 120                           # study convention, see method_spec.md
+BEAUFORT_LAGS = tuple(range(2, 11))  # 2-10 d moving-average windows
+SUMMER_MONTHS = (7, 8)  # paper: July-August ("summer")
+MIN_FIT_DAYS = 120  # study convention, see method_spec.md
 VARIANTS = ("beaufort", "beaufort_trainonly", "beaufort_lagshift", "beaufort_jja")
 
 
@@ -73,14 +73,21 @@ def _preparse() -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=32)
     parser.add_argument("--draws", type=int, default=1200)
     parser.add_argument("--verify-networks", type=int, default=2)
-    parser.add_argument("--limit-networks", type=int, default=0, help="debug: score only the first N networks")
+    parser.add_argument(
+        "--limit-networks",
+        type=int,
+        default=0,
+        help="debug: score only the first N networks",
+    )
     args, _ = parser.parse_known_args()
     return args
 
 
 _PRE = _preparse()
-FORCING_PATH = Path(_PRE.forcing) if _PRE.forcing else Path(
-    os.environ.get("STREAM_AIR_FORCING", str(DEFAULT_FORCING))
+FORCING_PATH = (
+    Path(_PRE.forcing)
+    if _PRE.forcing
+    else Path(os.environ.get("STREAM_AIR_FORCING", str(DEFAULT_FORCING)))
 )
 CASES_PATH = Path(_PRE.cases) if _PRE.cases else DEFAULT_CASES
 os.environ["STREAM_AIR_FORCING"] = str(FORCING_PATH)
@@ -104,7 +111,7 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     PRIMARY_TOLERANCE_C,
     REALIZATIONS_PER_STATION_YEAR,
     TRUSTED_YEARS,
-    stable_seed,
+    station_year_seed,
 )
 from stream_recoverability.experiments.v17_fitness.panel import load_network_panel  # noqa: E402
 from stream_recoverability.experiments.v17_fitness.policies import attach_policy_errors  # noqa: E402
@@ -121,13 +128,17 @@ _AIR_NETWORK: dict[str, pd.Series] = {}
 # network mean over the station-days present in the forcing table)
 # ---------------------------------------------------------------------------
 def load_air_series(forcing_path: Path, stations: set[str], networks: set[str]):
-    frame = pd.read_parquet(forcing_path, columns=["date", "air_temperature_c", "station_id", "network_id"])
+    frame = pd.read_parquet(
+        forcing_path, columns=["date", "air_temperature_c", "station_id", "network_id"]
+    )
     frame["station_id"] = frame["station_id"].astype(str)
     frame["network_id"] = frame["network_id"].astype(str)
 
     def to_series(dates, values) -> pd.Series:
-        series = pd.Series(pd.to_numeric(values, errors="coerce").to_numpy(dtype=float),
-                           index=pd.to_datetime(dates).to_numpy())
+        series = pd.Series(
+            pd.to_numeric(values, errors="coerce").to_numpy(dtype=float),
+            index=pd.to_datetime(dates).to_numpy(),
+        )
         return series[~series.index.duplicated(keep="first")].sort_index()
 
     by_station: dict[str, pd.Series] = {}
@@ -159,7 +170,9 @@ def _fit_from_sums(sums: np.ndarray) -> tuple[np.ndarray, float, int] | None:
     det = n * s_ma2 - s_ma * s_ma
     if not np.isfinite(det) or det <= 1e-9 * max(1.0, n * s_ma2):
         return None
-    coef = np.array([(s_ma2 * s_y - s_ma * s_may) / det, (n * s_may - s_ma * s_y) / det])
+    coef = np.array(
+        [(s_ma2 * s_y - s_ma * s_may) / det, (n * s_may - s_ma * s_y) / det]
+    )
     sse = (
         s_y2
         - 2.0 * (coef[0] * s_y + coef[1] * s_may)
@@ -178,7 +191,14 @@ def _sums_from(values: np.ndarray, y: np.ndarray, usable: np.ndarray) -> np.ndar
     if ma.size == 0:
         return np.zeros(6, dtype=float)
     return np.array(
-        [ma.size, ma.sum(), (ma * ma).sum(), response.sum(), (ma * response).sum(), (response * response).sum()],
+        [
+            ma.size,
+            ma.sum(),
+            (ma * ma).sum(),
+            response.sum(),
+            (ma * response).sum(),
+            (response * response).sum(),
+        ],
         dtype=float,
     )
 
@@ -246,8 +266,13 @@ def process_network(job: dict) -> list[dict]:
         # Right-aligned moving average: the window ends on the day it predicts
         # ("lag L" = the last L days up to and including t). The lagshift variant
         # reads "at lag L" as a window whose right edge is L-1 days earlier.
-        ma = {lag: air.rolling(lag).mean().to_numpy(dtype=float) for lag in BEAUFORT_LAGS}
-        ma_shift = {lag: air.rolling(lag).mean().shift(lag - 1).to_numpy(dtype=float) for lag in BEAUFORT_LAGS}
+        ma = {
+            lag: air.rolling(lag).mean().to_numpy(dtype=float) for lag in BEAUFORT_LAGS
+        }
+        ma_shift = {
+            lag: air.rolling(lag).mean().shift(lag - 1).to_numpy(dtype=float)
+            for lag in BEAUFORT_LAGS
+        }
 
         for year, expected_ids in sorted(years.items()):
             year = int(year)
@@ -261,9 +286,16 @@ def process_network(job: dict) -> list[dict]:
                 continue
             peak_source = target.loc[target.index.year != year]
             peak_doys = climatological_peak_window(peak_source, exclude_year=None)
-            rng = np.random.default_rng(stable_seed(network_id, station_id, year, "leave_one_year_out"))
+            rng = np.random.default_rng(
+                station_year_seed(
+                    network_id, station_id, daily.columns, year, "leave_one_year_out"
+                )
+            )
             realizations = design_for_year(
-                year_index, peak_doys, pool, rng=rng,
+                year_index,
+                peak_doys,
+                pool,
+                rng=rng,
                 n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3),
             )
             truth_metric = hottest_window_mean(truth)
@@ -276,7 +308,9 @@ def process_network(job: dict) -> list[dict]:
                 for lag in BEAUFORT_LAGS:
                     values = ma_source[lag]
                     train_sums[lag] = _sums_from(
-                        values, target_np, summer & train & np.isfinite(values) & finite_target
+                        values,
+                        target_np,
+                        summer & train & np.isfinite(values) & finite_target,
                     )
                     block_values = values[year_mask]
                     ma_year[lag] = block_values
@@ -305,10 +339,24 @@ def process_network(job: dict) -> list[dict]:
                 observed[mask] = np.nan
 
                 fill_a, lag_a, r2_a, n_a = _select_and_fill(
-                    BEAUFORT_LAGS, train_sums, ma_year, year_usable, truth, visible, hidden, augment=True
+                    BEAUFORT_LAGS,
+                    train_sums,
+                    ma_year,
+                    year_usable,
+                    truth,
+                    visible,
+                    hidden,
+                    augment=True,
                 )
                 fill_c, lag_c, r2_c, n_c = _select_and_fill(
-                    BEAUFORT_LAGS, train_sums_shift, ma_year_shift, year_usable_shift, truth, visible, hidden, augment=True
+                    BEAUFORT_LAGS,
+                    train_sums_shift,
+                    ma_year_shift,
+                    year_usable_shift,
+                    truth,
+                    visible,
+                    hidden,
+                    augment=True,
                 )
                 # strict season reading of the paper: only the summer holes are
                 # reconstructed, everything else stays missing
@@ -329,14 +377,20 @@ def process_network(job: dict) -> list[dict]:
                     "year": year,
                     "realization_id": str(realization.realization_id),
                     "mask_total_missing": int(mask.sum()),
-                    "mask_longest_run": int(max((length for _, length in realization.runs), default=0)),
+                    "mask_longest_run": int(
+                        max((length for _, length in realization.runs), default=0)
+                    ),
                     "mask_n_runs": int(len(realization.runs)),
-                    "mask_peak_overlap": peak_overlap_fraction(year_index, mask, peak_doys),
+                    "mask_peak_overlap": peak_overlap_fraction(
+                        year_index, mask, peak_doys
+                    ),
                     "truth_hottest30_recomputed": float(truth_metric),
                     "n_unfilled_beaufort": int(np.isnan(fill_a[hidden]).sum()),
                 }
                 warm = np.isin(months[year_mask], (5, 6, 7, 8, 9))
-                out["mask_warm_observed_fraction"] = float((visible & warm).sum() / max(1, warm.sum()))
+                out["mask_warm_observed_fraction"] = float(
+                    (visible & warm).sum() / max(1, warm.sum())
+                )
 
                 for name, fill in (
                     ("beaufort", fill_a),
@@ -363,7 +417,11 @@ def process_network(job: dict) -> list[dict]:
                         air=air,
                         train_mask=pd.Series(train, index=index),
                     )
-                    lib_fill = models.air_predict(year_index) if air is not None else np.full(len(year_index), np.nan)
+                    lib_fill = (
+                        models.air_predict(year_index)
+                        if air is not None
+                        else np.full(len(year_index), np.nan)
+                    )
                     completed = observed.copy()
                     completed[mask] = lib_fill[mask]
                     out["hottest30_air_ridge_repro"] = hottest_window_mean(completed)
@@ -375,16 +433,30 @@ def process_network(job: dict) -> list[dict]:
 # network-clustered paired bootstrap on a difference of means/rates
 # ---------------------------------------------------------------------------
 def paired_bootstrap(
-    frame: pd.DataFrame, left: str, right: str, *, draws: int, seed: int = 0, alpha: float = 0.05
+    frame: pd.DataFrame,
+    left: str,
+    right: str,
+    *,
+    draws: int,
+    seed: int = 0,
+    alpha: float = 0.05,
 ) -> dict:
     block = frame[["network_id", left, right]].copy()
     block[left] = pd.to_numeric(block[left], errors="coerce")
     block[right] = pd.to_numeric(block[right], errors="coerce")
     block = block.dropna(subset=[left, right])
     if block.empty:
-        return {"point": float("nan"), "low": float("nan"), "high": float("nan"), "n_pairs": 0, "n_clusters": 0}
+        return {
+            "point": float("nan"),
+            "low": float("nan"),
+            "high": float("nan"),
+            "n_pairs": 0,
+            "n_clusters": 0,
+        }
     block["_d"] = block[left] - block[right]
-    grouped = block.groupby("network_id", sort=True).agg(n=("_d", "size"), d=("_d", "sum"))
+    grouped = block.groupby("network_id", sort=True).agg(
+        n=("_d", "size"), d=("_d", "sum")
+    )
     keys = grouped.index.to_numpy()
     counts = grouped["n"].to_numpy(dtype=float)
     deltas = grouped["d"].to_numpy(dtype=float)
@@ -395,19 +467,28 @@ def paired_bootstrap(
     for draw in range(int(draws)):
         weights[draw] = np.bincount(multiplicity[draw], minlength=len(keys))
     denominator = weights @ counts
-    values = np.divide(weights @ deltas, denominator, out=np.full(int(draws), np.nan), where=denominator > 0)
+    values = np.divide(
+        weights @ deltas,
+        denominator,
+        out=np.full(int(draws), np.nan),
+        where=denominator > 0,
+    )
     finite = values[np.isfinite(values)]
     return {
         "point": point,
         "low": float(np.quantile(finite, alpha / 2)) if finite.size else float("nan"),
-        "high": float(np.quantile(finite, 1 - alpha / 2)) if finite.size else float("nan"),
+        "high": float(np.quantile(finite, 1 - alpha / 2))
+        if finite.size
+        else float("nan"),
         "n_pairs": int(len(block)),
         "n_clusters": int(len(keys)),
     }
 
 
 # ---------------------------------------------------------------------------
-def build_station_years(cases: pd.DataFrame) -> dict[str, dict[str, dict[int, tuple[str, ...]]]]:
+def build_station_years(
+    cases: pd.DataFrame,
+) -> dict[str, dict[str, dict[int, tuple[str, ...]]]]:
     """network -> station -> year -> the realization ids the case table stores.
 
     The year list is taken from the case table itself, so a rebuilt row exists
@@ -422,20 +503,29 @@ def build_station_years(cases: pd.DataFrame) -> dict[str, dict[str, dict[int, tu
     eligible = set(zip(trusted["network_id"], trusted["station_id"]))
 
     jobs: dict[str, dict[str, dict[int, tuple[str, ...]]]] = {}
-    block = cases[["network_id", "station_id", "year", "realization_id"]].drop_duplicates()
+    block = cases[
+        ["network_id", "station_id", "year", "realization_id"]
+    ].drop_duplicates()
     for network_id, station_id, year, realization_id in block.itertuples(index=False):
         key = (str(network_id), str(station_id))
         if key not in eligible:
             continue
-        per_station = jobs.setdefault(str(network_id), {}).setdefault(str(station_id), {})
+        per_station = jobs.setdefault(str(network_id), {}).setdefault(
+            str(station_id), {}
+        )
         per_station.setdefault(int(year), []).append(str(realization_id))
     return {
-        network: {station: {year: tuple(ids) for year, ids in years.items()} for station, years in stations.items()}
+        network: {
+            station: {year: tuple(ids) for year, ids in years.items()}
+            for station, years in stations.items()
+        }
         for network, stations in jobs.items()
     }
 
 
-def describe(errors: pd.Series, tolerance: float, *, n_supported: int, n_total: int) -> dict:
+def describe(
+    errors: pd.Series, tolerance: float, *, n_supported: int, n_total: int
+) -> dict:
     values = pd.to_numeric(errors, errors="coerce").dropna().to_numpy(dtype=float)
     if values.size == 0:
         return {"n_cases": 0}
@@ -475,7 +565,9 @@ def main() -> int:
 
     stations = {station for block in station_years.values() for station in block}
     networks = set(station_years)
-    print(f"rebuilding outages for {len(stations)} stations in {len(networks)} networks; forcing {FORCING_PATH}")
+    print(
+        f"rebuilding outages for {len(stations)} stations in {len(networks)} networks; forcing {FORCING_PATH}"
+    )
     air_station, air_network = load_air_series(FORCING_PATH, stations, networks)
     _AIR_STATION.update(air_station)
     _AIR_NETWORK.update(air_network)
@@ -521,7 +613,8 @@ def main() -> int:
     checks["mask_checks_source"] = "rebuilt rows joined to the stored case table"
     # air-forcing coverage of the two development panels (the migration-cost fact)
     v17 = pd.read_parquet(
-        ROOT / "results/v17_fitness/step3_cases/cases.parquet", columns=["split_role", "air_available"]
+        ROOT / "results/v17_fitness/step3_cases/cases.parquet",
+        columns=["split_role", "air_available"],
     )
     v17_dev = v17.loc[v17["split_role"] == "development"]
     checks["air_available_pct"] = {
@@ -536,31 +629,53 @@ def main() -> int:
     merged = rebuilt.merge(
         dev[
             [
-                "network_id", "station_id", "year", "realization_id",
-                "total_missing", "longest_run", "peak_overlap", "warm_observed_fraction",
-                "truth_hottest30", "abserr_air_ridge", "hottest30_air_ridge",
+                "network_id",
+                "station_id",
+                "year",
+                "realization_id",
+                "total_missing",
+                "longest_run",
+                "peak_overlap",
+                "warm_observed_fraction",
+                "truth_hottest30",
+                "abserr_air_ridge",
+                "hottest30_air_ridge",
             ]
         ],
         on=["network_id", "station_id", "year", "realization_id"],
         how="inner",
     )
     checks["n_matched_rows"] = int(len(merged))
-    checks["mask_total_missing_mismatches"] = int((merged["mask_total_missing"] != merged["total_missing"]).sum())
-    checks["mask_longest_run_mismatches"] = int((merged["mask_longest_run"] != merged["longest_run"]).sum())
+    checks["mask_total_missing_mismatches"] = int(
+        (merged["mask_total_missing"] != merged["total_missing"]).sum()
+    )
+    checks["mask_longest_run_mismatches"] = int(
+        (merged["mask_longest_run"] != merged["longest_run"]).sum()
+    )
     checks["mask_peak_overlap_max_abs_dev"] = float(
         (merged["mask_peak_overlap"] - merged["peak_overlap"]).abs().max()
     )
     checks["mask_warm_fraction_max_abs_dev"] = float(
-        (merged["mask_warm_observed_fraction"] - merged["warm_observed_fraction"]).abs().max()
+        (merged["mask_warm_observed_fraction"] - merged["warm_observed_fraction"])
+        .abs()
+        .max()
     )
     checks["truth_hottest30_max_abs_dev"] = float(
         (merged["truth_hottest30_recomputed"] - merged["truth_hottest30"]).abs().max()
     )
     verify = merged.loc[merged["hottest30_air_ridge_repro"].notna()]
     checks["library_air_ridge_repro_n"] = int(len(verify))
-    checks["library_air_ridge_repro_networks"] = sorted(verify["network_id"].unique().tolist())
+    checks["library_air_ridge_repro_networks"] = sorted(
+        verify["network_id"].unique().tolist()
+    )
     checks["library_air_ridge_repro_max_abs_dev"] = (
-        float((verify["hottest30_air_ridge_repro"] - verify["hottest30_air_ridge"]).abs().max()) if len(verify) else float("nan")
+        float(
+            (verify["hottest30_air_ridge_repro"] - verify["hottest30_air_ridge"])
+            .abs()
+            .max()
+        )
+        if len(verify)
+        else float("nan")
     )
 
     # the sufficient-statistics fit must equal a plain lstsq on the design matrix
@@ -583,12 +698,21 @@ def main() -> int:
             continue
         summer = np.isin(daily.index.month.to_numpy(), SUMMER_MONTHS)
         summer_year = summer[year_mask]
-        rng = np.random.default_rng(stable_seed(network, station, int(row.year), "leave_one_year_out"))
-        peak_doys = climatological_peak_window(target.loc[target.index.year != int(row.year)], exclude_year=None)
+        rng = np.random.default_rng(
+            station_year_seed(
+                network, station, daily.columns, int(row.year), "leave_one_year_out"
+            )
+        )
+        peak_doys = climatological_peak_window(
+            target.loc[target.index.year != int(row.year)], exclude_year=None
+        )
         pool = station_geometry_pool(daily)
         visible_mask = None
         for realization in design_for_year(
-            daily.index[year_mask], peak_doys, pool, rng=rng,
+            daily.index[year_mask],
+            peak_doys,
+            pool,
+            rng=rng,
             n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3),
         ):
             if str(realization.realization_id) == str(row.realization_id):
@@ -617,36 +741,63 @@ def main() -> int:
         if np.isfinite(row.hottest30_beaufort) and np.isfinite(value):
             lstsq_dev.append(abs(value - float(row.hottest30_beaufort)))
     checks["sufficient_stats_vs_lstsq_n"] = len(lstsq_dev)
-    checks["sufficient_stats_vs_lstsq_max_abs_dev_c"] = float(np.max(lstsq_dev)) if lstsq_dev else float("nan")
+    checks["sufficient_stats_vs_lstsq_max_abs_dev_c"] = (
+        float(np.max(lstsq_dev)) if lstsq_dev else float("nan")
+    )
 
     # ---- method errors on the identical cases -------------------------------
     work = dev.merge(
         rebuilt[
             [
-                "network_id", "station_id", "year", "realization_id",
-                "hottest30_beaufort", "hottest30_beaufort_trainonly", "hottest30_beaufort_lagshift",
+                "network_id",
+                "station_id",
+                "year",
+                "realization_id",
+                "hottest30_beaufort",
+                "hottest30_beaufort_trainonly",
+                "hottest30_beaufort_lagshift",
                 "hottest30_beaufort_jja",
-                "lag_beaufort", "r2_beaufort", "n_fit_beaufort", "n_unfilled_beaufort",
+                "lag_beaufort",
+                "r2_beaufort",
+                "n_fit_beaufort",
+                "n_unfilled_beaufort",
             ]
         ],
         on=["network_id", "station_id", "year", "realization_id"],
         how="left",
     )
-    print(f"joined: {int(work['hottest30_beaufort'].notna().sum())} of {len(work)} cases carry a faithful reconstruction")
+    print(
+        f"joined: {int(work['hottest30_beaufort'].notna().sum())} of {len(work)} cases carry a faithful reconstruction"
+    )
     truth = pd.to_numeric(work["truth_hottest30"], errors="coerce")
     for name in VARIANTS:
-        work[f"abserr_{name}"] = (pd.to_numeric(work[f"hottest30_{name}"], errors="coerce") - truth).abs()
+        work[f"abserr_{name}"] = (
+            pd.to_numeric(work[f"hottest30_{name}"], errors="coerce") - truth
+        ).abs()
     # same fallback convention as the manuscript's table: reconstruction, else climatology
     climatology = pd.to_numeric(work["abserr_doy_climatology"], errors="coerce")
     work["abserr_beaufort_else_clim"] = work["abserr_beaufort"].fillna(climatology)
-    work["abserr_beaufort_trainonly_else_clim"] = work["abserr_beaufort_trainonly"].fillna(climatology)
-    work["abserr_beaufort_lagshift_else_clim"] = work["abserr_beaufort_lagshift"].fillna(climatology)
-    work["abserr_beaufort_jja_else_clim"] = work["abserr_beaufort_jja"].fillna(climatology)
-    work["abserr_air_ridge_else_clim"] = pd.to_numeric(work["abserr_air_ridge"], errors="coerce").fillna(climatology)
-    work["abserr_donor_ridge_else_clim"] = pd.to_numeric(work["abserr_donor_ridge"], errors="coerce").fillna(climatology)
+    work["abserr_beaufort_trainonly_else_clim"] = work[
+        "abserr_beaufort_trainonly"
+    ].fillna(climatology)
+    work["abserr_beaufort_lagshift_else_clim"] = work[
+        "abserr_beaufort_lagshift"
+    ].fillna(climatology)
+    work["abserr_beaufort_jja_else_clim"] = work["abserr_beaufort_jja"].fillna(
+        climatology
+    )
+    work["abserr_air_ridge_else_clim"] = pd.to_numeric(
+        work["abserr_air_ridge"], errors="coerce"
+    ).fillna(climatology)
+    work["abserr_donor_ridge_else_clim"] = pd.to_numeric(
+        work["abserr_donor_ridge"], errors="coerce"
+    ).fillna(climatology)
 
     rng = np.random.default_rng(5)
-    length_score = pd.Series(work["longest_run"].to_numpy(dtype=float) + rng.random(len(work)), index=work.index)
+    length_score = pd.Series(
+        work["longest_run"].to_numpy(dtype=float) + rng.random(len(work)),
+        index=work.index,
+    )
     order = np.argsort(length_score.to_numpy(dtype=float), kind="mergesort")
     n_retained = int(round(float(RETENTION) * len(work)))
     retained = np.zeros(len(work), dtype=bool)
@@ -654,19 +805,43 @@ def main() -> int:
 
     methods = {
         # label: (error column actually scored, column whose support is reported)
-        "faithful Beaufort (else climatology)": ("abserr_beaufort_else_clim", "abserr_beaufort"),
+        "faithful Beaufort (else climatology)": (
+            "abserr_beaufort_else_clim",
+            "abserr_beaufort",
+        ),
         "faithful Beaufort, train years only (else climatology)": (
-            "abserr_beaufort_trainonly_else_clim", "abserr_beaufort_trainonly"),
+            "abserr_beaufort_trainonly_else_clim",
+            "abserr_beaufort_trainonly",
+        ),
         "faithful Beaufort, lagged-window reading (else climatology)": (
-            "abserr_beaufort_lagshift_else_clim", "abserr_beaufort_lagshift"),
+            "abserr_beaufort_lagshift_else_clim",
+            "abserr_beaufort_lagshift",
+        ),
         "faithful Beaufort, July-August fill only (else climatology)": (
-            "abserr_beaufort_jja_else_clim", "abserr_beaufort_jja"),
-        "library air ridge alpha=1.0 (else climatology)": ("abserr_air_ridge_else_clim", "abserr_air_ridge"),
+            "abserr_beaufort_jja_else_clim",
+            "abserr_beaufort_jja",
+        ),
+        "library air ridge alpha=1.0 (else climatology)": (
+            "abserr_air_ridge_else_clim",
+            "abserr_air_ridge",
+        ),
         "linear interpolation": ("abserr_linear_interp", "abserr_linear_interp"),
-        "donor ridge (else climatology)": ("abserr_donor_ridge_else_clim", "abserr_donor_ridge"),
-        "observed days (incumbent estimator)": ("abserr_observed_days", "abserr_observed_days"),
-        "information-conditioned policy (reference)": ("abserr_policy", "abserr_policy"),
-        "oracle over library methods (not deployable)": ("abserr_oracle_method", "abserr_oracle_method"),
+        "donor ridge (else climatology)": (
+            "abserr_donor_ridge_else_clim",
+            "abserr_donor_ridge",
+        ),
+        "observed days (incumbent estimator)": (
+            "abserr_observed_days",
+            "abserr_observed_days",
+        ),
+        "information-conditioned policy (reference)": (
+            "abserr_policy",
+            "abserr_policy",
+        ),
+        "oracle over library methods (not deployable)": (
+            "abserr_oracle_method",
+            "abserr_oracle_method",
+        ),
     }
     both_supported = (
         pd.to_numeric(work["abserr_beaufort"], errors="coerce").notna()
@@ -683,9 +858,23 @@ def main() -> int:
         for label, (column, support_column) in methods.items():
             if column not in block.columns:
                 continue
-            support = int(pd.to_numeric(block[support_column], errors="coerce").notna().sum())
-            row = {"retention_set": retention_label, "retention": float(subset.mean()), "method": label, "column": column}
-            row.update(describe(block[column], PRIMARY_TOLERANCE_C, n_supported=support, n_total=len(block)))
+            support = int(
+                pd.to_numeric(block[support_column], errors="coerce").notna().sum()
+            )
+            row = {
+                "retention_set": retention_label,
+                "retention": float(subset.mean()),
+                "method": label,
+                "column": column,
+            }
+            row.update(
+                describe(
+                    block[column],
+                    PRIMARY_TOLERANCE_C,
+                    n_supported=support,
+                    n_total=len(block),
+                )
+            )
             rows_out.append(row)
     comparison = pd.DataFrame(rows_out)
 
@@ -695,17 +884,37 @@ def main() -> int:
         comparison["method"].eq("library air ridge alpha=1.0 (else climatology)")
         & comparison["retention_set"].eq(f"length_rule_{int(RETENTION * 100)}pct")
     ].iloc[0]
-    checks["manuscript_air_ridge_rate_pct_reproduced"] = float(library_row["rate_above_0.5_pct"])
+    checks["manuscript_air_ridge_rate_pct_reproduced"] = float(
+        library_row["rate_above_0.5_pct"]
+    )
 
     contrasts_specs = [
-        ("faithful Beaufort (else climatology)", "library air ridge alpha=1.0 (else climatology)"),
+        (
+            "faithful Beaufort (else climatology)",
+            "library air ridge alpha=1.0 (else climatology)",
+        ),
         ("faithful Beaufort (else climatology)", "linear interpolation"),
         ("faithful Beaufort (else climatology)", "donor ridge (else climatology)"),
-        ("faithful Beaufort (else climatology)", "information-conditioned policy (reference)"),
-        ("faithful Beaufort, train years only (else climatology)", "library air ridge alpha=1.0 (else climatology)"),
-        ("faithful Beaufort, lagged-window reading (else climatology)", "faithful Beaufort (else climatology)"),
-        ("faithful Beaufort, train years only (else climatology)", "faithful Beaufort (else climatology)"),
-        ("faithful Beaufort, July-August fill only (else climatology)", "faithful Beaufort (else climatology)"),
+        (
+            "faithful Beaufort (else climatology)",
+            "information-conditioned policy (reference)",
+        ),
+        (
+            "faithful Beaufort, train years only (else climatology)",
+            "library air ridge alpha=1.0 (else climatology)",
+        ),
+        (
+            "faithful Beaufort, lagged-window reading (else climatology)",
+            "faithful Beaufort (else climatology)",
+        ),
+        (
+            "faithful Beaufort, train years only (else climatology)",
+            "faithful Beaufort (else climatology)",
+        ),
+        (
+            "faithful Beaufort, July-August fill only (else climatology)",
+            "faithful Beaufort (else climatology)",
+        ),
     ]
     contrast_rows = []
     for retention_label, subset in subsets:
@@ -714,8 +923,16 @@ def main() -> int:
             left_col = methods[left_label][0]
             right_col = methods[right_label][0]
             for quantity, transform in (
-                ("rate_above_0.5", lambda series: (pd.to_numeric(series, errors="coerce") > PRIMARY_TOLERANCE_C).astype(float)),
-                ("mean_abs_error_c", lambda series: pd.to_numeric(series, errors="coerce")),
+                (
+                    "rate_above_0.5",
+                    lambda series: (
+                        pd.to_numeric(series, errors="coerce") > PRIMARY_TOLERANCE_C
+                    ).astype(float),
+                ),
+                (
+                    "mean_abs_error_c",
+                    lambda series: pd.to_numeric(series, errors="coerce"),
+                ),
             ):
                 frame = pd.DataFrame(
                     {
@@ -749,9 +966,13 @@ def main() -> int:
             "right": block["abserr_air_ridge_else_clim"].to_numpy(dtype=float),
         }
     )
-    repo_stats = paired_cluster_bootstrap(check_frame, "left", "right", draws=300, seed=0)
+    repo_stats = paired_cluster_bootstrap(
+        check_frame, "left", "right", draws=300, seed=0
+    )
     mine = paired_bootstrap(check_frame, "left", "right", draws=300, seed=0)
-    checks["bootstrap_point_matches_repo"] = bool(abs(repo_stats["point"] - mine["point"]) < 1e-12)
+    checks["bootstrap_point_matches_repo"] = bool(
+        abs(repo_stats["point"] - mine["point"]) < 1e-12
+    )
     checks["bootstrap_repo_point"] = float(repo_stats["point"])
     checks["bootstrap_this_script_point"] = float(mine["point"])
     checks["bootstrap_repo_ci"] = [float(repo_stats["low"]), float(repo_stats["high"])]
@@ -763,15 +984,38 @@ def main() -> int:
     comparison.to_csv(OUT / "comparison.csv", index=False)
     contrasts.to_csv(OUT / "contrasts.csv", index=False)
     case_columns = [
-        "network_id", "station_id", "provider", "year", "realization_id", "arm", "overlap_class",
-        "total_missing", "longest_run", "missing_fraction", "peak_overlap", "warm_observed_fraction",
-        "air_available", "truth_hottest30", "abserr_beaufort", "abserr_beaufort_trainonly",
-        "abserr_beaufort_lagshift", "abserr_beaufort_jja", "abserr_beaufort_else_clim",
-        "abserr_beaufort_jja_else_clim", "abserr_air_ridge_else_clim",
-        "abserr_linear_interp", "abserr_donor_ridge_else_clim", "abserr_policy",
-        "lag_beaufort", "r2_beaufort", "n_fit_beaufort", "n_unfilled_beaufort",
+        "network_id",
+        "station_id",
+        "provider",
+        "year",
+        "realization_id",
+        "arm",
+        "overlap_class",
+        "total_missing",
+        "longest_run",
+        "missing_fraction",
+        "peak_overlap",
+        "warm_observed_fraction",
+        "air_available",
+        "truth_hottest30",
+        "abserr_beaufort",
+        "abserr_beaufort_trainonly",
+        "abserr_beaufort_lagshift",
+        "abserr_beaufort_jja",
+        "abserr_beaufort_else_clim",
+        "abserr_beaufort_jja_else_clim",
+        "abserr_air_ridge_else_clim",
+        "abserr_linear_interp",
+        "abserr_donor_ridge_else_clim",
+        "abserr_policy",
+        "lag_beaufort",
+        "r2_beaufort",
+        "n_fit_beaufort",
+        "n_unfilled_beaufort",
     ]
-    work[[column for column in case_columns if column in work.columns]].to_parquet(OUT / "case_errors.parquet", index=False)
+    work[[column for column in case_columns if column in work.columns]].to_parquet(
+        OUT / "case_errors.parquet", index=False
+    )
 
     summary = {
         "finding": "F15 - the manuscript's Beaufort-style baseline is an in-library air ridge, not the cited method",
@@ -808,25 +1052,47 @@ def main() -> int:
         "beaufort_support": {
             "n_reconstructed": int(work["hottest30_beaufort"].notna().sum()),
             "pct_reconstructed": float(work["hottest30_beaufort"].notna().mean() * 100),
-            "median_r2": float(pd.to_numeric(work["r2_beaufort"], errors="coerce").median()),
-            "median_fit_days": float(pd.to_numeric(work["n_fit_beaufort"], errors="coerce").median()),
-            "cases_with_unfilled_hidden_days": int((pd.to_numeric(work["n_unfilled_beaufort"], errors="coerce") > 0).sum()),
+            "median_r2": float(
+                pd.to_numeric(work["r2_beaufort"], errors="coerce").median()
+            ),
+            "median_fit_days": float(
+                pd.to_numeric(work["n_fit_beaufort"], errors="coerce").median()
+            ),
+            "cases_with_unfilled_hidden_days": int(
+                (pd.to_numeric(work["n_unfilled_beaufort"], errors="coerce") > 0).sum()
+            ),
         },
         "verdict": {},  # filled below
     }
 
     def at(retention_set: str, method: str) -> dict:
-        row = comparison.loc[comparison["retention_set"].eq(retention_set) & comparison["method"].eq(method)].iloc[0]
-        return {key: (float(row[key]) if isinstance(row[key], (int, float, np.floating)) else row[key])
-                for key in ("n_cases", "n_supported", "support_pct", "mae_c", "median_ae_c", "p90_ae_c",
-                            "p95_ae_c", "max_ae_c", "rate_above_0.5_pct")}
+        row = comparison.loc[
+            comparison["retention_set"].eq(retention_set)
+            & comparison["method"].eq(method)
+        ].iloc[0]
+        return {
+            key: (
+                float(row[key])
+                if isinstance(row[key], (int, float, np.floating))
+                else row[key]
+            )
+            for key in (
+                "n_cases",
+                "n_supported",
+                "support_pct",
+                "mae_c",
+                "median_ae_c",
+                "p90_ae_c",
+                "p95_ae_c",
+                "max_ae_c",
+                "rate_above_0.5_pct",
+            )
+        }
 
     summary["headline"] = {
         label: at(f"length_rule_{int(RETENTION * 100)}pct", label) for label in methods
     }
-    summary["headline_all_cases"] = {
-        label: at("all_cases", label) for label in methods
-    }
+    summary["headline_all_cases"] = {label: at("all_cases", label) for label in methods}
     summary["verdict"] = {
         "beaufort_label_defensible": False,
         "reason": (
@@ -841,8 +1107,12 @@ def main() -> int:
             "from that table row."
         ),
     }
-    (OUT / "summary.json").write_text(json.dumps(summary, indent=2, default=float), encoding="utf-8")
-    (OUT / "integrity_checks.json").write_text(json.dumps(checks, indent=2, default=float), encoding="utf-8")
+    (OUT / "summary.json").write_text(
+        json.dumps(summary, indent=2, default=float), encoding="utf-8"
+    )
+    (OUT / "integrity_checks.json").write_text(
+        json.dumps(checks, indent=2, default=float), encoding="utf-8"
+    )
 
     print(comparison.to_markdown(index=False, floatfmt=".4f"))
     print()

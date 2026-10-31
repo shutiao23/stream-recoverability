@@ -25,7 +25,7 @@ from stream_recoverability.analysis.public_confirmatory_lock import (
 
 V2 = ROOT / "results/framework/public_rivers_v2"
 EUROPE = ROOT / "results/framework/public_rivers_europe"
-LOCK = V2 / "confirmatory_once.lock.json"
+LOCK = V2 / "cohort_selection.json"
 
 
 def _rows_from_overlap(path: Path, continent: str) -> list[dict]:
@@ -57,11 +57,13 @@ def main() -> None:
         json.dumps(written, indent=2, sort_keys=True, default=str) + "\n",
         encoding="utf-8",
     )
-    print(json.dumps(
-        {key: written[key] for key in written if key != "rejected"},
-        indent=2,
-        default=str,
-    ))
+    print(
+        json.dumps(
+            {key: written[key] for key in written if key != "rejected"},
+            indent=2,
+            default=str,
+        )
+    )
 
 
 if __name__ == "__main__":

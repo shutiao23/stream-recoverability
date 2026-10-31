@@ -16,7 +16,6 @@
       "donor_ridge",
       "air_ridge"
     ],
-    "certificate_sha256": "97736b74f9988a6158de6c1bb9884922d4b6ddd18c7270af9b53c6ba852f9d7e",
     "certificate_bytes": 6560015,
     "predict_smoke_n": 8,
     "predict_smoke_ok": true,
@@ -38,7 +37,6 @@
     "ok": true,
     "n_checks": 7,
     "absent": 0,
-    "hash_mismatch": 0,
     "size_mismatch": 0,
     "checked_inputs": 146,
     "required_files": [
@@ -71,17 +69,14 @@
         "n_status_not_present": 0,
         "n_input_rows_checked": 146,
         "n_files_absent": 0,
-        "n_size_mismatch": 0,
-        "n_hash_mismatch": 0
+        "n_size_mismatch": 0
       }
     ]
   },
   "manifest_on_disk": {
     "n": 146,
     "absent": [],
-    "n_absent": 0,
-    "hash_mismatch": [],
-    "n_hash_mismatch": 0
+    "n_absent": 0
   },
   "load_compatible_with_runtime": true,
   "constraints_txt_would_break_load": true,

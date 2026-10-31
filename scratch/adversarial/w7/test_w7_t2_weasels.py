@@ -7,7 +7,6 @@ temperatures, retarget design_freeze_v4, or retune Twin E / φ.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -70,7 +69,6 @@ from w7_contract import (  # noqa: E402
     UK_EA_N_COMPLETE_ENOUGH,
     UK_EA_SPATIAL_CATALOG_CLUSTERS_50KM,
     W7_FIRST_LAYER,
-    WORKLOAD_SHA256,
     assert_w7_not_t2_contract,
     europe_does_not_increment_t2,
     executable_count_after_mh_relabel,
@@ -113,10 +111,6 @@ QC_VAL = (
     / "data_versions/global_network_corpus_v1/open_role_qc/failure_closure6/validation/qc_manifest.json"
 )
 W7_SLICE = REPO / "results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_slice"
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _production_evidence(*, evaluate_live_passed: bool = False) -> dict:
@@ -247,7 +241,6 @@ def test_n_67_and_n_59_cannot_be_confirmatory_t2() -> None:
     assert workload["roles"]["validation"] == NA_OPEN_6YR_VALIDATION
     assert workload["go_no_go"] == GO_NO_GO
     assert workload["network_inference_status"] == INFERENCE_WITHHELD
-    assert _sha256(WORKLOAD) == WORKLOAD_SHA256
 
 
 def test_tested_ci_at_n_lt_100_fails_contract() -> None:

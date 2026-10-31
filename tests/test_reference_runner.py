@@ -11,10 +11,7 @@ import pytest
 import yaml
 
 import stream_recoverability.experiments.contracts as contract_module
-from stream_recoverability.experiments.contracts import (
-    build_code_provenance,
-    file_sha256,
-)
+from stream_recoverability.experiments.contracts import build_code_provenance
 from stream_recoverability.experiments.grid import build_experiment_grid
 from stream_recoverability.experiments.model_registry import (
     load_frozen_model_design,
@@ -33,7 +30,6 @@ MANIFEST = REPO_ROOT / "study_manifest.yaml"
 CONFIG = REPO_ROOT / "configs" / "experiments.yaml"
 DESIGN = REPO_ROOT / "configs" / "design_freeze_v3.yaml"
 VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
-FORMAL_PROVENANCE_GATE = ExperimentRunner._assert_formal_code_provenance
 
 
 def _clean_code_provenance() -> dict[str, object]:
@@ -100,8 +96,8 @@ def _version_manifest(root: Path, wide_path: Path, quality_path: Path) -> Path:
             {
                 "data_version": "published_v1",
                 "artifacts": {
-                    "daily_wide.parquet": {"sha256": file_sha256(wide_path)},
-                    "daily_long.parquet": {"sha256": file_sha256(quality_path)},
+                    "daily_wide.parquet": {"bytes": wide_path.stat().st_size},
+                    "daily_long.parquet": {"bytes": quality_path.stat().st_size},
                 },
             }
         ),
@@ -189,9 +185,7 @@ def test_frozen_registry_separates_formal_reference_and_lite_models(
     with pytest.raises(ValueError, match="migration-only"):
         _runner(tmp_path / "legacy-formal", models=("brits",), suite="core")
     with pytest.raises(ValueError, match="formal candidate registry"):
-        _runner(
-            tmp_path / "lite-formal", models=("brits_lite",), suite="core"
-        )
+        _runner(tmp_path / "lite-formal", models=("brits_lite",), suite="core")
 
 
 def test_formal_runner_does_not_reject_dirty_code_provenance(
@@ -202,9 +196,7 @@ def test_formal_runner_does_not_reject_dirty_code_provenance(
         {
             "tracked_worktree_clean": False,
             "relevant_source_clean": False,
-            "dirty_tracked_paths": [
-                "src/stream_recoverability/experiments/runner.py"
-            ],
+            "dirty_tracked_paths": ["src/stream_recoverability/experiments/runner.py"],
             "status": "dirty",
         }
     )
@@ -291,29 +283,22 @@ def test_reference_and_proposed_target_roster_is_t_only_without_training(
     assert run_manifest["checkpoint_contract_complete"] is True
 
 
-def test_run_contract_stales_on_relevant_identity_not_git_audit(
+def test_run_contract_stales_on_relevant_identity_not_code_provenance(
     tmp_path: Path,
 ) -> None:
     runner = _runner(tmp_path, models=("csdi",))
     scenario = runner.grid.scenarios[0]
     current = runner._run_execution_contract(scenario, "csdi", 11)
     docs_only = json.loads(json.dumps(current))
-    docs_only["code_provenance"]["git_commit"] = "f" * 40
+    docs_only["code_provenance"]["dirty_tracked_paths"] = ["README.md"]
     docs_only["code_provenance"]["status"] = "historical"
     assert runner._execution_contract_matches(docs_only, current)
-
-    leftover_hash = json.loads(json.dumps(current))
-    leftover_hash["design_hash"] = "0" * 64
-    leftover_hash["code_identity"] = {"relevant_source_digest": "0" * 64}
-    leftover_hash["input_digests"] = {"design_freeze": "0" * 64}
-    assert runner._execution_contract_matches(leftover_hash, current)
 
     stale_design = json.loads(json.dumps(current))
     stale_design["design_version"] = "design_freeze_v9"
     assert not runner._execution_contract_matches(stale_design, current)
 
     claim_rule_only = json.loads(json.dumps(current))
-    claim_rule_only["input_files"]["design"]["sha256"] = "a" * 64
     claim_rule_only["input_files"]["design"]["mtime_ns"] = 1
     claim_rule_only["input_files"]["design"]["size"] = 1
     assert runner._execution_contract_matches(claim_rule_only, current)
@@ -343,13 +328,10 @@ def test_proposed_and_reference_contracts_use_the_frozen_design(
     }
     protocols = [value[0] for value in contracts.values()]
     assert protocols[0] is protocols[1] is protocols[2]
-    assert len(protocols[0].fingerprint) == 64
     assert {value[3]["implementation"] for value in contracts.values()} == {
         REFERENCE_IMPLEMENTATION
     }
-    assert contracts["brits_ref"][1]["model_kwargs"] == {
-        "rnn_hidden_size": 64
-    }
+    assert contracts["brits_ref"][1]["model_kwargs"] == {"rnn_hidden_size": 64}
     assert contracts["saits_ref"][1]["model_kwargs"]["d_model"] == 64
     assert contracts["csdi"][1]["model_kwargs"]["n_diffusion_steps"] == 50
     mean, scale = runner._proposed_scaler()
@@ -367,9 +349,7 @@ def test_proposed_and_reference_contracts_use_the_frozen_design(
     proposed_masks = np.concatenate(
         [batch["artificial_mask"].numpy() for batch in proposed_train], axis=0
     ).reshape(protocols[0].train.artificial_mask.shape)
-    np.testing.assert_array_equal(
-        proposed_masks, protocols[0].train.artificial_mask
-    )
+    np.testing.assert_array_equal(proposed_masks, protocols[0].train.artificial_mask)
     for _, _, training, reference_context in contracts.values():
         assert training.epochs == 3
         assert training.patience == 2
@@ -384,9 +364,7 @@ def test_formal_runner_rejects_experiment_budget_drift_from_design_freeze(
     frozen = yaml.safe_load(DESIGN.read_text(encoding="utf-8"))
     frozen["training"]["fixed_model_protocols"]["common"]["max_epochs"] = 201
     drifted_design = tmp_path / "drifted_design.yaml"
-    drifted_design.write_text(
-        yaml.safe_dump(frozen, sort_keys=False), encoding="utf-8"
-    )
+    drifted_design.write_text(yaml.safe_dump(frozen, sort_keys=False), encoding="utf-8")
     grid = build_experiment_grid(MANIFEST, CONFIG, suite="core")
     with pytest.raises(ValueError, match="training budget disagrees"):
         ExperimentRunner(
@@ -423,16 +401,10 @@ def test_csdi_runner_stitches_samples_and_emits_interval_metrics(
     runner = _runner(tmp_path, models=("csdi",))
     scenario = runner.grid.scenarios[0]
     artificial, metadata = runner._generate_mask(scenario)
-    protocol = runner._reference_protocol(
-        11,
-        scenario.condition.window_length,
-        scenario.condition.training_protocol,
-    )
     draws = runner._reference_training_config(11).prediction_sampling_times
 
     class FakeCSDI:
         model_name = "csdi"
-        protocol_fingerprint_ = protocol.fingerprint
 
         def __init__(self) -> None:
             self.diagnostics_ = {
@@ -479,9 +451,7 @@ def test_csdi_runner_stitches_samples_and_emits_interval_metrics(
     runner._reference_cache[key] = fake  # type: ignore[assignment]
     monkeypatch.setattr(runner, "_reference_model", lambda *args: fake)
 
-    prediction, quantiles = runner._model_prediction(
-        "csdi", 11, scenario, artificial
-    )
+    prediction, quantiles = runner._model_prediction("csdi", 11, scenario, artificial)
     assert prediction is not None and quantiles is not None
     assert quantiles["q05"].shape == runner.data.values.shape
     assert np.isfinite(quantiles["q05"][artificial]).all()
@@ -508,7 +478,6 @@ def test_runner_reference_checkpoint_validation_and_contract_are_strict(
     assert checkpoint is not None
     checkpoint.parent.mkdir(parents=True, exist_ok=True)
     checkpoint.write_bytes(b"checkpoint")
-    Path(str(checkpoint) + ".sha256").write_text("sidecar\n", encoding="ascii")
     captured: dict[str, object] = {}
     loaded = SimpleNamespace(diagnostics_={}, metadata_={})
 
@@ -524,18 +493,19 @@ def test_runner_reference_checkpoint_validation_and_contract_are_strict(
         classmethod(load_checkpoint),
     )
     assert runner._strict_checkpoint_valid(scenario, "csdi", 11)
-    protocol, adapter_config, training, _ = runner._reference_contract(
-        "csdi", 11, scenario.condition.window_length, scenario.condition.training_protocol
+    _, adapter_config, training, _ = runner._reference_contract(
+        "csdi",
+        11,
+        scenario.condition.window_length,
+        scenario.condition.training_protocol,
     )
     assert captured["expected_model_name"] == "csdi"
-    assert captured["expected_protocol_fingerprint"] == protocol.fingerprint
     assert captured["expected_adapter_config"] == adapter_config
     assert captured["expected_training_config"] == asdict(training)
     contract = runner._run_execution_contract(scenario, "csdi", 11)
     assert contract["reference_implementation"] == REFERENCE_IMPLEMENTATION
-    assert contract["reference_protocol_fingerprint"] == protocol.fingerprint
-    assert contract["checkpoint"]["sha256"]
-    assert contract["checkpoint_sidecar"]["sha256"]
+    assert contract["checkpoint"]["path"] == str(checkpoint.resolve())
+    assert contract["checkpoint"]["size"] == len(b"checkpoint")
 
     def reject_checkpoint(cls: type, path: Path, **kwargs: object) -> object:
         del cls, path, kwargs

@@ -22,7 +22,6 @@ from stream_recoverability.experiments.empirical_placement import (
     training_correlation,
 )
 from stream_recoverability.experiments.second_confirmation_guard import (
-    sha256_file,
     validate_canonical_authorization,
     validate_scored_result_gate,
 )
@@ -158,12 +157,14 @@ def main() -> None:
         "confirmatory_utility_claim_licensed": False,
         "endpoint_status": "directionally_lower_regret_no_preregistered_margin",
         "input_bindings": {
-            "placement_losses_sha256": sha256_file(SCORING / "placement_losses.csv"),
-            "frozen_roster_sha256": sha256_file(
-                SECOND / "frozen_scoring_roster_v2.csv"
+            "placement_losses": str(
+                (SCORING / "placement_losses.csv").relative_to(ROOT)
             ),
-            "authorization_amendment_sha256": sha256_file(
-                ROOT / "configs/route_a_second_confirmation_amendment_v2.yaml"
+            "frozen_roster": str(
+                (SECOND / "frozen_scoring_roster_v2.csv").relative_to(ROOT)
+            ),
+            "authorization_amendment": (
+                "configs/route_a_second_confirmation_amendment_v2.yaml"
             ),
         },
     }

@@ -26,10 +26,8 @@ def _one_network_plan() -> dict:
     ]
     return {
         "policy": "catalog_v3_huc8_development_only",
-        "split_sha256": "locked",
         "pilot_seed": 20260826,
         "pilot_size": 1,
-        "sample_network_ids_sha256": "sample",
         "stratification_columns": [
             "climate_band",
             "regulation_stratum",

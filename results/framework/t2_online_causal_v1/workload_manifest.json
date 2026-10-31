@@ -47,7 +47,6 @@
     "structural_not_applicable": 814956
   },
   "design_id": "design_freeze_v9",
-  "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
   "formal_evidence": false,
   "full_execution_authorized": false,
   "full_execution_started": false,
@@ -60,7 +59,6 @@
     ],
     "catalog_path": "configs/network_catalog_v3_split.yaml",
     "catalog_roles_cross_checked": true,
-    "catalog_split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
     "n_networks_eligible": 67,
     "qualification_mode": "failure_closure6",
     "rejected": {
@@ -180,13 +178,11 @@
     "same_gap_start_and_truth_window": true,
     "source": "existing_offline_WorkItem_and_frozen_geometry"
   },
-  "placement_roster_identity_sha256": "7493d116fc56c9aa697471ec668e910b7c4c7698b57d3a1e0d59687d1f506b07",
   "protocol_amendment": "v9.1",
   "purpose": "pipeline_verification_not_evidence",
   "runner_contract_version": "t2_v91_online_causal_runner_v1",
   "runner_implementation_ready": true,
   "sealed_input_roots_allowed": [],
   "sealed_temperature_records_read": false,
-  "task": "online_causal",
-  "work_item_identity_sha256": "0e5c66d8de5857d2d2e25d8494b7ea1474d0569169e62ae845160bb0b3dd01a4"
+  "task": "online_causal"
 }

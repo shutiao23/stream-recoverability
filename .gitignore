@@ -47,8 +47,8 @@ results/validation_funnel/**/*_pre_protocol_normalization.csv
 
 # Historical/pre-fix local runs are retained on disk but are not release evidence.
 results/validation_funnel/published_v1/
-results/validation_funnel/published_v2/aad01e417fc233cff287deb6a6afd578046a1f7d7c15f9cff7b8ba936fe5d0fd/
-results/validation_funnel/published_v2/ccb12d2a528308c5c16bfaefea5b7d5a1d1f221fa1519b06dfd4f539d9d96832/
+results/validation_funnel/published_v2/design_freeze_v4_variant01/
+results/validation_funnel/published_v2/design_freeze_v4_variant02/
 results/remaining_execution_plan.json
 
 # Invalid pre-freeze formal dumps remain private local artifacts.
@@ -208,6 +208,98 @@ scratch/p0_02/crossfit_cache/
 /results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/**/source_roster.csv
 /results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/independent_decisions.csv
 
+# Post-review follow-up: retain compact evidence; rebuild fits and per-case caches.
+/results/wrr_submission_ready/followup_20261021/**/*.joblib
+/results/wrr_submission_ready/followup_20261021/**/jobs.json
+/results/wrr_submission_ready/followup_20261021/**/*.parquet
+/results/wrr_submission_ready/followup_20261021/**/CH_2327_daily.csv
+/results/wrr_submission_ready/followup_20261021/robustness/**/refits/
+/scratch/wrr_followup_20261021/
+/data/external/wrr_followup_backup/
+/results/wrr_submission_ready/followup_20261021/**/*.npz
+/results/wrr_submission_ready/followup_20261021/probability_development/*/training/
+/results/wrr_submission_ready/followup_20261021/joint_power/refits/
+/results/wrr_submission_ready/followup_20261021/natural_backup/daily/
+/results/wrr_submission_ready/followup_20261021/natural_backup/short_history/air_*.json
+/data/external/wrr_neon_backup_20261021/
+/scratch/wrr_neon_backup_20261021/
+/data/external/wrr_public_backup_20261021/
+/data/external/wrr_neon_confirmation_20261021/
+/scratch/wrr_neon_confirmation_20261021/
+/data/external/wrr_au_confirmation_20261021/
+/scratch/wrr_au_confirmation_20261021/
+/results/wrr_submission_ready/followup_20261021/three_method_joint_power/refits/
+# USGS intake: keep source hashes and compact scope tables; raw service caches
+# and per-request job files are reproducible local inputs.
+/data/external/wrr_usgs_new_reference_20261021/
+/data/external/wrr_additional_sources_20261021/
+
+# Target-recovery study: provider downloads, daily caches and large regenerable case tables
+/data/external/wrr_target_recovery_20261021/
+/data/interim/tr_air_forcing.parquet
+/scratch/wrr_target_recovery_20261021/
+results/wrr_target_recovery_20261021/e2_cases/cases.parquet
+results/wrr_target_recovery_20261021/e7_sealed/cases.parquet
+results/wrr_target_recovery_20261021/e9_application/cases.parquet
+results/wrr_target_recovery_20261021/e4_estimators/oof_predictions.parquet
+results/wrr_target_recovery_20261021/e3_recovery_law/law_predictions.parquet
+results/wrr_target_recovery_20261021/e5_rules/scores.parquet
+results/wrr_target_recovery_20261021/e8_downstream/**/replicates.parquet
+results/wrr_target_recovery_20261021/e1_archive/usgs_flow.parquet
+# Target-recovery round 2: provider downloads (availability dates, sealed values, air forcing)
+# and large regenerable case and prediction tables; frozen models and compact tables are kept.
+/data/external/wrr_target_recovery_20261022/
+results/wrr_target_recovery_20261022/e2_cases/cases.parquet
+results/wrr_target_recovery_20261022/e7_au_development/cases.parquet
+results/wrr_target_recovery_20261022/e9_application/cases.parquet
+results/wrr_target_recovery_20261022/e10_sealed_usgs/cases.parquet
+results/wrr_target_recovery_20261022/e4_estimators/oof_predictions.parquet
+results/wrr_target_recovery_20261022/e4_estimators/oof_calibrated.parquet
+results/wrr_target_recovery_20261022/e3_recovery_law/law_predictions.parquet
+results/wrr_target_recovery_20261022/e7_au_development/law/law_predictions.parquet
+results/wrr_target_recovery_20261022/e5_rules/scores.parquet
+results/wrr_target_recovery_20261022/e8_downstream/**/replicates.parquet
+results/wrr_target_recovery_20261022/s1_flow/case_predictions.parquet
+results/wrr_target_recovery_20261022/s1_flow/trend_replicates.parquet
+/scratch/wrr_target_recovery_20261022/
+
+# Current study: rebuild per-case tables, fitted models and daily caches with `make wrr-tr`.
+/results/wrr_target_recovery_*/**/*.parquet
+/results/wrr_target_recovery_*/**/*.joblib
+
+# Current research keeps compact evidence, not regenerable per-case caches.
+/scratch/
+/results/whole_archive/calendar/
+/results/whole_archive/crossed/
+/results/whole_archive/pilot_*/
+/results/whole_archive/trends.csv
+/results/whole_archive/annual.csv
+/results/whole_archive/task_calibrated_trends.csv
+/results/whole_archive/task_calibration_errors.csv
+/results/whole_archive/quantile_tail_sensitivity.csv
+# The review-response archive also retains restricted station-level outputs.
+# Aggregate summaries remain visible for review; derived cases and model
+# calibrations require separate source and derivative permissions.
+/results/wrr_review_response_20261027/whole_archive/calendar/
+/results/wrr_review_response_20261027/whole_archive/crossed/
+/results/wrr_review_response_20261027/whole_archive/annual.csv
+/results/wrr_review_response_20261027/whole_archive/trends.csv
+/results/wrr_review_response_20261027/whole_archive/classical_calibration.json
+/results/wrr_review_response_20261027/whole_archive/design.json
+/results/wrr_review_response_20261027/whole_archive/calibration_design.json
+/results/wrr_review_response_20261027/whole_archive/unavailable.json
+/results/wrr_review_response_20261027/whole_archive/evaluation_error_structure.csv
+/results/wrr_review_response_20261027/whole_archive/factorial_contrasts.csv
+/results/wrr_review_response_20261027/whole_archive/quantile_tail_sensitivity.csv
+/results/wrr_review_response_20261027/whole_archive/task_calibrated_trends.csv
+/results/wrr_review_response_20261027/whole_archive/task_calibration_errors.csv
+/results/wrr_review_response_20261027/whole_archive/task_calibration_sources.csv
+/results/wrr_review_response_20261027/whole_archive/uncertainty_common_cases.csv
+/results/release_outputs/*.parquet
+/results/independent_nz_fallback/
+/data/external/additional_usgs_observed/
+/results/wrr_review_completion_20261024/independent_study/acquired/
+
 # Fourth-review source observations and regenerable case/model caches stay local.
 /data/external/wrr_review_national_20261024/
 /data/external/wrr_target_recovery_20261021/
@@ -236,3 +328,35 @@ scratch/p0_02/crossfit_cache/
 /scratch/wrr_target_recovery_20261022/
 /results/wrr_target_recovery_*/**/*.parquet
 /results/wrr_target_recovery_*/**/*.joblib
+
+# Local-only case evidence; may contain third-party observations and derivatives.
+private/wrr_review_case_evidence_20261027/
+private/wrr_nova_scotia_verified_20261026/
+private/wrr_nova_scotia_exploratory_20261026/
+private/wrr_nova_scotia_clock_sensitivity_20261026/
+private/wrr_strict_region_holdout_20261026/
+
+# RivTemp source files and station-level derivatives remain local while reuse terms are clarified.
+private/wrr_rivtemp_reference_20261026/
+
+# New Jersey monitoring source metadata and future qualification files remain local pending data-use review.
+private/wrr_njdep_reference_20261026/
+private/wrr_open_source_sensitivity_20261026/
+private/wrr_archive_matched_release_trend_20261027/
+private/wrr_expanded_stress_20261027/
+private/wrr_expanded_stress_source_20261027/
+private/wrr_groupmax_annual_calibration_20261027/
+private/wrr_projected_risk_sensitivity_20261027/
+private/wrr_heat_gap_matched_20261027/
+private/wrr_heat_gap_source_sensitivity_20261027/
+private/wrr_nova_scotia_field_checks_20261027/
+private/wrr_beaufort_proxy_20261027/
+private/wrr_archive_summer_proxy_20261027/
+private/wrr_camelsh_hourly_reference_20261027/
+private/wrr_truckee_reference_20261027/
+private/wrr_usace_reservoir_reference_20261027/
+
+# Final-candidate sync: keep restricted/local evidence and large review archives out of Git.
+/private/
+/data/external/
+/results/wrr_adversarial_review_20261028_round2/reviewed_candidate.zip

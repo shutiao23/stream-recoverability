@@ -35,6 +35,8 @@ Writes (results/revision_v12/t12_confirmation_protocol/agent_a/):
 
 import json
 import os
+import sys
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -45,11 +47,22 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+SRC_ROOT = Path(__file__).resolve().parents[1] / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
+from stream_recoverability.seeds import plain_seed
+
 OUT = "results/revision_v12/t12_confirmation_protocol/agent_a"
-EMP_CSV = "results/development_v11/second_confirmation/scoring/empirical_predictions.csv"
-SIMPLE_CSV = "results/development_v11/second_confirmation/scoring/simple_predictions.csv"
+EMP_CSV = (
+    "results/development_v11/second_confirmation/scoring/empirical_predictions.csv"
+)
+SIMPLE_CSV = (
+    "results/development_v11/second_confirmation/scoring/simple_predictions.csv"
+)
 
 SEED = 20260828
+THERMAL_SUBSET_TAG = 1
 SUPPORTED_HORIZONS = (7, 30, 90, 180)
 BUDGETS = (0.05, 0.10, 0.20, 0.30)
 THERMAL_FRACTION = 0.30
@@ -135,11 +148,10 @@ def scalar_metrics(emp_p, base_p, obs, sup_mask, budgets, gap_p):
     sup_idx = np.where(sup_mask)[0]
     if len(sup_idx) >= 3:
         m = max(3, int(np.ceil(THERMAL_FRACTION * len(sup_idx))))
-        import zlib
-        rng_net = np.random.default_rng(zlib.crc32(b"rev_v12_t12_thermal") & 0xFFFFFFFF)
+        rng_net = np.random.default_rng(plain_seed(SEED, THERMAL_SUBSET_TAG))
         sel = np.sort(rng_net.choice(sup_idx, size=m, replace=False))
-        out["d_rho_therm"] = (
-            spearman_rank(emp_j[sel], obs[sel]) - spearman_rank(base_j[sel], obs[sel])
+        out["d_rho_therm"] = spearman_rank(emp_j[sel], obs[sel]) - spearman_rank(
+            base_j[sel], obs[sel]
         )
     else:
         out["d_rho_therm"] = np.nan
@@ -150,11 +162,24 @@ def main():
     os.makedirs(OUT, exist_ok=True)
 
     emp = pd.read_csv(EMP_CSV)
-    sim = pd.read_csv(SIMPLE_CSV)[["network_id", "station_id", "gap_length", "predicted_loss"]]
+    sim = pd.read_csv(SIMPLE_CSV)[
+        ["network_id", "station_id", "gap_length", "predicted_loss"]
+    ]
     df = emp.merge(sim, on=["network_id", "station_id", "gap_length"])
     if len(df) != len(emp):
         raise RuntimeError("merge mismatch")
-    if df[["empirical_transfer_prediction", "predicted_loss", "observed_recovery_loss"]].isna().any().any():
+    if (
+        df[
+            [
+                "empirical_transfer_prediction",
+                "predicted_loss",
+                "observed_recovery_loss",
+            ]
+        ]
+        .isna()
+        .any()
+        .any()
+    ):
         raise RuntimeError("missing values after merge")
     df["sup"] = df["gap_length"].isin(SUPPORTED_HORIZONS)
 
@@ -208,9 +233,15 @@ def main():
     def rho_delta_cols(e_v, b_v, o_v):
         """Paired rho deltas (empirical - simple) for the masked matrices.
         Predictions already include the frozen tie-break jitter."""
-        r_e = np.argsort(np.argsort(e_v, axis=1, kind="stable"), axis=1, kind="stable").astype(float)
-        r_b = np.argsort(np.argsort(b_v, axis=1, kind="stable"), axis=1, kind="stable").astype(float)
-        r_o = np.argsort(np.argsort(o_v, axis=1, kind="stable"), axis=1, kind="stable").astype(float)
+        r_e = np.argsort(
+            np.argsort(e_v, axis=1, kind="stable"), axis=1, kind="stable"
+        ).astype(float)
+        r_b = np.argsort(
+            np.argsort(b_v, axis=1, kind="stable"), axis=1, kind="stable"
+        ).astype(float)
+        r_o = np.argsort(
+            np.argsort(o_v, axis=1, kind="stable"), axis=1, kind="stable"
+        ).astype(float)
         ok = np.isfinite(e_v) & np.isfinite(o_v)
         d_emp = pearson_pair(np.where(ok, r_e, np.nan), np.where(ok, r_o, np.nan))
         d_base = pearson_pair(np.where(ok, r_b, np.nan), np.where(ok, r_o, np.nan))
@@ -256,7 +287,9 @@ def main():
         order3 = np.argsort(keys, axis=1, kind="stable")
         tgt = np.maximum(3, np.floor(THERMAL_FRACTION * n_sup)).astype(int)
         sel3 = np.zeros((N, M))
-        np.put_along_axis(sel3, order3, (POS[None, :] < tgt[:, None]).astype(float), axis=1)
+        np.put_along_axis(
+            sel3, order3, (POS[None, :] < tgt[:, None]).astype(float), axis=1
+        )
         tv = sel3 > 0.5
         et = np.where(tv, emp_j, -np.inf)
         bt = np.where(tv, base_j, -np.inf)
@@ -272,8 +305,8 @@ def main():
         okn = n_sup >= 3
         d_rho_net = np.full(N, np.nan)
         if okn.sum() >= 3:
-            d_rho_net[0] = (
-                spearman_rank(m_emp[okn], m_obs[okn]) - spearman_rank(m_base[okn], m_obs[okn])
+            d_rho_net[0] = spearman_rank(m_emp[okn], m_obs[okn]) - spearman_rank(
+                m_base[okn], m_obs[okn]
             )
 
         # (b)/(c) budget endpoints: shared orderings, per-budget masks
@@ -290,8 +323,12 @@ def main():
             frac = k / n
             o_sel_e = np.where(sel, np.take_along_axis(o_v, order_e, axis=1), 0.0)
             o_sel_b = np.where(sel, np.take_along_axis(o_v, order_b, axis=1), 0.0)
-            cap_e = np.where(zt, o_sel_e.sum(axis=1) / np.maximum(obs_total, 1e-300), 0.0)
-            cap_b = np.where(zt, o_sel_b.sum(axis=1) / np.maximum(obs_total, 1e-300), 0.0)
+            cap_e = np.where(
+                zt, o_sel_e.sum(axis=1) / np.maximum(obs_total, 1e-300), 0.0
+            )
+            cap_b = np.where(
+                zt, o_sel_b.sum(axis=1) / np.maximum(obs_total, 1e-300), 0.0
+            )
             pct = int(b * 100)
             cols["d_cap_rand_b%02d" % pct] = cap_e - frac
             cols["d_cap_simple_b%02d" % pct] = cap_e - cap_b
@@ -304,16 +341,20 @@ def main():
             ndcg_b = np.where(idcg_pos, dcg_b / np.maximum(idcg, 1e-300), 0.0)
             mean_gain = obs_total / np.maximum(nvalid, 1e-300)
             dk_k = np.where(sel, DENOM_ALL, 0.0).sum(axis=1)
-            ndcg_rand = np.where(idcg_pos, mean_gain * dk_k / np.maximum(idcg, 1e-300), 0.0)
+            ndcg_rand = np.where(
+                idcg_pos, mean_gain * dk_k / np.maximum(idcg, 1e-300), 0.0
+            )
             cols["d_ndcg_rand_b%02d" % pct] = ndcg_e - ndcg_rand
             cols["d_ndcg_simple_b%02d" % pct] = ndcg_e - ndcg_b
 
-        cols.update({
-            "d_rho_sup": d_rho_sup,
-            "d_rho_all": d_rho_all,
-            "d_rho_therm": d_rho_therm,
-            "d_rho_net": d_rho_net,
-        })
+        cols.update(
+            {
+                "d_rho_sup": d_rho_sup,
+                "d_rho_all": d_rho_all,
+                "d_rho_therm": d_rho_therm,
+                "d_rho_net": d_rho_net,
+            }
+        )
         return np.column_stack([cols[k] for k in ENDPOINT_ORDER])
 
     ENDPOINT_ORDER = (
@@ -339,8 +380,12 @@ def main():
         )
         if mets_keys is None:
             mets_keys = sorted(mets.keys())
-        obs_rows.append([nid, len(g), int(g["sup"].sum())] + [mets[k] for k in mets_keys])
-    per_net = pd.DataFrame(obs_rows, columns=["network_id", "n_units", "n_supported"] + mets_keys)
+        obs_rows.append(
+            [nid, len(g), int(g["sup"].sum())] + [mets[k] for k in mets_keys]
+        )
+    per_net = pd.DataFrame(
+        obs_rows, columns=["network_id", "n_units", "n_supported"] + mets_keys
+    )
     per_net.to_csv(os.path.join(OUT, "per_network_observed_deltas.csv"), index=False)
 
     observed = {}
@@ -370,13 +415,18 @@ def main():
     observed["d_rho_net"] = {"mean": observed["d_rho_net_sup"]["value"], "sd": np.nan}
     with open(os.path.join(OUT, "observed_effects.json"), "w") as fh:
         json.dump(observed, fh, indent=2)
-    print("anchors:", {k: round(observed[k]["mean"], 4) for k in ENDPOINT_ORDER if k in observed})
+    print(
+        "anchors:",
+        {k: round(observed[k]["mean"], 4) for k in ENDPOINT_ORDER if k in observed},
+    )
 
     # ---- 2. bootstrap distribution of panel mean effects ----
-    power_endpoints = (["d_rho_sup"]
-                       + ["d_cap_rand_b%02d" % b for b in BUDGETS_PCT]
-                       + ["d_ndcg_rand_b%02d" % b for b in BUDGETS_PCT]
-                       + ["d_rho_therm", "d_rho_net"])
+    power_endpoints = (
+        ["d_rho_sup"]
+        + ["d_cap_rand_b%02d" % b for b in BUDGETS_PCT]
+        + ["d_ndcg_rand_b%02d" % b for b in BUDGETS_PCT]
+        + ["d_rho_therm", "d_rho_net"]
+    )
     diag_endpoints = ["d_cap_simple_b20", "d_ndcg_simple_b20", "d_rho_all"]
 
     dist_rows = []
@@ -388,14 +438,16 @@ def main():
             d = panel_deltas([net_ids[i] for i in samp])[:, e]
             d = d[np.isfinite(d)]
             vals[b] = d.mean()
-        dist_rows.append({
-            "endpoint": ep,
-            "mean": float(vals.mean()),
-            "sd": float(vals.std(ddof=1)),
-            "p5": float(np.quantile(vals, 0.05)),
-            "p50": float(np.quantile(vals, 0.50)),
-            "p95": float(np.quantile(vals, 0.95)),
-        })
+        dist_rows.append(
+            {
+                "endpoint": ep,
+                "mean": float(vals.mean()),
+                "sd": float(vals.std(ddof=1)),
+                "p5": float(np.quantile(vals, 0.05)),
+                "p50": float(np.quantile(vals, 0.50)),
+                "p95": float(np.quantile(vals, 0.95)),
+            }
+        )
     dist_df = pd.DataFrame(dist_rows)
     dist_df.to_csv(os.path.join(OUT, "effect_bootstrap_distribution.csv"), index=False)
     print("bootstrap distribution done")
@@ -438,16 +490,20 @@ def main():
                     effs[b] = eff
                 power = n_rej / B_POWER
                 power_grid[ep][scale][size] = power
-                power_rows.append({
-                    "endpoint": ep,
-                    "anchor": anchor,
-                    "effect_scale": scale,
-                    "margin": scale * anchor,
-                    "panel_size": size,
-                    "power": power,
-                    "mean_panel_effect": float(effs.mean()),
-                })
-                print("power %-18s scale %.1f size %3d -> %.3f" % (ep, scale, size, power))
+                power_rows.append(
+                    {
+                        "endpoint": ep,
+                        "anchor": anchor,
+                        "effect_scale": scale,
+                        "margin": scale * anchor,
+                        "panel_size": size,
+                        "power": power,
+                        "mean_panel_effect": float(effs.mean()),
+                    }
+                )
+                print(
+                    "power %-18s scale %.1f size %3d -> %.3f" % (ep, scale, size, power)
+                )
 
     for ep in power_endpoints:
         run_grid(ep)
@@ -472,16 +528,20 @@ def main():
                         t = mean / (sd / np.sqrt(len(d)))
                         reject = t > tcrit
                 n_rej += int(reject)
-            power_rows.append({
-                "endpoint": ep,
-                "anchor": observed[ep]["mean"],
-                "effect_scale": 0.0,
-                "margin": 0.0,
-                "panel_size": size,
-                "power": n_rej / B_POWER,
-                "mean_panel_effect": observed[ep]["mean"],
-            })
-            print("power %-18s margin 0.0 size %3d -> %.3f" % (ep, size, n_rej / B_POWER))
+            power_rows.append(
+                {
+                    "endpoint": ep,
+                    "anchor": observed[ep]["mean"],
+                    "effect_scale": 0.0,
+                    "margin": 0.0,
+                    "panel_size": size,
+                    "power": n_rej / B_POWER,
+                    "mean_panel_effect": observed[ep]["mean"],
+                }
+            )
+            print(
+                "power %-18s margin 0.0 size %3d -> %.3f" % (ep, size, n_rej / B_POWER)
+            )
 
     power_df = pd.DataFrame(power_rows)
     power_df.to_csv(os.path.join(OUT, "power_table.csv"), index=False)
@@ -492,7 +552,7 @@ def main():
         rec[ep] = {}
         for scale in SCALES:
             hits = [s for s in SIZES if power_grid[ep][scale][s] >= 0.80]
-            rec[ep]["scale_%.1f" % scale] = (min(hits) if hits else None)
+            rec[ep]["scale_%.1f" % scale] = min(hits) if hits else None
     with open(os.path.join(OUT, "recommended_sample_size.json"), "w") as fh:
         json.dump(rec, fh, indent=2)
 
@@ -509,8 +569,15 @@ def main():
         for scale in SCALES:
             xs = list(SIZES)
             ys = [power_grid[ep][scale][s] for s in SIZES]
-            ax.plot(xs, ys, marker="o", ms=4, lw=1.6, color=colors[scale],
-                    label="%.1fx observed effect" % scale)
+            ax.plot(
+                xs,
+                ys,
+                marker="o",
+                ms=4,
+                lw=1.6,
+                color=colors[scale],
+                label="%.1fx observed effect" % scale,
+            )
         ax.axhline(0.80, color="black", ls="--", lw=1.0)
         ax.axvline(n_networks, color="gray", ls=":", lw=1.0)
         ax.set_title(title, fontsize=10)
@@ -519,8 +586,10 @@ def main():
         ax.set_ylim(0.0, 1.02)
         ax.grid(alpha=0.3)
         ax.legend(fontsize=8, loc="lower right")
-    fig.suptitle("Third-panel confirmation: network-bootstrap power curves (planning anchor: 57-network second panel)",
-                 fontsize=11)
+    fig.suptitle(
+        "Third-panel confirmation: network-bootstrap power curves (planning anchor: 57-network second panel)",
+        fontsize=11,
+    )
     fig.tight_layout(rect=(0, 0, 1, 0.97))
     fig.savefig(os.path.join(OUT, "power_curve.png"), dpi=160)
     plt.close(fig)

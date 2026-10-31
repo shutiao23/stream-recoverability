@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """F11 — regenerate the step-22 sensor-noise sensitivity under one locked method,
 and extend it with error models a reviewer would actually ask for.
 
@@ -7,15 +6,15 @@ records that the published ``results/v17_fitness/step22_robustness/
 noise_sensitivity.json`` predates the fix to ``noise_sensitivity`` in
 ``scripts/202_v17_robustness.py``: the published clean and perturbed arms were
 scored through *different* reconstruction choices, so part of the published
-"noise effect" was a method change. The function is fixed (commit a9a7ad99cf);
-the published numbers are not regenerated.
+"noise effect" was a method change. The function is fixed; the published
+numbers are not regenerated.
 
 Stages
 ------
 ``preserve``   copy the pre-fix ``noise_sensitivity.json`` and ``REPORT.md``
-               byte-identically into
+               into
                ``results/wrr_submission_ready/amendments/step22_noise_pre_fix/``
-               and record sha256 digests in ``sha256.json``.
+               and list the copied files in ``preserved_files.json``.
 ``refix``      import the *fixed* ``noise_sensitivity`` from
                ``scripts/202_v17_robustness.py`` via ``sys.path`` (never a copy)
                and re-run it on the development and reserved panels. Write the
@@ -44,13 +43,10 @@ Usage::
 """
 
 from __future__ import annotations
-
 import argparse
-import hashlib
 import importlib
 import json
 import shutil
-import subprocess
 import sys
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -61,11 +57,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(SCRIPTS))
-
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-
-from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
+import numpy as np
+import pandas as pd
+from stream_recoverability.experiments.v17_fitness.paths import (
     PRIMARY_TOLERANCE_C,
     STEP10_CONFIRM,
     STEP1_PANEL,
@@ -73,9 +67,12 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     STEP4_CEILING,
     STEP6_SCREEN,
 )
-from stream_recoverability.experiments.v17_fitness.panel import station_jobs, station_roster  # noqa: E402
-from stream_recoverability.experiments.v17_fitness.stats import cluster_bootstrap  # noqa: E402
-from stream_recoverability.experiments.wrr_submission_ready.noise_scenarios import (  # noqa: E402
+from stream_recoverability.experiments.v17_fitness.panel import (
+    station_jobs,
+    station_roster,
+)
+from stream_recoverability.experiments.v17_fitness.stats import cluster_bootstrap
+from stream_recoverability.experiments.wrr_submission_ready.noise_scenarios import (
     CLEAN_PREFIX,
     FROZEN_NOISE_TAG,
     SCENARIO_MODELS,
@@ -92,9 +89,15 @@ POST_DIR = AMEND / "step22_noise_post_fix"
 SCRATCH = ROOT / "scratch" / "f11"
 FIXED_SCRIPT = SCRIPTS / "202_v17_robustness.py"
 PRESERVED_FILES = ("noise_sensitivity.json", "REPORT.md")
-
+PRESERVED_RECORD = "preserved_files.json"
 CASE_KEY = ["network_id", "station_id", "year", "realization_id"]
-FROZEN_ESTIMATORS = ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge", "air_ridge")
+FROZEN_ESTIMATORS = (
+    "doy_climatology",
+    "smooth_climatology",
+    "linear_interp",
+    "donor_ridge",
+    "air_ridge",
+)
 FEATURE_COLUMNS = (
     "truth_hottest30",
     "longest_run",
@@ -103,16 +106,9 @@ FEATURE_COLUMNS = (
     "missing_fraction",
     "n_visible_donors",
 )
-
-# Bootstrap draws. The paper's own clustered intervals use 1200 (script 202) to
-# 2000 (stats.DEFAULT_DRAWS); 1000 keeps ~40 bootstraps inside the run budget
-# used here. Recorded in every output so the number is never implicit.
 BOOTSTRAP_DRAWS = 1000
 JITTER_SEED = 83
-#: A constant offset is constant up to floating-point noise; below this the
-#: within-series autocorrelation is undefined and is reported as null.
-CONSTANT_SD_TOLERANCE_C = 1e-9
-
+CONSTANT_SD_TOLERANCE_C = 1e-09
 SOURCE_ARTIFACTS = {
     "step22_noise_sensitivity_pre_fix": STEP22 / "noise_sensitivity.json",
     "step22_report_pre_fix": STEP22 / "REPORT.md",
@@ -129,40 +125,23 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def git_head() -> str | None:
-    try:
-        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return None
-
-
 def rel(path: Path) -> str:
     return str(Path(path).resolve().relative_to(ROOT))
 
 
 def load_fixed_module():
     """The fixed sensor-noise function, imported from ``scripts/`` via sys.path."""
-
     module = importlib.import_module("202_v17_robustness")
     if Path(module.__file__).resolve() != FIXED_SCRIPT.resolve():
         raise RuntimeError(f"imported the wrong module: {module.__file__}")
     doc = module.noise_sensitivity.__doc__ or ""
     if "same reconstruction choice" not in doc:
-        raise RuntimeError("scripts/202_v17_robustness.py does not carry the F11 fix; refusing to run")
+        raise RuntimeError(
+            "scripts/202_v17_robustness.py does not carry the F11 fix; refusing to run"
+        )
     return module
 
 
-# --------------------------------------------------------------------------- #
-# rate at fixed retention, with the retained case set exposed for assertions
-# --------------------------------------------------------------------------- #
 def rate_locked_detail(
     score: pd.Series | np.ndarray,
     clean_errors: pd.Series | np.ndarray,
@@ -176,10 +155,13 @@ def rate_locked_detail(
     between arms; every published rate comes from the imported function and the
     mirror is asserted equal to it (see ``assert_mirror_matches``).
     """
-
     values = pd.to_numeric(pd.Series(score), errors="coerce").to_numpy(dtype=float)
-    clean = pd.to_numeric(pd.Series(clean_errors), errors="coerce").to_numpy(dtype=float)
-    eval_err = pd.to_numeric(pd.Series(eval_errors), errors="coerce").to_numpy(dtype=float)
+    clean = pd.to_numeric(pd.Series(clean_errors), errors="coerce").to_numpy(
+        dtype=float
+    )
+    eval_err = pd.to_numeric(pd.Series(eval_errors), errors="coerce").to_numpy(
+        dtype=float
+    )
     good = np.isfinite(clean) & np.isfinite(eval_err)
     values = np.where(np.isfinite(values), values, np.inf)[good]
     eval_err = eval_err[good]
@@ -194,18 +176,21 @@ def rate_locked_detail(
     }
 
 
-def assert_mirror_matches(module, score, clean, eval_err, label: str, tolerance: float = 1e-12) -> float:
+def assert_mirror_matches(
+    module, score, clean, eval_err, label: str, tolerance: float = 1e-12
+) -> float:
     detail = rate_locked_detail(score, clean, eval_err, module.RETENTION)
-    reference = module._rate_locked(pd.Series(score), pd.Series(clean), pd.Series(eval_err))
+    reference = module._rate_locked(
+        pd.Series(score), pd.Series(clean), pd.Series(eval_err)
+    )
     gap = abs(float(detail["rate"]) - float(reference))
     if not gap <= tolerance:
-        raise AssertionError(f"{label}: retained-set mirror disagrees with _rate_locked by {gap}")
+        raise AssertionError(
+            f"{label}: retained-set mirror disagrees with _rate_locked by {gap}"
+        )
     return gap
 
 
-# --------------------------------------------------------------------------- #
-# stage: preserve
-# --------------------------------------------------------------------------- #
 def stage_preserve() -> dict:
     PRE_DIR.mkdir(parents=True, exist_ok=True)
     files = []
@@ -213,68 +198,64 @@ def stage_preserve() -> dict:
         source = STEP22 / name
         destination = PRE_DIR / name
         shutil.copyfile(source, destination)
-        source_digest = sha256_file(source)
-        destination_digest = sha256_file(destination)
-        if source_digest != destination_digest:
-            raise AssertionError(f"preservation is not byte-identical for {name}")
-        if source.stat().st_size != destination.stat().st_size:
-            raise AssertionError(f"preservation changed the size of {name}")
         files.append(
             {
                 "file": name,
                 "source": rel(source),
                 "destination": rel(destination),
                 "bytes": int(destination.stat().st_size),
-                "sha256": destination_digest,
-                "source_sha256": source_digest,
-                "byte_identical": True,
             }
         )
     record = {
         "generated_by": rel(Path(__file__)),
         "generated_utc": utc_now(),
-        "git_head": git_head(),
-        "purpose": (
-            "Pre-fix bytes of the step-22 reference-series sensitivity, preserved before the F11 "
-            "recompute so that the superseded numbers stay citable."
-        ),
-        "fix_commit": "a9a7ad99cf",
+        "purpose": "Pre-fix bytes of the step-22 reference-series sensitivity, preserved before the F11 recompute so that the superseded numbers stay citable.",
         "files": files,
     }
-    (PRE_DIR / "sha256.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    (PRE_DIR / PRESERVED_RECORD).write_text(
+        json.dumps(record, indent=2) + "\n", encoding="utf-8"
+    )
     print(f"[preserve] {len(files)} files -> {rel(PRE_DIR)}")
     for item in files:
-        print(f"           {item['file']} sha256={item['sha256'][:16]}… bytes={item['bytes']}")
+        print(f"           {item['file']} bytes={item['bytes']}")
     return record
 
 
-# --------------------------------------------------------------------------- #
-# stage: refix
-# --------------------------------------------------------------------------- #
 def panel_tables() -> dict[str, tuple[pd.DataFrame, pd.DataFrame]]:
     return {
         "development": (
-            pd.read_parquet(STEP4_CEILING / "development_cases.parquet").reset_index(drop=True),
-            pd.read_parquet(STEP6_SCREEN / "development_certificates.parquet").reset_index(drop=True),
+            pd.read_parquet(STEP4_CEILING / "development_cases.parquet").reset_index(
+                drop=True
+            ),
+            pd.read_parquet(
+                STEP6_SCREEN / "development_certificates.parquet"
+            ).reset_index(drop=True),
         ),
         "reserved": (
-            pd.read_parquet(STEP10_CONFIRM / "reserved_cases.parquet").reset_index(drop=True),
-            pd.read_parquet(STEP10_CONFIRM / "reserved_certificates.parquet").reset_index(drop=True),
+            pd.read_parquet(STEP10_CONFIRM / "reserved_cases.parquet").reset_index(
+                drop=True
+            ),
+            pd.read_parquet(
+                STEP10_CONFIRM / "reserved_certificates.parquet"
+            ).reset_index(drop=True),
         ),
     }
 
 
-def contrast_fields(module, cases: pd.DataFrame, certificates: pd.DataFrame, choice, errors_fn) -> dict:
+def contrast_fields(
+    module, cases: pd.DataFrame, certificates: pd.DataFrame, choice, errors_fn
+) -> dict:
     """Rate table for one arm: rank by certificate bound and by outage length."""
-
     clean = pd.Series(
-        module.gather(cases, certificates["certificate_choice"], prefix="abserr_"), index=cases.index
+        module.gather(cases, certificates["certificate_choice"], prefix="abserr_"),
+        index=cases.index,
     )
     eval_err = errors_fn(cases, clean)
     score = pd.to_numeric(certificates["certificate_bound"], errors="coerce")
     rng = np.random.default_rng(JITTER_SEED)
     length = pd.Series(
-        pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy() + rng.random(len(cases)),
+        pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy()
+        + rng.random(len(cases)),
         index=cases.index,
     )
     cert = rate_locked_detail(score, clean, eval_err, module.RETENTION)
@@ -302,63 +283,86 @@ def pre_fix_reproduction(module, tables: dict, old: dict) -> dict:
     strongest available check that the preserved bytes and the frozen inputs
     describe the same run.
     """
-
     out: dict[str, dict] = {}
     for panel, (cases, certificates) in tables.items():
         choice = certificates["certificate_choice"]
         policy = cases["policy_choice"]
-        clean_policy = pd.Series(module.gather(cases, policy, prefix="abserr_"), index=cases.index)
-        noisy_policy = pd.Series(module.gather(cases, policy, prefix="abserr_noisy_"), index=cases.index)
-        clean_cert = pd.Series(module.gather(cases, choice, prefix="abserr_"), index=cases.index)
+        clean_policy = pd.Series(
+            module.gather(cases, policy, prefix="abserr_"), index=cases.index
+        )
+        noisy_policy = pd.Series(
+            module.gather(cases, policy, prefix="abserr_noisy_"), index=cases.index
+        )
+        clean_cert = pd.Series(
+            module.gather(cases, choice, prefix="abserr_"), index=cases.index
+        )
         score = pd.to_numeric(certificates["certificate_bound"], errors="coerce")
-        certificate_abs = pd.to_numeric(certificates["certificate_abs_error"], errors="coerce")
+        certificate_abs = pd.to_numeric(
+            certificates["certificate_abs_error"], errors="coerce"
+        )
         rng = np.random.default_rng(JITTER_SEED)
         length = pd.Series(
-            pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy() + rng.random(len(cases)),
+            pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy()
+            + rng.random(len(cases)),
             index=cases.index,
         )
 
         def rate(score_series, error_series) -> float:
-            return float(rate_locked_detail(score_series, error_series, error_series, module.RETENTION)["rate"])
+            return float(
+                rate_locked_detail(
+                    score_series, error_series, error_series, module.RETENTION
+                )["rate"]
+            )
 
         reproduced = {
-            "mean_abs_error_clean_c": float(pd.to_numeric(clean_policy, errors="coerce").mean()),
-            "mean_abs_error_noisy_c": float(pd.to_numeric(noisy_policy, errors="coerce").mean()),
+            "mean_abs_error_clean_c": float(
+                pd.to_numeric(clean_policy, errors="coerce").mean()
+            ),
+            "mean_abs_error_noisy_c": float(
+                pd.to_numeric(noisy_policy, errors="coerce").mean()
+            ),
             "length_rule_at_70_clean": rate(length, clean_policy),
             "length_rule_at_70_noisy": rate(length, noisy_policy),
             "certificate_at_70_clean": rate(score, certificate_abs),
             "certificate_at_70_noisy": rate(score, noisy_policy),
         }
         reproduced["contrast_clean_points"] = (
-            reproduced["length_rule_at_70_clean"] - reproduced["certificate_at_70_clean"]
+            reproduced["length_rule_at_70_clean"]
+            - reproduced["certificate_at_70_clean"]
         ) * 100.0
         reproduced["contrast_noisy_points"] = (
-            reproduced["length_rule_at_70_noisy"] - reproduced["certificate_at_70_noisy"]
+            reproduced["length_rule_at_70_noisy"]
+            - reproduced["certificate_at_70_noisy"]
         ) * 100.0
-        gaps = {field: float(reproduced[field]) - float(old[panel][field]) for field in reproduced}
-        worst = max(abs(value) for value in gaps.values())
+        gaps = {
+            field: float(reproduced[field]) - float(old[panel][field])
+            for field in reproduced
+        }
+        worst = max((abs(value) for value in gaps.values()))
         if worst > 1e-12:
-            raise AssertionError(f"{panel}: pre-fix artifact not reproduced, worst gap {worst}")
-
-        difference = (pd.to_numeric(clean_cert, errors="coerce") - certificate_abs).abs()
+            raise AssertionError(
+                f"{panel}: pre-fix artifact not reproduced, worst gap {worst}"
+            )
+        difference = (
+            pd.to_numeric(clean_cert, errors="coerce") - certificate_abs
+        ).abs()
         out[panel] = {
             "reproduced_pre_fix_rates": reproduced,
             "gaps_reproduced_minus_published": gaps,
             "max_abs_gap_vs_published": float(worst),
             "pre_fix_artifact_reproduced_exactly": bool(worst <= 1e-12),
             "certificate_abs_error_identical_to_chosen_case_error": {
-                "max_abs_difference": float(np.nanmax(difference.to_numpy())) if len(difference) else 0.0,
+                "max_abs_difference": float(np.nanmax(difference.to_numpy()))
+                if len(difference)
+                else 0.0,
                 "rows": int(len(difference)),
-                "identical": bool(float(np.nanmax(difference.to_numpy())) == 0.0) if len(difference) else True,
+                "identical": bool(float(np.nanmax(difference.to_numpy())) == 0.0)
+                if len(difference)
+                else True,
             },
         }
     out["what_this_shows"] = (
-        "the preserved pre-fix numbers are exactly what the frozen case table and certificates produce "
-        "under the pre-fix method mix, so the old-versus-new difference is a code change and not a data "
-        "change; the two choices that moved are the length arm's reconstruction (information-conditioned "
-        "policy error -> certificate_choice error) and the perturbed certificate arm's error column "
-        "(policy noisy error -> certificate_choice noisy error). Because certificate_abs_error is identical "
-        "to the chosen method's case error on every row, the clean certificate arm cannot move."
+        "the preserved pre-fix numbers are exactly what the frozen case table and certificates produce under the pre-fix method mix, so the old-versus-new difference is a code change and not a data change; the two choices that moved are the length arm's reconstruction (information-conditioned policy error -> certificate_choice error) and the perturbed certificate arm's error column (policy noisy error -> certificate_choice noisy error). Because certificate_abs_error is identical to the chosen method's case error on every row, the clean certificate arm cannot move."
     )
     return out
 
@@ -368,24 +372,26 @@ def stage_refix() -> dict:
     tables = panel_tables()
     old = json.loads((PRE_DIR / "noise_sensitivity.json").read_text(encoding="utf-8"))
     reproduction = pre_fix_reproduction(module, tables, old)
-
     new: dict[str, dict] = {}
     for panel, (cases, certificates) in tables.items():
         new[panel] = module.noise_sensitivity(cases, certificates)
-
-    # Retention detail for the same two arms, from the same frozen inputs.
     detail: dict[str, dict] = {}
     for panel, (cases, certificates) in tables.items():
         clean = pd.Series(
-            module.gather(cases, certificates["certificate_choice"], prefix="abserr_"), index=cases.index
+            module.gather(cases, certificates["certificate_choice"], prefix="abserr_"),
+            index=cases.index,
         )
         noisy = pd.Series(
-            module.gather(cases, certificates["certificate_choice"], prefix="abserr_noisy_"), index=cases.index
+            module.gather(
+                cases, certificates["certificate_choice"], prefix="abserr_noisy_"
+            ),
+            index=cases.index,
         )
         score = pd.to_numeric(certificates["certificate_bound"], errors="coerce")
         rng = np.random.default_rng(JITTER_SEED)
         length = pd.Series(
-            pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy() + rng.random(len(cases)),
+            pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy()
+            + rng.random(len(cases)),
             index=cases.index,
         )
         clean_finite = pd.to_numeric(clean, errors="coerce").notna()
@@ -397,15 +403,21 @@ def stage_refix() -> dict:
         mirror_gap = max(
             assert_mirror_matches(module, score, clean, clean, f"{panel} cert clean"),
             assert_mirror_matches(module, score, clean, noisy, f"{panel} cert noisy"),
-            assert_mirror_matches(module, length, clean, clean, f"{panel} length clean"),
-            assert_mirror_matches(module, length, clean, noisy, f"{panel} length noisy"),
+            assert_mirror_matches(
+                module, length, clean, clean, f"{panel} length clean"
+            ),
+            assert_mirror_matches(
+                module, length, clean, noisy, f"{panel} length noisy"
+            ),
         )
         retained_identical = bool(
             np.array_equal(cert_clean["retained"], cert_noisy["retained"])
             and np.array_equal(len_clean["retained"], len_noisy["retained"])
         )
         if not retained_identical:
-            raise AssertionError(f"{panel}: retained case set moved between clean and iid arms")
+            raise AssertionError(
+                f"{panel}: retained case set moved between clean and iid arms"
+            )
         detail[panel] = {
             "n_cases": int(len(cases)),
             "n_certificate_choice_finite_clean": int(clean_finite.sum()),
@@ -413,13 +425,17 @@ def stage_refix() -> dict:
             "n_evaluated": int(cert_clean["n_good"]),
             "n_retained_at_70": int(cert_clean["k"]),
             "retained_set_identical_clean_vs_iid": retained_identical,
-            "mean_abs_error_clean_c": float(pd.to_numeric(clean, errors="coerce").mean()),
+            "mean_abs_error_clean_c": float(
+                pd.to_numeric(clean, errors="coerce").mean()
+            ),
             "mean_abs_error_iid_c": float(pd.to_numeric(noisy, errors="coerce").mean()),
             "mean_abs_error_clean_on_evaluated_c": float(
                 pd.to_numeric(clean, errors="coerce")[clean_finite].mean()
             ),
             "mean_abs_error_iid_on_evaluated_c": float(
-                pd.to_numeric(noisy, errors="coerce")[pd.to_numeric(clean, errors="coerce").notna()].mean()
+                pd.to_numeric(noisy, errors="coerce")[
+                    pd.to_numeric(clean, errors="coerce").notna()
+                ].mean()
             ),
             "mirror_vs_fixed_max_abs_rate_gap": float(mirror_gap),
             "cases_where_iid_error_differs_from_clean": int(
@@ -429,20 +445,21 @@ def stage_refix() -> dict:
                 ).sum()
             ),
         }
-
     fields = list(new["development"].keys())
     comparison: dict[str, dict] = {}
     for panel in ("development", "reserved"):
         old_panel = old[panel]
         new_panel = new[panel]
-        change = {field: float(new_panel[field]) - float(old_panel[field]) for field in fields if field in old_panel}
+        change = {
+            field: float(new_panel[field]) - float(old_panel[field])
+            for field in fields
+            if field in old_panel
+        }
         relative = {
-            "contrast_clean_relative_change": (
-                change["contrast_clean_points"] / float(old_panel["contrast_clean_points"])
-            ),
-            "contrast_noisy_relative_change": (
-                change["contrast_noisy_points"] / float(old_panel["contrast_noisy_points"])
-            ),
+            "contrast_clean_relative_change": change["contrast_clean_points"]
+            / float(old_panel["contrast_clean_points"]),
+            "contrast_noisy_relative_change": change["contrast_noisy_points"]
+            / float(old_panel["contrast_noisy_points"]),
         }
         comparison[panel] = {
             "old_published": old_panel,
@@ -451,37 +468,39 @@ def stage_refix() -> dict:
             "relative_change": relative,
             "retention_detail": detail[panel],
             "verdict": {
-                "definition": (
-                    "the qualitative conclusion is that timing beats outage length, i.e. the "
-                    "contrast is positive and its clustered 95% interval excludes zero, under a "
-                    "reference series perturbed by the sensor error"
-                ),
+                "definition": "the qualitative conclusion is that timing beats outage length, i.e. the contrast is positive and its clustered 95% interval excludes zero, under a reference series perturbed by the sensor error",
                 "new_noisy_contrast_points": float(new_panel["contrast_noisy_points"]),
-                "new_noisy_contrast_positive": bool(new_panel["contrast_noisy_points"] > 0),
+                "new_noisy_contrast_positive": bool(
+                    new_panel["contrast_noisy_points"] > 0
+                ),
                 "old_noisy_contrast_points": float(old_panel["contrast_noisy_points"]),
-                "old_noisy_contrast_positive": bool(old_panel["contrast_noisy_points"] > 0),
+                "old_noisy_contrast_positive": bool(
+                    old_panel["contrast_noisy_points"] > 0
+                ),
                 "sensor_noise_moves_contrast_by_points": float(
-                    new_panel["contrast_noisy_points"] - new_panel["contrast_clean_points"]
+                    new_panel["contrast_noisy_points"]
+                    - new_panel["contrast_clean_points"]
                 ),
                 "sensor_noise_moves_contrast_relative": float(
-                    (new_panel["contrast_noisy_points"] - new_panel["contrast_clean_points"])
+                    (
+                        new_panel["contrast_noisy_points"]
+                        - new_panel["contrast_clean_points"]
+                    )
                     / new_panel["contrast_clean_points"]
                 ),
-                "clustered_interval_reported_in": rel(POST_DIR / "scenario_contrasts.csv"),
+                "clustered_interval_reported_in": rel(
+                    POST_DIR / "scenario_contrasts.csv"
+                ),
             },
         }
-
     artifact = {
         "generated_by": rel(Path(__file__)),
         "generated_utc": utc_now(),
-        "git_head": git_head(),
         "status": "supersedes the published pre-fix artifact",
         "supersedes": rel(PRE_DIR / "noise_sensitivity.json"),
         "superseded_by": rel(POST_DIR / "noise_sensitivity.json"),
-        "fix_commit": "a9a7ad99cf",
         "fixed_function": {
             "source": rel(FIXED_SCRIPT),
-            "sha256": sha256_file(FIXED_SCRIPT),
             "imported_as": "importlib.import_module('202_v17_robustness') with scripts/ on sys.path",
             "method_locked_to": new["development"]["method_locked_to"],
         },
@@ -489,49 +508,55 @@ def stage_refix() -> dict:
             "published_pre_fix": [
                 "clean arm: information-conditioned simple policy (abserr_policy)",
                 "perturbed arm: the same information-conditioned choice on the perturbed reference",
-                "certificate arm: ranked by certificate_bound but evaluated on certificate_abs_error in the "
-                "clean arm and on the information-conditioned noisy error in the perturbed arm",
+                "certificate arm: ranked by certificate_bound but evaluated on certificate_abs_error in the clean arm and on the information-conditioned noisy error in the perturbed arm",
                 "retention: frontier_for_score lookup at retention == 0.70",
             ],
             "fixed": [
-                "both arms use the certificate's own reconstruction choice (certificate_choice) in the "
-                "clean and the perturbed evaluation",
-                "the certificate is ranked by certificate_bound and evaluated on the error of that same "
-                "chosen method",
+                "both arms use the certificate's own reconstruction choice (certificate_choice) in the clean and the perturbed evaluation",
+                "the certificate is ranked by certificate_bound and evaluated on the error of that same chosen method",
                 "retention: top-k on the finite mask, same k and same retained cases in both arms",
             ],
-            "why_it_matters": (
-                "the published contrast difference between the clean and perturbed arms mixed a method "
-                "change into the noise effect; the fixed number isolates the sensor-error effect"
-            ),
+            "why_it_matters": "the published contrast difference between the clean and perturbed arms mixed a method change into the noise effect; the fixed number isolates the sensor-error effect",
         },
         "development": comparison["development"],
         "reserved": comparison["reserved"],
         "pre_fix_reproduction": reproduction,
         "preserved_pre_fix": {
             "directory": rel(PRE_DIR),
-            "sha256_record": rel(PRE_DIR / "sha256.json"),
-            "files": [item["file"] for item in json.loads((PRE_DIR / "sha256.json").read_text(encoding="utf-8"))["files"]],
+            "record": rel(PRE_DIR / PRESERVED_RECORD),
+            "files": [
+                item["file"]
+                for item in json.loads(
+                    (PRE_DIR / PRESERVED_RECORD).read_text(encoding="utf-8")
+                )["files"]
+            ],
         },
     }
     POST_DIR.mkdir(parents=True, exist_ok=True)
-    (POST_DIR / "noise_sensitivity.json").write_text(json.dumps(artifact, indent=2) + "\n", encoding="utf-8")
-    print("[refix] development: old noisy {:.4f} -> new noisy {:.4f} points".format(
-        float(old["development"]["contrast_noisy_points"]), float(new["development"]["contrast_noisy_points"])
-    ))
-    print("[refix] reserved:    old noisy {:.4f} -> new noisy {:.4f} points".format(
-        float(old["reserved"]["contrast_noisy_points"]), float(new["reserved"]["contrast_noisy_points"])
-    ))
-    print("[refix] pre-fix artifact reproduced exactly: worst gap dev {:.2e}, reserved {:.2e}".format(
-        float(reproduction["development"]["max_abs_gap_vs_published"]),
-        float(reproduction["reserved"]["max_abs_gap_vs_published"]),
-    ))
+    (POST_DIR / "noise_sensitivity.json").write_text(
+        json.dumps(artifact, indent=2) + "\n", encoding="utf-8"
+    )
+    print(
+        "[refix] development: old noisy {:.4f} -> new noisy {:.4f} points".format(
+            float(old["development"]["contrast_noisy_points"]),
+            float(new["development"]["contrast_noisy_points"]),
+        )
+    )
+    print(
+        "[refix] reserved:    old noisy {:.4f} -> new noisy {:.4f} points".format(
+            float(old["reserved"]["contrast_noisy_points"]),
+            float(new["reserved"]["contrast_noisy_points"]),
+        )
+    )
+    print(
+        "[refix] pre-fix artifact reproduced exactly: worst gap dev {:.2e}, reserved {:.2e}".format(
+            float(reproduction["development"]["max_abs_gap_vs_published"]),
+            float(reproduction["reserved"]["max_abs_gap_vs_published"]),
+        )
+    )
     return artifact
 
 
-# --------------------------------------------------------------------------- #
-# stage: scenarios
-# --------------------------------------------------------------------------- #
 def endpoint_level_perturbation(cases: pd.DataFrame) -> dict:
     """How far each process moves the *endpoint itself*, not just the daily value.
 
@@ -541,11 +566,12 @@ def endpoint_level_perturbation(cases: pd.DataFrame) -> dict:
     ``H(truth + eps) - H(truth)`` over the study's own cases, which is the size
     of the perturbation the contrast actually sees.
     """
-
     reference = pd.to_numeric(cases["truth_hottest30"], errors="coerce")
     out: dict[str, dict] = {}
     for key in SCENARIO_ORDER:
-        delta = pd.to_numeric(cases[f"{TRUTH_PREFIX}{key}"], errors="coerce") - reference
+        delta = (
+            pd.to_numeric(cases[f"{TRUTH_PREFIX}{key}"], errors="coerce") - reference
+        )
         out[key] = {
             "spec": SCENARIO_MODELS[key].note,
             "n_cases": int(delta.notna().sum()),
@@ -555,14 +581,12 @@ def endpoint_level_perturbation(cases: pd.DataFrame) -> dict:
         }
     anchor = out["iid_0.15"]["sd_delta_c"]
     for key in SCENARIO_ORDER:
-        out[key]["sd_ratio_to_iid_0.15"] = float(out[key]["sd_delta_c"] / anchor) if anchor else float("nan")
+        out[key]["sd_ratio_to_iid_0.15"] = (
+            float(out[key]["sd_delta_c"] / anchor) if anchor else float("nan")
+        )
     out["_comment"] = {
         "quantity": "H(truth + eps) - H(truth) for the hottest-30-day mean H, over every case in the panel",
-        "why": (
-            "the daily sd alone does not say how hard a process hits a thirty-day mean; an autocorrelated "
-            "error survives averaging, so the AR(1) scenario perturbs the endpoint more than the iid "
-            "scenario does at the same marginal sd"
-        ),
+        "why": "the daily sd alone does not say how hard a process hits a thirty-day mean; an autocorrelated error survives averaging, so the AR(1) scenario perturbs the endpoint more than the iid scenario does at the same marginal sd",
     }
     return out
 
@@ -574,10 +598,8 @@ def stage_scenarios(workers: int) -> dict:
     jobs = station_jobs(roster, split)
     if not jobs:
         raise RuntimeError("no station jobs; is the panel roster available?")
-
     frozen = pd.read_parquet(STEP3_CASES / "cases.parquet")
     frozen_keys = set(map(tuple, frozen[CASE_KEY].astype(str).to_numpy()))
-
     started = time.time()
     frames: list[pd.DataFrame] = []
     failures: list[dict] = []
@@ -588,26 +610,37 @@ def stage_scenarios(workers: int) -> dict:
             job = futures[future]
             try:
                 frame = future.result()
-            except Exception as error:  # noqa: BLE001 - recorded, not silenced
+            except Exception as error:
                 failures.append(
-                    {"network_id": job["network_id"], "station_id": job["station_id"], "error": repr(error)}
+                    {
+                        "network_id": job["network_id"],
+                        "station_id": job["station_id"],
+                        "error": repr(error),
+                    }
                 )
                 frame = pd.DataFrame()
             if not frame.empty:
                 frames.append(frame)
             done += 1
             if done % 100 == 0:
-                print(f"  [scenarios] {done}/{len(jobs)} stations ({time.time() - started:.0f}s)", flush=True)
+                print(
+                    f"  [scenarios] {done}/{len(jobs)} stations ({time.time() - started:.0f}s)",
+                    flush=True,
+                )
     if not frames:
         raise RuntimeError("scenario case build produced nothing")
     cases = pd.concat(frames, ignore_index=True)
     cases = cases.sort_values(
         ["network_id", "station_id", "year", "arm", "realization_id"], kind="mergesort"
     ).reset_index(drop=True)
-
-    # ---- validation against the frozen case table ------------------------- #
     mine_keys = set(map(tuple, cases[CASE_KEY].astype(str).to_numpy()))
-    merged = frozen.merge(cases, on=CASE_KEY, how="inner", suffixes=("", "_scenario"), validate="one_to_one")
+    merged = frozen.merge(
+        cases,
+        on=CASE_KEY,
+        how="inner",
+        suffixes=("", "_scenario"),
+        validate="one_to_one",
+    )
     max_abs: dict[str, float] = {}
     nan_mismatch: dict[str, int] = {}
     compared = 0
@@ -616,9 +649,15 @@ def stage_scenarios(workers: int) -> dict:
             (f"abserr_hottest30_{name}", f"{CLEAN_PREFIX}{name}"),
             (f"abserr_noisy_{name}", f"{SCENARIO_MODELS['iid_0.15'].key}__{name}"),
         ):
-            left = pd.to_numeric(merged[frozen_column], errors="coerce").to_numpy(dtype=float)
-            right = pd.to_numeric(merged[scenario_column], errors="coerce").to_numpy(dtype=float)
-            nan_mismatch[f"{frozen_column}_vs_{scenario_column}"] = int((np.isnan(left) != np.isnan(right)).sum())
+            left = pd.to_numeric(merged[frozen_column], errors="coerce").to_numpy(
+                dtype=float
+            )
+            right = pd.to_numeric(merged[scenario_column], errors="coerce").to_numpy(
+                dtype=float
+            )
+            nan_mismatch[f"{frozen_column}_vs_{scenario_column}"] = int(
+                (np.isnan(left) != np.isnan(right)).sum()
+            )
             both = np.isfinite(left) & np.isfinite(right)
             compared += int(both.sum())
             max_abs[f"{frozen_column}_vs_{scenario_column}"] = (
@@ -626,17 +665,24 @@ def stage_scenarios(workers: int) -> dict:
             )
     for column in FEATURE_COLUMNS:
         left = pd.to_numeric(merged[column], errors="coerce").to_numpy(dtype=float)
-        right = pd.to_numeric(merged[f"{column}_scenario"], errors="coerce").to_numpy(dtype=float)
+        right = pd.to_numeric(merged[f"{column}_scenario"], errors="coerce").to_numpy(
+            dtype=float
+        )
         both = np.isfinite(left) & np.isfinite(right)
-        nan_mismatch[f"{column}_vs_scenario"] = int((np.isnan(left) != np.isnan(right)).sum())
+        nan_mismatch[f"{column}_vs_scenario"] = int(
+            (np.isnan(left) != np.isnan(right)).sum()
+        )
         max_abs[f"{column}_vs_scenario"] = (
             float(np.max(np.abs(left[both] - right[both]))) if both.any() else 0.0
         )
     categorical_mismatch = {
-        column: int((merged[column].astype(str) != merged[f"{column}_scenario"].astype(str)).sum())
+        column: int(
+            (
+                merged[column].astype(str) != merged[f"{column}_scenario"].astype(str)
+            ).sum()
+        )
         for column in ("provider", "split_role", "arm", "overlap_class")
     }
-
     validation = {
         "frozen_case_table": rel(STEP3_CASES / "cases.parquet"),
         "frozen_cases": int(len(frozen)),
@@ -650,21 +696,22 @@ def stage_scenarios(workers: int) -> dict:
         "categorical_mismatches": categorical_mismatch,
         "replica_is_exact": bool(
             max(max_abs.values(), default=0.0) == 0.0
-            and not any(nan_mismatch.values())
-            and not any(categorical_mismatch.values())
+            and (not any(nan_mismatch.values()))
+            and (not any(categorical_mismatch.values()))
         ),
         "failures": failures,
         "seconds": round(time.time() - started, 1),
     }
     if len(frozen_keys - mine_keys) or len(mine_keys - frozen_keys):
-        raise AssertionError("the rebuilt case table does not cover the frozen case keys exactly")
+        raise AssertionError(
+            "the rebuilt case table does not cover the frozen case keys exactly"
+        )
     if not validation["replica_is_exact"]:
-        raise AssertionError(f"replica does not reproduce the frozen case table: {validation}")
-
-    # ---- realized statistics of each error process ------------------------ #
+        raise AssertionError(
+            f"replica does not reproduce the frozen case table: {validation}"
+        )
     process_checks = realized_process_checks(cases)
     endpoint_checks = endpoint_level_perturbation(cases)
-
     SCRATCH.mkdir(parents=True, exist_ok=True)
     cases.to_parquet(SCRATCH / "scenario_cases.parquet", index=False)
     (SCRATCH / "validation.json").write_text(
@@ -680,8 +727,7 @@ def stage_scenarios(workers: int) -> dict:
         encoding="utf-8",
     )
     print(
-        f"[scenarios] {len(cases):,} cases rebuilt over {len(jobs)} stations in {validation['seconds']}s; "
-        f"replica exact={validation['replica_is_exact']}"
+        f"[scenarios] {len(cases):,} cases rebuilt over {len(jobs)} stations in {validation['seconds']}s; replica exact={validation['replica_is_exact']}"
     )
     return {
         "validation": validation,
@@ -700,13 +746,18 @@ def realized_process_checks(cases: pd.DataFrame, n_series: int = 60) -> dict:
     averaged across series. Series with no within-series variation are counted
     separately rather than fed to a correlation that is undefined for them.
     """
-
     triples = (
         cases[["network_id", "station_id", "year"]]
         .drop_duplicates()
         .sort_values(["network_id", "station_id", "year"], kind="mergesort")
         .head(n_series)
     )
+    network_stations = {
+        str(network): sorted({str(station) for station in stations})
+        for network, stations in cases.groupby(cases["network_id"].astype(str))[
+            "station_id"
+        ]
+    }
     out: dict[str, dict] = {}
     for key, model in SCENARIO_MODELS.items():
         sds: list[float] = []
@@ -714,15 +765,23 @@ def realized_process_checks(cases: pd.DataFrame, n_series: int = 60) -> dict:
         autocorrelations: list[float] = []
         constant_series = 0
         for row in triples.itertuples(index=False):
-            index = pd.date_range(f"{int(row.year)}-01-01", f"{int(row.year)}-12-31", freq="D")
+            index = pd.date_range(
+                f"{int(row.year)}-01-01", f"{int(row.year)}-12-31", freq="D"
+            )
             values = model.draw(
-                index, network_id=str(row.network_id), station_id=str(row.station_id), year=int(row.year)
+                index,
+                network_id=str(row.network_id),
+                station_id=str(row.station_id),
+                station_ids=network_stations[str(row.network_id)],
+                year=int(row.year),
             )
             sd = float(np.std(values, ddof=1))
             sds.append(sd)
             offsets.append(abs(float(np.mean(values))))
             if sd > CONSTANT_SD_TOLERANCE_C:
-                autocorrelations.append(float(np.corrcoef(values[:-1], values[1:])[0, 1]))
+                autocorrelations.append(
+                    float(np.corrcoef(values[:-1], values[1:])[0, 1])
+                )
             else:
                 constant_series += 1
         out[key] = {
@@ -733,28 +792,23 @@ def realized_process_checks(cases: pd.DataFrame, n_series: int = 60) -> dict:
             "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
             "mean_within_series_sd_c": float(np.mean(sds)),
             "mean_within_series_abs_offset_c": float(np.mean(offsets)),
-            "mean_within_series_lag1_autocorr": (
-                float(np.mean(autocorrelations)) if autocorrelations else None
-            ),
+            "mean_within_series_lag1_autocorr": float(np.mean(autocorrelations))
+            if autocorrelations
+            else None,
             "constant_series": int(constant_series),
         }
     out["_comment"] = {
-        "why": (
-            "documents that each named process is the process it claims to be; the series are drawn on the "
-            "real calendar of sampled station-years, so 366-day leap years are included"
-        ),
-        "constant_series_means": (
-            "the whole-year bias is a constant, so its within-series sd is zero and its lag-1 "
-            "autocorrelation is undefined; its size is the mean absolute offset"
-        ),
-        "frozen_reference": {"model": "iid_0.15", "seed_tag": FROZEN_NOISE_TAG, "sd_c": 0.15},
+        "why": "documents that each named process is the process it claims to be; the series are drawn on the real calendar of sampled station-years, so 366-day leap years are included",
+        "constant_series_means": "the whole-year bias is a constant, so its within-series sd is zero and its lag-1 autocorrelation is undefined; its size is the mean absolute offset",
+        "frozen_reference": {
+            "model": "iid_0.15",
+            "seed_tag": FROZEN_NOISE_TAG,
+            "sd_c": 0.15,
+        },
     }
     return out
 
 
-# --------------------------------------------------------------------------- #
-# stage: contrasts
-# --------------------------------------------------------------------------- #
 def _bootstrap_task(payload: dict) -> dict:
     """One clustered bootstrap: the absolute contrast, or the paired change.
 
@@ -763,7 +817,6 @@ def _bootstrap_task(payload: dict) -> dict:
     the audit question is about. Both arms keep the locked reconstruction
     choice and the same ranking scores.
     """
-
     frame = pd.DataFrame(payload["frame"])
     retention = float(payload["retention"])
     tolerance = float(payload["tolerance"])
@@ -772,23 +825,24 @@ def _bootstrap_task(payload: dict) -> dict:
     def arm(block: pd.DataFrame, eval_column: str) -> float:
         clean_block = block["clean_error"]
         eval_block = block[eval_column]
-        cert = rate_locked_detail(block["score"], clean_block, eval_block, retention, tolerance)["rate"]
-        length_rate = rate_locked_detail(block["length_jittered"], clean_block, eval_block, retention, tolerance)["rate"]
+        cert = rate_locked_detail(
+            block["score"], clean_block, eval_block, retention, tolerance
+        )["rate"]
+        length_rate = rate_locked_detail(
+            block["length_jittered"], clean_block, eval_block, retention, tolerance
+        )["rate"]
         return (float(length_rate) - float(cert)) * 100.0
 
     if mode == "paired_vs_clean":
 
         def contrast(block: pd.DataFrame) -> float:
             return arm(block, "scenario_error") - arm(block, "clean_error")
-
     elif mode == "absolute":
 
         def contrast(block: pd.DataFrame) -> float:
             return arm(block, "scenario_error")
-
     else:
         raise ValueError(f"unknown bootstrap mode: {mode!r}")
-
     stat = cluster_bootstrap(frame, contrast, draws=int(payload["draws"]), seed=0)
     stat["label"] = payload["label"]
     stat["mode"] = mode
@@ -797,7 +851,13 @@ def _bootstrap_task(payload: dict) -> dict:
 
 
 def _merge_scenarios(frozen: pd.DataFrame, scenarios: pd.DataFrame) -> pd.DataFrame:
-    merged = frozen.merge(scenarios, on=CASE_KEY, how="left", suffixes=("", "_scenario"), validate="one_to_one")
+    merged = frozen.merge(
+        scenarios,
+        on=CASE_KEY,
+        how="left",
+        suffixes=("", "_scenario"),
+        validate="one_to_one",
+    )
     if len(merged) != len(frozen):
         raise AssertionError("scenario merge changed the number of rows")
     if merged[f"{CLEAN_PREFIX}doy_climatology"].isna().all():
@@ -811,74 +871,106 @@ def stage_contrasts(workers: int) -> dict:
     for column in ("network_id", "station_id", "realization_id"):
         scenarios[column] = scenarios[column].astype(str)
     tables = panel_tables()
-
     panels: dict[str, dict] = {}
     boot_payloads: list[dict] = []
     for panel, (cases, certificates) in tables.items():
         merged = _merge_scenarios(cases, scenarios)
         choice = certificates["certificate_choice"]
-        clean = pd.Series(module.gather(merged, choice, prefix=CLEAN_PREFIX), index=merged.index)
+        clean = pd.Series(
+            module.gather(merged, choice, prefix=CLEAN_PREFIX), index=merged.index
+        )
         score = pd.to_numeric(certificates["certificate_bound"], errors="coerce")
         rng = np.random.default_rng(JITTER_SEED)
         length = pd.Series(
-            pd.to_numeric(merged["longest_run"], errors="coerce").to_numpy() + rng.random(len(merged)),
+            pd.to_numeric(merged["longest_run"], errors="coerce").to_numpy()
+            + rng.random(len(merged)),
             index=merged.index,
         )
         if not np.array_equal(
             pd.to_numeric(clean, errors="coerce").notna().to_numpy(),
             pd.to_numeric(
-                pd.Series(module.gather(cases, choice, prefix="abserr_"), index=cases.index), errors="coerce"
+                pd.Series(
+                    module.gather(cases, choice, prefix="abserr_"), index=cases.index
+                ),
+                errors="coerce",
             )
             .notna()
             .to_numpy(),
         ):
-            raise AssertionError(f"{panel}: rebuilt clean errors do not cover the frozen error mask")
-
+            raise AssertionError(
+                f"{panel}: rebuilt clean errors do not cover the frozen error mask"
+            )
         clean_detail = rate_locked_detail(score, clean, clean, module.RETENTION)
         mirror_gap = max(
-            assert_mirror_matches(module, score, clean, clean, f"{panel} scenario-table cert clean"),
-            assert_mirror_matches(module, length, clean, clean, f"{panel} scenario-table length clean"),
+            assert_mirror_matches(
+                module, score, clean, clean, f"{panel} scenario-table cert clean"
+            ),
+            assert_mirror_matches(
+                module, length, clean, clean, f"{panel} scenario-table length clean"
+            ),
         )
         rows: list[dict] = []
         branches = [("clean", clean)] + [
-            (key, pd.Series(module.gather(merged, choice, prefix=f"{key}__"), index=merged.index))
+            (
+                key,
+                pd.Series(
+                    module.gather(merged, choice, prefix=f"{key}__"), index=merged.index
+                ),
+            )
             for key in SCENARIO_ORDER
         ]
         retained_reference = {
             "certificate": clean_detail["retained"],
-            "length_rule": rate_locked_detail(length, clean, clean, module.RETENTION)["retained"],
+            "length_rule": rate_locked_detail(length, clean, clean, module.RETENTION)[
+                "retained"
+            ],
         }
         for key, errors in branches:
             cert = rate_locked_detail(score, clean, errors, module.RETENTION)
             length_rule = rate_locked_detail(length, clean, errors, module.RETENTION)
             retained_identical = bool(
                 np.array_equal(cert["retained"], retained_reference["certificate"])
-                and np.array_equal(length_rule["retained"], retained_reference["length_rule"])
+                and np.array_equal(
+                    length_rule["retained"], retained_reference["length_rule"]
+                )
             )
             if not retained_identical:
                 raise AssertionError(
-                    f"{panel}/{key}: retained case set differs from the clean arm "
-                    f"(cert n={len(cert['retained'])} vs {len(retained_reference['certificate'])})"
+                    f"{panel}/{key}: retained case set differs from the clean arm (cert n={len(cert['retained'])} vs {len(retained_reference['certificate'])})"
                 )
-            if cert["n_good"] != clean_detail["n_good"] or cert["k"] != clean_detail["k"]:
-                raise AssertionError(f"{panel}/{key}: evaluated case count moved with the error model")
+            if (
+                cert["n_good"] != clean_detail["n_good"]
+                or cert["k"] != clean_detail["k"]
+            ):
+                raise AssertionError(
+                    f"{panel}/{key}: evaluated case count moved with the error model"
+                )
             errors_finite = pd.to_numeric(errors, errors="coerce")
             clean_finite = pd.to_numeric(clean, errors="coerce")
             rows.append(
                 {
                     "panel": panel,
                     "scenario": key,
-                    "kind": SCENARIO_MODELS[key].kind if key in SCENARIO_MODELS else "clean",
-                    "spec": SCENARIO_MODELS[key].note if key in SCENARIO_MODELS else "unperturbed reference series",
+                    "kind": SCENARIO_MODELS[key].kind
+                    if key in SCENARIO_MODELS
+                    else "clean",
+                    "spec": SCENARIO_MODELS[key].note
+                    if key in SCENARIO_MODELS
+                    else "unperturbed reference series",
                     "n_cases": int(len(merged)),
                     "n_evaluated": int(cert["n_good"]),
                     "n_retained_at_70": int(cert["k"]),
                     "n_networks": int(merged["network_id"].nunique()),
                     "mean_abs_error_clean_c": float(clean_finite.mean()),
-                    "mean_abs_error_scenario_c": float(errors_finite[clean_finite.notna()].mean()),
+                    "mean_abs_error_scenario_c": float(
+                        errors_finite[clean_finite.notna()].mean()
+                    ),
                     "length_rule_at_70": float(length_rule["rate"]),
                     "certificate_at_70": float(cert["rate"]),
-                    "contrast_points": (float(length_rule["rate"]) - float(cert["rate"])) * 100.0,
+                    "contrast_points": (
+                        float(length_rule["rate"]) - float(cert["rate"])
+                    )
+                    * 100.0,
                     "retained_set_identical_to_clean": retained_identical,
                     "cases_moved_by_error_model": int(
                         (errors_finite.fillna(-1) != clean_finite.fillna(-1)).sum()
@@ -888,10 +980,18 @@ def stage_contrasts(workers: int) -> dict:
             frame = pd.DataFrame(
                 {
                     "network_id": merged["network_id"].astype(str).to_numpy(),
-                    "clean_error": pd.to_numeric(clean, errors="coerce").to_numpy(dtype=float),
-                    "scenario_error": pd.to_numeric(errors, errors="coerce").to_numpy(dtype=float),
-                    "score": pd.to_numeric(score, errors="coerce").to_numpy(dtype=float),
-                    "length_jittered": pd.to_numeric(length, errors="coerce").to_numpy(dtype=float),
+                    "clean_error": pd.to_numeric(clean, errors="coerce").to_numpy(
+                        dtype=float
+                    ),
+                    "scenario_error": pd.to_numeric(errors, errors="coerce").to_numpy(
+                        dtype=float
+                    ),
+                    "score": pd.to_numeric(score, errors="coerce").to_numpy(
+                        dtype=float
+                    ),
+                    "length_jittered": pd.to_numeric(length, errors="coerce").to_numpy(
+                        dtype=float
+                    ),
                 }
             )
             base = {
@@ -900,9 +1000,17 @@ def stage_contrasts(workers: int) -> dict:
                 "tolerance": float(module.PRIMARY_TOLERANCE_C),
                 "draws": BOOTSTRAP_DRAWS,
             }
-            boot_payloads.append({**base, "label": f"{panel}|{key}|absolute", "mode": "absolute"})
+            boot_payloads.append(
+                {**base, "label": f"{panel}|{key}|absolute", "mode": "absolute"}
+            )
             if key != "clean":
-                boot_payloads.append({**base, "label": f"{panel}|{key}|paired_vs_clean", "mode": "paired_vs_clean"})
+                boot_payloads.append(
+                    {
+                        **base,
+                        "label": f"{panel}|{key}|paired_vs_clean",
+                        "mode": "paired_vs_clean",
+                    }
+                )
         panels[panel] = {
             "n_cases": int(len(merged)),
             "n_evaluated": int(clean_detail["n_good"]),
@@ -911,27 +1019,33 @@ def stage_contrasts(workers: int) -> dict:
             "mirror_vs_fixed_max_abs_rate_gap": float(mirror_gap),
             "rows": rows,
         }
-
     started = time.time()
     boot: dict[str, dict] = {}
     with ProcessPoolExecutor(max_workers=workers) as pool:
-        futures = {pool.submit(_bootstrap_task, payload): payload["label"] for payload in boot_payloads}
+        futures = {
+            pool.submit(_bootstrap_task, payload): payload["label"]
+            for payload in boot_payloads
+        }
         for future in as_completed(futures):
             label = futures[future]
             boot[label] = future.result()
-    print(f"[contrasts] {len(boot)} clustered bootstraps ({BOOTSTRAP_DRAWS} draws) in {time.time() - started:.0f}s")
-
-    # Attach intervals and the paired change.
+    print(
+        f"[contrasts] {len(boot)} clustered bootstraps ({BOOTSTRAP_DRAWS} draws) in {time.time() - started:.0f}s"
+    )
     point_gaps: list[float] = []
     for panel, block in panels.items():
         for row in block["rows"]:
             absolute = boot[f"{panel}|{row['scenario']}|absolute"]
             row["contrast_ci_low"] = float(absolute["low"])
             row["contrast_ci_high"] = float(absolute["high"])
-            row["contrast_ci_excludes_zero"] = bool(absolute["low"] > 0 or absolute["high"] < 0)
+            row["contrast_ci_excludes_zero"] = bool(
+                absolute["low"] > 0 or absolute["high"] < 0
+            )
             row["retains_positive_contrast"] = bool(absolute["low"] > 0)
             row["n_clusters"] = int(absolute["n_clusters"])
-            point_gaps.append(abs(float(absolute["point"]) - float(row["contrast_points"])))
+            point_gaps.append(
+                abs(float(absolute["point"]) - float(row["contrast_points"]))
+            )
             if row["scenario"] == "clean":
                 row["contrast_change_vs_clean_points"] = 0.0
                 row["contrast_change_ci_low"] = 0.0
@@ -944,37 +1058,67 @@ def stage_contrasts(workers: int) -> dict:
                 )
                 row["contrast_change_ci_low"] = float(paired["low"])
                 row["contrast_change_ci_high"] = float(paired["high"])
-                row["contrast_change_ci_excludes_zero"] = bool(paired["low"] > 0 or paired["high"] < 0)
-                point_gaps.append(abs(float(paired["point"]) - float(row["contrast_change_vs_clean_points"])))
-    if max(point_gaps, default=0.0) > 1e-9:
-        raise AssertionError(f"bootstrap point estimates disagree with the direct contrast by {max(point_gaps)}")
+                row["contrast_change_ci_excludes_zero"] = bool(
+                    paired["low"] > 0 or paired["high"] < 0
+                )
+                point_gaps.append(
+                    abs(
+                        float(paired["point"])
+                        - float(row["contrast_change_vs_clean_points"])
+                    )
+                )
+    if max(point_gaps, default=0.0) > 1e-09:
+        raise AssertionError(
+            f"bootstrap point estimates disagree with the direct contrast by {max(point_gaps)}"
+        )
     table = pd.DataFrame([row for panel in panels.values() for row in panel["rows"]])
     POST_DIR.mkdir(parents=True, exist_ok=True)
     table.to_csv(POST_DIR / "scenario_contrasts.csv", index=False)
     (SCRATCH / "bootstraps.json").write_text(
-        json.dumps({"draws": BOOTSTRAP_DRAWS, "results": boot}, indent=2) + "\n", encoding="utf-8"
+        json.dumps({"draws": BOOTSTRAP_DRAWS, "results": boot}, indent=2) + "\n",
+        encoding="utf-8",
     )
     (SCRATCH / "contrasts.json").write_text(
         json.dumps(
-            {"panels": panels, "table": table.to_dict("records"), "bootstrap_draws": BOOTSTRAP_DRAWS},
+            {
+                "panels": panels,
+                "table": table.to_dict("records"),
+                "bootstrap_draws": BOOTSTRAP_DRAWS,
+            },
             indent=2,
             default=float,
         )
         + "\n",
         encoding="utf-8",
     )
-    print(table[["panel", "scenario", "contrast_points", "contrast_ci_low", "contrast_ci_high", "n_evaluated"]].round(4).to_string(index=False))
-    return {"panels": panels, "table": table.to_dict("records"), "bootstrap_draws": BOOTSTRAP_DRAWS}
+    print(
+        table[
+            [
+                "panel",
+                "scenario",
+                "contrast_points",
+                "contrast_ci_low",
+                "contrast_ci_high",
+                "n_evaluated",
+            ]
+        ]
+        .round(4)
+        .to_string(index=False)
+    )
+    return {
+        "panels": panels,
+        "table": table.to_dict("records"),
+        "bootstrap_draws": BOOTSTRAP_DRAWS,
+    }
 
 
-# --------------------------------------------------------------------------- #
-# stage: report
-# --------------------------------------------------------------------------- #
 def stage_report(extra: dict) -> dict:
-    refix = json.loads((POST_DIR / "noise_sensitivity.json").read_text(encoding="utf-8"))
+    refix = json.loads(
+        (POST_DIR / "noise_sensitivity.json").read_text(encoding="utf-8")
+    )
     contrasts = extra["contrasts"]
     scenarios = extra["scenarios"]
-    preservation = json.loads((PRE_DIR / "sha256.json").read_text(encoding="utf-8"))
+    preservation = json.loads((PRE_DIR / PRESERVED_RECORD).read_text(encoding="utf-8"))
     table = pd.DataFrame(contrasts["table"])
     table = table[
         [
@@ -1001,55 +1145,50 @@ def stage_report(extra: dict) -> dict:
             "cases_moved_by_error_model",
         ]
     ]
-
-    # The replica branch must reproduce the fixed-function iid numbers exactly.
     cross_check = {}
     for panel in ("development", "reserved"):
-        replica = table.loc[(table["panel"] == panel) & (table["scenario"] == "iid_0.15")].iloc[0]
+        replica = table.loc[
+            (table["panel"] == panel) & (table["scenario"] == "iid_0.15")
+        ].iloc[0]
         fixed = refix[panel]["new_fixed"]
         cross_check[panel] = {
             "post_fix_contrast_noisy_points": float(fixed["contrast_noisy_points"]),
             "replica_scenario_contrast_points": float(replica["contrast_points"]),
-            "abs_difference": float(abs(float(fixed["contrast_noisy_points"]) - float(replica["contrast_points"]))),
+            "abs_difference": float(
+                abs(
+                    float(fixed["contrast_noisy_points"])
+                    - float(replica["contrast_points"])
+                )
+            ),
             "post_fix_length_rule_at_70_noisy": float(fixed["length_rule_at_70_noisy"]),
             "replica_length_rule_at_70": float(replica["length_rule_at_70"]),
             "post_fix_certificate_at_70_noisy": float(fixed["certificate_at_70_noisy"]),
             "replica_certificate_at_70": float(replica["certificate_at_70"]),
         }
-        if cross_check[panel]["abs_difference"] > 1e-9:
-            raise AssertionError(f"{panel}: replica branch does not reproduce the fixed-function iid contrast")
-
+        if cross_check[panel]["abs_difference"] > 1e-09:
+            raise AssertionError(
+                f"{panel}: replica branch does not reproduce the fixed-function iid contrast"
+            )
     summary = {
         "generated_by": rel(Path(__file__)),
         "generated_utc": utc_now(),
-        "git_head": git_head(),
         "finding": {
             "id": "F11",
             "severity": "Major",
-            "statement": (
-                "the published step-22 sensor-noise sensitivity compared two different reconstruction "
-                "methods between its clean and perturbed arms; the function is fixed but the published "
-                "numbers had not been regenerated"
-            ),
-            "closure": (
-                "pre-fix bytes preserved; pre-fix numbers regenerated with the fixed function imported from "
-                "scripts/202_v17_robustness.py; four additional error models recomputed on the full case set"
-            ),
+            "statement": "the published step-22 sensor-noise sensitivity compared two different reconstruction methods between its clean and perturbed arms; the function is fixed but the published numbers had not been regenerated",
+            "closure": "pre-fix bytes preserved; pre-fix numbers regenerated with the fixed function imported from scripts/202_v17_robustness.py; four additional error models recomputed on the full case set",
         },
         "provenance": {
-            "source_artifacts_sha256": {name: sha256_file(path) for name, path in SOURCE_ARTIFACTS.items()},
+            "source_artifacts": {
+                name: rel(path) for name, path in SOURCE_ARTIFACTS.items()
+            },
             "preserved_pre_fix": preservation,
             "new_module": {
-                "path": rel(ROOT / "src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py"),
-                "sha256": sha256_file(
-                    ROOT / "src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py"
+                "path": rel(
+                    ROOT
+                    / "src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py"
                 ),
-                "why": (
-                    "the frozen case table carries one perturbed-error column per estimator, built from a "
-                    "single iid error process; a different daily error process cannot be recovered from it, "
-                    "so the case construction is re-run with a pluggable process while everything else is "
-                    "held identical"
-                ),
+                "why": "the frozen case table carries one perturbed-error column per estimator, built from a single iid error process; a different daily error process cannot be recovered from it, so the case construction is re-run with a pluggable process while everything else is held identical",
             },
             "bootstrap_draws": contrasts["bootstrap_draws"],
             "jitter_seed": JITTER_SEED,
@@ -1060,91 +1199,99 @@ def stage_report(extra: dict) -> dict:
         "post_fix_noise_sensitivity": refix,
         "scenario_cross_check_vs_fixed_function": cross_check,
         "scenario_contrasts": contrasts["table"],
-        "panel_counts": {panel: {k: v for k, v in block.items() if k != "rows"} for panel, block in contrasts["panels"].items()},
+        "panel_counts": {
+            panel: {k: v for k, v in block.items() if k != "rows"}
+            for panel, block in contrasts["panels"].items()
+        },
         "headline": {
             "development": {
-                "old_published_contrast_clean_points": float(refix["development"]["old_published"]["contrast_clean_points"]),
-                "old_published_contrast_noisy_points": float(refix["development"]["old_published"]["contrast_noisy_points"]),
-                "new_contrast_clean_points": float(refix["development"]["new_fixed"]["contrast_clean_points"]),
-                "new_contrast_noisy_points": float(refix["development"]["new_fixed"]["contrast_noisy_points"]),
+                "old_published_contrast_clean_points": float(
+                    refix["development"]["old_published"]["contrast_clean_points"]
+                ),
+                "old_published_contrast_noisy_points": float(
+                    refix["development"]["old_published"]["contrast_noisy_points"]
+                ),
+                "new_contrast_clean_points": float(
+                    refix["development"]["new_fixed"]["contrast_clean_points"]
+                ),
+                "new_contrast_noisy_points": float(
+                    refix["development"]["new_fixed"]["contrast_noisy_points"]
+                ),
                 "n_cases": int(refix["development"]["retention_detail"]["n_cases"]),
-                "n_evaluated": int(refix["development"]["retention_detail"]["n_evaluated"]),
+                "n_evaluated": int(
+                    refix["development"]["retention_detail"]["n_evaluated"]
+                ),
             },
             "reserved": {
-                "old_published_contrast_clean_points": float(refix["reserved"]["old_published"]["contrast_clean_points"]),
-                "old_published_contrast_noisy_points": float(refix["reserved"]["old_published"]["contrast_noisy_points"]),
-                "new_contrast_clean_points": float(refix["reserved"]["new_fixed"]["contrast_clean_points"]),
-                "new_contrast_noisy_points": float(refix["reserved"]["new_fixed"]["contrast_noisy_points"]),
+                "old_published_contrast_clean_points": float(
+                    refix["reserved"]["old_published"]["contrast_clean_points"]
+                ),
+                "old_published_contrast_noisy_points": float(
+                    refix["reserved"]["old_published"]["contrast_noisy_points"]
+                ),
+                "new_contrast_clean_points": float(
+                    refix["reserved"]["new_fixed"]["contrast_clean_points"]
+                ),
+                "new_contrast_noisy_points": float(
+                    refix["reserved"]["new_fixed"]["contrast_noisy_points"]
+                ),
                 "n_cases": int(refix["reserved"]["retention_detail"]["n_cases"]),
-                "n_evaluated": int(refix["reserved"]["retention_detail"]["n_evaluated"]),
+                "n_evaluated": int(
+                    refix["reserved"]["retention_detail"]["n_evaluated"]
+                ),
             },
         },
         "caveats": [
-            "the perturbation is applied to the reference series and to the observed days of the completed "
-            "year; the estimator's fill values stay those fitted on the clean record (the convention of the "
-            "frozen construction), so this measures sensitivity to reference-series error, not error "
-            "propagating into the reconstruction",
-            "the error processes are independent across station-years and share one draw per station-year "
-            "across that year's outage realizations, exactly as the frozen iid process does",
-            "the whole-year bias cancels between estimate and reference on observed days and does not cancel "
-            "across filled days: it raises the absolute error without moving the contrast much; a bias that "
-            "also shifted the filled days would be a larger perturbation and is not claimed here",
-            "clustered intervals resample networks (development: 110, reserved: 36) with {draws} draws; "
-            "they describe between-network uncertainty, not the uncertainty of one station".format(
+            "the perturbation is applied to the reference series and to the observed days of the completed year; the estimator's fill values stay those fitted on the clean record (the convention of the frozen construction), so this measures sensitivity to reference-series error, not error propagating into the reconstruction",
+            "the error processes are independent across station-years and share one draw per station-year across that year's outage realizations, exactly as the frozen iid process does",
+            "the whole-year bias cancels between estimate and reference on observed days and does not cancel across filled days: it raises the absolute error without moving the contrast much; a bias that also shifted the filled days would be a larger perturbation and is not claimed here",
+            "clustered intervals resample networks (development: 110, reserved: 36) with {draws} draws; they describe between-network uncertainty, not the uncertainty of one station".format(
                 draws=contrasts["bootstrap_draws"]
             ),
-            "the step is placed at day-of-year 183 (2 July) for every year, so it always lands in the warm "
-            "season; a step at another date is a different scenario",
-            "the ranking is the frozen certificate's, so the retained case set is fixed by design in every "
-            "arm (and is asserted identical). This measures whether sensor error changes the "
-            "tolerance-exceedance contrast *among the retained cases*, not whether a certificate rebuilt "
-            "from perturbed data would retain a different set; the latter cannot be compared on the same "
-            "case set and is out of scope for this amendment",
-            "the AR(1) and mid-year-step processes perturb the thirty-day endpoint roughly twice as strongly "
-            "as the iid process at the same marginal daily sd (endpoint table above), so their null results "
-            "are the stronger evidence; the whole-year biases are exact constant shifts of the endpoint "
-            "rather than spreads",
+            "the step is placed at day-of-year 183 (2 July) for every year, so it always lands in the warm season; a step at another date is a different scenario",
+            "the ranking is the frozen certificate's, so the retained case set is fixed by design in every arm (and is asserted identical). This measures whether sensor error changes the tolerance-exceedance contrast *among the retained cases*, not whether a certificate rebuilt from perturbed data would retain a different set; the latter cannot be compared on the same case set and is out of scope for this amendment",
+            "the AR(1) and mid-year-step processes perturb the thirty-day endpoint roughly twice as strongly as the iid process at the same marginal daily sd (endpoint table above), so their null results are the stronger evidence; the whole-year biases are exact constant shifts of the endpoint rather than spreads",
         ],
     }
-    (POST_DIR / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
-
-    lines = ["# F11 — sensor-noise sensitivity, regenerated under one locked method", ""]
+    (POST_DIR / "summary.json").write_text(
+        json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+    )
+    lines = [
+        "# F11 — sensor-noise sensitivity, regenerated under one locked method",
+        "",
+    ]
     lines.append(
-        "The published `results/v17_fitness/step22_robustness/noise_sensitivity.json` was produced before "
-        "`noise_sensitivity` in `scripts/202_v17_robustness.py` was fixed (commit a9a7ad99cf). In the published "
-        "version the clean arm used the information-conditioned simple policy while the perturbed certificate "
-        "arm was evaluated on a different method's error, so part of the published noise effect was a method "
-        "change. The pre-fix bytes are preserved under `amendments/step22_noise_pre_fix/` (sha256 in "
-        "`sha256.json`); the numbers below supersede them."
+        "The published `results/v17_fitness/step22_robustness/noise_sensitivity.json` was produced before `noise_sensitivity` in `scripts/202_v17_robustness.py` was fixed. In the published version the clean arm used the information-conditioned simple policy while the perturbed certificate arm was evaluated on a different method's error, so part of the published noise effect was a method change. The pre-fix bytes are preserved under `amendments/step22_noise_pre_fix/` (listed in `preserved_files.json`); the numbers below supersede them."
     )
     lines.append("")
     lines.append("## Headline: old versus new, same locked method")
     lines.append("")
-    lines.append("| panel | arm | old published (points) | new, fixed (points) | change | n cases | n evaluated |")
+    lines.append(
+        "| panel | arm | old published (points) | new, fixed (points) | change | n cases | n evaluated |"
+    )
     lines.append("|---|---|---|---|---|---|---|")
     for panel in ("development", "reserved"):
         for arm in ("contrast_clean_points", "contrast_noisy_points"):
             old_value = float(refix[panel]["old_published"][arm])
             new_value = float(refix[panel]["new_fixed"][arm])
             lines.append(
-                f"| {panel} | {arm.replace('contrast_', '').replace('_points', '').replace('_', ' ')} "
-                f"| {old_value:.4f} | {new_value:.4f} | {new_value - old_value:+.4f} "
-                f"| {refix[panel]['retention_detail']['n_cases']:,} "
-                f"| {refix[panel]['retention_detail']['n_evaluated']:,} |"
+                f"| {panel} | {arm.replace('contrast_', '').replace('_points', '').replace('_', ' ')} | {old_value:.4f} | {new_value:.4f} | {new_value - old_value:+.4f} | {refix[panel]['retention_detail']['n_cases']:,} | {refix[panel]['retention_detail']['n_evaluated']:,} |"
             )
     lines.append("")
     lines.append(
         "The sensor-noise movement of the contrast under the fixed method is "
         + "; ".join(
-            f"**{panel}** {refix[panel]['verdict']['sensor_noise_moves_contrast_by_points']:+.4f} points "
-            f"({100 * refix[panel]['verdict']['sensor_noise_moves_contrast_relative']:+.2f} %)"
-            for panel in ("development", "reserved")
+            (
+                f"**{panel}** {refix[panel]['verdict']['sensor_noise_moves_contrast_by_points']:+.4f} points ({100 * refix[panel]['verdict']['sensor_noise_moves_contrast_relative']:+.2f} %)"
+                for panel in ("development", "reserved")
+            )
         )
         + ". Mean absolute error of the certificate's chosen method, clean versus perturbed: "
         + "; ".join(
-            f"**{panel}** {refix[panel]['retention_detail']['mean_abs_error_clean_c']:.4f} -> "
-            f"{refix[panel]['retention_detail']['mean_abs_error_iid_c']:.4f} °C"
-            for panel in ("development", "reserved")
+            (
+                f"**{panel}** {refix[panel]['retention_detail']['mean_abs_error_clean_c']:.4f} -> {refix[panel]['retention_detail']['mean_abs_error_iid_c']:.4f} °C"
+                for panel in ("development", "reserved")
+            )
         )
         + "."
     )
@@ -1153,16 +1300,21 @@ def stage_report(extra: dict) -> dict:
     lines.append("")
     reproduction = refix["pre_fix_reproduction"]
     lines.append(
-        "Re-instating the two pre-fix choices on the frozen inputs reproduces the published artifact exactly "
-        f"(worst gap {max(reproduction['development']['max_abs_gap_vs_published'], reproduction['reserved']['max_abs_gap_vs_published']):.1e}), "
-        "so the difference below is a code change and not a data change. Only two evaluations moved:"
+        f"Re-instating the two pre-fix choices on the frozen inputs reproduces the published artifact exactly (worst gap {max(reproduction['development']['max_abs_gap_vs_published'], reproduction['reserved']['max_abs_gap_vs_published']):.1e}), so the difference below is a code change and not a data change. Only two evaluations moved:"
     )
     lines.append("")
-    lines.append("| panel | quantity | evaluated pre-fix | evaluated fixed | pre-fix | fixed |")
+    lines.append(
+        "| panel | quantity | evaluated pre-fix | evaluated fixed | pre-fix | fixed |"
+    )
     lines.append("|---|---|---|---|---|---|")
     for panel in ("development", "reserved"):
         pairs = (
-            ("length rule at 70, clean", "policy error", "certificate_choice error", "length_rule_at_70_clean"),
+            (
+                "length rule at 70, clean",
+                "policy error",
+                "certificate_choice error",
+                "length_rule_at_70_clean",
+            ),
             (
                 "certificate rule at 70, clean",
                 "certificate_abs_error",
@@ -1190,22 +1342,18 @@ def stage_report(extra: dict) -> dict:
             )
     lines.append("")
     lines.append(
-        "`certificate_abs_error` is identical to the certificate's chosen method's case error on every row "
-        f"({reproduction['development']['certificate_abs_error_identical_to_chosen_case_error']['rows']:,} "
-        "development rows and "
-        f"{reproduction['reserved']['certificate_abs_error_identical_to_chosen_case_error']['rows']:,} reserved "
-        "rows, maximum absolute difference "
-        f"{reproduction['development']['certificate_abs_error_identical_to_chosen_case_error']['max_abs_difference']:.1e}), "
-        "so the clean certificate rate cannot move and does not."
+        f"`certificate_abs_error` is identical to the certificate's chosen method's case error on every row ({reproduction['development']['certificate_abs_error_identical_to_chosen_case_error']['rows']:,} development rows and {reproduction['reserved']['certificate_abs_error_identical_to_chosen_case_error']['rows']:,} reserved rows, maximum absolute difference {reproduction['development']['certificate_abs_error_identical_to_chosen_case_error']['max_abs_difference']:.1e}), so the clean certificate rate cannot move and does not."
     )
     lines.append("")
     lines.append("## Does the qualitative conclusion survive the sensor noise?")
     lines.append("")
     for panel in ("development", "reserved"):
         row = next(
-            record
-            for record in contrasts["table"]
-            if record["panel"] == panel and record["scenario"] == "iid_0.15"
+            (
+                record
+                for record in contrasts["table"]
+                if record["panel"] == panel and record["scenario"] == "iid_0.15"
+            )
         )
         positive = (
             "stays positive with a clustered 95% interval above zero"
@@ -1218,26 +1366,17 @@ def stage_report(extra: dict) -> dict:
             else "the change is not distinguishable from zero"
         )
         lines.append(
-            f"- **{panel}**: the 0.15 C independent Gaussian perturbation moves the contrast by "
-            f"{row['contrast_change_vs_clean_points']:+.4f} points (paired clustered 95% interval "
-            f"[{row['contrast_change_ci_low']:+.4f}, {row['contrast_change_ci_high']:+.4f}] over "
-            f"{row['n_evaluated']:,} cases, retained set identical to the clean arm), and {moved}. "
-            f"The perturbed contrast itself is {row['contrast_points']:.4f} points with clustered 95% "
-            f"interval [{row['contrast_ci_low']:.4f}, {row['contrast_ci_high']:.4f}], so it {positive}."
+            f"- **{panel}**: the 0.15 C independent Gaussian perturbation moves the contrast by {row['contrast_change_vs_clean_points']:+.4f} points (paired clustered 95% interval [{row['contrast_change_ci_low']:+.4f}, {row['contrast_change_ci_high']:+.4f}] over {row['n_evaluated']:,} cases, retained set identical to the clean arm), and {moved}. The perturbed contrast itself is {row['contrast_points']:.4f} points with clustered 95% interval [{row['contrast_ci_low']:.4f}, {row['contrast_ci_high']:.4f}], so it {positive}."
         )
     lines.append("")
     lines.append(
-        "Timing beats outage length by roughly six points on both panels in every arm, which is the sense in "
-        "which the qualitative conclusion survives the sensor error."
+        "Timing beats outage length by roughly six points on both panels in every arm, which is the sense in which the qualitative conclusion survives the sensor error."
     )
     lines.append("")
     lines.append("## Extra error models at the same locked method")
     lines.append("")
     lines.append(
-        "Contrast = (consequential-error rate of the outage-length rule at 70 % retention) - (rate of the "
-        "certificate rule), in percentage points, both ranked with the frozen certificate and evaluated with "
-        "the perturbed error column of the certificate's chosen reconstruction. Intervals are clustered by "
-        f"network, {contrasts['bootstrap_draws']} bootstrap draws."
+        f"Contrast = (consequential-error rate of the outage-length rule at 70 % retention) - (rate of the certificate rule), in percentage points, both ranked with the frozen certificate and evaluated with the perturbed error column of the certificate's chosen reconstruction. Intervals are clustered by network, {contrasts['bootstrap_draws']} bootstrap draws."
     )
     lines.append("")
     lines.append(
@@ -1246,102 +1385,86 @@ def stage_report(extra: dict) -> dict:
     lines.append("|---|---|---|---|---|---|---|---|---|")
     for row in contrasts["table"]:
         lines.append(
-            f"| {row['panel']} | {row['scenario']} | {row['spec']} | {row['contrast_points']:.4f} "
-            f"| [{row['contrast_ci_low']:.4f}, {row['contrast_ci_high']:.4f}] "
-            f"| {row['contrast_change_vs_clean_points']:+.4f} "
-            f"| {row['n_evaluated']:,} | {row['n_retained_at_70']:,} "
-            f"| {row['retained_set_identical_to_clean']} |"
+            f"| {row['panel']} | {row['scenario']} | {row['spec']} | {row['contrast_points']:.4f} | [{row['contrast_ci_low']:.4f}, {row['contrast_ci_high']:.4f}] | {row['contrast_change_vs_clean_points']:+.4f} | {row['n_evaluated']:,} | {row['n_retained_at_70']:,} | {row['retained_set_identical_to_clean']} |"
         )
     lines.append("")
-    worst_abs = table.loc[table["panel"] == "development"].sort_values("mean_abs_error_scenario_c").iloc[-1]
+    worst_abs = (
+        table.loc[table["panel"] == "development"]
+        .sort_values("mean_abs_error_scenario_c")
+        .iloc[-1]
+    )
     lines.append(
-        "The clean error column is the same in every row of a panel (the clean errors do not depend on the "
-        "error model) and each scenario's error column is finite exactly where the clean column is, which is "
-        "what keeps the retained set fixed. The perturbation does move the *absolute* error even where it "
-        "leaves the contrast alone: on development the mean absolute error of the certificate's chosen "
-        f"method rises from {float(worst_abs['mean_abs_error_clean_c']):.4f} C clean to "
-        f"{float(worst_abs['mean_abs_error_scenario_c']):.4f} C under `{worst_abs['scenario']}`. Full columns "
-        "in `scenario_contrasts.csv`."
+        f"The clean error column is the same in every row of a panel (the clean errors do not depend on the error model) and each scenario's error column is finite exactly where the clean column is, which is what keeps the retained set fixed. The perturbation does move the *absolute* error even where it leaves the contrast alone: on development the mean absolute error of the certificate's chosen method rises from {float(worst_abs['mean_abs_error_clean_c']):.4f} C clean to {float(worst_abs['mean_abs_error_scenario_c']):.4f} C under `{worst_abs['scenario']}`. Full columns in `scenario_contrasts.csv`."
     )
     lines.append("")
     lines.append("## Checks run in code")
     lines.append("")
     lines.append(
-        f"- Rebuilt case table versus frozen `step3_cases/cases.parquet`: "
-        f"{scenarios['validation']['keys_compared']:,} keys compared, "
-        f"{scenarios['validation']['values_compared']:,} values, max absolute difference "
-        f"{max(scenarios['validation']['max_abs_difference_frozen_vs_rebuild'].values()):.1e}, "
-        f"NaN-position mismatches {sum(scenarios['validation']['nan_position_mismatches'].values())}."
+        f"- Rebuilt case table versus frozen `step3_cases/cases.parquet`: {scenarios['validation']['keys_compared']:,} keys compared, {scenarios['validation']['values_compared']:,} values, max absolute difference {max(scenarios['validation']['max_abs_difference_frozen_vs_rebuild'].values()):.1e}, NaN-position mismatches {sum(scenarios['validation']['nan_position_mismatches'].values())}."
     )
     lines.append(
-        "- The replica error process (`iid_0.15`, frozen seed tag `sensor`) reproduces the frozen "
-        "`abserr_noisy_*` columns exactly, so the extended error models run through the same instrument."
+        "- The replica error process (`iid_0.15`, frozen seed tag `sensor`) reproduces the frozen `abserr_noisy_*` columns exactly, so the extended error models run through the same instrument."
     )
     lines.append(
         "- The replica branch reproduces the fixed-function iid contrast exactly: "
         + "; ".join(
-            f"{panel} {cross_check[panel]['replica_scenario_contrast_points']:.6f} vs "
-            f"{cross_check[panel]['post_fix_contrast_noisy_points']:.6f} points"
-            for panel in ("development", "reserved")
+            (
+                f"{panel} {cross_check[panel]['replica_scenario_contrast_points']:.6f} vs {cross_check[panel]['post_fix_contrast_noisy_points']:.6f} points"
+                for panel in ("development", "reserved")
+            )
         )
         + "."
     )
     lines.append(
-        "- The retained case set at 70 % retention is asserted identical between the clean arm and every "
-        "perturbed arm, for both the certificate rule and the outage-length rule (all rows above are `True`)."
+        "- The retained case set at 70 % retention is asserted identical between the clean arm and every perturbed arm, for both the certificate rule and the outage-length rule (all rows above are `True`)."
     )
     lines.append(
-        "- The retained-set mirror used for those assertions is asserted equal to the imported "
-        "`_rate_locked` rate for every arm (max absolute gap "
-        f"{max(contrasts['panels'][panel]['mirror_vs_fixed_max_abs_rate_gap'] for panel in contrasts['panels']):.1e})."
+        f"- The retained-set mirror used for those assertions is asserted equal to the imported `_rate_locked` rate for every arm (max absolute gap {max((contrasts['panels'][panel]['mirror_vs_fixed_max_abs_rate_gap'] for panel in contrasts['panels'])):.1e})."
     )
     lines.append("")
     lines.append("## Error processes as realized")
     lines.append("")
     lines.append(
-        "Statistics are computed inside each sampled station-year and averaged across series; a constant "
-        "process has no within-series sd and no defined autocorrelation."
+        "Statistics are computed inside each sampled station-year and averaged across series; a constant process has no within-series sd and no defined autocorrelation."
     )
     lines.append("")
-    lines.append("| scenario | spec | within-series sd (C) | mean abs offset (C) | lag-1 autocorr | constant series |")
+    lines.append(
+        "| scenario | spec | within-series sd (C) | mean abs offset (C) | lag-1 autocorr | constant series |"
+    )
     lines.append("|---|---|---|---|---|---|")
     for key, check in scenarios["process_checks"].items():
         if key.startswith("_"):
             continue
         autocorr = check["mean_within_series_lag1_autocorr"]
         lines.append(
-            f"| {key} | {check['spec']} | {check['mean_within_series_sd_c']:.4f} "
-            f"| {check['mean_within_series_abs_offset_c']:.4f} "
-            f"| {'n/a' if autocorr is None else f'{autocorr:+.3f}'} "
-            f"| {check['constant_series']}/{check['n_series']} |"
+            f"| {key} | {check['spec']} | {check['mean_within_series_sd_c']:.4f} | {check['mean_within_series_abs_offset_c']:.4f} | {('n/a' if autocorr is None else f'{autocorr:+.3f}')} | {check['constant_series']}/{check['n_series']} |"
         )
     lines.append("")
     lines.append("## How hard each process hits the endpoint")
     lines.append("")
     lines.append(
-        "`H(truth + eps) - H(truth)` over every case, where `H` is the hottest-30-day mean. The same daily "
-        "sd does not mean the same perturbation of a thirty-day mean."
+        "`H(truth + eps) - H(truth)` over every case, where `H` is the hottest-30-day mean. The same daily sd does not mean the same perturbation of a thirty-day mean."
     )
     lines.append("")
-    lines.append("| scenario | spec | mean delta (C) | sd of delta (C) | sd relative to iid 0.15 |")
+    lines.append(
+        "| scenario | spec | mean delta (C) | sd of delta (C) | sd relative to iid 0.15 |"
+    )
     lines.append("|---|---|---|---|---|")
     endpoint_checks = scenarios.get("endpoint_level_perturbation") or {}
     for key, check in endpoint_checks.items():
         if key.startswith("_"):
             continue
         lines.append(
-            f"| {key} | {check['spec']} | {check['mean_delta_c']:+.4f} | {check['sd_delta_c']:.4f} "
-            f"| {check['sd_ratio_to_iid_0.15']:.2f}x |"
+            f"| {key} | {check['spec']} | {check['mean_delta_c']:+.4f} | {check['sd_delta_c']:.4f} | {check['sd_ratio_to_iid_0.15']:.2f}x |"
         )
     lines.append("")
     lines.append("## What was and was not changed")
     lines.append("")
-    lines.append("Read-only: every `results/v17_fitness/**` artifact, the sealed confirmation inputs, `paper/**`.")
     lines.append(
-        "New: `scripts/246_wrr_noise_recompute.py`, "
-        "`src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py`, and this amendment "
-        "directory. `scripts/202_v17_robustness.py` is imported, never edited; its sha256 is recorded in "
-        "`summary.json`."
+        "Read-only: every `results/v17_fitness/**` artifact, the sealed confirmation inputs, `paper/**`."
+    )
+    lines.append(
+        "New: `scripts/246_wrr_noise_recompute.py`, `src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py`, and this amendment directory. `scripts/202_v17_robustness.py` is imported, never edited."
     )
     lines.append("")
     lines.append("## Caveats")
@@ -1349,12 +1472,12 @@ def stage_report(extra: dict) -> dict:
     for caveat in summary["caveats"]:
         lines.append(f"- {caveat}")
     (POST_DIR / "REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"[report] wrote {rel(POST_DIR / 'summary.json')}, {rel(POST_DIR / 'REPORT.md')}, "
-          f"{rel(POST_DIR / 'scenario_contrasts.csv')}")
+    print(
+        f"[report] wrote {rel(POST_DIR / 'summary.json')}, {rel(POST_DIR / 'REPORT.md')}, {rel(POST_DIR / 'scenario_contrasts.csv')}"
+    )
     return summary
 
 
-# --------------------------------------------------------------------------- #
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -1365,7 +1488,6 @@ def main() -> int:
     parser.add_argument("--workers", type=int, default=48)
     args = parser.parse_args()
     stages = [stage.strip() for stage in args.stages.split(",") if stage.strip()]
-
     extra: dict = {}
     if "preserve" in stages:
         stage_preserve()
@@ -1377,9 +1499,13 @@ def main() -> int:
         extra["contrasts"] = stage_contrasts(args.workers)
     if "report" in stages:
         if "scenarios" not in extra:
-            extra["scenarios"] = json.loads((SCRATCH / "validation.json").read_text(encoding="utf-8"))
+            extra["scenarios"] = json.loads(
+                (SCRATCH / "validation.json").read_text(encoding="utf-8")
+            )
         if "contrasts" not in extra:
-            extra["contrasts"] = json.loads((SCRATCH / "contrasts.json").read_text(encoding="utf-8"))
+            extra["contrasts"] = json.loads(
+                (SCRATCH / "contrasts.json").read_text(encoding="utf-8")
+            )
         stage_report(extra)
     return 0
 

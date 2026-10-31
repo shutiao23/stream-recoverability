@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -31,8 +30,7 @@ from stream_recoverability.experiments.t5_matching_contract import (
 
 DESIGN = ROOT / "configs/design_freeze_v9.yaml"
 PREDICTORS = (
-    ROOT
-    / "results/framework/t2_recovery_benchmark_v1/train_only_predictors/"
+    ROOT / "results/framework/t2_recovery_benchmark_v1/train_only_predictors/"
     "train_only_predictors.csv"
 )
 GAGES_FREEZE = ROOT / "configs/regulation_panel_freeze_v1.yaml"
@@ -44,17 +42,9 @@ NLDI_CACHE = ROOT / "results/framework/public_catalog/nldi_cache"
 OUTPUT = ROOT / "results/framework/t5_matching_contract_v1"
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _write_csv(frame: pd.DataFrame, path: Path) -> str:
     frame.to_csv(path, index=False)
-    return _sha256(path)
+    return path.name
 
 
 def _nldi_cache_index(predictors: pd.DataFrame) -> pd.DataFrame:
@@ -64,29 +54,20 @@ def _nldi_cache_index(predictors: pd.DataFrame) -> pd.DataFrame:
         for direction in ("UM", "DM"):
             path = NLDI_CACHE / f"{target}_{direction}_200.json"
             if path.is_file():
-                rows.append(
-                    {
-                        "path": path.relative_to(ROOT).as_posix(),
-                        "sha256": _sha256(path),
-                    }
-                )
-    return pd.DataFrame(rows, columns=["path", "sha256"])
+                rows.append({"path": path.relative_to(ROOT).as_posix()})
+    return pd.DataFrame(rows, columns=["path"])
 
 
 def main() -> None:
     design = yaml.safe_load(DESIGN.read_text(encoding="utf-8"))
-    predictors = pd.read_csv(
-        PREDICTORS, dtype={"network_id": str, "station_id": str}
-    )
+    predictors = pd.read_csv(PREDICTORS, dtype={"network_id": str, "station_id": str})
     gages_freeze = load_freeze(GAGES_FREEZE)
-    gages, loaded_archive = load_gages_ii(
-        gages_freeze, GAGES_CACHE, offline=True
-    )
+    gages, loaded_archive = load_gages_ii(gages_freeze, GAGES_CACHE, offline=True)
     if loaded_archive != BFI_ARCHIVE:
-        raise RuntimeError("GAGES-II attribute and BFI loaders resolved different archives")
-    bfi = load_gages_ii_bfi(
-        gages_freeze, GAGES_CACHE, offline=True
-    )
+        raise RuntimeError(
+            "GAGES-II attribute and BFI loaders resolved different archives"
+        )
+    bfi = load_gages_ii_bfi(gages_freeze, GAGES_CACHE, offline=True)
     stations = pd.read_csv(STATIONS, dtype={"site_id": str, "huc": str})
     split = pd.read_csv(SPLIT, dtype={"network_id": str, "role": str})
     covariates, attrition = build_station_covariates(
@@ -115,9 +96,9 @@ def main() -> None:
             "catalog_v3_split": SPLIT,
         },
     )
-    # Keep the serialized paths portable while reading identities by absolute path.
+    # Keep the serialized paths portable (repository-relative).
     manifest["input_identities"] = {
-        name: {"path": path.relative_to(ROOT).as_posix(), "sha256": _sha256(path)}
+        name: {"path": path.relative_to(ROOT).as_posix()}
         for name, path in {
             "catalog_v3_split": SPLIT,
             "design_freeze": DESIGN,
@@ -129,24 +110,19 @@ def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     manifest["artifacts"] = {
         "station_covariates": {
-            "path": "station_covariates.csv",
-            "sha256": _write_csv(covariates, OUTPUT / "station_covariates.csv"),
+            "path": _write_csv(covariates, OUTPUT / "station_covariates.csv"),
         },
         "station_attrition": {
-            "path": "station_attrition.csv",
-            "sha256": _write_csv(attrition, OUTPUT / "station_attrition.csv"),
+            "path": _write_csv(attrition, OUTPUT / "station_attrition.csv"),
         },
         "pair_plan": {
-            "path": "pair_plan.csv",
-            "sha256": _write_csv(pairs, OUTPUT / "pair_plan.csv"),
+            "path": _write_csv(pairs, OUTPUT / "pair_plan.csv"),
         },
         "pair_attrition": {
-            "path": "pair_attrition.csv",
-            "sha256": _write_csv(pair_attrition, OUTPUT / "pair_attrition.csv"),
+            "path": _write_csv(pair_attrition, OUTPUT / "pair_attrition.csv"),
         },
         "nldi_cache_index": {
-            "path": "nldi_cache_index.csv",
-            "sha256": _write_csv(nldi_index, OUTPUT / "nldi_cache_index.csv"),
+            "path": _write_csv(nldi_index, OUTPUT / "nldi_cache_index.csv"),
             "n_files": len(nldi_index),
         },
     }

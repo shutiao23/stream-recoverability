@@ -6,7 +6,7 @@ import numpy as np, pandas as pd
 from stream_recoverability.experiments.v17_fitness.cases import station_geometry_pool
 from stream_recoverability.experiments.v17_fitness.outages import climatological_peak_window, design_for_year, peak_overlap_fraction
 from stream_recoverability.experiments.v17_fitness.panel import air_series_for, load_network_panel, trusted_years
-from stream_recoverability.experiments.v17_fitness.paths import stable_seed, REALIZATIONS_PER_STATION_YEAR
+from stream_recoverability.experiments.v17_fitness.paths import station_year_seed, REALIZATIONS_PER_STATION_YEAR
 from stream_recoverability.experiments.v17_fitness.estimators import StationModels, hottest_window_mean
 
 CASES = "results/v17_fitness/step3_cases/cases_air.parquet"
@@ -44,7 +44,7 @@ for (net, sta), block in sub.groupby(["network_id","station_id"], sort=True):
         truth = target.loc[year_mask].to_numpy(float)
         peak_source = target.loc[target.index.year != int(year)]
         peak_doys = climatological_peak_window(peak_source, exclude_year=None)
-        rng = np.random.default_rng(stable_seed(str(net), str(sta), int(year), "leave_one_year_out"))
+        rng = np.random.default_rng(station_year_seed(str(net), str(sta), panel.columns, int(year), "leave_one_year_out"))
         real = design_for_year(year_index, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR//3))
         stored = block[block.year.eq(int(year))].set_index("realization_id")
         for r in real:

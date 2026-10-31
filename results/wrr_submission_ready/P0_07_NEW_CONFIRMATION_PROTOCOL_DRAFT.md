@@ -1,6 +1,6 @@
 # P0-07 — New independent confirmation protocol (draft)
 
-Status: **sealed, not scored**. Hashes live in
+Status: **sealed, not scored**. The seal lives in
 `P0_07_NEW_CONFIRMATION_SEAL.json` (`scored: false`). Do not score leftover
 opened-wave ingest. New independent primary-panel data must meet the floors
 below before a one-time score.
@@ -31,10 +31,10 @@ On the primary panel at 70% retention of the **full candidate denominator** and
 
 ## Required seals
 
-- Method freeze JSON + certificate joblib sha256 + screen.py / frontier.py /
-  estimators.py sha256
-- Environment lock (`constraints-freeze-certificate.txt` or frozen image digest)
-- Input manifest with on-disk existence + sha256 (preflight must fail if absent)
+- Method freeze JSON + certificate joblib + screen.py / frontier.py /
+  estimators.py
+- Environment lock (`constraints-freeze-certificate.txt` or frozen image)
+- Input manifest with on-disk existence (preflight must fail if absent)
 - Prior-access ledger covering CSV / Parquet / JSON and `station_id` / `site_id`
 
 ## Failure 收口

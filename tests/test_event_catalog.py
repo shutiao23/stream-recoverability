@@ -306,7 +306,7 @@ def test_m7a_singletons_and_m7b_catalog_identity_grid(tmp_path: Path) -> None:
     assert {scenario.mask_seed for scenario in episode_scenarios} == {0}
     assert grid.event_catalog_episode_count == len(catalog)
     assert grid.event_catalog_analysis_count == eligible_pairs
-    assert grid.event_catalog_sha256
+    assert grid.event_catalog_path == str(catalog_path)
     for scenario in episode_scenarios:
         condition = scenario.condition
         assert condition.event_id and condition.control_id and condition.anchor_id

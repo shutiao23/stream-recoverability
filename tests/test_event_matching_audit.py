@@ -179,9 +179,7 @@ def test_write_artifacts_and_missing_columns(tmp_path: Path) -> None:
 def test_real_event_catalog_produces_finite_outputs() -> None:
     catalog = pd.read_csv(EVENT_CATALOG)
     audit_json = load_event_audit_json(EVENT_AUDIT_JSON)
-    audit = audit_event_matching(
-        catalog, audit_json=audit_json, catalog_path=EVENT_CATALOG
-    )
+    audit = audit_event_matching(catalog, audit_json=audit_json)
     assert audit.summary["experiment_family"] == "M7b"
     assert audit.summary["m7a_mixed"] is False
     assert audit.summary["n_episodes"] == len(catalog)
@@ -195,9 +193,11 @@ def test_real_event_catalog_produces_finite_outputs() -> None:
         audit.control_balance["stratum_grain"].eq("station_event_season")
     ]
     assert (season["n_pairs"] < 5).any()
-    assert season.loc[season["n_pairs"] < 5, "inference_status"].eq(
-        "descriptive_only"
-    ).all()
+    assert (
+        season.loc[season["n_pairs"] < 5, "inference_status"]
+        .eq("descriptive_only")
+        .all()
+    )
     assert (audit.control_balance["covariate_status"] == "not_in_catalog").all()
     assert audit.control_balance["smd_T"].isna().all()
     assert audit.control_balance["smd_F"].isna().all()

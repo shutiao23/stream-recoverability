@@ -3,19 +3,28 @@
   "status": "draft_blocked_external_and_author_inputs",
   "artifacts": [
     {
-      "path": "paper/submission/agu_main_manuscript.md",
-      "bytes": 75278,
-      "sha256": "9f40a3e34ecd6b6736abd1951186d86a71be8106bb8dee3668d405a411410097"
+      "path": "paper_archived/submission/agu_main_manuscript.md",
+      "bytes": 75081
     },
     {
-      "path": "paper/submission/agu_supporting_information.md",
-      "bytes": 84857,
-      "sha256": "9d89fbe7e68cfd219808e359a9d0e4c2e84ac0b24f7b0ce54101144c3046e784"
+      "path": "paper_archived/submission/agu_supporting_information.md",
+      "bytes": 84788
     },
     {
-      "path": "paper/submission/latex_header.tex",
-      "bytes": 152,
-      "sha256": "b2165c41981a730b079dcf509d27f2a7f08694f49a9888b4802ecac9b21945e0"
+      "path": "paper_archived/submission/latex_header.tex",
+      "bytes": 152
+    },
+    {
+      "path": "paper_archived/submission/agu_main_manuscript.pdf",
+      "bytes": 4892672
+    },
+    {
+      "path": "paper_archived/submission/agu_main_manuscript.docx",
+      "bytes": 5067439
+    },
+    {
+      "path": "paper_archived/submission/agu_supporting_information.pdf",
+      "bytes": 834297
     }
   ],
   "blockers": [

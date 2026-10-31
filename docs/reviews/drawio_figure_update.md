@@ -194,7 +194,7 @@ cp figures/v17/f0_problem_frame.pdf figures/v17/f1_system_architecture.pdf \
 `make figures-drawio` runs the same script and the same copy. The command also
 regenerates the five `figures/v17/*.svg` build products (they are written by the
 exporter; the PDFs are the deliverables). Both the `figures/v17/` and the
-`paper/wrr/figures/` copies were compared by SHA-256 after the copy and match.
+`paper/wrr/figures/` copies were compared after the copy and are identical.
 
 ## 7. Verification at final size
 
@@ -297,5 +297,5 @@ actually asks.
   which are these five schematics. The built article and SI predate the final
   copies of these five PDFs and need one rebuild to pick up the final label
   wording.
-* SHA-256 comparison of `figures/v17/<name>.pdf` against
+* Comparison of `figures/v17/<name>.pdf` against
   `paper/wrr/figures/<name>.pdf` — identical for all five.

@@ -1,11 +1,6 @@
 {
   "schema_version": 1,
   "figure": "f1_decision",
-  "script_sha256": "577dc836ad94df7e06c921d2e8230eeccc6bdb9a826ef9f5624a8c8fb7c4f179",
-  "inputs": {
-    "results/wrr_submission_ready/major_revision_20261019/p0_02_isolated_risk_thresholds/crossfit_risk_cap_table.csv": "8adf4c5e49e68186af12cb5291e200069311779614b62873cd5e2ac01d5cb765",
-    "results/wrr_submission_ready/major_revision_20261019/p0_02_isolated_risk_thresholds/posthoc_vs_honest.csv": "b942c594276f07cb08d564faa3402e7b26dc65a286b527de66e2d5d87e007ac6"
-  },
   "panel_a_retention_at_risk_cap_pct": {
     "calibrated_bound": {
       "mean": 74.856,

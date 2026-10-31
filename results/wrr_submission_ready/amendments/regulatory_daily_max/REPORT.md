@@ -1,6 +1,6 @@
 # F17 - the regulatory illustration uses daily means, but the criterion is 7-DADMax
 
-Artifacts: `dadmax_comparison.csv`, `threshold_class_change.csv`, `summary.json`, `daily_max_availability.csv`, `raw_cache/` (hashes in `raw_cache_manifest.csv`). Script: `scripts/251_wrr_winter_regulatory_endpoints.py dadmax`.
+Artifacts: `dadmax_comparison.csv`, `threshold_class_change.csv`, `summary.json`, `daily_max_availability.csv`, `raw_cache/` (listed in `raw_cache_manifest.csv`). Script: `scripts/251_wrr_winter_regulatory_endpoints.py dadmax`.
 
 ## The definition used
 
@@ -15,7 +15,7 @@ The criteria table's column header is **Highest 7-DADMax**, so the annual statis
 * stations requested: 91; with a daily-maximum time series in the NWIS series catalog: **90**; with a daily-mean series: 91.
 * stations with a daily mean but no daily maximum: ['09383100']; with a daily maximum but no daily mean: none.
 * after QC, 90 stations contribute a daily-maximum series and 91 a daily-mean series.
-* raw responses and hashes: 182 files, 49,094,897 bytes, in `raw_cache/`.
+* raw responses: 182 files, 49,094,897 bytes, in `raw_cache/`.
 * Provenance check on the download: the freshly downloaded daily-mean series (`statCd=00003`) were compared day-by-day with the sealed confirmation panel's own input files. Across 706,665 common station-days at 91 stations the maximum absolute difference is 0.0 C and 100.0% of the values are exactly equal, so the daily-maximum series fetched from the same service in the same way is the same vintage and treatment as the panel.
 
 ## The comparison

@@ -38,13 +38,20 @@ from __future__ import annotations
 
 import os
 
-for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+for _var in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
     os.environ.setdefault(_var, "1")
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # The air-forcing table must be fixed before the pipeline modules are imported
 # (paths.py reads it at import time); this is the table scripts/317 used.
-os.environ["STREAM_AIR_FORCING"] = os.path.join(ROOT_PATH, "data", "interim", "v18_air_forcing.parquet")
+os.environ["STREAM_AIR_FORCING"] = os.path.join(
+    ROOT_PATH, "data", "interim", "v18_air_forcing.parquet"
+)
 
 import argparse  # noqa: E402
 import sys  # noqa: E402
@@ -76,19 +83,31 @@ from stream_recoverability.experiments.v17_fitness.panel import (  # noqa: E402
 )
 from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     REALIZATIONS_PER_STATION_YEAR,
-    stable_seed,
+    network_position,
+    station_year_seed,
 )
+from stream_recoverability.seeds import plain_seed, position_index  # noqa: E402
 
 OUT = C.RUN / "r2_03_three_windows"
 M317 = C.load_script("wrr317", C.ROOT / "scripts" / "317_wrr_p1_mechanism_boundary.py")
 
 WINDOW = 30
-RECONSTRUCTORS = ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge", "air_ridge")
+RECONSTRUCTORS = (
+    "doy_climatology",
+    "smooth_climatology",
+    "linear_interp",
+    "donor_ridge",
+    "air_ridge",
+)
 LENGTHS = (30, 60, 90)
 N_PERM = 25
 DRAWS = 2000
 HARMLESS_C = 0.10
 FALSE_PEAK_C = 0.10
+#: Seed of the residual permutations: plain_seed(network position, station
+#: position, year, INTERVENE_SEED_CODE, realization position, reconstructor position).
+INTERVENE_SEED_CODE = 10
+RECONSTRUCTOR_CODES = position_index(RECONSTRUCTORS)
 
 
 def roll_mean(values: np.ndarray) -> np.ndarray:
@@ -118,6 +137,8 @@ def build_station(job: dict) -> pd.DataFrame:
     daily.columns = [str(c) for c in daily.columns]
     if station_id not in daily.columns:
         return pd.DataFrame()
+    network_code = network_position(network_id)
+    station_code = position_index(daily.columns)[station_id]
     target = pd.to_numeric(daily[station_id], errors="coerce")
     donors = daily.drop(columns=[station_id])
     air = air_series_for(network_id, station_id, daily.index)
@@ -137,11 +158,17 @@ def build_station(job: dict) -> pd.DataFrame:
             continue
         train_mask = pd.Series(~ymask, index=daily.index)
         peak_source = target.loc[target.index.year != int(year)]
-        models = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
+        models = StationModels(
+            target=target, donors=donors, air=air, train_mask=train_mask
+        )
         peak_doys = climatological_peak_window(peak_source, exclude_year=None)
         if len(target.loc[train_mask].dropna()) < 365:
             continue
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), protocol))
+        rng = np.random.default_rng(
+            station_year_seed(
+                network_id, station_id, daily.columns, int(year), protocol
+            )
+        )
         realizations = design_for_year(
             yindex,
             peak_doys,
@@ -154,16 +181,22 @@ def build_station(job: dict) -> pd.DataFrame:
         rolled_truth = roll_mean(truth)
         t_end = int(np.nanargmax(rolled_truth))
         t_slice = slice(t_end - WINDOW + 1, t_end + 1)
-        delta = truth_metric - rolled_truth  # D_W >= 0, NaN before the first full window
+        delta = (
+            truth_metric - rolled_truth
+        )  # D_W >= 0, NaN before the first full window
         # climatological window start/end index in this year (observable at decision time)
         c_start = int(min(max(int(peak_doys[0]) - 1, 0), n_days - WINDOW))
         c_end = c_start + WINDOW - 1
         # strongest competing disjoint truth window
         ends = np.flatnonzero(np.isfinite(rolled_truth))
         disjoint = ends[(ends <= t_end - WINDOW) | (ends >= t_end + WINDOW)]
-        comp_gap = float(truth_metric - rolled_truth[disjoint].max()) if len(disjoint) else float("nan")
+        comp_gap = (
+            float(truth_metric - rolled_truth[disjoint].max())
+            if len(disjoint)
+            else float("nan")
+        )
 
-        for real in realizations:
+        for real_index, real in enumerate(realizations):
             if real.arm != "stratified" or int(real.longest_run) not in LENGTHS:
                 continue
             mask = real.mask(n_days)
@@ -179,9 +212,15 @@ def build_station(job: dict) -> pd.DataFrame:
             }
             donor_fit = models.donor_ridge(visible) if visible else None
             fits["donor_ridge"] = (
-                models.donor_predict(donor_fit, yindex) if donor_fit is not None else np.full(n_days, np.nan)
+                models.donor_predict(donor_fit, yindex)
+                if donor_fit is not None
+                else np.full(n_days, np.nan)
             )
-            fits["air_ridge"] = models.air_predict(yindex) if air is not None else np.full(n_days, np.nan)
+            fits["air_ridge"] = (
+                models.air_predict(yindex)
+                if air is not None
+                else np.full(n_days, np.nan)
+            )
 
             h_true = float(mask[t_slice].mean())
             base = {
@@ -233,14 +272,23 @@ def build_station(job: dict) -> pd.DataFrame:
                         "recon_minus_clim_days": float(r_end - c_end),
                         "abs_recon_minus_clim_days": float(abs(r_end - c_end)),
                         "window_aligned": bool(r_end == t_end),
-                        "window_disjoint_from_truth": bool(abs(r_end - t_end) >= WINDOW),
+                        "window_disjoint_from_truth": bool(
+                            abs(r_end - t_end) >= WINDOW
+                        ),
                         "gap_resid_mean": inside_mean,
                         "gap_resid_sd": float(gap_resid.std()),
                     }
                 )
                 # ---- interventions on the gap residuals --------------------
                 prng = np.random.default_rng(
-                    stable_seed("r2-intervene", network_id, station_id, int(year), real.realization_id, name)
+                    plain_seed(
+                        network_code,
+                        station_code,
+                        int(year),
+                        INTERVENE_SEED_CODE,
+                        real_index,
+                        RECONSTRUCTOR_CODES[name],
+                    )
                 )
                 gap_idx = np.flatnonzero(mask)
                 perm_err = np.empty(N_PERM)
@@ -283,7 +331,13 @@ def cmean(block: pd.DataFrame, col: str, seed: int) -> dict:
         return s / n if n else np.nan
 
     point, lo, hi = C.cluster_bootstrap(parts, stat, draws=DRAWS, seed=seed)
-    return {"point": point, "lo": lo, "hi": hi, "n": int(len(block)), "n_networks": len(parts)}
+    return {
+        "point": point,
+        "lo": lo,
+        "hi": hi,
+        "n": int(len(block)),
+        "n_networks": len(parts),
+    }
 
 
 def cdiff(block: pd.DataFrame, col: str, flag: str, seed: int) -> dict:
@@ -296,7 +350,14 @@ def cdiff(block: pd.DataFrame, col: str, flag: str, seed: int) -> dict:
         if len(a) and len(b):
             parts.append((a.sum(), len(a), b.sum(), len(b)))
     if len(parts) < 2:
-        return {"point": np.nan, "lo": np.nan, "hi": np.nan, "n_true": 0, "n_false": 0, "n_networks": len(parts)}
+        return {
+            "point": np.nan,
+            "lo": np.nan,
+            "hi": np.nan,
+            "n_true": 0,
+            "n_false": 0,
+            "n_networks": len(parts),
+        }
 
     def stat(chosen):
         sa, na = sum(p[0] for p in chosen), sum(p[1] for p in chosen)
@@ -305,7 +366,9 @@ def cdiff(block: pd.DataFrame, col: str, flag: str, seed: int) -> dict:
 
     point, lo, hi = C.cluster_bootstrap(parts, stat, draws=DRAWS, seed=seed)
     return {
-        "point": point, "lo": lo, "hi": hi,
+        "point": point,
+        "lo": lo,
+        "hi": hi,
         "n_true": int(block[flag].astype(bool).sum()),
         "n_false": int((~block[flag].astype(bool)).sum()),
         "n_networks": len(parts),
@@ -348,7 +411,10 @@ def strata_weighted_diff(block: pd.DataFrame, seed: int, min_cell: int = 5) -> d
 
 
 def true_class(h: pd.Series) -> pd.Series:
-    return pd.Series(np.select([h <= 0.0, h >= 0.999], ["none", "all"], default="partial"), index=h.index)
+    return pd.Series(
+        np.select([h <= 0.0, h >= 0.999], ["none", "all"], default="partial"),
+        index=h.index,
+    )
 
 
 def main() -> int:
@@ -371,16 +437,23 @@ def main() -> int:
     ok["window_disjoint_from_truth"] = ok["window_disjoint_from_truth"].astype(bool)
     ok["misaligned"] = ~ok["window_aligned"]
     ok["false_peak_case"] = ok["false_peak_channel"] > FALSE_PEAK_C
-    ok["harmless_switch"] = ok["misaligned"] & (ok["false_peak_channel"].abs() <= FALSE_PEAK_C)
+    ok["harmless_switch"] = ok["misaligned"] & (
+        ok["false_peak_channel"].abs() <= FALSE_PEAK_C
+    )
     cases.to_parquet(OUT / "cases_three_windows.parquet", index=False)
-    print(f"[342] {len(cases)} cases ({len(ok)} finite) in {time.time() - started:.0f}s", flush=True)
+    print(
+        f"[342] {len(cases)} cases ({len(ok)} finite) in {time.time() - started:.0f}s",
+        flush=True,
+    )
 
     # ---- (1) identity -----------------------------------------------------
     ident = {
         "n_cases_checked": int(len(ok)),
         "max_abs_identity_residual_C": float(ok["identity_residual"].abs().max()),
         "min_false_peak_channel_C": float(ok["false_peak_channel"].min()),
-        "share_false_peak_channel_negative_beyond_1e-9": float((ok["false_peak_channel"] < -1e-9).mean()),
+        "share_false_peak_channel_negative_beyond_1e-9": float(
+            (ok["false_peak_channel"] < -1e-9).mean()
+        ),
         "share_hide_channel_zero_when_true_window_visible": float(
             (ok.loc[ok.true_hidden_fraction <= 0, "hide_channel"].abs() < 1e-9).mean()
         ),
@@ -406,10 +479,18 @@ def main() -> int:
                     "reconstructor": recon,
                     "true_hidden_class": klass,
                     "n_cases": ae["n"],
-                    "mean_abs_error_C": ae["point"], "mean_abs_error_lo": ae["lo"], "mean_abs_error_hi": ae["hi"],
-                    "mean_hide_channel_C": hc["point"], "hide_lo": hc["lo"], "hide_hi": hc["hi"],
-                    "mean_false_peak_channel_C": fp["point"], "false_lo": fp["lo"], "false_hi": fp["hi"],
-                    "share_false_peak_cases": fpc["point"], "share_lo": fpc["lo"], "share_hi": fpc["hi"],
+                    "mean_abs_error_C": ae["point"],
+                    "mean_abs_error_lo": ae["lo"],
+                    "mean_abs_error_hi": ae["hi"],
+                    "mean_hide_channel_C": hc["point"],
+                    "hide_lo": hc["lo"],
+                    "hide_hi": hc["hi"],
+                    "mean_false_peak_channel_C": fp["point"],
+                    "false_lo": fp["lo"],
+                    "false_hi": fp["hi"],
+                    "share_false_peak_cases": fpc["point"],
+                    "share_lo": fpc["lo"],
+                    "share_hi": fpc["hi"],
                 }
             )
     pd.DataFrame(rows).to_csv(OUT / "channels_by_hidden_class.csv", index=False)
@@ -426,9 +507,15 @@ def main() -> int:
                     "reconstructor": recon,
                     "stratum": klass,
                     "contrast": "misaligned_minus_aligned_abs_error",
-                    "point_C": d["point"], "lo_C": d["lo"], "hi_C": d["hi"],
-                    "n_misaligned": d["n_true"], "n_aligned": d["n_false"], "n_networks": d["n_networks"],
-                    "share_misaligned": float(block.misaligned.mean()) if len(block) else np.nan,
+                    "point_C": d["point"],
+                    "lo_C": d["lo"],
+                    "hi_C": d["hi"],
+                    "n_misaligned": d["n_true"],
+                    "n_aligned": d["n_false"],
+                    "n_networks": d["n_networks"],
+                    "share_misaligned": float(block.misaligned.mean())
+                    if len(block)
+                    else np.nan,
                 }
             )
         # design-matched: same climatological class AND same true class
@@ -439,7 +526,9 @@ def main() -> int:
                 "reconstructor": recon,
                 "stratum": "clim_class_x_true_class_weighted",
                 "contrast": "misaligned_minus_aligned_abs_error",
-                "point_C": sw["point"], "lo_C": sw["lo"], "hi_C": sw["hi"],
+                "point_C": sw["point"],
+                "lo_C": sw["lo"],
+                "hi_C": sw["hi"],
                 "n_misaligned": int(rblock.misaligned.sum()),
                 "n_aligned": int((~rblock.misaligned).sum()),
                 "n_networks": sw["n_networks"],
@@ -472,16 +561,24 @@ def main() -> int:
 
     # climatological window error: observable class vs true class
     rows = []
-    for (cc, tc), g in ok[ok.reconstructor.eq("doy_climatology")].groupby(["clim_class", "true_class"]):
+    for (cc, tc), g in ok[ok.reconstructor.eq("doy_climatology")].groupby(
+        ["clim_class", "true_class"]
+    ):
         rows.append(
             {
-                "climatological_class": cc, "true_class": tc, "n_cases": len(g),
+                "climatological_class": cc,
+                "true_class": tc,
+                "n_cases": len(g),
                 "mean_abs_error_C": float(g.abs_error.mean()),
-                "median_abs_clim_minus_true_days": float(g.abs_clim_minus_true_days.median()),
+                "median_abs_clim_minus_true_days": float(
+                    g.abs_clim_minus_true_days.median()
+                ),
             }
         )
     tab = pd.DataFrame(rows)
-    tab["share_of_climatological_class"] = tab.n_cases / tab.groupby("climatological_class").n_cases.transform("sum")
+    tab["share_of_climatological_class"] = tab.n_cases / tab.groupby(
+        "climatological_class"
+    ).n_cases.transform("sum")
     tab.to_csv(OUT / "climatological_vs_true_class.csv", index=False)
 
     # error by climatological-window misplacement, within design class "none"
@@ -489,7 +586,9 @@ def main() -> int:
     bins = [-0.1, 0.5, 7.5, 14.5, 29.5, 1000]
     labels = ["0", "1-7", "8-14", "15-29", ">=30"]
     for recon, rblock in ok.groupby("reconstructor"):
-        rblock = rblock.assign(d_bin=pd.cut(rblock.abs_clim_minus_true_days, bins, labels=labels))
+        rblock = rblock.assign(
+            d_bin=pd.cut(rblock.abs_clim_minus_true_days, bins, labels=labels)
+        )
         for klass in ("none", "partial", "full"):
             for lab in labels:
                 g = rblock[(rblock.clim_class == klass) & (rblock.d_bin == lab)]
@@ -497,12 +596,19 @@ def main() -> int:
                     continue
                 rows.append(
                     {
-                        "reconstructor": recon, "clim_class": klass, "clim_true_distance_bin": lab, "n_cases": len(g),
+                        "reconstructor": recon,
+                        "clim_class": klass,
+                        "clim_true_distance_bin": lab,
+                        "n_cases": len(g),
                         "mean_abs_error_C": float(g.abs_error.mean()),
-                        "mean_true_hidden_fraction": float(g.true_hidden_fraction.mean()),
+                        "mean_true_hidden_fraction": float(
+                            g.true_hidden_fraction.mean()
+                        ),
                     }
                 )
-    pd.DataFrame(rows).to_csv(OUT / "error_by_climatological_misplacement.csv", index=False)
+    pd.DataFrame(rows).to_csv(
+        OUT / "error_by_climatological_misplacement.csv", index=False
+    )
 
     # ---- (5) interventions on the residuals --------------------------------
     rows = []
@@ -510,7 +616,11 @@ def main() -> int:
         for klass in ("pooled", "none", "partial", "all"):
             block = rblock if klass == "pooled" else rblock[rblock.true_class == klass]
             seed += 1
-            rec = {"reconstructor": recon, "true_hidden_class": klass, "n_cases": len(block)}
+            rec = {
+                "reconstructor": recon,
+                "true_hidden_class": klass,
+                "n_cases": len(block),
+            }
             for col, label in (
                 ("abs_error", "recorded"),
                 ("abs_error_permuted", "permuted_within_gap"),
@@ -546,39 +656,53 @@ def main() -> int:
         ):
             rows.append(
                 {
-                    "reconstructor": recon, "kind": label, "n_cases": len(sel),
+                    "reconstructor": recon,
+                    "kind": label,
+                    "n_cases": len(sel),
                     "share_of_all_cases": len(sel) / len(rblock),
-                    "median_abs_error_C": float(sel.abs_error.median()) if len(sel) else np.nan,
-                    "share_abs_error_le_0.1C": float((sel.abs_error <= 0.1).mean()) if len(sel) else np.nan,
-                    "share_abs_error_le_0.5C": float((sel.abs_error <= 0.5).mean()) if len(sel) else np.nan,
-                    "mean_false_peak_channel_C": float(sel.false_peak_channel.mean()) if len(sel) else np.nan,
+                    "median_abs_error_C": float(sel.abs_error.median())
+                    if len(sel)
+                    else np.nan,
+                    "share_abs_error_le_0.1C": float((sel.abs_error <= 0.1).mean())
+                    if len(sel)
+                    else np.nan,
+                    "share_abs_error_le_0.5C": float((sel.abs_error <= 0.5).mean())
+                    if len(sel)
+                    else np.nan,
+                    "mean_false_peak_channel_C": float(sel.false_peak_channel.mean())
+                    if len(sel)
+                    else np.nan,
                 }
             )
     pd.DataFrame(rows).to_csv(OUT / "window_switches.csv", index=False)
 
     write_summary(ident)
-    C.write_fingerprint(
-        OUT,
-        "scripts/342_wrr_three_window_decomposition.py",
-        {"crossed_panel_cases": C.CROSSED_PARQUET},
-        extra={
-            "n_permutations": N_PERM,
-            "elapsed_seconds": round(time.time() - started, 1),
-            "note": "daily series regenerated from the same seeds as scripts/317 (stratified arm, lengths 30/60/90)",
-        },
-    )
     print(f"[342] done in {time.time() - started:.0f}s -> {OUT}", flush=True)
     return 0
 
 
 def write_summary(ident: dict) -> None:
     lines = ["# R2-03 three windows and the exact identity", ""]
+    lines += [
+        "Daily series regenerated from the same seeds as scripts/317 (stratified arm, lengths "
+        f"30/60/90); {N_PERM} permutations of the gap residuals per case.",
+        "",
+    ]
     lines += ["## Identity check", "", pd.Series(ident).to_string(), ""]
     for name, title in (
-        ("channels_by_hidden_class.csv", "Hiding channel and false-peak channel by true hidden-share class"),
-        ("misalignment_within_strata.csv", "Misaligned minus aligned, pooled and within hidden-share classes"),
+        (
+            "channels_by_hidden_class.csv",
+            "Hiding channel and false-peak channel by true hidden-share class",
+        ),
+        (
+            "misalignment_within_strata.csv",
+            "Misaligned minus aligned, pooled and within hidden-share classes",
+        ),
         ("window_distances.csv", "Distances between the three windows (days)"),
-        ("climatological_vs_true_class.csv", "Climatological design class vs true hidden-share class (day-of-year climatology)"),
+        (
+            "climatological_vs_true_class.csv",
+            "Climatological design class vs true hidden-share class (day-of-year climatology)",
+        ),
         ("residual_interventions.csv", "Interventions on the gap residuals"),
         ("window_switches.csv", "What a window switch costs"),
     ):

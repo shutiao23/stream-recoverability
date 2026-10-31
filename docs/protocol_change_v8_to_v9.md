@@ -6,7 +6,7 @@ Supersedes: `docs/protocol_change_v7_to_v8.md` + `configs/recoverability_study_f
 Does not touch: `configs/design_freeze_v4.yaml`、金沙江 / Chattahoochee 历史稿、134k-run 历史流水线
 
 这是**下一篇研究的新冻结**，不是对 `design_freeze_v4` 的静默改写。  
-v4 仍然是历史稿和它那条 134k-run 流水线的 once-lock。`DEFAULT_DESIGN_PATH` 不改指向。全国面板冻结哈希不改。金沙江源质量边界仍是 BL-014。密封水温仍然不打开。
+v4 仍然是历史稿和它那条 134k-run 流水线的 once-lock。`DEFAULT_DESIGN_PATH` 不改指向。全国面板的冻结不改。金沙江源质量边界仍是 BL-014。密封水温仍然不打开。
 
 v8 在 6 条可评河试点未过关之后，把问题写进了章程，但把数字门槛留成「先不定死」。那是持有姿态，不是可重复的 confirmatory 协议。v9 把门槛锁死，避免下一轮再出现「标签冻了、数字没冻」的空冻结。
 
@@ -30,7 +30,7 @@ v8（`research_charter_v1.md` + `recoverability_study_freeze_v1.yaml`）已经�
 1. **新研究冻结，不是改写 v4。**  
    下一篇的冻结文件叫 `configs/design_freeze_v9.yaml`。  
    `configs/recoverability_study_freeze_v1.yaml` **被取代，但不删除**。它仍是 2026-08-25 的 v8 持有记录。  
-   历史稿、`design_freeze_v4`、134k-run 流水线、全国面板冻结哈希，全部留在原处。任何人不得把 v9 门槛回写进 v4，也不得把金沙江 / Chattahoochee 的已看结果重新标成 confirmatory。
+   历史稿、`design_freeze_v4`、134k-run 流水线、全国面板冻结，全部留在原处。任何人不得把 v9 门槛回写进 v4，也不得把金沙江 / Chattahoochee 的已看结果重新标成 confirmatory。
 
 2. **标题论题。**  
    旧标题论题（BL-013 已撤回、此处再冻结一次）：reservoir structure predicts recoverability。  
@@ -118,7 +118,7 @@ v8（`research_charter_v1.md` + `recoverability_study_freeze_v1.yaml`）已经�
 ## What did not change
 
 1. 历史 once-lock。`design_freeze_v4`、540-unit 一次打开、train-only 启发式、2018--2020 development-test 可见性标签，全部不动。
-2. 全国面板冻结哈希。BL-011 的 pooled LOEO AUC 0.407 仍是历史稿的冻结主数字，只当预先登记的有缺陷诊断，不重跑、不改估计量。
+2. 全国面板冻结。BL-011 的 pooled LOEO AUC 0.407 仍是历史稿的冻结主数字，只当预先登记的有缺陷诊断，不重跑、不改估计量。
 3. 金沙江源质量边界 BL-014。没有逐值质量码、仪器/率定、时区、水文日切割和「日温从未插值」的证明之前，金沙江仍是探索性背景网，不是 fully traceable artificial-mask 真值。
 4. 密封结果仍然未打开。`sealed_outcomes_opened: false`。目录阶段只许查站在不在、目录年份够不够，不许用水温给方法打分。
 5. `formal_evidence: false`。没有标题许可。`headline_claim_licensed` 保持 false。12 河试点数字不是 confirmatory。

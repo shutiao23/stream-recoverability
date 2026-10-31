@@ -294,7 +294,6 @@
         }
       ],
       "bundle_bytes": 121100,
-      "bundle_sha256": "3d3fcf632b915cc1f6468dded6c3f477e05db8befa264aeecd14e4b0b5752826",
       "bundle_url": "https://ehyd.gv.at/main-UFXEVZGM.js",
       "index_url": "https://ehyd.gv.at/",
       "ok": true,
@@ -357,7 +356,6 @@
         "x-node": "C",
         "x-permitted-cross-domain-policies": "none"
       },
-      "sha256": "2fb165ee97520cdef280a9e8ee9921a6f0f1d1a727c1e98db3bb9a9ad9aa7265",
       "url": "https://gis.lfrz.gv.at/api/ehyd/messstellen/paket/ehyd_messstellen_all_owf.zip"
     },
     "diagram_probes": [
@@ -449,7 +447,6 @@
         "x-node": "C",
         "x-permitted-cross-domain-policies": "none"
       },
-      "sha256": "9253bb55c0612c5ee4269a34f24515b484cfa27357aae0511df53583b768e022",
       "url": "https://ehyd.gv.at/services/Messstellen/json?filter=alle"
     }
   },

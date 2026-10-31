@@ -11,7 +11,7 @@
 | independent unit | river network; bootstrap resamples networks within provider strata (32 US / 15 CZ / 10 NO composition of the parent panel) |
 | estimand | realized benefit `B = MAE(default handling) − MAE(model)` per evaluation placement; default = climatology (calendar-day median estimated on inner-fitting years only), robustness leg = linear interpolation |
 | target panel | prospective, outcome-disjoint scored networks — 80–120 networks, quotas carried from v4 §4.1 (US 40–65%; ≥ 2 non-US domains each ≥ 15; non-US total ≥ 30); no network from the development, first, or second panels |
-| registration | OSF/Zenodo external registration before outcomes (§6). AGU/WRR has **no Registered Report track**; WRR is a TOP-framework signatory, so the registrable content is analysis transparency + data/code availability. Internal hash-bound freeze is **not** externally verifiable preregistration (wording frozen, §6.3) |
+| registration | OSF/Zenodo external registration before outcomes (§6). AGU/WRR has **no Registered Report track**; WRR is a TOP-framework signatory, so the registrable content is analysis transparency + data/code availability. Internal freeze is **not** externally verifiable preregistration (wording frozen, §6.3) |
 
 ---
 
@@ -131,7 +131,7 @@ why the differential curve, not the legacy risk curve, is the treatment-ranking 
    180 d, `REPORT.md` Table 1), alongside gap-length-only and random.
 4. **Harm-avoidance endpoint** at 180 d (long horizons are where the deployed model is
    net-harmful vs the climatology default; §2.3, S2).
-5. Registration wording is tightened per §6.3 (internal hash-bound freeze ≠ externally
+5. Registration wording is tightened per §6.3 (internal freeze ≠ externally
    verifiable preregistration; exploratory vs confirmatory labels per
    Pfister & Kirchner \cite{pfister2017debates}).
 
@@ -474,8 +474,8 @@ study and carry no transfer claim** (n < 15 rule, §4.4; rationale:
 Contents (no outcome-derived file may be present): this protocol; the frozen scoring roster;
 the frozen margins table (§3.2); the tie-break and budget definitions; the power curves
 (§3.3); predictor files (differential curve code path, imported v13 risk predictor, R&H γ_m
-implementation); readiness record with `external_registration_verified: false`; sha256 of all
-registered files. Pushed to the public remote **before any prospective outcome is computed or
+implementation); readiness record with `external_registration_verified: false`.
+Pushed to the public remote **before any prospective outcome is computed or
 viewed**.
 
 ### 6.2 External registration (gate)
@@ -484,13 +484,13 @@ AGU/WRR has **no Registered Report track**; WRR is a TOP-framework signatory, so
 transparency requirements are data/code availability and analysis transparency. OSF/Zenodo
 external registration goes **beyond** the journal's baseline and is done anyway (PLAN §8.3):
 deposit commit #1 at OSF or Zenodo; mint DOI; `registration_record_v5.json` records
-registry, DOI, URL, UTC time, commit hash, file sha256s, and
+registry, DOI, URL, UTC time, the registered commit, and
 `separate_pre_outcome_commit: true`, `externally_verifiable_preregistration: true`.
 Outcome scoring begins only after the gate flips.
 
 ### 6.3 Wording rules (frozen)
 
-- The internal hash-bound freeze of the earlier panels (v13-era second panel) is **not
+- The internal freeze of the earlier panels (v13-era second panel) is **not
   externally verifiable preregistration** — the v13 wording ("frozen … not externally
   verifiable preregistration", `manuscript_v13.md` §2.10 and the harmonization memo) is
   retained verbatim wherever those panels are described. This protocol does not inherit that
@@ -519,7 +519,7 @@ non-amendable.
 ## 7. Outcome-scoring commit and reporting
 
 Outcome-scoring runs in a later, distinct commit (commit #2) referencing the registration DOI
-and binding commit #1's sha256. Reporting tables (all produced regardless of outcome):
+and commit #1. Reporting tables (all produced regardless of outcome):
 
 1. `attrition_flow_v5.csv` — candidates → QC → frozen roster → scored, by provider.
 2. `direction_replication_v5.csv` — per stratum: placement-level ρ [CI], network-level ρ

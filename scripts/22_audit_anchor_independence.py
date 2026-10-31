@@ -21,7 +21,6 @@ from stream_recoverability.analysis.anchor_independence import (
     load_validation_anchors_for_audit,
     write_anchor_independence_audit,
 )
-from stream_recoverability.experiments.contracts import file_sha256
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -56,7 +55,6 @@ def main() -> None:
     payload = {
         **audit.summary,
         "catalog_path": str(args.catalog),
-        "catalog_sha256": file_sha256(args.catalog),
         "output_dir": str(args.output_dir),
         "artifacts": sorted(audit.artifact_frames()),
     }

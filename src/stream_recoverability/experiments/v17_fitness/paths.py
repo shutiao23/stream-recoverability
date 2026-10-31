@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
+import csv
 import os
+from functools import lru_cache
 from pathlib import Path
+
+from stream_recoverability.seeds import plain_seed, position_index
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 RESULTS_ROOT = REPO_ROOT / "results" / "v17_fitness"
@@ -21,14 +25,25 @@ STEP9_FREEZE = RESULTS_ROOT / "step9_freeze"
 STEP10_CONFIRM = RESULTS_ROOT / "step10_confirmation"
 
 TRUSTED_YEARS = (
-    REPO_ROOT / "results" / "wrr_revision" / "step1_universe" / "trusted_river_complete_years.csv"
+    REPO_ROOT
+    / "results"
+    / "wrr_revision"
+    / "step1_universe"
+    / "trusted_river_complete_years.csv"
 )
 NETWORK_ROSTER = (
     REPO_ROOT / "results" / "wrr_revision" / "step1_universe" / "network_roster.csv"
 )
-FIRST_PANEL_ROOT = REPO_ROOT / "results" / "development_v11" / "confirmation_daily_qc" / "networks"
+FIRST_PANEL_ROOT = (
+    REPO_ROOT / "results" / "development_v11" / "confirmation_daily_qc" / "networks"
+)
 SECOND_PANEL_ROOT = (
-    REPO_ROOT / "results" / "development_v11" / "second_confirmation" / "daily_qc" / "networks"
+    REPO_ROOT
+    / "results"
+    / "development_v11"
+    / "second_confirmation"
+    / "daily_qc"
+    / "networks"
 )
 # The air-forcing table is overridable so that the v18 sensitivity analysis can
 # rerun the same pipeline against a wider forcing set without a second copy of
@@ -79,19 +94,43 @@ def donor_regime(n_donors: int) -> str:
     return "rich"
 
 
-def stable_seed(*parts: object) -> int:
-    """A process-independent seed.
+# Purpose of a station-year random draw, the last part of its seed.
+STATION_YEAR_TAGS = {
+    "leave_one_year_out": 0,
+    "strictly_prior_years": 1,
+    "sensor": 2,
+    "ctrl": 3,
+}
 
-    Python's ``hash()`` is randomised per process for str and bytes, so using it
-    to seed an outage realisation makes the case table irreproducible between
-    runs. This is deterministic across processes, machines and interpreter
-    versions.
+
+@lru_cache(maxsize=None)
+def _network_positions() -> dict:
+    with NETWORK_ROSTER.open(newline="", encoding="utf-8") as handle:
+        return position_index(row["network_id"] for row in csv.DictReader(handle))
+
+
+def network_position(network_id: object) -> int:
+    """Position of the network in the sorted network ids of the roster; 0 if it is not listed."""
+
+    return _network_positions().get(str(network_id), 0)
+
+
+def station_year_seed(
+    network_id: object, station_id: object, station_ids, year: int, tag: str
+) -> int:
+    """Seed of one station-year draw.
+
+    The parts are the network's roster position, the station's position among
+    the station columns of its network panel, the year and the purpose tag.
     """
 
-    import hashlib
-
-    key = "|".join(str(part) for part in parts).encode("utf-8")
-    return int.from_bytes(hashlib.blake2b(key, digest_size=4).digest(), "big")
+    stations = position_index(str(station) for station in station_ids)
+    return plain_seed(
+        network_position(network_id),
+        stations[str(station_id)],
+        int(year),
+        STATION_YEAR_TAGS[tag],
+    )
 
 
 # Instrument error of an in-situ water-temperature logger, used to perturb the

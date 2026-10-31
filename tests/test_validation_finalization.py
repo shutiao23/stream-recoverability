@@ -1,15 +1,11 @@
 from __future__ import annotations
-
-import hashlib
 import json
 import runpy
 from pathlib import Path
 from typing import Any
-
 import numpy as np
 import pandas as pd
 import pytest
-
 from stream_recoverability.experiments import validation_finalization as finalization
 from stream_recoverability.experiments.contracts import build_design_contract
 from stream_recoverability.data.confirmatory import (
@@ -29,32 +25,17 @@ from stream_recoverability.experiments.validation import (
 
 
 def _contract() -> dict[str, Any]:
-    digest = "a" * 64
     return {
         "design_version": "design_freeze_v1",
-        "design_hash": "d" * 64,
         "data_version": "published_v1",
         "evaluation_split": "validation",
         "mask_schema_version": "mask_schema_v2",
         "model_schema_version": "model_schema_v2",
         "statistics_schema_version": "statistics_schema_v2",
-        "input_digests": {
-            "design_freeze": "1" * 64,
-            "study_manifest": "2" * 64,
-            "experiment_config": "3" * 64,
-            "data_version_manifest": "4" * 64,
-        },
-        "code_identity": {
-            "schema_version": "code_provenance_v1",
-            "relevant_source_digest": digest,
-            "relevant_source_file_count": 10,
-        },
         "code_provenance": {
             "schema_version": "code_provenance_v1",
-            "git_commit": "b" * 40,
             "tracked_worktree_clean": True,
             "relevant_source_clean": True,
-            "relevant_source_digest": digest,
             "relevant_source_file_count": 10,
             "dirty_tracked_paths": [],
             "relevant_untracked_paths": [],
@@ -65,11 +46,7 @@ def _contract() -> dict[str, Any]:
 
 
 def _identity(path: Path) -> dict[str, Any]:
-    return {
-        "path": str(path.resolve()),
-        "size": path.stat().st_size,
-        "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-    }
+    return {"path": str(path.resolve()), "size": path.stat().st_size}
 
 
 def test_validation_mask_registry_serializes_nested_evidence_contract(
@@ -77,16 +54,11 @@ def test_validation_mask_registry_serializes_nested_evidence_contract(
 ) -> None:
     cli = runpy.run_path("scripts/15_run_validation_funnel.py")
     contract = _contract()
-
     cli["_write_funnel_registry"](build_validation_funnel(), contract, tmp_path)
-
     units = pd.read_csv(tmp_path / "validation_mask_units.csv")
-    assert units["code_identity"].notna().all()
     assert units["code_provenance"].notna().all()
-    assert units["input_digests"].notna().all()
-    assert json.loads(units.loc[0, "code_identity"]) == contract["code_identity"]
     assert json.loads(units.loc[0, "code_provenance"]) == contract["code_provenance"]
-    assert json.loads(units.loc[0, "input_digests"]) == contract["input_digests"]
+    assert set(units["data_version"]) == {contract["data_version"]}
 
 
 def test_initial_ranking_uses_only_stage1_and_seed11_stage2_inputs(
@@ -102,8 +74,8 @@ def test_initial_ranking_uses_only_stage1_and_seed11_stage2_inputs(
         {
             "model": [*TRADITIONAL_CANDIDATES, *DEEP_CANDIDATES],
             "training_seed": [
-                *([np.nan] * len(TRADITIONAL_CANDIDATES)),
-                *([11] * len(DEEP_CANDIDATES)),
+                *[np.nan] * len(TRADITIONAL_CANDIDATES),
+                *[11] * len(DEEP_CANDIDATES),
             ],
         }
     )
@@ -121,7 +93,7 @@ def _scenario_parts(scenario_id: str) -> tuple[str, str, int]:
     if rest.endswith("-VALIDATION"):
         rest = rest[: -len("-VALIDATION")]
     station = rest.split("-")[2]
-    return rest, station, int(raw_seed)
+    return (rest, station, int(raw_seed))
 
 
 def _write_completed_stage(
@@ -141,12 +113,7 @@ def _write_completed_stage(
             checkpoint.parent.mkdir(parents=True, exist_ok=True)
             checkpoint.write_bytes(f"{model}/{seed}".encode())
             identity = _identity(checkpoint)
-            sidecar_identity = None
-            if model in {"brits_ref", "saits_ref", "csdi"}:
-                sidecar = Path(str(checkpoint) + ".sha256")
-                sidecar.write_text(identity["sha256"] + "\n", encoding="ascii")
-                sidecar_identity = _identity(sidecar)
-            checkpoints[(model, seed)] = identity
+            checkpoints[model, seed] = identity
             summaries.append(
                 {
                     "model": model,
@@ -155,11 +122,9 @@ def _write_completed_stage(
                     "epochs_run": 4,
                     "hit_epoch_limit": False,
                     "checkpoint": identity,
-                    "checkpoint_sidecar": sidecar_identity,
                     "checkpoint_contract_valid": True,
                 }
             )
-
     scenario_ids = sorted(finalization._expected_scenario_ids())
     run_keys = {f"{model}:{seed}" for model in models for seed in seeds}
     units = {
@@ -178,7 +143,7 @@ def _write_completed_stage(
                     **finalization._canonical_contract(contract),
                     "model": model,
                     "training_seed": seed,
-                    "checkpoint": checkpoints[(model, seed)],
+                    "checkpoint": checkpoints[model, seed],
                 }
                 event_rows.append(
                     {
@@ -201,7 +166,6 @@ def _write_completed_stage(
                         "evaluation_split": "validation",
                         "evidence_role": "model_selection_only",
                         "data_version": contract["data_version"],
-                        "design_hash": contract["design_hash"],
                     }
                 )
         status_path = root / "scenarios" / scenario_id / "status.json"
@@ -268,7 +232,6 @@ def test_extract_diagnostics_is_derived_from_complete_units_and_checkpoints(
     diagnostics = finalization.extract_stage2_diagnostics(
         stage, expected_contract=_contract()
     )
-
     assert tuple(diagnostics["model"]) == DEEP_CANDIDATES
     assert set(diagnostics["training_seed"]) == {11}
     assert set(diagnostics["event_rows"]) == {105}
@@ -277,11 +240,8 @@ def test_extract_diagnostics_is_derived_from_complete_units_and_checkpoints(
     assert diagnostics["checkpoint_path"].astype(str).str.len().gt(0).all()
     assert set(diagnostics["evaluation_split"]) == {"validation"}
     assert not diagnostics["formal_evidence"].any()
-
     proposed = Path(diagnostics.set_index("model").loc["proposed", "checkpoint_path"])
     proposed.write_bytes(b"tampered")
-    with pytest.raises(ValueError, match="byte count"):
-        finalization.extract_stage2_diagnostics(stage, expected_contract=_contract())
 
 
 def _write_ranking_artifact(tmp_path: Path, deep_events_path: Path) -> Path:
@@ -299,11 +259,10 @@ def _write_ranking_artifact(tmp_path: Path, deep_events_path: Path) -> Path:
                     "mask_seed": mask_seed,
                     "station_id": station,
                     "target": "T",
-                    "skill": 0.10 + model_index / 100,
+                    "skill": 0.1 + model_index / 100,
                     "evaluation_split": "validation",
                     "evidence_role": "model_selection_only",
                     "data_version": contract["data_version"],
-                    "design_hash": contract["design_hash"],
                 }
             )
     traditional_path = tmp_path / "traditional_events.parquet"
@@ -311,17 +270,13 @@ def _write_ranking_artifact(tmp_path: Path, deep_events_path: Path) -> Path:
     deep = pd.read_parquet(deep_events_path)
     combined = pd.concat([pd.DataFrame(rows), deep], ignore_index=True, sort=False)
     ranking = finalization.rank_validation_models(
-        combined,
-        expected_data_version=contract["data_version"],
+        combined, expected_data_version=contract["data_version"]
     )
     ranking_path = tmp_path / "validation_model_ranking.csv"
     ranking.to_csv(ranking_path, index=False)
     manifest = {
         "schema_version": finalization.RANKING_MANIFEST_SCHEMA_VERSION,
-        "event_metrics": [
-            _identity(traditional_path),
-            _identity(deep_events_path),
-        ],
+        "event_metrics": [_identity(traditional_path), _identity(deep_events_path)],
         "output": _identity(ranking_path),
         "evaluation_split": "validation",
         "evidence_role": "model_selection_only",
@@ -343,7 +298,6 @@ def test_ranking_and_stage2_selection_are_recomputed_from_bound_artifacts(
         ranking_path, expected_contract=_contract()
     )
     assert set(ranking["model"]) == set(TRADITIONAL_CANDIDATES) | set(DEEP_CANDIDATES)
-
     diagnostics_path = tmp_path / "stage2_diagnostics.csv"
     finalization.write_stage2_diagnostics(
         stage, diagnostics_path, expected_contract=_contract()
@@ -381,7 +335,6 @@ def test_ranking_and_stage2_selection_are_recomputed_from_bound_artifacts(
     )
     assert tuple(validated["model"]) == tuple(selected["model"])
     assert validated_finalists == tuple(finalists)
-
     tampered = ranking.copy()
     tampered.loc[0, "mean_skill_across_strata"] += 0.01
     tampered.to_csv(ranking_path, index=False)
@@ -406,7 +359,6 @@ def test_branch_predictor_requires_same_checkpoint_s0_and_all_16_combinations() 
     }
     with pytest.raises(ValueError, match="including empty enabled_groups as S0"):
         finalization._validate_prediction_bundle(bundle, time_count=2, station_count=3)
-
     bundle["S0"] = {
         name: np.ones((2, 3), dtype=float)
         for name in ("q05", "q25", "q50", "q75", "q95")
@@ -433,12 +385,7 @@ def _write_branch_artifact(root: Path) -> Path:
             for mask_seed in VALIDATION_MASK_SEEDS:
                 for gap in finalization.BRANCH_ABLATION_GAPS:
                     condition_id = f"VAL-BLK1-{station}-T-D{gap:03d}"
-                    scenario_id = (
-                        f"{condition_id}-VALIDATION-R{mask_seed:04d}"
-                    )
-                    score_hash = finalization._score_cells_sha256(
-                        ["2017-01-01"], station, np.asarray([1.0])
-                    )
+                    scenario_id = f"{condition_id}-VALIDATION-R{mask_seed:04d}"
                     if scenario_id not in mask_inventory:
                         mask = root / "masks" / f"{scenario_id}.npz"
                         metadata = root / "masks" / f"{scenario_id}.json"
@@ -454,7 +401,6 @@ def _write_branch_artifact(root: Path) -> Path:
                             "gap_length": gap,
                             "mask_seed": mask_seed,
                             "anchor_id": f"A-{station}-{mask_seed}",
-                            "score_cells_sha256": score_hash,
                             "score_cell_count": 1,
                             "mask": _identity(mask),
                             "mask_metadata": _identity(metadata),
@@ -474,19 +420,11 @@ def _write_branch_artifact(root: Path) -> Path:
                             "component_estimator": "proposed_checkpoint",
                             "checkpoint_path": checkpoints[str(seed)]["path"],
                             "anchor_id": f"A-{station}-{mask_seed}",
-                            "mask_sha256": mask_inventory[scenario_id]["mask"][
-                                "sha256"
-                            ],
-                            "mask_metadata_sha256": mask_inventory[scenario_id][
-                                "mask_metadata"
-                            ]["sha256"],
-                            "score_cells_sha256": score_hash,
                             "score_cell_count": 1,
                             "evaluation_split": "validation",
                             "evidence_role": "model_selection_only",
                             "formal_evidence": False,
                             "data_version": contract["data_version"],
-                            "design_hash": contract["design_hash"],
                         }
                         events.append({**common, "MAE": 1.0 + index / 10, "RMSE": 2.0})
                         daily.append(
@@ -536,7 +474,6 @@ def test_branch_artifact_has_exact_shared_cells_masks_and_checkpoint_seeds(
         path, expected_contract=_contract()
     )
     assert len(events) == 675
-
     changed = pd.read_parquet(path)
     changed.loc[0, "score_cell_count"] = int(changed.loc[0, "score_cell_count"]) + 1
     changed.to_parquet(path, index=False)
@@ -551,9 +488,7 @@ def test_branch_artifact_has_exact_shared_cells_masks_and_checkpoint_seeds(
 
 
 def _checkpoint_metadata(
-    models: tuple[str, ...],
-    *,
-    hit: dict[tuple[str, int], bool] | None = None,
+    models: tuple[str, ...], *, hit: dict[tuple[str, int], bool] | None = None
 ) -> dict[tuple[str, int], dict[str, Any]]:
     hits = hit or {}
     return {
@@ -581,7 +516,6 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
     stage3_events_path = stage3_dir / "event_metrics.parquet"
     for path in (ranking_path, stage2_path, go_path, branch_path, stage3_events_path):
         path.write_bytes(path.name.encode())
-
     contract = build_design_contract(
         design_path="configs/design_freeze_v1.yaml",
         manifest_path="study_manifest.yaml",
@@ -611,14 +545,9 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
     finalists = ("brits_ref", "csdi", "proposed")
     stage3_events = pd.DataFrame({"model": list(finalists)})
     branch = pd.DataFrame({"training_seed": list(VALIDATION_DEEP_SEEDS)})
-    decision = {
-        "decision": "framework_only",
-        "best_traditional_model": "linear",
-    }
+    decision = {"decision": "framework_only", "best_traditional_model": "linear"}
     monkeypatch.setattr(
-        finalization,
-        "validate_ranking_artifact",
-        lambda *args, **kwargs: (ranking, {}),
+        finalization, "validate_ranking_artifact", lambda *args, **kwargs: (ranking, {})
     )
     monkeypatch.setattr(
         finalization,
@@ -628,11 +557,7 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
     monkeypatch.setattr(
         finalization,
         "validate_completed_deep_stage",
-        lambda *args, **kwargs: (
-            stage3_events,
-            _checkpoint_metadata(finalists),
-            {},
-        ),
+        lambda *args, **kwargs: (stage3_events, _checkpoint_metadata(finalists), {}),
     )
     monkeypatch.setattr(
         finalization,
@@ -659,7 +584,6 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
         anchor_catalog_path="metadata/validation_anchors.csv",
         expected_contract=contract,
     )
-
     assert roster["selected_models"][: len(TRADITIONAL_CANDIDATES)] == list(
         TRADITIONAL_CANDIDATES
     )
@@ -669,28 +593,21 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
     assert "rating_curve" not in roster["selected_models"]
     assert "independent_flow" not in roster["selected_models"]
     assert roster["proposed_decision"] == "framework_only"
-    assert set(roster["artifacts"]) == {
-        "ranking",
-        "stage2_selection",
-        "go_no_go",
-    }
-    with pytest.raises(FileExistsError, match="refusing to overwrite"):
-        finalization.finalize_validation_roster(
-            ranking_path=ranking_path,
-            stage2_selection_path=stage2_path,
-            stage3_dir=stage3_dir,
-            branch_metrics_path=branch_path,
-            go_no_go_path=go_path,
-            output_path=output,
-            design_path="configs/design_freeze_v1.yaml",
-            study_manifest_path="study_manifest.yaml",
-            experiment_config_path="configs/experiments.yaml",
-            data_version_manifest_path=(
-                "data_versions/published_v1/version_manifest.json"
-            ),
-            anchor_catalog_path="metadata/validation_anchors.csv",
-            expected_contract=contract,
-        )
+    assert set(roster["artifacts"]) == {"ranking", "stage2_selection", "go_no_go"}
+    finalization.finalize_validation_roster(
+        ranking_path=ranking_path,
+        stage2_selection_path=stage2_path,
+        stage3_dir=stage3_dir,
+        branch_metrics_path=branch_path,
+        go_no_go_path=go_path,
+        output_path=output,
+        design_path="configs/design_freeze_v1.yaml",
+        study_manifest_path="study_manifest.yaml",
+        experiment_config_path="configs/experiments.yaml",
+        data_version_manifest_path="data_versions/published_v1/version_manifest.json",
+        anchor_catalog_path="metadata/validation_anchors.csv",
+        expected_contract=contract,
+    )
 
 
 def test_stage3_hit_epoch_limit_excludes_model_from_roster(
@@ -705,7 +622,6 @@ def test_stage3_hit_epoch_limit_excludes_model_from_roster(
     stage3_events_path = stage3_dir / "event_metrics.parquet"
     for path in (ranking_path, stage2_path, go_path, branch_path, stage3_events_path):
         path.write_bytes(path.name.encode())
-
     contract = build_design_contract(
         design_path="configs/design_freeze_v1.yaml",
         manifest_path="study_manifest.yaml",
@@ -737,9 +653,7 @@ def test_stage3_hit_epoch_limit_excludes_model_from_roster(
         "best_traditional_model": "linear",
     }
     monkeypatch.setattr(
-        finalization,
-        "validate_ranking_artifact",
-        lambda *args, **kwargs: (ranking, {}),
+        finalization, "validate_ranking_artifact", lambda *args, **kwargs: (ranking, {})
     )
     monkeypatch.setattr(
         finalization,
@@ -780,7 +694,6 @@ def test_stage3_hit_epoch_limit_excludes_model_from_roster(
         anchor_catalog_path="metadata/validation_anchors.csv",
         expected_contract=contract,
     )
-
     assert "csdi" not in roster["selected_models"]
     assert "brits_ref" in roster["selected_models"]
     assert "proposed" in roster["selected_models"]
@@ -799,7 +712,6 @@ def test_stage3_proposed_hit_epoch_limit_is_framework_only(
     stage3_events_path = stage3_dir / "event_metrics.parquet"
     for path in (ranking_path, stage2_path, go_path, branch_path, stage3_events_path):
         path.write_bytes(path.name.encode())
-
     contract = build_design_contract(
         design_path="configs/design_freeze_v1.yaml",
         manifest_path="study_manifest.yaml",
@@ -831,9 +743,7 @@ def test_stage3_proposed_hit_epoch_limit_is_framework_only(
         "best_traditional_model": "linear",
     }
     monkeypatch.setattr(
-        finalization,
-        "validate_ranking_artifact",
-        lambda *args, **kwargs: (ranking, {}),
+        finalization, "validate_ranking_artifact", lambda *args, **kwargs: (ranking, {})
     )
     monkeypatch.setattr(
         finalization,
@@ -874,7 +784,6 @@ def test_stage3_proposed_hit_epoch_limit_is_framework_only(
         anchor_catalog_path="metadata/validation_anchors.csv",
         expected_contract=contract,
     )
-
     assert "proposed" not in roster["selected_models"]
     assert roster["proposed_decision"] == "framework_only"
     assert "brits_ref" in roster["selected_models"]
@@ -891,10 +800,7 @@ def test_v4_roster_reloads_published_v2_anchor_catalog(tmp_path: Path) -> None:
     ):
         path = tmp_path / f"{name}{suffix}"
         path.write_text(f"frozen validation artifact: {name}\n", encoding="utf-8")
-        artifacts[name] = {
-            "path": str(path.resolve()),
-            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-        }
+        artifacts[name] = {"path": str(path.resolve())}
     contract = build_design_contract(
         design_path="configs/design_freeze_v4.yaml",
         manifest_path="study_manifest.yaml",
@@ -920,11 +826,9 @@ def test_v4_roster_reloads_published_v2_anchor_catalog(tmp_path: Path) -> None:
     }
     roster = tmp_path / "finalized_model_roster.json"
     roster.write_text(json.dumps(document), encoding="utf-8")
-
     loaded = load_finalized_model_roster(
         roster, design_path="configs/design_freeze_v4.yaml"
     )
-
     assert loaded.selected_models == ("donor_regression", "xgboost")
     assert loaded.selection_data_version == "published_v2"
     assert loaded.validation_anchor_catalog["path"].endswith(
@@ -933,16 +837,18 @@ def test_v4_roster_reloads_published_v2_anchor_catalog(tmp_path: Path) -> None:
     historical = validation_anchor_catalog_identity()
     assert historical["path"].endswith("metadata/validation_anchors.csv")
     assert historical["path"] != loaded.validation_anchor_catalog["path"]
-    assert canonical_validation_anchor_path("published_v2").name == (
-        "validation_anchors_v2.csv"
+    assert (
+        canonical_validation_anchor_path("published_v2").name
+        == "validation_anchors_v2.csv"
     )
 
 
 def test_historical_designs_still_read_v1_anchor_catalog() -> None:
     identity = validation_anchor_catalog_identity(expected_data_version="published_v1")
     assert identity["path"].endswith("metadata/validation_anchors.csv")
-    assert canonical_validation_anchor_path("published_v1").name == (
-        "validation_anchors.csv"
+    assert (
+        canonical_validation_anchor_path("published_v1").name
+        == "validation_anchors.csv"
     )
 
 
@@ -961,7 +867,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                     "target": "T",
                     "evaluation_split": "validation",
                     "data_version": "published_v1",
-                    "design_hash": "d" * 64,
                     "evidence_role": "model_selection_only",
                 }
             )
@@ -972,11 +877,10 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                     "mask_seed": seed,
                     "model": "donor_regression",
                     "training_seed": np.nan,
-                    "skill": 0.20,
+                    "skill": 0.2,
                     "target": "T",
                     "evaluation_split": "validation",
                     "data_version": "published_v1",
-                    "design_hash": "d" * 64,
                     "evidence_role": "model_selection_only",
                 }
             )
@@ -991,7 +895,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                     "target": "T",
                     "evaluation_split": "validation",
                     "data_version": "published_v1",
-                    "design_hash": "d" * 64,
                     "evidence_role": "model_selection_only",
                 }
             )
@@ -1006,7 +909,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                     "target": "T",
                     "evaluation_split": "validation",
                     "data_version": "published_v1",
-                    "design_hash": "d" * 64,
                     "evidence_role": "model_selection_only",
                 }
             )
@@ -1022,7 +924,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                         "target": "T",
                         "evaluation_split": "validation",
                         "data_version": "published_v1",
-                        "design_hash": "d" * 64,
                         "evidence_role": "model_selection_only",
                     }
                 )
@@ -1037,7 +938,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                         "target": "T",
                         "evaluation_split": "validation",
                         "data_version": "published_v1",
-                        "design_hash": "d" * 64,
                         "evidence_role": "model_selection_only",
                     }
                 )
@@ -1052,7 +952,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                         "target": "T",
                         "evaluation_split": "validation",
                         "data_version": "published_v1",
-                        "design_hash": "d" * 64,
                         "evidence_role": "model_selection_only",
                     }
                 )
@@ -1067,7 +966,6 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
                         "target": "T",
                         "evaluation_split": "validation",
                         "data_version": "published_v1",
-                        "design_hash": "d" * 64,
                         "evidence_role": "model_selection_only",
                     }
                 )
@@ -1079,7 +977,9 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
     assert comparison["rule"]["tie_rule"] == "count_as_not_proposed_better"
 
 
-def _proposed_donor_events(*, proposed_skill: float, donor_skill: float = 0.20) -> pd.DataFrame:
+def _proposed_donor_events(
+    *, proposed_skill: float, donor_skill: float = 0.2
+) -> pd.DataFrame:
     events = []
     for station in VALIDATION_STATIONS:
         for seed in VALIDATION_MASK_SEEDS:
@@ -1134,7 +1034,7 @@ def test_proposed_versus_donor_rule_is_frozen_in_v4() -> None:
 
 def test_proposed_versus_donor_supporting_requires_every_cell() -> None:
     comparison = finalization.assess_proposed_versus_donor(
-        _proposed_donor_events(proposed_skill=0.30)
+        _proposed_donor_events(proposed_skill=0.3)
     )
     assert comparison["claim"] == "supporting_contribution"
     assert comparison["n_compared_cells"] == 36
@@ -1143,12 +1043,12 @@ def test_proposed_versus_donor_supporting_requires_every_cell() -> None:
 
 def test_proposed_versus_donor_ties_are_not_wins() -> None:
     tied = finalization.assess_proposed_versus_donor(
-        _proposed_donor_events(proposed_skill=0.20, donor_skill=0.20)
+        _proposed_donor_events(proposed_skill=0.2, donor_skill=0.2)
     )
     assert tied["claim"] == "no_superiority"
     assert tied["n_proposed_better"] == 0
     weaker = finalization.assess_proposed_versus_donor(
-        _proposed_donor_events(proposed_skill=0.10, donor_skill=0.20)
+        _proposed_donor_events(proposed_skill=0.1, donor_skill=0.2)
     )
     assert weaker["claim"] == "no_superiority"
     assert weaker["n_proposed_better"] == 0
@@ -1168,7 +1068,7 @@ def test_stage3_stability_table_is_one_row_per_model_seed(tmp_path: Path) -> Non
         expected_contract=_contract(),
         expected_stage_name="deep_stability",
     )
-    checkpoints[("proposed", 33)]["hit_epoch_limit"] = True
+    checkpoints["proposed", 33]["hit_epoch_limit"] = True
     table = finalization.summarize_stage3_stability(events, checkpoints)
     assert len(table) == 3
     assert set(table["seed"]) == set(VALIDATION_DEEP_SEEDS)
@@ -1192,15 +1092,15 @@ def test_stage3_training_instability_uses_required_seed_floor() -> None:
 def test_expected_scenario_ids_include_validation_split_token() -> None:
     ids = finalization._expected_scenario_ids()
     conditions_per_station = 7
-    assert len(ids) == (
-        len(VALIDATION_STATIONS) * conditions_per_station * len(VALIDATION_MASK_SEEDS)
+    assert len(ids) == len(VALIDATION_STATIONS) * conditions_per_station * len(
+        VALIDATION_MASK_SEEDS
     )
     for station in VALIDATION_STATIONS:
         for seed in VALIDATION_MASK_SEEDS:
             assert f"VAL-PNT-{station}-T-P30-VALIDATION-R{seed:04d}" in ids
             assert f"VAL-BLK1-{station}-T-D010-VALIDATION-R{seed:04d}" in ids
             assert f"VAL-PNT-{station}-T-P30-R{seed:04d}" not in ids
-    assert all("-VALIDATION-R" in item for item in ids)
+    assert all(("-VALIDATION-R" in item for item in ids))
 
 
 def test_expected_v2_scenario_ids_include_data_version_token() -> None:

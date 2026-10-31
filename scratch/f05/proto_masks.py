@@ -15,7 +15,7 @@ from stream_recoverability.experiments.v17_fitness.outages import (
     climatological_peak_window, design_for_year, peak_overlap_fraction,
 )
 from stream_recoverability.experiments.v17_fitness.panel import load_network_panel
-from stream_recoverability.experiments.v17_fitness.paths import REALIZATIONS_PER_STATION_YEAR, stable_seed
+from stream_recoverability.experiments.v17_fitness.paths import REALIZATIONS_PER_STATION_YEAR, station_year_seed
 from stream_recoverability.experiments.v18_closure.endpoints import hottest_k_window
 from stream_recoverability.experiments.v18_closure.paths import SUPPORT_WIDTHS
 
@@ -48,7 +48,7 @@ for j in sel[:3]:
         models = StationModels(target=target, donors=daily.drop(columns=[sid]), air=None, train_mask=train_mask)
         peak_doys = climatological_peak_window(target.loc[target.index.year != int(year)], exclude_year=None)
         clim = models.smooth_climatology(yidx)
-        rng = np.random.default_rng(stable_seed(net, sid, int(year), "leave_one_year_out"))
+        rng = np.random.default_rng(station_year_seed(net, sid, daily.columns, int(year), "leave_one_year_out"))
         reals = design_for_year(yidx, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3))
         for r in reals:
             mask = r.mask(len(yidx))

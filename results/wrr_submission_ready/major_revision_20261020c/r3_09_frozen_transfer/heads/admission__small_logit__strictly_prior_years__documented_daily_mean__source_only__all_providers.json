@@ -33,7 +33,6 @@
   "identity": "admission__small_logit__strictly_prior_years__documented_daily_mean__source_only__all_providers",
   "kind": "logit",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__small_logit__strictly_prior_years__documented_daily_mean__source_only__all_providers.joblib",
-  "model_sha256": "b1f06d0ae3e5e7609d0bd0fb56d8b752d1904ef1ef0e96ce6da696c3274f5ff9",
   "n_training_cases": 17722,
   "n_training_groups": 81,
   "name": "small_logit",
@@ -43,8 +42,7 @@
   "scope": "documented_daily_mean",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

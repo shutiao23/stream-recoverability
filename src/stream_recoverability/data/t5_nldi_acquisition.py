@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import time
 from pathlib import Path
@@ -23,14 +22,13 @@ from stream_recoverability.experiments.t5_matching_contract import (
 DIRECTIONS = ("UM", "DM")
 DISTANCE_KM = 200
 PROVIDER_UNAVAILABLE_HTTP_STATUSES = frozenset({400, 404, 405, 410, 422})
-
-
-def file_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
+REQUEST_LOG_COLUMNS = (
+    "request_ordinal",
+    "target_station_id",
+    "direction",
+    "status",
+    "http_status",
+)
 
 
 def build_open_target_plan(
@@ -170,16 +168,6 @@ def audit_plan_cache(plan: pd.DataFrame, *, root: Path = Path()) -> pd.DataFrame
             strict=True,
         )
     ]
-    audit["response_sha256"] = [
-        (
-            file_sha256(_resolved(cache_path, root))
-            if status == "complete"
-            else ""
-        )
-        for cache_path, status in zip(
-            audit["cache_path"], audit["status"], strict=True
-        )
-    ]
     return audit
 
 
@@ -303,26 +291,13 @@ def execute_missing_requests(
                 "direction": str(row.direction),
                 "status": status,
                 "http_status": fetch_result.get("http_status"),
-                "response_sha256": (
-                    file_sha256(cache_path) if status == "complete" else ""
-                ),
             }
         )
         if status in {"transient_failure", "invalid_response"}:
             halted_early = True
             halt_reason = status
             break
-    result = pd.DataFrame(
-        logs,
-        columns=[
-            "request_ordinal",
-            "target_station_id",
-            "direction",
-            "status",
-            "http_status",
-            "response_sha256",
-        ],
-    )
+    result = pd.DataFrame(logs, columns=list(REQUEST_LOG_COLUMNS))
     result.attrs.update(
         {
             "halted_early": halted_early,
@@ -339,10 +314,10 @@ def execute_missing_requests(
 __all__ = [
     "DIRECTIONS",
     "DISTANCE_KM",
+    "REQUEST_LOG_COLUMNS",
     "audit_plan_cache",
     "build_open_target_plan",
     "cache_status",
     "execute_missing_requests",
     "fetch_nldi_slot",
-    "file_sha256",
 ]

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -11,15 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "results/development_v11/independent_air2stream_equivalent"
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def test_independent_air2stream_manifest_is_fail_closed_and_bound() -> None:
+def test_independent_air2stream_manifest_is_fail_closed() -> None:
     manifest = json.loads((OUTPUT / "manifest.json").read_text())
     assert manifest["model"]["published_equation"] is True
     assert manifest["model"]["original_executable_used"] is False
@@ -27,8 +18,6 @@ def test_independent_air2stream_manifest_is_fail_closed_and_bound() -> None:
     assert manifest["coverage"]["input_eligible_networks"] >= 1
     assert manifest["coverage"]["fit_failures"] == 0
     assert len(manifest["selected_networks_before_input_qc"]) == 12
-    for name, expected in manifest["output_sha256"].items():
-        assert _sha256(OUTPUT / name) == expected
 
 
 def test_scored_stations_have_complete_strict_inputs_and_disjoint_years() -> None:

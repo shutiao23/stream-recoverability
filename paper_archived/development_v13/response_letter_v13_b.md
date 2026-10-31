@@ -37,15 +37,15 @@ Evidence roles are attached to every result (frozen pre-outcome / post-hoc v12 d
 
 ## Major Comment 2 — The second panel is not an independent confirmation set
 
-**Reviewer concern.** The second panel was frozen and hash-bound, but its amendment and outcomes entered version control in the same commit, and every v12 revision analysis was post-hoc development on already-scored panels. The paper must not present the second panel or the revision analyses as confirmatory, and provenance must be labeled wherever it matters.
+**Reviewer concern.** The second panel was frozen, but its amendment and outcomes entered version control in the same commit, and every v12 revision analysis was post-hoc development on already-scored panels. The paper must not present the second panel or the revision analyses as confirmatory, and provenance must be labeled wherever it matters.
 
 **Action taken in v13.**
-- Terminology and methods now attach an explicit **evidence role** to every result: (1) frozen pre-outcome — first-panel analyses and the second panel (internally hash-bound; *not* externally verifiable preregistration); (2) post-hoc v12 development — all revision analyses (paired comparisons, support hierarchy, surface, matrices, rolling origin, downstream, decision experiments); (3) v13 harmonization — re-runs required before a finding is evidence (missingness matrix); (4) future preregistered — protocol v3/v4 outcomes (none exist).
+- Terminology and methods now attach an explicit **evidence role** to every result: (1) frozen pre-outcome — first-panel analyses and the second panel (internally frozen; *not* externally verifiable preregistration); (2) post-hoc v12 development — all revision analyses (paired comparisons, support hierarchy, surface, matrices, rolling origin, downstream, decision experiments); (3) v13 harmonization — re-runs required before a finding is evidence (missingness matrix); (4) future preregistered — protocol v3/v4 outcomes (none exist).
 - The words "confirmation" / "independent confirmation" are removed from all result claims; the second panel is described only as an *outcome-disjoint* panel, and the abstract and key points carry no provenance claims.
 - Methods (preamble note + §2.11 evidence roles) attaches the roles throughout, and Figure 1's caption gains a provenance legend (panel roles, freeze status, support tiers).
 - The Open Research section states that only a third panel under protocol v4, with separate pre-outcome commit and external registration, would be externally verifiable confirmation.
 
-**Evidence.** v12 manuscript §2.10 already disclosed the same-commit flaw; v13 formalizes it as the four-class evidence-role scheme (`terminology_v13_b.md`, `claim_matrix_v13_b.md` header). No abstract sentence in v13 mentions amendment, hash-binding, or registration status.
+**Evidence.** v12 manuscript §2.10 already disclosed the same-commit flaw; v13 formalizes it as the four-class evidence-role scheme (`terminology_v13_b.md`, `claim_matrix_v13_b.md` header). No abstract sentence in v13 mentions amendment or registration status.
 
 **Remaining caveat.** All quantitative results in v13 remain development-grade evidence on two panels; nothing can certify them except the preregistered third panel. The third panel is planned (protocol v4, 80–120 outcome-disjoint networks) but does not exist.
 

@@ -126,15 +126,7 @@
   "inputs": {
     "gages_archive": {
       "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
-      "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e",
       "redistributed": false
     }
-  },
-  "outputs": {
-    "us_heterogeneity_panel.csv": "b6b6a64aab91a5c0a845b792c1d9dec7d67bdec0ca0265df5b32bc90a3bf6c6d",
-    "us_heterogeneity_networks.csv": "9f347aa41192fa0ad3184161e3d20f807eaa337d4e4b7e5ceb0d8a62b308b2c9",
-    "us_heterogeneity_coefficients.csv": "4e828cc2388546c08d5031bb5cbe855581dec09bbc6b7159181cb5c33ae2e2c4",
-    "us_heterogeneity_level_slopes.csv": "90db3ec045fe8c43755cab73f835940edcbc8c052f871ccfe7d752544c5688a9",
-    "figure_06_us_heterogeneity.png": "0320bae1f9a147e5e477682b8f5f9698889b4cd11778bf4d4d2186362fa91f50"
   }
 }

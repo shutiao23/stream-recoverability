@@ -71,9 +71,10 @@ Two defects made specific artifacts unusable. In both cases the affected
 numbers were discarded rather than reported alongside the repaired ones, and
 the full pipeline was re-run.
 
-1. **Outage realizations were seeded from a salted hash.** Python randomises
-   `hash()` for strings per process, so the case table could not be regenerated.
-   Repaired with a deterministic digest; two independent runs are now identical.
+1. **Outage realizations were seeded non-reproducibly.** The seed came from a
+   value that Python randomises per process, so the case table could not be
+   regenerated. Repaired with a deterministic seed; two independent runs are now
+   identical.
 2. **Worker results were concatenated in completion order.** Content was
    reproducible but row order was not, and the tie-break jitter used by a
    discrete screening rule is assigned positionally. Repaired by writing the
@@ -112,7 +113,7 @@ what a study has not done belongs to the record, not to the argument.
   the artifacts by `scripts/199_v17_audit_manuscript.py`, which the test suite
   runs; the article carries a machine-readable block of its headline numbers
   that is compared against `results/v17_fitness/paper_numbers.json`.
-- Provenance for each claim — script, artifact, digest, article section — is in
+- Provenance for each claim — script, artifact, article section — is in
   `results/v17_fitness/evidence_ledger.csv`.
 
 ## S6. Reproduction

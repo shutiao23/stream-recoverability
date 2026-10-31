@@ -313,7 +313,7 @@ provider's terms explicitly permit redistribution.
 | --- | --- | --- | --- |
 | USGS | Water Data and legacy NWIS daily-values services | approved daily temperature; same-site 00060/00003 discharge with qualifier prefix `A` for process sensitivity | US Government data; request metadata and derived aggregates releasable |
 | NASA POWER | daily point API, `T2M`, local solar time | finite non-fill daily air temperature for the air2stream-equivalent subset | request metadata and derived forcing retained; local-solar versus station-civil day boundary disclosed |
-| GAGES-II | 2009 basin-characteristics archive | major-dam presence used only as a descriptive US regulation stratum | source archive hash recorded; archive not redistributed in the manuscript package |
+| GAGES-II | 2009 basin-characteristics archive | major-dam presence used only as a descriptive US regulation stratum | archive not redistributed in the manuscript package |
 | ARSO | `vode.arso.gov.si/hidarhiv/` | reviewed daily river archive | raw values omitted pending an explicit redistribution statement |
 | CHMI | official hydrological yearbook/download tables | provider daily values | raw values omitted pending an explicit redistribution statement |
 | GKD Bayern | official Gewässerkundlicher Dienst downloads | provider daily values | raw values omitted pending an explicit redistribution statement |
@@ -331,7 +331,7 @@ archival DOI remains pending and must not be invented. A second independent
 confirmation follows the analysis protocol and its dated v2 eligibility
 amendment. Before recovery scoring, the amendment recorded the unavailable
 validated Canadian source, substituted the Czech and Norwegian validation
-domains, and bound the eligible 60-network roster and inputs by hash. The v2
+domains, and froze the eligible 60-network roster and inputs. The v2
 amendment and eventual outcomes are included in the same repository commit,
 not a separate public pre-outcome checkpoint; its timing is therefore an
 internal provenance claim rather than externally verifiable preregistration.

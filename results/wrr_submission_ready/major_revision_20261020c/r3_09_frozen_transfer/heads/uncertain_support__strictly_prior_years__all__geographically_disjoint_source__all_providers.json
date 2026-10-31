@@ -55,7 +55,6 @@
   "identity": "uncertain_support__strictly_prior_years__all__geographically_disjoint_source__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/uncertain_support__strictly_prior_years__all__geographically_disjoint_source__all_providers.joblib",
-  "model_sha256": "250ddf4adfb21d690fc5cd1d63b8c0cfef98c0f323c4a9ec64be7a7aa1df8a3a",
   "n_training_cases": 50355,
   "n_training_groups": 54,
   "name": "uncertain_support",
@@ -65,8 +64,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
-      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet"
     }
   ],
   "source_thresholds": {

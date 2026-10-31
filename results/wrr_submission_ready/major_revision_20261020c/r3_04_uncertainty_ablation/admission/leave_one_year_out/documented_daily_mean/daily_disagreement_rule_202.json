@@ -64,10 +64,7 @@
       "n_train_groups": 87
     }
   ],
-  "implementation_hash": "bee5453b277035785edae651ca47cf4e9e86d92dec7002f3647b4777338b2790931a587342b05f3011bb5de0e36a7fe7fbf5fbe11aa13cab167fe0e4094886e2cc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-  "input_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
   "kind": "rule",
   "measurement_scope": "documented_daily_mean",
-  "name": "daily_disagreement_rule",
-  "script_sha256": "bee5453b277035785edae651ca47cf4e9e86d92dec7002f3647b4777338b2790"
+  "name": "daily_disagreement_rule"
 }

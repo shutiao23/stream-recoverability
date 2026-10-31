@@ -36,7 +36,6 @@
   "identity": "admission__season_spline_plus_support__leave_one_year_out__all__source_only__all_providers",
   "kind": "spline",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__season_spline_plus_support__leave_one_year_out__all__source_only__all_providers.joblib",
-  "model_sha256": "3d16052116710928b93d3652ea23e932d387e9e0f496a6f69ce4f82936968d5e",
   "n_training_cases": 55569,
   "n_training_groups": 145,
   "name": "season_spline_plus_support",
@@ -46,8 +45,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
-      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

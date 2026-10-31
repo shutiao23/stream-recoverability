@@ -5,35 +5,30 @@
     "table_01": {
       "path": "paper/tables/table_01.csv",
       "bytes": 1990,
-      "sha256": "6654de20bd38df5017ab9c08e05913725bd9746cf862f8a1f08a1ef88d8ec255",
       "title": "Eight-station regulation fingerprint",
       "rows": 8
     },
     "table_02": {
       "path": "paper/tables/table_02.csv",
       "bytes": 2345,
-      "sha256": "4078e04469447562bae364b7582cf07027cca0c5d23bd8087fde90659fbbd631",
       "title": "Annual Upper Jinsha thermal statistics",
       "rows": 45
     },
     "table_03": {
       "path": "paper/tables/table_03.csv",
       "bytes": 860,
-      "sha256": "aab85befd1d07f1bd2f22194fed86195d25849520b037beadc9916c7eeefa5f2",
       "title": "Frozen and stationarity-controlled covariance-heuristic evaluation",
       "rows": 9
     },
     "table_04": {
       "path": "paper/tables/table_04.csv",
       "bytes": 1456,
-      "sha256": "965268501888cb8040c9d78473ad85157bc1248557f8219d3906d8431b088497",
       "title": "Descriptive recoverability in relative and absolute units",
       "rows": 9
     },
     "table_05": {
       "path": "paper/tables/table_05.csv",
       "bytes": 6305,
-      "sha256": "b887354e3fb7d512e00b6bed933eae670a4f028ff98e5bf4cba4138f30eab80a",
       "title": "Leave-one-year-out cross-fitted node importance",
       "rows": 9
     }

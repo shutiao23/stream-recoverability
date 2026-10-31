@@ -1,7 +1,5 @@
 {
   "sealed_utc_note": "Inputs sealed for P0-07; do not use for feature/rule selection before unseal score.",
-  "freeze_sha256": "6cd346c0f5d2120b6e89217867d1c2813a1bbfba1089d17b5fa476170d238bb8",
-  "manifest_sha256": "722d16c13269059965a5e02bd9281d65226e59d6b0545462edde7aa8dee52575",
   "n_networks": 39,
   "n_huc2_contexts": 18,
   "huc2_contexts": [
@@ -68,7 +66,6 @@
   "provider": "usgs",
   "scored": true,
   "climate_hydro_note": "HUC2 diversity within USGS; still single-country. Prefer adding NVE/HubEau later for multi-agency contexts.",
-  "ledger_sha256": "a6bc400fd9c8023e495647206722c35ce76e35e90333a658f425ff3e91de8d99",
   "legacy_reserved_candidate_note": "These candidate_unseen labels are relative to the v16 evidence_use ledger. Recruitment must still verify no later descriptive/scoring use and expand beyond the eight networks if power requires it.",
   "score_artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json"
 }

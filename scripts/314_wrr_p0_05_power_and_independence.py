@@ -44,11 +44,9 @@ Read-only inputs; outputs land in
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import math
 import platform
-import subprocess
 import sys
 import time
 from pathlib import Path
@@ -66,9 +64,6 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     PRIMARY_TOLERANCE_C,
 )
 from stream_recoverability.experiments.v17_fitness.stats import cluster_bootstrap  # noqa: E402
-from stream_recoverability.experiments.wrr_submission_ready.run_identity import (  # noqa: E402
-    sha256_file,
-)
 
 # --------------------------------------------------------------------------
 # Configuration
@@ -115,10 +110,14 @@ PRIOR_ACCESS_FILES = (
     ROOT / "results/wrr_submission_ready/prior_access_ledger_reserved_networks.csv",
 )
 TRANSPORT_CASES = (
-    ROOT / "results/wrr_submission_ready/p0_07b_multi_agency_transport/transport_cases.parquet"
+    ROOT
+    / "results/wrr_submission_ready/p0_07b_multi_agency_transport/transport_cases.parquet"
 )
 NVE_PROBE_CASES = ROOT / "results/wrr_submission_ready/p0_07_nve_probe/cases.parquet"
-OUT = ROOT / "results/wrr_submission_ready/major_revision_20261014/p0_05_power_independence"
+OUT = (
+    ROOT
+    / "results/wrr_submission_ready/major_revision_20261014/p0_05_power_independence"
+)
 
 # Panel definitions.  ``sources`` is a list of (prefix, cases_path, certs_path).
 # The development panel is scored with the out-of-fold certificate of
@@ -147,7 +146,14 @@ PANELS: dict[str, dict] = {
 }
 PANEL_ORDER = ("development", "wave2_external", "pooled_dev_wave2")
 
-FRAME_COLUMNS = ("network_id", "provider", "cert_score", "cert_error", "length", "policy_error")
+FRAME_COLUMNS = (
+    "network_id",
+    "provider",
+    "cert_score",
+    "cert_error",
+    "length",
+    "policy_error",
+)
 
 
 # --------------------------------------------------------------------------
@@ -159,33 +165,12 @@ def log(message: str) -> None:
     print(f"[314] {message}", flush=True)
 
 
-def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
-def git_head() -> dict:
-    def run(args: list[str]) -> str:
-        try:
-            return subprocess.run(
-                args, cwd=ROOT, capture_output=True, text=True, check=True
-            ).stdout.strip()
-        except Exception as exc:  # pragma: no cover - diagnostics only
-            return f"unavailable: {exc}"
-
-    return {
-        "commit": run(["git", "rev-parse", "HEAD"]),
-        "describe": run(["git", "describe", "--always", "--dirty"]),
-        "branch": run(["git", "rev-parse", "--abbrev-ref", "HEAD"]),
-    }
-
-
-def file_fingerprint(path: Path) -> dict:
+def file_record(path: Path) -> dict:
     if not path.is_file():
-        return {"path": str(path.relative_to(ROOT)), "sha256": None, "bytes": None, "exists": False}
+        return {"path": str(path.relative_to(ROOT)), "bytes": None, "exists": False}
     stat = path.stat()
     return {
         "path": str(path.relative_to(ROOT)),
-        "sha256": sha256_file(path),
         "bytes": int(stat.st_size),
         "mtime_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(stat.st_mtime)),
         "exists": True,
@@ -237,7 +222,9 @@ def contrast_statistic(block: pd.DataFrame, retention: float = RETENTION) -> flo
     )
 
 
-def contrast_statistic_pandas(block: pd.DataFrame, retention: float = RETENTION) -> float:
+def contrast_statistic_pandas(
+    block: pd.DataFrame, retention: float = RETENTION
+) -> float:
     """Reference implementation using pandas ``nsmallest`` (as the project does)."""
 
     k = max(1, int(round(float(retention) * len(block))))
@@ -336,7 +323,9 @@ def icc_oneway(frame: pd.DataFrame, column: str, cluster: str = "network_id") ->
         "n_groups": n_groups,
         "mean_cluster_size": mean_size,
         "design_effect": design_effect,
-        "effective_cases": (n_obs / design_effect) if design_effect > 0 else float("nan"),
+        "effective_cases": (n_obs / design_effect)
+        if design_effect > 0
+        else float("nan"),
         "independent_groups": n_groups,
         "sigma_between": sigma_b,
     }
@@ -361,7 +350,9 @@ def build_panel_frame(sources, jitter_seed: int) -> pd.DataFrame:
         rng = np.random.default_rng(int(jitter_seed))
         network_id = cases["network_id"].astype(str).to_numpy()
         if prefix:
-            network_id = np.array([f"{prefix}:{nid}" for nid in network_id], dtype=object)
+            network_id = np.array(
+                [f"{prefix}:{nid}" for nid in network_id], dtype=object
+            )
         pieces.append(
             pd.DataFrame(
                 {
@@ -375,9 +366,9 @@ def build_panel_frame(sources, jitter_seed: int) -> pd.DataFrame:
                     "cert_error": pd.to_numeric(
                         certs["certificate_abs_error"], errors="coerce"
                     ).to_numpy(dtype=float),
-                    "length": pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(
-                        dtype=float
-                    )
+                    "length": pd.to_numeric(
+                        cases["longest_run"], errors="coerce"
+                    ).to_numpy(dtype=float)
                     + rng.random(n),
                     "policy_error": pd.to_numeric(
                         cases["abserr_policy"], errors="coerce"
@@ -396,11 +387,15 @@ def panel_frame(panel_key: str, jitter_seed: int = JITTER_SEED) -> pd.DataFrame:
     return _FRAME_CACHE[key]
 
 
-def panel_groups(panel_key: str, jitter_seed: int = JITTER_SEED) -> dict[str, pd.DataFrame]:
+def panel_groups(
+    panel_key: str, jitter_seed: int = JITTER_SEED
+) -> dict[str, pd.DataFrame]:
     key = (panel_key, int(jitter_seed))
     if key not in _GROUP_CACHE:
         frame = panel_frame(panel_key, jitter_seed)
-        _GROUP_CACHE[key] = {str(k): b for k, b in frame.groupby("network_id", sort=True)}
+        _GROUP_CACHE[key] = {
+            str(k): b for k, b in frame.groupby("network_id", sort=True)
+        }
     return _GROUP_CACHE[key]
 
 
@@ -409,7 +404,9 @@ def panel_groups(panel_key: str, jitter_seed: int = JITTER_SEED) -> dict[str, pd
 # --------------------------------------------------------------------------
 
 
-def case_level_contrast(frame: pd.DataFrame, retention: float = RETENTION) -> pd.DataFrame:
+def case_level_contrast(
+    frame: pd.DataFrame, retention: float = RETENTION
+) -> pd.DataFrame:
     """Exact case-level decomposition of the pooled contrast.
 
     ``d_i = (x_i - y_i) / retention`` where ``x_i`` flags a case that the
@@ -439,11 +436,15 @@ def case_level_contrast(frame: pd.DataFrame, retention: float = RETENTION) -> pd
     return out
 
 
-def per_network_contrasts(frame: pd.DataFrame, retention: float = RETENTION) -> pd.DataFrame:
+def per_network_contrasts(
+    frame: pd.DataFrame, retention: float = RETENTION
+) -> pd.DataFrame:
     """Within-network contrast at matched retention (step-7 convention)."""
 
     rows = []
-    for (network_id, provider), block in frame.groupby(["network_id", "provider"], sort=True):
+    for (network_id, provider), block in frame.groupby(
+        ["network_id", "provider"], sort=True
+    ):
         n = len(block)
         k = max(1, int(round(float(retention) * n)))
         cert_idx = _slice_indices(block["cert_score"].to_numpy(dtype=float), k)
@@ -457,13 +458,20 @@ def per_network_contrasts(frame: pd.DataFrame, retention: float = RETENTION) -> 
                 "n_cases": int(n),
                 "cert_failure_rate_pp": failure_rate(cert_err) * 100.0,
                 "length_failure_rate_pp": failure_rate(policy_err) * 100.0,
-                "contrast_pp": (failure_rate(cert_err) - failure_rate(policy_err)) * 100.0,
+                "contrast_pp": (failure_rate(cert_err) - failure_rate(policy_err))
+                * 100.0,
             }
         )
-    return pd.DataFrame(rows).sort_values(["provider", "network_id"]).reset_index(drop=True)
+    return (
+        pd.DataFrame(rows)
+        .sort_values(["provider", "network_id"])
+        .reset_index(drop=True)
+    )
 
 
-def variance_rows(panel_key: str, frame: pd.DataFrame, pooled: dict) -> tuple[list[dict], dict]:
+def variance_rows(
+    panel_key: str, frame: pd.DataFrame, pooled: dict
+) -> tuple[list[dict], dict]:
     panel = PANELS[panel_key]
     per_net = per_network_contrasts(frame)
     cases = case_level_contrast(frame)
@@ -504,7 +512,15 @@ def variance_rows(panel_key: str, frame: pd.DataFrame, pooled: dict) -> tuple[li
     }
     rows: list[dict] = []
 
-    def add(quantity, value, unit, estimator, retention=RETENTION, used_for_power=False, note=""):
+    def add(
+        quantity,
+        value,
+        unit,
+        estimator,
+        retention=RETENTION,
+        used_for_power=False,
+        note="",
+    ):
         rows.append(
             {
                 **common,
@@ -518,65 +534,165 @@ def variance_rows(panel_key: str, frame: pd.DataFrame, pooled: dict) -> tuple[li
             }
         )
 
-    add("pooled_case_weighted_contrast", pooled["point"] * 100.0, "percentage_points",
-        "operating_point_contrast (project primary)", used_for_power=True,
-        note=f"draws={pooled.get('bootstrap_draws')}, cluster=network")
-    add("pooled_ci_low", pooled["low"] * 100.0, "percentage_points",
-        "cluster_bootstrap percentile 2.5 %")
-    add("pooled_ci_high", pooled["high"] * 100.0, "percentage_points",
-        "cluster_bootstrap percentile 97.5 %")
-    add("pooled_bootstrap_se", pooled["se"] * 100.0, "percentage_points",
-        "cluster_bootstrap SD of draws", used_for_power=True)
-    add("sd_within_network_contrasts", sd_within, "percentage_points",
-        "SD (ddof=1) of per-network within-network contrasts", used_for_power=False,
-        note="descriptive heterogeneity of the network-equal estimand")
-    add("sd_implied_by_cluster_bootstrap", sd_implied, "percentage_points",
+    add(
+        "pooled_case_weighted_contrast",
+        pooled["point"] * 100.0,
+        "percentage_points",
+        "operating_point_contrast (project primary)",
+        used_for_power=True,
+        note=f"draws={pooled.get('bootstrap_draws')}, cluster=network",
+    )
+    add(
+        "pooled_ci_low",
+        pooled["low"] * 100.0,
+        "percentage_points",
+        "cluster_bootstrap percentile 2.5 %",
+    )
+    add(
+        "pooled_ci_high",
+        pooled["high"] * 100.0,
+        "percentage_points",
+        "cluster_bootstrap percentile 97.5 %",
+    )
+    add(
+        "pooled_bootstrap_se",
+        pooled["se"] * 100.0,
+        "percentage_points",
+        "cluster_bootstrap SD of draws",
+        used_for_power=True,
+    )
+    add(
+        "sd_within_network_contrasts",
+        sd_within,
+        "percentage_points",
+        "SD (ddof=1) of per-network within-network contrasts",
+        used_for_power=False,
+        note="descriptive heterogeneity of the network-equal estimand",
+    )
+    add(
+        "sd_implied_by_cluster_bootstrap",
+        sd_implied,
+        "percentage_points",
         "bootstrap SE x sqrt(n_networks) (scripts/186_v17_freeze.py convention)",
-        used_for_power=True, note="size-weighted; operative for the pooled estimand")
-    add("sd_anova_between_network", anova_sd, "percentage_points",
-        "sqrt((MSB-MSW)/n0) of the case-level contrast", used_for_power=True,
-        note="random-effects variance component")
-    add("sd_influence_fixed_selection_case_weighted", weighted_sd_influence,
-        "percentage_points", "case-weighted SD of per-network mean case-level contrast",
-        used_for_power=False, note="fixed-selection approximation; OVERSTATES the bootstrap")
-    add("sd_influence_fixed_selection_unweighted", unweighted_sd_influence,
-        "percentage_points", "unweighted SD of per-network mean case-level contrast",
-        used_for_power=False, note="fixed-selection approximation; OVERSTATES the bootstrap")
-    add("icc_case_level_contrast", icc_contrast["icc"], "ratio",
-        "one-way random-effects ICC(1), unbalanced", used_for_power=False,
-        note="intra-network correlation of the contrast")
-    add("icc_screen_consequential_failure", icc_screen["icc"], "ratio",
-        "one-way random-effects ICC(1), unbalanced")
-    add("icc_length_consequential_failure", icc_length["icc"], "ratio",
-        "one-way random-effects ICC(1), unbalanced")
-    add("design_effect_case_level_contrast", icc_contrast["design_effect"], "ratio",
-        "1 + (mean cluster size - 1) * ICC")
-    add("effective_cases", icc_contrast["effective_cases"], "cases",
-        "n_cases / design effect; not a second reduction of the group count")
-    add("independent_groups", icc_contrast["independent_groups"], "groups",
-        "number of clusters supplied to the ICC; not divided by the design effect")
+        used_for_power=True,
+        note="size-weighted; operative for the pooled estimand",
+    )
+    add(
+        "sd_anova_between_network",
+        anova_sd,
+        "percentage_points",
+        "sqrt((MSB-MSW)/n0) of the case-level contrast",
+        used_for_power=True,
+        note="random-effects variance component",
+    )
+    add(
+        "sd_influence_fixed_selection_case_weighted",
+        weighted_sd_influence,
+        "percentage_points",
+        "case-weighted SD of per-network mean case-level contrast",
+        used_for_power=False,
+        note="fixed-selection approximation; OVERSTATES the bootstrap",
+    )
+    add(
+        "sd_influence_fixed_selection_unweighted",
+        unweighted_sd_influence,
+        "percentage_points",
+        "unweighted SD of per-network mean case-level contrast",
+        used_for_power=False,
+        note="fixed-selection approximation; OVERSTATES the bootstrap",
+    )
+    add(
+        "icc_case_level_contrast",
+        icc_contrast["icc"],
+        "ratio",
+        "one-way random-effects ICC(1), unbalanced",
+        used_for_power=False,
+        note="intra-network correlation of the contrast",
+    )
+    add(
+        "icc_screen_consequential_failure",
+        icc_screen["icc"],
+        "ratio",
+        "one-way random-effects ICC(1), unbalanced",
+    )
+    add(
+        "icc_length_consequential_failure",
+        icc_length["icc"],
+        "ratio",
+        "one-way random-effects ICC(1), unbalanced",
+    )
+    add(
+        "design_effect_case_level_contrast",
+        icc_contrast["design_effect"],
+        "ratio",
+        "1 + (mean cluster size - 1) * ICC",
+    )
+    add(
+        "effective_cases",
+        icc_contrast["effective_cases"],
+        "cases",
+        "n_cases / design effect; not a second reduction of the group count",
+    )
+    add(
+        "independent_groups",
+        icc_contrast["independent_groups"],
+        "groups",
+        "number of clusters supplied to the ICC; not divided by the design effect",
+    )
     add("mean_cases_per_network", float(sizes.mean()), "cases", "descriptive")
     add("median_cases_per_network", float(sizes.median()), "cases", "descriptive")
-    add("share_networks_contrast_negative", float((contrasts < 0).mean()), "share",
-        "per-network within-network contrasts")
-    add("share_networks_contrast_zero", float((contrasts == 0).mean()), "share",
-        "per-network within-network contrasts", note="degenerate within-network slice")
-    add("share_cases_in_largest_provider", float(
-        frame["provider"].value_counts(normalize=True).iloc[0]
-    ), "share", "case counts")
-    add("share_networks_in_largest_provider", float(
-        per_net["provider"].value_counts(normalize=True).iloc[0]
-    ), "share", "network counts")
-    add("network_equal_contrast", net_equal["point"], "percentage_points",
+    add(
+        "share_networks_contrast_negative",
+        float((contrasts < 0).mean()),
+        "share",
+        "per-network within-network contrasts",
+    )
+    add(
+        "share_networks_contrast_zero",
+        float((contrasts == 0).mean()),
+        "share",
+        "per-network within-network contrasts",
+        note="degenerate within-network slice",
+    )
+    add(
+        "share_cases_in_largest_provider",
+        float(frame["provider"].value_counts(normalize=True).iloc[0]),
+        "share",
+        "case counts",
+    )
+    add(
+        "share_networks_in_largest_provider",
+        float(per_net["provider"].value_counts(normalize=True).iloc[0]),
+        "share",
+        "network counts",
+    )
+    add(
+        "network_equal_contrast",
+        net_equal["point"],
+        "percentage_points",
         "network bootstrap of the mean of per-network within-network contrasts",
-        used_for_power=True, note=f"draws={LEVERAGE_DRAWS}; step-7 convention")
-    add("network_equal_ci_low", net_equal["low"], "percentage_points",
-        "network bootstrap percentile 2.5 %")
-    add("network_equal_ci_high", net_equal["high"], "percentage_points",
-        "network bootstrap percentile 97.5 %")
-    add("mde80_analytic_network_equal", (Z_ALPHA + Z_POWER) * sd_within
-        / math.sqrt(n_networks), "percentage_points",
-        "2.802 x SD_within / sqrt(n_networks)", used_for_power=True)
+        used_for_power=True,
+        note=f"draws={LEVERAGE_DRAWS}; step-7 convention",
+    )
+    add(
+        "network_equal_ci_low",
+        net_equal["low"],
+        "percentage_points",
+        "network bootstrap percentile 2.5 %",
+    )
+    add(
+        "network_equal_ci_high",
+        net_equal["high"],
+        "percentage_points",
+        "network bootstrap percentile 97.5 %",
+    )
+    add(
+        "mde80_analytic_network_equal",
+        (Z_ALPHA + Z_POWER) * sd_within / math.sqrt(n_networks),
+        "percentage_points",
+        "2.802 x SD_within / sqrt(n_networks)",
+        used_for_power=True,
+    )
 
     # Retention sensitivity of the variance quantities (robustness of ICC to the
     # 70 % operating point).
@@ -584,16 +700,34 @@ def variance_rows(panel_key: str, frame: pd.DataFrame, pooled: dict) -> tuple[li
         alt_cases = case_level_contrast(frame, retention=retention)
         alt_icc = icc_oneway(alt_cases, "contrast_case")
         alt_per = per_network_contrasts(frame, retention=retention)
-        add("icc_case_level_contrast", alt_icc["icc"], "ratio",
-            "one-way random-effects ICC(1), unbalanced", retention=retention)
-        add("design_effect_case_level_contrast", alt_icc["design_effect"], "ratio",
-            "1 + (mean cluster size - 1) * ICC", retention=retention)
-        add("sd_within_network_contrasts",
+        add(
+            "icc_case_level_contrast",
+            alt_icc["icc"],
+            "ratio",
+            "one-way random-effects ICC(1), unbalanced",
+            retention=retention,
+        )
+        add(
+            "design_effect_case_level_contrast",
+            alt_icc["design_effect"],
+            "ratio",
+            "1 + (mean cluster size - 1) * ICC",
+            retention=retention,
+        )
+        add(
+            "sd_within_network_contrasts",
             float(np.std(alt_per["contrast_pp"].to_numpy(dtype=float), ddof=1)),
-            "percentage_points", "SD (ddof=1) of per-network within-network contrasts",
-            retention=retention)
-        add("mean_contrast_pp", float(alt_per["contrast_pp"].mean()), "percentage_points",
-            "network-equal mean of per-network contrasts", retention=retention)
+            "percentage_points",
+            "SD (ddof=1) of per-network within-network contrasts",
+            retention=retention,
+        )
+        add(
+            "mean_contrast_pp",
+            float(alt_per["contrast_pp"].mean()),
+            "percentage_points",
+            "network-equal mean of per-network contrasts",
+            retention=retention,
+        )
 
     detail = {
         "per_network": per_net,
@@ -627,7 +761,9 @@ def simulate_draw(
 
     groups = panel_groups(panel_key, jitter_seed)
     rng = np.random.default_rng(int(seed))
-    picked = rng.choice(np.asarray(network_keys, dtype=object), size=int(n_net), replace=True)
+    picked = rng.choice(
+        np.asarray(network_keys, dtype=object), size=int(n_net), replace=True
+    )
     parts = []
     for index, key in enumerate(picked):
         block = groups[str(key)].copy()
@@ -637,11 +773,17 @@ def simulate_draw(
         parts.append(block)
     frame = pd.concat(parts, ignore_index=True)
     stat = cluster_bootstrap(
-        frame, contrast_statistic, cluster="cluster_key", draws=int(inner_draws), seed=int(seed)
+        frame,
+        contrast_statistic,
+        cluster="cluster_key",
+        draws=int(inner_draws),
+        seed=int(seed),
     )
     return {
         "point": float(stat["point"]),
-        "se": float(stat["se"]) if np.isfinite(stat.get("se", float("nan"))) else float("nan"),
+        "se": float(stat["se"])
+        if np.isfinite(stat.get("se", float("nan")))
+        else float("nan"),
         "low": float(stat["low"]),
         "high": float(stat["high"]),
         "n_distinct": int(len(set(picked.tolist()))),
@@ -649,7 +791,9 @@ def simulate_draw(
     }
 
 
-def rejection_shifted(low: np.ndarray, high: np.ndarray, shift: float, alpha: float = ALPHA) -> np.ndarray:
+def rejection_shifted(
+    low: np.ndarray, high: np.ndarray, shift: float, alpha: float = ALPHA
+) -> np.ndarray:
     """Interval excludes zero after re-centring the study on a true effect."""
 
     lo = low + shift
@@ -677,7 +821,9 @@ def normal_power(se_pp: np.ndarray, effect_pp: float) -> np.ndarray:
     return _normal_cdf(z - Z_ALPHA) + _normal_cdf(-z - Z_ALPHA)
 
 
-def solve_mde(power_fn, target: float = 0.80, lo: float = 0.0, hi: float = 40.0) -> float:
+def solve_mde(
+    power_fn, target: float = 0.80, lo: float = 0.0, hi: float = 40.0
+) -> float:
     """Smallest |effect| in pp whose power reaches ``target``."""
 
     if power_fn(hi) < target:
@@ -733,7 +879,9 @@ def run_power_cell(
         "mean_bootstrap_se_pp": float(np.nanmean(se)),
         "median_ci_halfwidth_pp": float(np.nanmedian((high - low) / 2.0)),
         "power_at_panel_effect": power_panel_effect,
-        "empirical_alpha_at_zero": float(np.mean(rejection_shifted(low, high, -panel_point_pp))),
+        "empirical_alpha_at_zero": float(
+            np.mean(rejection_shifted(low, high, -panel_point_pp))
+        ),
         "mean_distinct_networks": float(np.nanmean(distinct)),
         "share_draws_with_duplicates": float(np.mean(distinct < n_net)),
         "mean_cases_per_study": float(np.nanmean(n_cases)),
@@ -795,23 +943,29 @@ def calibrate_draws(
     panel_scale = {}
     for key in PANEL_ORDER:
         panel_groups_local = panel_groups(key)
-        panel_scale[key] = float(
-            np.mean([len(panel_groups_local[k]) for k in panel_groups_local])
-        ) / mean_cases_dev
+        panel_scale[key] = (
+            float(np.mean([len(panel_groups_local[k]) for k in panel_groups_local]))
+            / mean_cases_dev
+        )
     projected = {
         key: sum(
-            outer_draws * per_draw[n] * panel_scale[key] / float(n_jobs) for n in DESIGN_NS
+            outer_draws * per_draw[n] * panel_scale[key] / float(n_jobs)
+            for n in DESIGN_NS
         )
         for key in PANEL_ORDER
     }
     return {
         "probe_draws_per_n": probe_n,
-        "probe_wall_seconds_by_n": {str(k): v for k, v in sorted(measured_wall.items())},
+        "probe_wall_seconds_by_n": {
+            str(k): v for k, v in sorted(measured_wall.items())
+        },
         "raw_measured_per_draw_single_core_seconds": {
             str(k): v for k, v in sorted(measured.items())
         },
         "monotone_in_n": bool(monotone),
-        "per_draw_single_core_seconds_by_n": {str(k): v for k, v in sorted(per_draw.items())},
+        "per_draw_single_core_seconds_by_n": {
+            str(k): v for k, v in sorted(per_draw.items())
+        },
         "panel_scale_vs_development": panel_scale,
         "projected_seconds_by_panel": projected,
         "projected_total_seconds": float(sum(projected.values())),
@@ -829,7 +983,11 @@ def _boot_case(frame: pd.DataFrame, kind: str, draws: int, seed: int) -> dict:
 
     statistic = contrast_statistic if kind == "contrast" else network_equal_statistic
     return cluster_bootstrap(
-        frame.reset_index(drop=True), statistic, cluster="network_id", draws=draws, seed=seed
+        frame.reset_index(drop=True),
+        statistic,
+        cluster="network_id",
+        draws=draws,
+        seed=seed,
     )
 
 
@@ -846,7 +1004,11 @@ def network_bootstrap_draws(per_net: pd.DataFrame, draws: int, seed: int) -> dic
     rng = np.random.default_rng(int(seed))
     values = per_net["contrast_pp"].to_numpy(dtype=float)
     providers = sorted(per_net["provider"].unique())
-    codes = per_net["provider"].map({p: i for i, p in enumerate(providers)}).to_numpy(dtype=int)
+    codes = (
+        per_net["provider"]
+        .map({p: i for i, p in enumerate(providers)})
+        .to_numpy(dtype=int)
+    )
     n_net = len(values)
     n_prov = len(providers)
     equal = np.empty(int(draws), dtype=float)
@@ -857,7 +1019,9 @@ def network_bootstrap_draws(per_net: pd.DataFrame, draws: int, seed: int) -> dic
         sums = np.bincount(codes[idx], weights=values[idx], minlength=n_prov)
         counts = np.bincount(codes[idx], minlength=n_prov).astype(float)
         with np.errstate(invalid="ignore", divide="ignore"):
-            provider_means[draw] = np.where(counts > 0, sums / np.maximum(counts, 1.0), np.nan)
+            provider_means[draw] = np.where(
+                counts > 0, sums / np.maximum(counts, 1.0), np.nan
+            )
     return {
         "network_equal": equal,
         "provider_means": provider_means,
@@ -877,7 +1041,9 @@ def summarise_draws(draws: np.ndarray) -> dict:
     }
 
 
-def provider_weighted_draws(provider_means: np.ndarray, providers: list[str], weights: dict) -> np.ndarray:
+def provider_weighted_draws(
+    provider_means: np.ndarray, providers: list[str], weights: dict
+) -> np.ndarray:
     """Fixed-weight combination of per-provider means; absent providers keep weight 0."""
 
     total = float(sum(weights.values()))
@@ -893,27 +1059,45 @@ def provider_weighted_draws(provider_means: np.ndarray, providers: list[str], we
         return np.where(count > 0, values / np.maximum(count, 1.0), np.nan)
 
 
-def section3_requests(panel_key: str, frame: pd.DataFrame, providers: list[str], per_net: pd.DataFrame):
+def section3_requests(
+    panel_key: str, frame: pd.DataFrame, providers: list[str], per_net: pd.DataFrame
+):
     """Case-level bootstrap requests for section 3, run as one parallel batch."""
 
     requests = []
     for provider in providers:
         requests.append(
-            (f"provider_case::{provider}", frame.loc[frame["provider"].eq(provider)], "contrast")
+            (
+                f"provider_case::{provider}",
+                frame.loc[frame["provider"].eq(provider)],
+                "contrast",
+            )
         )
     largest = max(providers, key=lambda p: int((frame["provider"] == p).sum()))
     requests.append(
-        (f"leave_largest_case::{largest}", frame.loc[~frame["provider"].eq(largest)], "contrast")
+        (
+            f"leave_largest_case::{largest}",
+            frame.loc[~frame["provider"].eq(largest)],
+            "contrast",
+        )
     )
     for provider in providers:
         requests.append(
-            (f"loo_case::{provider}", frame.loc[~frame["provider"].eq(provider)], "contrast")
+            (
+                f"loo_case::{provider}",
+                frame.loc[~frame["provider"].eq(provider)],
+                "contrast",
+            )
         )
     return requests, largest
 
 
 def provider_rows(
-    panel_key: str, frame: pd.DataFrame, per_net: pd.DataFrame, case_boot: dict, draw_summary: dict
+    panel_key: str,
+    frame: pd.DataFrame,
+    per_net: pd.DataFrame,
+    case_boot: dict,
+    draw_summary: dict,
 ) -> tuple[list[dict], dict]:
     providers = sorted(frame["provider"].unique())
     n_cases_total = len(frame)
@@ -938,9 +1122,12 @@ def provider_rows(
             "n_networks": n_nets,
             "share_cases": n_cases / n_cases_total,
             "share_networks": n_nets / n_nets_total,
-            "case_weighted_contrast_pp": float(case_stats.get("point", float("nan"))) * 100.0,
-            "case_weighted_ci_low_pp": float(case_stats.get("low", float("nan"))) * 100.0,
-            "case_weighted_ci_high_pp": float(case_stats.get("high", float("nan"))) * 100.0,
+            "case_weighted_contrast_pp": float(case_stats.get("point", float("nan")))
+            * 100.0,
+            "case_weighted_ci_low_pp": float(case_stats.get("low", float("nan")))
+            * 100.0,
+            "case_weighted_ci_high_pp": float(case_stats.get("high", float("nan")))
+            * 100.0,
             "network_equal_contrast_pp": equal_stats["point"],
             "network_equal_ci_low_pp": equal_stats["low"],
             "network_equal_ci_high_pp": equal_stats["high"],
@@ -973,7 +1160,9 @@ def weighting_scenarios(
     provider_list = draw_summary["providers"]
     rows: list[dict] = []
 
-    def record(scenario, weight_basis, stats, estimator, note="", n_networks=None, n_cases=None):
+    def record(
+        scenario, weight_basis, stats, estimator, note="", n_networks=None, n_cases=None
+    ):
         rows.append(
             {
                 "panel": panel_key,
@@ -986,7 +1175,9 @@ def weighting_scenarios(
                 "ci_high_pp": float(stats["high"]),
                 "bootstrap_draws": int(draw_summary["bootstrap_draws"]),
                 "n_networks_used": int(
-                    n_networks if n_networks is not None else frame["network_id"].nunique()
+                    n_networks
+                    if n_networks is not None
+                    else frame["network_id"].nunique()
                 ),
                 "n_cases_used": int(n_cases if n_cases is not None else len(frame)),
                 "note": note,
@@ -1005,7 +1196,9 @@ def weighting_scenarios(
     record(
         "provider_equal",
         "equal_providers",
-        summarise_draws(provider_weighted_draws(provider_means, provider_list, prov_equal_weights)),
+        summarise_draws(
+            provider_weighted_draws(provider_means, provider_list, prov_equal_weights)
+        ),
         "network bootstrap, then equal weight per provider",
         "each provider counts once, whatever its size",
     )
@@ -1015,7 +1208,9 @@ def weighting_scenarios(
     record(
         f"downweight_{largest}_to_median_provider_by_networks",
         "networks",
-        summarise_draws(provider_weighted_draws(provider_means, provider_list, down_net)),
+        summarise_draws(
+            provider_weighted_draws(provider_means, provider_list, down_net)
+        ),
         "fixed provider weights, largest provider set to the median network count",
         f"median provider network count = {median_net:g}",
     )
@@ -1025,7 +1220,9 @@ def weighting_scenarios(
     record(
         f"downweight_{largest}_to_median_provider_by_cases",
         "cases",
-        summarise_draws(provider_weighted_draws(provider_means, provider_list, down_cases)),
+        summarise_draws(
+            provider_weighted_draws(provider_means, provider_list, down_cases)
+        ),
         "fixed provider weights, largest provider set to the median case count",
         f"median provider case count = {median_cases:g}",
     )
@@ -1038,7 +1235,9 @@ def weighting_scenarios(
         f"leave_{largest}_out_network_equal",
         "equal_networks",
         summarise_draws(
-            provider_weighted_draws(provider_means, provider_list, remaining_net_weights)
+            provider_weighted_draws(
+                provider_means, provider_list, remaining_net_weights
+            )
         ),
         "network bootstrap of the network-equal mean on the remaining providers",
         "no new evidence, re-weighting only",
@@ -1049,9 +1248,24 @@ def weighting_scenarios(
         f"leave_{largest}_out_case_weighted",
         "cases",
         {
-            "point": float(case_boot.get(f"leave_largest_case::{largest}", {}).get("point", float("nan"))) * 100.0,
-            "low": float(case_boot.get(f"leave_largest_case::{largest}", {}).get("low", float("nan"))) * 100.0,
-            "high": float(case_boot.get(f"leave_largest_case::{largest}", {}).get("high", float("nan"))) * 100.0,
+            "point": float(
+                case_boot.get(f"leave_largest_case::{largest}", {}).get(
+                    "point", float("nan")
+                )
+            )
+            * 100.0,
+            "low": float(
+                case_boot.get(f"leave_largest_case::{largest}", {}).get(
+                    "low", float("nan")
+                )
+            )
+            * 100.0,
+            "high": float(
+                case_boot.get(f"leave_largest_case::{largest}", {}).get(
+                    "high", float("nan")
+                )
+            )
+            * 100.0,
         },
         "cluster_bootstrap of the pooled case-weighted contrast on the remaining providers",
         "no new evidence, re-weighting only",
@@ -1112,7 +1326,9 @@ def leave_one_provider_out(
         numerator = np.nansum(np.where(finite, block * w, 0.0), axis=1)
         denominator = np.sum(np.where(finite, w, 0.0), axis=1)
         with np.errstate(invalid="ignore", divide="ignore"):
-            net_draws = np.where(denominator > 0, numerator / np.maximum(denominator, 1.0), np.nan)
+            net_draws = np.where(
+                denominator > 0, numerator / np.maximum(denominator, 1.0), np.nan
+            )
         net = summarise_draws(net_draws)
         case_stats = case_boot.get(f"loo_case::{provider}", {})
         rows.append(
@@ -1121,7 +1337,9 @@ def leave_one_provider_out(
                 "panel_role": PANELS[panel_key]["role"],
                 "dropped_provider": provider,
                 "n_networks_remaining": int(
-                    per_net.loc[~per_net["provider"].eq(provider), "network_id"].nunique()
+                    per_net.loc[
+                        ~per_net["provider"].eq(provider), "network_id"
+                    ].nunique()
                 ),
                 "n_cases_remaining": int((~frame["provider"].eq(provider)).sum()),
                 "network_equal_contrast_pp": net["point"],
@@ -1130,11 +1348,17 @@ def leave_one_provider_out(
                 "network_equal_delta_vs_all_pp": (net["point"] - base_net["point"])
                 if np.isfinite(net["point"]) and np.isfinite(base_net["point"])
                 else float("nan"),
-                "case_weighted_contrast_pp": float(case_stats.get("point", float("nan"))) * 100.0,
-                "case_weighted_ci_low_pp": float(case_stats.get("low", float("nan"))) * 100.0,
-                "case_weighted_ci_high_pp": float(case_stats.get("high", float("nan"))) * 100.0,
+                "case_weighted_contrast_pp": float(
+                    case_stats.get("point", float("nan"))
+                )
+                * 100.0,
+                "case_weighted_ci_low_pp": float(case_stats.get("low", float("nan")))
+                * 100.0,
+                "case_weighted_ci_high_pp": float(case_stats.get("high", float("nan")))
+                * 100.0,
                 "case_weighted_delta_vs_all_pp": (
-                    float(case_stats.get("point", float("nan"))) * 100.0 - base_pooled_pp
+                    float(case_stats.get("point", float("nan"))) * 100.0
+                    - base_pooled_pp
                 )
                 if case_stats
                 else float("nan"),
@@ -1154,39 +1378,131 @@ def leave_one_provider_out(
 # a bookkeeping classification, not a re-adjudication of any claim.
 STATUS_CLASS = {
     "confirmed": ("yes_now", False, "already a confirmed sample/panel fact"),
-    "confirmed_as_rule_disagreement": ("yes_now", False, "descriptive rule disagreement, not a confirmation claim"),
-    "confirmed_with_scope_limits_wave2": ("yes_now_scope_limited", False, "wave-2 confirmation stands; provider scope limited"),
-    "valid_retrospective": ("retrospective_only", False, "retrospective holdout, must carry the label"),
-    "retrospective_only": ("retrospective_only", False, "retrospective holdout, must carry the label"),
+    "confirmed_as_rule_disagreement": (
+        "yes_now",
+        False,
+        "descriptive rule disagreement, not a confirmation claim",
+    ),
+    "confirmed_with_scope_limits_wave2": (
+        "yes_now_scope_limited",
+        False,
+        "wave-2 confirmation stands; provider scope limited",
+    ),
+    "valid_retrospective": (
+        "retrospective_only",
+        False,
+        "retrospective holdout, must carry the label",
+    ),
+    "retrospective_only": (
+        "retrospective_only",
+        False,
+        "retrospective holdout, must carry the label",
+    ),
     "closed_by_rewrite": ("closed", False, "rewritten, no further evidence required"),
-    "closed_by_faithful_baseline": ("closed", False, "superseded by the faithful baseline"),
-    "closed_with_strata_and_sensitivity": ("closed", False, "narrowed to strata with sensitivity"),
+    "closed_by_faithful_baseline": (
+        "closed",
+        False,
+        "superseded by the faithful baseline",
+    ),
+    "closed_with_strata_and_sensitivity": (
+        "closed",
+        False,
+        "narrowed to strata with sensitivity",
+    ),
     "narrow_statement": ("closed", False, "claim narrowed"),
-    "exploratory_interval_reported": ("exploratory_only", False, "exploratory interval; not confirmation"),
-    "exploratory_range_only": ("exploratory_only", False, "exploratory range; not confirmation"),
-    "exploratory_withdraw_headcount": ("exploratory_only", False, "exploratory; headcount withdrawn"),
+    "exploratory_interval_reported": (
+        "exploratory_only",
+        False,
+        "exploratory interval; not confirmation",
+    ),
+    "exploratory_range_only": (
+        "exploratory_only",
+        False,
+        "exploratory range; not confirmation",
+    ),
+    "exploratory_withdraw_headcount": (
+        "exploratory_only",
+        False,
+        "exploratory; headcount withdrawn",
+    ),
     "exploratory_secondary_only": ("exploratory_only", False, "secondary stratum only"),
     "exploratory_post_open": (
         "needs_new_networks",
         True,
         "post-open exploratory; a new panel is required for confirmation",
     ),
-    "pending_confirmation": ("needs_new_networks", True, "never confirmed; needs networks outside all used panels"),
-    "pending_new_confirmation": ("needs_new_networks", True, "needs networks outside all used panels"),
-    "executed_audit_failed": ("needs_repair_or_new_panel", True, "audit failed; repair and/or a new panel required"),
-    "executed_audit_failed_pending_repair": ("needs_repair_or_new_panel", True, "audit failed; repair and/or a new panel required"),
-    "recomputed_exploratory_not_for_headline": ("exploratory_only", False, "recomputed exploratory; barred from headline"),
-    "recomputed_exploratory_locked_method": ("exploratory_only", False, "recomputed exploratory under the locked method"),
-    "exploratory_with_inference_flaws": ("needs_repair_or_new_panel", True, "inference flaws; recompute required"),
-    "exploratory_level_selected_on_opened": ("needs_new_networks", True, "level selected on the opened panel"),
-    "exploratory_level_selected_on_opened_panel": ("needs_new_networks", True, "level selected on the opened panel"),
+    "pending_confirmation": (
+        "needs_new_networks",
+        True,
+        "never confirmed; needs networks outside all used panels",
+    ),
+    "pending_new_confirmation": (
+        "needs_new_networks",
+        True,
+        "needs networks outside all used panels",
+    ),
+    "executed_audit_failed": (
+        "needs_repair_or_new_panel",
+        True,
+        "audit failed; repair and/or a new panel required",
+    ),
+    "executed_audit_failed_pending_repair": (
+        "needs_repair_or_new_panel",
+        True,
+        "audit failed; repair and/or a new panel required",
+    ),
+    "recomputed_exploratory_not_for_headline": (
+        "exploratory_only",
+        False,
+        "recomputed exploratory; barred from headline",
+    ),
+    "recomputed_exploratory_locked_method": (
+        "exploratory_only",
+        False,
+        "recomputed exploratory under the locked method",
+    ),
+    "exploratory_with_inference_flaws": (
+        "needs_repair_or_new_panel",
+        True,
+        "inference flaws; recompute required",
+    ),
+    "exploratory_level_selected_on_opened": (
+        "needs_new_networks",
+        True,
+        "level selected on the opened panel",
+    ),
+    "exploratory_level_selected_on_opened_panel": (
+        "needs_new_networks",
+        True,
+        "level selected on the opened panel",
+    ),
     "exploratory_overclaim": ("closed", False, "overclaim withdrawn"),
-    "corrected_reanalysis_not_confirmation": ("retrospective_only", False, "corrected reanalysis; not a confirmation"),
+    "corrected_reanalysis_not_confirmation": (
+        "retrospective_only",
+        False,
+        "corrected reanalysis; not a confirmation",
+    ),
     "mislabelled_baseline": ("closed", False, "baseline relabelled"),
-    "overstated_reproducibility": ("closed", False, "reproducibility statement narrowed"),
-    "executed_but_audit_failed_pending_repair": ("needs_repair_or_new_panel", True, "audit failed; repair and/or a new panel required"),
-    "rewrite_required": ("needs_repair_or_new_panel", True, "manuscript rewrite required; not a confirmation claim"),
-    "pending_audit": ("pending_internal_audit", False, "internal audit pending; not an external confirmation claim"),
+    "overstated_reproducibility": (
+        "closed",
+        False,
+        "reproducibility statement narrowed",
+    ),
+    "executed_but_audit_failed_pending_repair": (
+        "needs_repair_or_new_panel",
+        True,
+        "audit failed; repair and/or a new panel required",
+    ),
+    "rewrite_required": (
+        "needs_repair_or_new_panel",
+        True,
+        "manuscript rewrite required; not a confirmation claim",
+    ),
+    "pending_audit": (
+        "pending_internal_audit",
+        False,
+        "internal audit pending; not an external confirmation claim",
+    ),
 }
 
 
@@ -1212,7 +1528,9 @@ def used_networks() -> dict[str, set]:
         used["nve_probe"] = set(nv["network_id"].astype(str))
     except Exception:
         used["nve_probe"] = set()
-    ledger = ROOT / "results/wrr_submission_ready/prior_access_ledger_reserved_networks.csv"
+    ledger = (
+        ROOT / "results/wrr_submission_ready/prior_access_ledger_reserved_networks.csv"
+    )
     try:
         res = pd.read_csv(ledger)
         used["reserved_v17_opened"] = set(res["network_id"].astype(str))
@@ -1232,7 +1550,11 @@ def residual_unused_pool(used: dict[str, set]) -> dict:
     never_used: set = set()
     if audit.is_file():
         frame = pd.read_csv(audit)
-        never_used |= set(frame.loc[frame["never_used_repo_wide"].astype(bool), "network_id"].astype(str))
+        never_used |= set(
+            frame.loc[frame["never_used_repo_wide"].astype(bool), "network_id"].astype(
+                str
+            )
+        )
     rows = []
     for source, ids in used.items():
         for network_id in sorted(ids):
@@ -1271,7 +1593,10 @@ CONFIRMABLE = {
 
 
 def requirements_table(
-    details: dict, power_rows: list[dict], provider_tables: dict, scenarios: pd.DataFrame
+    details: dict,
+    power_rows: list[dict],
+    provider_tables: dict,
+    scenarios: pd.DataFrame,
 ) -> pd.DataFrame:
     registry_path = ROOT / "results/wrr_submission_ready/claim_registry.csv"
     rows: list[dict] = []
@@ -1284,7 +1609,12 @@ def requirements_table(
     for record in registry.to_dict("records"):
         status = str(record.get("status", "")).strip()
         cls, needs_new, rationale = STATUS_CLASS.get(
-            status, ("unclassified", True, "status not classified here; treat as needing new evidence")
+            status,
+            (
+                "unclassified",
+                True,
+                "status not classified here; treat as needing new evidence",
+            ),
         )
         panel_measurement = ""
         largest_share = ""
@@ -1332,7 +1662,9 @@ def requirements_table(
     for panel_key, table in provider_tables.items():
         pooled = details[panel_key]["pooled"]
         largest = max(table, key=lambda p: table[p]["share_cases"])
-        panel_scen = scenarios.loc[scenarios["panel"].eq(panel_key)].set_index("scenario")
+        panel_scen = scenarios.loc[scenarios["panel"].eq(panel_key)].set_index(
+            "scenario"
+        )
         largest_lower = largest.lower()
         rows.append(
             {
@@ -1350,7 +1682,9 @@ def requirements_table(
                 "panels_measured_here": panel_key,
                 "n_networks_supporting": details[panel_key]["n_networks"],
                 "n_providers_supporting": len(table),
-                "largest_provider_case_share": round(float(table[largest]["share_cases"]), 4),
+                "largest_provider_case_share": round(
+                    float(table[largest]["share_cases"]), 4
+                ),
                 "missing_evidence": (
                     ">=2 networks per provider in >=3 providers with no provider above half of the "
                     "networks, all outside every opened panel"
@@ -1358,7 +1692,7 @@ def requirements_table(
                 "blocker": (
                     f"largest provider {largest} holds {table[largest]['share_cases']:.1%} of cases "
                     f"and {table[largest]['share_networks']:.1%} of networks; pooled "
-                    f"{float(pooled['point'])*100:.2f} pp vs network-equal "
+                    f"{float(pooled['point']) * 100:.2f} pp vs network-equal "
                     f"{_scen_pp(panel_scen, 'network_equal')}, provider-equal "
                     f"{_scen_pp(panel_scen, 'provider_equal')}, "
                     f"down-weighted to median provider "
@@ -1379,7 +1713,9 @@ def requirements_table(
         sd = details[key]["sd_implied"]
         power_by_n = {int(r["design_n"]): r for r in panel_power}
         mde_curve = "; ".join(
-            f"N={n}: MDE80 {power_by_n[n]['mde80_pp']:.2f} pp" for n in DESIGN_NS if n in power_by_n
+            f"N={n}: MDE80 {power_by_n[n]['mde80_pp']:.2f} pp"
+            for n in DESIGN_NS
+            if n in power_by_n
         )
         for mue in MUE_POINTS:
             required = int(math.ceil(((Z_ALPHA + Z_POWER) * sd / float(mue)) ** 2))
@@ -1487,11 +1823,13 @@ def main() -> int:
     parser.add_argument("--leverage-draws", type=int, default=LEVERAGE_DRAWS)
     parser.add_argument("--budget-seconds", type=float, default=SECTION2_BUDGET_S)
     parser.add_argument("--seed", type=int, default=SEED)
-    parser.add_argument("--quick", action="store_true", help="tiny draw counts for a smoke test")
+    parser.add_argument(
+        "--quick", action="store_true", help="tiny draw counts for a smoke test"
+    )
     parser.add_argument(
         "--reduction-reason",
         default="",
-        help="recorded in power_table.csv and protocol_fingerprint.json when --outer-draws < 2000",
+        help="recorded in power_table.csv and protocol_record.json when --outer-draws < 2000",
     )
     args = parser.parse_args()
 
@@ -1521,8 +1859,12 @@ def main() -> int:
     w2_ids = set(frames["wave2_external"]["network_id"])
     overlap = dev_ids & w2_ids
     if overlap:
-        raise RuntimeError(f"development and wave-2 networks overlap: {sorted(overlap)[:5]}")
-    if len(frames["development"]) != len(pd.read_parquet(DEV_CASES, columns=["network_id"])):
+        raise RuntimeError(
+            f"development and wave-2 networks overlap: {sorted(overlap)[:5]}"
+        )
+    if len(frames["development"]) != len(
+        pd.read_parquet(DEV_CASES, columns=["network_id"])
+    ):
         raise RuntimeError("development frame length mismatch")
 
     # ---------------- estimator equivalence check ----------------
@@ -1547,7 +1889,9 @@ def main() -> int:
         keys = sorted(panel_groups(key).keys())
         max_diff = 0.0
         for _ in range(5):
-            picked = rng.choice(np.asarray(keys, dtype=object), size=len(keys), replace=True)
+            picked = rng.choice(
+                np.asarray(keys, dtype=object), size=len(keys), replace=True
+            )
             parts = []
             for index, network in enumerate(picked):
                 block = panel_groups(key)[str(network)].copy()
@@ -1564,8 +1908,12 @@ def main() -> int:
         equivalence[key] = {
             "project_point_pp": float(pooled_ref["point"]) * 100.0,
             "fast_point_pp": float(mine["point"]) * 100.0,
-            "abs_diff_point_pp": abs(float(pooled_ref["point"]) - float(mine["point"])) * 100.0,
-            "project_ci_pp": [float(pooled_ref["low"]) * 100.0, float(pooled_ref["high"]) * 100.0],
+            "abs_diff_point_pp": abs(float(pooled_ref["point"]) - float(mine["point"]))
+            * 100.0,
+            "project_ci_pp": [
+                float(pooled_ref["low"]) * 100.0,
+                float(pooled_ref["high"]) * 100.0,
+            ],
             "fast_ci_pp": [float(mine["low"]) * 100.0, float(mine["high"]) * 100.0],
             "project_se_pp": float(pooled_ref["se"]) * 100.0,
             "fast_se_pp": float(mine["se"]) * 100.0,
@@ -1579,7 +1927,9 @@ def main() -> int:
             f"{equivalence[key]['fast_point_pp']:.4f} pp"
         )
     if any(v["abs_diff_point_pp"] > 1e-9 for v in equivalence.values()):
-        raise RuntimeError("fast statistic does not reproduce the project point estimate")
+        raise RuntimeError(
+            "fast statistic does not reproduce the project point estimate"
+        )
     timing["section0_estimator_equivalence_seconds"] = time.time() - t_equiv
 
     # ---------------- section 1: variance and ICC ----------------
@@ -1590,7 +1940,11 @@ def main() -> int:
     for key in PANEL_ORDER:
         if key not in pooled_stats:
             pooled = cluster_bootstrap(
-                frames[key], contrast_statistic, cluster="network_id", draws=2000, seed=0
+                frames[key],
+                contrast_statistic,
+                cluster="network_id",
+                draws=2000,
+                seed=0,
             )
             pooled["bootstrap_draws"] = 2000
             pooled_stats[key] = pooled
@@ -1600,8 +1954,8 @@ def main() -> int:
         variance_table_rows.extend(rows)
         details[key] = detail
         log(
-            f"  {key}: pooled {float(pooled['point'])*100:.2f} pp "
-            f"[{float(pooled['low'])*100:.2f}, {float(pooled['high'])*100:.2f}], "
+            f"  {key}: pooled {float(pooled['point']) * 100:.2f} pp "
+            f"[{float(pooled['low']) * 100:.2f}, {float(pooled['high']) * 100:.2f}], "
             f"sd_within={detail['sd_within']:.2f} pp, ICC={detail['icc_contrast']['icc']:.4f}, "
             f"effective_cases={detail['icc_contrast']['effective_cases']:.1f}, "
             f"groups={detail['icc_contrast']['independent_groups']}"
@@ -1612,7 +1966,9 @@ def main() -> int:
         alt = panel_frame(key, JITTER_SEED_ALT)
         alt_per = per_network_contrasts(alt)
         jitter_check[key] = {
-            "sd_within_alt_seed_pp": float(np.std(alt_per["contrast_pp"].to_numpy(dtype=float), ddof=1)),
+            "sd_within_alt_seed_pp": float(
+                np.std(alt_per["contrast_pp"].to_numpy(dtype=float), ddof=1)
+            ),
             "sd_within_primary_seed_pp": details[key]["sd_within"],
             "mean_contrast_alt_seed_pp": float(alt_per["contrast_pp"].mean()),
             "mean_contrast_primary_seed_pp": float(
@@ -1736,7 +2092,11 @@ def main() -> int:
             details[key]["per_network"], leverage_draws, seed + 5
         )
         rows, table = provider_rows(
-            key, frames[key], details[key]["per_network"], case_boot_by_panel[key], draw_summary
+            key,
+            frames[key],
+            details[key]["per_network"],
+            case_boot_by_panel[key],
+            draw_summary,
         )
         provider_table_rows.extend(rows)
         provider_tables[key] = table
@@ -1753,7 +2113,12 @@ def main() -> int:
         )
         leave_one_out_rows.extend(
             leave_one_provider_out(
-                key, frames[key], table, pooled_stats[key], case_boot_by_panel[key], draw_summary
+                key,
+                frames[key],
+                table,
+                pooled_stats[key],
+                case_boot_by_panel[key],
+                draw_summary,
             )
         )
         largest = largest_by_panel[key]
@@ -1770,7 +2135,9 @@ def main() -> int:
     used = used_networks()
     residual = residual_unused_pool(used)
     scenario_frame = pd.DataFrame(scenario_rows)
-    requirements = requirements_table(details, power_rows, provider_tables, scenario_frame)
+    requirements = requirements_table(
+        details, power_rows, provider_tables, scenario_frame
+    )
     timing["section4_requirements_seconds"] = time.time() - t0
 
     # ---------------- outputs ----------------
@@ -1787,24 +2154,28 @@ def main() -> int:
     requirements.to_csv(OUT / "independent_evidence_requirements.csv", index=False)
 
     per_net_all = pd.concat(
-        [
-            details[key]["per_network"].assign(panel=key)
-            for key in PANEL_ORDER
-        ],
+        [details[key]["per_network"].assign(panel=key) for key in PANEL_ORDER],
         ignore_index=True,
     )
     per_net_all.to_csv(OUT / "per_network_contrasts.csv", index=False)
 
     pd.DataFrame(scenario_rows).to_csv(OUT / "weighting_scenarios.csv", index=False)
-    pd.DataFrame(leave_one_out_rows).to_csv(OUT / "leave_one_provider_out.csv", index=False)
+    pd.DataFrame(leave_one_out_rows).to_csv(
+        OUT / "leave_one_provider_out.csv", index=False
+    )
     residual_rows = [
-        {"network_id": row.network_id, "status": f"used_by_scored_panel:{row.now_used_by}"}
+        {
+            "network_id": row.network_id,
+            "status": f"used_by_scored_panel:{row.now_used_by}",
+        }
         for row in residual["now_used_by_scored_panels"].itertuples()
     ] + [
         {"network_id": network_id, "status": "residual_never_used_by_scored_panels"}
         for network_id in residual["residual_never_used"]
     ]
-    pd.DataFrame(residual_rows).to_csv(OUT / "residual_unused_networks.csv", index=False)
+    pd.DataFrame(residual_rows).to_csv(
+        OUT / "residual_unused_networks.csv", index=False
+    )
 
     diagnostics = {
         "estimator_equivalence": equivalence,
@@ -1842,11 +2213,9 @@ def main() -> int:
     )
 
     timing["total_seconds"] = time.time() - t_start
-    fingerprint = {
+    run_record = {
         "script": "scripts/314_wrr_p0_05_power_and_independence.py",
-        "script_sha256": sha256_file(Path(__file__).resolve()),
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "git": git_head(),
         "config": {
             "retention": RETENTION,
             "tolerance_c": TOLERANCE_C,
@@ -1866,7 +2235,9 @@ def main() -> int:
             "budget_seconds": float(args.budget_seconds),
             "quick": bool(args.quick),
             "draw_reduction_reason": reduction_note or None,
-            "panel_point_pp": {k: float(pooled_stats[k]["point"]) * 100.0 for k in PANEL_ORDER},
+            "panel_point_pp": {
+                k: float(pooled_stats[k]["point"]) * 100.0 for k in PANEL_ORDER
+            },
         },
         "estimator": (
             "certificate-minus-length consequential-error rate at matched 70 % retention "
@@ -1874,15 +2245,15 @@ def main() -> int:
             "(percentile interval, resampling whole networks with replacement)"
         ),
         "inputs": [
-            file_fingerprint(DEV_CASES),
-            file_fingerprint(DEV_CERTS),
-            file_fingerprint(W2_CASES),
-            file_fingerprint(W2_CERTS),
-            file_fingerprint(ROOT / "results/v17_fitness/step9_freeze/certificate.joblib"),
-            file_fingerprint(CLAIM_REGISTRY),
-            *[file_fingerprint(path) for path in PRIOR_ACCESS_FILES],
-            file_fingerprint(TRANSPORT_CASES),
-            file_fingerprint(NVE_PROBE_CASES),
+            file_record(DEV_CASES),
+            file_record(DEV_CERTS),
+            file_record(W2_CASES),
+            file_record(W2_CERTS),
+            file_record(ROOT / "results/v17_fitness/step9_freeze/certificate.joblib"),
+            file_record(CLAIM_REGISTRY),
+            *[file_record(path) for path in PRIOR_ACCESS_FILES],
+            file_record(TRANSPORT_CASES),
+            file_record(NVE_PROBE_CASES),
         ],
         "outputs": sorted(p.name for p in OUT.glob("*")),
         "timing_seconds": timing,
@@ -1901,11 +2272,8 @@ def main() -> int:
             ),
         },
     }
-    fingerprint["fingerprint_sha256"] = sha256_text(
-        json.dumps(fingerprint, sort_keys=True, default=str)
-    )
-    (OUT / "protocol_fingerprint.json").write_text(
-        json.dumps(fingerprint, indent=2, default=str) + "\n", encoding="utf-8"
+    (OUT / "protocol_record.json").write_text(
+        json.dumps(run_record, indent=2, default=str) + "\n", encoding="utf-8"
     )
 
     write_summary(
@@ -1920,7 +2288,7 @@ def main() -> int:
         pooled_stats=pooled_stats,
         provider_tables=provider_tables,
         diagnostics=diagnostics,
-        fingerprint=fingerprint,
+        run_record=run_record,
         timing=timing,
     )
     log(f"done in {timing['total_seconds']:.0f} s -> {OUT}")
@@ -1949,7 +2317,7 @@ def write_summary(
     pooled_stats: dict,
     provider_tables: dict,
     diagnostics: dict,
-    fingerprint: dict,
+    run_record: dict,
     timing: dict,
 ) -> None:
     lines: list[str] = []
@@ -1958,8 +2326,7 @@ def write_summary(
     lines.append(
         "Script `scripts/314_wrr_p0_05_power_and_independence.py`; command "
         "`PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; "
-        f"HEAD `{fingerprint['git']['commit'][:12]}`; "
-        f"script sha256 `{fingerprint['script_sha256'][:16]}…`; "
+        f"generated {run_record['generated_utc']}; "
         f"wall time {timing['total_seconds']:.0f} s."
     )
     lines.append("")
@@ -1969,8 +2336,8 @@ def write_summary(
     lines.append(
         "* Primary contrast: consequential-error rate difference between the final screen "
         "(frozen certificate bound as the ranking score) and the incumbent length rule "
-        f"(`longest_run`) at matched {fingerprint['config']['retention']:.0%} retention, tolerance "
-        f"{fingerprint['config']['tolerance_c']:.1f} °C, in percentage points; negative = the screen is better."
+        f"(`longest_run`) at matched {run_record['config']['retention']:.0%} retention, tolerance "
+        f"{run_record['config']['tolerance_c']:.1f} °C, in percentage points; negative = the screen is better."
     )
     lines.append(
         "* Non-finite selected errors count as consequential failures and stay in the denominator "
@@ -1981,7 +2348,7 @@ def write_summary(
         "percentile interval from resampling whole networks with replacement; identical point "
         "estimate and interval to the project's `operating_point_contrast` (checked in "
         "`simulation_diagnostics.json`, max |difference| "
-        f"{_fmt(fingerprint['self_check']['max_statistic_abs_diff_pp'], 10)} pp)."
+        f"{_fmt(run_record['self_check']['max_statistic_abs_diff_pp'], 10)} pp)."
     )
     lines.append(
         "* Panels: development = out-of-fold certificate on the 110 development networks "
@@ -2001,8 +2368,8 @@ def write_summary(
         pooled = detail["pooled"]
         lines.append(
             f"| {key} | {detail['n_cases']:,} | {detail['n_networks']} | "
-            f"{_fmt(float(pooled['point'])*100)} [{_fmt(float(pooled['low'])*100)}, "
-            f"{_fmt(float(pooled['high'])*100)}] | {_fmt(detail['sd_within'])} | "
+            f"{_fmt(float(pooled['point']) * 100)} [{_fmt(float(pooled['low']) * 100)}, "
+            f"{_fmt(float(pooled['high']) * 100)}] | {_fmt(detail['sd_within'])} | "
             f"{_fmt(detail['sd_implied'])} | {_fmt(detail['anova_sd'])} | "
             f"{_fmt(detail['icc_contrast']['icc'], 4)} | "
             f"{_fmt(detail['icc_contrast']['design_effect'], 2)} | "
@@ -2074,17 +2441,19 @@ def write_summary(
         "Each draw samples N networks with replacement from the panel's empirical network "
         "distribution (all cases of a drawn network; duplicated draws are independent clusters), "
         "recomputes the contrast and its network-clustered bootstrap interval "
-        f"({fingerprint['config']['inner_draws']} inner draws per study, joblib n_jobs="
-        f"{fingerprint['config']['n_jobs']}). Outer draws per panel: "
+        f"({run_record['config']['inner_draws']} inner draws per study, joblib n_jobs="
+        f"{run_record['config']['n_jobs']}). Outer draws per panel: "
         + ", ".join(
-            f"{k} = {v}" for k, v in fingerprint["config"]["outer_draws_by_panel"].items()
+            f"{k} = {v}"
+            for k, v in run_record["config"]["outer_draws_by_panel"].items()
         )
         + "; the pooled mixture is a pre-declared sensitivity with a smaller budget, and any "
         "reduction below the pre-declared 2000 draws is recorded here and in the `note` and "
         "`outer_draws` columns of `power_table.csv`."
         + (
-            " This run recorded: " + str(fingerprint["config"].get("draw_reduction_reason"))
-            if fingerprint["config"].get("draw_reduction_reason")
+            " This run recorded: "
+            + str(run_record["config"].get("draw_reduction_reason"))
+            if run_record["config"].get("draw_reduction_reason")
             else ""
         )
     )
@@ -2144,13 +2513,15 @@ def write_summary(
     lines.append("")
     lines.append("### Shares")
     lines.append("")
-    lines.append("| panel | provider | networks | share nets | cases | share cases | case-weighted pp | network-equal pp |")
+    lines.append(
+        "| panel | provider | networks | share nets | cases | share cases | case-weighted pp | network-equal pp |"
+    )
     lines.append("|---|---|---|---|---|---|---|---|")
     for row in provider_leverage.to_dict("records"):
         lines.append(
             f"| {row['panel']} | {row['provider']} | {int(row['n_networks'])} | "
-            f"{_fmt(float(row['share_networks'])*100, 1)} % | {int(row['n_cases']):,} | "
-            f"{_fmt(float(row['share_cases'])*100, 1)} % | "
+            f"{_fmt(float(row['share_networks']) * 100, 1)} % | {int(row['n_cases']):,} | "
+            f"{_fmt(float(row['share_cases']) * 100, 1)} % | "
             f"{_fmt(row['case_weighted_contrast_pp'])} | {_fmt(row['network_equal_contrast_pp'])} |"
         )
     lines.append("")
@@ -2166,7 +2537,9 @@ def write_summary(
     lines.append("")
     lines.append("### Leave-one-provider-out (network-equal)")
     lines.append("")
-    lines.append("| panel | dropped | nets left | cases left | network-equal pp | Δ vs all pp |")
+    lines.append(
+        "| panel | dropped | nets left | cases left | network-equal pp | Δ vs all pp |"
+    )
     lines.append("|---|---|---|---|---|---|")
     for row in leave_one_out.to_dict("records"):
         lines.append(
@@ -2180,12 +2553,14 @@ def write_summary(
     usgs = wave2.get("usgs", {})
     lines.append("### Verdict on provider-level generalisation")
     lines.append("")
-    wave2_scen = scenarios.loc[scenarios["panel"].eq("wave2_external")].set_index("scenario")
+    wave2_scen = scenarios.loc[scenarios["panel"].eq("wave2_external")].set_index(
+        "scenario"
+    )
     lines.append(
         f"**No — the current evidence does not support provider-level generalisation beyond a "
         f"directional statement.** In the wave-2 external panel USGS holds "
-        f"{_fmt(usgs.get('share_cases', float('nan'))*100, 1)} % of cases and "
-        f"{_fmt(usgs.get('share_networks', float('nan'))*100, 1)} % of networks; the non-USGS pool is "
+        f"{_fmt(usgs.get('share_cases', float('nan')) * 100, 1)} % of cases and "
+        f"{_fmt(usgs.get('share_networks', float('nan')) * 100, 1)} % of networks; the non-USGS pool is "
         f"{sum(v['n_networks'] for k, v in wave2.items() if k != 'usgs')} networks "
         f"({sum(v['n_cases'] for k, v in wave2.items() if k != 'usgs'):,} cases) across "
         f"{sum(1 for k in wave2 if k != 'usgs')} providers, one of which (UK EA) is a single network "
@@ -2220,9 +2595,13 @@ def write_summary(
 
     lines.append("## 4. What is missing: claims that need networks used nowhere yet")
     lines.append("")
-    needs_new = requirements.loc[
-        requirements["needs_networks_not_yet_used"].astype(bool)
-    ]["claim_id"].astype(str).tolist()
+    needs_new = (
+        requirements.loc[requirements["needs_networks_not_yet_used"].astype(bool)][
+            "claim_id"
+        ]
+        .astype(str)
+        .tolist()
+    )
     design_rows = requirements.loc[requirements["requirement_type"].eq("design_power")]
     lines.append(
         "Machine-readable in `independent_evidence_requirements.csv`. Claims whose current wording "
@@ -2242,10 +2621,13 @@ def write_summary(
         cells = []
         for mue in MUE_POINTS:
             sub = design_rows.loc[
-                design_rows["requirement_id"].eq(f"PWR-{key}-MUE{int(mue)}pp"), "missing_evidence"
+                design_rows["requirement_id"].eq(f"PWR-{key}-MUE{int(mue)}pp"),
+                "missing_evidence",
             ]
             cells.append(str(sub.iloc[0]).split(" ")[0] if len(sub) else "n/a")
-        lines.append(f"| {key} | {cells[0]} networks | {cells[1]} networks | {cells[2]} networks |")
+        lines.append(
+            f"| {key} | {cells[0]} networks | {cells[1]} networks | {cells[2]} networks |"
+        )
     lines.append("")
     residual = diagnostics["residual_unused_pool"]
     lines.append(
@@ -2306,7 +2688,7 @@ def write_summary(
         "network_variance_table.csv",
         "provider_leverage.csv",
         "independent_evidence_requirements.csv",
-        "protocol_fingerprint.json",
+        "protocol_record.json",
         "SUMMARY.md",
     ):
         lines.append(f"* `{name}` (required)")
@@ -2324,9 +2706,11 @@ def write_summary(
         + ", ".join(f"{k}={v:.0f}" for k, v in timing.items() if k != "total_seconds")
         + f"; total={timing['total_seconds']:.0f}."
     )
-    if fingerprint["config"].get("quick"):
+    if run_record["config"].get("quick"):
         lines.append("")
-        lines.append("**Smoke test run (`--quick`): draw counts were reduced; do not quote these numbers.**")
+        lines.append(
+            "**Smoke test run (`--quick`): draw counts were reduced; do not quote these numbers.**"
+        )
     (out / "SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

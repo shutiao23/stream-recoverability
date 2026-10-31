@@ -1,6 +1,6 @@
 [preserve] 2 files -> results/wrr_submission_ready/amendments/step22_noise_pre_fix
-           noise_sensitivity.json sha256=3673b396b41ccbf6… bytes=914
-           REPORT.md sha256=e7f37a6ba93b90b2… bytes=3000
+           noise_sensitivity.json bytes=914
+           REPORT.md bytes=3000
 [refix] development: old noisy 6.2050 -> new noisy 6.0331 points
 [refix] reserved:    old noisy 6.6675 -> new noisy 6.2186 points
 [refix] pre-fix artifact reproduced exactly: worst gap dev 0.00e+00, reserved 0.00e+00

@@ -48,7 +48,6 @@
   "identity": "generic_direct_h30_uncertainty__leave_one_year_out__all__source_only__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_direct_h30_uncertainty__leave_one_year_out__all__source_only__all_providers.joblib",
-  "model_sha256": "d8e7645a38a07f810aabc204ee49dd0a3ef0bdf1bd9ce1bf5be0e4e70cd7e84d",
   "n_training_cases": 321826,
   "n_training_groups": 145,
   "name": "generic_direct_h30_uncertainty",
@@ -58,8 +57,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
-      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet"
     }
   ],
   "source_thresholds": {

@@ -12,7 +12,7 @@
   declares the begin/end coverage of every 00010 daily time series.
 - Classified 68,180 missing days inside 2,921 real interior gaps (179 further gaps have no day inside the
   incomplete-year population and are excluded).
-- Cached every raw provider response under `raw_cache/` with a SHA-256 in
+- Cached every raw provider response under `raw_cache/`, listed in
   `raw_cache/manifest.csv`.
 - Search of the provider's own declared coverage needed no cause information at all: the
   peak windows used here were recomputed with the manuscript's own definition and agree
@@ -111,7 +111,7 @@ the rule of three at network level gives an upper 95% bound of
 Where USGS documents these codes: the two RDB header blocks
 `# Data-value grade codes included in this output:` and
 `# Data-value qualification codes included in this output:`, reproduced in full with the
-request URLs and per-file SHA-256 in `cause_codebook.md` and `raw_cache/manifest.csv`.
+request URLs in `cause_codebook.md` and `raw_cache/manifest.csv`.
 USGS retired the legacy NWIS help page that enumerated the wider remark vocabulary
 (https://help.waterdata.usgs.gov/code/qual_cd_query) into a client-rendered Code Dictionary
 that now covers parameter codes and observed properties only

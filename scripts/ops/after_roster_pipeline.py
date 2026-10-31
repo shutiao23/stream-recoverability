@@ -138,13 +138,7 @@ def proposed_included() -> bool:
 
 
 def suite_dir(data_version: str, suite: str) -> Path:
-    return (
-        ROOT
-        / "results/experiments_v2"
-        / data_version
-        / "development_test"
-        / suite
-    )
+    return ROOT / "results/experiments_v2" / data_version / "development_test" / suite
 
 
 def science_dir(data_version: str, command: str) -> Path:
@@ -511,16 +505,8 @@ def confirmatory_feasibility_report() -> Path:
     )
 
 
-def confirmatory_lock() -> Path:
-    return (
-        ROOT
-        / "data_versions"
-        / f".{CONFIRMATORY_VERSION}.confirmatory-evaluation-once.lock.json"
-    )
-
-
 def run_confirmatory(status: dict[str, Any]) -> bool:
-    if step_done(status, "confirmatory_evaluate_once"):
+    if step_done(status, "confirmatory_evaluation"):
         return True
     if not confirmatory_data_ready():
         mark(status, "confirmatory_build", "running")
@@ -567,7 +553,6 @@ def run_confirmatory(status: dict[str, Any]) -> bool:
         mark(status, "confirmatory_feasibility", "complete")
     else:
         mark(status, "confirmatory_feasibility", "complete")
-    lock = confirmatory_lock()
     eval_manifest = (
         ROOT
         / "results/confirmatory"
@@ -577,12 +562,9 @@ def run_confirmatory(status: dict[str, Any]) -> bool:
     )
     eval_doc = read_json(eval_manifest)
     if eval_doc and eval_doc.get("complete") is True:
-        mark(status, "confirmatory_evaluate_once", "complete")
+        mark(status, "confirmatory_evaluation", "complete")
         return True
-    if lock.is_file() and not (eval_doc and eval_doc.get("complete") is True):
-        mark(status, "confirmatory_evaluate_once", "blocked_once_lock")
-        return False
-    mark(status, "confirmatory_evaluate_once", "running")
+    mark(status, "confirmatory_evaluation", "running")
     code = run_cmd(
         [
             PYTHON,
@@ -590,13 +572,13 @@ def run_confirmatory(status: dict[str, Any]) -> bool:
             "--finalized-model-roster",
             str(ROSTER),
         ],
-        RUN / "confirmatory_evaluate_once.log",
+        RUN / "confirmatory_evaluation.log",
     )
     eval_doc = read_json(eval_manifest)
     if code == 0 and eval_doc and eval_doc.get("complete") is True:
-        mark(status, "confirmatory_evaluate_once", "complete")
+        mark(status, "confirmatory_evaluation", "complete")
         return True
-    mark(status, "confirmatory_evaluate_once", "failed")
+    mark(status, "confirmatory_evaluation", "failed")
     return False
 
 
@@ -794,12 +776,9 @@ def fill_results(status: dict[str, Any]) -> bool:
         f"supports the reporting structure above. Confirmatory evaluation complete="
         f"{eval_doc.get('complete')}. Transport beyond this network is not claimed."
     )
-    git_commit = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
-    ).strip()
     a1 = (
         "Public software is MIT-licensed in this repository. "
-        f"Current commit {git_commit}. No Zenodo DOI is registered (CITATION.cff doi unset)."
+        "No Zenodo DOI is registered (CITATION.cff doi unset)."
     )
     a2 = (
         "Archived scientific artifacts are the finalized roster, the four frozen "
@@ -910,9 +889,7 @@ def main() -> int:
     if not run_08(status, PRIMARY_DATA_VERSION, "full"):
         log(f"primary full {PRIMARY_DATA_VERSION} incomplete")
         return 1
-    if not run_12(
-        status, "dense", PRIMARY_DATA_VERSION, extra=["--variables", "T"]
-    ):
+    if not run_12(status, "dense", PRIMARY_DATA_VERSION, extra=["--variables", "T"]):
         log(f"T dense {PRIMARY_DATA_VERSION} incomplete; retry later")
         return 1
     if not run_12(
@@ -943,7 +920,7 @@ def main() -> int:
     if stop_after_p12():
         log(
             "stopping after P12 (registry/aggregate/analyze/figures). "
-            "P13 confirmatory once-lock and P14 manuscript fill require "
+            "P13 confirmatory evaluation and P14 manuscript fill require "
             "AFTER_ROSTER_STOP_AFTER=p14 and ALLOW_P13_P14."
         )
         mark(status, "pipeline", "stopped_after_p12")

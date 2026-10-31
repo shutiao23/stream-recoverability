@@ -5,7 +5,7 @@
 | protocol_id | `revision_v13_confirmation_panel_v4_agent_b` |
 | status | `draft_pending_external_registration_before_outcome_scoring` |
 | target_journal | Water Resources Research |
-| supersedes | `revision_v12_confirmation_panel_v3` (both agent drafts: `results/revision_v12/t12_confirmation_protocol/agent_a/protocol_v3.md`, `agent_b/protocol_v3.md`); v3 superseded the internally hash-bound second panel (57 scored networks) |
+| supersedes | `revision_v12_confirmation_panel_v3` (both agent drafts: `results/revision_v12/t12_confirmation_protocol/agent_a/protocol_v3.md`, `agent_b/protocol_v3.md`); v3 superseded the internally frozen second panel (57 scored networks) |
 | evidence_role | third, outcome-disjoint confirmation panel; externally registered before any v4 outcome is computed or viewed |
 | authoring agent | agent b (adversarial pair), namespace `paper/development_v13/`, sibling `protocol_v4_a.md` reconciled by a senior reviewer |
 | frozen before | any v4 recovery outcome is viewed or scored (Section 9) |
@@ -248,10 +248,10 @@ The panel target of 80–120 is justified by the simulated power table: the prot
 2. Metadata pilot and strict daily-concurrency QC (pre-outcome).
 3. Eligibility checks (stations, years, forcing, scoreable gaps) and attrition classes recorded (Section 5.4).
 4. Roster freeze (sorted `network_id` list; domain, provider, air2stream-availability columns; Section 4.3).
-5. Fitting-period stress construction and recalibration (Section 7.2); fitting-period-only by hash-bound pipeline.
+5. Fitting-period stress construction and recalibration (Section 7.2); fitting-period-only by frozen pipeline.
 6. Coverage simulation and operating-point confirmation (Section 7.2); power simulation (Section 4.4).
-7. **External registration** (Section 9) — gate: nothing scored yet; `readiness.json` flips `external_registration_verified: true` only on hash-verified registration.
-8. Outcome scoring with input-hash binding (roster, protocol, baseline tables, registration record).
+7. **External registration** (Section 9) — gate: nothing scored yet; `readiness.json` flips `external_registration_verified: true` only on verified registration.
+8. Outcome scoring on the frozen inputs (roster, protocol, baseline tables, registration record).
 9. Endpoint computation per frozen definitions (Sections 2–3, 7.5, 8.3).
 10. Primary tests, criteria checks, downgrade evaluation (Section 3).
 11. Sensitivity: provider-blocked bootstrap, mechanism-stratified, per-domain, S1–S3, QC-qualified-imputed-as-abstained (Section 10).
@@ -340,7 +340,7 @@ The published 8-parameter equation with Crank–Nicolson update, calibrated on t
 
 ### 7.1 Fitting-period-only information flow (frozen)
 
-No outer evaluation year, no observed v4 outcome, and no quantity derived from either may enter: (i) stress construction, (ii) recalibration, (iii) interval-width estimation, (iv) the coverage simulation, (v) the operating point, (vi) any comparator (best fixed, global CV, per-network CV, nested-CV selector), or (vii) the downstream defaults. The pipeline binds input hashes (roster, protocol, baseline tables, registration record) into its output manifest (v3 §6 retained).
+No outer evaluation year, no observed v4 outcome, and no quantity derived from either may enter: (i) stress construction, (ii) recalibration, (iii) interval-width estimation, (iv) the coverage simulation, (v) the operating point, (vi) any comparator (best fixed, global CV, per-network CV, nested-CV selector), or (vii) the downstream defaults. The pipeline lists its inputs (roster, protocol, baseline tables, registration record) in its output manifest (v3 §6 retained).
 
 ### 7.2 Support construction and the coverage budget
 
@@ -420,15 +420,15 @@ No v4 recovery outcome may be computed or viewed before the external registratio
 
 ### 9.2 Pre-outcome public commit (commit #1; no outcome-derived files)
 
-Must contain, with hashes: (i) this protocol and its sibling agent's protocol (reconciled version once the senior review is complete); (ii) the frozen roster CSV by `network_id` (sorted) with domain/provider/air2stream-availability columns; (iii) endpoint definitions and success criteria (Sections 2–3); (iv) the frozen operating point (λ = 0.5, δ = 0.10, support-any, LCB > 0) and the frozen δ/LCB grid; (v) the model roster with hyperparameters, seeds, and fitted-checkpoint identifiers (Section 6); (vi) the power-simulation table and summary (`power_sim_v4.csv`, `power_sim_summary.json`, scripts) and the coverage simulation (Section 4.4); (vii) the missingness manifest (Section 5); (viii) the downstream metric definitions and primary-metric selection with justification (Section 8.2); (ix) the analysis pipeline and reporting plan (Sections 7, 10); (x) data-rights and provider-treatment notes; (xi) `registration_record_v4.json` (template). No outcome-derived artifact may be present.
+Must contain: (i) this protocol and its sibling agent's protocol (reconciled version once the senior review is complete); (ii) the frozen roster CSV by `network_id` (sorted) with domain/provider/air2stream-availability columns; (iii) endpoint definitions and success criteria (Sections 2–3); (iv) the frozen operating point (λ = 0.5, δ = 0.10, support-any, LCB > 0) and the frozen δ/LCB grid; (v) the model roster with hyperparameters, seeds, and fitted-checkpoint identifiers (Section 6); (vi) the power-simulation table and summary (`power_sim_v4.csv`, `power_sim_summary.json`, scripts) and the coverage simulation (Section 4.4); (vii) the missingness manifest (Section 5); (viii) the downstream metric definitions and primary-metric selection with justification (Section 8.2); (ix) the analysis pipeline and reporting plan (Sections 7, 10); (x) data-rights and provider-treatment notes; (xi) `registration_record_v4.json` (template). No outcome-derived artifact may be present.
 
 ### 9.3 External registration
 
-Deposit commit #1 content at OSF or Zenodo; obtain a DOI/handle; record in `registration_record_v4.json` the fields: registry, DOI, registration URL, registration UTC timestamp, registered commit hash, sha256 of the registered files, `separate_pre_outcome_commit: true`, `externally_verifiable_preregistration: true`. `readiness.json` sets `external_registration_verified: true` only when the record exists and file hashes match commit #1.
+Deposit commit #1 content at OSF or Zenodo; obtain a DOI/handle; record in `registration_record_v4.json` the fields: registry, DOI, registration URL, registration UTC timestamp, the registered commit, `separate_pre_outcome_commit: true`, `externally_verifiable_preregistration: true`. `readiness.json` sets `external_registration_verified: true` only when the record exists and the registered files match commit #1.
 
 ### 9.4 Outcome commit (commit #2)
 
-Outcome scoring, summaries, flow table, endpoint tables, and this protocol's outcome section, referencing the registration DOI; the commit manifest binds the frozen-commit hash and the DOI.
+Outcome scoring, summaries, flow table, endpoint tables, and this protocol's outcome section, referencing the registration DOI; the commit manifest names the frozen commit and the DOI.
 
 ### 9.5 Amendment policy (frozen)
 
@@ -489,8 +489,8 @@ Every endpoint, criterion, margin, realized power value, coverage statistic, abs
 
 1. **Archival DOI (mandatory before submission):** deposit the permitted archival package (code, configs, this protocol, registration record, power simulations, derived station-gap losses, result tables T1–T11, figure inputs) in Zenodo (or OSF with DOI) with AGU-recommended metadata; the minted DOI replaces `pending` in `.zenodo.json`, `CITATION.cff`, the package manifest, and the manuscript Open Research section. No placeholder DOI may be cited as an archived record (v3 checklist §2–3).
 2. **Code release:** all analysis code released (MIT for software); scripts bound to the protocol (`rev_v13_protocol_b.py` equivalents: coverage simulation, power simulation, endpoint computation, bootstrap) with pinned seeds; regenerable outputs stay regenerable in the repo.
-3. **Provider data:** provider daily values and raw parquets are not redistributed unless terms permit; the Data Availability statement gives official retrieval routes per provider, hashes of held raw files, a named contact and journal channel for reviewer access to derived-but-restricted aggregates, and provider permission letters as deposited attachments (`metadata/data_rights.csv` governs; v3 checklist §5).
-4. **Registration artifacts:** the registration record, DOI, and commit hashes are themselves deposited with the results; the manuscript describes the third panel as externally registered with the DOI (replacing the current SI sentence on the v2 same-commit flaw).
+3. **Provider data:** provider daily values and raw parquets are not redistributed unless terms permit; the Data Availability statement gives official retrieval routes per provider, a named contact and journal channel for reviewer access to derived-but-restricted aggregates, and provider permission letters as deposited attachments (`metadata/data_rights.csv` governs; v3 checklist §5).
+4. **Registration artifacts:** the registration record and DOI are themselves deposited with the results; the manuscript describes the third panel as externally registered with the DOI (replacing the current SI sentence on the v2 same-commit flaw).
 
 ---
 

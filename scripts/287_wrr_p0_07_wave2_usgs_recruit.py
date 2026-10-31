@@ -15,7 +15,6 @@ non-USGS providers in later steps.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 import time
@@ -38,13 +37,51 @@ CACHE = ROOT / "data" / "public_rivers" / "nwis_wave2"
 
 # States queried in usgs_confirmation_recruitment_pilot_summary.json — burned.
 PILOT_STATES = {
-    "ak", "me", "ny", "nc", "tn", "nm", "az", "wa", "or", "id", "mt", "wy",
-    "co", "ut", "nv", "ca", "tx", "fl", "mn", "wi",
+    "ak",
+    "me",
+    "ny",
+    "nc",
+    "tn",
+    "nm",
+    "az",
+    "wa",
+    "or",
+    "id",
+    "mt",
+    "wy",
+    "co",
+    "ut",
+    "nv",
+    "ca",
+    "tx",
+    "fl",
+    "mn",
+    "wi",
 }
 # Fresh states for wave-2 (continental US remainder with likely stream T).
 WAVE2_STATES = [
-    "va", "sc", "ga", "al", "ms", "la", "ar", "ok", "ks", "ne", "sd", "nd",
-    "ia", "il", "in", "oh", "pa", "wv", "ky", "md", "mo", "mi",
+    "va",
+    "sc",
+    "ga",
+    "al",
+    "ms",
+    "la",
+    "ar",
+    "ok",
+    "ks",
+    "ne",
+    "sd",
+    "nd",
+    "ia",
+    "il",
+    "in",
+    "oh",
+    "pa",
+    "wv",
+    "ky",
+    "md",
+    "mo",
+    "mi",
 ]
 
 
@@ -60,14 +97,6 @@ def pad_huc4(huc: object) -> str:
     return text.zfill(4)
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def used_huc4s() -> set[str]:
     used: set[str] = set()
     for rel in (
@@ -79,11 +108,15 @@ def used_huc4s() -> set[str]:
         if not path.is_file():
             continue
         frame = pd.read_csv(path)
-        col = "network_id" if "network_id" in frame.columns else "provisional_network_id"
+        col = (
+            "network_id" if "network_id" in frame.columns else "provisional_network_id"
+        )
         for value in frame[col].astype(str):
             digits = "".join(ch for ch in value if ch.isdigit())
             if len(digits) >= 4:
-                used.add(digits[-4:].zfill(4) if "confirm" in value else digits[:4].zfill(4))
+                used.add(
+                    digits[-4:].zfill(4) if "confirm" in value else digits[:4].zfill(4)
+                )
                 if "confirm_" in value:
                     used.add(digits.zfill(4)[-4:])
     for path in (READY / "confirmation_ingest").rglob("daily_wide_temperature.csv"):
@@ -98,7 +131,11 @@ def complete_years(series: pd.Series) -> list[int]:
     for year, block in series.groupby(series.index.year):
         values = pd.to_numeric(block, errors="coerce")
         expected = 366 if pd.Timestamp(int(year), 12, 31).is_leap_year else 365
-        if len(values) >= expected - 1 and values.notna().all() and np.isfinite(values.to_numpy(dtype=float)).all():
+        if (
+            len(values) >= expected - 1
+            and values.notna().all()
+            and np.isfinite(values.to_numpy(dtype=float)).all()
+        ):
             # Reject absurd °C after noData mapping.
             if float(values.min()) < -5 or float(values.max()) > 50:
                 continue
@@ -131,7 +168,9 @@ def catalog_states(states: list[str], pause: float) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True).drop_duplicates("site_id")
 
 
-def choose_networks(catalog: pd.DataFrame, burned: set[str], min_sites: int = 2) -> pd.DataFrame:
+def choose_networks(
+    catalog: pd.DataFrame, burned: set[str], min_sites: int = 2
+) -> pd.DataFrame:
     work = catalog.loc[catalog["span_years"].fillna(0) >= 4].copy()
     rows = []
     for huc4, block in work.groupby("huc4"):
@@ -211,7 +250,6 @@ def download_network(network_id: str, site_ids: list[str], pause: float) -> dict
         "network_id": network_id,
         "ok": True,
         "path": str(path.relative_to(ROOT)),
-        "sha256": sha256(path),
         "bytes": path.stat().st_size,
         "n_stations": int(wide.shape[1]),
         "n_stations_ge4": int(len(ge4)),
@@ -266,7 +304,9 @@ def main() -> int:
         print(f"download {row.network_id} sites={site_ids}", flush=True)
         results.append(download_network(row.network_id, site_ids, args.pause))
 
-    ready = [r for r in results if r.get("ok") and int(r.get("n_stations_ge4") or 0) >= 2]
+    ready = [
+        r for r in results if r.get("ok") and int(r.get("n_stations_ge4") or 0) >= 2
+    ]
     pd.DataFrame(results).to_csv(OUT / "wave2_download_results.csv", index=False)
     summary = {
         "status": "wave2_partial_ingest",
@@ -280,7 +320,7 @@ def main() -> int:
         "note": (
             "Opened confirmation_ingest leftovers must not be merged into this "
             "wave for a first-confirmation score. Add ≥2 non-USGS providers and "
-            "reach ≥30 networks before sealing a score."
+            "reach ≥30 networks before scoring."
         ),
         "catalog": str(catalog_path.relative_to(ROOT)),
         "candidates": str(networks_path.relative_to(ROOT)),

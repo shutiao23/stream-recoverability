@@ -28,7 +28,7 @@ Status: honest accounting. Network CI floor not met.
 
 44 sealed HUC8 networks have write-only vault bytes. Development QC is blocked by `HUC8CorpusGate` (`SealedOutcomeAccessError`). T7 evaluate-once is required before temperature bytes can be QC'd and counted.
 
-**Preunseal gate (2026-08-27):** `ready_for_unseal: true` — model freeze installed at `results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json`. Oversized `item_results.parquet` is bound by SHA-256 only (gitignored per repo policy).
+**Preunseal gate (2026-08-27):** `ready_for_unseal: true` — model freeze installed at `results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json`. Oversized `item_results.parquet` is kept out of the repository (gitignored per repo policy).
 
 **Remaining blockers before sealed object reads:**
 

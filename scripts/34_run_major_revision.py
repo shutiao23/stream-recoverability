@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import io
 import json
 import math
@@ -127,14 +126,9 @@ def _write_loeo_auc_diagnosis() -> pd.DataFrame:
 
 
 def _file_identity(path: Path) -> dict[str, Any]:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
     return {
         "path": str(path.relative_to(PROJECT_ROOT)),
         "bytes": path.stat().st_size,
-        "sha256": digest.hexdigest(),
     }
 
 
@@ -1208,7 +1202,6 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
                 "best_model_30d": str(curve.loc[30.0, "best_model"]),
                 "best_model_90d": str(curve.loc[90.0, "best_model"]),
                 "best_model_180d": str(curve.loc[180.0, "best_model"]),
-                "evaluate_once": True,
                 "model_selection_on_confirmatory": False,
                 "selection_source": (
                     "post_frozen_2021_2022_validation_placement_diagnostic"
@@ -1593,7 +1586,9 @@ def main() -> None:
             for name, frame in outputs.items()
         },
         "figures": [f"figures/main/figure_{index:02d}.png" for index in range(1, 8)],
-        "main_tables": [f"paper_archived/tables/table_{index:02d}.csv" for index in range(1, 6)],
+        "main_tables": [
+            f"paper_archived/tables/table_{index:02d}.csv" for index in range(1, 6)
+        ],
         "interpretation_guard": (
             "state-matched and annual-demeaned analyses are reviewer-requested "
             "post-hoc diagnostics, not a replacement for the frozen prediction"

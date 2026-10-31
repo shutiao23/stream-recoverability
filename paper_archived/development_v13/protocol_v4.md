@@ -417,7 +417,7 @@ the §3.4 disclosures.
    coordinates.
 3. Scoreable-gap eligibility: ≥ 1 evaluation gap in the duration roster
    (network with none = scoring attrition).
-4. Roster freeze: complete strict-QC arrival roster, sorted, hash-bound in
+4. Roster freeze: complete strict-QC arrival roster, sorted, frozen in
    `frozen_scoring_roster_v4.csv` inside the pre-outcome commit; exact
    per-domain counts recorded; counts may only exceed quotas upward.
 5. Provider strata and mechanism flags frozen with the roster.
@@ -523,7 +523,7 @@ network's own fitting record. This mirrors the information access of the
 frozen empirical predictor (t03: a panel's own fitting record is
 pre-evaluation and was used by the proposed method too). **No family
 instance is trained on any evaluation-period observation or any third-panel
-outcome**; training inputs are hash-bound in the pre-outcome commit.
+outcome**; training inputs are frozen in the pre-outcome commit.
 
 ### 6.3 Seeds and training rules
 
@@ -610,8 +610,7 @@ same-instance, support-aware stress over cross-network CV risk.
    scoring step**, which runs after the registration gate (§9).
 3. Temperature values may not select networks; no evaluation-period
    observation may enter any training or calibration step.
-4. All inputs hash-bound; the pipeline binds input hashes into its output
-   manifest.
+4. All inputs are frozen in the pre-outcome commit.
 
 ### 7.2 Selection
 
@@ -752,8 +751,7 @@ Contents (no outcome-derived file may be present):
   references, and this namespace's power-analysis artifacts
   (`power_table_v4.csv`, `power_curve_v4.png`, `power_parameters_v4.json`,
   `recommended_panel_size_v4.json`).
-- `frozen_scoring_roster_v4.csv` (exact per-domain roster, sorted, hash-bound)
-  and its sha256.
+- `frozen_scoring_roster_v4.csv` (exact per-domain roster, sorted).
 - `missingness_manifest_v4.csv` (§5.2) and the pre-outcome attrition audit.
 - Frozen margins table (§3.3), abstention rules (§7.3), comparator
   definitions (§7.5), downstream metric selection (§8.4), λ (§2.5).
@@ -763,22 +761,22 @@ Contents (no outcome-derived file may be present):
 - Analysis scripts (`scripts/rev_v13_t12_protocol_a.py` etc.) and the
   `registration_record_v4.json` template.
 
-Commit #1 is pushed to the public remote and its hash recorded **before any
+Commit #1 is pushed to the public remote **before any
 third-panel outcome is computed or viewed**.
 
 ### 9.2 External registration (gate)
 
 Deposit commit #1's content (or the OSF preregistration form built from it)
 at **OSF or Zenodo**; obtain a minted handle/DOI. `registration_record_v4.json`
-records: registry, DOI, registration URL, registration UTC, registered
-commit hash, sha256 of the registered files, and the flags
+records: registry, DOI, registration URL, registration UTC, the registered
+commit, and the flags
 `separate_pre_outcome_commit: true`, `externally_verifiable_preregistration:
 true` (the explicit opposite of the v2 record).
 
 ### 9.3 Authorization
 
 `readiness.json` flips to `external_registration_verified: true` only when
-the registration record exists and its file hashes match commit #1. No v4
+the registration record exists and its registered files match commit #1. No v4
 analysis step may read, merge, or reference any outcome file before this
 gate.
 
@@ -786,7 +784,7 @@ gate.
 
 Scoring runs, summaries, flow table, endpoint results, and this protocol's
 outcome section, in a **later, distinct commit** referencing the
-registration DOI and binding commit #1's sha256. Outcome files written
+registration DOI and commit #1. Outcome files written
 before the registration timestamp invalidate the panel.
 
 ### 9.5 Amendment policy (frozen)
@@ -868,8 +866,8 @@ before the registration timestamp invalidate the panel.
   protocol artifacts are released under the repository license; the
   outcome-scoring pipeline is runnable from the released commit.
 - **Provider daily values**: raw daily observations are not redistributed
-  unless the provider's terms permit; official retrieval routes, hashes of
-  raw files held, and the controlled-access channel for reviewer access to
+  unless the provider's terms permit; official retrieval routes and the
+  controlled-access channel for reviewer access to
   derived-but-restricted aggregates are documented (v3 checklist, §5).
 - **NASA POWER forcing**: retained with day-boundary disclosure; no
   donor-proxy forcing (R8).

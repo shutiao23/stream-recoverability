@@ -11,4 +11,4 @@ The amendment closes the execution-contract migration:
 - donor-C inference uses paired uncertainty and a predeclared minimum meaningful difference of 0.01;
 - the release gate consumes explicit evidence manifests and validates completion rather than discovering any convenient file by glob.
 
-The bridge report is `metadata/anchor_bridge_published_v1_to_v2.json`. It contains structural counts and equivalence outcomes; v4 does not add digest-pinning requirements.
+The bridge report is `metadata/anchor_bridge_published_v1_to_v2.json`. It contains structural counts and equivalence outcomes.

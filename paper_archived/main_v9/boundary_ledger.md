@@ -42,7 +42,7 @@
 
 ## 11. FOEN 公开日值条件已满足，但还不是 T8（BL-018）
 
-FOEN 现有公开、免认证、带日期与 release state 的 `data_1day_mean` / `WT` 接口；旧的「历史日均只能人工订购」已经过时。只看过 station 2016 的七个时间戳，没有查询温度值，因此把整个 Aare 元数据组永久烧成 `never_sealed`。其余十个全新 river×catchment 候选已在值查询前按 seed + SHA 锁成 prospective sealed。`coverageFrom/To` 没有参与。现在仍是 0 条 Swiss 合格网络；只有一次授权 unseal 后通过 300 天 × 8 个共同年 QC 才能计入 T8。
+FOEN 现有公开、免认证、带日期与 release state 的 `data_1day_mean` / `WT` 接口；旧的「历史日均只能人工订购」已经过时。只看过 station 2016 的七个时间戳，没有查询温度值，因此把整个 Aare 元数据组永久烧成 `never_sealed`。其余十个全新 river×catchment 候选已在值查询前按固定 seed 锁成 prospective sealed。`coverageFrom/To` 没有参与。现在仍是 0 条 Swiss 合格网络；只有一次授权 unseal 后通过 300 天 × 8 个共同年 QC 才能计入 T8。
 
 ## 12. T7 一次性 QC 未达到密封地板（BL-019）
 

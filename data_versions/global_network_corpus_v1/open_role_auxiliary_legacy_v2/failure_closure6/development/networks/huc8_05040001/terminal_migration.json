@@ -17,16 +17,11 @@
   "newly_locked_provider_nonnumeric_codes": [],
   "power_reparsed_from_raw": true,
   "previous_audit_path": null,
-  "previous_audit_sha256": null,
   "provider_calls": 0,
   "provider_responses_reused_from_archive_only": true,
   "raw_file_set_exact_and_regular": true,
-  "raw_request_and_response_sha256_verified": true,
   "role": "development",
-  "source_archive_manifest_sha256": "7eefd3babfa5e1de31be2be184502f76812ee4d10ef25cf723e435285ffa6e22",
   "source_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_5",
-  "source_network_manifest_sha256": "29ef667788496c4257bb1c1c52bfaf561065b573a6d4742cb2ea6578e2aa47ec",
-  "source_request_plan_sha256": "c7002b2682e11f6872f063f2d02342abb40c8844ff06c1d007751d3c8ad3e68e",
   "started_at_utc": "2026-08-26T23:35:23.099281+00:00",
   "target_parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6"
 }

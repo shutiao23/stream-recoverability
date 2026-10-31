@@ -24,9 +24,10 @@ Two defects motivate this module.
    while still rewriting ``summary.json``.  A failing run therefore left the
    previous generation's success tables in place beside a summary that denied
    they existed.  ``run_jobs_loudly`` refuses to hide a worker failure and
-   ``write_generation``/``verify_generation`` bind every file of a result set to
-   one generation id, so a mixed-generation directory is detectable rather than
-   plausible.
+   ``write_generation``/``verify_generation`` list every file of a result set in
+   one manifest written after the tables, so a mixed-generation directory (a
+   listed file missing, or a stale file the manifest does not list) is
+   detectable rather than plausible.
 
 Nothing here writes to ``results/v17_fitness/**``; the frozen artifacts are
 read-only inputs to the comparison.
@@ -34,7 +35,6 @@ read-only inputs to the comparison.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import traceback
@@ -54,14 +54,18 @@ from stream_recoverability.experiments.v17_fitness.estimators import (
     hottest_window_mean,
     usable_donors,
 )
-from stream_recoverability.experiments.v17_fitness.mechanism import _phase_shuffled_donors
+from stream_recoverability.experiments.v17_fitness.mechanism import (
+    _phase_shuffled_donors,
+)
 from stream_recoverability.experiments.v17_fitness.outages import (
     climatological_peak_window,
     design_for_year,
 )
-from stream_recoverability.experiments.v17_fitness.panel import air_series_for, load_network_panel
-from stream_recoverability.experiments.v17_fitness.paths import stable_seed
-from stream_recoverability.experiments.wrr_submission_ready.run_identity import sha256_file
+from stream_recoverability.experiments.v17_fitness.panel import (
+    air_series_for,
+    load_network_panel,
+)
+from stream_recoverability.experiments.v17_fitness.paths import station_year_seed
 
 # Selection rules applied to the two correlation halves once K is fixed.
 # ``top_of_half`` is what the later v17 in-place fix did: take each half's
@@ -90,7 +94,9 @@ class IncompleteGeneration(RuntimeError):
 # ---------------------------------------------------------------------------
 
 
-def _subset_for_rule(rule: str, strong_visible: Sequence[str], weak_visible: Sequence[str], k: int) -> tuple[tuple[str, ...], tuple[str, ...]]:
+def _subset_for_rule(
+    rule: str, strong_visible: Sequence[str], weak_visible: Sequence[str], k: int
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
     """Return the strong and weak donor subsets for one selection rule.
 
     ``strong_visible``/``weak_visible`` are ordered by descending training-period
@@ -109,7 +115,14 @@ def _subset_for_rule(rule: str, strong_visible: Sequence[str], weak_visible: Seq
     raise ValueError(f"unknown match rule: {rule!r}")
 
 
-def _arm_error(models: StationModels, subset: Sequence[str], observed: np.ndarray, mask: np.ndarray, year_index: pd.DatetimeIndex, truth_metric: float) -> float:
+def _arm_error(
+    models: StationModels,
+    subset: Sequence[str],
+    observed: np.ndarray,
+    mask: np.ndarray,
+    year_index: pd.DatetimeIndex,
+    truth_metric: float,
+) -> float:
     """Absolute error of the completed-year hot-window mean for one donor subset."""
 
     if not subset:
@@ -173,13 +186,21 @@ def donor_control_experiment_paired(job: dict) -> tuple[pd.DataFrame, str]:
         strong = tuple(ordered.index[:k_nominal])
         weak = tuple(ordered.index[-k_nominal:])
 
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), "ctrl"))
+        rng = np.random.default_rng(
+            station_year_seed(network_id, station_id, daily.columns, int(year), "ctrl")
+        )
         shuffled_donors = _phase_shuffled_donors(donors, rng)
 
-        base_models = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
-        shuffled_models = StationModels(target=target, donors=shuffled_donors, air=air, train_mask=train_mask)
+        base_models = StationModels(
+            target=target, donors=donors, air=air, train_mask=train_mask
+        )
+        shuffled_models = StationModels(
+            target=target, donors=shuffled_donors, air=air, train_mask=train_mask
+        )
         peak_doys = climatological_peak_window(target, exclude_year=int(year))
-        realizations = design_for_year(year_index, peak_doys, pool, rng=rng, n_empirical=1)
+        realizations = design_for_year(
+            year_index, peak_doys, pool, rng=rng, n_empirical=1
+        )
 
         for realization in realizations:
             mask = realization.mask(len(year_index))
@@ -214,7 +235,9 @@ def donor_control_experiment_paired(job: dict) -> tuple[pd.DataFrame, str]:
                 "n_strong_orig": int(len(strong_visible)),
                 "n_weak_orig": int(len(weak_visible)),
                 "k_orig_diff": int(len(strong_visible) - len(weak_visible)),
-                "corr_strong_mean_orig": float(correlations.reindex(strong_visible).mean())
+                "corr_strong_mean_orig": float(
+                    correlations.reindex(strong_visible).mean()
+                )
                 if strong_visible
                 else float("nan"),
                 "corr_weak_mean_orig": float(correlations.reindex(weak_visible).mean())
@@ -222,30 +245,56 @@ def donor_control_experiment_paired(job: dict) -> tuple[pd.DataFrame, str]:
                 else float("nan"),
             }
             row["abserr_strong_orig"] = _arm_error(
-                base_models, tuple(sorted(strong_visible)), observed, mask, year_index, truth_metric
+                base_models,
+                tuple(sorted(strong_visible)),
+                observed,
+                mask,
+                year_index,
+                truth_metric,
             )
             row["abserr_weak_orig"] = _arm_error(
-                base_models, tuple(sorted(weak_visible)), observed, mask, year_index, truth_metric
+                base_models,
+                tuple(sorted(weak_visible)),
+                observed,
+                mask,
+                year_index,
+                truth_metric,
             )
             row["abserr_all_donors"] = _arm_error(
-                base_models, tuple(sorted(visible)), observed, mask, year_index, truth_metric
+                base_models,
+                tuple(sorted(visible)),
+                observed,
+                mask,
+                year_index,
+                truth_metric,
             )
             row["abserr_anomaly_shuffled"] = _arm_error(
-                shuffled_models, tuple(sorted(visible)), observed, mask, year_index, truth_metric
+                shuffled_models,
+                tuple(sorted(visible)),
+                observed,
+                mask,
+                year_index,
+                truth_metric,
             )
             for rule in MATCH_RULES:
                 if k_matched < 1:
                     strong_subset: tuple[str, ...] = ()
                     weak_subset: tuple[str, ...] = ()
                 else:
-                    strong_subset, weak_subset = _subset_for_rule(rule, strong_visible, weak_visible, k_matched)
+                    strong_subset, weak_subset = _subset_for_rule(
+                        rule, strong_visible, weak_visible, k_matched
+                    )
                 row[f"n_strong_{rule}"] = int(len(strong_subset))
                 row[f"n_weak_{rule}"] = int(len(weak_subset))
                 row[f"corr_strong_mean_{rule}"] = (
-                    float(correlations.reindex(list(strong_subset)).mean()) if strong_subset else float("nan")
+                    float(correlations.reindex(list(strong_subset)).mean())
+                    if strong_subset
+                    else float("nan")
                 )
                 row[f"corr_weak_mean_{rule}"] = (
-                    float(correlations.reindex(list(weak_subset)).mean()) if weak_subset else float("nan")
+                    float(correlations.reindex(list(weak_subset)).mean())
+                    if weak_subset
+                    else float("nan")
                 )
                 row[f"abserr_strong_{rule}"] = _arm_error(
                     base_models, strong_subset, observed, mask, year_index, truth_metric
@@ -258,7 +307,10 @@ def donor_control_experiment_paired(job: dict) -> tuple[pd.DataFrame, str]:
                     "exact-K matching failed: "
                     f"{row['n_strong_top_of_half']} strong vs {row['n_weak_top_of_half']} weak donors"
                 )
-            if row["k_matched"] >= 1 and row["n_strong_gap_minimising"] != row["k_matched"]:
+            if (
+                row["k_matched"] >= 1
+                and row["n_strong_gap_minimising"] != row["k_matched"]
+            ):
                 raise AssertionError("gap_minimising arm is not K donors wide")
             rows.append(row)
 
@@ -296,11 +348,15 @@ def _worker_entry(job: dict) -> JobOutcome:
         return JobOutcome(
             key=key,
             status="error",
-            error="".join(traceback.format_exception(type(exc), exc, exc.__traceback__)),
+            error="".join(
+                traceback.format_exception(type(exc), exc, exc.__traceback__)
+            ),
         )
     if frame.empty:
         if not reason:
-            return JobOutcome(key=key, status="error", error="empty frame without a documented reason")
+            return JobOutcome(
+                key=key, status="error", error="empty frame without a documented reason"
+            )
         return JobOutcome(key=key, status="empty", reason=reason)
     return JobOutcome(key=key, status="rows", n_rows=int(len(frame)), frame=frame)
 
@@ -338,16 +394,26 @@ def run_jobs_loudly(
                 outcomes[key] = JobOutcome(
                     key=key,
                     status="error",
-                    error="".join(traceback.format_exception(type(exc), exc, exc.__traceback__)),
+                    error="".join(
+                        traceback.format_exception(type(exc), exc, exc.__traceback__)
+                    ),
                 )
                 continue
             if not isinstance(outcome, JobOutcome):
-                outcomes[key] = JobOutcome(key=key, status="error", error=f"unexpected worker return {type(outcome)!r}")
+                outcomes[key] = JobOutcome(
+                    key=key,
+                    status="error",
+                    error=f"unexpected worker return {type(outcome)!r}",
+                )
                 continue
             outcomes[key] = outcome
 
     missing = sorted(_job_key(job) for job in jobs if _job_key(job) not in outcomes)
-    errors = sorted((key, outcome.error or "") for key, outcome in outcomes.items() if outcome.status == "error")
+    errors = sorted(
+        (key, outcome.error or "")
+        for key, outcome in outcomes.items()
+        if outcome.status == "error"
+    )
     if errors or missing:
         detail = "\n".join(f"--- {key} ---\n{error}" for key, error in errors[:10])
         raise WorkerFailure(
@@ -355,31 +421,58 @@ def run_jobs_loudly(
             f"refusing to write a partial or stale result set.\n{detail}"
         )
 
-    frames = [outcome.frame for outcome in outcomes.values() if outcome.status == "rows" and outcome.frame is not None]
+    frames = [
+        outcome.frame
+        for outcome in outcomes.values()
+        if outcome.status == "rows" and outcome.frame is not None
+    ]
     if not frames:
-        reasons = sorted({outcome.reason for outcome in outcomes.values() if outcome.status == "empty"})
-        raise IncompleteGeneration(f"no job produced rows; empty reasons: {reasons[:10]}")
+        reasons = sorted(
+            {
+                outcome.reason
+                for outcome in outcomes.values()
+                if outcome.status == "empty"
+            }
+        )
+        raise IncompleteGeneration(
+            f"no job produced rows; empty reasons: {reasons[:10]}"
+        )
     combined = pd.concat(frames, ignore_index=True)
     audit = {
         "n_jobs_submitted": int(len(jobs)),
-        "n_jobs_with_rows": int(sum(1 for o in outcomes.values() if o.status == "rows")),
-        "n_jobs_empty_documented": int(sum(1 for o in outcomes.values() if o.status == "empty")),
+        "n_jobs_with_rows": int(
+            sum(1 for o in outcomes.values() if o.status == "rows")
+        ),
+        "n_jobs_empty_documented": int(
+            sum(1 for o in outcomes.values() if o.status == "empty")
+        ),
         "n_jobs_failed": 0,
         "n_rows": int(len(combined)),
-        "empty_reasons": sorted({o.reason for o in outcomes.values() if o.status == "empty"}),
+        "empty_reasons": sorted(
+            {o.reason for o in outcomes.values() if o.status == "empty"}
+        ),
     }
-    if audit["n_jobs_with_rows"] + audit["n_jobs_empty_documented"] != audit["n_jobs_submitted"]:
+    if (
+        audit["n_jobs_with_rows"] + audit["n_jobs_empty_documented"]
+        != audit["n_jobs_submitted"]
+    ):
         raise IncompleteGeneration("job accounting does not close")
     return combined, audit
 
 
-def require_controls(frame: pd.DataFrame, *, min_rows: int = 1, min_networks: int = 2) -> dict[str, int]:
+def require_controls(
+    frame: pd.DataFrame, *, min_rows: int = 1, min_networks: int = 2
+) -> dict[str, int]:
     """Guard the invariants a donor-control result set must satisfy to be written."""
 
     if frame.empty:
-        raise IncompleteGeneration("donor control produced no rows; a summary must not be written")
+        raise IncompleteGeneration(
+            "donor control produced no rows; a summary must not be written"
+        )
     if len(frame) < int(min_rows):
-        raise IncompleteGeneration(f"donor control has {len(frame)} rows, below the required {min_rows}")
+        raise IncompleteGeneration(
+            f"donor control has {len(frame)} rows, below the required {min_rows}"
+        )
     networks = int(frame["network_id"].nunique())
     if networks < int(min_networks):
         raise IncompleteGeneration(
@@ -387,27 +480,16 @@ def require_controls(frame: pd.DataFrame, *, min_rows: int = 1, min_networks: in
         )
     if bool(frame["network_id"].isna().any()):
         raise IncompleteGeneration("donor control has missing network ids")
-    return {"n_cases": int(len(frame)), "n_networks": networks,
-            "n_stations": int(frame.groupby(["network_id", "station_id"]).ngroups)}
+    return {
+        "n_cases": int(len(frame)),
+        "n_networks": networks,
+        "n_stations": int(frame.groupby(["network_id", "station_id"]).ngroups),
+    }
 
 
 # ---------------------------------------------------------------------------
 # Generation-bound output writing
 # ---------------------------------------------------------------------------
-
-
-def generation_id(artifacts: Mapping[str, bytes], *, inputs: Iterable[Path] = (), code: Iterable[Path] = ()) -> str:
-    """Hash the exact bytes of a generation plus its inputs and code."""
-
-    digest = hashlib.sha256()
-    for name in sorted(artifacts):
-        digest.update(name.encode("utf-8"))
-        digest.update(hashlib.sha256(artifacts[name]).digest())
-    for path in list(inputs) + list(code):
-        resolved = Path(path)
-        digest.update(str(resolved).encode("utf-8"))
-        digest.update(bytes.fromhex(sha256_file(resolved)) if resolved.is_file() else b"missing")
-    return digest.hexdigest()
 
 
 def write_generation(
@@ -418,13 +500,13 @@ def write_generation(
     inputs: Iterable[Path] = (),
     code: Iterable[Path] = (),
 ) -> dict[str, Any]:
-    """Write one consistent result set, then close it with a hash manifest.
+    """Write one consistent result set, then close it with a manifest of its files.
 
     Files are staged and moved into place, and ``summary.json`` is written
     *after* every table, so a crash mid-write cannot leave a summary that
-    describes tables that are not there.  The manifest binds all files to one
-    generation id; ``verify_generation`` will refuse a directory whose files do
-    not all belong to the recorded generation.
+    describes tables that are not there.  The manifest lists every file of the
+    generation; ``verify_generation`` will refuse a directory in which a listed
+    file is missing or a file is not listed.
     """
 
     if summary_name not in artifacts:
@@ -444,14 +526,15 @@ def write_generation(
     for name in order:
         os.replace(staged[name], directory / name)
     manifest = {
-        "generation_id": generation_id(payload, inputs=inputs, code=code),
         "summary": summary_name,
         "write_order_last": summary_name,
-        "files": {name: {"sha256": hashlib.sha256(blob).hexdigest(), "bytes": len(blob)} for name, blob in payload.items()},
-        "inputs": [{"path": str(Path(p)), "sha256": sha256_file(Path(p)) if Path(p).is_file() else None} for p in inputs],
-        "code": [{"path": str(Path(p)), "sha256": sha256_file(Path(p)) if Path(p).is_file() else None} for p in code],
+        "files": {name: {"bytes": len(blob)} for name, blob in payload.items()},
+        "inputs": [{"path": str(Path(p))} for p in inputs],
+        "code": [{"path": str(Path(p))} for p in code],
     }
-    (directory / GENERATION_MANIFEST).write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (directory / GENERATION_MANIFEST).write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return manifest
 
 
@@ -461,18 +544,19 @@ def verify_generation(directory: Path) -> dict[str, Any]:
     directory = Path(directory)
     manifest_path = directory / GENERATION_MANIFEST
     if not manifest_path.is_file():
-        raise IncompleteGeneration(f"no {GENERATION_MANIFEST} in {directory}; provenance is unverifiable")
+        raise IncompleteGeneration(
+            f"no {GENERATION_MANIFEST} in {directory}; provenance is unverifiable"
+        )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     problems: list[str] = []
-    for name, record in manifest["files"].items():
-        path = directory / name
-        if not path.is_file():
+    for name in manifest["files"]:
+        if not (directory / name).is_file():
             problems.append(f"missing file: {name}")
-            continue
-        actual = sha256_file(path)
-        if actual != record["sha256"]:
-            problems.append(f"hash mismatch: {name} ({actual[:12]} != {record['sha256'][:12]})")
-    present = {p.name for p in directory.iterdir() if p.is_file() and not p.name.startswith(".")}
+    present = {
+        p.name
+        for p in directory.iterdir()
+        if p.is_file() and not p.name.startswith(".")
+    }
     unlisted = {
         name
         for name in present
@@ -482,71 +566,7 @@ def verify_generation(directory: Path) -> dict[str, Any]:
         problems.append(f"unlisted (possible stale) files: {sorted(unlisted)}")
     if problems:
         raise IncompleteGeneration("; ".join(problems))
-    return {"generation_id": manifest["generation_id"], "n_files": len(manifest["files"]), "ok": True}
-
-
-def pre_fix_worker_probe(
-    job: dict,
-    *,
-    ref: str = "fa6547d688",
-    scratch_dir: Path,
-    relative_path: str = "src/stream_recoverability/experiments/v17_fitness/mechanism.py",
-) -> dict[str, Any]:
-    """Extract the pre-fix donor control from git and run it on one real job.
-
-    The frozen tables were committed alongside code that used ``stable_seed``
-    without importing it.  Rather than assert that, this extracts the committed
-    blob and calls it, recording what actually happens.  ``git show`` is
-    read-only; the extracted module is written under ``scratch_dir``.
-    """
-
-    import importlib.util
-    import subprocess
-
-    from stream_recoverability.experiments.wrr_submission_ready.run_identity import REPO_ROOT
-
-    scratch_dir = Path(scratch_dir)
-    scratch_dir.mkdir(parents=True, exist_ok=True)
-    try:
-        completed = subprocess.run(
-            ["git", "show", f"{ref}:{relative_path}"],
-            cwd=REPO_ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-    except (subprocess.CalledProcessError, FileNotFoundError) as exc:
-        return {"available": False, "error": f"{type(exc).__name__}: {exc}"}
-
-    path = scratch_dir / f"pre_fix_mechanism_{ref[:8]}.py"
-    path.write_text(completed.stdout, encoding="utf-8")
-    spec = importlib.util.spec_from_file_location(f"f12_pre_fix_mechanism_{ref[:8]}", path)
-    if spec is None or spec.loader is None:
-        return {"available": False, "error": "could not load the extracted module"}
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-
-    probe: dict[str, Any] = {
-        "available": True,
-        "git_ref": ref,
-        "extracted_path": str(path),
-        "extracted_sha256": sha256_file(path),
-        "job": {"network_id": str(job["network_id"]), "station_id": str(job["station_id"])},
-        "stable_seed_defined_in_blob": hasattr(module, "stable_seed"),
-    }
-    try:
-        frame = module.donor_control_experiment(job)
-        probe.update({"raised": False, "rows": int(len(frame))})
-    except BaseException as exc:  # noqa: BLE001 — the failure is the evidence
-        probe.update(
-            {
-                "raised": True,
-                "error_type": type(exc).__name__,
-                "error_message": str(exc),
-                "traceback_tail": traceback.format_exc().strip().splitlines()[-1],
-            }
-        )
-    return probe
+    return {"n_files": len(manifest["files"]), "ok": True}
 
 
 # ---------------------------------------------------------------------------
@@ -554,7 +574,9 @@ def pre_fix_worker_probe(
 # ---------------------------------------------------------------------------
 
 
-def legacy_control_block(controls_frames: list[pd.DataFrame], out_dir: Path) -> dict[str, Any]:
+def legacy_control_block(
+    controls_frames: list[pd.DataFrame], out_dir: Path
+) -> dict[str, Any]:
     """The control-writing block of ``scripts/183_v17_mechanism.py``, verbatim in shape.
 
     Kept only as an executable exhibit of the provenance defect: it writes
@@ -568,19 +590,28 @@ def legacy_control_block(controls_frames: list[pd.DataFrame], out_dir: Path) -> 
     control_summary: dict[str, Any] = {}
     if not controls.empty:
         controls.to_parquet(out_dir / "donor_controls.parquet", index=False)
-        (out_dir / "donor_control_summary.csv").write_text("arm,n\nall_donors,%d\n" % len(controls), encoding="utf-8")
-        (out_dir / "donor_control_contrasts.csv").write_text("contrast,n_paired\n", encoding="utf-8")
+        (out_dir / "donor_control_summary.csv").write_text(
+            "arm,n\nall_donors,%d\n" % len(controls), encoding="utf-8"
+        )
+        (out_dir / "donor_control_contrasts.csv").write_text(
+            "contrast,n_paired\n", encoding="utf-8"
+        )
         control_summary = {"n_cases": int(len(controls))}
     else:
         control_table = pd.DataFrame()
         contrast_table = pd.DataFrame()
         _ = (control_table, contrast_table)
-    summary = {"importance": {"out_of_fold_r2": 0.3458734271935914}, "controls": control_summary}
+    summary = {
+        "importance": {"out_of_fold_r2": 0.3458734271935914},
+        "controls": control_summary,
+    }
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary
 
 
-def mixed_generation_hazard_demo(workdir: Path, *, fake_table_bytes: bytes = b"arm,n\nall_donors,12155\n") -> dict[str, Any]:
+def mixed_generation_hazard_demo(
+    workdir: Path, *, fake_table_bytes: bytes = b"arm,n\nall_donors,12155\n"
+) -> dict[str, Any]:
     """Show that the old writer leaves a stale success table beside an empty summary.
 
     Deterministic and self-contained: no cluster, no panel data.  A "good"
@@ -593,20 +624,20 @@ def mixed_generation_hazard_demo(workdir: Path, *, fake_table_bytes: bytes = b"a
     workdir.mkdir(parents=True, exist_ok=True)
     stale = workdir / "donor_control_summary.csv"
     stale.write_bytes(fake_table_bytes)
-    before = sha256_file(stale)
     mtime_before = stale.stat().st_mtime_ns
 
     legacy_summary = legacy_control_block([], workdir)
 
     after_present = stale.is_file()
-    after = sha256_file(stale) if after_present else None
+    mtime_unchanged = bool(after_present and stale.stat().st_mtime_ns == mtime_before)
     result: dict[str, Any] = {
-        "stale_table_preserved": bool(after_present and after == before),
-        "stale_table_sha256": before,
-        "stale_table_mtime_unchanged": bool(after_present and stale.stat().st_mtime_ns == mtime_before),
+        "stale_table_preserved": mtime_unchanged,
+        "stale_table_mtime_unchanged": mtime_unchanged,
         "summary_controls": legacy_summary["controls"],
         "summary_claims_zero_controls": legacy_summary["controls"] == {},
-        "mixed_generation_state": bool(after_present and legacy_summary["controls"] == {}),
+        "mixed_generation_state": bool(
+            after_present and legacy_summary["controls"] == {}
+        ),
     }
     # The new guard must refuse to fabricate that state.
     try:

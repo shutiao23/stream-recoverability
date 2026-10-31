@@ -76,8 +76,8 @@ certificate scoped in the abstract to warm-season extremes.
 ## 2. Major comment — a third reproducibility defect, from the same family as
 the first two
 
-Round 2 found that the case table was seeded from a salted hash, and that a
-shared summary filename let one run overwrite another's counts. Both were
+Round 2 found that the case table was seeded from a value that changed between
+interpreter processes, and that a shared summary filename let one run overwrite another's counts. Both were
 fixed. I found a third instance.
 
 The case table's *content* was deterministic after the repair, but its *row

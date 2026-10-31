@@ -8,7 +8,6 @@ defective AUC headlines, or separated odds ratios as confirmatory evidence.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -50,19 +49,10 @@ TABLES = ROOT / "paper_archived/tables"
 FIGURES = ROOT / "figures/main"
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _identity(path: Path) -> dict[str, Any]:
     return {
         "path": str(path.relative_to(ROOT)),
         "bytes": path.stat().st_size,
-        "sha256": _sha256(path),
     }
 
 
@@ -103,7 +93,7 @@ def _write_csv(path: Path, frame: pd.DataFrame) -> None:
     frame.to_csv(path, index=False)
 
 
-def _update_analysis_artifact_hashes(names: list[str]) -> None:
+def _update_analysis_artifact_records(names: list[str]) -> None:
     manifest_path = ANALYSIS / "analysis_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     artifacts = manifest.get("artifacts", {})
@@ -111,7 +101,6 @@ def _update_analysis_artifact_hashes(names: list[str]) -> None:
         path = ANALYSIS / name
         if name not in artifacts or not path.is_file():
             continue
-        artifacts[name]["sha256"] = _sha256(path)
         artifacts[name]["bytes"] = path.stat().st_size
         artifacts[name]["rows"] = int(len(pd.read_csv(path)))
     manifest_path.write_text(
@@ -190,7 +179,9 @@ def main() -> None:
     frontiers = withhold_overlap_inference(
         pd.read_csv(ANALYSIS / "statistical_frontiers.csv")
     )
-    dual = withhold_overlap_inference(pd.read_csv(ANALYSIS / "dual_frontier_comparison.csv"))
+    dual = withhold_overlap_inference(
+        pd.read_csv(ANALYSIS / "dual_frontier_comparison.csv")
+    )
     hypotheses = withhold_overlap_inference(
         pd.read_csv(ANALYSIS / "hypothesis_tests.csv")
     )
@@ -199,7 +190,7 @@ def main() -> None:
     _write_csv(ANALYSIS / "hypothesis_tests.csv", hypotheses)
     _write_csv(REVISION / "statistical_frontiers_overlap_aware.csv", frontiers)
     _write_csv(REVISION / "hypothesis_tests_overlap_aware.csv", hypotheses)
-    _update_analysis_artifact_hashes(
+    _update_analysis_artifact_records(
         [
             "statistical_frontiers.csv",
             "dual_frontier_comparison.csv",
@@ -231,7 +222,9 @@ def main() -> None:
             dtype={"station_id": str},
         )
     )
-    _write_csv(REVISION / "recoverability_type_classification_uncertainty.csv", type_table)
+    _write_csv(
+        REVISION / "recoverability_type_classification_uncertainty.csv", type_table
+    )
     topology = topology_confound_rows()
     _write_csv(REVISION / "topology_confound_audit.csv", topology)
 
@@ -294,7 +287,9 @@ def main() -> None:
         json.dumps(national, indent=2, allow_nan=True) + "\n",
         encoding="utf-8",
     )
-    logistic = flag_separated_coefficients(pd.read_csv(PANEL / "logistic_regression.csv"))
+    logistic = flag_separated_coefficients(
+        pd.read_csv(PANEL / "logistic_regression.csv")
+    )
     _write_csv(REVISION / "national_logistic_suppressed.csv", logistic)
     firth_rows = [
         {
@@ -357,7 +352,9 @@ def main() -> None:
         json.dumps(
             {
                 "status": "complete",
-                "frontier_finite_p_values": inference_manifest["frontier_finite_p_values"],
+                "frontier_finite_p_values": inference_manifest[
+                    "frontier_finite_p_values"
+                ],
                 "macro_within_fold_auc": national["macro_within_fold_auc"],
                 "near_threshold_cells": int(
                     type_table["near_classification_threshold"].sum()

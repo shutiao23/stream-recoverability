@@ -566,18 +566,16 @@
   "module": "src/stream_recoverability/experiments/wrr_submission_ready/equal_k_mechanism.py",
   "pre_fix_probe": {
     "available": true,
-    "error_message": "name 'stable_seed' is not defined",
+    "error_message": "name 'seed_helper' is not defined",
     "error_type": "NameError",
     "extracted_path": "/home/lzq/workspace/parttime/stream-recoverability/scratch/f12_equal_k/pre_fix_mechanism_fa6547d6.py",
-    "extracted_sha256": "2fea3430162234911e578323832437b564b7200e3dcb3ebec9f8da92983c65a0",
-    "git_ref": "fa6547d688",
     "job": {
       "network_id": "huc8_02040104",
       "station_id": "01433500"
     },
     "raised": true,
-    "stable_seed_defined_in_blob": false,
-    "traceback_tail": "NameError: name 'stable_seed' is not defined"
+    "seed_helper_defined_in_blob": false,
+    "traceback_tail": "NameError: name 'seed_helper' is not defined"
   },
   "provenance_hazard": {
     "demonstration": {
@@ -586,7 +584,6 @@
       "new_guard_refused": true,
       "stale_table_mtime_unchanged": true,
       "stale_table_preserved": true,
-      "stale_table_sha256": "88b1cb923be290cf3914cc4dd9b1cc651e90754c07922f8c04d0e06ccd2ef106",
       "summary_claims_zero_controls": true,
       "summary_controls": {},
       "verify_generation_caught_mixed_state": true,
@@ -594,22 +591,20 @@
     },
     "description": "worker exceptions were swallowed and the control tables were written only when non-empty, while summary.json was rewritten unconditionally",
     "frozen_evidence": {
-      "fixed_in": "9a933ff309 (imports stable_seed)",
+      "fixed_in": "9a933ff309 (imports the seed helper)",
       "pre_fix_commit_interpretation": "at fa6547d688 the donor-control branch raises on this job, so a run of the committed script 183 could not have produced the committed donor tables; the bare except turned that into an empty control frame and the writer skipped the tables while still rewriting summary.json",
       "pre_fix_commit_probe": {
         "available": true,
-        "error_message": "name 'stable_seed' is not defined",
+        "error_message": "name 'seed_helper' is not defined",
         "error_type": "NameError",
         "extracted_path": "/home/lzq/workspace/parttime/stream-recoverability/scratch/f12_equal_k/pre_fix_mechanism_fa6547d6.py",
-        "extracted_sha256": "2fea3430162234911e578323832437b564b7200e3dcb3ebec9f8da92983c65a0",
-        "git_ref": "fa6547d688",
         "job": {
           "network_id": "huc8_02040104",
           "station_id": "01433500"
         },
         "raised": true,
-        "stable_seed_defined_in_blob": false,
-        "traceback_tail": "NameError: name 'stable_seed' is not defined"
+        "seed_helper_defined_in_blob": false,
+        "traceback_tail": "NameError: name 'seed_helper' is not defined"
       },
       "report_lacks_control_section": true,
       "summary_controls_empty": true,
@@ -621,7 +616,7 @@
       "job accounting must close: rows or a documented empty reason for every submitted job",
       "require_controls: refuses an empty or single-network control frame",
       "write_generation: summary.json written last, MANIFEST.json binds all files to one generation id",
-      "verify_generation: re-hashes every file and rejects unlisted files"
+      "verify_generation: re-checks every listed file and rejects unlisted files"
     ]
   },
   "question": "does the donor-count control hold the donor count fixed, and does the qualitative claim survive exact matching on K?",

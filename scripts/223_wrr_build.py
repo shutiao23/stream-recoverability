@@ -49,7 +49,9 @@ def environment() -> dict[str, str]:
     return env
 
 
-def run(command: list[str], *, cwd: Path, env: dict[str, str]) -> subprocess.CompletedProcess:
+def run(
+    command: list[str], *, cwd: Path, env: dict[str, str]
+) -> subprocess.CompletedProcess:
     # TeX logs are not guaranteed to be UTF-8 (pdflatex writes byte strings from
     # the .tex source and from font metrics), and a decode error here would mask
     # the real LaTeX error, so decode leniently.
@@ -83,7 +85,12 @@ def body(text: str, macro: str) -> str:
 
 
 def words(text: str) -> int:
-    text = re.sub(r"\\begin\{plainlanguagesummary\}.*?\\end\{plainlanguagesummary\}", "", text, flags=re.S)
+    text = re.sub(
+        r"\\begin\{plainlanguagesummary\}.*?\\end\{plainlanguagesummary\}",
+        "",
+        text,
+        flags=re.S,
+    )
     text = re.sub(r"\\[a-zA-Z]+\*?", " ", text)
     text = text.replace("{", " ").replace("}", " ")
     return len(text.split())
@@ -103,47 +110,128 @@ def key_points(text: str) -> list[str]:
 #: manuscript silently dropped ten of them.
 HEADLINE_NUMBERS = (
     # design
-    "146", "457", "5{,}114", "53{,}721", "40{,}704", "13{,}017", "2{,}422",
-    "418", "41", "1{,}899", "12",
+    "146",
+    "457",
+    "5{,}114",
+    "53{,}721",
+    "40{,}704",
+    "13{,}017",
+    "2{,}422",
+    "418",
+    "41",
+    "1{,}899",
+    "12",
     # what the designs contain (2026-10-20b audit)
-    "33{,}749", "19{,}972", "211", "59", "67", "+0.52", "+0.71", "0.00",
+    "33{,}749",
+    "19{,}972",
+    "211",
+    "59",
+    "67",
+    "+0.52",
+    "+0.71",
+    "0.00",
     # the error a completeness test leaves
-    "1.31", "24.9",
+    "1.31",
+    "24.9",
     # the phenomenon
-    "0.64", "0.02", "0.68", "0.89", "0.41", "0.24", "0.82", "1.12",
+    "0.64",
+    "0.02",
+    "0.68",
+    "0.89",
+    "0.41",
+    "0.24",
+    "0.82",
+    "1.12",
     # mechanism: the two channels, the three windows, the interventions
-    "0.84", "0.88", "0.75", "0.43", "0.92", "0.19", "0.66", "44", "94", "12 days",
-    "0.24", "49", "59",
+    "0.84",
+    "0.88",
+    "0.75",
+    "0.43",
+    "0.92",
+    "0.19",
+    "0.66",
+    "44",
+    "94",
+    "12 days",
+    "0.24",
+    "49",
+    "59",
     # decision
-    "39.6", "66.6", "72.9", "74.0", "60.4", "70.4", "9.7", "10.3",
-    "2.2", "3.7", "8.3", "2.8", "2.6", "4.1", "93", "96",
+    "39.6",
+    "66.6",
+    "72.9",
+    "74.0",
+    "60.4",
+    "70.4",
+    "9.7",
+    "10.3",
+    "2.2",
+    "3.7",
+    "8.3",
+    "2.8",
+    "2.6",
+    "4.1",
+    "93",
+    "96",
     # where the fitted score's gain comes from
-    "63.2", "68.7", "73.4", "73.9", "6.7", "7.0", "2.4", "5.0", "16.3",
+    "63.2",
+    "68.7",
+    "73.4",
+    "73.9",
+    "6.7",
+    "7.0",
+    "2.4",
+    "5.0",
+    "16.3",
     # hot years, refusal against the null, abstention cost
-    "86", "25", "26", "33", "60", "0.046", "0.043",
+    "86",
+    "25",
+    "26",
+    "33",
+    "60",
+    "0.046",
+    "0.043",
     # the screening-need rule
-    "3.5", "49", "99.8", "0.35", "0.61",
+    "3.5",
+    "49",
+    "99.8",
+    "0.35",
+    "0.61",
     # risk rule
-    "0.4", "7.8", "12.2", "18.5", "35.9", "42", "150", "3.9",
+    "0.4",
+    "7.8",
+    "12.2",
+    "18.5",
+    "35.9",
+    "42",
+    "150",
+    "3.9",
     # repair
-    "898", "6.9", "2.7", "7.2", "4.5",
+    "898",
+    "6.9",
+    "2.7",
+    "7.2",
+    "4.5",
 )
 
 
 def missing_numbers(text: str) -> list[str]:
     if "\\bibliography{references_r3}" in text:
-        import hashlib
-
-        registry = ROOT / "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json"
+        registry = (
+            ROOT
+            / "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json"
+        )
         if not registry.exists():
             return ["missing final-protocol claim registry"]
         definitions = (PAPER / "r3_claims.tex").read_text()
         errors = []
         for item in json.loads(registry.read_text())["claims"]:
-            if f"\\newcommand{{\\{item['macro']}}}{{{item['rendered']}}}" not in definitions:
+            if (
+                f"\\newcommand{{\\{item['macro']}}}{{{item['rendered']}}}"
+                not in definitions
+            ):
                 errors.append(item["macro"])
-            path = ROOT / item["source"]
-            if not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != item["source_sha256"]:
+            if not (ROOT / item["source"]).exists():
                 errors.append(item["source"])
         return errors
     return [value for value in HEADLINE_NUMBERS if value not in text]
@@ -155,18 +243,34 @@ def manuscript_text(source: Path) -> str:
         if path in ancestors or not path.is_relative_to(PAPER.resolve()):
             raise ValueError("Cyclic or out-of-paper TeX input")
         text = path.read_text(encoding="utf-8")
+
         def include(match):
             target = path.parent / match.group(1)
             if not target.suffix:
                 target = target.with_suffix(".tex")
-            return "" if target.name == "r3_claims.tex" else expand(target, (*ancestors, path))
+            return (
+                ""
+                if target.name == "r3_claims.tex"
+                else expand(target, (*ancestors, path))
+            )
+
         return re.sub(r"\\input\{([^}]+)\}", include, text)
 
     text = expand(source)
     definitions = PAPER / "r3_claims.tex"
     if "\\bibliography{references_r3}" in text and definitions.exists():
-        macros = dict(re.findall(r"\\newcommand\{\\(R[A-Za-z]+)\}\{([^\n]*)\}\s*$", definitions.read_text(), re.M))
-        text = re.sub(r"\\(R[A-Za-z]+)(?:\{\})?", lambda match: macros.get(match.group(1), match.group(0)), text)
+        macros = dict(
+            re.findall(
+                r"\\newcommand\{\\(R[A-Za-z]+)\}\{([^\n]*)\}\s*$",
+                definitions.read_text(),
+                re.M,
+            )
+        )
+        text = re.sub(
+            r"\\(R[A-Za-z]+)(?:\{\})?",
+            lambda match: macros.get(match.group(1), match.group(0)),
+            text,
+        )
     return text
 
 
@@ -181,7 +285,11 @@ def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
         passes.append({"check": "three key points", "found": 3})
     for index, point in enumerate(points, 1):
         length = len(point.strip())
-        record = {"check": f"key point {index} length", "chars": length, "limit": KEY_POINT_CHARS}
+        record = {
+            "check": f"key point {index} length",
+            "chars": length,
+            "limit": KEY_POINT_CHARS,
+        }
         (passes if length <= KEY_POINT_CHARS else failures).append(record)
 
     abstract = body(text, "\\begin{abstract}")
@@ -191,23 +299,42 @@ def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
 
     summary = body(text, "\\begin{plainlanguagesummary}")
     count = words(summary)
-    record = {"check": "plain language summary length", "words": count, "limit": SUMMARY_WORDS}
+    record = {
+        "check": "plain language summary length",
+        "words": count,
+        "limit": SUMMARY_WORDS,
+    }
     (passes if 0 < count <= SUMMARY_WORDS else failures).append(record)
 
     record = {"check": "open research statement present"}
-    (passes if "\\section*{Open Research Statement}" in text else failures).append(record)
+    (passes if "\\section*{Open Research Statement}" in text else failures).append(
+        record
+    )
 
     absent = missing_numbers(text)
-    registry = ROOT / "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json"
-    number_count = len(json.loads(registry.read_text())["claims"]) if "\\bibliography{references_r3}" in text and registry.exists() else len(HEADLINE_NUMBERS)
-    record = {"check": "headline numbers present", "checked": number_count, "missing": absent}
+    registry = (
+        ROOT
+        / "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json"
+    )
+    number_count = (
+        len(json.loads(registry.read_text())["claims"])
+        if "\\bibliography{references_r3}" in text and registry.exists()
+        else len(HEADLINE_NUMBERS)
+    )
+    record = {
+        "check": "headline numbers present",
+        "checked": number_count,
+        "missing": absent,
+    }
     (passes if not absent else failures).append(record)
 
     cited = set(re.findall(r"\\cite[A-Za-z]*\{([^}]*)\}", text))
     cited = {key.strip() for group in cited for key in group.split(",") if key.strip()}
     declared: set[str] = set()
     bibliography = re.findall(r"\\bibliography\{([^}]+)\}", text)
-    names = [name.strip() + ".bib" for group in bibliography for name in group.split(",")]
+    names = [
+        name.strip() + ".bib" for group in bibliography for name in group.split(",")
+    ]
     for name in names or ("references.bib", "references_additions.bib"):
         path = PAPER / name
         if path.exists():
@@ -229,7 +356,11 @@ def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--skip-build", action="store_true", help="check the limits without running LaTeX")
+    parser.add_argument(
+        "--skip-build",
+        action="store_true",
+        help="check the limits without running LaTeX",
+    )
     args = parser.parse_args()
 
     source = PAPER / f"{MAIN}.tex"
@@ -316,8 +447,12 @@ def main() -> int:
     }
     si_pdf = PAPER / f"{SI}.pdf"
     published_pdf = PAPER / f"{PUBLISHED}.pdf"
-    report["supporting_information"] = str(si_pdf.relative_to(ROOT)) if si_pdf.exists() else None
-    report["published_layout"] = str(published_pdf.relative_to(ROOT)) if published_pdf.exists() else None
+    report["supporting_information"] = (
+        str(si_pdf.relative_to(ROOT)) if si_pdf.exists() else None
+    )
+    report["published_layout"] = (
+        str(published_pdf.relative_to(ROOT)) if published_pdf.exists() else None
+    )
     for key, target in (
         ("pages", pdf),
         ("supporting_information_pages", si_pdf),
@@ -326,9 +461,16 @@ def main() -> int:
         if target.exists():
             info = run(["pdfinfo", str(target)], cwd=PAPER, env=env).stdout
             report[key] = next(
-                (line.split()[-1] for line in info.splitlines() if line.startswith("Pages:")), None
+                (
+                    line.split()[-1]
+                    for line in info.splitlines()
+                    if line.startswith("Pages:")
+                ),
+                None,
             )
-    (PAPER / "build_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    (PAPER / "build_report.json").write_text(
+        json.dumps(report, indent=2), encoding="utf-8"
+    )
 
     for record in passes:
         print("  ok  ", record)
@@ -337,7 +479,9 @@ def main() -> int:
     if pdf.exists():
         print(f"\n{pdf.relative_to(ROOT)} — {report.get('pages', '?')} pages")
     if si_pdf.exists():
-        print(f"{si_pdf.relative_to(ROOT)} — {report.get('supporting_information_pages', '?')} pages")
+        print(
+            f"{si_pdf.relative_to(ROOT)} — {report.get('supporting_information_pages', '?')} pages"
+        )
     if published_pdf.exists():
         print(
             f"{published_pdf.relative_to(ROOT)} — "

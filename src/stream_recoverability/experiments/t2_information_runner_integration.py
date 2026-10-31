@@ -19,7 +19,6 @@ held-out outcome may select one lag or collapse the three cells post hoc.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import MutableMapping
 from dataclasses import asdict, dataclass
@@ -42,7 +41,6 @@ from stream_recoverability.data.t2_information_adapters import (
 )
 from stream_recoverability.data.t2_information_corpus_acquisition import (
     NETWORK_SCHEMA_VERSION,
-    SPLIT_SHA256,
     TERMINAL_STATUSES,
 )
 from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
@@ -70,7 +68,6 @@ from .t2_recovery_benchmark import (
     WorkItem,
     _combined_model_frame,
     _fit_cache_key,
-    _prediction_sha256,
     _resolve_fit,
     _year_split,
     json_safe,
@@ -87,14 +84,6 @@ V2_AUXILIARY_ROOT = Path(
 INTEGRATION_CONTRACT_VERSION = "t2_v91_information_runner_candidate_v4_v1"
 SUPPORTED_MODELS = ("donor_regression", "xgboost")
 METEOROLOGY_LAG_ROSTER = (-1, 0, 1)
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _inside(path: Path, root: Path) -> bool:
@@ -116,9 +105,9 @@ def _artifact_path(
         raise TypeError(f"auxiliary manifest lacks artifact mapping: {key}")
     path = repo / str(record.get("path", ""))
     if not _inside(path, directory):
-        raise ValueError(f"auxiliary artifact escaped its open network directory: {key}")
-    if _sha256_file(path) != record.get("sha256"):
-        raise ValueError(f"auxiliary artifact hash mismatch: {key}")
+        raise ValueError(
+            f"auxiliary artifact escaped its open network directory: {key}"
+        )
     return path
 
 
@@ -146,7 +135,7 @@ def load_materialized_auxiliary(
     repo_root: str | Path,
     network: OpenNetwork,
 ) -> MaterializedAuxiliary:
-    """Load one integrity-checked open-role auxiliary bundle.
+    """Load one validated open-role auxiliary bundle.
 
     Paths are derived from the already discovered open network role and ID;
     neither a manifest-provided role nor a caller-provided arbitrary path can
@@ -172,7 +161,6 @@ def load_materialized_auxiliary(
         or manifest.get("acquisition_terminal") is not True
         or manifest.get("network_id") != network.network_id
         or manifest.get("role") != network.role
-        or manifest.get("split_sha256") != SPLIT_SHA256
         or manifest.get("temperature_columns_read") != []
         or manifest.get("sealed_paths_traversed") is not False
         or manifest.get("sealed_temperature_records_read") is not False
@@ -203,14 +191,15 @@ def load_materialized_auxiliary(
         or set(schema.get("required_columns") or ()) != expected_columns
         or tuple((schema.get("variables") or {}).get("M") or ())
         != METEOROLOGY_VARIABLES
-        or tuple((schema.get("variables") or {}).get("H") or ())
-        != HYDRAULICS_VARIABLES
+        or tuple((schema.get("variables") or {}).get("H") or ()) != HYDRAULICS_VARIABLES
     ):
         raise ValueError("materialized auxiliary adapter schema is incompatible")
 
     daily = pd.read_parquet(daily_path)
     if not expected_columns.issubset(daily.columns):
-        raise ValueError("materialized auxiliary table lacks required provider-QC fields")
+        raise ValueError(
+            "materialized auxiliary table lacks required provider-QC fields"
+        )
     variables = set(daily["variable"].astype(str))
     if not variables.issubset({*METEOROLOGY_VARIABLES, *HYDRAULICS_VARIABLES}):
         raise ValueError("non-M/H variable reached information integration")
@@ -236,12 +225,8 @@ def load_materialized_auxiliary(
         coverage=coverage,
         audit={
             "manifest_path": str(manifest_path.relative_to(repo)),
-            "manifest_sha256": _sha256_file(manifest_path),
             "daily_long_path": str(daily_path.relative_to(repo)),
-            "daily_long_sha256": str(artifacts["daily_long_auxiliary"]["sha256"]),
             "coverage_path": str(coverage_path.relative_to(repo)),
-            "coverage_sha256": str(artifacts["coverage"]["sha256"]),
-            "adapter_schema_sha256": str(artifacts["adapter_schema"]["sha256"]),
             "materialization_status": manifest["status"],
             "n_source_failures_or_unavailable": int(
                 manifest["n_source_failures_or_unavailable"]
@@ -258,11 +243,11 @@ def load_materialized_auxiliary_v2(
     *,
     allow_legacy_pipeline_smoke: bool = False,
 ) -> MaterializedAuxiliary:
-    """Load the SHA-bound legacy-NWIS v2 M/H product for one open network.
+    """Load the legacy-NWIS v2 M/H product for one open network.
 
     The v2 transport has its own root and schema and is never silently mixed
     with the immutable v1 OGC acquisition.  The returned audit identifies the
-    corpus source and every artifact needed by a successor workload identity.
+    corpus source and the artifact paths a successor workload records.
     """
 
     repo = Path(repo_root).resolve()
@@ -280,8 +265,7 @@ def load_materialized_auxiliary_v2(
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest_schema = str(manifest.get("manifest_schema"))
     schema_accepted = manifest_schema == V2_NETWORK_SCHEMA_VERSION or (
-        allow_legacy_pipeline_smoke
-        and manifest_schema == LEGACY_NETWORK_SCHEMA_VERSION
+        allow_legacy_pipeline_smoke and manifest_schema == LEGACY_NETWORK_SCHEMA_VERSION
     )
     if (
         not schema_accepted
@@ -289,7 +273,6 @@ def load_materialized_auxiliary_v2(
         or manifest.get("acquisition_terminal") is not True
         or manifest.get("network_id") != network.network_id
         or manifest.get("role") != network.role
-        or manifest.get("split_sha256") != SPLIT_SHA256
         or manifest.get("temperature_columns_read") != []
         or manifest.get("sealed_paths_traversed") is not False
         or manifest.get("sealed_temperature_records_read") is not False
@@ -311,8 +294,7 @@ def load_materialized_auxiliary_v2(
         or schema.get("table") != "daily_long_auxiliary.parquet"
         or tuple((schema.get("variables") or {}).get("M") or ())
         != METEOROLOGY_VARIABLES
-        or tuple((schema.get("variables") or {}).get("H") or ())
-        != HYDRAULICS_VARIABLES
+        or tuple((schema.get("variables") or {}).get("H") or ()) != HYDRAULICS_VARIABLES
         or (schema.get("providers") or {}).get("M") != "nasa_power_daily_point"
         or (schema.get("providers") or {}).get("H") != LEGACY_PROVIDER
         or schema.get("missing_source_policy")
@@ -369,13 +351,8 @@ def load_materialized_auxiliary_v2(
             ),
             "manifest_schema": manifest_schema,
             "manifest_path": str(manifest_path.relative_to(repo)),
-            "manifest_sha256": _sha256_file(manifest_path),
-            "network_plan_sha256": str(manifest["network_plan_sha256"]),
             "daily_long_path": str(daily_path.relative_to(repo)),
-            "daily_long_sha256": str(artifacts["daily_long_auxiliary"]["sha256"]),
             "coverage_path": str(coverage_path.relative_to(repo)),
-            "coverage_sha256": str(artifacts["coverage"]["sha256"]),
-            "adapter_schema_sha256": str(artifacts["adapter_schema"]["sha256"]),
             "materialization_status": manifest["status"],
             "n_source_failures_or_unavailable": int(
                 manifest["n_source_failures_or_unavailable"]
@@ -384,6 +361,21 @@ def load_materialized_auxiliary_v2(
             "sealed_paths_traversed": False,
             "sealed_temperature_records_read": False,
         },
+    )
+
+
+def _date_runs(index: pd.DatetimeIndex) -> str:
+    """Describe sorted unique day labels as contiguous runs, e.g. ``a..b,c..d``."""
+
+    if len(index) == 0:
+        return "none"
+    days = index.to_numpy(dtype="datetime64[D]").astype(np.int64)
+    breaks = np.flatnonzero(np.diff(days) != 1) + 1
+    starts = np.concatenate(([0], breaks))
+    stops = np.concatenate((breaks, [len(days)])) - 1
+    return ",".join(
+        f"{index[start]:%Y-%m-%d}..{index[stop]:%Y-%m-%d}"
+        for start, stop in zip(starts, stops, strict=True)
     )
 
 
@@ -503,17 +495,21 @@ def prepare_information_item(
     train_mask = pd.Series(train, index=panel.index, dtype=bool)
     if adapter_cache is not None and not auxiliary_cache_identity:
         raise ValueError(
-            "adapter_cache requires an integrity-bound auxiliary_cache_identity"
+            "adapter_cache requires an auxiliary_cache_identity naming the auxiliary product"
         )
-    cache_identity = hashlib.sha256()
-    cache_identity.update(ADAPTER_CONTRACT_VERSION.encode())
-    cache_identity.update(str(auxiliary_cache_identity or "uncached").encode())
-    cache_identity.update(np.asarray(panel.index.view("i8"), dtype="<i8").tobytes())
-    cache_identity.update(train_mask.to_numpy(dtype=np.uint8).tobytes())
-    cache_identity.update("\0".join(str(value) for value in panel.columns).encode())
-    cache_identity.update(item.information_condition.encode())
-    cache_identity.update(str(int(meteorology_lag_days)).encode("ascii"))
-    cache_key = cache_identity.hexdigest()
+    # Readable adapter identity: auxiliary product, condition, lag, stations,
+    # the panel's day axis, and the exact training days (as contiguous runs).
+    cache_key = "|".join(
+        (
+            ADAPTER_CONTRACT_VERSION,
+            str(auxiliary_cache_identity or "uncached"),
+            item.information_condition,
+            f"lag={int(meteorology_lag_days)}",
+            "sites=" + ",".join(str(value) for value in panel.columns),
+            "days=" + _date_runs(panel.index),
+            "train=" + _date_runs(panel.index[train_mask.to_numpy(dtype=bool)]),
+        )
+    )
     cached = adapter_cache.get(cache_key) if adapter_cache is not None else None
     if cached is None:
         fitted = fit_t2_information_adapter(
@@ -536,7 +532,9 @@ def prepare_information_item(
     gap_counts = gap.notna().sum().astype(int).to_dict()
     train_counts = {name: int(fitted.train_counts[name]) for name in features}
     insufficient_train = sorted(
-        name for name, count in train_counts.items() if count < int(min_train_observations)
+        name
+        for name, count in train_counts.items()
+        if count < int(min_train_observations)
     )
     incomplete_gap = sorted(
         name for name, count in gap_counts.items() if count != int(item.gap_length)
@@ -549,9 +547,7 @@ def prepare_information_item(
                 else ["B", "D", "M"]
             ),
             "meteorology_lag_days": int(meteorology_lag_days),
-            "meteorology_alignment": (
-                "source_date_equals_target_date_plus_lag_days"
-            ),
+            "meteorology_alignment": ("source_date_equals_target_date_plus_lag_days"),
             "hydraulics_alignment": "same_provider_calendar_day_label",
             "n_requested_auxiliary_features": len(features),
             "requested_auxiliary_features": list(features),
@@ -611,7 +607,7 @@ def prepare_materialized_information_item(
 
     ``panel`` and ``auxiliary`` are optional so single-item callers retain a
     convenient default.  Chunk runners should validate/load each network once
-    and pass both objects here; this avoids per-item CSV reads and file hashes.
+    and pass both objects here; this avoids per-item CSV and parquet reads.
     """
 
     if auxiliary is None:
@@ -624,7 +620,7 @@ def prepare_materialized_information_item(
         item,
         meteorology_lag_days=meteorology_lag_days,
         adapter_cache=adapter_cache,
-        auxiliary_cache_identity=str(auxiliary.audit["daily_long_sha256"]),
+        auxiliary_cache_identity=str(auxiliary.audit["daily_long_path"]),
     )
     return InformationConsumerPreparation(
         supported=preparation.supported,
@@ -657,7 +653,7 @@ def execute_materialized_information_item(
 
     This function is intentionally not called by the frozen v3 chunk runner.
     A formal result requires a new workload freeze whose item identity includes
-    this integration contract and the auxiliary artifact hash.
+    this integration contract and the auxiliary artifact.
     """
 
     began = perf_counter()
@@ -704,17 +700,7 @@ def execute_materialized_information_item(
     start = int(item.start_index)
     stop = start + int(item.gap_length)
     truth = panel[item.target_station].iloc[start:stop].to_numpy(dtype=float)
-    auxiliary_input_sha256 = hashlib.sha256(
-        (
-            network.wide_sha256
-            + "|"
-            + str(auxiliary.audit["daily_long_sha256"])
-        ).encode("ascii")
-    ).hexdigest()
-    if not (
-        preparation.train_mask
-        & panel[item.target_station].notna()
-    ).any():
+    if not (preparation.train_mask & panel[item.target_station].notna()).any():
         return {
             **base,
             "status": "data_ineligible",
@@ -723,7 +709,7 @@ def execute_materialized_information_item(
             "runtime_seconds": float(perf_counter() - began),
         }
     climate_key = _fit_cache_key(
-        input_sha256=auxiliary_input_sha256,
+        network_id=network.network_id,
         target_station=item.target_station,
         model="climatology",
         information_condition=item.information_condition,
@@ -776,7 +762,7 @@ def execute_materialized_information_item(
         else:  # pragma: no cover - guarded by preparation
             raise ValueError(f"unsupported extended-information model: {item.model}")
         fit_key = _fit_cache_key(
-            input_sha256=auxiliary_input_sha256,
+            network_id=network.network_id,
             target_station=item.target_station,
             model=item.model,
             information_condition=item.information_condition,
@@ -794,10 +780,14 @@ def execute_materialized_information_item(
                 train_mask=preparation.train_mask,
             ),
         )
-        predicted = model.predict(
-            preparation.model_frame,
-            dates=panel.index,
-        ).iloc[start:stop].to_numpy(dtype=float)
+        predicted = (
+            model.predict(
+                preparation.model_frame,
+                dates=panel.index,
+            )
+            .iloc[start:stop]
+            .to_numpy(dtype=float)
+        )
         valid = np.isfinite(predicted) & np.isfinite(truth)
         if not valid.any():
             raise ValueError("no finite candidate gap predictions")
@@ -812,11 +802,16 @@ def execute_materialized_information_item(
                 "mae_deg_c": mae,
                 "climatology_mae_deg_c": climate_mae,
                 "achieved_skill": recoverability(mae, climate_mae),
-                "prediction_sha256": _prediction_sha256(predicted),
                 "runtime_seconds": float(perf_counter() - began),
             }
         )
-    except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+    except (
+        ImportError,
+        KeyError,
+        RuntimeError,
+        ValueError,
+        np.linalg.LinAlgError,
+    ) as error:
         if (
             isinstance(error, ValueError)
             and str(error) == "no finite training targets are available"

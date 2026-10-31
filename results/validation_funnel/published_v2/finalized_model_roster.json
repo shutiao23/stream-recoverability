@@ -7,25 +7,13 @@
       "path": "results/validation_funnel/published_v2/proposed_go_no_go/proposed_go_no_go_decision.json"
     },
     "ranking": {
-      "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/validation_model_ranking.csv"
+      "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/validation_model_ranking.csv"
     },
     "stage2_selection": {
-      "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/stage2_finalist_selection.csv"
+      "path": "results/validation_funnel/published_v2/design_freeze_v4_variant03/stage2_finalist_selection.csv"
     }
   },
   "best_traditional_model": "donor_regression",
-  "code_provenance": {
-    "dirty_tracked_paths": [],
-    "external_relevant_input_count": 0,
-    "git_commit": "0bb1bcfffe8bf7d670d6ae50fcb67319dca60229",
-    "relevant_source_clean": true,
-    "relevant_source_digest": "409e89e4a9f0cb3f37a4faf517ff8243a4606ccfe3bbe96afe1e03eb0a1ca702",
-    "relevant_source_file_count": 50,
-    "relevant_untracked_paths": [],
-    "schema_version": "code_provenance_v1",
-    "status": "clean",
-    "tracked_worktree_clean": true
-  },
   "data_version": "published_v2",
   "design_version": "design_freeze_v4",
   "diagnostic_models": [

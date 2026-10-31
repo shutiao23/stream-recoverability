@@ -314,8 +314,8 @@ resampled networks.
 ### 2.10 Evidence roles and third-confirmation rule
 
 The first-panel analyses and the second panel were confirmed or developed in
-sequence as previously reported: the second panel was internally frozen and
-hash-bound before its outcomes were scored, but because its amendment and
+sequence as previously reported: the second panel was internally frozen
+before its outcomes were scored, but because its amendment and
 outcomes entered version control in the same commit, it is not externally
 verifiable preregistration. All revision analyses (paired comparisons,
 support hierarchy, risk surface, model and missingness matrices, rolling-
@@ -657,7 +657,7 @@ repository metadata, and verify that every linked artifact resolves to the
 deposited version. No placeholder DOI should be cited as an archived record.
 
 The third confirmation follows protocol v3, drafted to fix the provenance
-flaw of the internally hash-bound second panel (whose amendment and outcomes
+flaw of the internally frozen second panel (whose amendment and outcomes
 shared one version-control commit). Protocol v3 requires, before any
 third-panel outcome is opened: (i) a separate public commit containing the
 protocol, the exact roster, endpoint definitions, and the power analysis;

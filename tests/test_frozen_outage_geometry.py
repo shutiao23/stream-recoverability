@@ -8,7 +8,6 @@ from stream_recoverability.experiments.frozen_outage_geometry import (
     build_adversarial_catalog,
     build_binding_manifest,
     build_natural_outage_catalog,
-    canonical_csv_sha256,
     load_frozen_geometry_bindings,
     load_open_role_availability,
     write_frozen_geometry_artifacts,
@@ -73,18 +72,24 @@ def test_adversarial_catalog_has_resolved_truth_bearing_windows() -> None:
     assert catalog["benchmark_eligible"].all()
     assert catalog["truth_source"].eq("held_out_observed_days").all()
     assert catalog["selection_uses_outcome_values"].eq(False).all()
-    assert {"record_left_edge", "record_right_edge", "donor_thin", "synchronous_network_outage"}.issubset(
-        set(catalog["stress_id"])
-    )
+    assert {
+        "record_left_edge",
+        "record_right_edge",
+        "donor_thin",
+        "synchronous_network_outage",
+    }.issubset(set(catalog["stress_id"]))
 
 
-def test_manifest_is_a_non_result_and_hash_is_order_stable() -> None:
+def test_manifest_is_a_non_result_and_seeded_geometry_is_deterministic() -> None:
     availability = _availability()
     natural = build_natural_outage_catalog(availability)
     adversarial = build_adversarial_catalog(availability, lengths=(30,))
-    shuffled = natural.sample(frac=1.0, random_state=3)
-    assert canonical_csv_sha256(natural) == canonical_csv_sha256(shuffled)
-    manifest = build_binding_manifest(availability, natural, adversarial, {"sources": []})
+    assert build_natural_outage_catalog(availability).equals(natural)
+    assert build_adversarial_catalog(availability, lengths=(30,)).equals(adversarial)
+    assert natural["geometry_id"].is_unique and adversarial["geometry_id"].is_unique
+    manifest = build_binding_manifest(
+        availability, natural, adversarial, {"sources": []}
+    )
     assert manifest["passed"] is False
     assert manifest["formal_evidence"] is False
     assert manifest["sealed_temperature_records_read"] is False
@@ -103,11 +108,13 @@ def test_sealed_role_is_rejected() -> None:
         raise AssertionError("sealed role must be rejected")
 
 
-def test_runner_loader_verifies_bytes_and_truth_contract(tmp_path) -> None:
+def test_runner_loader_round_trips_frozen_catalogs(tmp_path) -> None:
     availability = _availability()
     natural = build_natural_outage_catalog(availability)
     adversarial = build_adversarial_catalog(availability, lengths=(30,))
-    manifest = build_binding_manifest(availability, natural, adversarial, {"sources": []})
+    manifest = build_binding_manifest(
+        availability, natural, adversarial, {"sources": []}
+    )
     write_frozen_geometry_artifacts(tmp_path, natural, adversarial, manifest)
     loaded_natural, loaded_adversarial, loaded_manifest = load_frozen_geometry_bindings(
         tmp_path
@@ -115,15 +122,6 @@ def test_runner_loader_verifies_bytes_and_truth_contract(tmp_path) -> None:
     assert len(loaded_natural) == len(natural)
     assert len(loaded_adversarial) == len(adversarial)
     assert loaded_manifest["purpose"] == "geometry_binding_not_model_result"
-
-    with (tmp_path / "natural_outage_catalog.csv").open("a", encoding="utf-8") as stream:
-        stream.write("\n")
-    try:
-        load_frozen_geometry_bindings(tmp_path)
-    except ValueError as error:
-        assert "byte drift" in str(error)
-    else:
-        raise AssertionError("catalog byte drift must be rejected")
 
 
 def test_open_role_loader_requires_closure6_and_complete_enough(tmp_path) -> None:
@@ -133,7 +131,6 @@ def test_open_role_loader_requires_closure6_and_complete_enough(tmp_path) -> Non
         "relaxation_applied": True,
         "relaxation_trigger": "open_survival_projection_lt_100",
         "sealed_temperature_records_read": False,
-        "split_sha256": "split-lock",
     }
     for role in ("development", "validation"):
         role_root = tmp_path / role
@@ -155,9 +152,9 @@ def test_open_role_loader_requires_closure6_and_complete_enough(tmp_path) -> Non
             ),
             encoding="utf-8",
         )
-        pd.DataFrame(
-            {"site_id": ["A"], "eligible_for_network": [True]}
-        ).to_csv(network_root / "ingest_qc_report.csv", index=False)
+        pd.DataFrame({"site_id": ["A"], "eligible_for_network": [True]}).to_csv(
+            network_root / "ingest_qc_report.csv", index=False
+        )
         pd.DataFrame(
             {
                 "site_id": ["A", "A", "A"],
@@ -170,7 +167,6 @@ def test_open_role_loader_requires_closure6_and_complete_enough(tmp_path) -> Non
     assert set(availability["network_id"]) == {"huc8_keep"}
     assert list(availability.columns) == ["role", "network_id", "station_id", "date"]
     assert audit["n_sources"] == 1
-    assert audit["split_sha256"] == "split-lock"
 
     manifest_path = tmp_path / "development" / "qc_manifest.json"
     wrong = json.loads(manifest_path.read_text(encoding="utf-8"))

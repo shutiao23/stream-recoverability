@@ -52,7 +52,6 @@
   "identity": "admission__uncertain_support_no_donor_features__strictly_prior_years__all__local_fit__hubeau",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__uncertain_support_no_donor_features__strictly_prior_years__all__local_fit__hubeau.joblib",
-  "model_sha256": "913814945318221ba0a9263af376f0e3c4a8853e8db51e52e47459bb50b2425c",
   "n_training_cases": 165,
   "n_training_groups": 9,
   "name": "uncertain_support_no_donor_features",
@@ -62,8 +61,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

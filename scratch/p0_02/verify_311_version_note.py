@@ -44,8 +44,8 @@ net_index, n_net = m311.factorize_networks(cases["network_id"])
 raw_length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(dtype=float)
 spread = float(np.nanmax(raw_length) - np.nanmin(raw_length))
 
-rng_seed = m311.stable_seed(PANEL, "length", SEED)
-noise_seed = m311.stable_seed(PANEL, "length", SEED)
+rng_seed = m311.draw_seed("length", PANEL, SEED)
+noise_seed = m311.draw_seed("length", PANEL, SEED)
 
 # FIRST pass: jitter = U[0,1) * scale(1.0) * spread(301)
 rng = np.random.default_rng(int(rng_seed))
@@ -69,7 +69,7 @@ def honest_run(score: np.ndarray) -> dict:
             net_index[cal_mask],
             risk_cap=m311.RISK_CAP,
             draws=DRAWS,
-            seed=m311.stable_seed("select", PANEL, SEED, fold, "length_rule"),
+            seed=m311.draw_seed("select", PANEL, SEED, fold, m311.SCORE_CODES["length_rule"]),
         )
         admit[test_mask] = score[test_mask] <= selection["chosen_threshold"]
         test_net = fold_ids[test_mask]

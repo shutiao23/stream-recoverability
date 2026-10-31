@@ -1,7 +1,7 @@
 # Ephemeral fail-closed run copies (recreated by scripts).
 runs/
 
-# NWIS/HydAPI raw download caches; sealed daily_wide panels + sha256 manifests remain.
+# NWIS/HydAPI raw download caches; sealed daily_wide panels remain.
 confirmation_ingest/**/raw_cache/
 
 # Transport-panel and amendment raw download caches: reproducible from the

@@ -7,16 +7,11 @@ scores are taken from ``major_revision_20261020`` and never rewritten.
 
 from __future__ import annotations
 
-import hashlib
 import importlib.util
-import json
-import platform
-import subprocess
 import sys
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -27,9 +22,17 @@ RUN = READY / "major_revision_20261020b"
 ALIGNED = PREV / "p0_01_aligned_policy_admission"
 REPLAY_CASES = PREV / "p0_03_real_calendar_adoption" / "replay_case_decisions.parquet"
 REPLAY_RAW = (
-    READY / "major_revision_20261014" / "p0_03_final_method_replay" / "replay_decisions.parquet"
+    READY
+    / "major_revision_20261014"
+    / "p0_03_final_method_replay"
+    / "replay_decisions.parquet"
 )
-CROSSED_PARQUET = READY / "amendments" / "position_length_paired" / "crossed_development_cases.parquet"
+CROSSED_PARQUET = (
+    READY
+    / "amendments"
+    / "position_length_paired"
+    / "crossed_development_cases.parquet"
+)
 EXTERNAL_PARQUET = (
     READY / "p0_07_wave2_ingest" / "p0_07_wave2_confirmation" / "wave2_cases.parquet"
 )
@@ -59,46 +62,15 @@ def load_311():
     module object cannot be pickled across processes)."""
 
     if "m311" not in _MODELS:
-        m301 = load_script("wrr301", ROOT / "scripts" / "301_wrr_mr_step2_same_info_ablation.py")
-        m311 = load_script("wrr311", ROOT / "scripts" / "311_wrr_p0_02_frozen_risk_thresholds.py")
+        m301 = load_script(
+            "wrr301", ROOT / "scripts" / "301_wrr_mr_step2_same_info_ablation.py"
+        )
+        m311 = load_script(
+            "wrr311", ROOT / "scripts" / "311_wrr_p0_02_frozen_risk_thresholds.py"
+        )
         m311.M301 = m301
         _MODELS.update(m301=m301, m311=m311)
     return _MODELS["m311"]
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with Path(path).open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def git_head() -> str:
-    try:
-        out = subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True
-        )
-        return out.stdout.strip()
-    except Exception:  # pragma: no cover - diagnostics only
-        return "unknown"
-
-
-def write_fingerprint(out_dir: Path, script: str, inputs: dict[str, Path], extra: dict | None = None):
-    payload = {
-        "script": script,
-        "git_head": git_head(),
-        "python": platform.python_version(),
-        "numpy": np.__version__,
-        "pandas": pd.__version__,
-        "inputs": {
-            name: {"path": str(Path(path).relative_to(ROOT)), "sha256": sha256_file(Path(path))}
-            for name, path in inputs.items()
-        },
-    }
-    if extra:
-        payload.update(extra)
-    (out_dir / "protocol_fingerprint.json").write_text(json.dumps(payload, indent=2, sort_keys=True))
 
 
 def cluster_bootstrap(values_by_cluster, stat, *, draws: int = 2000, seed: int = 0):

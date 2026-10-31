@@ -1,12 +1,12 @@
 # P1 mechanism boundary — misalignment, competing peaks, residual correlation, air reconstructor, design-based phase interval
 
-Generated 2026-10-15T10:10:03Z from `scripts/317_wrr_p1_mechanism_boundary.py` (sha256 `a9385c752caf`) at git HEAD `8eade30bbf5f82b9af3b7900de81e52707e8af47`. Wall time 1.3 min.
+Generated 2026-10-15T10:10:03Z from `scripts/317_wrr_p1_mechanism_boundary.py`. Wall time 1.3 min.
 
 ## Protocol
 
 - Cases: the Step-3 paired position x length crossed development panel (`results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet`), reconstructed here from the same deterministic seeds so the daily series are available: 24 stations / 12 networks, 21700 cases, 9495 of them in the crossed design (lengths [30, 60, 90] x overlap classes ['none', 'partial', 'full']).
 - Reconstructors: doy_climatology, smooth_climatology, linear_interp, donor_ridge, air_ridge; leave-one-year-out fits; 30-day windows; network-clustered bootstrap, 2000 draws, seed 23; every interval is the network-equal mean (each network one vote).
-- Air forcing: the v17 table shipped with the study (`results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet`) covers 0/24 crossed-panel stations, so `air_ridge` is not estimable there; the primary run uses the v18 NASA POWER forcing table (`data/interim/v18_air_forcing.parquet`), which covers 24/24. Air rows are labelled by their forcing table in `protocol_fingerprint.json`; `air_available` case share is 1.000 and finite `air_ridge` error share is 0.994.
+- Air forcing: the v17 table shipped with the study (`results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet`) covers 0/24 crossed-panel stations, so `air_ridge` is not estimable there; the primary run uses the v18 NASA POWER forcing table (`data/interim/v18_air_forcing.parquet`), which covers 24/24. Air rows are labelled by their forcing table; `air_available` case share is 1.000 and finite `air_ridge` error share is 0.994.
 - Conditions are computed from the daily series, not from the archived case table (which stores no series): reconstructed 30-day maximum vs truth maximum (days); truth gap to the best disjoint window (C) and to the second-best disjoint window (C2); lag-1 autocorrelation of the reconstruction residual inside the gap and of the reconstructor's own fitted value against truth outside the gap.
 - New conditions are conditional/descriptive: they are not pre-registered and their intervals are not corrected for multiplicity.
 

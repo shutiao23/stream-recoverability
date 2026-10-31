@@ -14,8 +14,7 @@
   "frozen_inputs": {
     "natural_geometry": {
       "n_rows": 2355,
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv",
-      "sha256": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
     },
     "t5_pair_plan": {
       "balance_diagnostics": {
@@ -30,13 +29,11 @@
         "n_unique_network_pairs": 2
       },
       "n_rows": 3,
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/pair_plan.csv",
-      "sha256": "ce4081e87adf12b44f517ad2cb831f26600e0078f172ac7592f5125d85181aaa"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/pair_plan.csv"
     },
     "t5_station_covariates": {
       "n_rows": 330,
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/station_covariates.csv",
-      "sha256": "4d61283828de9bc0a69ad4d058b30fb2dcb94a468c8edbaa2b39f164e10ff828"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/station_covariates.csv"
     }
   },
   "headline_claim_licensed": false,

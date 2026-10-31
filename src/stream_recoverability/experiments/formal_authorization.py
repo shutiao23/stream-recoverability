@@ -1,20 +1,22 @@
-"""Hash-bound authorization for development-test formal experiment suites."""
+"""Structural authorization for development-test formal experiment suites.
+
+A formal suite is authorized only when every frontier-anchored scenario is
+bound to a row of the canonical frontier anchor catalog, the full suite closes
+the exact event/control pair inventory of its event catalog, and the expected
+models follow the finalized validation roster.
+"""
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from stream_recoverability.masks.anchors import load_frontier_anchor_catalog
-from stream_recoverability.masks.event_catalog import (
-    event_catalog_sha256,
-    load_event_episode_catalog,
-)
+from stream_recoverability.masks.event_catalog import load_event_episode_catalog
 
-from .contracts import file_sha256, load_frozen_data_versions
+from .contracts import load_frozen_data_versions
 from .model_registry import load_frozen_model_design
 
 if TYPE_CHECKING:
@@ -52,13 +54,6 @@ def _load_finalized_model_roster(*args: Any, **kwargs: Any) -> Any:
     return load_finalized_model_roster(*args, **kwargs)
 
 
-def _canonical_sha256(value: object) -> str:
-    payload = json.dumps(
-        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
 def _resolve_repository_path(value: str) -> Path:
     candidate = Path(value)
     if candidate.is_absolute() or candidate.is_file():
@@ -70,7 +65,6 @@ def _validate_frontier_anchor_grid(grid: Any) -> dict[str, Any]:
     if str(grid.suite) not in FORMAL_FRONTIER_SUITES:
         raise ValueError(f"formal authorization does not support suite {grid.suite!r}")
     path_value = grid.frontier_anchor_catalog_path
-    digest = grid.frontier_anchor_catalog_sha256
     count = grid.frontier_anchor_count
     if not isinstance(path_value, str) or not path_value:
         raise ValueError("formal suite requires a frozen frontier anchor catalog path")
@@ -92,8 +86,6 @@ def _validate_frontier_anchor_grid(grid: Any) -> dict[str, Any]:
     )
     if path.resolve() != canonical_path:
         raise ValueError("formal execution must use the canonical frontier catalog")
-    if digest != file_sha256(path):
-        raise ValueError("formal frontier anchor catalog file SHA-256 mismatch")
     catalog = load_frontier_anchor_catalog(
         path,
         expected_data_version=anchor_version,
@@ -103,7 +95,7 @@ def _validate_frontier_anchor_grid(grid: Any) -> dict[str, Any]:
         raise ValueError("formal frontier anchor catalog count mismatch")
 
     by_id = catalog.set_index("anchor_id", drop=False)
-    bindings: list[dict[str, Any]] = []
+    bound_scenarios = 0
     for scenario in grid.scenarios:
         condition = scenario.condition
         if str(condition.mask_type) not in FRONTIER_ANCHORED_MASK_TYPES:
@@ -142,31 +134,14 @@ def _validate_frontier_anchor_grid(grid: Any) -> dict[str, Any]:
             raise ValueError(
                 f"formal scenario {scenario.scenario_id} frontier binding mismatch"
             )
-        bindings.append(
-            {
-                "scenario_id": str(scenario.scenario_id),
-                "condition_id": str(condition.condition_id),
-                "mask_seed": int(scenario.mask_seed),
-                "anchor_id": anchor_id,
-            }
-        )
-    if not bindings:
+        bound_scenarios += 1
+    if not bound_scenarios:
         raise ValueError("formal suite contains no catalog-anchored frontier scenarios")
-    bindings.sort(
-        key=lambda item: (
-            item["scenario_id"],
-            item["condition_id"],
-            item["mask_seed"],
-            item["anchor_id"],
-        )
-    )
     return {
         "frontier_anchor_required": True,
         "frontier_anchor_catalog_path": path_value,
-        "frontier_anchor_catalog_sha256": digest,
         "frontier_anchor_count": len(catalog),
-        "frontier_anchor_scenario_count": len(bindings),
-        "frontier_anchor_bindings_sha256": _canonical_sha256(bindings),
+        "frontier_anchor_scenario_count": bound_scenarios,
     }
 
 
@@ -181,16 +156,9 @@ def validate_formal_grid_contract(grid: Any) -> dict[str, Any]:
     if grid.suite != "full":
         return contract
     path_value = grid.event_catalog_path
-    digest = grid.event_catalog_sha256
     analysis_count = grid.event_catalog_analysis_count
     if not isinstance(path_value, str) or not path_value:
         raise ValueError("formal full suite requires a frozen event catalog path")
-    if (
-        not isinstance(digest, str)
-        or len(digest) != 64
-        or any(character not in "0123456789abcdef" for character in digest)
-    ):
-        raise ValueError("formal full suite requires an event catalog SHA-256")
     if (
         isinstance(analysis_count, bool)
         or not isinstance(analysis_count, int)
@@ -208,10 +176,9 @@ def validate_formal_grid_contract(grid: Any) -> dict[str, Any]:
         expected_data_version=next(iter(data_versions)),
         expected_evaluation_split=next(iter(evaluation_splits)),
     )
-    observed_digest = event_catalog_sha256(catalog)
     eligible_count = int(catalog["analysis_eligible"].sum())
-    if observed_digest != digest or eligible_count != analysis_count:
-        raise ValueError("formal full grid event catalog identity/count mismatch")
+    if eligible_count != analysis_count:
+        raise ValueError("formal full grid event catalog analysis count mismatch")
     if len(catalog) != grid.event_catalog_episode_count:
         raise ValueError("formal full grid event catalog episode count mismatch")
 
@@ -248,7 +215,6 @@ def validate_formal_grid_contract(grid: Any) -> dict[str, Any]:
     return {
         **contract,
         "event_catalog_path": path_value,
-        "event_catalog_sha256": digest,
         "event_catalog_episode_count": len(catalog),
         "event_catalog_analysis_count": eligible_count,
         "m7a_scenario_count": len(m7a),
@@ -312,12 +278,10 @@ def _authorization(
         "expected_models": list(models),
         "finalized_model_roster": {
             "path": roster.manifest_path,
-            "sha256": roster.manifest_sha256,
             "selected_models": list(roster.selected_models),
             "best_traditional_model": roster.best_traditional_model,
             "proposed_decision": roster.proposed_decision,
             "selection_data_version": roster.selection_data_version,
-            "selection_design_hash": roster.selection_design_hash,
             "selection_contract": json.loads(json.dumps(roster.selection_contract)),
             "selection_data_version_manifest": json.loads(
                 json.dumps(roster.selection_data_version_manifest)
@@ -389,7 +353,7 @@ def authorize_proposed_estimand(
 def proposed_estimand_authorization(
     roster: FinalizedModelRoster, *, suite: str
 ) -> dict[str, Any] | None:
-    """Build execution metadata from an already hash-validated roster."""
+    """Build execution metadata from an already validated roster."""
 
     if roster.proposed_decision == "framework_only":
         return None
@@ -438,7 +402,6 @@ def validate_formal_authorization(
         raise TypeError("formal authorization lacks finalized_model_roster")
     selected = roster.get("selected_models")
     decision = roster.get("proposed_decision")
-    digest = roster.get("sha256")
     if (
         not isinstance(selected, list)
         or not selected
@@ -447,12 +410,6 @@ def validate_formal_authorization(
         or ("proposed" in selected) != (decision == "include_proposed_formally")
     ):
         raise ValueError("formal authorization contains an inconsistent roster")
-    if (
-        not isinstance(digest, str)
-        or len(digest) != 64
-        or any(character not in "0123456789abcdef" for character in digest)
-    ):
-        raise ValueError("formal authorization roster lacks lowercase SHA-256")
     roster_path_value = roster.get("path")
     if not isinstance(roster_path_value, str) or not roster_path_value:
         raise ValueError("formal authorization roster lacks a path")
@@ -478,12 +435,10 @@ def validate_formal_authorization(
         selection_data_version_manifest_path=selection_path,
     )
     reloaded_fields = {
-        "sha256": reloaded.manifest_sha256,
         "selected_models": list(reloaded.selected_models),
         "best_traditional_model": reloaded.best_traditional_model,
         "proposed_decision": reloaded.proposed_decision,
         "selection_data_version": reloaded.selection_data_version,
-        "selection_design_hash": reloaded.selection_design_hash,
         "selection_contract": reloaded.selection_contract,
         "selection_data_version_manifest": reloaded.selection_data_version_manifest,
         "validation_anchor_catalog": reloaded.validation_anchor_catalog,

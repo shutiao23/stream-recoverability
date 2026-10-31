@@ -1,6 +1,6 @@
 # P1 / F11 — learning curves with repeated training-network draws
 
-Script: `scripts/316_wrr_p1_learning_curve_repeats.py` (sha256 `b2a07ff4e557`), feature sets and learner imported verbatim from `scripts/301_wrr_mr_step2_same_info_ablation.py` (sha256 `abf191bed6bb`).
+Script: `scripts/316_wrr_p1_learning_curve_repeats.py`, feature sets and learner imported verbatim from `scripts/301_wrr_mr_step2_same_info_ablation.py`.
 
 ## Why
 
@@ -204,5 +204,5 @@ Support at 10 training networks vs generic at 25/50/75/all, independent draw set
 5. `abserr_policy` is the retrospective policy label; the nest isolates representation (feature budget), not reconstructor selection.
 6. Total runtime is bounded well below the 40-minute budget; no draw reduction was needed (20 draws per size).
 
-Runtime: grid 73.7 s, wall 74.0 s on 64 workers. Outputs: `learning_curves_repeats.csv`, `curve_summary.csv`, `paired_differences.csv`, `protocol_fingerprint.json`, `SUMMARY.md`.
+Runtime: grid 73.7 s, wall 74.0 s on 64 workers. Outputs: `learning_curves_repeats.csv`, `curve_summary.csv`, `paired_differences.csv`, `SUMMARY.md`.
 

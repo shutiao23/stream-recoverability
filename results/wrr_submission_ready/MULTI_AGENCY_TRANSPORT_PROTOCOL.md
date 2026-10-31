@@ -1,7 +1,7 @@
 # Multi-agency transport protocol (P0-07 extension) — SEALED FOR DESIGN
 
 Original text written and committed **before** any multi-agency panel was fetched
-or scored (commit `5acda75b47`). Two amendments follow, both made and committed
+or scored. Two amendments follow, both made and committed
 **after ingest attempts but before the panel was sealed or any transport case was
 scored**: Amendment 1 (prior-access scope, including the `site_id` catalogue rule
 and the exclusion of `nve_hydapi`) and Amendment 2 (assurance strata). The commit
@@ -116,7 +116,7 @@ the ordering disclosed in the manuscript.
 
 | Item | Value |
 |---|---|
-| Freeze file | `P0_06_method_freeze.json` (sha256 recorded in seal) |
+| Freeze file | `P0_06_method_freeze.json` (recorded in seal) |
 | Model | `results/v17_fitness/step9_freeze/certificate.joblib` (unchanged) |
 | Predict path | `Certificate.predict` using decision-time visible features only |
 | Primary endpoint | hottest-30 mean daily water temperature (°C) |
@@ -140,8 +140,8 @@ A network enters the transport panel only if all of the following hold:
 4. Network is the agency-native grouping (catchment or river water body) with
    **≥ 2 stations having ≥ 4 complete calendar years** (the frozen minimum and
    a donor requirement).
-5. Input files are hashed into `multi_agency_inputs_manifest.csv` before scoring;
-   the seal records those hashes.
+5. Input files are listed in `multi_agency_inputs_manifest.csv` before scoring;
+   the seal records that manifest.
 6. No station in the panel may appear in the v17/v18 study rosters.
 
 ## Panel targets

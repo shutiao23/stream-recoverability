@@ -54,7 +54,7 @@ simultaneous interval coverage, safe-fill control, and station-placement
 benefit did not transfer as
 operational guarantees. Fitting-period error curves are therefore the
 strongest tested pre-evaluation screen, but their use for absolute error or
-management thresholds requires local labels. An internally hash-bound second
+management thresholds requires local labels. An internally frozen second
 evaluation reproduced direct-horizon ordering and near-unit calibration, but
 its intervals remained inefficient and exact triage released nothing. Its
 amendment lacks a separate public pre-outcome commit.
@@ -259,7 +259,7 @@ reported as method development, not as independent confirmation. For the
 second independent confirmation, the analysis plan requires 60--80 wholly new
 scored networks,
 with a minimum of 40 after attrition and the specified domain minima. Its v2
-eligibility amendment was internally frozen and hash-bound to the exact roster
+eligibility amendment was internally frozen together with the exact roster
 before recovery scoring. Because the amendment and outcomes enter version
 control in the same commit, we do not describe v2 as externally preregistered.
 All development networks and all 42 first-panel networks with scored recovery
@@ -426,7 +426,7 @@ Three roster members had undergone source and quality checks in the first
 panel but had no recovery outcome scored there. Overlap with all development
 networks and with the 42 first-panel scored networks was zero. The evaluation
 therefore uses independent recovery outcomes, but its source-QC history is not
-entirely untouched. The v2 eligibility amendment was internally hash-bound
+entirely untouched. The v2 eligibility amendment was internally frozen
 before recovery scoring, yet the amendment and outcomes enter version control
 in the same commit; it is not externally verifiable preregistration.
 

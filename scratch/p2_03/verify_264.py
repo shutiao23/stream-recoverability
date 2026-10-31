@@ -59,7 +59,7 @@ def main() -> int:
     # every numeric row has a unit, a denominator and a parseable value
     bad_numeric = []
     for r in rows:
-        if r["unit"] in ("text", "bool", "sha256", ""):
+        if r["unit"] in ("text", "bool", ""):
             continue
         if not r["denominator"].strip():
             bad_numeric.append((r["entity_id"], r["field"], "no denominator"))
@@ -87,7 +87,7 @@ def main() -> int:
     # the registry's numeric headline claims must carry at least one numeric row
     numeric_claims = {
         r["entity_id"] for r in rows
-        if r["entity_type"] == "claim" and r["unit"] not in ("text", "bool", "sha256", "")
+        if r["entity_type"] == "claim" and r["unit"] not in ("text", "bool", "")
     }
     check(len(numeric_claims) >= 18,
           f"numeric claim coverage ({len(numeric_claims)} claims with numbers)")

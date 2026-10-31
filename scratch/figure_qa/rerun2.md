@@ -555,5 +555,5 @@ Caveats, in order of how easily they can mislead:
 3. **Placement scale is derived, not declared.** It is measured from matched words between the figure PDF and the built PDF; only figures whose matches form a tight cluster are reported as measured.
 4. **Colour is not judged.** The report gives the page size in inches and the effective raster resolution; it does not check colour-blind safety or greyscale conversion.
 5. **Only the files listed above were inspected.** Embedded fonts are reported as Poppler sees them; a Type 3 subset with no BaseFont name appears as `[none]`.
-6. **The artifacts can move under the run.** Every inspected file is pinned by SHA-256 in the JSON, so a mismatch with a later build is visible rather than silent; re-run the harness after any rebuild.
+6. **The artifacts can move under the run.** The JSON lists every inspected file, and a later build can change any of them; re-run the harness after any rebuild.
 

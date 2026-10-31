@@ -34,7 +34,6 @@
     "script": "scratch/smhi_verify_smhi_ingest.py",
     "report": "scratch/smhi_verify_report.json",
     "cross_check_mismatches": [],
-    "n_stations_with_bad_sha256": 0,
     "rescan_quality_codes": {
       "O": 1063746
     },

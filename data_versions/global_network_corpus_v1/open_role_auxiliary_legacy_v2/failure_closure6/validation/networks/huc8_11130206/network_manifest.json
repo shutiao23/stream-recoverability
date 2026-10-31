@@ -3,41 +3,33 @@
   "artifacts": {
     "adapter_schema": {
       "bytes": 1162,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/adapter_schema.json",
-      "sha256": "58b3f40d837993b1a63cde5b7434b7f1b7d853726e767f6a591ebc4ae68c78d2"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/adapter_schema.json"
     },
     "coverage": {
       "bytes": 3634,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/coverage.csv",
-      "sha256": "a2cb65a6e598aa03a48465ec5bc4cfeb8eee83932c594177650ac8038e3345d7"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/coverage.csv"
     },
     "daily_long_auxiliary": {
       "bytes": 2233389,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/daily_long_auxiliary.parquet",
-      "sha256": "cd33ae5027e89240931ebcceadf26dd15bb39c1338c4c2b8ed0669a6e1c6b781"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/daily_long_auxiliary.parquet"
     },
     "power_point_metadata": {
       "bytes": 3845,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/power_point_metadata.csv",
-      "sha256": "172ac292a670ad1178ec95b01afdfd2a656cceac1211181514537055a59e6527"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/power_point_metadata.csv"
     },
     "raw_request_log": {
       "bytes": 5658,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/raw_request_log.json",
-      "sha256": "00c9d6792ddc0ff632d7f6a9173bceb7bbe9c4c30d468ecefceb3cd91c5aa569"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/raw_request_log.json"
     },
     "request_plan": {
       "bytes": 2518,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/request_plan.json",
-      "sha256": "dc494f082497e85d7bae7278a41289b2b48cfb34118768f5adf448834757360f"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/request_plan.json"
     },
     "source_failures": {
       "bytes": 3,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/source_failures.json",
-      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_11130206/source_failures.json"
     }
   },
-  "base_v1_roster_network_plan_sha256": "cd326987609c8235cc4db19265416ce075e084aba4749728db7a2372b3e82963",
   "formal_evidence": false,
   "locked_provider_nonnumeric_codes": [
     "Ice",
@@ -53,7 +45,6 @@
   "n_source_failures_or_unavailable": 0,
   "network_id": "huc8_11130206",
   "network_interval_reported": false,
-  "network_plan_sha256": "d287a2406f1ac51433765098e0de02fb690daf25c849d90f6bc75640372ec84f",
   "parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6",
   "passed": false,
   "performance_metrics_computed": false,
@@ -68,14 +59,6 @@
     "usgs_legacy_nwis_dv_rdb": 1
   },
   "purpose": "legacy_transport_auxiliary_materialization_not_performance_evidence",
-  "raw_response_hashes_complete_for_logged_responses": true,
-  "raw_response_sha256": [
-    "871fec8c3e72eabe8405ca61ec609cb182e7aa699befeacbcdf50e4fa5a389a7",
-    "45d20e42825030e12527a99d267ab2ddada5f2211f409814a376555acda23e4f",
-    "05dc09770783b1d2839c0a9960d8b128928efe67714bdb75174bfac117dc5c39",
-    "3276c31777bd670a211021cdabd3299dbcf2a150669b3a118232ad2570423445",
-    "027b0cb3301d0fca2e773de240f6e339274f2668f7510610a3906bb118c590ce"
-  ],
   "retry_audit": [],
   "role": "validation",
   "sealed_paths_traversed": false,
@@ -87,7 +70,6 @@
     "07312700"
   ],
   "source_failure_status_counts": {},
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "status": "materialized_complete",
   "temperature_columns_read": [],
   "v1_ogc_root_read_or_mutated": false

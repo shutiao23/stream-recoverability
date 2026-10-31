@@ -51,15 +51,18 @@ import os
 # OpenMP/BLAS threads must be pinned before numpy/sklearn initialise the
 # runtimes.  Each fold is a small fit and the parallelism lives in joblib, so
 # one thread per worker is both faster and polite on a shared 128-core box.
-for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+for _var in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
     os.environ.setdefault(_var, "1")
 
 import argparse  # noqa: E402
-import hashlib  # noqa: E402
 import importlib.util  # noqa: E402
 import json  # noqa: E402
 import platform  # noqa: E402
-import subprocess  # noqa: E402
 import sys  # noqa: E402
 import time  # noqa: E402
 import warnings  # noqa: E402
@@ -83,8 +86,8 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     PRIMARY_TOLERANCE_C,
     STEP4_CEILING,
     STEP6_SCREEN,
-    stable_seed,
 )
+from stream_recoverability.seeds import plain_seed, position_index  # noqa: E402
 
 READY = ROOT / "results" / "wrr_submission_ready"
 OUT = READY / "major_revision_20261019" / "p0_02_isolated_risk_thresholds"
@@ -103,7 +106,9 @@ FIXED_RETENTION = 0.70
 SELECT_DRAWS = 1000
 EVAL_DRAWS = 2000
 ALPHA = 0.05  # one-sided for selection, two-sided for reported CIs
-SELECT_BOUND_METHOD = "independence_group_clustered_bootstrap_bonferroni_over_86_grid_points"
+SELECT_BOUND_METHOD = (
+    "independence_group_clustered_bootstrap_bonferroni_over_86_grid_points"
+)
 
 FITTED_SCORES = ("fitted_risk", "fitted_risk_certtarget")
 FITTED_TARGETS = {
@@ -118,7 +123,12 @@ CORE_SCORES = (
     "calibrated_bound",
 )
 SUPPLEMENTARY_SCORES = ("fitted_risk_certtarget",)
-RULE_AND_BOUND_SCORES = ("length_rule", "peak_overlap_rule", "uncalibrated_bound", "calibrated_bound")
+RULE_AND_BOUND_SCORES = (
+    "length_rule",
+    "peak_overlap_rule",
+    "uncalibrated_bound",
+    "calibrated_bound",
+)
 COMPARE_SCORES = (
     "fitted_risk",
     "peak_overlap_rule",
@@ -143,7 +153,10 @@ SCORE_NOTES = {
 PANELS = {
     # primary wave-2 panel: certificates come from the FROZEN dev-trained model
     "wave2_confirmation": {
-        "cases": READY / "p0_07_wave2_ingest" / "p0_07_wave2_confirmation" / "wave2_cases.parquet",
+        "cases": READY
+        / "p0_07_wave2_ingest"
+        / "p0_07_wave2_confirmation"
+        / "wave2_cases.parquet",
         "certificates": READY
         / "p0_07_wave2_ingest"
         / "p0_07_wave2_confirmation"
@@ -171,6 +184,48 @@ PANELS = {
         ),
     },
 }
+
+# ---------------------------------------------------------------------------
+# Seeds.  Every random draw is seeded with plain_seed(purpose code, panel
+# position, ...): the purpose code below, the panel's position among the sorted
+# panel names, then the fold seed and the outer fold, inner fold or the score's
+# position among the sorted score names.  Only integers enter a seed.
+# ---------------------------------------------------------------------------
+SEED_TAGS = {
+    "length": 1,
+    "peak": 2,
+    "rawbound": 3,
+    "calbound": 4,
+    "noise": 5,
+    "inner": 6,
+    "innerfit": 7,
+    "outerfit": 8,
+    "select": 9,
+    "eval": 10,
+    "eval70": 11,
+    "pooled": 12,
+    "pooled70": 13,
+    "pooled_bonferroni": 14,
+    "contrast_ret": 15,
+    "contrast_fpr": 16,
+    "contrast_ret_bonferroni": 17,
+    "contrast_fpr_panelwide": 18,
+}
+PANEL_CODES = position_index(PANELS)
+SCORE_CODES = position_index(CORE_SCORES + SUPPLEMENTARY_SCORES)
+
+
+def panel_code(panel: str) -> int:
+    """Position of the panel among the sorted panel names; any other panel comes after them."""
+
+    return PANEL_CODES.get(str(panel), len(PANEL_CODES))
+
+
+def draw_seed(tag: str, panel: str, *parts: int) -> int:
+    """Seed of one random draw: purpose code, panel position, then non-negative integers."""
+
+    return plain_seed(SEED_TAGS[tag], panel_code(panel), *parts)
+
 
 INTERPRETATION_NOTES = [
     (
@@ -234,18 +289,6 @@ INTERPRETATION_NOTES = [
 # ---------------------------------------------------------------------------
 # small utilities
 # ---------------------------------------------------------------------------
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with open(path, "rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
 def load_script_module(name: str, path: Path):
     spec = importlib.util.spec_from_file_location(name, path)
     if spec is None or spec.loader is None:
@@ -253,15 +296,6 @@ def load_script_module(name: str, path: Path):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
-
-
-def git_head() -> str:
-    try:
-        return subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True
-        ).stdout.strip()
-    except Exception as exc:  # pragma: no cover - diagnostics only
-        return f"unavailable: {exc}"
 
 
 def json_safe(value):
@@ -328,7 +362,9 @@ def verify_alignment(cases: pd.DataFrame, certs: pd.DataFrame, *, panel: str) ->
     for name in sorted(choice.unique()):
         column = f"metric_{name}"
         if column not in cases.columns:
-            raise RuntimeError(f"[{panel}] certificate chose {name} but {column} is absent")
+            raise RuntimeError(
+                f"[{panel}] certificate chose {name} but {column} is absent"
+            )
         mask = choice.eq(name).to_numpy()
         same = np.allclose(
             pd.to_numeric(cases.loc[mask, column], errors="coerce"),
@@ -336,7 +372,9 @@ def verify_alignment(cases: pd.DataFrame, certs: pd.DataFrame, *, panel: str) ->
             equal_nan=True,
         )
         if not same:
-            raise RuntimeError(f"[{panel}] row misalignment: certificate_metric != metric_{name}")
+            raise RuntimeError(
+                f"[{panel}] row misalignment: certificate_metric != metric_{name}"
+            )
         checked[name] = int(mask.sum())
 
     metric = pd.to_numeric(certs["certificate_metric"], errors="coerce")
@@ -344,7 +382,9 @@ def verify_alignment(cases: pd.DataFrame, certs: pd.DataFrame, *, panel: str) ->
     abs_err = pd.to_numeric(certs["certificate_abs_error"], errors="coerce")
     signed = pd.to_numeric(certs["certificate_signed_error"], errors="coerce")
     if not np.allclose(np.abs(metric - truth), abs_err, equal_nan=True):
-        raise RuntimeError(f"[{panel}] certificate_abs_error != |certificate_metric - truth_metric|")
+        raise RuntimeError(
+            f"[{panel}] certificate_abs_error != |certificate_metric - truth_metric|"
+        )
     if not np.allclose(metric - truth, signed, equal_nan=True):
         raise RuntimeError(
             f"[{panel}] certificate_signed_error != certificate_metric - truth_metric"
@@ -387,8 +427,12 @@ def factorize_networks(network_ids) -> tuple:
 def build_target(cases: pd.DataFrame, certs: pd.DataFrame) -> dict:
     """Consequential error: certificate |error| > 0.5 C, policy error where missing."""
 
-    cert_err = pd.to_numeric(certs["certificate_abs_error"], errors="coerce").to_numpy(dtype=float)
-    policy_err = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(dtype=float)
+    cert_err = pd.to_numeric(certs["certificate_abs_error"], errors="coerce").to_numpy(
+        dtype=float
+    )
+    policy_err = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(
+        dtype=float
+    )
     finite_cert = np.isfinite(cert_err)
     err = np.where(finite_cert, cert_err, policy_err)
     both_missing = ~np.isfinite(err)
@@ -412,7 +456,9 @@ def assign_folds(networks, n_splits: int, seed: int) -> dict:
     ordered = sorted(set(str(n) for n in networks))
     rng = np.random.default_rng(int(seed))
     order = rng.permutation(len(ordered))
-    return {ordered[int(idx)]: int(pos % int(n_splits)) for pos, idx in enumerate(order)}
+    return {
+        ordered[int(idx)]: int(pos % int(n_splits)) for pos, idx in enumerate(order)
+    }
 
 
 def jitter_noise(n: int, scale: float, seed: int) -> np.ndarray:
@@ -423,14 +469,18 @@ def jitter_noise(n: int, scale: float, seed: int) -> np.ndarray:
 
 
 def score_spread(values) -> float:
-    array = pd.to_numeric(pd.Series(np.asarray(values)), errors="coerce").to_numpy(dtype=float)
+    array = pd.to_numeric(pd.Series(np.asarray(values)), errors="coerce").to_numpy(
+        dtype=float
+    )
     finite = array[np.isfinite(array)]
     if finite.size == 0:
         return 1.0
     return max(float(finite.max() - finite.min()), 1e-12)
 
 
-def build_scores(cases: pd.DataFrame, certs: pd.DataFrame, *, panel: str, fold_seed: int) -> dict:
+def build_scores(
+    cases: pd.DataFrame, certs: pd.DataFrame, *, panel: str, fold_seed: int
+) -> dict:
     """Deterministic label-free scores (the model-free ones; fitted_risk is cross-fitted).
 
     Tie-break scales follow scripts 301/305 exactly for the two rule scores
@@ -447,12 +497,18 @@ def build_scores(cases: pd.DataFrame, certs: pd.DataFrame, *, panel: str, fold_s
     length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(dtype=float)
     peak = pd.to_numeric(cases["peak_overlap"], errors="coerce").to_numpy(dtype=float)
     return {
-        "length_rule": length + jitter_noise(n, 1.0, stable_seed(panel, "length", fold_seed)),
-        "peak_overlap_rule": peak + jitter_noise(n, 1e-3, stable_seed(panel, "peak", fold_seed)),
+        "length_rule": length
+        + jitter_noise(n, 1.0, draw_seed("length", panel, fold_seed)),
+        "peak_overlap_rule": peak
+        + jitter_noise(n, 1e-3, draw_seed("peak", panel, fold_seed)),
         "uncalibrated_bound": raw_bound.to_numpy(dtype=float)
-        + jitter_noise(n, 1e-9 * score_spread(raw_bound), stable_seed(panel, "rawbound", fold_seed)),
+        + jitter_noise(
+            n, 1e-9 * score_spread(raw_bound), draw_seed("rawbound", panel, fold_seed)
+        ),
         "calibrated_bound": cal_bound.to_numpy(dtype=float)
-        + jitter_noise(n, 1e-9 * score_spread(cal_bound), stable_seed(panel, "calbound", fold_seed)),
+        + jitter_noise(
+            n, 1e-9 * score_spread(cal_bound), draw_seed("calbound", panel, fold_seed)
+        ),
     }
 
 
@@ -482,7 +538,9 @@ def fit_predict_risk(
 ) -> np.ndarray:
     """Mirror of scripts/301 ``_fit_predict_risk`` with the target column exposed."""
 
-    return predict_risk(fit_risk_model(train, features, target, seed=seed), test, features)
+    return predict_risk(
+        fit_risk_model(train, features, target, seed=seed), test, features
+    )
 
 
 def crossfit_task(payload: dict) -> dict:
@@ -502,7 +560,9 @@ def crossfit_task(payload: dict) -> dict:
     n_inner = int(payload["n_inner_splits"])
 
     if "independence_group" not in frame.columns:
-        raise KeyError("crossfit_task requires independence_group; network labels are not the fold unit")
+        raise KeyError(
+            "crossfit_task requires independence_group; network labels are not the fold unit"
+        )
     units = frame["independence_group"].astype(str).to_numpy()
     outer = assign_folds(units, n_splits, fold_seed)
     outer_ids = np.array([outer[unit] for unit in units], dtype=int)
@@ -520,7 +580,9 @@ def crossfit_task(payload: dict) -> dict:
             continue
         cal = frame.loc[cal_mask]
         cal_units = cal["independence_group"].astype(str).to_numpy()
-        inner = assign_folds(cal_units, n_inner, stable_seed("inner", panel, fold_seed, fold))
+        inner = assign_folds(
+            cal_units, n_inner, draw_seed("inner", panel, fold_seed, fold)
+        )
         inner_ids = np.array([inner[unit] for unit in cal_units], dtype=int)
         cal_positions = np.where(cal_mask)[0]
         for inner_fold in range(n_inner):
@@ -533,7 +595,7 @@ def crossfit_task(payload: dict) -> dict:
                 cal.loc[inner_test],
                 features,
                 target,
-                seed=stable_seed("innerfit", panel, fold_seed, fold, inner_fold) % (2**31),
+                seed=draw_seed("innerfit", panel, fold_seed, fold, inner_fold),
             )
             cal_score_by_fold[fold, cal_positions[inner_test]] = pred
         if not np.isfinite(cal_score_by_fold[fold, cal_mask]).all():
@@ -542,14 +604,16 @@ def crossfit_task(payload: dict) -> dict:
                 "without an inner out-of-fold score"
             )
         model = fit_risk_model(
-            cal, features, target, seed=stable_seed("outerfit", panel, fold_seed, fold) % (2**31)
+            cal, features, target, seed=draw_seed("outerfit", panel, fold_seed, fold)
         )
         test_positions = np.where(test_mask)[0]
         test_score[test_positions] = predict_risk(model, frame.loc[test_mask], features)
         models[fold] = model
 
     if not np.isfinite(test_score).all():
-        raise RuntimeError(f"[{panel}/{target}/seed{fold_seed}] held-out cases without a test score")
+        raise RuntimeError(
+            f"[{panel}/{target}/seed{fold_seed}] held-out cases without a test score"
+        )
     return {
         "panel": panel,
         "fold_seed": fold_seed,
@@ -561,7 +625,13 @@ def crossfit_task(payload: dict) -> dict:
 
 
 def crossfit_fitted_scores(
-    panels_data: dict, *, fold_seeds, jobs: int, use_cache: bool, n_splits: int, n_inner: int
+    panels_data: dict,
+    *,
+    fold_seeds,
+    jobs: int,
+    use_cache: bool,
+    n_splits: int,
+    n_inner: int,
 ) -> dict:
     """Run (panel x fold_seed x fitted score) cross-fits, cached in scratch/p0_02."""
 
@@ -590,31 +660,15 @@ def crossfit_fitted_scores(
         for fold_seed in fold_seeds:
             for score_name in FITTED_SCORES:
                 target = FITTED_TARGETS[score_name]
-                key = sha256_text(
-                    json.dumps(
-                        {
-                            "panel": panel,
-                            "fold_seed": int(fold_seed),
-                            "target": target,
-                            "features": list(features),
-                            "n_splits": int(n_splits),
-                            "n_inner": int(n_inner),
-                            "learner": (
-                                "HistGradientBoostingRegressor quantile=0.9 depth4 iter350 lr0.06 leaf40"
-                            ),
-                            "cases_sha256": data["cases_sha256"],
-                            "group_sha256": data["group_sha256"],
-                            "fold_unit": "independence_group",
-                            "calibration_scores": "per_outer_fold",
-                            "cache_version": 3,
-                        },
-                        sort_keys=True,
-                    )
+                # Readable cache name: panel, fold seed, score (which fixes the target),
+                # outer and inner fold counts, and the cache layout version (v4 = folds on
+                # independence groups, per-outer-fold calibration scores, plain seeds).
+                stem = (
+                    f"{panel}__seed{int(fold_seed)}__{score_name}"
+                    f"__outer{int(n_splits)}_inner{int(n_inner)}_v4"
                 )
-                cache_npz = cache_dir / f"{panel}__seed{fold_seed}__{score_name}__{key[:16]}.npz"
-                cache_models = (
-                    cache_dir / f"{panel}__seed{fold_seed}__{score_name}__{key[:16]}_models.joblib"
-                )
+                cache_npz = cache_dir / f"{stem}.npz"
+                cache_models = cache_dir / f"{stem}_models.joblib"
                 if use_cache and cache_npz.exists() and cache_models.exists():
                     payload = np.load(cache_npz, allow_pickle=False)
                     results[(panel, int(fold_seed), score_name)] = {
@@ -643,7 +697,8 @@ def crossfit_fitted_scores(
 
     if tasks:
         print(
-            f"[crossfit] fitting {len(tasks)} (panel, seed, model) tasks on {jobs} workers", flush=True
+            f"[crossfit] fitting {len(tasks)} (panel, seed, model) tasks on {jobs} workers",
+            flush=True,
         )
         started = time.time()
         outputs = Parallel(n_jobs=int(jobs), backend="loky", verbose=0)(
@@ -668,7 +723,9 @@ def crossfit_fitted_scores(
 # ---------------------------------------------------------------------------
 def clustered_draw_counts(n_net: int, draws: int, seed: int) -> np.ndarray:
     rng = np.random.default_rng(int(seed))
-    return rng.multinomial(int(n_net), np.full(int(n_net), 1.0 / int(n_net)), size=int(draws))
+    return rng.multinomial(
+        int(n_net), np.full(int(n_net), 1.0 / int(n_net)), size=int(draws)
+    )
 
 
 def select_frozen_threshold(
@@ -693,7 +750,11 @@ def select_frozen_threshold(
     bad_cal = np.asarray(bad_cal, dtype=float)
     network_cal = np.asarray(network_cal)
     finite = np.isfinite(score_cal)
-    score_cal, bad_cal, network_cal = score_cal[finite], bad_cal[finite], network_cal[finite]
+    score_cal, bad_cal, network_cal = (
+        score_cal[finite],
+        bad_cal[finite],
+        network_cal[finite],
+    )
     n = score_cal.size
     if n == 0:
         raise RuntimeError("empty calibration set")
@@ -763,30 +824,46 @@ def select_frozen_threshold(
         "chosen_index": chosen,
         "chosen_index_pointwise": chosen_pointwise,
         "chosen_retention_pointwise": (
-            float(calibration_retention[chosen_pointwise]) if chosen_pointwise is not None else 0.0
+            float(calibration_retention[chosen_pointwise])
+            if chosen_pointwise is not None
+            else 0.0
         ),
         "chosen_threshold_pointwise": (
-            float(thresholds[chosen_pointwise]) if chosen_pointwise is not None else -float("inf")
+            float(thresholds[chosen_pointwise])
+            if chosen_pointwise is not None
+            else -float("inf")
         ),
-        "chosen_threshold": float(thresholds[chosen]) if chosen is not None else -float("inf"),
-        "chosen_retention": float(calibration_retention[chosen]) if chosen is not None else 0.0,
+        "chosen_threshold": float(thresholds[chosen])
+        if chosen is not None
+        else -float("inf"),
+        "chosen_retention": float(calibration_retention[chosen])
+        if chosen is not None
+        else 0.0,
         "chosen_calibration_rate": (
             float(calibration_rate[chosen]) if chosen is not None else float("nan")
         ),
         "chosen_upper": float(upper[chosen]) if chosen is not None else float("nan"),
         "chosen_index_binomial": chosen_binom,
         "chosen_retention_binomial": (
-            float(calibration_retention[chosen_binom]) if chosen_binom is not None else 0.0
+            float(calibration_retention[chosen_binom])
+            if chosen_binom is not None
+            else 0.0
         ),
         "chosen_upper_binomial": (
-            float(upper_binom[chosen_binom]) if chosen_binom is not None else float("nan")
+            float(upper_binom[chosen_binom])
+            if chosen_binom is not None
+            else float("nan")
         ),
         "chosen_index_bonferroni": chosen_bonf,
         "chosen_retention_bonferroni": (
-            float(calibration_retention[chosen_bonf]) if chosen_bonf is not None else 0.0
+            float(calibration_retention[chosen_bonf])
+            if chosen_bonf is not None
+            else 0.0
         ),
         "chosen_upper_bonferroni": (
-            float(upper_bonferroni[chosen_bonf]) if chosen_bonf is not None else float("nan")
+            float(upper_bonferroni[chosen_bonf])
+            if chosen_bonf is not None
+            else float("nan")
         ),
         "chosen_threshold_bonferroni": (
             float(thresholds[chosen_bonf]) if chosen_bonf is not None else -float("inf")
@@ -794,7 +871,9 @@ def select_frozen_threshold(
         "selection_bound_method": SELECT_BOUND_METHOD,
         "bootstrap_draws": int(draws),
         "bootstrap_seed": int(seed),
-        "selection_status": "grid_point_found" if chosen is not None else "no_admissible_grid_point",
+        "selection_status": "grid_point_found"
+        if chosen is not None
+        else "no_admissible_grid_point",
     }
 
 
@@ -802,7 +881,9 @@ def bootstrap_interval(values: np.ndarray, *, alpha: float = ALPHA) -> tuple:
     finite = values[np.isfinite(values)]
     if finite.size == 0:
         return float("nan"), float("nan")
-    return float(np.quantile(finite, alpha / 2)), float(np.quantile(finite, 1 - alpha / 2))
+    return float(np.quantile(finite, alpha / 2)), float(
+        np.quantile(finite, 1 - alpha / 2)
+    )
 
 
 def clustered_summary(
@@ -827,20 +908,32 @@ def clustered_summary(
     admitted = A.sum(axis=0)
     point_bad = AB.sum(axis=0)
     with np.errstate(invalid="ignore", divide="ignore"):
-        point_fpr = np.where(admitted > 0, point_bad / np.maximum(admitted, 1e-12), np.nan)
+        point_fpr = np.where(
+            admitted > 0, point_bad / np.maximum(admitted, 1e-12), np.nan
+        )
 
     per_net_adm = np.column_stack(
-        [np.bincount(net_index, weights=A[:, c], minlength=int(n_net)) for c in range(A.shape[1])]
+        [
+            np.bincount(net_index, weights=A[:, c], minlength=int(n_net))
+            for c in range(A.shape[1])
+        ]
     )
     per_net_bad = np.column_stack(
-        [np.bincount(net_index, weights=AB[:, c], minlength=int(n_net)) for c in range(A.shape[1])]
+        [
+            np.bincount(net_index, weights=AB[:, c], minlength=int(n_net))
+            for c in range(A.shape[1])
+        ]
     )
     mask_net = per_net_adm > 0
     with np.errstate(invalid="ignore", divide="ignore"):
-        fpr_net = np.where(mask_net, per_net_bad / np.maximum(per_net_adm, 1e-12), np.nan)
+        fpr_net = np.where(
+            mask_net, per_net_bad / np.maximum(per_net_adm, 1e-12), np.nan
+        )
     point_fpr_net_equal = np.array(
         [
-            float(np.nanmean(fpr_net[mask_net[:, c], c])) if mask_net[:, c].any() else float("nan")
+            float(np.nanmean(fpr_net[mask_net[:, c], c]))
+            if mask_net[:, c].any()
+            else float("nan")
             for c in range(A.shape[1])
         ]
     )
@@ -861,7 +954,9 @@ def clustered_summary(
         numer = counts[draw] @ fpr_net_filled
         denom = counts[draw] @ mask_net.astype(float)
         with np.errstate(invalid="ignore", divide="ignore"):
-            ne_draws[draw] = np.where(denom > 0, numer / np.maximum(denom, 1e-12), np.nan)
+            ne_draws[draw] = np.where(
+                denom > 0, numer / np.maximum(denom, 1e-12), np.nan
+            )
 
     out = {}
     for column, name in enumerate(names):
@@ -961,7 +1056,9 @@ def selfcheck(panels_data: dict) -> dict:
     identical = bool(np.allclose(mine, theirs, rtol=0, atol=0))
 
     cases, certs = data["cases"], data["certs"]
-    score = build_scores(cases, certs, panel="wave2_confirmation", fold_seed=101)["peak_overlap_rule"]
+    score = build_scores(cases, certs, panel="wave2_confirmation", fold_seed=101)[
+        "peak_overlap_rule"
+    ]
     bad = data["target"]["bad"]
     net_index, n_net = factorize_networks(cases["network_id"])
     admit = {"a": score <= float(np.quantile(score, 0.7))}
@@ -970,9 +1067,13 @@ def selfcheck(panels_data: dict) -> dict:
     point_ok = bool(np.isclose(fast["false_admit_rate"], direct, rtol=0, atol=1e-12))
 
     if not identical:
-        raise RuntimeError("fitted_risk construction diverges from scripts/301 _fit_predict_risk")
+        raise RuntimeError(
+            "fitted_risk construction diverges from scripts/301 _fit_predict_risk"
+        )
     if not point_ok:
-        raise RuntimeError("fast clustered summary disagrees with the direct point estimate")
+        raise RuntimeError(
+            "fast clustered summary disagrees with the direct point estimate"
+        )
     return {
         "risk_construction_matches_script301": identical,
         "clustered_point_estimate_matches_direct": point_ok,
@@ -1009,43 +1110,61 @@ def main() -> int:
         ).to_numpy()
         group_table = independence_table(cases)
         group_of = dict(
-            zip(group_table["network_id"].astype(str), group_table["independence_group"].astype(str))
+            zip(
+                group_table["network_id"].astype(str),
+                group_table["independence_group"].astype(str),
+            )
         )
         cases = cases.copy()
         cases["independence_group"] = cases["network_id"].astype(str).map(group_of)
         if cases["independence_group"].isna().any():
-            raise RuntimeError(f"[{panel}] network labels without an independence group")
-        prepared["independence_group"] = cases["independence_group"].astype(str).to_numpy()
+            raise RuntimeError(
+                f"[{panel}] network labels without an independence group"
+            )
+        prepared["independence_group"] = (
+            cases["independence_group"].astype(str).to_numpy()
+        )
         data["cases"] = cases
         data["group_table"] = group_table
         data["group_of"] = group_of
-        data["group_sha256"] = sha256_text(
-            group_table.sort_values("network_id").to_csv(index=False)
-        )
         data["prepared"] = prepared
-        data["cases_sha256"] = sha256_file(spec["cases"])
-        data["certs_sha256"] = sha256_file(spec["certificates"])
         data["spec"] = spec
-        data["net_index"], data["n_net"] = factorize_networks(cases["independence_group"])
+        data["net_index"], data["n_net"] = factorize_networks(
+            cases["independence_group"]
+        )
         data["n_network_labels"] = int(cases["network_id"].astype(str).nunique())
-        raw_bound_series = pd.to_numeric(certs["certificate_raw_bound"], errors="coerce")
+        raw_bound_series = pd.to_numeric(
+            certs["certificate_raw_bound"], errors="coerce"
+        )
         cal_bound_series = pd.to_numeric(certs["certificate_bound"], errors="coerce")
         both_finite = np.isfinite(raw_bound_series) & np.isfinite(cal_bound_series)
         data["bound_rank_spearman"] = (
-            float(raw_bound_series[both_finite].rank().corr(cal_bound_series[both_finite].rank()))
+            float(
+                raw_bound_series[both_finite]
+                .rank()
+                .corr(cal_bound_series[both_finite].rank())
+            )
             if int(both_finite.sum()) > 2
             else float("nan")
         )
         # exact orientation check for the length rule (version note evidence)
-        length_score = build_scores(cases, certs, panel=panel, fold_seed=fold_seeds[0])["length_rule"]
-        raw_length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(dtype=float)
+        length_score = build_scores(cases, certs, panel=panel, fold_seed=fold_seeds[0])[
+            "length_rule"
+        ]
+        raw_length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(
+            dtype=float
+        )
         unique_lengths = np.unique(raw_length[np.isfinite(raw_length)])
         order = np.argsort(length_score, kind="mergesort")
         data["length_orientation"] = {
-            "never_reorders_distinct_values": bool(np.all(np.diff(raw_length[order]) >= 0)),
+            "never_reorders_distinct_values": bool(
+                np.all(np.diff(raw_length[order]) >= 0)
+            ),
             "keeps_tie_blocks_intact": bool(np.all(np.diff(raw_length[order]) >= 0)),
             "n_distinct": int(unique_lengths.size),
-            "min_gap_days": float(np.min(np.diff(unique_lengths))) if unique_lengths.size > 1 else float("nan"),
+            "min_gap_days": float(np.min(np.diff(unique_lengths)))
+            if unique_lengths.size > 1
+            else float("nan"),
             "jitter_scale_days": 1.0,
         }
         data["length_spread_days"] = float(
@@ -1098,30 +1217,37 @@ def main() -> int:
         for fold_seed in fold_seeds:
             folds = assign_folds(groups, N_SPLITS, fold_seed)
             fold_ids = np.array([folds[group] for group in groups], dtype=int)
-            n_shared_stations = shared_stations_across_folds(cases, data["group_table"], {
-                network: folds[group] for network, group in data["group_of"].items()
-            })
-            n_shared_years = shared_station_years_across_folds(cases, {
-                network: folds[group] for network, group in data["group_of"].items()
-            })
+            n_shared_stations = shared_stations_across_folds(
+                cases,
+                data["group_table"],
+                {network: folds[group] for network, group in data["group_of"].items()},
+            )
+            n_shared_years = shared_station_years_across_folds(
+                cases,
+                {network: folds[group] for network, group in data["group_of"].items()},
+            )
             if n_shared_stations or n_shared_years:
                 raise RuntimeError(
                     f"[{panel}/seed{fold_seed}] shared target stations across folds: "
                     f"{n_shared_stations} stations, {n_shared_years} station-years"
                 )
             raw_scores = build_scores(cases, certs, panel=panel, fold_seed=fold_seed)
-            score_arrays = {name: np.asarray(raw_scores[name]) for name in RULE_AND_BOUND_SCORES}
+            score_arrays = {
+                name: np.asarray(raw_scores[name]) for name in RULE_AND_BOUND_SCORES
+            }
             # Fitted scores get the same negligible relative tie-break noise so that a case
             # carries one score whether it sits in the calibration or the held-out fold.
             fitted_noise = {}
             for name in FITTED_SCORES:
                 if (panel, fold_seed, name) not in crossfit:
                     continue
-                test_raw = np.asarray(crossfit[(panel, fold_seed, name)]["test_score"], dtype=float)
+                test_raw = np.asarray(
+                    crossfit[(panel, fold_seed, name)]["test_score"], dtype=float
+                )
                 noise = jitter_noise(
                     len(cases),
                     1e-9 * score_spread(test_raw),
-                    stable_seed(panel, "noise", name, fold_seed),
+                    draw_seed("noise", panel, SCORE_CODES[name], fold_seed),
                 )
                 fitted_noise[name] = noise
                 score_arrays[name] = test_raw + noise
@@ -1142,7 +1268,9 @@ def main() -> int:
                         continue
                     if score_name in FITTED_SCORES:
                         cal_by_fold = np.asarray(
-                            crossfit[(panel, fold_seed, score_name)]["cal_score_by_fold"],
+                            crossfit[(panel, fold_seed, score_name)][
+                                "cal_score_by_fold"
+                            ],
                             dtype=float,
                         )
                         cal_score = cal_by_fold[fold] + fitted_noise[score_name]
@@ -1155,12 +1283,15 @@ def main() -> int:
                         groups[cal_mask],
                         risk_cap=RISK_CAP,
                         draws=int(args.draws_select),
-                        seed=stable_seed("select", panel, fold_seed, fold, score_name),
+                        seed=draw_seed(
+                            "select", panel, fold_seed, fold, SCORE_CODES[score_name]
+                        ),
                     )
                     threshold = selection["chosen_threshold"]
                     admit[test_mask] = test_score[test_mask] <= threshold
                     admit_bonf[test_mask] = (
-                        test_score[test_mask] <= selection["chosen_threshold_bonferroni"]
+                        test_score[test_mask]
+                        <= selection["chosen_threshold_bonferroni"]
                     )
 
                     test_bad = bad[test_mask]
@@ -1171,7 +1302,9 @@ def main() -> int:
                         test_net,
                         test_n_net,
                         draws=int(args.draws_eval),
-                        seed=stable_seed("eval", panel, fold_seed, fold, score_name),
+                        seed=draw_seed(
+                            "eval", panel, fold_seed, fold, SCORE_CODES[score_name]
+                        ),
                     )["s"]
 
                     k70 = max(1, int(round(FIXED_RETENTION * int(test_mask.sum()))))
@@ -1185,12 +1318,16 @@ def main() -> int:
                         test_net,
                         test_n_net,
                         draws=int(args.draws_eval),
-                        seed=stable_seed("eval70", panel, fold_seed, fold, score_name),
+                        seed=draw_seed(
+                            "eval70", panel, fold_seed, fold, SCORE_CODES[score_name]
+                        ),
                     )["s"]
 
                     model_file = ""
                     if score_name in FITTED_SCORES:
-                        model = crossfit[(panel, fold_seed, score_name)]["models"].get(fold)
+                        model = crossfit[(panel, fold_seed, score_name)]["models"].get(
+                            fold
+                        )
                         if model is not None:
                             import joblib
 
@@ -1201,7 +1338,9 @@ def main() -> int:
                             )
                             joblib.dump(model, model_path)
                             model_file = str(model_path.relative_to(ROOT))
-                            model_files[(panel, fold_seed, score_name, fold)] = model_file
+                            model_files[(panel, fold_seed, score_name, fold)] = (
+                                model_file
+                            )
 
                     folds_payload.append(
                         {
@@ -1210,7 +1349,9 @@ def main() -> int:
                             "threshold_units": (
                                 "score units; lower score = safer; admit iff score <= threshold"
                             ),
-                            "calibration_retention": float(selection["chosen_retention"]),
+                            "calibration_retention": float(
+                                selection["chosen_retention"]
+                            ),
                             "calibration_false_admit_rate": float(
                                 selection["chosen_calibration_rate"]
                             ),
@@ -1221,7 +1362,9 @@ def main() -> int:
                             ),
                             "calibration_n_cases": int(selection["n_cal_cases"]),
                             "networks": int(selection["n_cal_networks"]),
-                            "n_admissible_grid_points": int(selection["n_admissible_grid_points"]),
+                            "n_admissible_grid_points": int(
+                                selection["n_admissible_grid_points"]
+                            ),
                             "selection_status": selection["selection_status"],
                             "admitted_nothing": bool(selection["chosen_index"] is None),
                             "binomial_bound_would_admit_nothing": bool(
@@ -1236,14 +1379,24 @@ def main() -> int:
                             "bonferroni_would_admit_nothing": bool(
                                 selection["chosen_index_bonferroni"] is None
                             ),
-                            "bonferroni_retention": float(selection["chosen_retention_bonferroni"]),
+                            "bonferroni_retention": float(
+                                selection["chosen_retention_bonferroni"]
+                            ),
                             "test_n_cases": int(test_mask.sum()),
                             "test_n_networks": int(test_n_net),
                             "test_retention": float(fold_summary["retention"]),
-                            "test_retention_ci95_low": float(fold_summary["retention_ci_low"]),
-                            "test_retention_ci95_high": float(fold_summary["retention_ci_high"]),
-                            "test_false_admit_rate": float(fold_summary["false_admit_rate"]),
-                            "test_false_admit_ci95_low": float(fold_summary["false_admit_rate_ci_low"]),
+                            "test_retention_ci95_low": float(
+                                fold_summary["retention_ci_low"]
+                            ),
+                            "test_retention_ci95_high": float(
+                                fold_summary["retention_ci_high"]
+                            ),
+                            "test_false_admit_rate": float(
+                                fold_summary["false_admit_rate"]
+                            ),
+                            "test_false_admit_ci95_low": float(
+                                fold_summary["false_admit_rate_ci_low"]
+                            ),
                             "test_false_admit_ci95_high": float(
                                 fold_summary["false_admit_rate_ci_high"]
                             ),
@@ -1251,7 +1404,9 @@ def main() -> int:
                                 fold_summary["false_admit_rate_network_equal"]
                             ),
                             "test_n_admitted": int(fold_summary["n_admitted"]),
-                            "test_n_false_admitted": int(fold_summary["n_false_admitted"]),
+                            "test_n_false_admitted": int(
+                                fold_summary["n_false_admitted"]
+                            ),
                             "test_false_admit_rate_at_fixed70": float(
                                 fixed_summary["false_admit_rate"]
                             ),
@@ -1274,11 +1429,15 @@ def main() -> int:
                             "threshold": float(threshold),
                             "calibration_n_cases": int(selection["n_cal_cases"]),
                             "calibration_n_networks": int(selection["n_cal_networks"]),
-                            "calibration_retention": float(selection["chosen_retention"]),
+                            "calibration_retention": float(
+                                selection["chosen_retention"]
+                            ),
                             "calibration_false_admit_rate": float(
                                 selection["chosen_calibration_rate"]
                             ),
-                            "calibration_upper_bound_95_clustered": float(selection["chosen_upper"]),
+                            "calibration_upper_bound_95_clustered": float(
+                                selection["chosen_upper"]
+                            ),
                             "calibration_upper_bound_95_binomial": float(
                                 selection["chosen_upper_binomial"]
                             ),
@@ -1287,7 +1446,9 @@ def main() -> int:
                             ),
                             "selection_bound_method": SELECT_BOUND_METHOD,
                             "selection_status": selection["selection_status"],
-                            "admissible_grid_points": int(selection["n_admissible_grid_points"]),
+                            "admissible_grid_points": int(
+                                selection["n_admissible_grid_points"]
+                            ),
                             "admitted_nothing": bool(selection["chosen_index"] is None),
                             "binomial_bound_would_admit_nothing": bool(
                                 selection["chosen_index_binomial"] is None
@@ -1301,9 +1462,15 @@ def main() -> int:
                             "test_n_cases": int(test_mask.sum()),
                             "test_n_networks": int(test_n_net),
                             "test_retention": float(fold_summary["retention"]),
-                            "test_retention_ci95_low": float(fold_summary["retention_ci_low"]),
-                            "test_retention_ci95_high": float(fold_summary["retention_ci_high"]),
-                            "test_false_admit_rate": float(fold_summary["false_admit_rate"]),
+                            "test_retention_ci95_low": float(
+                                fold_summary["retention_ci_low"]
+                            ),
+                            "test_retention_ci95_high": float(
+                                fold_summary["retention_ci_high"]
+                            ),
+                            "test_false_admit_rate": float(
+                                fold_summary["false_admit_rate"]
+                            ),
                             "test_false_admit_rate_network_equal": float(
                                 fold_summary["false_admit_rate_network_equal"]
                             ),
@@ -1314,7 +1481,9 @@ def main() -> int:
                                 fold_summary["false_admit_rate_ci_high"]
                             ),
                             "test_n_admitted": int(fold_summary["n_admitted"]),
-                            "test_n_false_admitted": int(fold_summary["n_false_admitted"]),
+                            "test_n_false_admitted": int(
+                                fold_summary["n_false_admitted"]
+                            ),
                             "test_false_admit_rate_at_fixed70": float(
                                 fixed_summary["false_admit_rate"]
                             ),
@@ -1341,7 +1510,7 @@ def main() -> int:
                 net_index,
                 n_net,
                 draws=int(args.draws_eval),
-                seed=stable_seed("pooled", panel, fold_seed),
+                seed=draw_seed("pooled", panel, fold_seed),
             )
             pooled70 = clustered_summary(
                 admit_fixed70,
@@ -1349,7 +1518,7 @@ def main() -> int:
                 net_index,
                 n_net,
                 draws=int(args.draws_eval),
-                seed=stable_seed("pooled70", panel, fold_seed),
+                seed=draw_seed("pooled70", panel, fold_seed),
             )
             pooled_bonf = clustered_summary(
                 admit_bonferroni,
@@ -1357,7 +1526,7 @@ def main() -> int:
                 net_index,
                 n_net,
                 draws=int(args.draws_eval),
-                seed=stable_seed("pooled_bonferroni", panel, fold_seed),
+                seed=draw_seed("pooled_bonferroni", panel, fold_seed),
             )
             levels_riskcap[(panel, fold_seed)] = pooled
             levels_fixed70[(panel, fold_seed)] = pooled70
@@ -1400,8 +1569,12 @@ def main() -> int:
                             "test_false_admit_rate_network_equal": stats[
                                 "false_admit_rate_network_equal"
                             ],
-                            "test_false_admit_ci95_low": stats["false_admit_rate_ci_low"],
-                            "test_false_admit_ci95_high": stats["false_admit_rate_ci_high"],
+                            "test_false_admit_ci95_low": stats[
+                                "false_admit_rate_ci_low"
+                            ],
+                            "test_false_admit_ci95_high": stats[
+                                "false_admit_rate_ci_high"
+                            ],
                             "test_n_admitted": stats["n_admitted"],
                             "test_n_false_admitted": stats["n_false_admitted"],
                             "test_false_admit_rate_at_fixed70": "",
@@ -1430,20 +1603,32 @@ def main() -> int:
                         "pooled_eval": {
                             "label": "cross-fitted, selection honest",
                             "retention": pooled[score_name]["retention"],
-                            "retention_ci95_low": pooled[score_name]["retention_ci_low"],
-                            "retention_ci95_high": pooled[score_name]["retention_ci_high"],
+                            "retention_ci95_low": pooled[score_name][
+                                "retention_ci_low"
+                            ],
+                            "retention_ci95_high": pooled[score_name][
+                                "retention_ci_high"
+                            ],
                             "n_admitted": pooled[score_name]["n_admitted"],
                             "n_cases": pooled[score_name]["n_cases"],
                             "n_networks": n_net,
                             "false_admit_rate": pooled[score_name]["false_admit_rate"],
-                            "false_admit_ci95_low": pooled[score_name]["false_admit_rate_ci_low"],
-                            "false_admit_ci95_high": pooled[score_name]["false_admit_rate_ci_high"],
+                            "false_admit_ci95_low": pooled[score_name][
+                                "false_admit_rate_ci_low"
+                            ],
+                            "false_admit_ci95_high": pooled[score_name][
+                                "false_admit_rate_ci_high"
+                            ],
                             "false_admit_rate_network_equal": pooled[score_name][
                                 "false_admit_rate_network_equal"
                             ],
                             "n_false_admitted": pooled[score_name]["n_false_admitted"],
                             "n_folds_admitting_nothing": int(
-                                sum(1 for item in folds_payload if item["admitted_nothing"])
+                                sum(
+                                    1
+                                    for item in folds_payload
+                                    if item["admitted_nothing"]
+                                )
                             ),
                             "bootstrap_draws": int(args.draws_eval),
                         },
@@ -1452,12 +1637,22 @@ def main() -> int:
                                 "same deployed simultaneous band, repeated under the bonferroni column name"
                             ),
                             "retention": pooled_bonf[score_name]["retention"],
-                            "retention_ci95_low": pooled_bonf[score_name]["retention_ci_low"],
-                            "retention_ci95_high": pooled_bonf[score_name]["retention_ci_high"],
+                            "retention_ci95_low": pooled_bonf[score_name][
+                                "retention_ci_low"
+                            ],
+                            "retention_ci95_high": pooled_bonf[score_name][
+                                "retention_ci_high"
+                            ],
                             "n_admitted": pooled_bonf[score_name]["n_admitted"],
-                            "false_admit_rate": pooled_bonf[score_name]["false_admit_rate"],
-                            "false_admit_ci95_low": pooled_bonf[score_name]["false_admit_rate_ci_low"],
-                            "false_admit_ci95_high": pooled_bonf[score_name]["false_admit_rate_ci_high"],
+                            "false_admit_rate": pooled_bonf[score_name][
+                                "false_admit_rate"
+                            ],
+                            "false_admit_ci95_low": pooled_bonf[score_name][
+                                "false_admit_rate_ci_low"
+                            ],
+                            "false_admit_ci95_high": pooled_bonf[score_name][
+                                "false_admit_rate_ci_high"
+                            ],
                             "n_folds_admitting_nothing": int(
                                 sum(
                                     1
@@ -1471,11 +1666,19 @@ def main() -> int:
                                 "cross-fitted, threshold-free: 70% fixed a priori inside each held-out fold"
                             ),
                             "retention": pooled70[score_name]["retention"],
-                            "false_admit_rate": pooled70[score_name]["false_admit_rate"],
-                            "false_admit_ci95_low": pooled70[score_name]["false_admit_rate_ci_low"],
-                            "false_admit_ci95_high": pooled70[score_name]["false_admit_rate_ci_high"],
+                            "false_admit_rate": pooled70[score_name][
+                                "false_admit_rate"
+                            ],
+                            "false_admit_ci95_low": pooled70[score_name][
+                                "false_admit_rate_ci_low"
+                            ],
+                            "false_admit_ci95_high": pooled70[score_name][
+                                "false_admit_rate_ci_high"
+                            ],
                             "n_admitted": pooled70[score_name]["n_admitted"],
-                            "n_false_admitted": pooled70[score_name]["n_false_admitted"],
+                            "n_false_admitted": pooled70[score_name][
+                                "n_false_admitted"
+                            ],
                         },
                     }
                 )
@@ -1487,7 +1690,9 @@ def main() -> int:
             "independence_group": [data["group_of"][n] for n in unique_nets],
         }
         for fold_seed in fold_seeds:
-            mapping = group_fold_map(data["group_table"], N_SPLITS, fold_seed, assign_folds)
+            mapping = group_fold_map(
+                data["group_table"], N_SPLITS, fold_seed, assign_folds
+            )
             columns[f"fold_seed_{fold_seed}"] = [mapping[n] for n in unique_nets]
         fold_assignment_rows.append(pd.DataFrame(columns))
 
@@ -1498,18 +1703,27 @@ def main() -> int:
         raw_scores = build_scores(
             data["cases"], data["certs"], panel=panel, fold_seed=fold_seeds[0]
         )
-        full_scores = {name: np.asarray(raw_scores[name], dtype=float) for name in RULE_AND_BOUND_SCORES}
+        full_scores = {
+            name: np.asarray(raw_scores[name], dtype=float)
+            for name in RULE_AND_BOUND_SCORES
+        }
         for name in FITTED_SCORES:
             if (panel, fold_seeds[0], name) in crossfit:
-                test_raw = np.asarray(crossfit[(panel, fold_seeds[0], name)]["test_score"], dtype=float)
+                test_raw = np.asarray(
+                    crossfit[(panel, fold_seeds[0], name)]["test_score"], dtype=float
+                )
                 full_scores[name] = test_raw + jitter_noise(
                     len(data["cases"]),
                     1e-9 * score_spread(test_raw),
-                    stable_seed(panel, "noise", name, fold_seeds[0]),
+                    draw_seed("noise", panel, SCORE_CODES[name], fold_seeds[0]),
                 )
         for score_name, score in full_scores.items():
-            op = M305.max_retention_under_risk(score, bad.astype(float), risk_cap=RISK_CAP)
-            order = np.argsort(np.where(np.isfinite(score), score, np.inf), kind="mergesort")
+            op = M305.max_retention_under_risk(
+                score, bad.astype(float), risk_cap=RISK_CAP
+            )
+            order = np.argsort(
+                np.where(np.isfinite(score), score, np.inf), kind="mergesort"
+            )
             k70 = max(1, int(round(FIXED_RETENTION * len(bad))))
             rate70 = float(bad[order[:k70]].mean())
             retro_rows.append(
@@ -1554,7 +1768,9 @@ def main() -> int:
         # manuscript's quoted numbers can be matched exactly, not approximately
         try:
             old_table = M305.admission_table(data["cases"], data["certs"], panel=panel)
-            old_table = old_table.loc[old_table.task.eq("archive_admission_ranked_risk_cap")]
+            old_table = old_table.loc[
+                old_table.task.eq("archive_admission_ranked_risk_cap")
+            ]
             for row in old_table.itertuples():
                 if str(row.rule) not in (
                     "length_rule",
@@ -1585,7 +1801,9 @@ def main() -> int:
                     }
                 )
         except Exception as exc:  # pragma: no cover - diagnostic, never fatal
-            print(f"[warn] script-305 reproduction failed for {panel}: {exc}", flush=True)
+            print(
+                f"[warn] script-305 reproduction failed for {panel}: {exc}", flush=True
+            )
 
     # ---------------- equal-risk / equal-retention contrasts ----------------
     contrast_rows = []
@@ -1611,7 +1829,7 @@ def main() -> int:
                 pairs,
                 metric="retention",
                 draws=int(args.draws_eval),
-                seed=stable_seed("contrast_ret", panel, fold_seed),
+                seed=draw_seed("contrast_ret", panel, fold_seed),
             )
             fpr_contrasts = clustered_contrasts(
                 fixed,
@@ -1621,7 +1839,7 @@ def main() -> int:
                 pairs,
                 metric="false_admit",
                 draws=int(args.draws_eval),
-                seed=stable_seed("contrast_fpr", panel, fold_seed),
+                seed=draw_seed("contrast_fpr", panel, fold_seed),
             )
             for (left, right), stats in ret_contrasts.items():
                 contrast_rows.append(
@@ -1650,7 +1868,7 @@ def main() -> int:
                 pairs,
                 metric="retention",
                 draws=int(args.draws_eval),
-                seed=stable_seed("contrast_ret_bonferroni", panel, fold_seed),
+                seed=draw_seed("contrast_ret_bonferroni", panel, fold_seed),
             )
             for (left, right), stats in bonf_contrasts.items():
                 contrast_rows.append(
@@ -1661,8 +1879,12 @@ def main() -> int:
                         "metric": "retention",
                         "score_left": left,
                         "score_right": right,
-                        "left_value": levels_bonferroni[(panel, fold_seed)][left]["retention"],
-                        "right_value": levels_bonferroni[(panel, fold_seed)][right]["retention"],
+                        "left_value": levels_bonferroni[(panel, fold_seed)][left][
+                            "retention"
+                        ],
+                        "right_value": levels_bonferroni[(panel, fold_seed)][right][
+                            "retention"
+                        ],
                         "point_pp": 100 * stats["point"],
                         "ci_low_pp": 100 * stats["low"],
                         "ci_high_pp": 100 * stats["high"],
@@ -1695,16 +1917,22 @@ def main() -> int:
                 )
 
         # panel-wide fixed-70 (the number the earlier scripts quote), labelling only
-        raw_scores = build_scores(data["cases"], data["certs"], panel=panel, fold_seed=fold_seeds[0])
+        raw_scores = build_scores(
+            data["cases"], data["certs"], panel=panel, fold_seed=fold_seeds[0]
+        )
         panelwide = {}
         for score_name in COMPARE_SCORES:
             if score_name in RULE_AND_BOUND_SCORES:
                 score = np.asarray(raw_scores[score_name], dtype=float)
             elif (panel, fold_seeds[0], score_name) in crossfit:
-                score = np.asarray(crossfit[(panel, fold_seeds[0], score_name)]["test_score"])
+                score = np.asarray(
+                    crossfit[(panel, fold_seeds[0], score_name)]["test_score"]
+                )
             else:
                 continue
-            order = np.argsort(np.where(np.isfinite(score), score, np.inf), kind="mergesort")
+            order = np.argsort(
+                np.where(np.isfinite(score), score, np.inf), kind="mergesort"
+            )
             k70 = max(1, int(round(FIXED_RETENTION * len(bad))))
             mask = np.zeros(len(bad), dtype=bool)
             mask[order[:k70]] = True
@@ -1719,7 +1947,7 @@ def main() -> int:
                 local_pairs,
                 metric="false_admit",
                 draws=int(args.draws_eval),
-                seed=stable_seed("contrast_fpr_panelwide", panel),
+                seed=draw_seed("contrast_fpr_panelwide", panel),
             )
             for (left, right), stats in fpr_contrasts.items():
                 contrast_rows.append(
@@ -1769,11 +1997,16 @@ def main() -> int:
     posthoc_core = retro.loc[retro.method.eq("retrospective_posthoc_risk_cap")][
         ["panel", "score", "retention", "false_admit_rate"]
     ].rename(
-        columns={"retention": "posthoc_retention", "false_admit_rate": "posthoc_false_admit_rate"}
+        columns={
+            "retention": "posthoc_retention",
+            "false_admit_rate": "posthoc_false_admit_rate",
+        }
     )
-    posthoc70 = retro.loc[retro.method.eq("retrospective_panelwide_fixed_retention_70")][
-        ["panel", "score", "false_admit_rate"]
-    ].rename(columns={"false_admit_rate": "posthoc_false_admit_at_70"})
+    posthoc70 = retro.loc[
+        retro.method.eq("retrospective_panelwide_fixed_retention_70")
+    ][["panel", "score", "false_admit_rate"]].rename(
+        columns={"false_admit_rate": "posthoc_false_admit_at_70"}
+    )
 
     posthoc_rows = [dict(row) for row in retro.to_dict(orient="records")]
     honest = folds_table.loc[folds_table.row_type.eq("pooled_risk_cap")].copy()
@@ -1850,28 +2083,32 @@ def main() -> int:
     is_retro = posthoc["label"].eq("RETROSPECTIVE / not deployable")
     posthoc.loc[is_retro, "retention_delta_vs_posthoc_pp"] = np.nan
     posthoc.loc[is_retro, "false_admit_delta_vs_posthoc_pp"] = np.nan
-    posthoc = posthoc[
-        [
-            "panel",
-            "score",
-            "method",
-            "fold_seed",
-            "retention",
-            "n_admitted",
-            "n_cases",
-            "false_admit_rate",
-            "false_admit_ci_low",
-            "false_admit_ci_high",
-            "n_networks",
-            "label",
-            "retention_delta_vs_posthoc_pp",
-            "false_admit_delta_vs_posthoc_pp",
-            "posthoc_retention",
-            "posthoc_false_admit_rate",
-            "posthoc_false_admit_at_70",
-            "note",
+    posthoc = (
+        posthoc[
+            [
+                "panel",
+                "score",
+                "method",
+                "fold_seed",
+                "retention",
+                "n_admitted",
+                "n_cases",
+                "false_admit_rate",
+                "false_admit_ci_low",
+                "false_admit_ci_high",
+                "n_networks",
+                "label",
+                "retention_delta_vs_posthoc_pp",
+                "false_admit_delta_vs_posthoc_pp",
+                "posthoc_retention",
+                "posthoc_false_admit_rate",
+                "posthoc_false_admit_at_70",
+                "note",
+            ]
         ]
-    ].sort_values(["panel", "score", "method", "fold_seed"]).reset_index(drop=True)
+        .sort_values(["panel", "score", "method", "fold_seed"])
+        .reset_index(drop=True)
+    )
 
     contrasts = pd.DataFrame(contrast_rows)
 
@@ -1889,15 +2126,21 @@ def main() -> int:
         table = data["group_table"].copy()
         table.insert(0, "panel", panel)
         group_frames.append(table)
-        eligibility_rows.append(eligibility_row(panel, data["cases"], data["group_table"]))
+        eligibility_rows.append(
+            eligibility_row(panel, data["cases"], data["group_table"])
+        )
         pairs = overlap_pairs(data["group_table"])
         if not pairs.empty:
             pairs.insert(0, "panel", panel)
             pair_frames.append(pairs)
-    pd.concat(group_frames, ignore_index=True).to_csv(OUT / "independence_groups.csv", index=False)
+    pd.concat(group_frames, ignore_index=True).to_csv(
+        OUT / "independence_groups.csv", index=False
+    )
     pd.DataFrame(eligibility_rows).to_csv(OUT / "eligibility_counts.csv", index=False)
     if pair_frames:
-        pd.concat(pair_frames, ignore_index=True).to_csv(OUT / "station_overlap_pairs.csv", index=False)
+        pd.concat(pair_frames, ignore_index=True).to_csv(
+            OUT / "station_overlap_pairs.csv", index=False
+        )
     else:
         pd.DataFrame(
             columns=[
@@ -1913,7 +2156,9 @@ def main() -> int:
     # per-case admissions for downstream workstreams
     for panel, data in panels_data.items():
         cases = data["cases"]
-        raw_scores = build_scores(cases, data["certs"], panel=panel, fold_seed=fold_seeds[0])
+        raw_scores = build_scores(
+            cases, data["certs"], panel=panel, fold_seed=fold_seeds[0]
+        )
         frame = pd.DataFrame(
             {
                 "network_id": cases["network_id"].astype(str),
@@ -1937,14 +2182,20 @@ def main() -> int:
             folds = assign_folds(nets, N_SPLITS, fold_seed)
             frame[f"fold_seed_{fold_seed}"] = nets.map(folds).astype(int)
             for score_name, admit in pooled_riskcap[(panel, fold_seed)].items():
-                frame[f"admit_riskcap_{score_name}_seed{fold_seed}"] = admit.astype(bool)
+                frame[f"admit_riskcap_{score_name}_seed{fold_seed}"] = admit.astype(
+                    bool
+                )
             for score_name, admit in pooled_fixed70[(panel, fold_seed)].items():
-                frame[f"admit_fixed70_{score_name}_seed{fold_seed}"] = admit.astype(bool)
+                frame[f"admit_fixed70_{score_name}_seed{fold_seed}"] = admit.astype(
+                    bool
+                )
             for score_name, admit in pooled_bonferroni[(panel, fold_seed)].items():
-                frame[f"admit_bonferroni_{score_name}_seed{fold_seed}"] = admit.astype(bool)
+                frame[f"admit_bonferroni_{score_name}_seed{fold_seed}"] = admit.astype(
+                    bool
+                )
         frame.to_parquet(OUT / f"case_level_admissions_{panel}.parquet", index=False)
 
-    # ---------------- JSON interface and fingerprint ----------------
+    # ---------------- JSON interface and protocol record ----------------
     payload = {
         "schema_version": 1,
         "generated_by": "scripts/311_wrr_p0_02_frozen_risk_thresholds.py",
@@ -1983,30 +2234,40 @@ def main() -> int:
             ),
             "seed_derivation": {
                 "helper": (
-                    "stream_recoverability.experiments.v17_fitness.paths.stable_seed = "
-                    "int.from_bytes(blake2b('|'.join(str(part) for part in parts), digest_size=4)"
-                    ".digest(), 'big')  -> process-independent"
+                    "draw_seed(tag, panel, *ints) = stream_recoverability.seeds.plain_seed("
+                    "SEED_TAGS[tag], panel_code, *ints); plain_seed writes each non-negative "
+                    "integer part with six digits, reads the digits as one number and keeps it "
+                    "modulo 2**32. panel_code = position of the panel among the sorted panel "
+                    "names; score_code = position of the score among the sorted score names"
                 ),
+                "seed_tags": dict(SEED_TAGS),
+                "panel_codes": dict(PANEL_CODES),
+                "score_codes": dict(SCORE_CODES),
                 "outer_folds": (
                     "assign_folds(sorted(network_ids), 5, fold_seed) = "
                     "np.random.default_rng(fold_seed).permutation(n_networks), fold = position % 5"
                 ),
-                "inner_folds_for_fitted_risk": "stable_seed('inner', panel, fold_seed, outer_fold)",
+                "inner_folds_for_fitted_risk": "draw_seed('inner', panel, fold_seed, outer_fold)",
                 "risk_model_seeds": (
-                    "stable_seed('innerfit', panel, fold_seed, outer_fold, inner_fold) % 2**31 and "
-                    "stable_seed('outerfit', panel, fold_seed, outer_fold) % 2**31"
+                    "draw_seed('innerfit', panel, fold_seed, outer_fold, inner_fold) and "
+                    "draw_seed('outerfit', panel, fold_seed, outer_fold)"
                 ),
-                "tie_break_jitter": "stable_seed(panel, 'length'|'peak'|'rawbound'|'calbound', fold_seed)",
-                "selection_bootstrap_seed": "stable_seed('select', panel, fold_seed, outer_fold, score)",
+                "tie_break_jitter": (
+                    "draw_seed('length'|'peak'|'rawbound'|'calbound', panel, fold_seed); fitted "
+                    "scores draw_seed('noise', panel, score_code, fold_seed)"
+                ),
+                "selection_bootstrap_seed": (
+                    "draw_seed('select', panel, fold_seed, outer_fold, score_code)"
+                ),
                 "fold_evaluation_bootstrap_seed": (
-                    "stable_seed('eval'|'eval70', panel, fold_seed, outer_fold, score)"
+                    "draw_seed('eval'|'eval70', panel, fold_seed, outer_fold, score_code)"
                 ),
                 "pooled_evaluation_bootstrap_seed": (
-                    "stable_seed('pooled'|'pooled70'|'pooled_bonferroni', panel, fold_seed)"
+                    "draw_seed('pooled'|'pooled70'|'pooled_bonferroni', panel, fold_seed)"
                 ),
                 "contrast_bootstrap_seed": (
-                    "stable_seed('contrast_ret'|'contrast_fpr'|'contrast_ret_bonferroni', panel, "
-                    "fold_seed) and stable_seed('contrast_fpr_panelwide', panel)"
+                    "draw_seed('contrast_ret'|'contrast_fpr'|'contrast_ret_bonferroni', panel, "
+                    "fold_seed) and draw_seed('contrast_fpr_panelwide', panel)"
                 ),
             },
             "tie_break_scales": {
@@ -2028,10 +2289,8 @@ def main() -> int:
         json.dumps(json_safe(payload), indent=2) + "\n"
     )
 
-    fingerprint = {
+    record = {
         "script": str(Path(__file__).relative_to(ROOT)),
-        "script_sha256": sha256_file(Path(__file__)),
-        "git_head": git_head(),
         "generated_utc": payload["generated_utc"],
         "python": sys.version.split()[0],
         "platform": platform.platform(),
@@ -2041,13 +2300,15 @@ def main() -> int:
         "inputs": {
             panel: {
                 "cases": str(PANELS[panel]["cases"].relative_to(ROOT)),
-                "cases_sha256": panels_data[panel]["cases_sha256"],
                 "certificates": str(PANELS[panel]["certificates"].relative_to(ROOT)),
-                "certificates_sha256": panels_data[panel]["certs_sha256"],
                 "n_cases": panels_data[panel]["verification"]["n_cases"],
                 "n_networks": panels_data[panel]["verification"]["n_networks"],
-                "alignment_proof": panels_data[panel]["verification"]["alignment_proof"],
-                "certificate_choice_counts": panels_data[panel]["verification"]["choice_counts"],
+                "alignment_proof": panels_data[panel]["verification"][
+                    "alignment_proof"
+                ],
+                "certificate_choice_counts": panels_data[panel]["verification"][
+                    "choice_counts"
+                ],
                 "certificate_provenance": PANELS[panel]["certificate_provenance"],
                 "panel_role": PANELS[panel]["role"],
                 "n_certificate_error_fallbacks": panels_data[panel]["target"][
@@ -2066,7 +2327,8 @@ def main() -> int:
                     (
                         ~np.isfinite(
                             pd.to_numeric(
-                                panels_data[panel]["certs"]["certificate_bound"], errors="coerce"
+                                panels_data[panel]["certs"]["certificate_bound"],
+                                errors="coerce",
                             )
                         )
                     ).sum()
@@ -2075,7 +2337,8 @@ def main() -> int:
                     (
                         ~np.isfinite(
                             pd.to_numeric(
-                                panels_data[panel]["certs"]["certificate_raw_bound"], errors="coerce"
+                                panels_data[panel]["certs"]["certificate_raw_bound"],
+                                errors="coerce",
                             )
                         )
                     ).sum()
@@ -2093,8 +2356,8 @@ def main() -> int:
         },
         "interpretation_notes": INTERPRETATION_NOTES,
     }
-    (OUT / "protocol_fingerprint.json").write_text(
-        json.dumps(json_safe(fingerprint), indent=2) + "\n"
+    (OUT / "protocol_record.json").write_text(
+        json.dumps(json_safe(record), indent=2) + "\n"
     )
 
     write_summary(
@@ -2137,7 +2400,9 @@ def write_summary(
         "exist. This script implements the honest version and reports both, side by side."
     )
     lines.append("")
-    lines.append("## Version note — corrected `length_rule` number (read before citing)")
+    lines.append(
+        "## Version note — corrected `length_rule` number (read before citing)"
+    )
     lines.append("")
     lines.append(
         "Two internal runs preceded this file. The first (fold seed 101 only, 200 bootstrap draws, "
@@ -2215,7 +2480,8 @@ def write_summary(
         "`certificate_abs_error == |certificate_metric - truth_metric|`."
     )
     fallbacks = ", ".join(
-        f"{panel}: {data['target']['n_certificate_error_missing']}" for panel, data in panels_data.items()
+        f"{panel}: {data['target']['n_certificate_error_missing']}"
+        for panel, data in panels_data.items()
     )
     lines.append(
         f"3. Target event: `certificate_abs_error > {TOL_C}` C. `abserr_policy` is substituted only "
@@ -2318,7 +2584,9 @@ def write_summary(
             )
             .sort_values("score")
         )
-        lines.append("Across fold seeds (descriptive; the per-seed rows above carry the intervals):")
+        lines.append(
+            "Across fold seeds (descriptive; the per-seed rows above carry the intervals):"
+        )
         lines.append("")
         for column in (
             "retention_mean",
@@ -2388,10 +2656,14 @@ def write_summary(
     )
     lines.append("")
 
-    lines.append("## RETROSPECTIVE / not deployable vs honest (same scores, same panel)")
+    lines.append(
+        "## RETROSPECTIVE / not deployable vs honest (same scores, same panel)"
+    )
     lines.append("")
     retro_cap = retro.loc[retro.method.eq("retrospective_posthoc_risk_cap")]
-    honest_mean = posthoc.loc[posthoc.method.eq("honest_crossfit_risk_cap_mean_over_seeds")]
+    honest_mean = posthoc.loc[
+        posthoc.method.eq("honest_crossfit_risk_cap_mean_over_seeds")
+    ]
     for panel in panels_data:
         lines.append(f"### {panel}")
         lines.append("")
@@ -2406,14 +2678,26 @@ def write_summary(
         )
         right = honest_mean.loc[honest_mean.panel.eq(panel)][
             ["score", "retention", "false_admit_rate"]
-        ].rename(columns={"retention": "honest_retention", "false_admit_rate": "honest_false_admit"})
+        ].rename(
+            columns={
+                "retention": "honest_retention",
+                "false_admit_rate": "honest_false_admit",
+            }
+        )
         merged = left.merge(right, on="score", how="outer").sort_values("score")
-        merged["retention_gap_pp"] = 100 * (merged["honest_retention"] - merged["posthoc_retention"])
+        merged["retention_gap_pp"] = 100 * (
+            merged["honest_retention"] - merged["posthoc_retention"]
+        )
         merged["false_admit_gap_pp"] = 100 * (
             merged["honest_false_admit"] - merged["posthoc_false_admit"]
         )
         raw_gaps = merged[["score", "retention_gap_pp", "false_admit_gap_pp"]].copy()
-        for column in ("posthoc_retention", "posthoc_false_admit", "honest_retention", "honest_false_admit"):
+        for column in (
+            "posthoc_retention",
+            "posthoc_false_admit",
+            "honest_retention",
+            "honest_false_admit",
+        ):
             merged[column] = merged[column].map(pct)
         for column in ("retention_gap_pp", "false_admit_gap_pp"):
             merged[column] = merged[column].map(lambda v: num(v, 2))
@@ -2498,9 +2782,18 @@ def write_summary(
                     & block_rows.score_right.eq(row.score_right)
                 ]
                 zero_rows.append(
-                    bool((subset["ci_low_pp"] > 0).all() or (subset["ci_high_pp"] < 0).all())
+                    bool(
+                        (subset["ci_low_pp"] > 0).all()
+                        or (subset["ci_high_pp"] < 0).all()
+                    )
                 )
-            for column in ("point_pp", "point_min_pp", "point_max_pp", "ci_low_min", "ci_high_max"):
+            for column in (
+                "point_pp",
+                "point_min_pp",
+                "point_max_pp",
+                "ci_low_min",
+                "ci_high_max",
+            ):
                 summary[column] = summary[column].map(lambda v: num(v, 2))
             summary["ci_excludes_zero_all_seeds"] = zero_rows
             lines.append(summary.to_string(index=False))
@@ -2510,7 +2803,9 @@ def write_summary(
         "`crossfit_risk_cap_table.csv` and `posthoc_vs_honest.csv`."
     )
     lines.append("")
-    lines.append("### Absolute scale vs ranking: `calibrated_bound` vs `uncalibrated_bound`")
+    lines.append(
+        "### Absolute scale vs ranking: `calibrated_bound` vs `uncalibrated_bound`"
+    )
     lines.append("")
     for panel, data in panels_data.items():
         lines.append(
@@ -2539,7 +2834,9 @@ def write_summary(
     n_pool = int(len(pooled_cells))
     n_fold = int(len(fold_cells))
     pool_point_over = pooled_cells.loc[pooled_cells["test_false_admit_rate"] > RISK_CAP]
-    pool_ci_over = pooled_cells.loc[pooled_cells["test_false_admit_ci95_high"] > RISK_CAP]
+    pool_ci_over = pooled_cells.loc[
+        pooled_cells["test_false_admit_ci95_high"] > RISK_CAP
+    ]
     fold_point_over = fold_cells.loc[fold_cells["test_false_admit_rate"] > RISK_CAP]
     lines.append(
         f"- Pooled held-out cells: {len(pool_point_over)} of {n_pool} have a point false-admit rate "
@@ -2578,12 +2875,15 @@ def write_summary(
         .reset_index()
     )
     worst_spread = retention_spread.sort_values("spread_pp", ascending=False).iloc[0]
-    honest_mean = posthoc.loc[posthoc.method.eq("honest_crossfit_risk_cap_mean_over_seeds")]
+    honest_mean = posthoc.loc[
+        posthoc.method.eq("honest_crossfit_risk_cap_mean_over_seeds")
+    ]
     gaps = honest_mean.dropna(subset=["retention_delta_vs_posthoc_pp"])
     worst_gap = gaps.sort_values("retention_delta_vs_posthoc_pp").iloc[0]
     best_gap = gaps.sort_values("retention_delta_vs_posthoc_pp").iloc[-1]
     cap_pairs = contrasts.loc[
-        contrasts.comparison.eq("risk_cap_5pct_frozen") & contrasts.metric.eq("retention")
+        contrasts.comparison.eq("risk_cap_5pct_frozen")
+        & contrasts.metric.eq("retention")
     ]
     fixed_pairs = contrasts.loc[
         contrasts.comparison.eq("fixed_retention_70_perfold")
@@ -2599,7 +2899,9 @@ def write_summary(
             low = subset["ci_low_pp"]
             high = subset["ci_high_pp"]
         else:
-            subset = frame.loc[frame.score_left.eq(second) & frame.score_right.eq(first)]
+            subset = frame.loc[
+                frame.score_left.eq(second) & frame.score_right.eq(first)
+            ]
             if subset.empty:
                 return "not computed"
             point = -subset["point_pp"]
@@ -2627,7 +2929,8 @@ def write_summary(
     lines.append("")
     for panel in panels_data:
         block_rows = folds_table.loc[
-            folds_table.panel.eq(panel) & folds_table.row_type.eq("bonferroni_sensitivity_pooled")
+            folds_table.panel.eq(panel)
+            & folds_table.row_type.eq("bonferroni_sensitivity_pooled")
         ].copy()
         if block_rows.empty:
             continue
@@ -2677,9 +2980,19 @@ def write_summary(
         f"{pct(pooled_cells['test_false_admit_rate'].max())}; {len(pool_ci_over)} of {n_pool} interval "
         f"upper ends above the cap. Falsifier not triggered, but not fully excluded either."
     )
-    model_scores = ("calibrated_bound", "uncalibrated_bound", "fitted_risk", "fitted_risk_certtarget")
-    model_gaps = gaps.loc[gaps.score.isin(model_scores), "retention_delta_vs_posthoc_pp"]
-    rule_gaps = gaps.loc[gaps.score.isin(("length_rule", "peak_overlap_rule")), "retention_delta_vs_posthoc_pp"]
+    model_scores = (
+        "calibrated_bound",
+        "uncalibrated_bound",
+        "fitted_risk",
+        "fitted_risk_certtarget",
+    )
+    model_gaps = gaps.loc[
+        gaps.score.isin(model_scores), "retention_delta_vs_posthoc_pp"
+    ]
+    rule_gaps = gaps.loc[
+        gaps.score.isin(("length_rule", "peak_overlap_rule")),
+        "retention_delta_vs_posthoc_pp",
+    ]
     lines.append(
         "- *Falsifier 2*: the honest retention is far below the post-hoc frontier at the same cap. "
         f"Observed: honest minus post-hoc retention runs from {num(worst_gap['retention_delta_vs_posthoc_pp'], 2)} pp "
@@ -2772,12 +3085,23 @@ def write_summary(
     lines.append("- `crossfit_risk_cap_table.csv` — fold-level and pooled rows.")
     lines.append("- `risk_cap_contrasts.csv` — paired network-clustered contrasts.")
     lines.append("- `posthoc_vs_honest.csv` — retrospective vs honest in one table.")
-    lines.append("- `case_level_admissions_<panel>.parquet` — per-case scores, folds and admit flags.")
-    lines.append("- `fold_assignments.csv` — network-level fold assignment per fold seed.")
-    lines.append("- `models/` — the refit `fitted_risk` models behind each frozen threshold.")
-    lines.append("- `protocol_fingerprint.json` — script/input hashes, git HEAD, versions, self-checks.")
+    lines.append(
+        "- `case_level_admissions_<panel>.parquet` — per-case scores, folds and admit flags."
+    )
+    lines.append(
+        "- `fold_assignments.csv` — network-level fold assignment per fold seed."
+    )
+    lines.append(
+        "- `models/` — the refit `fitted_risk` models behind each frozen threshold."
+    )
+    lines.append(
+        "- `protocol_record.json` — input paths and panel checks, protocol and seeds, versions, "
+        "self-checks."
+    )
     lines.append("")
-    lines.append(f"Runtime: {wall_seconds:.1f}s. Self-checks: `{json.dumps(json_safe(checks))}`.")
+    lines.append(
+        f"Runtime: {wall_seconds:.1f}s. Self-checks: `{json.dumps(json_safe(checks))}`."
+    )
     lines.append("")
     (output / "SUMMARY.md").write_text("\n".join(lines) + "\n")
 

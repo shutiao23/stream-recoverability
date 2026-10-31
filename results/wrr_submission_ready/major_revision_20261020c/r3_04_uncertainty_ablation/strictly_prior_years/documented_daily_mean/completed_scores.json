@@ -92,12 +92,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "certificate",
       "measurement_scope": "documented_daily_mean",
-      "name": "certificate",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "certificate"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -191,12 +188,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "certificate",
       "measurement_scope": "documented_daily_mean",
-      "name": "certificate",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "certificate"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -290,12 +284,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "certificate",
       "measurement_scope": "documented_daily_mean",
-      "name": "certificate",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "certificate"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -385,12 +376,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_target_disagreement",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_target_disagreement"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -480,12 +468,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_target_disagreement",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_target_disagreement"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -575,12 +560,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_target_disagreement",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_target_disagreement"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -670,12 +652,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_daily_disagreement",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_daily_disagreement"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -765,12 +744,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_daily_disagreement",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_daily_disagreement"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -860,12 +836,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_daily_disagreement",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_daily_disagreement"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -957,12 +930,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_both_diagnostics",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_both_diagnostics"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1054,12 +1024,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_both_diagnostics",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_both_diagnostics"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1151,12 +1118,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_both_diagnostics",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_both_diagnostics"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1247,12 +1211,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_plus_climatological_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_plus_climatological_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1343,12 +1304,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_plus_climatological_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_plus_climatological_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1439,12 +1397,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_plus_climatological_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_plus_climatological_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1537,12 +1492,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_direct_h30_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_direct_h30_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1635,12 +1587,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_direct_h30_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_direct_h30_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1733,12 +1682,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "generic_direct_h30_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "generic_direct_h30_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1838,12 +1784,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -1943,12 +1886,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2048,12 +1988,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2152,12 +2089,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_competition",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_competition"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2256,12 +2190,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_competition",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_competition"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2360,12 +2291,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_competition",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_competition"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2461,12 +2389,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_window_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_window_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2562,12 +2487,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_window_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_window_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2663,12 +2585,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_window_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_window_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2762,12 +2681,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_donor_features",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_donor_features"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2861,12 +2777,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_donor_features",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_donor_features"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -2960,12 +2873,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "gbr",
       "measurement_scope": "documented_daily_mean",
-      "name": "uncertain_support_no_donor_features",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "uncertain_support_no_donor_features"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3040,12 +2950,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "logit",
       "measurement_scope": "documented_daily_mean",
-      "name": "small_logit",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "small_logit"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3120,12 +3027,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "logit",
       "measurement_scope": "documented_daily_mean",
-      "name": "small_logit",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "small_logit"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3200,12 +3104,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "logit",
       "measurement_scope": "documented_daily_mean",
-      "name": "small_logit",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "small_logit"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3281,12 +3182,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "logit",
       "measurement_scope": "documented_daily_mean",
-      "name": "small_logit_plus_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "small_logit_plus_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3362,12 +3260,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "logit",
       "measurement_scope": "documented_daily_mean",
-      "name": "small_logit_plus_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "small_logit_plus_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3443,12 +3338,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "logit",
       "measurement_scope": "documented_daily_mean",
-      "name": "small_logit_plus_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "small_logit_plus_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3525,12 +3417,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "spline",
       "measurement_scope": "documented_daily_mean",
-      "name": "season_spline",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "season_spline"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3607,12 +3496,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "spline",
       "measurement_scope": "documented_daily_mean",
-      "name": "season_spline",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "season_spline"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3689,12 +3575,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "spline",
       "measurement_scope": "documented_daily_mean",
-      "name": "season_spline",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "season_spline"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3772,12 +3655,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "spline",
       "measurement_scope": "documented_daily_mean",
-      "name": "season_spline_plus_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "season_spline_plus_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3855,12 +3735,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "spline",
       "measurement_scope": "documented_daily_mean",
-      "name": "season_spline_plus_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "season_spline_plus_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -3938,12 +3815,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "spline",
       "measurement_scope": "documented_daily_mean",
-      "name": "season_spline_plus_support",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "season_spline_plus_support"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4011,12 +3885,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "length_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "length_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4084,12 +3955,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "length_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "length_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4157,12 +4025,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "length_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "length_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4230,12 +4095,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "peak_overlap_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "peak_overlap_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4303,12 +4165,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "peak_overlap_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "peak_overlap_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4376,12 +4235,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "peak_overlap_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "peak_overlap_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4449,12 +4305,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "warm_coverage_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "warm_coverage_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4522,12 +4375,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "warm_coverage_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "warm_coverage_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4595,12 +4445,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "warm_coverage_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "warm_coverage_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4668,12 +4515,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "probabilistic_support_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "probabilistic_support_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4741,12 +4585,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "probabilistic_support_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "probabilistic_support_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4814,12 +4655,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "probabilistic_support_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "probabilistic_support_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4887,12 +4725,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "upper_support_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "upper_support_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -4960,12 +4795,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "upper_support_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "upper_support_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5033,12 +4865,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "upper_support_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "upper_support_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5106,12 +4935,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "direct_h30_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "direct_h30_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5179,12 +5005,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "direct_h30_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "direct_h30_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5252,12 +5075,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "direct_h30_uncertainty",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "direct_h30_uncertainty"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5325,12 +5145,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "daily_disagreement_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "daily_disagreement_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5398,12 +5215,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "daily_disagreement_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "daily_disagreement_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5471,12 +5285,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "daily_disagreement_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "daily_disagreement_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5544,12 +5355,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "target_disagreement_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "target_disagreement_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5617,12 +5425,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "target_disagreement_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "target_disagreement_rule"
     },
     {
       "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
@@ -5690,12 +5495,9 @@
           "n_train_groups": 87
         }
       ],
-      "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
-      "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
       "kind": "rule",
       "measurement_scope": "documented_daily_mean",
-      "name": "target_disagreement_rule",
-      "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+      "name": "target_disagreement_rule"
     }
   ]
 }

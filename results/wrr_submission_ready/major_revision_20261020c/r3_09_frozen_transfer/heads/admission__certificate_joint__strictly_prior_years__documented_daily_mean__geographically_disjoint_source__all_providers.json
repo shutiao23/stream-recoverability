@@ -46,7 +46,6 @@
   "identity": "admission__certificate_joint__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers",
   "kind": "certificate_joint",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__certificate_joint__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers.joblib",
-  "model_sha256": "c171f1957a4a960dc4b32c220e1ed3e03d664a75f5d064902b24b984acf38f73",
   "n_training_cases": 8768,
   "n_training_groups": 54,
   "name": "certificate_joint",
@@ -56,8 +55,7 @@
   "scope": "documented_daily_mean",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

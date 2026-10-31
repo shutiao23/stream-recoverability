@@ -3,7 +3,7 @@ Traceback (most recent call last):
     raise SystemExit(main())
                      ^^^^^^
   File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1158, in main
-    write_summary(decomp, counts, compare, sensitivity, cross, fingerprint)
+    write_summary(decomp, counts, compare, sensitivity, cross, record)
   File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1770, in write_summary
     max_cov_abs = frontiers.loc[frontiers.rule_family.eq("interval_abstention")].groupby(
                   ^^^^^^^^^

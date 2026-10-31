@@ -131,7 +131,7 @@ Present as prose or a boolean, not as something a future script can check:
 - `not_an_executable_design` / `executable: false` (see leftover 3).
 - `auto_reassign_from_fractions: false` (see leftover 5).
 - `t8.public_sources: [usgs, hubeau, foen, uk_ea]` and a countable-vs-excluded flag that catalog validation can use. Loire/Swiss are listed (`yaml:151-153`); UK EA is not a field. `continents_min` has no catalog column (`network_catalog.py` has no `continent`).
-- `t7_sealed_confirmatory` (`yaml:287-291`) says `numeric_thresholds_preregistered: true` but does not copy the T2/T3 numbers. Evaluate-once has no hash / once-lock path field.
+- `t7_sealed_confirmatory` (`yaml:287-291`) says `numeric_thresholds_preregistered: true` but does not copy the T2/T3 numbers. Evaluate-once has no once-lock path field.
 - `ci95_lower_bound_must_exceed` is not a list of baseline names plus a comparison operator. `evaluate_success` cannot implement leftover 1 without that shape.
 - `theory_propositions.gaussian_mae_factor` matches `GAUSSIAN_MAE_FACTOR` today (`conditional_observability.py:17` = `0.7978845608028654`) but no loader asserts equality.
 

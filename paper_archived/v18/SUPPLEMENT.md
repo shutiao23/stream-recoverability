@@ -112,8 +112,9 @@ axis for the sine-fit mean and within 0.02 AUC of the best for the phase.
 ## S5. Runs that were discarded
 
 Two defects made specific v17 artifacts unusable and both were repaired before
-the reserved panel was opened: outage realizations were seeded from a salted
-hash, and worker results were concatenated in completion order. A third affected
+the reserved panel was opened: outage realizations were seeded from a value
+that Python randomises per process, and worker results were concatenated in
+completion order. A third affected
 the calibration rather than the data: an additive, per-estimator conformal scheme
 under-covered because selecting the smallest of several bounds is a winner's
 curse. All three are described in `paper/v17/SUPPLEMENT.md`; the affected numbers

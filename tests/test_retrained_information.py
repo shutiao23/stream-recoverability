@@ -12,7 +12,6 @@ import torch
 
 import stream_recoverability.experiments.retrained_information as retrained
 import stream_recoverability.experiments.runner as runner_module
-from stream_recoverability.experiments.contracts import file_sha256
 from stream_recoverability.experiments.retrained_information import (
     RETRAINED_COALITION_LABELS,
     RETRAINED_COALITIONS,
@@ -84,8 +83,8 @@ def _small_processed_data(root: Path) -> tuple[Path, Path]:
             {
                 "data_version": "published_v1",
                 "artifacts": {
-                    "daily_wide.parquet": {"sha256": file_sha256(wide_path)},
-                    "daily_long.parquet": {"sha256": file_sha256(quality_path)},
+                    "daily_wide.parquet": {"bytes": wide_path.stat().st_size},
+                    "daily_long.parquet": {"bytes": quality_path.stat().st_size},
                 },
             }
         ),
@@ -100,13 +99,10 @@ def _authorized_roster() -> SimpleNamespace:
         selected_models=("linear", "proposed"),
         best_traditional_model="linear",
         manifest_path="validation/finalized_model_roster.json",
-        manifest_sha256="a" * 64,
         selection_data_version="published_v1",
-        selection_design_hash="d" * 64,
-        selection_contract={"code_identity": {"relevant_source_digest": "c" * 64}},
+        selection_contract={"data_version": "published_v1"},
         selection_data_version_manifest={
             "path": "data_versions/published_v1/version_manifest.json",
-            "sha256": "e" * 64,
             "bytes": 1,
         },
         validation_anchor_catalog=validation_anchor_catalog_identity(),
@@ -299,7 +295,7 @@ def test_framework_only_roster_marks_retrained_not_applicable(
     assert not (output / "checkpoints").exists()
 
 
-def test_partial_retrained_run_writes_exact_retryable_and_hash_gates(
+def test_partial_retrained_run_writes_exact_retryable_gates(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     wide_path, quality_path = _small_processed_data(tmp_path)

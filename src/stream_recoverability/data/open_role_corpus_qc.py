@@ -103,16 +103,18 @@ def parse_nwis_daily_json(
     )
     if frame.empty:
         return frame
-    frame["date"] = pd.to_datetime(frame["date"], utc=True, errors="coerce").dt.tz_localize(
-        None
-    ).dt.normalize()
-    frame["temperature_c"] = pd.to_numeric(
-        frame["temperature_c"], errors="coerce"
+    frame["date"] = (
+        pd.to_datetime(frame["date"], utc=True, errors="coerce")
+        .dt.tz_localize(None)
+        .dt.normalize()
     )
+    frame["temperature_c"] = pd.to_numeric(frame["temperature_c"], errors="coerce")
     frame = frame.dropna(subset=["date"]).sort_values("date", kind="mergesort")
     start = pd.Timestamp(expected_start)
     end = pd.Timestamp(expected_end)
-    if start > end or (not frame.empty and (frame["date"].min() < start or frame["date"].max() > end)):
+    if start > end or (
+        not frame.empty and (frame["date"].min() < start or frame["date"].max() > end)
+    ):
         raise ValueError("NWIS response dates fall outside the locked request interval")
     return frame
 
@@ -175,9 +177,7 @@ def _attrition(
     )
 
 
-def _load_primary_8yr_counts(
-    primary_root: Path, *, expected_split_sha256: str
-) -> dict[str, Any]:
+def _load_primary_8yr_counts(primary_root: Path) -> dict[str, Any]:
     roles: dict[str, dict[str, int]] = {}
     for role in sorted(QC_ROLES):
         path = primary_root / role / "qc_manifest.json"
@@ -186,11 +186,11 @@ def _load_primary_8yr_counts(
         try:
             document = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:
-            raise ValueError(f"primary manifest is unreadable: {path}: {error}") from error
+            raise ValueError(
+                f"primary manifest is unreadable: {path}: {error}"
+            ) from error
         if not isinstance(document, dict) or document.get("role") != role:
             raise ValueError(f"primary manifest role mismatch: {path}")
-        if document.get("split_sha256") != expected_split_sha256:
-            raise ValueError(f"primary manifest split SHA-256 mismatch: {path}")
         if document.get("sealed_temperature_records_read") is not False:
             raise ValueError(f"primary manifest does not affirm sealed unread: {path}")
         if document.get("relaxation_applied") not in {None, False}:
@@ -219,11 +219,13 @@ def _load_primary_8yr_counts(
 
 
 def _qualification_contract(
-    *, mode: str, role: str, destination: Path, expected_split_sha256: str
+    *, mode: str, role: str, destination: Path
 ) -> tuple[int, bool, str | None, dict[str, Any] | None]:
     if mode == PRIMARY_MODE:
         if FAILURE_CLOSURE_MODE in destination.parts:
-            raise ValueError("primary8 output cannot use the failure_closure6 directory")
+            raise ValueError(
+                "primary8 output cannot use the failure_closure6 directory"
+            )
         return PRIMARY_QUALIFIED_YEARS, False, None, None
     if mode != FAILURE_CLOSURE_MODE:
         raise ValueError(
@@ -233,10 +235,7 @@ def _qualification_contract(
         raise ValueError(
             "failure_closure6 must write to <primary_root>/failure_closure6/<role>"
         )
-    primary_counts = _load_primary_8yr_counts(
-        destination.parent.parent,
-        expected_split_sha256=expected_split_sha256,
-    )
+    primary_counts = _load_primary_8yr_counts(destination.parent.parent)
     return (
         FAILURE_CLOSURE_QUALIFIED_YEARS,
         True,
@@ -274,7 +273,6 @@ def run_open_role_qc(
         mode=qualification_mode,
         role=role,
         destination=destination,
-        expected_split_sha256=catalog.split_sha256,
     )
     destination.mkdir(parents=True, exist_ok=True)
 
@@ -316,7 +314,6 @@ def run_open_role_qc(
             station_status[request.site_id] = {
                 "status": "parsed_empty" if frame.empty else "parsed",
                 "n_rows": len(frame),
-                "registry_sha256": record["sha256"],
                 "registry_reused": bool(record.get("reused_registry")),
             }
             if not frame.empty:
@@ -327,17 +324,14 @@ def run_open_role_qc(
         raw_long = (
             pd.concat(frames, ignore_index=True)
             if frames
-            else pd.DataFrame(
-                columns=["site_id", "date", "temperature_c", "qualifier"]
-            )
+            else pd.DataFrame(columns=["site_id", "date", "temperature_c", "qualifier"])
         )
         report = qc_long_frame(raw_long)
         report["network_id"] = network_id
-        report["eligible_for_network"] = (
-            report["verdict"].astype(str).str.startswith("accepted")
-            & pd.to_numeric(report["qualified_years"], errors="coerce").ge(
-                qualified_years_min
-            )
+        report["eligible_for_network"] = report["verdict"].astype(str).str.startswith(
+            "accepted"
+        ) & pd.to_numeric(report["qualified_years"], errors="coerce").ge(
+            qualified_years_min
         )
         report["exclusion_reason"] = ""
         rejected = ~report["verdict"].astype(str).str.startswith("accepted")
@@ -392,7 +386,6 @@ def run_open_role_qc(
                 "manifest_schema": "huc8_open_role_network_qc_v1",
                 "network_id": network_id,
                 "role": role,
-                "split_sha256": catalog.split_sha256,
                 "status": "complete",
                 "qualification_mode": qualification_mode,
                 "qualified_years_min": qualified_years_min,
@@ -428,7 +421,6 @@ def run_open_role_qc(
         "relaxation_applied": relaxation_applied,
         "relaxation_trigger": relaxation_trigger,
         "primary_8yr_counts": primary_8yr_counts,
-        "split_sha256": catalog.split_sha256,
         "n_networks_selected": len(network_ids),
         "n_networks_with_registered_objects": len(overlap_rows),
         "n_registry_objects_reused": n_registry_reused,

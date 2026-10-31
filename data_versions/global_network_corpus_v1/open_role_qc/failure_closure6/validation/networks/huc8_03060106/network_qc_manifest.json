@@ -47,42 +47,35 @@
   "relaxation_trigger": "open_survival_projection_lt_100",
   "role": "validation",
   "sealed_temperature_records_read": false,
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "stations": {
     "02197000": {
       "n_rows": 4490,
       "registry_reused": true,
-      "registry_sha256": "bdbefc13f97d2327c3fe1d94c71df2c0a963875f0fd463d88a5357869366fd1f",
       "status": "parsed"
     },
     "02197320": {
       "n_rows": 3666,
       "registry_reused": true,
-      "registry_sha256": "21a7e7b22da188eb8602c2a7e9370ef3d5e05db884e0323bca3403f8573daa66",
       "status": "parsed"
     },
     "021973426": {
       "n_rows": 4385,
       "registry_reused": true,
-      "registry_sha256": "98a5b40dad40ea05e8a41d2b6bb55d4559569059b24044664193d42f4db6e66c",
       "status": "parsed"
     },
     "02197351": {
       "n_rows": 4280,
       "registry_reused": true,
-      "registry_sha256": "4f4dc93b9673d3bb1e41abf7946d0e958ab680dd49972dae48d429d28ffe7466",
       "status": "parsed"
     },
     "02197362": {
       "n_rows": 3927,
       "registry_reused": true,
-      "registry_sha256": "fb5d526539b52afa65dd7ef7753d03cb2396e30742739b744b62db9ec05eca64",
       "status": "parsed"
     },
     "02197380": {
       "n_rows": 3204,
       "registry_reused": true,
-      "registry_sha256": "810da32dbd0f96d21bf71836bc459c38c536f94efffaa00d961a6279108a3fd9",
       "status": "parsed"
     }
   },

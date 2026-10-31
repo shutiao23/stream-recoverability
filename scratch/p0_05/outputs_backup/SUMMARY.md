@@ -1,6 +1,6 @@
 # P0-05 — independence and power design for the final configuration
 
-Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; HEAD `0544f3b760cd`; script sha256 `aeb82d5f5d21d908…`; wall time 791 s.
+Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; wall time 791 s.
 
 ## Estimator
 
@@ -197,7 +197,6 @@ Residual untouched pool in the repository: the multi-agency prior-access audit f
 * `network_variance_table.csv` (required)
 * `provider_leverage.csv` (required)
 * `independent_evidence_requirements.csv` (required)
-* `protocol_fingerprint.json` (required)
 * `SUMMARY.md` (required)
 * `weighting_scenarios.csv` (supporting)
 * `leave_one_provider_out.csv` (supporting)

@@ -52,7 +52,6 @@
   "identity": "admission__policy_certificate__leave_one_year_out__all__local_fit__foen",
   "kind": "policy_certificate",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__policy_certificate__leave_one_year_out__all__local_fit__foen.joblib",
-  "model_sha256": "e31f76687ba5faf1ea81aa547cc9ff3ba00297df850a13e17e6851606fbbb320",
   "n_training_cases": 1040,
   "n_training_groups": 11,
   "name": "policy_certificate",
@@ -62,8 +61,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
-      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

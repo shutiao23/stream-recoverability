@@ -1,6 +1,6 @@
 # P0-03 — the final admission rule on the monitoring-calendar replay
 
-`scripts/312_wrr_p0_03_final_method_replay.py` (sha256 `091dacad26794f3b…`), git HEAD `8eade30bbf5f82b9af3b7900de81e52707e8af47`, runtime 185.9 s, generated 2026-10-15T11:07:29.251320+00:00.
+`scripts/312_wrr_p0_03_final_method_replay.py`, runtime 185.9 s, generated 2026-10-15T11:07:29.251320+00:00.
 
 ## 1. What was replayed, and on how many units
 
@@ -13,7 +13,7 @@
 
 ## 2. Threshold paths actually used
 
-- the parallel workstream file exists: **True** (`results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json`, sha256 `c7033a61d7ba5ae7…`, scripts/311_wrr_p0_02_frozen_risk_thresholds.py).
+- the parallel workstream file exists: **True** (`results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json`, scripts/311_wrr_p0_02_frozen_risk_thresholds.py).
 - its `calibrated_bound` thresholds live in the units of `results/v17_fitness/step6_screen/development_certificates.parquet`.  That table cannot be reproduced with the current `screen.py`: on its fold 0 the maximum absolute bound difference is **1.2031796926834244 °C** and only **0.7912109375** of the certificate choices agree, so numerically transferring its threshold into this script's bounds is not sound (the code changed after the table was built).  The literal transfer is nevertheless reported as the labelled secondary row `final_rule_literal_p002_tau`.
 - **primary path**: the p0_02 pre-registered *rule* (largest calibration retention in a 0.10..0.95 grid whose calibration false-admit rate plus a one-sided 95 % network-clustered bootstrap upper bound is <= 5 %; admit iff score <= threshold; if nothing qualifies, admit nothing) re-implemented in these units, with a per-held-out-network three-way network-disjoint split of the labelled corpus (65 networks for the certificate heads / 22 for the conformal scale / 22 for the threshold); the held-out network is in none of them.
 - the two simple rules **do** consume the parallel workstream's frozen per-fold thresholds ({"length_rule": {"0": 30.87809571665732, "1": 30.560995989441253, "2": 30.51846681073136, "3": 30.858153810778685, "4": 30.82699631661753}, "peak_window_rule": {"0": 0.5006144682598739, "1": 0.500734552138818, "2": 0.5001706866859715, "3": 0.4674299640898077, "4": 0.5007172127221903}}) because their units (days, peak-window share) are transferable; the published fixed limits (49 d, 140 d, 10 % overlap) are reported next to them as secondary rows.

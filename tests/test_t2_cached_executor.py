@@ -38,7 +38,6 @@ def test_cache_is_custody_checked_and_numerically_equivalent(monkeypatch) -> Non
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path="open/daily_wide_qc.csv",
-        wide_sha256="a" * 64,
         manifest_path="open/network_manifest.json",
         n_days=len(panel),
         n_stations=2,
@@ -99,10 +98,14 @@ def test_cache_is_custody_checked_and_numerically_equivalent(monkeypatch) -> Non
     }
     assert all(row["status"] in {"complete", "reference_complete"} for row in optimized)
     assert all(row["sealed_temperature_records_read"] is False for row in optimized)
-    assert all(row["runner_contract_version"] == RUNNER_CONTRACT_VERSION for row in optimized)
+    assert all(
+        row["runner_contract_version"] == RUNNER_CONTRACT_VERSION for row in optimized
+    )
 
 
-def test_same_network_id_with_changed_custody_identity_is_read_again(monkeypatch) -> None:
+def test_same_network_id_with_changed_custody_identity_is_read_again(
+    monkeypatch,
+) -> None:
     index = pd.date_range("2020-01-01", periods=10, freq="D")
     panel = pd.DataFrame({"target": np.arange(10, dtype=float)}, index=index)
     network = OpenNetwork(
@@ -110,22 +113,15 @@ def test_same_network_id_with_changed_custody_identity_is_read_again(monkeypatch
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path="open/daily_wide_qc.csv",
-        wide_sha256="a" * 64,
         manifest_path="open/network_manifest.json",
         n_days=len(panel),
         n_stations=1,
     )
-    changed = replace(network, wide_sha256="b" * 64)
-    reads: list[tuple[str, str, str]] = []
+    changed = replace(network, wide_path="open/other_daily_wide_qc.csv")
+    reads: list[tuple[str, str]] = []
 
     def custody_read(_repo, selected: OpenNetwork):
-        reads.append(
-            (
-                selected.network_id,
-                selected.wide_sha256,
-                selected.wide_path,
-            )
-        )
+        reads.append((selected.network_id, selected.wide_path))
         return panel.copy()
 
     monkeypatch.setattr(cache_module, "read_panel", custody_read)
@@ -135,8 +131,8 @@ def test_same_network_id_with_changed_custody_identity_is_read_again(monkeypatch
     cache.panel(changed)
 
     assert reads == [
-        (network.network_id, network.wide_sha256, network.wide_path),
-        (changed.network_id, changed.wide_sha256, changed.wide_path),
+        (network.network_id, network.wide_path),
+        (changed.network_id, changed.wide_path),
     ]
     assert cache.stats()["panels_cached"] == 2
     assert cache.stats()["panel_cache_misses_custody_reads"] == 2
@@ -157,7 +153,7 @@ def test_strict_fit_key_binds_only_declared_training_identity() -> None:
 
     def key(**overrides):
         arguments = {
-            "input_sha256": "a" * 64,
+            "network_id": "huc8_a",
             "target_station": "target",
             "model": "donor_regression",
             "information_condition": "D",
@@ -170,17 +166,19 @@ def test_strict_fit_key_binds_only_declared_training_identity() -> None:
         return _fit_cache_key(**arguments)
 
     baseline = key()
+    assert baseline.feature_columns == ("target", "donor")
+    assert baseline.training_date_runs == (
+        ("2018-01-01T00:00:00", "2020-12-31T00:00:00", 1096),
+    )
     heldout_truth_changed = panel.copy()
     heldout_truth_changed.loc[~mask, "target"] += 1_000_000.0
     assert key(frame=heldout_truth_changed) == baseline
 
-    training_feature_changed = panel.copy()
-    training_feature_changed.loc[mask, "donor"] += 1.0
-    assert key(frame=training_feature_changed) != baseline
     changed_mask = mask.copy()
     changed_mask.iloc[0] = False
     assert key(train_mask=changed_mask) != baseline
-    assert key(input_sha256="b" * 64) != baseline
+    assert key(feature_columns=["target"]) != baseline
+    assert key(network_id="huc8_b") != baseline
     assert key(target_station="another_target") != baseline
     assert key(model="xgboost") != baseline
     assert key(information_condition="B_union_D") != baseline

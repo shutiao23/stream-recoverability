@@ -26,24 +26,20 @@
   },
   "role": "development",
   "sealed_temperature_records_read": false,
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "stations": {
     "01516350": {
       "n_rows": 3888,
       "registry_reused": true,
-      "registry_sha256": "e95e9594d331a1c5c7db133ea433312eb8fe6499ac0cc6baf9b247dd2444c44a",
       "status": "parsed"
     },
     "01518700": {
       "n_rows": 6939,
       "registry_reused": true,
-      "registry_sha256": "5d88f2ad26738863a701bca152f21de981bab7c04fb4f66fa5c7ad8cf428bb73",
       "status": "parsed"
     },
     "01520000": {
       "n_rows": 6879,
       "registry_reused": true,
-      "registry_sha256": "08dbb4c4be2ab2d0dfc39cee55b6562a5037b78702e69488adda031f63504d86",
       "status": "parsed"
     }
   },

@@ -4,7 +4,7 @@ This directory is a **companion release**, not a manuscript artifact. It carries
 
 ## Contents
 
-- `companion_dataset.csv` — the tidy dataset (3191 rows; long format, one row per fact).
+- `companion_dataset.csv` — the tidy dataset (3045 rows; long format, one row per fact).
 - `README.md` — this file.
 - `../../dist/companion/index.html` — a single self-contained dashboard (data embedded, 101 labelled numbers); open it from disk, no server and no network.
 - `../../dist/companion/dashboard_data.json` — the payload embedded in the dashboard, for reuse.
@@ -28,7 +28,7 @@ The command rewrites all five files above. It is read-only with respect to `resu
 | `entity_id` | network id, claim id, amendment key, provider key, or a declared panel/protocol id (`panel`, `sealed_usgs_panel`, `multi_agency_panel`, `TRANSPORT`) |
 | `field` | the fact name; array-valued facts carry a `[selector]` suffix |
 | `value` | the fact, at full precision as read |
-| `unit` | `percentage_points`, `percent`, `fraction`, `days`, `celsius`, `networks`, `stations`, `station_years`, `cases`, `count`, `bytes`, `sha256`, `text`, `bool` |
+| `unit` | `percentage_points`, `percent`, `fraction`, `days`, `celsius`, `networks`, `stations`, `station_years`, `cases`, `count`, `bytes`, `text`, `bool` |
 | `denominator` | required for every numeric row: what the number is out of |
 | `evidence_class` | one of the six classes below |
 | `artifact_path` | the file the value was read from (every row's path was opened by the build) |
@@ -123,64 +123,64 @@ These are places where the registry prose and the artifact disagree in rounding 
 
 ## Provenance of every row: artifacts read by the last build
 
-| artifact | kind | rows read | bytes | sha256 | dataset rows citing it |
-| --- | --- | --- | --- | --- | --- |
-| `results/v17_fitness/step10_confirmation/verdict.json` | json | — | 1382 | `08bca0d4693c0bc0ff52f4e3160188d3ff743da524f80636f09d4e4222ff8a2c` | 27 |
-| `results/v17_fitness/step11_arm_robustness/arm_contrasts.csv` | csv | 6 | 2237 | `1c476ef636ddfe3a5bea39613c6c0b9835feacd88200e2967d72c5f7210ef304` | 16 |
-| `results/v17_fitness/step11_arm_robustness/verdict.json` | json | — | 978 | `a1c81f3a6cfd0b4bb416e86a193e44932b84ddb9ae4ca81b56b4a779b8097d17` | 4 |
-| `results/v17_fitness/step18_cluster_conformal/summary.json` | json | — | 5337 | `a022fa588fb97928248de657e6ecefd30a45272310c1c6722b385e53504d3285` | 9 |
-| `results/v17_fitness/step1_panel/network_split.csv` | csv | 146 | 9904 | `a24ceccea68316c543f7bbf87ac0d00bbf19b2595eb56caf3b2e752402d8e631` | 3 |
-| `results/v17_fitness/step21_hydrology/verdict.json` | json | — | 1189 | `baa8b943b081d1deb98b7f9a7229ceb260ed8cd94e406f8fde293de58ef16f90` | 8 |
-| `results/v17_fitness/step3_cases/summary.json` | json | — | 400 | `8a10005c1559424b0d9688dc380d329e03bce6e5c5827f1ee9d7368a417e14d5` | 13 |
-| `results/v18_closure/e2_archive_deployment/archive_consequence.csv` | csv | 5 | 1019 | `0c444c5ccdd883f1a605da638f9d5b04d852ab7b00ecf61ab318c58bc0497668` | 30 |
-| `results/v18_closure/e2_archive_deployment/disagreement_by_provider.csv` | csv | 7 | 356 | `04e15d730590a68331127ac0725a7e2e4a15fa911c5f4068fb3ab2e823b4d562` | 28 |
-| `results/v18_closure/e2_archive_deployment/matched_retention_disagreement.csv` | csv | 6 | 544 | `1e69b01323122f49513648039bfe66222e5d4cb95a8db68c5e86a5e12a86ab63` | 24 |
-| `results/v18_closure/e2_archive_deployment/summary.json` | json | — | 1014 | `0d8d1dca19c883ca03327adc8a4aa6f50865f5f38621dde3d3dfbee8b45c5717` | 15 |
-| `results/v18_closure/e2_archive_deployment/threshold_disagreement.csv` | csv | 2 | 421 | `40635b078a1a5131448fb0d8b359916a0e755bf8d977cbf053bcc650d023201b` | 12 |
-| `results/v18_closure/e4_representativeness/elevation_retention.csv` | csv | 6 | 952 | `683b45a99e1fedc0a9e3c5f065a0bc510f365e740ebc6222db86fffafc08e2b0` | 6 |
-| `results/v18_closure/e4_representativeness/summary.json` | json | — | 716 | `880ccdbd00bbac7656cf9bf83d29fd6c9f27f061dc11678c6c318483b70fab05` | 8 |
-| `results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv` | csv | 22 | 8728 | `fb5e14a73ef74aae82230b7209a262bf72d6d18cb9413f7c21950b2705926b77` | 78 |
-| `results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md` | text | — | 9924 | `510923161b3ff91588d6b7e977796f5785227c88d208a2604c270f3df82b479b` | 0 (read for a cross-check or a finding id) |
-| `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/REPORT.md` | text | — | 43645 | `e8f670d1072d0a264415c0fffb49db406d562de4237e290024e5863320377e88` | 0 (read for a cross-check or a finding id) |
-| `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json` | json | — | 160880 | `12a6bfcae48a7c4c4833e73cccce179420142b82a01d3d78a0968560c485a75b` | 22 |
-| `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/curve_with_ci.csv` | csv | 684 | 176668 | `d671dc99601fb196e6fd0f2d1a9c49ee00b8eab4ff25dbf6404328f936d3443f` | 21 |
-| `results/wrr_submission_ready/amendments/faithful_baseline/contrasts.csv` | csv | 48 | 9332 | `f7ed8911de8b9372b9456fcb115b7df91958a26f6b669ef1c357f56afc50e91d` | 8 |
-| `results/wrr_submission_ready/amendments/faithful_baseline/summary.json` | json | — | 12808 | `c7767863b1c83eeca09ef1ff0af7668bd76f2ec7d58625ffc0093f7822dde880` | 12 |
-| `results/wrr_submission_ready/amendments/mnar_pattern_mixture/summary.json` | json | — | 7535 | `b1266080d7e07e0415bf1437982a871e6db510a1dbfc273d38e4e42702c9d6db` | 42 |
-| `results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv` | csv | 36 | 2558 | `5b9fee4777e86e4adca55497ca8841a5e65b263c170b9d0ebf8734067e546c56` | 3 |
-| `results/wrr_submission_ready/amendments/outage_causes/summary.json` | json | — | 11307 | `ebd28e2cd14fca6d3124b786c28e6bc008cbb69d9fceba51902ce5b9d527d57f` | 12 |
-| `results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json` | json | — | 2781 | `de60794deeefb1c57cbeffbb49cb1ffc3136b64f2ca869185779650c0f0e9191` | 24 |
-| `results/wrr_submission_ready/amendments/provider_contract_sensitivity/provider_contract_contrasts.csv` | csv | 9 | 1320 | `f0a7c5641cb16329b102ea87b44ce268bcbb81ee8f042b3568b3398eacca81a4` | 44 |
-| `results/wrr_submission_ready/amendments/provider_contract_sensitivity/summary.json` | json | — | 3381 | `eb1906c0e5a7d7fae1c0a15084ca5441640d9fa6804d34dead6986086afe95fc` | 14 |
-| `results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json` | json | — | 672 | `f46a68a1642dbcdd197e1981b36f8818d7dd8b37e9a9a3d2bfe8c36f9cce1f2b` | 8 |
-| `results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json` | json | — | 2454 | `ac166827ee277cc5ba804a396b1c9ffc2656101744e21f1aacce24e627f42300` | 49 |
-| `results/wrr_submission_ready/amendments/step22_noise_post_fix/scenario_contrasts.csv` | csv | 22 | 7066 | `a73c09d5d598d9fb0c1f786e8c7c380ddb996fe37ac0f72e941de206c485411b` | 18 |
-| `results/wrr_submission_ready/amendments/step22_noise_post_fix/summary.json` | json | — | 51135 | `73c4eb3758aea0586874042996f27c6025330a7c3a0d267f5741e661eda7a51a` | 19 |
-| `results/wrr_submission_ready/amendments/step22_noise_pre_fix/noise_sensitivity.json` | json | — | 914 | `3673b396b41ccbf60bd1b1f0c13fcede7f024e2749998406248ed4128ac9a256` | 21 |
-| `results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv` | csv | 7 | 1410 | `e068750b83e0332f99473872a9f1522c7bbc979dd5a97cdab291d3596094be2e` | 29 |
-| `results/wrr_submission_ready/amendments/step5_mechanism_equal_k/summary.json` | json | — | 23063 | `85b131414ca02de7388d95ba6d4f480a665a0ea48758b17430277c744a164f5e` | 10 |
-| `results/wrr_submission_ready/amendments/step5_mechanism_pre_fix/donor_control_contrasts.csv` | csv | 2 | 306 | `a5b99c803caf5198a8708bfa69c5e51bfad00efd0e718b8f0959c3b4bc3a872f` | 9 |
-| `results/wrr_submission_ready/amendments/winter_regulatory/REPORT.md` | text | — | 18586 | `92a4240de9a7cec5eaa5e0e4428454390b06dbd4e47ec4d75bf5e6f2b0cb5e56` | 0 (read for a cross-check or a finding id) |
-| `results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv` | csv | 4 | 2620 | `74a4d8366989b108bf8d7abcfacfc743b0b1f7bd265c5442540adeb56006a8da` | 2 |
-| `results/wrr_submission_ready/amendments/winter_regulatory/summary.json` | json | — | 61427 | `ac5ebfd9945e9404854b7cb2f04c1eda689f68f491435e3a357ad28aaf6b378a` | 10 |
-| `results/wrr_submission_ready/claim_binding_check.json` | json | — | 3522 | `3c6d9558a031c6b2c35a05ce4a1cd612d43e142a39f35ad8cb7a3549b42fe832` | 0 (read for a cross-check or a finding id) |
-| `results/wrr_submission_ready/claim_registry.csv` | csv | 25 | 13715 | `a07d7633b5d7e3c32302dc14cb925e98046743e43225764991e79920161a53d2` | 301 |
-| `results/wrr_submission_ready/current_data_manifest.csv` | csv | 146 | 33072 | `67a085cc9ddb033c3cbeaa361f6ff0ae99c0bf253b43404e82eb22f5d8bee317` | 1216 |
-| `results/wrr_submission_ready/e1_maintenance_recompute/maintenance_counterfactual.json` | json | — | 1393 | `bc832fd4a63502a92235872097566a6700d4164c3099b8d17e5c50fb327e18b2` | 14 |
-| `results/wrr_submission_ready/e2_certificate_predict/summary.json` | json | — | 447 | `8791537cb498ebdb38a3df60ce182c559a9dff366f767d5032e415fca270ff1a` | 6 |
-| `results/wrr_submission_ready/measurement_provenance_dictionary.csv` | csv | 12 | 26044 | `7797ba46cfaacfa7594e4326989a0c0696f3d3ed98b2e2c44d6b021495d30525` | 181 |
-| `results/wrr_submission_ready/multi_agency_ingest/ehyd/ingest.json` | json | — | 18656 | `8ed23127e64a1df3c18b3be1ec9b7c4f73c2070c3e1af668d10f88fae49da5e3` | 1 |
-| `results/wrr_submission_ready/multi_agency_ingest/nve/ingest.json` | json | — | 450579 | `dfe913fc9f22e2814f25ef18fcc323051cd98bf2412a915e76458176fb82dc50` | 2 |
-| `results/wrr_submission_ready/multi_agency_ingest/smhi/INGEST_STATUS.json` | json | — | 3008 | `4d421fdafcac1ee998d98fb4eed8531d698fa7ecfb149298f38c235bfd7b0613` | 7 |
-| `results/wrr_submission_ready/multi_agency_ingest/uk_ea/complete_station_years.csv` | csv | 42 | 1780 | `deb19003909d05feaf5288dbf7b537b8a38df8e301acd13f1446ad016bd4dddf` | 1 |
-| `results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv` | csv | 2 | 1221 | `6274a4a055d495fdfff09d0f35b0260a7f3476e3a59ab3e64c78f0dcedeed89c` | 1 |
-| `results/wrr_submission_ready/p0_07_nve_probe/verdict.json` | json | — | 466 | `e83b757a1327e0158f4c86865d3866590afa70f649658c5adfd4391cc903bdd2` | 8 |
-| `results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json` | json | — | 1003 | `798cb96ea11fff74bae77e9ff64f5c214788288ec225d4608ec65e09df711552` | 28 |
-| `results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json` | json | — | 5141 | `ea9eb7088ac5bd3c5fdfed202ff1c3c0836490a9d11d23b3384372a02cf469c8` | 39 |
-| `results/wrr_submission_ready/prior_access_audit_multi_agency.csv` | csv | 291 | 17766 | `6870b6a484a31d8bd0f0c56f85ad8d5e16471a240ef7bba6968202828c97eb94` | 400 |
-| `results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv` | csv | 91 | 24100 | `8ba7ac3b006db9514b91452a749eaf954013031df12053082c7b42c4d6611724` | 283 |
-| `results/wrr_submission_ready/prior_access_audit_summary.json` | json | — | 5172 | `b03248bca0266a3afc7e26d3893ebbaae49de0d0f3ba889feae135a8228cd087` | 0 (read for a cross-check or a finding id) |
-| `results/wrr_submission_ready/provider_roles_from_split.csv` | csv | 9 | 526 | `56b71d890042a1e83d265e159a7ffdfc25a59a6cd74f4fbee5f3f2b9b2065563` | 45 |
+| artifact | kind | rows read | bytes | dataset rows citing it |
+| --- | --- | --- | --- | --- |
+| `results/v17_fitness/step10_confirmation/verdict.json` | json | — | 1382 | 27 |
+| `results/v17_fitness/step11_arm_robustness/arm_contrasts.csv` | csv | 6 | 2237 | 16 |
+| `results/v17_fitness/step11_arm_robustness/verdict.json` | json | — | 978 | 4 |
+| `results/v17_fitness/step18_cluster_conformal/summary.json` | json | — | 5337 | 9 |
+| `results/v17_fitness/step1_panel/network_split.csv` | csv | 146 | 9904 | 3 |
+| `results/v17_fitness/step21_hydrology/verdict.json` | json | — | 1189 | 8 |
+| `results/v17_fitness/step3_cases/summary.json` | json | — | 400 | 13 |
+| `results/v18_closure/e2_archive_deployment/archive_consequence.csv` | csv | 5 | 1019 | 30 |
+| `results/v18_closure/e2_archive_deployment/disagreement_by_provider.csv` | csv | 7 | 356 | 28 |
+| `results/v18_closure/e2_archive_deployment/matched_retention_disagreement.csv` | csv | 6 | 544 | 24 |
+| `results/v18_closure/e2_archive_deployment/summary.json` | json | — | 1014 | 15 |
+| `results/v18_closure/e2_archive_deployment/threshold_disagreement.csv` | csv | 2 | 421 | 12 |
+| `results/v18_closure/e4_representativeness/elevation_retention.csv` | csv | 6 | 952 | 6 |
+| `results/v18_closure/e4_representativeness/summary.json` | json | — | 716 | 8 |
+| `results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv` | csv | 22 | 8728 | 78 |
+| `results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md` | text | — | 9924 | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/REPORT.md` | text | — | 43645 | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json` | json | — | 160880 | 22 |
+| `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/curve_with_ci.csv` | csv | 684 | 176668 | 21 |
+| `results/wrr_submission_ready/amendments/faithful_baseline/contrasts.csv` | csv | 48 | 9332 | 8 |
+| `results/wrr_submission_ready/amendments/faithful_baseline/summary.json` | json | — | 12808 | 12 |
+| `results/wrr_submission_ready/amendments/mnar_pattern_mixture/summary.json` | json | — | 7535 | 42 |
+| `results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv` | csv | 36 | 2558 | 3 |
+| `results/wrr_submission_ready/amendments/outage_causes/summary.json` | json | — | 11307 | 12 |
+| `results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json` | json | — | 2781 | 24 |
+| `results/wrr_submission_ready/amendments/provider_contract_sensitivity/provider_contract_contrasts.csv` | csv | 9 | 1320 | 44 |
+| `results/wrr_submission_ready/amendments/provider_contract_sensitivity/summary.json` | json | — | 3381 | 14 |
+| `results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json` | json | — | 672 | 8 |
+| `results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json` | json | — | 2454 | 49 |
+| `results/wrr_submission_ready/amendments/step22_noise_post_fix/scenario_contrasts.csv` | csv | 22 | 7066 | 18 |
+| `results/wrr_submission_ready/amendments/step22_noise_post_fix/summary.json` | json | — | 51135 | 19 |
+| `results/wrr_submission_ready/amendments/step22_noise_pre_fix/noise_sensitivity.json` | json | — | 914 | 21 |
+| `results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv` | csv | 7 | 1410 | 29 |
+| `results/wrr_submission_ready/amendments/step5_mechanism_equal_k/summary.json` | json | — | 23063 | 10 |
+| `results/wrr_submission_ready/amendments/step5_mechanism_pre_fix/donor_control_contrasts.csv` | csv | 2 | 306 | 9 |
+| `results/wrr_submission_ready/amendments/winter_regulatory/REPORT.md` | text | — | 18586 | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv` | csv | 4 | 2620 | 2 |
+| `results/wrr_submission_ready/amendments/winter_regulatory/summary.json` | json | — | 61427 | 10 |
+| `results/wrr_submission_ready/claim_binding_check.json` | json | — | 3522 | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/claim_registry.csv` | csv | 25 | 13715 | 301 |
+| `results/wrr_submission_ready/current_data_manifest.csv` | csv | 146 | 33072 | 1216 |
+| `results/wrr_submission_ready/e1_maintenance_recompute/maintenance_counterfactual.json` | json | — | 1393 | 14 |
+| `results/wrr_submission_ready/e2_certificate_predict/summary.json` | json | — | 447 | 6 |
+| `results/wrr_submission_ready/measurement_provenance_dictionary.csv` | csv | 12 | 26044 | 181 |
+| `results/wrr_submission_ready/multi_agency_ingest/ehyd/ingest.json` | json | — | 18656 | 1 |
+| `results/wrr_submission_ready/multi_agency_ingest/nve/ingest.json` | json | — | 450579 | 2 |
+| `results/wrr_submission_ready/multi_agency_ingest/smhi/INGEST_STATUS.json` | json | — | 3008 | 7 |
+| `results/wrr_submission_ready/multi_agency_ingest/uk_ea/complete_station_years.csv` | csv | 42 | 1780 | 1 |
+| `results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv` | csv | 2 | 1221 | 1 |
+| `results/wrr_submission_ready/p0_07_nve_probe/verdict.json` | json | — | 466 | 8 |
+| `results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json` | json | — | 1003 | 28 |
+| `results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json` | json | — | 5141 | 39 |
+| `results/wrr_submission_ready/prior_access_audit_multi_agency.csv` | csv | 291 | 17766 | 400 |
+| `results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv` | csv | 91 | 24100 | 283 |
+| `results/wrr_submission_ready/prior_access_audit_summary.json` | json | — | 5172 | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/provider_roles_from_split.csv` | csv | 9 | 526 | 45 |
 
 ### Amendment directories deliberately not covered
 

@@ -17,26 +17,25 @@ Steps, in order:
 1. [ ] **Freeze commit (commit #1)**: create the separate public commit containing
    - `configs/route_a_second_confirmation_protocol.yaml` (v1) and `...amendment_v2.yaml` (v2) as read-only references,
    - `protocol_v3.md` (this namespace),
-   - `frozen_scoring_roster_v3.csv` (exact per-domain roster) and its sha256,
+   - `frozen_scoring_roster_v3.csv` (exact per-domain roster),
    - the power analysis artifacts (power_table.csv, power_curve.png, observed_effects.json, effect_bootstrap_distribution.csv, recommended_sample_size.json, per_network_observed_deltas.csv) and `scripts/rev_v12_t12_protocol_a.py`,
    - `registration_record_v3.json` (template only, filled in step 3).
-   No outcome-derived file may be in this commit. Push to the public remote and
-   record the commit hash.
+   No outcome-derived file may be in this commit. Push to the public remote.
 2. [ ] **Create the registration record**: `registration_record_v3.json` with
    fields `separate_pre_outcome_commit: true`,
    `externally_verifiable_preregistration: true`, registry, DOI, registration
-   URL, registration UTC timestamp, registered commit hash, sha256 of the
-   registered files (mirror the v2 record structure, opposite field values).
+   URL, registration UTC timestamp and the registered commit (mirror the v2
+   record structure, opposite field values).
 3. [ ] **Register at OSF or Zenodo**:
    - OSF: create project → "Preregistration" add-on → upload commit #1 files
-     (protocol, roster, power analysis, hashes) → submit for registration;
+     (protocol, roster, power analysis) → submit for registration;
      capture the registration DOI/handle.
    - Zenodo alternative: create a restricted/embargoed deposit of the same
      files, mint the concept DOI, and record it; embargo end date must be
      after the anticipated outcome commit.
 4. [ ] **Authorization gate**: `readiness.json` for the third panel sets
    `external_registration_verified: true` only when the registration record
-   exists and file hashes match commit #1.
+   exists and its files match commit #1.
 5. [ ] **Outcome commit (commit #2)**: scoring and results, referencing the
    registration DOI in the manuscript and in the package manifest.
 6. [ ] **Amendment path**: any change to roster, margins, or endpoints requires
@@ -101,11 +100,10 @@ record, not a claim of openness):
     source-QC metadata only; Canadian Coast Guard: excluded (unvalidated).
 - [ ] **Controlled-access plan for provider-restricted data**: raw daily values
   stay out of the public tree; the Data Availability statement must give (a)
-  official retrieval routes (per provider), (b) hashes of any raw files held,
-  (c) a named contact and journal data-sharing channel for reviewer access to
-  derived-but-restricted aggregates, and (d) any provider permission letter as
-  a deposited attachment. Temperature values needed for endpoint (d) follow
-  the same plan.
+  official retrieval routes (per provider), (b) a named contact and journal
+  data-sharing channel for reviewer access to derived-but-restricted
+  aggregates, and (c) any provider permission letter as a deposited
+  attachment. Temperature values needed for endpoint (d) follow the same plan.
 - [ ] `.zenodo.json` deposit must include a data-rights note pointing to
   `metadata/data_rights.csv`; no MIT claim over third-party observations.
 

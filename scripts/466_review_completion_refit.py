@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Full group-disjoint outer-region refits for 20 independently redrawn sources.
+"""Grouped source-role refits for 20 independently redrawn source assignments.
 
 The fourth-round redesign is exploratory; it does not replace the historical
 registered P1--P4 verdicts. No calibration outcome can reach an outer model.
@@ -216,7 +216,7 @@ def fit_region(seed, region, split="leave_one_year_out", case_path=None, deploym
     # exact truncated-mixture variance. No held-out fitting is used.
     scale = np.maximum(law.law_sd.to_numpy(), .001) * np.sqrt(3/5)
     out["recovery_probability_t5"] = np.clip(student_t.cdf((-.5-law.law_bias.to_numpy())/scale, 5) + student_t.sf((.5-law.law_bias.to_numpy())/scale, 5), 0, 1)
-    meta = dict(seed=seed, region=region, split=split, held_groups=sorted(c.loc[held, "independence_group"].unique()), roles=role_groups, role_effective_groups={name:int(np.unique(c.loc[w > 0,"independence_group"]).size) for name,w in weights.items()}, method="four disjoint grouped roles plus independent held region; bootstrap within roles", rule_details={})
+    meta = dict(seed=seed, region=region, split=split, held_groups=sorted(c.loc[held, "independence_group"].unique()), roles=role_groups, role_effective_groups={name:int(np.unique(c.loc[w > 0,"independence_group"]).size) for name,w in weights.items()}, method="four disjoint source roles with held test groups excluded; named-region exclusion depends on the split and role assignment; bootstrap within roles", rule_details={})
     for family in ["calendar", "crossed"]:
         local = out.design_family.eq(family).to_numpy()
         pool = rulecal & c.design_family.eq(family).to_numpy()

@@ -21,18 +21,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "climatology",
@@ -44,7 +32,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -177,58 +164,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -241,18 +219,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "linear",
@@ -264,7 +230,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -397,58 +362,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -461,18 +417,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "pchip",
@@ -484,7 +428,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -617,58 +560,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -681,18 +615,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "kalman",
@@ -704,7 +626,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -837,58 +758,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -901,18 +813,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "air_only",
@@ -924,7 +824,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -1057,58 +956,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -1121,18 +1011,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "air_hydro",
@@ -1144,7 +1022,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -1277,58 +1154,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -1341,18 +1209,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "donor_regression",
@@ -1364,7 +1220,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -1497,58 +1352,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -1561,18 +1407,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "random_forest",
@@ -1584,7 +1418,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -1717,58 +1550,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -1781,18 +1605,6 @@
       "mask_schema_version": "mask_schema_v2",
       "model_schema_version": "model_schema_v3",
       "statistics_schema_version": "statistics_schema_v3",
-      "code_provenance": {
-        "schema_version": "code_provenance_v1",
-        "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-        "tracked_worktree_clean": true,
-        "relevant_source_clean": true,
-        "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-        "relevant_source_file_count": 50,
-        "dirty_tracked_paths": [],
-        "relevant_untracked_paths": [],
-        "external_relevant_input_count": 0,
-        "status": "clean"
-      },
       "suite": "external_confirmation",
       "training_profile": "formal",
       "model": "xgboost",
@@ -1804,7 +1616,6 @@
       "training_config": null,
       "training_context": null,
       "reference_implementation": null,
-      "reference_protocol_fingerprint": null,
       "runner_training_settings": {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
@@ -1937,58 +1748,49 @@
         "wide": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_wide.parquet",
           "size": 633066,
-          "mtime_ns": 1787494461262052879,
-          "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+          "mtime_ns": 1787494461262052879
         },
         "quality": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
           "size": 4001986,
-          "mtime_ns": 1787494461238053222,
-          "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+          "mtime_ns": 1787494461238053222
         },
         "config": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/experiments.yaml",
           "size": 1294,
-          "mtime_ns": 1787231834283206353,
-          "sha256": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39"
+          "mtime_ns": 1787231834283206353
         },
         "design": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/design_freeze_v4.yaml",
           "size": 21263,
-          "mtime_ns": 1787507689702521921,
-          "sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1"
+          "mtime_ns": 1787507689702521921
         },
         "study_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/study_manifest.yaml",
           "size": 1797,
-          "mtime_ns": 1786843880443630124,
-          "sha256": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+          "mtime_ns": 1786843880443630124
         },
         "data_version_manifest": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
           "size": 28836,
-          "mtime_ns": 1787589516253924585,
-          "sha256": "bb8450e0a721bcac94c1185b9147cefc68d83e9ff45ff3617a68cdbd2ae60fdb"
+          "mtime_ns": 1787589516253924585
         }
       },
       "mask_files": {
         "axes": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/axes.json",
           "size": 92366,
-          "mtime_ns": 1787589554949347382,
-          "sha256": "9969bf0a29f6acd452e747ff04ba8bf0dac26509a296e7669fa2e5d234a54ed5"
+          "mtime_ns": 1787589554949347382
         },
         "mask": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.npz",
           "size": 270,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "7b7a64d21520723fc0b21756c5b65a151ca28def64d573d6b4cca98ea7a5e4e1"
+          "mtime_ns": 1787589641360058662
         },
         "metadata": {
           "path": "/home/lzq/workspace/parttime/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/.external_confirmation.staging.0pdi15hq/masks/scenarios/EXT-BLK-FULL-02336000-T-D090-EXTERNAL_UPPER_MIDDLE_CHATTAHOOCHEE_V1-CONFIRMATORY-R20260815.json",
           "size": 4530,
-          "mtime_ns": 1787589641360058662,
-          "sha256": "72319e3107704038f2384ee82cfb020e9889e842ee8a97ea6e044af9864c10c3"
+          "mtime_ns": 1787589641360058662
         }
       },
       "checkpoint": null,
@@ -2009,17 +1811,5 @@
   "design_version": "design_freeze_v4",
   "mask_schema_version": "mask_schema_v2",
   "model_schema_version": "model_schema_v3",
-  "statistics_schema_version": "statistics_schema_v3",
-  "code_provenance": {
-    "schema_version": "code_provenance_v1",
-    "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-    "tracked_worktree_clean": true,
-    "relevant_source_clean": true,
-    "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-    "relevant_source_file_count": 50,
-    "dirty_tracked_paths": [],
-    "relevant_untracked_paths": [],
-    "external_relevant_input_count": 0,
-    "status": "clean"
-  }
+  "statistics_schema_version": "statistics_schema_v3"
 }

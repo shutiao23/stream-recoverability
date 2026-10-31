@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 from collections.abc import Mapping, Sequence
 from itertools import pairwise
 
@@ -108,21 +107,6 @@ def _seeded_candidate_ranking(
     return np.asarray(ranking, dtype=int)
 
 
-def _ranking_digest(
-    ranking: np.ndarray | Mapping[tuple[int, int], np.ndarray] | None,
-) -> str | None:
-    if ranking is None:
-        return None
-    digest = hashlib.sha256()
-    if isinstance(ranking, Mapping):
-        for key in sorted(ranking):
-            digest.update(np.asarray(key, dtype=np.int64).tobytes())
-            digest.update(np.asarray(ranking[key], dtype=np.int64).tobytes())
-    else:
-        digest.update(np.asarray(ranking, dtype=np.int64).tobytes())
-    return digest.hexdigest()
-
-
 def generate_point_mask(
     eligible: np.ndarray,
     missing_rate: float,
@@ -157,7 +141,6 @@ def generate_point_mask(
     variable_labels = normalize_labels(variable_names, eligible.shape[2], "V")
     rng = np.random.default_rng(seed)
     mask = np.zeros_like(eligible, dtype=bool)
-    validated_ranking: np.ndarray | dict[tuple[int, int], np.ndarray] | None = None
 
     if synchronized:
         day_eligible = eligible[:, stations][:, :, variables].all(axis=(1, 2))
@@ -212,8 +195,6 @@ def generate_point_mask(
                     )
                     chosen = validated_map[key][:count]
                 mask[chosen, station, variable] = True
-        if candidate_ranking is not None:
-            validated_ranking = validated_map
 
     selected_station_labels = selected_labels(station_labels, stations)
     selected_variable_labels = selected_labels(variable_labels, variables)
@@ -257,7 +238,6 @@ def generate_point_mask(
                 if candidate_ranking is not None
                 else "seeded_random"
             ),
-            "candidate_ranking_sha256": _ranking_digest(validated_ranking),
         }
     )
     return mask, metadata
@@ -307,13 +287,13 @@ def generate_nested_point_mask_family(
         candidates = np.flatnonzero(
             eligible[:, stations][:, :, variables].all(axis=(1, 2))
         )
-        ranking: np.ndarray | dict[
-            tuple[int, int], np.ndarray
-        ] = _seeded_candidate_ranking(
-            candidates,
-            seed=seed,
-            dates=normalized_dates,
-            season_balanced=season_balanced,
+        ranking: np.ndarray | dict[tuple[int, int], np.ndarray] = (
+            _seeded_candidate_ranking(
+                candidates,
+                seed=seed,
+                dates=normalized_dates,
+                season_balanced=season_balanced,
+            )
         )
     else:
         ranking = {}

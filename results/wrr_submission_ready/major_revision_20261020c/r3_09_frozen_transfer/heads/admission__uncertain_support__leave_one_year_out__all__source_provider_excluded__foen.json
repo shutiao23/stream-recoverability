@@ -52,7 +52,6 @@
   "identity": "admission__uncertain_support__leave_one_year_out__all__source_provider_excluded__foen",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__uncertain_support__leave_one_year_out__all__source_provider_excluded__foen.joblib",
-  "model_sha256": "60b743335d1d6db7fbed4a6afef76fcba5a30df342770cfba9f2073aa5351604",
   "n_training_cases": 48903,
   "n_training_groups": 143,
   "name": "uncertain_support",
@@ -62,8 +61,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
-      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

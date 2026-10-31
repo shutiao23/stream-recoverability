@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Plan T2 chunks safely; execute only after exact three-part acknowledgement."""
+"""Plan T2 chunks safely; execute only after exact two-part acknowledgement."""
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -29,11 +28,6 @@ def _arguments() -> argparse.Namespace:
         "--workload-manifest",
         type=Path,
         default=DEFAULT_RUN / "workload_manifest.json",
-    )
-    parser.add_argument(
-        "--expect-workload-sha256",
-        required=True,
-        help="exact SHA-256 of workload-manifest bytes (required even for dry-run)",
     )
     parser.add_argument(
         "--contract-spec",
@@ -77,39 +71,31 @@ def _arguments() -> argparse.Namespace:
         action="store_true",
         help="second explicit gate needed if the plan spans the entire workload",
     )
-    parser.add_argument("--ack-item-count", type=int)
-    parser.add_argument("--ack-chunk-count", type=int)
-    parser.add_argument("--resume", action="store_true")
     parser.add_argument(
-        "--print-current-workload-sha256",
-        action="store_true",
-        help="print the current file SHA before planning; does not waive --expect",
+        "--ack-item-count",
+        type=int,
+        help="exact workload item count (required with --execute)",
     )
+    parser.add_argument(
+        "--ack-chunk-count",
+        type=int,
+        help="exact planned chunk count (required with --execute)",
+    )
+    parser.add_argument("--resume", action="store_true")
     return parser.parse_args()
 
 
 def main() -> None:
     args = _arguments()
-    if args.print_current_workload_sha256:
-        print(
-            json.dumps(
-                {
-                    "workload_manifest": str(args.workload_manifest),
-                    "current_sha256": hashlib.sha256(
-                        args.workload_manifest.read_bytes()
-                    ).hexdigest(),
-                },
-                sort_keys=True,
-            )
-        )
-    contract = load_contract_spec(args.contract_spec) if args.contract_spec else V3_CONTRACT
+    contract = (
+        load_contract_spec(args.contract_spec) if args.contract_spec else V3_CONTRACT
+    )
     state = orchestrate_t2_batch(
         repo_root=ROOT,
         workload_manifest_path=args.workload_manifest,
         design_path=args.design,
         state_path=args.state,
         chunks_output_dir=args.chunks_output,
-        expected_workload_sha256=args.expect_workload_sha256,
         contract=contract,
         start_ordinal=args.start,
         end_ordinal_exclusive=args.end,

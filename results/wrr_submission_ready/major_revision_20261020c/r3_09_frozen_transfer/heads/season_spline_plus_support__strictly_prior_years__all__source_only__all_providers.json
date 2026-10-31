@@ -36,7 +36,6 @@
   "identity": "season_spline_plus_support__strictly_prior_years__all__source_only__all_providers",
   "kind": "spline",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/season_spline_plus_support__strictly_prior_years__all__source_only__all_providers.joblib",
-  "model_sha256": "fd51fa269a6f7536dd48c11c64d5af4395af6b425d880c3336849ab1e799f3b5",
   "n_training_cases": 132448,
   "n_training_groups": 105,
   "name": "season_spline_plus_support",
@@ -46,8 +45,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
-      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet"
     }
   ],
   "source_thresholds": {

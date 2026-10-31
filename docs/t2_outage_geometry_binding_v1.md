@@ -33,8 +33,8 @@ public-river panels rather than the HUC8 open-role corpus.
 and requires `qualification_mode: failure_closure6`, `qualified_years_min: 6`,
 `relaxation_applied: true`, the locked projection trigger, and
 `overlap.complete_enough: true`. It refuses any role other than development or validation. Temperature and
-qualifier columns are never loaded. Both role manifests must carry the same
-locked split SHA (`2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1`).
+qualifier columns are never loaded. Both role manifests must refer to the same
+locked split.
 
 For each station, internal missing runs of 7--180 days define empirical
 geometry. Every row records network, station, real missing start/end, length,
@@ -42,7 +42,7 @@ and start season. A real missing interval always has
 `actual_missing_truth_available: false`. It may be benchmarked only when the
 catalog also freezes a disjoint, fully observed same-station interval of the
 same length and start season, with one observed boundary on each side. The
-counterpart is selected by a deterministic SHA-256 rank that does not inspect
+counterpart is selected by a deterministic rank that does not inspect
 temperature values. Rows lacking such a counterpart remain geometry-only and
 must not be scored.
 
@@ -62,8 +62,8 @@ exists:
 |---|---|---|---|
 | `record_left_edge` | earliest eligible window | preserve donors | no left; require right |
 | `record_right_edge` | latest eligible window | preserve donors | require left; no right |
-| `donor_thin` | minimum mean donor availability, SHA tie-break | preserve donors | require both |
-| `synchronous_network_outage` | SHA-ranked window | mask every network station in-gap | require both |
+| `donor_thin` | minimum mean donor availability, deterministic tie-break | preserve donors | require both |
+| `synchronous_network_outage` | deterministically ranked window | mask every network station in-gap | require both |
 
 All placement decisions use availability only. The adversarial catalog contains
 5,406 resolved rows over the same 67-network failure-closure corpus. A row is a
@@ -79,14 +79,12 @@ The frozen files live in `results/framework/t2_outage_geometry_v1/`.
 - Adversarial: plant at `start_date`, then apply `target_mask_scope` and
   `donor_mask_rule`. The target window is fully observed before masking.
 - Both catalogs expose `network_id,station_id,start_date,length_days,season` and
-  stable `geometry_id` values. `catalog_sha256.txt` contains byte-level hashes;
-  the manifest additionally has order-invariant canonical table hashes.
+  stable `geometry_id` values.
 
 The new module is intentionally separate from `t2_recovery_benchmark.py`.
 That runner can call `load_frozen_geometry_bindings(directory)` and expand the
 validated CSV rows into work items without changing geometry selection. The
-loader rejects byte drift, sealed roles, and rows whose truth contract is not
-satisfied.
+loader rejects sealed roles and rows whose truth contract is not satisfied.
 
 ## Still blocked
 

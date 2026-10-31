@@ -47,7 +47,11 @@ def test_agu_limits_pass():
 
 def test_three_key_points_within_the_character_limit():
     report = build_report()
-    lengths = [c["chars"] for c in report["checks_passed"] if c["check"].startswith("key point")]
+    lengths = [
+        c["chars"]
+        for c in report["checks_passed"]
+        if c["check"].startswith("key point")
+    ]
     assert len(lengths) == 3
     assert all(length <= 140 for length in lengths), lengths
 
@@ -74,7 +78,6 @@ def test_template_is_vendored_with_provenance():
     assert provenance.exists()
     text = provenance.read_text(encoding="utf-8")
     assert "agujournal2025-latex-template" in text
-    assert re.search(r"`[0-9a-f]{40}`", text), "the template commit is not recorded"
     for name in (
         "agujournal2025.cls",
         "wiley-macros.tex",
@@ -126,8 +129,12 @@ def test_result_headings_state_conclusions():
 
 def test_introduction_ends_in_linked_questions_not_a_contribution_list():
     text = manuscript_text()
-    intro = text.split("\\section{Introduction}")[1].split("\\section{Reference records")[0]
-    assert "\\begin{enumerate}" not in intro, "the introduction still carries a contribution list"
+    intro = text.split("\\section{Introduction}")[1].split(
+        "\\section{Reference records"
+    )[0]
+    assert "\\begin{enumerate}" not in intro, (
+        "the introduction still carries a contribution list"
+    )
     assert "\\label{tab:hypotheses}" in intro
     assert all(name in intro for name in ("H1", "H2", "H3", "Falsifier"))
 
@@ -135,11 +142,19 @@ def test_introduction_ends_in_linked_questions_not_a_contribution_list():
 def test_latex_compiles_without_errors():
     """A log with errors means the PDF is not what the source says."""
 
-    for stem in ("wrr_manuscript", "wrr_manuscript_published", "wrr_supporting_information"):
+    for stem in (
+        "wrr_manuscript",
+        "wrr_manuscript_published",
+        "wrr_supporting_information",
+    ):
         log = PAPER / f"{stem}.log"
         if not log.exists():
             pytest.skip("submission not built; run make wrr")
-        errors = [line for line in log.read_text(errors="replace").splitlines() if line.startswith("!")]
+        errors = [
+            line
+            for line in log.read_text(errors="replace").splitlines()
+            if line.startswith("!")
+        ]
         assert not errors, f"{stem}: {errors[:3]}"
 
 
@@ -149,14 +164,20 @@ def test_figures_are_rendered_at_page_aspect():
     if shutil.which("pdfinfo") is None:
         pytest.skip("pdfinfo not available")
     for path in sorted((PAPER / "figures").glob("*.pdf")):
-        info = subprocess.run(["pdfinfo", str(path)], capture_output=True, text=True).stdout
+        info = subprocess.run(
+            ["pdfinfo", str(path)], capture_output=True, text=True
+        ).stdout
         size = next(line for line in info.splitlines() if line.startswith("Page size:"))
         width, _, height, *_ = size.split(":", 1)[1].split()
         ratio = float(width) / float(height)
         # A data panel is kept near the page aspect; a flow schematic may be
         # wider (5.5 x 1.8 in is still legible at 7 pt), so it gets more rope.
-        limit = 3.2 if path.name.startswith("s") or "system_design" in path.name else 2.2
-        assert ratio < limit, f"{path.name} is {ratio:.2f}:1; re-render with WRR_JOURNAL_FIGURES=1"
+        limit = (
+            3.2 if path.name.startswith("s") or "system_design" in path.name else 2.2
+        )
+        assert ratio < limit, (
+            f"{path.name} is {ratio:.2f}:1; re-render with WRR_JOURNAL_FIGURES=1"
+        )
 
 
 def test_figures_are_placed_in_the_text():
@@ -173,9 +194,9 @@ def test_figures_are_placed_in_the_text():
     assert "\\begin{figure}" not in tail
     assert "\\includegraphics" in body
     si = (PAPER / "wrr_supporting_information.tex").read_text(encoding="utf-8")
-    # One since 2026-10-20: the evidence-chain schematic. The earlier SI figures
-    # were schematics of a superseded evidence chain and were removed with it.
-    assert si.count("\\begin{figure}") == 2, si.count("\\begin{figure}")
+    # The original two assays are followed by the objective risk/retention
+    # and failure/trajectory diagnostics added for the supplementary review.
+    assert si.count("\\begin{figure}") == 4, si.count("\\begin{figure}")
 
 
 def test_tables_fit_the_column():
@@ -185,7 +206,9 @@ def test_tables_fit_the_column():
     import re  # noqa: PLC0415
 
     text = manuscript_text()
-    specs = re.findall(r"\\begin\{tabularx\}\{\\textwidth\}\{([^}]*(?:\}[^}]*)*?)\}\n", text)
+    specs = re.findall(
+        r"\\begin\{tabularx\}\{\\textwidth\}\{([^}]*(?:\}[^}]*)*?)\}\n", text
+    )
     # Two tables carry the argument (the map of prior work and the panel
     # inventory); the decision table lives in the SI. The check is about the
     # column arithmetic, not about how many tables a paper should have.
@@ -193,9 +216,14 @@ def test_tables_fit_the_column():
     for spec in specs:
         weights = [float(w) for w in re.findall(r"[YZ]\{([0-9.]+)\}", spec)]
         if weights:
-            assert abs(sum(weights) - len(weights)) < 0.02, (spec, sum(weights), len(weights))
+            assert abs(sum(weights) - len(weights)) < 0.02, (
+                spec,
+                sum(weights),
+                len(weights),
+            )
         else:
             assert spec.count("Y") >= 1 or spec.count("X") >= 1, spec
+
 
 def test_title_and_abstract_state_the_finding():
     """The title names a finding, not a study object, and the abstract carries
@@ -206,20 +234,43 @@ def test_title_and_abstract_state_the_finding():
     text = manuscript_text()
     title = re.search(r"\\title\{(.*?)\}", text, re.S).group(1)
     lowered = " ".join(title.lower().split())
-    for vague in ("a study of", "analysis of", "assessment of", "research on",
-                  "investigation of", "towards ", "toward "):
+    for vague in (
+        "a study of",
+        "analysis of",
+        "assessment of",
+        "research on",
+        "investigation of",
+        "towards ",
+        "toward ",
+    ):
         assert vague not in lowered, (vague, title)
     # The title must carry a claim, not just an object: a contrast, a condition or a
     # decision word, in place of the vague "study of" forms rejected above.
     assert any(
         token in lowered
-        for token in ("not", ",", "conditional", "screen", "risk", "governs", "interact", "fit for")
+        for token in (
+            "not",
+            ",",
+            "conditional",
+            "screen",
+            "risk",
+            "governs",
+            "interact",
+            "fit for",
+        )
     ), title
 
     abstract = text.split("\\begin{abstract}")[1].split("\\end{abstract}")[0]
     assert re.search(r"\d", abstract), "the abstract carries no number"
     for word in ("peak", "length", "uncertainty", "calibration"):
         assert word in abstract.lower(), word
-    for hype in ("groundbreaking", "unprecedented", "paradigm-shifting", "novel framework"):
+    for hype in (
+        "groundbreaking",
+        "unprecedented",
+        "paradigm-shifting",
+        "novel framework",
+    ):
         assert hype not in text.lower(), hype
-    assert not re.search(r"\bremarkable\b", text, re.I), "remarkable"  # 'unremarkable' is fine
+    assert not re.search(r"\bremarkable\b", text, re.I), (
+        "remarkable"
+    )  # 'unremarkable' is fine

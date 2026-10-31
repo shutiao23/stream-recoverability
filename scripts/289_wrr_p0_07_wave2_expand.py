@@ -14,7 +14,9 @@ import importlib.util  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-spec = importlib.util.spec_from_file_location("w2", ROOT / "scripts/287_wrr_p0_07_wave2_usgs_recruit.py")
+spec = importlib.util.spec_from_file_location(
+    "w2", ROOT / "scripts/287_wrr_p0_07_wave2_usgs_recruit.py"
+)
 w2 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(w2)
 
@@ -42,7 +44,7 @@ def recompute_ready(rows: list[dict]) -> dict:
         "note": (
             "Opened confirmation_ingest leftovers must not be merged into this "
             "wave for a first-confirmation score. Add ≥2 non-USGS providers and "
-            "reach ≥30 networks before sealing a score."
+            "reach ≥30 networks before scoring."
         ),
         "catalog": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_catalog.csv",
         "candidates": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_candidate_networks.csv",
@@ -51,9 +53,13 @@ def recompute_ready(rows: list[dict]) -> dict:
     return summary
 
 
-def choose_huc6(catalog: pd.DataFrame, burned_huc4: set[str], burned_net: set[str]) -> pd.DataFrame:
+def choose_huc6(
+    catalog: pd.DataFrame, burned_huc4: set[str], burned_net: set[str]
+) -> pd.DataFrame:
     work = catalog.loc[catalog["span_years"].fillna(0) >= 4].copy()
-    work["huc6"] = work["huc"].map(lambda h: "".join(ch for ch in str(h) if ch.isdigit()).zfill(8)[:6])
+    work["huc6"] = work["huc"].map(
+        lambda h: "".join(ch for ch in str(h) if ch.isdigit()).zfill(8)[:6]
+    )
     rows = []
     for huc6, block in work.groupby("huc6"):
         if len(huc6) < 6:
@@ -79,7 +85,9 @@ def choose_huc6(catalog: pd.DataFrame, burned_huc4: set[str], burned_net: set[st
                 "median_span_years": float(top["span_years"].median()),
             }
         )
-    return pd.DataFrame(rows).sort_values(["n_catalog_sites", "median_span_years"], ascending=False)
+    return pd.DataFrame(rows).sort_values(
+        ["n_catalog_sites", "median_span_years"], ascending=False
+    )
 
 
 def main() -> int:
@@ -95,14 +103,20 @@ def main() -> int:
         catalog = pd.read_csv(cat_path, dtype={"site_id": str, "huc": str, "huc4": str})
         catalog["site_id"] = catalog["site_id"].map(w2.pad_site)
         catalog["huc4"] = catalog["huc"].map(w2.pad_huc4)
-        print(f"catalog reused: {len(catalog)} sites / {catalog['state_cd'].nunique()} states", flush=True)
+        print(
+            f"catalog reused: {len(catalog)} sites / {catalog['state_cd'].nunique()} states",
+            flush=True,
+        )
     else:
         print("re-cataloging", ALL_STATES, flush=True)
         catalog = w2.catalog_states(ALL_STATES, 0.3)
         catalog["site_id"] = catalog["site_id"].map(w2.pad_site)
         catalog["huc4"] = catalog["huc"].map(w2.pad_huc4)
         catalog.to_csv(cat_path, index=False)
-        print(f"catalog restored: {len(catalog)} sites / {catalog['state_cd'].nunique()} states", flush=True)
+        print(
+            f"catalog restored: {len(catalog)} sites / {catalog['state_cd'].nunique()} states",
+            flush=True,
+        )
 
     prev = pd.read_csv(OUT / "wave2_download_results.csv")
     # coerce site id columns in eligibility files later
@@ -128,11 +142,24 @@ def main() -> int:
     huc4_nets = w2.choose_networks(catalog, burned)
     if huc4_nets.empty:
         huc4_nets = pd.DataFrame(
-            columns=["network_id", "huc4", "n_catalog_sites", "site_ids", "states", "median_span_years"]
+            columns=[
+                "network_id",
+                "huc4",
+                "n_catalog_sites",
+                "site_ids",
+                "states",
+                "median_span_years",
+            ]
         )
     huc4_nets.to_csv(OUT / "wave2_candidate_networks.csv", index=False)
-    new_huc4 = huc4_nets.loc[~huc4_nets["network_id"].astype(str).isin(done)] if len(huc4_nets) else huc4_nets
-    print(f"new HUC4 candidates: {len(new_huc4)} (burned_huc4={len(burned)})", flush=True)
+    new_huc4 = (
+        huc4_nets.loc[~huc4_nets["network_id"].astype(str).isin(done)]
+        if len(huc4_nets)
+        else huc4_nets
+    )
+    print(
+        f"new HUC4 candidates: {len(new_huc4)} (burned_huc4={len(burned)})", flush=True
+    )
     for row in new_huc4.head(25).itertuples(index=False):
         sites = [w2.pad_site(s) for s in str(row.site_ids).split(";")[:5]]
         print("download", row.network_id, flush=True)
@@ -152,7 +179,11 @@ def main() -> int:
         panel = OUT / "networks" / row.network_id / "daily_wide_temperature.csv"
         have = set()
         if panel.is_file():
-            have = {w2.pad_site(c) for c in pd.read_csv(panel, nrows=0).columns if c != "date"}
+            have = {
+                w2.pad_site(c)
+                for c in pd.read_csv(panel, nrows=0).columns
+                if c != "date"
+            }
         sites = [s for s in block["site_id"].map(w2.pad_site) if s not in have][:8]
         if not sites:
             continue
@@ -199,7 +230,6 @@ def main() -> int:
                     "network_id": row.network_id,
                     "ok": True,
                     "path": str(panel.relative_to(ROOT)),
-                    "sha256": w2.sha256(panel),
                     "bytes": panel.stat().st_size,
                     "n_stations": int(wide.shape[1]),
                     "n_stations_ge4": int(len(ge4)),
@@ -232,7 +262,15 @@ def main() -> int:
 
     pd.DataFrame(rows).to_csv(OUT / "wave2_download_results.csv", index=False)
     summary = recompute_ready(rows)
-    print(json.dumps({k: summary[k] for k in ("n_attempted", "n_ready_ge2_stations_ge4_years", "floors_met")}, indent=2))
+    print(
+        json.dumps(
+            {
+                k: summary[k]
+                for k in ("n_attempted", "n_ready_ge2_stations_ge4_years", "floors_met")
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

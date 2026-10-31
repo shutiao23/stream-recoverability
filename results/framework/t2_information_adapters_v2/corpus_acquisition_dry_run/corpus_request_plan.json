@@ -14,7 +14,6 @@
   "n_sites": 340,
   "networks": [
     {
-      "base_network_plan_sha256": "0757a8fb58d1c860aedf6df742241a82b5b6117edb35d589e1a0176d15862d94",
       "legacy_requests": [
         {
           "end": "2026-04-12",
@@ -24,7 +23,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_6f0d9564a09be4ac37ef",
+          "request_id": "legacy_dv_huc8_01070004_1997-04-06_2026-04-12",
           "role": "development",
           "site_ids": [
             "01095220",
@@ -37,11 +36,9 @@
         }
       ],
       "network_id": "huc8_01070004",
-      "network_plan_sha256": "744f7f3d1609cf4b10e961e5b45fce38caecb9f7c85acf782dcfcff74125b7da",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "b849139c6928e57419c22abf34dfab7df835e63451034af645a9e17630d80442",
       "legacy_requests": [
         {
           "end": "2025-11-23",
@@ -51,7 +48,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_7427e531c761abbad580",
+          "request_id": "legacy_dv_huc8_01090001_1997-09-30_2025-11-23",
           "role": "development",
           "site_ids": [
             "01104370",
@@ -70,11 +67,9 @@
         }
       ],
       "network_id": "huc8_01090001",
-      "network_plan_sha256": "f98923def932694d7cb04cbd3dc30d7288ac5bf3783ea099d93c799fba4182c0",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "8646dcab19e8d14cd39b9739e0dc67d2594bd264784aae4922f10cd047dac5f6",
       "legacy_requests": [
         {
           "end": "2025-12-04",
@@ -84,7 +79,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_28a0eaed5bd4ba92bbbb",
+          "request_id": "legacy_dv_huc8_01090004_2000-01-15_2025-12-04",
           "role": "development",
           "site_ids": [
             "01115098",
@@ -103,11 +98,9 @@
         }
       ],
       "network_id": "huc8_01090004",
-      "network_plan_sha256": "1f3d24baa35054a8bfd86502b15dd6c1d62199a7c770eeeac5744eb5e33fe1c1",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "1e1c81c38a2487ee3727c055c008d42d0a1cb18eb2dd01e7675eeeaf63dbb6b4",
       "legacy_requests": [
         {
           "end": "2026-04-08",
@@ -117,7 +110,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_5cae701c7ac9011441b6",
+          "request_id": "legacy_dv_huc8_02020006_1996-06-01_2026-04-08",
           "role": "development",
           "site_ids": [
             "01359139",
@@ -130,11 +123,9 @@
         }
       ],
       "network_id": "huc8_02020006",
-      "network_plan_sha256": "29fced140209aa29bd98ace6d8e9b4db62dfbf6bef937ea2b7d35d77e8235acb",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "50a9d3ab153ee87209736c9108d8991efd66672d9b56dc8e74e43a84fa783689",
       "legacy_requests": [
         {
           "end": "2025-11-18",
@@ -144,7 +135,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_70d6643fff7388a3f83b",
+          "request_id": "legacy_dv_huc8_02040103_1987-10-06_2025-11-18",
           "role": "development",
           "site_ids": [
             "01428750",
@@ -157,11 +148,9 @@
         }
       ],
       "network_id": "huc8_02040103",
-      "network_plan_sha256": "8e641615c8f1e8d858cd23a5cc1dffb2b2faa21897261269e9af016bf40bbc42",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "5c721272886068eb59e67e693e1136cec4d35777e269f03d027100b91e3a114c",
       "legacy_requests": [
         {
           "end": "2026-08-03",
@@ -171,7 +160,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_30dbfb4223d5b55fbac0",
+          "request_id": "legacy_dv_huc8_02040106_1968-10-11_2026-08-03",
           "role": "development",
           "site_ids": [
             "01447500",
@@ -186,11 +175,9 @@
         }
       ],
       "network_id": "huc8_02040106",
-      "network_plan_sha256": "7d10dd3909cc7f6f402c0b529a38a58760750672b8eb664b9059b0fa09b587c2",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "9c2c49bf4dfbffe5f69a97ad70fd3798c45dfadc99dd634c467b5d94342a15fc",
       "legacy_requests": [
         {
           "end": "2026-06-29",
@@ -200,7 +187,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_3b6b1fd535a814683f05",
+          "request_id": "legacy_dv_huc8_02040203_1998-11-05_2026-06-29",
           "role": "development",
           "site_ids": [
             "01470779",
@@ -213,11 +200,9 @@
         }
       ],
       "network_id": "huc8_02040203",
-      "network_plan_sha256": "fed1d17b21449c15cba742769e9c6a37f8aef64e393c67100813d5dc2e24e928",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "24d227ab4dc28e6fc406c0966ebaa3a3788e2832aaadfaacd35533cb6b348fb7",
       "legacy_requests": [
         {
           "end": "2026-04-19",
@@ -227,7 +212,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_a03f2b1586b25ac520ee",
+          "request_id": "legacy_dv_huc8_02040205_1971-05-20_2026-04-19",
           "role": "development",
           "site_ids": [
             "01478137",
@@ -245,11 +230,9 @@
         }
       ],
       "network_id": "huc8_02040205",
-      "network_plan_sha256": "9b4666aa746b842cde4d3972e8700f993801ea3e060172b7ed2d5b785f23c67c",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "de2a7b60f79790a68c6ca8d7db86e0ce784aaf907b90a45a68f026faf5d1265c",
       "legacy_requests": [
         {
           "end": "2026-04-07",
@@ -259,7 +242,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_94c9f5b490decb0a6921",
+          "request_id": "legacy_dv_huc8_02050104_1972-05-18_2026-04-07",
           "role": "development",
           "site_ids": [
             "01516350",
@@ -272,11 +255,9 @@
         }
       ],
       "network_id": "huc8_02050104",
-      "network_plan_sha256": "8ffc3bf4bae953f26d4ed6d90bae76059f30e96f59c694f4e9db4bf5154c31ed",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "b6ab66b8beda3c2ecc0646f3dc6b0468f327136d24f7a0deb4d6e07200629b79",
       "legacy_requests": [
         {
           "end": "2015-03-25",
@@ -286,7 +267,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_b98a89d93d502be2ca66",
+          "request_id": "legacy_dv_huc8_02050305_1974-05-01_2015-03-25",
           "role": "development",
           "site_ids": [
             "01570500",
@@ -300,11 +281,9 @@
         }
       ],
       "network_id": "huc8_02050305",
-      "network_plan_sha256": "4570fe5fb05bd7937b1fa846af56326b7845f7c4190bba27f8829b8399e9cb92",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "590fe55dda00ecd44e1d45a548a893a130d47ae5a402a28800bf53a4c7d4b8e9",
       "legacy_requests": [
         {
           "end": "2026-08-05",
@@ -314,7 +293,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_158eee840efa0490b098",
+          "request_id": "legacy_dv_huc8_02060003_2011-03-09_2026-08-05",
           "role": "development",
           "site_ids": [
             "01581752",
@@ -328,11 +307,9 @@
         }
       ],
       "network_id": "huc8_02060003",
-      "network_plan_sha256": "4aaf4fa0c757a907a49d90572bf1f7853e6a2c3e0f041cbbcbfbebadc8e946d3",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "4c2e9b7e265c98ae91b1e6b1c44d885afc2e12b102aafd3fcc47efb56ddecdbb",
       "legacy_requests": [
         {
           "end": "2026-07-05",
@@ -342,7 +319,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_6a0045039e33331036e7",
+          "request_id": "legacy_dv_huc8_02070002_2012-10-01_2026-07-05",
           "role": "development",
           "site_ids": [
             "01595800",
@@ -355,11 +332,9 @@
         }
       ],
       "network_id": "huc8_02070002",
-      "network_plan_sha256": "7a860718b02f2168a3f016821c61f9f7155ee961b8053fb74d76db6593753a37",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "fff29e37d0ee9bf50fdb4497fd101f23fe9426374299f773a80dee52467819b3",
       "legacy_requests": [
         {
           "end": "2025-03-24",
@@ -369,7 +344,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_ec0265feb7e31a896696",
+          "request_id": "legacy_dv_huc8_02070008_2006-07-13_2025-03-24",
           "role": "development",
           "site_ids": [
             "01646000",
@@ -382,11 +357,9 @@
         }
       ],
       "network_id": "huc8_02070008",
-      "network_plan_sha256": "b5c5997ac465978e009789862bdc018fc7a88a5dba869fe8379789ab48c80bf4",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "5987c96a4c4c42b38916d74e48882dea2637cb56aa99dee643393537ca33469b",
       "legacy_requests": [
         {
           "end": "2026-06-03",
@@ -396,7 +369,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_6771799fadf87b87df10",
+          "request_id": "legacy_dv_huc8_02070010_2003-12-18_2026-06-03",
           "role": "development",
           "site_ids": [
             "01649190",
@@ -410,11 +383,9 @@
         }
       ],
       "network_id": "huc8_02070010",
-      "network_plan_sha256": "53613f38c7bedbac3dfe30d8970e1da2c589eb89d306983f54325e0404842fd4",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "981e0d90902649e767f90001d1a77ec3a45101bf80a594e95ddc5ed6367a70a3",
       "legacy_requests": [
         {
           "end": "2022-02-28",
@@ -424,7 +395,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_dd26f44b8100df2de9f6",
+          "request_id": "legacy_dv_huc8_02080201_1978-03-01_2022-02-28",
           "role": "development",
           "site_ids": [
             "02011400",
@@ -441,11 +412,9 @@
         }
       ],
       "network_id": "huc8_02080201",
-      "network_plan_sha256": "11880af6b62cd05a7b221b927f1ba0aa73904960833220634ba94052beb88928",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "d7792a6a93b3b4ca84f6baafa2ea98ec4e55ff8ce56f66cee108ea5eb9defe65",
       "legacy_requests": [
         {
           "end": "2026-06-24",
@@ -455,7 +424,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_ef2e0e23d237fdbc4aa5",
+          "request_id": "legacy_dv_huc8_03070101_2001-06-30_2026-06-24",
           "role": "development",
           "site_ids": [
             "02217274",
@@ -468,11 +437,9 @@
         }
       ],
       "network_id": "huc8_03070101",
-      "network_plan_sha256": "d4efa512c227836e334a5cf5e806f71e7eff3f2987c73627d90c444cc247806b",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "42211e5b35c3bd5c62e8040f0ae70c01fe18d34603e9c92697ace3f2fede29d0",
       "legacy_requests": [
         {
           "end": "2025-12-09",
@@ -482,7 +449,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_ae3ccbfd8bad08e96e63",
+          "request_id": "legacy_dv_huc8_04020105_2004-12-02_2025-12-09",
           "role": "development",
           "site_ids": [
             "04043097",
@@ -495,11 +462,9 @@
         }
       ],
       "network_id": "huc8_04020105",
-      "network_plan_sha256": "bcb84330d7c74c364f09a4a130fd4d1fc8eac26c7eb87648e9e37450de92d7f0",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "8aca797a72035daa737be2b9a3868af1497f75ab26f1036e83a6f94f80cadf25",
       "legacy_requests": [
         {
           "end": "2017-11-19",
@@ -509,7 +474,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_c482a0dce28416295a35",
+          "request_id": "legacy_dv_huc8_04040003_1996-11-12_2017-11-19",
           "role": "development",
           "site_ids": [
             "040871473",
@@ -522,11 +487,9 @@
         }
       ],
       "network_id": "huc8_04040003",
-      "network_plan_sha256": "c9c62aa0e61d440a22fa10d469e521f0e2b09cfcb55d813e0e0de7d36888c752",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "b766985394ea8bf7e3775cb1af415c6f1a891bcf87b9a3ad8d906fe78126ca99",
       "legacy_requests": [
         {
           "end": "2026-05-13",
@@ -536,7 +499,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_87b1ec0583f2cb0670ed",
+          "request_id": "legacy_dv_huc8_04060102_1995-01-10_2026-05-13",
           "role": "development",
           "site_ids": [
             "04121650",
@@ -551,11 +514,9 @@
         }
       ],
       "network_id": "huc8_04060102",
-      "network_plan_sha256": "289963b5394f8b348b47000cf6415ffc389f03bf39cba1bee704b7a4ecefdc0d",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "364252416873cd22cc90c40e25f7023c881df8c96f1ba804e8bd7cdb364784da",
       "legacy_requests": [
         {
           "end": "2025-12-02",
@@ -565,7 +526,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_74caaabfae865db8e216",
+          "request_id": "legacy_dv_huc8_04060103_1996-10-01_2025-12-02",
           "role": "development",
           "site_ids": [
             "04124000",
@@ -579,11 +540,9 @@
         }
       ],
       "network_id": "huc8_04060103",
-      "network_plan_sha256": "dd1500a11e9a263f43c0b0b75ae8455598aba3713e14d550c13e12adfbce7426",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "7885d75d32c76288f37ad71612841f84adb044d93fcff6f29796173cba132a11",
       "legacy_requests": [
         {
           "end": "2026-07-13",
@@ -593,7 +552,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_b5a4d1eaea1402c3bcef",
+          "request_id": "legacy_dv_huc8_04070007_1996-07-10_2026-07-13",
           "role": "development",
           "site_ids": [
             "04136000",
@@ -611,11 +570,9 @@
         }
       ],
       "network_id": "huc8_04070007",
-      "network_plan_sha256": "4c39c091d4fc4256fe6f3afbe26072f52e9ba34c3b84e285d418e12a84b44640",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "4e515c06cc2fd071b2b3c19469134e130db03375169f79e583bfc568f263c330",
       "legacy_requests": [
         {
           "end": "2026-05-04",
@@ -625,7 +582,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_a8d1c56d8fa590d9d45a",
+          "request_id": "legacy_dv_huc8_04140101_1994-11-10_2026-05-04",
           "role": "development",
           "site_ids": [
             "04232034",
@@ -638,11 +595,9 @@
         }
       ],
       "network_id": "huc8_04140101",
-      "network_plan_sha256": "eea87dda779768f5e9f21a264cbd24c50b1a811262d281b58477c83a3fb99505",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "7e62e30f031f23b47e8e62855b2cc4439803b4a40848566fc9c0cf2afde62aa8",
       "legacy_requests": [
         {
           "end": "2025-11-30",
@@ -652,7 +607,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_b9cc9eade4943cf03843",
+          "request_id": "legacy_dv_huc8_05010005_2007-10-01_2025-11-30",
           "role": "development",
           "site_ids": [
             "03026480",
@@ -666,11 +621,9 @@
         }
       ],
       "network_id": "huc8_05010005",
-      "network_plan_sha256": "e96f0a82cefed8edc0c23e5c9fa2579a442f125e46ec7811b56cfd52e75e2043",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "51655a76c7f584f726b71d906a30476cfe92df6c0590c8b8bf12db288b401af1",
       "legacy_requests": [
         {
           "end": "2026-07-22",
@@ -680,7 +633,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_b44c8f1b74612c6682fb",
+          "request_id": "legacy_dv_huc8_05010006_2008-10-01_2026-07-22",
           "role": "development",
           "site_ids": [
             "03034000",
@@ -695,11 +648,9 @@
         }
       ],
       "network_id": "huc8_05010006",
-      "network_plan_sha256": "43c4df5af4edd3e0544e5953ef321e854fb4dd85d326c0d525693e722a475c1a",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "808a37b1d951fef0c7e9127fc041f66b1b7cf9be49719d971a546bb2667b385b",
       "legacy_requests": [
         {
           "end": "2026-06-21",
@@ -709,7 +660,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_623fde0f2e06503270aa",
+          "request_id": "legacy_dv_huc8_05010007_2004-10-01_2026-06-21",
           "role": "development",
           "site_ids": [
             "03041500",
@@ -723,11 +674,9 @@
         }
       ],
       "network_id": "huc8_05010007",
-      "network_plan_sha256": "3275034312dfda5286314d3c4af78567ae03b09a06b0e52ffaecf0e90c07ab5d",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "60ac32426d0fcabfb2c2da58848ceb031f4532e18d11f0c5a434c8282d7945c8",
       "legacy_requests": [
         {
           "end": "2020-11-08",
@@ -737,7 +686,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_910fe1bddb6cc579fb9d",
+          "request_id": "legacy_dv_huc8_05020001_2008-09-30_2020-11-08",
           "role": "development",
           "site_ids": [
             "03054500",
@@ -750,11 +699,9 @@
         }
       ],
       "network_id": "huc8_05020001",
-      "network_plan_sha256": "4e9db1a1832955b2a0a526dee5832099d156c8e5a69f58f7a7fefdc95d830ada",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "d93f790dbc0282fd9ce6224ec840cdc635eb56a9b4856407b70f8d3aa2bb680a",
       "legacy_requests": [
         {
           "end": "2026-06-24",
@@ -764,7 +711,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_6838ce20b1b5c060f67c",
+          "request_id": "legacy_dv_huc8_05020005_2008-10-02_2026-06-24",
           "role": "development",
           "site_ids": [
             "03072000",
@@ -778,11 +725,9 @@
         }
       ],
       "network_id": "huc8_05020005",
-      "network_plan_sha256": "dbaeae3563f43646f35827aca49fac2d3ef682b79f3b8eb895ce88d3eabf49bf",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "acd788ade1309e8b88e9a3b50a6ad58ef25c5e08a8005ecec6727d868f63cd3e",
       "legacy_requests": [
         {
           "end": "2026-07-23",
@@ -792,7 +737,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_23d36c6ffa9570514158",
+          "request_id": "legacy_dv_huc8_05020006_2004-10-01_2026-07-23",
           "role": "development",
           "site_ids": [
             "03076500",
@@ -807,11 +752,9 @@
         }
       ],
       "network_id": "huc8_05020006",
-      "network_plan_sha256": "19328188d7ac2b0fc5849bac3d98468bcde2237b6d68b02475687ccf2562a9cc",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "6c1840d56d65ecba9f502d5615d57e09551909f5680cf5193b29fbd6ee0c213b",
       "legacy_requests": [
         {
           "end": "2026-03-17",
@@ -821,7 +764,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_47f36ec20a23fe5ce0cb",
+          "request_id": "legacy_dv_huc8_05030102_2007-09-30_2026-03-17",
           "role": "development",
           "site_ids": [
             "03094704",
@@ -836,11 +779,9 @@
         }
       ],
       "network_id": "huc8_05030102",
-      "network_plan_sha256": "1c981a415e2b39c46cf1dafc0819deb9a05e056dda5b9485fb562b82f49c792d",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "82e4abb868766e87fefcac6ea762eb61cf6095418ce606df25cb532f34640505",
       "legacy_requests": [
         {
           "end": "2025-11-19",
@@ -850,7 +791,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_25b62bc464ad6ddbf54b",
+          "request_id": "legacy_dv_huc8_05040001_2015-06-22_2025-11-19",
           "role": "development",
           "site_ids": [
             "03119341",
@@ -871,11 +812,9 @@
         }
       ],
       "network_id": "huc8_05040001",
-      "network_plan_sha256": "d6185cc77c984173dfce86fb4549de790d46a89ccb5dcf0d7a8e83a8457f89f6",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "3e610ec9f26c494d69bdfa38236f9be9630680a7f36f4c23686dc85c3bdd073c",
       "legacy_requests": [
         {
           "end": "2025-11-16",
@@ -885,7 +824,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_e43648f93f0a164a6eeb",
+          "request_id": "legacy_dv_huc8_05040005_2015-06-24_2025-11-16",
           "role": "development",
           "site_ids": [
             "03140853",
@@ -898,11 +837,9 @@
         }
       ],
       "network_id": "huc8_05040005",
-      "network_plan_sha256": "96effb05fd75680ea103a15ccbf40f739001c20319fbe29a77e47fbbe363d2ac",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "a3db6982b7e3d8e71f5483ef33873a97be9bf70330fe13a8fcbeffa188cf15f5",
       "legacy_requests": [
         {
           "end": "2015-09-30",
@@ -912,7 +849,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_9d6d25ccf89e19b532b9",
+          "request_id": "legacy_dv_huc8_05090203_2000-12-01_2015-09-30",
           "role": "development",
           "site_ids": [
             "03262001",
@@ -925,11 +862,9 @@
         }
       ],
       "network_id": "huc8_05090203",
-      "network_plan_sha256": "083b89576ec52013d9ad95efc93e81cdebfd794b9545cbcec2439fb8beb978fd",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "2982bdc6bc5d63a0b9ea1aaa887efe7eb9fef85d0c2f2af887f9c4c0cfa3e106",
       "legacy_requests": [
         {
           "end": "2024-11-04",
@@ -939,7 +874,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_7272d95413d148518a85",
+          "request_id": "legacy_dv_huc8_05110001_1988-10-01_2024-11-04",
           "role": "development",
           "site_ids": [
             "03306000",
@@ -952,11 +887,9 @@
         }
       ],
       "network_id": "huc8_05110001",
-      "network_plan_sha256": "bc099acd820cc4aa3fe68d3040c6adffb9d4084535380e68207868327edfe965",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "cc7838337f535d524836790fa57eeb0e690fc5cad564c9be11dbba61aefe6ff5",
       "legacy_requests": [
         {
           "end": "2026-01-23",
@@ -966,7 +899,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_ba1b7b32d91137113cf6",
+          "request_id": "legacy_dv_huc8_05120201_1975-08-25_2026-01-23",
           "role": "development",
           "site_ids": [
             "03353200",
@@ -981,11 +914,9 @@
         }
       ],
       "network_id": "huc8_05120201",
-      "network_plan_sha256": "84616d5f537e814808862df8a1b68b6bb810cfdef7542e0730c220782f55019a",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "946314a7de38686ed68f7d1a0586eff229095ab23f0e58b1e282b081dfd9aa73",
       "legacy_requests": [
         {
           "end": "2026-02-23",
@@ -995,7 +926,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_c0357da4f1fe2733a0eb",
+          "request_id": "legacy_dv_huc8_05130202_1996-10-25_2026-02-23",
           "role": "development",
           "site_ids": [
             "03431083",
@@ -1008,11 +939,9 @@
         }
       ],
       "network_id": "huc8_05130202",
-      "network_plan_sha256": "2149494878f5efa1ae7251dafc63d2f481b51f94c25d92d16641dfd11e2dfbd7",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "63418587f49821923b7ec2a0ba081c804da288790bd9095a404c3019ccd19fca",
       "legacy_requests": [
         {
           "end": "2026-07-15",
@@ -1022,7 +951,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_e5aaba50dbd7f9f809c3",
+          "request_id": "legacy_dv_huc8_05140101_1988-04-30_2026-07-15",
           "role": "development",
           "site_ids": [
             "03292470",
@@ -1040,11 +969,9 @@
         }
       ],
       "network_id": "huc8_05140101",
-      "network_plan_sha256": "8d68535d748ddc9280d5a1dc2ab2dca381ff119f5e3c50a31c31e136e26bf408",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "890530424a4701cf93325961daefa0cbfccc8ee476aaefbef9ed622324cc23dc",
       "legacy_requests": [
         {
           "end": "2026-07-29",
@@ -1054,7 +981,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_82bea895d4148dbc4695",
+          "request_id": "legacy_dv_huc8_05140102_1988-09-30_2026-07-29",
           "role": "development",
           "site_ids": [
             "03293510",
@@ -1077,11 +1004,9 @@
         }
       ],
       "network_id": "huc8_05140102",
-      "network_plan_sha256": "e83946407ad1a5ecbad7336fc7b75c41ce1115bc5d5edaf76b7e484617bccc17",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "bb1ff3326889c683aed0c48e3e3bbac99cbb8d579ecc393f50ff4c83bb488cd0",
       "legacy_requests": [
         {
           "end": "2024-09-29",
@@ -1091,7 +1016,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_20f6d21ffaafa210ba26",
+          "request_id": "legacy_dv_huc8_07040006_2008-09-19_2024-09-29",
           "role": "development",
           "site_ids": [
             "05382255",
@@ -1105,11 +1030,9 @@
         }
       ],
       "network_id": "huc8_07040006",
-      "network_plan_sha256": "629a13626160905366fc18ff3f6921a9c7a8051fe1bf6135b77bcb1e63e2d040",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "e35fb871823e2819b8e56a893f9e46c09a0a808f54cc2d7e26dbf6dfcef32782",
       "legacy_requests": [
         {
           "end": "2002-09-29",
@@ -1119,7 +1042,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_abdb80de30421ae24e85",
+          "request_id": "legacy_dv_huc8_07070005_1984-11-29_2002-09-29",
           "role": "development",
           "site_ids": [
             "05406460",
@@ -1132,11 +1055,9 @@
         }
       ],
       "network_id": "huc8_07070005",
-      "network_plan_sha256": "bd54af3bcfe03f87e28ab1624c82c5496ee271ea6b1cab8c5f7d3a7caa149bf1",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "eb95b899c93661da00bdba21a724b9a4883ee6ca20f1b8b25dd7a61890711fb4",
       "legacy_requests": [
         {
           "end": "2026-06-15",
@@ -1146,7 +1067,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_c9d448ed9ff678b2bede",
+          "request_id": "legacy_dv_huc8_07120001_1973-05-31_2026-06-15",
           "role": "development",
           "site_ids": [
             "05515500",
@@ -1165,11 +1086,9 @@
         }
       ],
       "network_id": "huc8_07120001",
-      "network_plan_sha256": "02f45148264418b0c3151dfc27bdfb3323e0262680ee56c1915399af736e054c",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "d8a7425d8de53135733ccb048a148f4b33e6f9660ded986a14818f1b4f9dc5ea",
       "legacy_requests": [
         {
           "end": "2026-04-20",
@@ -1179,7 +1098,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_bb2328f6c877907bbe41",
+          "request_id": "legacy_dv_huc8_07120004_1973-03-29_2026-04-20",
           "role": "development",
           "site_ids": [
             "05536995",
@@ -1192,11 +1111,9 @@
         }
       ],
       "network_id": "huc8_07120004",
-      "network_plan_sha256": "7ab5913c93d800aaf5937d8a81c8138dfd817f3e45aef8c018bff206cea6550d",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "7554a8b892018b30e1f0f41402394ac3857caac3f9bab01f92aad0db9d7ff063",
       "legacy_requests": [
         {
           "end": "2022-12-14",
@@ -1206,7 +1123,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_856df77e8382b1ba20bf",
+          "request_id": "legacy_dv_huc8_10230006_2006-08-01_2022-12-14",
           "role": "development",
           "site_ids": [
             "06610000",
@@ -1219,11 +1136,9 @@
         }
       ],
       "network_id": "huc8_10230006",
-      "network_plan_sha256": "dd53d2e33a362a5a2e4480485e3f38f391ed9f0921db066eeac8abe147faa488",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "1a7bb2e9b372a2d935b82fc4c2b0db588fb20e06a9e6adb3fd83d791e581842e",
       "legacy_requests": [
         {
           "end": "2026-07-20",
@@ -1233,7 +1148,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_58a5296a74aa2779c288",
+          "request_id": "legacy_dv_huc8_10300101_2005-07-14_2026-07-20",
           "role": "development",
           "site_ids": [
             "06893060",
@@ -1248,11 +1163,9 @@
         }
       ],
       "network_id": "huc8_10300101",
-      "network_plan_sha256": "4a490ad3ee40a4607ccc55541bb9b21f47110499eeb55f3801720ef7d8a1fc63",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "f6b05d3f57e692a907bd0e3e662e16ad85661c2699cfa5cc1cf3172bf4be252d",
       "legacy_requests": [
         {
           "end": "2026-06-10",
@@ -1262,7 +1175,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_c3e6a2bd5b19b80b756b",
+          "request_id": "legacy_dv_huc8_13060011_2003-09-30_2026-06-10",
           "role": "development",
           "site_ids": [
             "08405200",
@@ -1275,11 +1188,9 @@
         }
       ],
       "network_id": "huc8_13060011",
-      "network_plan_sha256": "83bab65e0528f221a1e8e31bf23e484d9c41b99f2aa42bec4e2a278632957949",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "f2d56f94993f5b5218fd7fee440e40fc15ad343346d9eeea1b98c1a14fd94621",
       "legacy_requests": [
         {
           "end": "2026-08-04",
@@ -1289,7 +1200,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_9b6e7935e31ee9119ee6",
+          "request_id": "legacy_dv_huc8_15030108_2017-01-23_2026-08-04",
           "role": "development",
           "site_ids": [
             "09522005",
@@ -1302,11 +1213,9 @@
         }
       ],
       "network_id": "huc8_15030108",
-      "network_plan_sha256": "980de61161c29c157894cee07ed8dc36c40a132883febfc58cd8dd736b2bdbb9",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "5c9e6895c8afca155aebd0a147d742b77de8749c2697bebd4fa0e1b2e1c12dbb",
       "legacy_requests": [
         {
           "end": "2026-04-29",
@@ -1316,7 +1225,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_927d1f96b431d8185631",
+          "request_id": "legacy_dv_huc8_16020102_2001-10-18_2026-04-29",
           "role": "development",
           "site_ids": [
             "10133650",
@@ -1329,11 +1238,9 @@
         }
       ],
       "network_id": "huc8_16020102",
-      "network_plan_sha256": "d39ded7221824649d573b3eb5106cc7a09b652334f5c76ae66b61a4a60fc306f",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "c68b7c150152197d9f1f665444fb8cfc9718ca5793cda5b2853d6f274979084e",
       "legacy_requests": [
         {
           "end": "2026-07-15",
@@ -1343,7 +1250,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_04bf3297c1d0c7618f1b",
+          "request_id": "legacy_dv_huc8_16050102_1978-06-15_2026-07-15",
           "role": "development",
           "site_ids": [
             "10348200",
@@ -1356,11 +1263,9 @@
         }
       ],
       "network_id": "huc8_16050102",
-      "network_plan_sha256": "2dd211088306316d40112e1ff6cc2836266e60526339ca77c1d9ae32586124d4",
       "role": "development"
     },
     {
-      "base_network_plan_sha256": "03962f359877cb2c5771129ab0c41498d465d9994fd291ba23eb26e2d9d8f20c",
       "legacy_requests": [
         {
           "end": "2026-04-22",
@@ -1370,7 +1275,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_c642d75acf2e223f99fc",
+          "request_id": "legacy_dv_huc8_03040206_1986-02-27_2026-04-22",
           "role": "validation",
           "site_ids": [
             "02110725",
@@ -1384,11 +1289,9 @@
         }
       ],
       "network_id": "huc8_03040206",
-      "network_plan_sha256": "7ece5c9d444a855d1265f8c0f5a8e325f1505ebb2a8798838c64b68a297e44d3",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "79315606f2d11c85f3ee0bbe2be2f0676a2b248e9e329fffac1c477def70f804",
       "legacy_requests": [
         {
           "end": "2026-07-06",
@@ -1398,7 +1301,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_4ccd8fb3979affb0b43a",
+          "request_id": "legacy_dv_huc8_03050106_1973-10-01_2026-07-06",
           "role": "validation",
           "site_ids": [
             "02156500",
@@ -1411,11 +1314,9 @@
         }
       ],
       "network_id": "huc8_03050106",
-      "network_plan_sha256": "1db818493e0ad379f99284b2077cd81b9b021566d1964e0aaffb7b490d409822",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "f23003326b10e5b7ad8ad2b1b239820183c1b73c4ec79c501c7cf034392397df",
       "legacy_requests": [
         {
           "end": "2026-07-16",
@@ -1425,7 +1326,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_ccdc31920a0b7f863c1b",
+          "request_id": "legacy_dv_huc8_03050109_1987-07-09_2026-07-16",
           "role": "validation",
           "site_ids": [
             "02163001",
@@ -1440,11 +1341,9 @@
         }
       ],
       "network_id": "huc8_03050109",
-      "network_plan_sha256": "9674138503a1895d7287661f58267a6907f6163884f9dec2e0c585234da5004c",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "58edff6f39eb9ed9e5ec8aff4044d2b13c6caaa77fdbfa11f03080a4d368d9ae",
       "legacy_requests": [
         {
           "end": "2013-03-14",
@@ -1454,7 +1353,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_47a577d1a5f08c3a2283",
+          "request_id": "legacy_dv_huc8_03050208_1998-10-22_2013-03-14",
           "role": "validation",
           "site_ids": [
             "02176585",
@@ -1469,11 +1368,9 @@
         }
       ],
       "network_id": "huc8_03050208",
-      "network_plan_sha256": "7b04d98eafe25d0e62ff53c852235e7c8248d134ea1a620b77dcff93c9255a01",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "56bfb8114b8468c1c00052f803068e55de0c8f27d92486fabc2077552ab6d9f4",
       "legacy_requests": [
         {
           "end": "2011-08-09",
@@ -1483,7 +1380,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_f733328d291e4764ff74",
+          "request_id": "legacy_dv_huc8_03060106_1973-10-01_2011-08-09",
           "role": "validation",
           "site_ids": [
             "02197000",
@@ -1497,11 +1394,9 @@
         }
       ],
       "network_id": "huc8_03060106",
-      "network_plan_sha256": "953f2f5e62b2053798bf361b8bfebce4efad40d1e297a49553b4f9ddaba7bfe9",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "faa7527da80495bf49a340bf4bbbfdde7f10df2b50a08463c88846f3519498fa",
       "legacy_requests": [
         {
           "end": "2026-06-28",
@@ -1511,7 +1406,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_964995bf463e14d95d40",
+          "request_id": "legacy_dv_huc8_03070103_2000-10-01_2026-06-28",
           "role": "validation",
           "site_ids": [
             "02203603",
@@ -1540,11 +1435,9 @@
         }
       ],
       "network_id": "huc8_03070103",
-      "network_plan_sha256": "65425bb4a06bbe083871260fd89097442b132c59e050add544b5eccaa5ef031f",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "d65eaf34971f99bf3bfd93e240f4e2477876060a14417c15bc7f2fc5e152f220",
       "legacy_requests": [
         {
           "end": "2026-02-11",
@@ -1554,7 +1447,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_ac986f27927f7cc86f2f",
+          "request_id": "legacy_dv_huc8_03080103_1995-04-29_2026-02-11",
           "role": "validation",
           "site_ids": [
             "02244040",
@@ -1580,11 +1473,9 @@
         }
       ],
       "network_id": "huc8_03080103",
-      "network_plan_sha256": "b43b954c4adcdd41378db67641b8bd7fb7e8b42be227077f9b15b69313ede696",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "7726ea9801b34f2fb99af30e2c2deaf1cf356e7aef75a76709ea3b97884717e5",
       "legacy_requests": [
         {
           "end": "2026-01-26",
@@ -1594,7 +1485,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_246af1817356037c8361",
+          "request_id": "legacy_dv_huc8_03090101_1977-06-22_2026-01-26",
           "role": "validation",
           "site_ids": [
             "02264000",
@@ -1609,11 +1500,9 @@
         }
       ],
       "network_id": "huc8_03090101",
-      "network_plan_sha256": "49fcabc3a3bba545356a3e37513af6fb8a6ebe1586854f0af34e71194bb31260",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "9f4caeb8e2d35ef5f1f56305d0d771747decf529d9f116922b8794b04154a7db",
       "legacy_requests": [
         {
           "end": "2025-12-15",
@@ -1623,7 +1512,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_a47591b2c9d55488cab3",
+          "request_id": "legacy_dv_huc8_03090204_2001-09-12_2025-12-15",
           "role": "validation",
           "site_ids": [
             "02290928",
@@ -1640,11 +1529,9 @@
         }
       ],
       "network_id": "huc8_03090204",
-      "network_plan_sha256": "fd52bc7d8eedc48442d5f5815a8981771288ac223195ad9490bd103683c9f387",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "c7beb2b9ef4915633706eb61bbba7b82fe7c86c8efd85ded4e722b0d97a5b254",
       "legacy_requests": [
         {
           "end": "2026-01-21",
@@ -1654,7 +1541,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_34eeacae8fd07ad65e8c",
+          "request_id": "legacy_dv_huc8_03100101_2016-04-04_2026-01-21",
           "role": "validation",
           "site_ids": [
             "02297345",
@@ -1668,11 +1555,9 @@
         }
       ],
       "network_id": "huc8_03100101",
-      "network_plan_sha256": "2d7eb560d57d6507ead4b2bb6aaadd93b3034d553883e218122d554e17067a07",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "2120c9748fe28963889b9e1b3ced4c202752f7a3c424d094adec370f46fb9ad6",
       "legacy_requests": [
         {
           "end": "2025-12-04",
@@ -1682,7 +1567,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_e7e542d4d30e48eecef1",
+          "request_id": "legacy_dv_huc8_03100204_2016-06-08_2025-12-04",
           "role": "validation",
           "site_ids": [
             "02301500",
@@ -1695,11 +1580,9 @@
         }
       ],
       "network_id": "huc8_03100204",
-      "network_plan_sha256": "3ae7b5dbfd72c012a8b83f959b560fff2f012fbb4bf69a17333dcb0d2347063f",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "9e8c894c5b7d4ffe444df836ba3a8765e11d82a6a7ab8b9d385ab62e24e5adee",
       "legacy_requests": [
         {
           "end": "2025-12-02",
@@ -1709,7 +1592,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_59e4935dc1db86e7d225",
+          "request_id": "legacy_dv_huc8_03100205_1999-10-01_2025-12-02",
           "role": "validation",
           "site_ids": [
             "02304000",
@@ -1724,11 +1607,9 @@
         }
       ],
       "network_id": "huc8_03100205",
-      "network_plan_sha256": "c787deee97e41910ea2f49426b61430ab527c520bda1fcc510a113f7fbdaf357",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "897fcde69f613b1251de581f236acfc93f3fc0225fc7998760f61188e48ec998",
       "legacy_requests": [
         {
           "end": "2025-12-02",
@@ -1738,7 +1619,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_b0428bc960c6246a9540",
+          "request_id": "legacy_dv_huc8_03100207_2016-06-08_2025-12-02",
           "role": "validation",
           "site_ids": [
             "02310308",
@@ -1760,11 +1641,9 @@
         }
       ],
       "network_id": "huc8_03100207",
-      "network_plan_sha256": "75fdda271fd81c345a577007a7d8f180f15f9d4b35741830af07470a9e5c6889",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "a47b243217c7c07827b2de4cbeb8e3a80b52e33980306f98ac443163174da94a",
       "legacy_requests": [
         {
           "end": "2026-04-15",
@@ -1774,7 +1653,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_fbc37c939bc9b719ec07",
+          "request_id": "legacy_dv_huc8_03150104_2005-01-27_2026-04-15",
           "role": "validation",
           "site_ids": [
             "02388975",
@@ -1789,11 +1668,9 @@
         }
       ],
       "network_id": "huc8_03150104",
-      "network_plan_sha256": "b326f09c3a261c5ed2d7af014f1fbc2a3f9806d061ccdec5bff1897acf24b79e",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "e01ab72cc65f8d5633b32f7949519d2c9cfc758a4a83c545b13060ab4cd58cdf",
       "legacy_requests": [
         {
           "end": "2026-05-07",
@@ -1803,7 +1680,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_db513457213bce824206",
+          "request_id": "legacy_dv_huc8_03160111_1988-09-28_2026-05-07",
           "role": "validation",
           "site_ids": [
             "02455980",
@@ -1818,11 +1695,9 @@
         }
       ],
       "network_id": "huc8_03160111",
-      "network_plan_sha256": "05b344394743d409c4680b4e1ae1c096a09a6f248c19b143aeaecb007609313f",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "9fe06a2125bd65cf27735b7999c2b86484062e0361fcd9c0f87d29a27656220d",
       "legacy_requests": [
         {
           "end": "2026-03-17",
@@ -1832,7 +1707,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_2f0de0fae568b85acc7f",
+          "request_id": "legacy_dv_huc8_11010014_1991-05-03_2026-03-17",
           "role": "validation",
           "site_ids": [
             "07075250",
@@ -1845,11 +1720,9 @@
         }
       ],
       "network_id": "huc8_11010014",
-      "network_plan_sha256": "b7e5163b87bb660af925097316bd07194929b77f8d8e8d19bda5fe614572033c",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "6a14e3beaeb99108b891b2d518cd9e4e88c521a39baea9a842d60939bc3150fd",
       "legacy_requests": [
         {
           "end": "2026-04-27",
@@ -1859,7 +1732,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_4f15ed161097d6907359",
+          "request_id": "legacy_dv_huc8_11020002_1990-10-01_2026-04-27",
           "role": "validation",
           "site_ids": [
             "07096000",
@@ -1874,11 +1747,9 @@
         }
       ],
       "network_id": "huc8_11020002",
-      "network_plan_sha256": "20e123e6f48fe320ec4e87d1ee932257e9b66557f1213bfb821d567b1a101ace",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "c26b9e07283d9aa6a79c6073e95f5f2214786c294ae81bdeef8cbc98198aefa3",
       "legacy_requests": [
         {
           "end": "2026-05-14",
@@ -1888,7 +1759,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_c088b61a70beaf735fbb",
+          "request_id": "legacy_dv_huc8_11020003_1989-10-01_2026-05-14",
           "role": "validation",
           "site_ids": [
             "07105530",
@@ -1903,11 +1774,9 @@
         }
       ],
       "network_id": "huc8_11020003",
-      "network_plan_sha256": "a335b8f33fe7d56a31d6adb760181c99995397fbbd784aa29d5978ac8f0eb201",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "4dc9da3fa9eaaa3d2e2229670ccc68695a10e4ae26aabdff6bf64ea13dc1e91e",
       "legacy_requests": [
         {
           "end": "2019-07-24",
@@ -1917,7 +1786,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_f0de9c91adc1d0ef82d8",
+          "request_id": "legacy_dv_huc8_11030012_1998-05-01_2019-07-24",
           "role": "validation",
           "site_ids": [
             "07143672",
@@ -1930,11 +1799,9 @@
         }
       ],
       "network_id": "huc8_11030012",
-      "network_plan_sha256": "10295688ba8a0751ccd839239aa7f8b2439eb7a62f4797dce709540ad9dd9311",
       "role": "validation"
     },
     {
-      "base_network_plan_sha256": "cd326987609c8235cc4db19265416ce075e084aba4749728db7a2372b3e82963",
       "legacy_requests": [
         {
           "end": "2024-11-09",
@@ -1944,7 +1811,7 @@
             "00060",
             "00065"
           ],
-          "request_id": "legacy_dv_b22b5cac4cf356c09753",
+          "request_id": "legacy_dv_huc8_11130206_1994-09-19_2024-11-09",
           "role": "validation",
           "site_ids": [
             "07311900",
@@ -1958,17 +1825,13 @@
         }
       ],
       "network_id": "huc8_11130206",
-      "network_plan_sha256": "d287a2406f1ac51433765098e0de02fb690daf25c849d90f6bc75640372ec84f",
       "role": "validation"
     }
   ],
   "parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6",
   "performance_metrics_computed": false,
-  "plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
   "sealed_paths_traversed": false,
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "temperature_columns_read": [],
   "usgs_transport": "usgs_legacy_nwis_dv_rdb",
-  "v1_ogc_root_read_or_mutated": false,
-  "v1_roster_plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a"
+  "v1_ogc_root_read_or_mutated": false
 }

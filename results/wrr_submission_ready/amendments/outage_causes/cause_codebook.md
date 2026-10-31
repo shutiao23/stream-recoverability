@@ -2,8 +2,8 @@
 
 Every definition quoted below is USGS's own text, taken from the response that the
 USGS daily-value service generated for this study. The request URL is given so the
-quote can be reproduced; the raw response is cached under `raw_cache/` with a
-SHA-256 in `raw_cache/manifest.csv`.
+quote can be reproduced; the raw response is cached under `raw_cache/` and
+listed in `raw_cache/manifest.csv`.
 
 ## What was retrieved
 

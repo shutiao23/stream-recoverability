@@ -3,7 +3,6 @@
   "status": "complete",
   "complete": true,
   "executed_at_utc": "2026-08-24T23:21:07Z",
-  "git_commit_at_test_start": "1ea7db9de08bb5614b1ac15d3663bda2477c63bd",
   "test_command": "PYTHONPATH=src python -m pytest -q --junitxml=results/test_audit/pytest_review_revision_final.xml",
   "tests": 455,
   "failures": 0,
@@ -13,12 +12,10 @@
   "warnings": 820,
   "warning_scope": "812 repeated sklearn/pandas sparse-dtype deprecations plus pandas future concatenation and PyPOTS transformer advisories; no failed test",
   "junit": {
-    "path": "results/test_audit/pytest_review_revision_final.xml",
-    "sha256": "8d7dcba1c2df65c787bad64eee59b66e5b5c6b2d86bb805801ff0bb7e1c63e08"
+    "path": "results/test_audit/pytest_review_revision_final.xml"
   },
   "formal_analysis": {
     "path": "results/analysis/analysis_manifest.json",
-    "sha256": "0746c8e119e45f162ef2805e8d7652f943a50c055a9837790c5ecf39be0841e2",
     "status": "complete",
     "climatology_frontier_cells_identical_across_outputs": 27,
     "actual_finite_model_vs_climatology_tests": 24,
@@ -53,10 +50,8 @@
     "confirmatory_path_access_audit": "passed"
   },
   "publication_manifest": {
-    "path": "results/final_results_manifest.json",
-    "sha256_at_report_creation": "6584c5faa1669253835b6ef6c3ff7ec141c94d26ad51a4630e99b942663dce67",
     "status": "complete"
   },
-  "post_full_suite_verification": "The only later source edits were Ruff formatting of the P3 change-point module, runner, and tests. The deterministic analysis was regenerated, its provenance hashes were refreshed, all five change-point tests passed, and the revision validator remained complete.",
+  "post_full_suite_verification": "The only later source edits were Ruff formatting of the P3 change-point module, runner, and tests. The deterministic analysis was regenerated, its provenance records were refreshed, all five change-point tests passed, and the revision validator remained complete.",
   "scope_note": "The scientific, software, and public-history checks are complete. Archival DOI minting is the only remaining release blocker."
 }

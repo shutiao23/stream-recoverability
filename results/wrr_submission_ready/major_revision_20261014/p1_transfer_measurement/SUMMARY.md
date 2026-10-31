@@ -1,6 +1,6 @@
 # P1 group 3 — one rule, three transfers (measurement contract, time, thermal)
 
-Script `scripts/318_wrr_p1_transfer_measurement.py` (sha256 `7da3a42cae479a9f`), git `8eade30bbf`, wall time **66.9 s**.
+Script `scripts/318_wrr_p1_transfer_measurement.py`, wall time **66.9 s**.
 
 Rule held fixed throughout: the Step-2 fitted risk score (`HistGradientBoostingRegressor`, quantile 0.9, on the GENERIC+SUPPORT decision-time feature set) against the jittered `longest_run` length rule, at 70 % retention and a 0.5 °C failure tolerance. Contrast is **risk − length in percentage points**; negative means the fitted score has the lower failure rate.
 
@@ -41,7 +41,7 @@ Per-provider rows are in `measurement_strata.csv` (`group_type=provider`).
 
 - providers disagreeing with the P0-06 dictionary-derived class: **0** (full agreement)
 - providers disagreeing with the P0-06 station-level cross-check column: **4** — chmi, foen, gkd_bayern, lubw
-- the P0-06 coverage table is being rebuilt by a parallel workstream; the sha256 above is of the exact bytes read by this run, and the classes scored here come from the explicit mapping, not from that table
+- the P0-06 coverage table is being rebuilt by a parallel workstream; the classes scored here come from the explicit mapping, not from that table
 - this run's four-class mapping agrees with P0-06's dictionary-derived statistic_class for every provider present in the two panels
 - P0-06's station-level cross-check column disagrees with the class used here for chmi, foen, gkd_bayern, lubw: that column carries them as undocumented/unverified while the dictionary documents either a daily mean or a project-derived daily mean. This is an internal P0-06 conservatism difference, not a difference in the classes scored here
 - no station-level cross-check row exists in P0-06 for hubeau, uk_ea, usgs, so that column could not be checked for them
@@ -107,5 +107,5 @@ No true heatwave/event label exists for the river-temperature panel. The only la
 - no true heatwave event labels exist for this panel, so thermal strata are warm-year strata
 - threshold-transfer intervals resample networks inside the calibration block as well as the evaluation block, so they carry threshold uncertainty as well as evaluation uncertainty
 
-The repository's existing strictly-prior-years sensitivity (certificate screen, `results/v17_fitness/step13_prior_years/protocol_comparison.csv`) is the closest prior art to the time-transfer design here; it is quoted verbatim in `protocol_fingerprint.json` and was not re-run. Those rows score the frozen *certificate* screen, not the fitted risk score, so they are not directly comparable to the fitted-score contrasts above.
+The repository's existing strictly-prior-years sensitivity (certificate screen, `results/v17_fitness/step13_prior_years/protocol_comparison.csv`) is the closest prior art to the time-transfer design here; it was not re-run. Those rows score the frozen *certificate* screen, not the fitted risk score, so they are not directly comparable to the fitted-score contrasts above.
 

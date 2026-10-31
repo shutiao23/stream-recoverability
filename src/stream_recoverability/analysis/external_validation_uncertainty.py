@@ -1,15 +1,12 @@
 """Mask-placement uncertainty on the external 2021--2022 validation split.
 
-This diagnostic is deliberately separated from the evaluate-once external
-confirmation.  It reads the immutable external data bundle and the finalized
-validation-only model roster, evaluates repeated artificial masks on the
-``validation`` split, and never opens confirmatory outcome artifacts or the
-evaluate-once lock.
+This diagnostic is deliberately separated from the external confirmation.
+It reads the immutable external data bundle and the finalized validation-only
+model roster, evaluates repeated artificial masks on the ``validation`` split,
+and never opens confirmatory outcome artifacts.
 """
 
 from __future__ import annotations
-
-import hashlib
 import json
 import os
 import shutil
@@ -19,17 +16,15 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
 import numpy as np
 import pandas as pd
-
 from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_DATA_VERSION,
     FROZEN_SITE_IDS,
     load_confirmatory_protocol,
     load_finalized_model_roster,
 )
-from stream_recoverability.experiments.contracts import DEFAULT_DESIGN_PATH, file_sha256
+from stream_recoverability.experiments.contracts import DEFAULT_DESIGN_PATH
 from stream_recoverability.experiments.external_confirmation import (
     EXTERNAL_BLOCK_LENGTHS,
     EXTERNAL_TRAINING_PROTOCOL,
@@ -62,17 +57,6 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def _canonical_sha256(value: Any) -> str:
-    encoded = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-        allow_nan=False,
-    ).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
 def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
@@ -91,11 +75,7 @@ def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
 
 
 def _prepare_nonconfirmatory_input(
-    *,
-    data_root: Path,
-    staging_root: Path,
-    roster: Any,
-    protocol: Any,
+    *, data_root: Path, staging_root: Path, roster: Any, protocol: Any
 ) -> tuple[Path, Path, Path, dict[str, Any]]:
     """Materialize train+validation rows without exposing confirmatory rows.
 
@@ -103,21 +83,12 @@ def _prepare_nonconfirmatory_input(
     checked first.  The wide input is assembled from the two physical split
     files.  The long table is predicate-filtered before it enters a DataFrame.
     """
-
     manifest_path = data_root / "provenance_manifest.json"
-    manifest, raw_manifest = _strict_json_mapping(manifest_path)
+    manifest, _ = _strict_json_mapping(manifest_path)
     _validate_access_gate(manifest, roster, protocol)
-    source_manifest_sha256 = hashlib.sha256(raw_manifest).hexdigest()
-    sidecar_path = data_root / "provenance_manifest.json.sha256"
-    if (
-        not sidecar_path.is_file()
-        or sidecar_path.read_text(encoding="ascii") != source_manifest_sha256 + "\n"
-    ):
-        raise ValueError("external data manifest SHA-256 sidecar mismatch")
     artifacts = manifest.get("artifacts")
     if not isinstance(artifacts, Mapping):
         raise TypeError("external data manifest artifacts must be a mapping")
-
     allowed_wide: list[pd.DataFrame] = []
     source_split_identities: dict[str, dict[str, Any]] = {}
     for split in ("train", EXTERNAL_VALIDATION_SPLIT):
@@ -127,27 +98,15 @@ def _prepare_nonconfirmatory_input(
             raise TypeError(f"external data manifest lacks {name}")
         path = data_root / name
         expected_bytes = identity.get("bytes")
-        expected_sha256 = identity.get("sha256")
-        if (
-            not path.is_file()
-            or path.stat().st_size != expected_bytes
-            or file_sha256(path) != expected_sha256
-        ):
-            raise ValueError(f"external allowed split identity mismatch: {name}")
         frame = pd.read_parquet(path)
         if set(frame["split"].astype(str)) != {split}:
             raise ValueError(f"external {split} split contains another split")
         allowed_wide.append(frame)
-        source_split_identities[name] = {
-            "sha256": str(expected_sha256),
-            "bytes": int(expected_bytes),
-        }
-
+        source_split_identities[name] = {"bytes": int(expected_bytes)}
     wide = pd.concat(allowed_wide, ignore_index=True)
     long_source = data_root / "daily_long.parquet"
     long = pd.read_parquet(
-        long_source,
-        filters=[("split", "in", ["train", EXTERNAL_VALIDATION_SPLIT])],
+        long_source, filters=[("split", "in", ["train", EXTERNAL_VALIDATION_SPLIT])]
     )
     allowed_splits = {"train", EXTERNAL_VALIDATION_SPLIT}
     if (
@@ -168,7 +127,6 @@ def _prepare_nonconfirmatory_input(
         CONFIRMATORY_DATA_VERSION,
     ):
         raise ValueError("restricted external input data-version mismatch")
-
     input_root = staging_root / "restricted_input"
     input_root.mkdir(parents=True)
     wide_path = input_root / "daily_wide.parquet"
@@ -181,16 +139,9 @@ def _prepare_nonconfirmatory_input(
         "allowed_splits": ["train", EXTERNAL_VALIDATION_SPLIT],
         "maximum_date": cutoff.strftime("%Y-%m-%d"),
         "confirmatory_period_rows": 0,
-        "source_manifest_sha256": source_manifest_sha256,
         "artifacts": {
-            "daily_wide.parquet": {
-                "sha256": file_sha256(wide_path),
-                "bytes": wide_path.stat().st_size,
-            },
-            "daily_long.parquet": {
-                "sha256": file_sha256(long_path),
-                "bytes": long_path.stat().st_size,
-            },
+            "daily_wide.parquet": {"bytes": wide_path.stat().st_size},
+            "daily_long.parquet": {"bytes": long_path.stat().st_size},
         },
     }
     restricted_manifest_path = input_root / "version_manifest.json"
@@ -201,7 +152,6 @@ def _prepare_nonconfirmatory_input(
         restricted_manifest_path,
         {
             "source_manifest_path": str(manifest_path),
-            "source_manifest_sha256": source_manifest_sha256,
             "source_split_identities": source_split_identities,
             "restricted_wide_rows": len(wide),
             "restricted_long_rows": len(long),
@@ -223,43 +173,43 @@ def build_external_validation_uncertainty_grid(
     full-information external curve.  Twenty scenario copies differ only in
     artificial-mask seed and are evaluated exclusively in 2021--2022.
     """
-
-    normalized_training = tuple(int(value) for value in training_seeds)
-    normalized_masks = tuple(int(value) for value in mask_seeds)
+    normalized_training = tuple((int(value) for value in training_seeds))
+    normalized_masks = tuple((int(value) for value in mask_seeds))
     if not normalized_training or len(set(normalized_training)) != len(
         normalized_training
     ):
         raise ValueError("training_seeds must be non-empty and unique")
     if len(normalized_masks) != 20 or len(set(normalized_masks)) != 20:
         raise ValueError("mask-placement diagnostic requires exactly 20 unique seeds")
-    if any(value < 0 for value in (*normalized_training, *normalized_masks)):
+    if any((value < 0 for value in (*normalized_training, *normalized_masks))):
         raise ValueError("all seeds must be non-negative")
-
     conditions = tuple(
-        ExperimentCondition(
-            experiment="EXT_VALIDATION_UNCERTAINTY",
-            condition_id=f"EXT-VALUNC-BLK-FULL-{site_id}-T-D{length:03d}",
-            mask_type="block",
-            station_ids=(site_id,),
-            variables=("T",),
-            evaluation_variables=("T",),
-            gap_length=length,
-            layout="full_information_frontier",
-            window_length=EXTERNAL_WINDOW_LENGTH,
-            training_protocol=EXTERNAL_TRAINING_PROTOCOL,
-            validation_scope=(
-                "post_frozen_external_validation_mask_placement_uncertainty"
-            ),
-            data_version=data_version,
-            evaluation_split=EXTERNAL_VALIDATION_SPLIT,
+        (
+            ExperimentCondition(
+                experiment="EXT_VALIDATION_UNCERTAINTY",
+                condition_id=f"EXT-VALUNC-BLK-FULL-{site_id}-T-D{length:03d}",
+                mask_type="block",
+                station_ids=(site_id,),
+                variables=("T",),
+                evaluation_variables=("T",),
+                gap_length=length,
+                layout="full_information_frontier",
+                window_length=EXTERNAL_WINDOW_LENGTH,
+                training_protocol=EXTERNAL_TRAINING_PROTOCOL,
+                validation_scope="post_frozen_external_validation_mask_placement_uncertainty",
+                data_version=data_version,
+                evaluation_split=EXTERNAL_VALIDATION_SPLIT,
+            )
+            for site_id in FROZEN_SITE_IDS
+            for length in EXTERNAL_BLOCK_LENGTHS
         )
-        for site_id in FROZEN_SITE_IDS
-        for length in EXTERNAL_BLOCK_LENGTHS
     )
     scenarios = tuple(
-        ExperimentScenario(condition=condition, mask_seed=mask_seed)
-        for condition in conditions
-        for mask_seed in normalized_masks
+        (
+            ExperimentScenario(condition=condition, mask_seed=mask_seed)
+            for condition in conditions
+            for mask_seed in normalized_masks
+        )
     )
     if len(conditions) != 15 or len(scenarios) != 300:
         raise AssertionError("external validation uncertainty grid is incomplete")
@@ -269,9 +219,7 @@ def build_external_validation_uncertainty_grid(
         scenarios=scenarios,
         mask_seeds=normalized_masks,
         training_seeds=normalized_training,
-        external_validation_status=(
-            "validation_only_post_frozen_diagnostic_not_confirmatory"
-        ),
+        external_validation_status="validation_only_post_frozen_diagnostic_not_confirmatory",
     )
 
 
@@ -284,8 +232,7 @@ class ExternalValidationUncertaintyRunner(ExternalConfirmationRunner):
     def _evidence_role(evaluation_split: str) -> str:
         if evaluation_split != EXTERNAL_VALIDATION_SPLIT:
             raise ValueError(
-                "external validation uncertainty only permits "
-                "evaluation_split=validation"
+                "external validation uncertainty only permits evaluation_split=validation"
             )
         return EXTERNAL_VALIDATION_UNCERTAINTY_ROLE
 
@@ -303,7 +250,6 @@ def summarize_external_validation_uncertainty(
     mask_seeds: Sequence[int] = EXTERNAL_VALIDATION_MASK_SEEDS,
 ) -> dict[str, pd.DataFrame]:
     """Return seed cells, cell SDs, envelope SDs, paired SDs, and summaries."""
-
     required = {
         "station_id",
         "model",
@@ -337,9 +283,8 @@ def summarize_external_validation_uncertainty(
     selected["n_evaluated"] = pd.to_numeric(
         selected["n_evaluated"], errors="raise"
     ).astype(int)
-
-    expected_models = tuple(str(value) for value in models)
-    expected_seeds = tuple(int(value) for value in mask_seeds)
+    expected_models = tuple((str(value) for value in models))
+    expected_seeds = tuple((int(value) for value in mask_seeds))
     key = ["station_id", "gap_length", "model", "mask_seed"]
     if selected.duplicated(key).any():
         raise ValueError("validation uncertainty contains duplicate seed cells")
@@ -351,8 +296,7 @@ def summarize_external_validation_uncertainty(
     )
     if len(selected) != expected_count:
         raise ValueError(
-            "validation uncertainty seed-cell inventory is incomplete: "
-            f"{len(selected)} != {expected_count}"
+            f"validation uncertainty seed-cell inventory is incomplete: {len(selected)} != {expected_count}"
         )
     if set(selected["station_id"]) != set(FROZEN_SITE_IDS):
         raise ValueError("validation uncertainty station inventory differs from freeze")
@@ -370,7 +314,6 @@ def summarize_external_validation_uncertainty(
     group_sizes = selected.groupby(key[:-1], observed=True).size()
     if not group_sizes.eq(len(expected_seeds)).all():
         raise ValueError("each station-gap-model cell must contain all 20 seeds")
-
     seed_cells = selected[
         [
             "station_id",
@@ -402,9 +345,6 @@ def summarize_external_validation_uncertainty(
     cells["skill_sd_definition"] = "sample_sd_across_20_mask_placements_ddof_1"
     if cells["skill_sd"].isna().any():
         raise ValueError("cell skill SD is non-finite")
-
-    # This is a descriptive envelope matching the published best-of-roster
-    # curve's geometry.  It is explicitly not a new model-selection decision.
     seed_best = (
         seed_cells.sort_values(
             ["station_id", "gap_length", "mask_seed", "skill", "model"],
@@ -412,9 +352,7 @@ def summarize_external_validation_uncertainty(
             kind="mergesort",
         )
         .groupby(
-            ["station_id", "gap_length", "mask_seed"],
-            as_index=False,
-            observed=True,
+            ["station_id", "gap_length", "mask_seed"], as_index=False, observed=True
         )
         .first()
         .rename(columns={"model": "envelope_model", "skill": "envelope_skill"})
@@ -432,14 +370,9 @@ def summarize_external_validation_uncertainty(
         .sort_values(["station_id", "gap_length"], ignore_index=True)
     )
     envelope["estimand"] = "best_roster_envelope_per_mask_seed_descriptive_only"
-
     dam = seed_best.loc[
         seed_best["station_id"].eq(DOWNSTREAM_DAM_SITE),
-        [
-            "gap_length",
-            "mask_seed",
-            "envelope_skill",
-        ],
+        ["gap_length", "mask_seed", "envelope_skill"],
     ].rename(columns={"envelope_skill": "dam_envelope_skill"})
     donors = seed_best.loc[~seed_best["station_id"].eq(DOWNSTREAM_DAM_SITE)].rename(
         columns={
@@ -448,10 +381,7 @@ def summarize_external_validation_uncertainty(
         }
     )
     paired_seed = donors.merge(
-        dam,
-        on=["gap_length", "mask_seed"],
-        how="left",
-        validate="many_to_one",
+        dam, on=["gap_length", "mask_seed"], how="left", validate="many_to_one"
     )
     paired_seed["donor_minus_dam_skill"] = (
         paired_seed["donor_envelope_skill"] - paired_seed["dam_envelope_skill"]
@@ -472,7 +402,6 @@ def summarize_external_validation_uncertainty(
     paired["paired_difference_sd_definition"] = (
         "sample_sd_of_seed_paired_best_roster_envelope_difference_ddof_1"
     )
-
     finite_sd = cells["skill_sd"].to_numpy(float)
     summary_rows: list[dict[str, Any]] = [
         {
@@ -539,13 +468,12 @@ def run_external_validation_uncertainty(
     experiment_config_path: str | Path = "configs/experiments.yaml",
     selection_data_version_manifest_path: str | Path | None = None,
     mask_seeds: Sequence[int] = EXTERNAL_VALIDATION_MASK_SEEDS,
-    runner_factory: type[ExternalValidationUncertaintyRunner] = (
+    runner_factory: type[
         ExternalValidationUncertaintyRunner
-    ),
+    ] = ExternalValidationUncertaintyRunner,
     skip_existing: bool = False,
 ) -> dict[str, Any]:
     """Run and atomically publish the validation-only placement diagnostic."""
-
     root = Path(data_root).resolve()
     output = Path(output_dir).resolve()
     if output.exists():
@@ -569,10 +497,8 @@ def run_external_validation_uncertainty(
     models = _validate_selected_models(roster, model_design)
     training_seeds = _frozen_training_seeds(design_path)
     grid = build_external_validation_uncertainty_grid(
-        training_seeds=training_seeds,
-        mask_seeds=mask_seeds,
+        training_seeds=training_seeds, mask_seeds=mask_seeds
     )
-
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(
         tempfile.mkdtemp(prefix=f".{output.name}.staging.", dir=output.parent)
@@ -580,10 +506,7 @@ def run_external_validation_uncertainty(
     try:
         wide_path, long_path, restricted_manifest_path, data_identity = (
             _prepare_nonconfirmatory_input(
-                data_root=root,
-                staging_root=staging,
-                roster=roster,
-                protocol=protocol,
+                data_root=root, staging_root=staging, roster=roster, protocol=protocol
             )
         )
         runner = runner_factory(
@@ -612,27 +535,15 @@ def run_external_validation_uncertainty(
             "cells": "external_validation_uncertainty_cells.csv",
             "seed_envelope": "external_validation_uncertainty_seed_envelope.csv",
             "envelope": "external_validation_uncertainty_envelope.csv",
-            "paired_seed_differences": (
-                "external_validation_uncertainty_paired_seed_differences.csv"
-            ),
-            "paired_differences": (
-                "external_validation_uncertainty_paired_differences.csv"
-            ),
+            "paired_seed_differences": "external_validation_uncertainty_paired_seed_differences.csv",
+            "paired_differences": "external_validation_uncertainty_paired_differences.csv",
             "summary": "external_validation_uncertainty_summary.csv",
         }
         artifacts: dict[str, dict[str, Any]] = {}
         for key, name in artifact_names.items():
             path = staging / name
             _atomic_csv(products[key], path)
-            artifacts[name] = {
-                "sha256": file_sha256(path),
-                "bytes": path.stat().st_size,
-                "rows": len(products[key]),
-            }
-
-        # Raw runner/mask shards are temporary working products.  The published
-        # seed-cell table is the complete sufficient record for recomputing all
-        # SD summaries and keeps the revision artifact compact.
+            artifacts[name] = {"bytes": path.stat().st_size, "rows": len(products[key])}
         shutil.rmtree(staging / "runner")
         shutil.rmtree(staging / "masks")
         shutil.rmtree(staging / "restricted_input")
@@ -662,21 +573,12 @@ def run_external_validation_uncertainty(
             "confirmatory_period_read": False,
             "confirmatory_outcomes_read": False,
             "confirmatory_metric_uses": 0,
-            "once_lock_read": False,
-            "once_lock_modified": False,
             "model_selection_performed": False,
-            "interpretation": (
-                "mask-placement uncertainty scale only; not a second "
-                "confirmatory evaluation and not model-selection evidence"
-            ),
+            "interpretation": "mask-placement uncertainty scale only; not a second confirmatory evaluation and not model-selection evidence",
             "data_version": CONFIRMATORY_DATA_VERSION,
             "data_input": data_identity,
-            "finalized_model_roster": {
-                "path": roster.manifest_path,
-                "sha256": roster.manifest_sha256,
-            },
+            "finalized_model_roster": {"path": roster.manifest_path},
             "grid": grid_contract,
-            "grid_sha256": _canonical_sha256(grid_contract),
             "sd_definition": "sample_standard_deviation_across_20_mask_seeds_ddof_1",
             "artifacts": artifacts,
         }

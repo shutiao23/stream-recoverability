@@ -94,7 +94,9 @@ def read_diagram(path: Path) -> tuple[str, dict[str, Vertex], list[Edge]]:
     root = ET.parse(path).getroot()
     diagram = root if root.tag == "mxGraphModel" else root.find(".//mxGraphModel")
     if diagram is None:
-        raise SystemExit(f"{path}: no mxGraphModel; compressed .drawio files are not supported")
+        raise SystemExit(
+            f"{path}: no mxGraphModel; compressed .drawio files are not supported"
+        )
     title_node = root.find(".//diagram")
     title = title_node.get("name", path.stem) if title_node is not None else path.stem
 
@@ -107,11 +109,17 @@ def read_diagram(path: Path) -> tuple[str, dict[str, Vertex], list[Edge]]:
             geometry = cell.find("mxGeometry")
             if geometry is None:
                 continue
-            shape = "rounded" if style.get("rounded") == "1" else style.get("shape", "rectangle")
+            shape = (
+                "rounded"
+                if style.get("rounded") == "1"
+                else style.get("shape", "rectangle")
+            )
             if style.get("ellipse") is not None:
                 shape = "ellipse"
             if shape not in SUPPORTED_SHAPES:
-                raise SystemExit(f"{path}: unsupported shape {shape!r} on cell {cell.get('id')}")
+                raise SystemExit(
+                    f"{path}: unsupported shape {shape!r} on cell {cell.get('id')}"
+                )
             vertices[cell.get("id", "")] = Vertex(
                 cell_id=cell.get("id", ""),
                 label=label,
@@ -200,7 +208,9 @@ def text_block(
         runs = inline_runs(line, bold) if rich else [(line, bold, False)]
         if len(runs) == 1 and not runs[0][2]:
             weight = ' font-weight="600"' if runs[0][1] else ""
-            out.append(f"{head}{weight} xml:space=\"preserve\">{escape(runs[0][0])}</text>")
+            out.append(
+                f'{head}{weight} xml:space="preserve">{escape(runs[0][0])}</text>'
+            )
             continue
         spans = []
         for text, run_bold, run_italic in runs:
@@ -222,8 +232,12 @@ def render_svg(
     margin = 24.0
     xs = [v.x for v in vertices.values()] + [p[0] for e in edges for p in e.waypoints]
     ys = [v.y for v in vertices.values()] + [p[1] for e in edges for p in e.waypoints]
-    xe = [v.x + v.width for v in vertices.values()] + [p[0] for e in edges for p in e.waypoints]
-    ye = [v.y + v.height for v in vertices.values()] + [p[1] for e in edges for p in e.waypoints]
+    xe = [v.x + v.width for v in vertices.values()] + [
+        p[0] for e in edges for p in e.waypoints
+    ]
+    ye = [v.y + v.height for v in vertices.values()] + [
+        p[1] for e in edges for p in e.waypoints
+    ]
     min_x, min_y, max_x, max_y = min(xs), min(ys), max(xe), max(ye)
     width, height = max_x - min_x + 2 * margin, max_y - min_y + 2 * margin
     shift_x, shift_y = margin - min_x, margin - min_y
@@ -255,8 +269,8 @@ def render_svg(
             fill = "none"
         if vertex.style["shape"] == "ellipse":
             body.append(
-                f'<ellipse cx="{vertex.cx:.1f}" cy="{vertex.cy:.1f}" rx="{vertex.width/2:.1f}" '
-                f'ry="{vertex.height/2:.1f}" fill="{fill}" stroke="{stroke}" '
+                f'<ellipse cx="{vertex.cx:.1f}" cy="{vertex.cy:.1f}" rx="{vertex.width / 2:.1f}" '
+                f'ry="{vertex.height / 2:.1f}" fill="{fill}" stroke="{stroke}" '
                 f'stroke-width="{stroke_width}"{dash}/>'
             )
         elif vertex.style["shape"] == "label":
@@ -312,7 +326,11 @@ def render_svg(
         stroke = edge.style.get("strokeColor", "#37474f")
         dash = ' stroke-dasharray="6 4"' if edge.style.get("dashed") == "1" else ""
         marker = "arrowdim" if dim else "arrow"
-        head = "" if edge.style.get("endArrow") == "none" else f' marker-end="url(#{marker})"'
+        head = (
+            ""
+            if edge.style.get("endArrow") == "none"
+            else f' marker-end="url(#{marker})"'
+        )
         points_text = " ".join(f"{x:.1f},{y:.1f}" for x, y in path)
         body.append(
             f'<polyline points="{points_text}" fill="none" stroke="{stroke}" '
@@ -333,10 +351,14 @@ def render_svg(
             box_w = longest * size * 0.54 + 2 * pad
             box_h = size * 1.28 * lines + pad
             body.append(
-                f'<rect x="{mx - box_w/2:.1f}" y="{my - box_h/2:.1f}" width="{box_w:.1f}" '
+                f'<rect x="{mx - box_w / 2:.1f}" y="{my - box_h / 2:.1f}" width="{box_w:.1f}" '
                 f'height="{box_h:.1f}" fill="#ffffff" stroke="none"/>'
             )
-            body.extend(text_block(edge.label, mx, my - box_h / 2 + pad / 2, size, colour, False))
+            body.extend(
+                text_block(
+                    edge.label, mx, my - box_h / 2 + pad / 2, size, colour, False
+                )
+            )
 
     body.append("</g></svg>")
     return "\n".join(body)
@@ -349,7 +371,9 @@ def export(path: Path, print_width_in: float = PRINT_WIDTH_IN) -> Path:
     pdf_path = OUTPUT_DIR / f"{path.stem}.pdf"
     svg_path.write_text(svg, encoding="utf-8")
     if shutil.which("rsvg-convert") is None:
-        raise SystemExit("rsvg-convert is required to produce PDF; install librsvg2-bin")
+        raise SystemExit(
+            "rsvg-convert is required to produce PDF; install librsvg2-bin"
+        )
     subprocess.run(
         ["rsvg-convert", "-f", "pdf", "-o", str(pdf_path), str(svg_path)],
         check=True,
@@ -365,11 +389,24 @@ def main(argv: list[str]) -> int:
         default=PRINT_WIDTH_IN,
         help=f"printed width of the exported PDF in inches (default {PRINT_WIDTH_IN})",
     )
-    parser.add_argument("sources", nargs="*", help=".drawio files (default: every source)")
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="directory for the PDFs (default figures/v17)",
+    )
+    parser.add_argument(
+        "sources", nargs="*", help=".drawio files (default: every source)"
+    )
     args = parser.parse_args(argv[1:])
 
+    global OUTPUT_DIR
+    if args.output_dir is not None:
+        OUTPUT_DIR = args.output_dir.resolve()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    sources = [Path(a).resolve() for a in args.sources] or sorted(SOURCE_DIR.glob("*.drawio"))
+    sources = [Path(a).resolve() for a in args.sources] or sorted(
+        SOURCE_DIR.glob("*.drawio")
+    )
     if not sources:
         raise SystemExit(f"no .drawio sources under {SOURCE_DIR}")
     for source in sources:

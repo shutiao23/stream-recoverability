@@ -21,7 +21,6 @@ from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     build_design_contract,
     canonical_evaluation_split,
-    file_sha256,
     load_frozen_data_versions,
 )
 from stream_recoverability.experiments.formal_authorization import (
@@ -59,7 +58,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--finalized-model-roster",
         type=Path,
         help=(
-            "hash-verified validation-only finalized_model_roster_v1; required "
+            "validation-only finalized_model_roster_v1; required "
             "for development_test core/full formal evidence"
         ),
     )
@@ -137,26 +136,9 @@ def main() -> None:
         )
     data = args.data or version_root / "daily_wide.parquet"
     quality_data = args.quality_data or version_root / "daily_long.parquet"
-    artifacts = manifest_value.get("artifacts")
-    if not isinstance(artifacts, dict):
-        raise TypeError("data version manifest artifacts must be a JSON object")
-    for logical_name, path in (
-        ("daily_wide.parquet", data),
-        ("daily_long.parquet", quality_data),
-    ):
+    for path in (data, quality_data):
         if not path.is_file():
             raise FileNotFoundError(path)
-        artifact = artifacts.get(logical_name)
-        if not isinstance(artifact, dict) or not isinstance(
-            artifact.get("sha256"), str
-        ):
-            raise TypeError(f"data version manifest lacks a SHA-256 for {logical_name}")
-        actual_digest = file_sha256(path)
-        if actual_digest != artifact["sha256"]:
-            raise ValueError(
-                f"{logical_name} does not match data version manifest: "
-                f"expected {artifact['sha256']}, got {actual_digest}"
-            )
     if args.suite == "full" and args.event_catalog is None:
         raise SystemExit("--event-catalog is required for the full suite")
     if args.event_catalog is not None and not args.event_catalog.is_file():

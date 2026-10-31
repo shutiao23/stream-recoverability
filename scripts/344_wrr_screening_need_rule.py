@@ -53,7 +53,9 @@ MIN_CELL = 30
 DRAWS = 4000
 
 
-def add_cells(frame: pd.DataFrame, length: str = "longest_run", overlap: str = "peak_overlap") -> pd.DataFrame:
+def add_cells(
+    frame: pd.DataFrame, length: str = "longest_run", overlap: str = "peak_overlap"
+) -> pd.DataFrame:
     out = frame.copy()
     out["len_cell"] = pd.cut(out[length], LEN_EDGES, labels=LEN_LABELS)
     out["h_cell"] = pd.cut(out[overlap], H_EDGES, labels=H_LABELS)
@@ -70,7 +72,12 @@ def cell_rates(train: pd.DataFrame, bad: str) -> tuple[pd.Series, float]:
     # sparse cells fall back to their overlap class, then to the pooled rate
     by_h = train.groupby("h_cell", observed=True)[bad].mean()
     fallback = {cell: float(by_h.get(cell.split("|")[1], overall)) for cell in g.index}
-    rates = pd.Series({cell: (rates[cell] if np.isfinite(rates[cell]) else fallback[cell]) for cell in g.index})
+    rates = pd.Series(
+        {
+            cell: (rates[cell] if np.isfinite(rates[cell]) else fallback[cell])
+            for cell in g.index
+        }
+    )
     return rates, overall
 
 
@@ -80,22 +87,32 @@ def predict_archive(frame: pd.DataFrame, rates: pd.Series, overall: float) -> fl
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
-    M330 = C.load_script("wrr330", C.ROOT / "scripts" / "330_wrr_aligned_policy_admission.py")
+    M330 = C.load_script(
+        "wrr330", C.ROOT / "scripts" / "330_wrr_aligned_policy_admission.py"
+    )
 
     designed = []
     for panel, spec in M330.PANELS.items():
         cases = pd.read_parquet(spec["cases"]).reset_index(drop=True)
         certs = pd.read_parquet(spec["certificates"]).reset_index(drop=True)
         table = M330.independence_table(cases)
-        group_of = dict(zip(table["network_id"].astype(str), table["independence_group"].astype(str)))
+        group_of = dict(
+            zip(
+                table["network_id"].astype(str), table["independence_group"].astype(str)
+            )
+        )
         target = M330.policy_target(cases, certs)
         block = pd.DataFrame(
             {
                 "panel": panel,
                 "group": cases["network_id"].astype(str).map(group_of).to_numpy(),
                 "arm": cases["arm"].astype(str).to_numpy(),
-                "longest_run": pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(),
-                "peak_overlap": pd.to_numeric(cases["peak_overlap"], errors="coerce").to_numpy(),
+                "longest_run": pd.to_numeric(
+                    cases["longest_run"], errors="coerce"
+                ).to_numpy(),
+                "peak_overlap": pd.to_numeric(
+                    cases["peak_overlap"], errors="coerce"
+                ).to_numpy(),
                 "bad": target["bad"].astype(float),
             }
         )
@@ -111,8 +128,12 @@ def main() -> int:
             "cell": rates_emp.index,
             "failure_rate_empirical_arm": rates_emp.values,
             "n_empirical": [int((emp.cell == c).sum()) for c in rates_emp.index],
-            "failure_rate_all_designed": [float(rates_all.get(c, np.nan)) for c in rates_emp.index],
-            "n_all_designed": [int((designed.cell == c).sum()) for c in rates_emp.index],
+            "failure_rate_all_designed": [
+                float(rates_all.get(c, np.nan)) for c in rates_emp.index
+            ],
+            "n_all_designed": [
+                int((designed.cell == c).sum()) for c in rates_emp.index
+            ],
         }
     ).to_csv(OUT / "designed_cell_failure_rates.csv", index=False)
 
@@ -131,7 +152,9 @@ def main() -> int:
                     "network_id": network,
                     "n_groups": len(g),
                     "n_stations": int(g.station_id.nunique()),
-                    "n_target_station_years": int(g[["station_id", "eval_year"]].drop_duplicates().shape[0]),
+                    "n_target_station_years": int(
+                        g[["station_id", "eval_year"]].drop_duplicates().shape[0]
+                    ),
                     "share_overlap_gt_half": float((g.peak_overlap > 0.5).mean()),
                     "share_any_overlap": float((g.peak_overlap > 0).mean()),
                     "median_longest_run": float(g.longest_run.median()),
@@ -156,12 +179,20 @@ def main() -> int:
                 "level": level,
                 "n_groups": len(block),
                 "n_networks": block.network_id.nunique(),
-                "n_target_station_years": int(block[["station_id", "eval_year"]].drop_duplicates().shape[0]),
+                "n_target_station_years": int(
+                    block[["station_id", "eval_year"]].drop_duplicates().shape[0]
+                ),
                 "pooled_predicted": pooled_pred,
                 "pooled_observed": pooled_obs,
                 "pooled_observed_ci_low": lo,
                 "pooled_observed_ci_high": hi,
-                "networks_needing_screen": int(sum(1 for r in net_rows if r["level"] == level and r["needs_screen_observed"])),
+                "networks_needing_screen": int(
+                    sum(
+                        1
+                        for r in net_rows
+                        if r["level"] == level and r["needs_screen_observed"]
+                    )
+                ),
             }
         )
     pooled_table = pd.DataFrame(rows)
@@ -172,13 +203,20 @@ def main() -> int:
     # confusion matrix of the rule over networks, with exact binomial intervals
     conf = []
     for level, g in net.groupby("level"):
-        tp = int(((~g.rule_says_no_screen) & g.needs_screen_observed).sum())  # screen advised, needed
-        fn = int((g.rule_says_no_screen & g.needs_screen_observed).sum())  # said no screen, needed one
+        tp = int(
+            ((~g.rule_says_no_screen) & g.needs_screen_observed).sum()
+        )  # screen advised, needed
+        fn = int(
+            (g.rule_says_no_screen & g.needs_screen_observed).sum()
+        )  # said no screen, needed one
         fp = int(((~g.rule_says_no_screen) & (~g.needs_screen_observed)).sum())
         tn = int((g.rule_says_no_screen & (~g.needs_screen_observed)).sum())
         k = int(g.rule_correct.sum())
         n = len(g)
-        lo, hi = stats.beta.ppf(0.025, k, n - k + 1) if k > 0 else 0.0, stats.beta.ppf(0.975, k + 1, n - k) if k < n else 1.0
+        lo, hi = (
+            stats.beta.ppf(0.025, k, n - k + 1) if k > 0 else 0.0,
+            stats.beta.ppf(0.975, k + 1, n - k) if k < n else 1.0,
+        )
         conf.append(
             {
                 "level": level,
@@ -205,7 +243,9 @@ def main() -> int:
     for fold in range(5):
         train = designed[designed.fold != fold]
         rates, overall = cell_rates(train, "bad")
-        for (panel, group), g in designed[designed.fold == fold].groupby(["panel", "group"]):
+        for (panel, group), g in designed[designed.fold == fold].groupby(
+            ["panel", "group"]
+        ):
             pred_rows.append(
                 {
                     "panel": panel,
@@ -226,9 +266,13 @@ def main() -> int:
                 "n_archives": len(g),
                 "spearman_pred_obs": float(rho.statistic),
                 "mae_composition_rule": float((g.predicted - g.observed).abs().mean()),
-                "mae_pooled_rate_baseline": float((g.pooled_rate_baseline - g.observed).abs().mean()),
+                "mae_pooled_rate_baseline": float(
+                    (g.pooled_rate_baseline - g.observed).abs().mean()
+                ),
                 "share_archives_observed_above_cap": float((g.observed > CAP).mean()),
-                "share_archives_rule_says_no_screen": float((g.predicted <= CAP).mean()),
+                "share_archives_rule_says_no_screen": float(
+                    (g.predicted <= CAP).mean()
+                ),
                 "min_observed": float(g.observed.min()),
             }
         )
@@ -236,26 +280,35 @@ def main() -> int:
     within.to_csv(OUT / "designed_archive_prediction_by_group.csv", index=False)
 
     write_summary(pooled_table, net, pd.DataFrame(conf), pd.DataFrame(summary))
-    C.write_fingerprint(
-        OUT,
-        "scripts/344_wrr_screening_need_rule.py",
-        {
-            "development": M330.PANELS["development"]["cases"],
-            "external": M330.PANELS["wave2_confirmation"]["cases"],
-            "replay": C.REPLAY_CASES,
-        },
-    )
     print((OUT / "SUMMARY.md").read_text())
     return 0
 
 
 def write_summary(pooled, net, conf, within) -> None:
     lines = ["# R2-05 does the gap calendar say whether to screen?", ""]
-    lines += ["## Pooled real-calendar replay", "", pooled.round(4).to_string(index=False), ""]
-    lines += ["## Rule vs realised failure, by network (seed 101; cases are identical across seeds)", ""]
+    lines += [
+        "## Pooled real-calendar replay",
+        "",
+        pooled.round(4).to_string(index=False),
+        "",
+    ]
+    lines += [
+        "## Rule vs realised failure, by network (seed 101; cases are identical across seeds)",
+        "",
+    ]
     lines += [net.round(3).to_string(index=False), ""]
-    lines += ["## Confusion matrix of the rule over networks", "", conf.round(3).to_string(index=False), ""]
-    lines += ["## Does composition explain variation among designed archives?", "", within.round(3).to_string(index=False), ""]
+    lines += [
+        "## Confusion matrix of the rule over networks",
+        "",
+        conf.round(3).to_string(index=False),
+        "",
+    ]
+    lines += [
+        "## Does composition explain variation among designed archives?",
+        "",
+        within.round(3).to_string(index=False),
+        "",
+    ]
     (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
 
 

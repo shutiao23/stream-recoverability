@@ -18,8 +18,6 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from stream_recoverability.experiments.contracts import file_sha256
-
 MINIMUM_INFERENCE_N = 5
 MATCHING_RULE = "station_season_exact_length"
 CONTROL_RULE_STATEMENT = (
@@ -316,7 +314,9 @@ def _experiment_family(frame: pd.DataFrame) -> str:
     return next(iter(families))
 
 
-def _present_covariate_pairs(columns: Sequence[str]) -> tuple[tuple[str, str, str], ...]:
+def _present_covariate_pairs(
+    columns: Sequence[str],
+) -> tuple[tuple[str, str, str], ...]:
     available = set(columns)
     found: list[tuple[str, str, str]] = []
     for event_column, control_column in PRE_EVENT_COVARIATE_PAIRS:
@@ -340,8 +340,10 @@ def _standardized_mean_difference(
     control_sd = float(np.std(control, ddof=1))
     pooled = float(np.sqrt((event_sd**2 + control_sd**2) / 2.0))
     if pooled == 0.0:
-        return 0.0 if np.isclose(float(event.mean()), float(control.mean())) else float(
-            "nan"
+        return (
+            0.0
+            if np.isclose(float(event.mean()), float(control.mean()))
+            else float("nan")
         )
     return float((event.mean() - control.mean()) / pooled)
 
@@ -368,9 +370,7 @@ def _label_clusters(
     return mapping
 
 
-def _verify_audit_json(
-    catalog: pd.DataFrame, audit_json: Mapping[str, Any], catalog_path: Path | None
-) -> None:
+def _verify_audit_json(catalog: pd.DataFrame, audit_json: Mapping[str, Any]) -> None:
     expected_pairs = audit_json.get("episode_pair_count")
     if expected_pairs is not None and int(expected_pairs) != len(catalog):
         raise ValueError(
@@ -402,22 +402,12 @@ def _verify_audit_json(
             raise ValueError(
                 "event catalog group counts do not match audit.json group_counts"
             )
-    if catalog_path is not None:
-        declared = audit_json.get("catalog_file_sha256")
-        if declared:
-            observed = file_sha256(catalog_path)
-            if observed != str(declared):
-                raise ValueError(
-                    "event catalog file hash does not match audit.json "
-                    "catalog_file_sha256"
-                )
 
 
 def audit_event_matching(
     catalog: pd.DataFrame,
     *,
     audit_json: Mapping[str, Any] | None = None,
-    catalog_path: str | Path | None = None,
 ) -> EventMatchingAudit:
     """Audit M7b episode overlap, matching strata, and effective sample size.
 
@@ -427,10 +417,7 @@ def audit_event_matching(
         Frozen event/control episode table.
     audit_json:
         Optional companion ``event_episode_catalog.audit.json``.  When present,
-        group counts and the file hash are checked fail-closed.
-    catalog_path:
-        Path used only to verify ``catalog_file_sha256`` when ``audit_json``
-        declares one.
+        the episode count and group counts are checked fail-closed.
     """
 
     required = (
@@ -514,11 +501,7 @@ def audit_event_matching(
                 frame[distance_column], errors="coerce"
             )
     if audit_json is not None:
-        _verify_audit_json(
-            frame,
-            audit_json,
-            Path(catalog_path) if catalog_path is not None else None,
-        )
+        _verify_audit_json(frame, audit_json)
 
     frame = frame.sort_values(
         ["station_id", "event_type", "season", "event_id"], kind="stable"
@@ -645,10 +628,10 @@ def audit_event_matching(
     cluster_id_frame = pd.DataFrame(cluster_rows, columns=CLUSTER_COLUMNS)
 
     covariate_pairs = _present_covariate_pairs(frame.columns)
-    covariate_status = (
-        "computed_from_catalog" if covariate_pairs else "not_in_catalog"
-    )
-    smd_lookup = {variable: (event, control) for variable, event, control in covariate_pairs}
+    covariate_status = "computed_from_catalog" if covariate_pairs else "not_in_catalog"
+    smd_lookup = {
+        variable: (event, control) for variable, event, control in covariate_pairs
+    }
 
     def _smd_for(subset: pd.DataFrame, variable: str) -> float:
         if variable not in smd_lookup:
@@ -848,12 +831,8 @@ def audit_event_matching(
     length_grain = control_balance.loc[
         control_balance["stratum_grain"].eq("station_event_season_length")
     ]
-    smallest_season_n = (
-        int(season_grain["n_pairs"].min()) if len(season_grain) else 0
-    )
-    smallest_length_n = (
-        int(length_grain["n_pairs"].min()) if len(length_grain) else 0
-    )
+    smallest_season_n = int(season_grain["n_pairs"].min()) if len(season_grain) else 0
+    smallest_length_n = int(length_grain["n_pairs"].min()) if len(length_grain) else 0
     n_lt5 = season_grain.loc[season_grain["n_pairs"] < MINIMUM_INFERENCE_N].copy()
     n_lt5_strata = n_lt5.assign(stratum_status="present_n_lt_5")[
         list(N_LT5_COLUMNS)
@@ -861,14 +840,18 @@ def audit_event_matching(
 
     stations = tuple(sorted(frame["station_id"].unique()))
     event_types = tuple(sorted(frame["event_type"].unique()))
-    present = set(
-        zip(
-            season_grain["station_id"].astype(str),
-            season_grain["event_type"].astype(str),
-            season_grain["season"].astype(str),
-            strict=True,
+    present = (
+        set(
+            zip(
+                season_grain["station_id"].astype(str),
+                season_grain["event_type"].astype(str),
+                season_grain["season"].astype(str),
+                strict=True,
+            )
         )
-    ) if len(season_grain) else set()
+        if len(season_grain)
+        else set()
+    )
     missing_rows = [
         {
             "station_id": station_id,
@@ -900,9 +883,9 @@ def audit_event_matching(
                 "left_window_start_date": pd.Timestamp(
                     left["window_start_date"]
                 ).strftime("%Y-%m-%d"),
-                "left_window_end_date": pd.Timestamp(
-                    left["window_end_date"]
-                ).strftime("%Y-%m-%d"),
+                "left_window_end_date": pd.Timestamp(left["window_end_date"]).strftime(
+                    "%Y-%m-%d"
+                ),
                 "right_window_start_date": pd.Timestamp(
                     right["window_start_date"]
                 ).strftime("%Y-%m-%d"),
@@ -1086,13 +1069,10 @@ def write_event_matching_audit(
     output_dir: str | Path,
     *,
     audit_json: Mapping[str, Any] | None = None,
-    catalog_path: str | Path | None = None,
 ) -> EventMatchingAudit:
     """Write the required P0-6 CSV artifacts."""
 
-    audit = audit_event_matching(
-        catalog, audit_json=audit_json, catalog_path=catalog_path
-    )
+    audit = audit_event_matching(catalog, audit_json=audit_json)
     destination = Path(output_dir)
     for name, frame in audit.artifact_frames().items():
         _atomic_csv(frame, destination / name)

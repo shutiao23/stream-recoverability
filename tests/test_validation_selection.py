@@ -99,7 +99,6 @@ def _validation_events(*, proposed_gain: float = 0.03) -> pd.DataFrame:
                     "target": "T",
                     "evaluation_split": "validation",
                     "data_version": "published_v1",
-                    "design_hash": "d" * 64,
                 }
                 rows.append(
                     {

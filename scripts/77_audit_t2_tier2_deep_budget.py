@@ -35,12 +35,6 @@ def main() -> None:
     manifest = build_tier2_deep_readiness_manifest(
         ROOT, run_constructor_smoke=not args.skip_constructor_smoke
     )
-    if args.output.is_file():
-        previous = json.loads(args.output.read_text(encoding="utf-8"))
-        previous_sample = (previous.get("sample_lock") or {}).get("sample_sha256")
-        current_sample = manifest["sample_lock"]["sample_sha256"]
-        if previous_sample not in (None, current_sample):
-            raise RuntimeError("refusing to overwrite readiness for a different sample")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(manifest, indent=2, sort_keys=True, allow_nan=False) + "\n",

@@ -310,11 +310,6 @@ def _assemble(
 
 
 def write_record(record: dict) -> None:
-    record["inputs_sha256"] = {
-        str(V17_ROSTER.relative_to(ROOT)): sha256_file(V17_ROSTER),
-        str(PROTOCOL.relative_to(ROOT)): sha256_file(PROTOCOL),
-        str(Path(__file__).relative_to(ROOT)): sha256_file(Path(__file__)),
-    }
     (OUT_ROOT / "ingest.json").write_text(
         json.dumps(record, indent=1, ensure_ascii=False, default=str)
     )

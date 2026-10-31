@@ -87,9 +87,7 @@ def main() -> None:
     pair = next(value for value in pairs.values() if set(CONDITIONS) <= set(value))
     source_pair = [pair[condition] for condition in CONDITIONS]
     items = list(
-        iter_v4_work_items(
-            source_pair, prerequisites, require_full_corpus=False
-        )
+        iter_v4_work_items(source_pair, prerequisites, require_full_corpus=False)
     )
     panel = read_panel(ROOT, network)
     auxiliary = load_materialized_auxiliary_v2(
@@ -124,7 +122,6 @@ def main() -> None:
                 "n_requested_auxiliary_features": prepared.audit.get(
                     "n_requested_auxiliary_features", 0
                 ),
-                "auxiliary_daily_long_sha256": auxiliary.audit["daily_long_sha256"],
                 "auxiliary_manifest_schema": auxiliary.audit["manifest_schema"],
                 "temperature_performance_metric_computed": False,
                 "sealed_temperature_records_read": False,

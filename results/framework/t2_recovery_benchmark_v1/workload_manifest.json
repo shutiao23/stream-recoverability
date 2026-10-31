@@ -11,25 +11,19 @@
     "xgboost": true
   },
   "design_id": "design_freeze_v9",
-  "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
   "formal_evidence": false,
   "geometry_binding": {
-    "adversarial_catalog_canonical_sha256": "4f29e94a1671f784b9821dfeeb0aaa0798054c17b91346924814f05ad88e64df",
-    "adversarial_catalog_file_sha256": "e05503bc9253be8454b8013a40d3fd644dfdb1f7be51aeeece00fc790b434f09",
     "adversarial_geometry_rows": 5406,
     "directory": "results/framework/t2_outage_geometry_v1",
     "geometry_reselected_by_runner": false,
     "manifest_schema": "t2_v91_frozen_outage_geometry_binding_v1",
     "n_networks": 67,
-    "natural_catalog_canonical_sha256": "6a2721c203e7172665270f0f2b60c89cc3521c0d0ee70e2a2a561302da7aea51",
-    "natural_catalog_file_sha256": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432",
     "natural_geometry_rows": 2355,
     "qualification_mode": "failure_closure6",
     "runner_truth_rules": {
       "adversarial_stress": "plant_at_start_date_then_apply_target_mask_scope_and_donor_mask_rule",
       "natural_outage": "plant_at_benchmark_start_date_score_held_out_observed_counterpart_never_score_actual_missing_dates"
-    },
-    "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    }
   },
   "geometry_dependencies": {
     "adversarial_stress": "ready_frozen_catalog_bound",
@@ -45,7 +39,6 @@
     ],
     "catalog_path": "configs/network_catalog_v3_split.yaml",
     "catalog_roles_cross_checked": true,
-    "catalog_split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
     "n_networks_eligible": 67,
     "qualification_mode": "failure_closure6",
     "rejected": {
@@ -459,12 +452,10 @@
       "structural_not_applicable|structural_unimplemented_no_meteorology_or_hydraulics_adapter": 403424
     },
     "task_executable_now": "offline_archival_and_bounded_online_causal",
-    "work_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
     "work_items_by_geometry": {
       "adversarial_stress": 135150,
       "artificial_stress": 1190000,
       "natural_outage": 58875
-    },
-    "workload_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370"
+    }
   }
 }

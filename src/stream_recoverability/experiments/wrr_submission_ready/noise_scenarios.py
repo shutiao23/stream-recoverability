@@ -7,8 +7,8 @@ noise_sensitivity.json`` was produced by a version of
 ``scripts/202_v17_robustness.py`` that evaluated the clean and the perturbed arm
 of the length-versus-certificate contrast with *different* reconstruction
 choices, so the published "noise effect" partly measured a method change. The
-function is fixed in ``scripts/202_v17_robustness.py`` (commit a9a7ad99cf) and
-that fix is enough to regenerate the iid-Gaussian sensitivity.
+function is fixed in ``scripts/202_v17_robustness.py`` and that fix is enough
+to regenerate the iid-Gaussian sensitivity.
 
 It is not enough for the question a reviewer actually asks: the frozen case
 table stores exactly one perturbed-error column per estimator, built from one
@@ -70,10 +70,13 @@ The error processes
                         year (slow calibration drift), supplied alongside the
                         step rather than instead of it.
 
-All processes are seeded by ``stable_seed(network_id, station_id, year, tag)``,
-so they are reproducible across processes and machines. ``iid_0.15`` reuses the
-frozen tag ``"sensor"`` so that it reproduces the frozen column exactly; the new
-processes use their own tags and do not disturb it.
+All processes are seeded from plain integers -- the network's roster position,
+the station's position among the columns of its network panel, the year and a
+purpose code -- so they are reproducible across processes and machines.
+``iid_0.15`` reuses the case table's ``"sensor"`` station-year seed
+(``station_year_seed``) so that it reproduces the frozen column exactly; the
+new processes use their own codes (``SCENARIO_SEED_CODES``, all >= 10 so that
+none equals a shared station-year tag) and do not disturb it.
 """
 
 from __future__ import annotations
@@ -101,16 +104,35 @@ from stream_recoverability.experiments.v17_fitness.outages import (
     design_for_year,
     peak_overlap_fraction,
 )
-from stream_recoverability.experiments.v17_fitness.panel import air_series_for, load_network_panel
+from stream_recoverability.experiments.v17_fitness.panel import (
+    air_series_for,
+    load_network_panel,
+)
 from stream_recoverability.experiments.v17_fitness.paths import (
     REALIZATIONS_PER_STATION_YEAR,
     SENSOR_NOISE_C,
-    stable_seed,
+    network_position,
+    station_year_seed,
 )
+from stream_recoverability.seeds import plain_seed, position_index
 
 # Frozen construction's seed tag for the reference-series perturbation. Kept so
 # that the replica model reproduces the frozen noisy columns bit-for-bit.
 FROZEN_NOISE_TAG = "sensor"
+
+# Purpose code, the last seed part, of every process that does not reuse the
+# frozen tag. Codes start at 10 so they never equal a shared station-year tag.
+SCENARIO_SEED_CODES: dict[str, int] = {
+    "bias_p0.15": 10,
+    "bias_p0.30": 11,
+    "bias_p0.50": 12,
+    "bias_m0.15": 13,
+    "bias_m0.30": 14,
+    "bias_m0.50": 15,
+    "ar1_r0.70_sd0.15": 16,
+    "step_p0.30_midyear": 17,
+    "drift_0_to_p0.30": 18,
+}
 
 # A device is replaced "mid-year" at this day of year (2 July in a non-leap
 # year). The step applies to that day and every later day of the calendar year.
@@ -128,13 +150,50 @@ class SensorErrorModel:
     seed_tag: str = ""
     note: str = ""
 
-    def draw(self, index: pd.DatetimeIndex, *, network_id: str, station_id: str, year: int) -> np.ndarray:
+    def seed(
+        self, *, network_id: str, station_id: str, station_ids: Sequence[str], year: int
+    ) -> int:
+        """Seed of this process for one station-year.
+
+        ``station_ids`` are the columns of the station's network panel. The
+        frozen ``"sensor"`` tag uses the case table's own station-year seed.
+        """
+
+        tag = self.seed_tag or self.key
+        if tag == FROZEN_NOISE_TAG:
+            return station_year_seed(
+                network_id, station_id, station_ids, int(year), FROZEN_NOISE_TAG
+            )
+        stations = position_index(str(station) for station in station_ids)
+        return plain_seed(
+            network_position(network_id),
+            stations[str(station_id)],
+            int(year),
+            SCENARIO_SEED_CODES[tag],
+        )
+
+    def draw(
+        self,
+        index: pd.DatetimeIndex,
+        *,
+        network_id: str,
+        station_id: str,
+        station_ids: Sequence[str],
+        year: int,
+    ) -> np.ndarray:
         """Daily additive error, same length as ``index``."""
 
         n = len(index)
-        seed = stable_seed(network_id, station_id, int(year), self.seed_tag or self.key)
+        seed = self.seed(
+            network_id=network_id,
+            station_id=station_id,
+            station_ids=station_ids,
+            year=int(year),
+        )
         if self.kind == "iid":
-            return np.random.default_rng(seed).normal(0.0, float(self.magnitude), size=n)
+            return np.random.default_rng(seed).normal(
+                0.0, float(self.magnitude), size=n
+            )
         if self.kind == "bias":
             return np.full(n, float(self.magnitude), dtype=float)
         if self.kind == "ar1":
@@ -144,9 +203,13 @@ class SensorErrorModel:
             sd = float(self.magnitude)
             values = np.empty(n, dtype=float)
             values[0] = sd * float(rng.normal())
-            innovation = sd * np.sqrt(1.0 - float(self.rho) ** 2) * rng.normal(size=n - 1)
+            innovation = (
+                sd * np.sqrt(1.0 - float(self.rho) ** 2) * rng.normal(size=n - 1)
+            )
             for position in range(1, n):
-                values[position] = float(self.rho) * values[position - 1] + innovation[position - 1]
+                values[position] = (
+                    float(self.rho) * values[position - 1] + innovation[position - 1]
+                )
             return values
         if self.kind == "step":
             doy = np.asarray(index.dayofyear, dtype=int)
@@ -154,7 +217,9 @@ class SensorErrorModel:
         if self.kind == "drift":
             doy = np.asarray(index.dayofyear, dtype=float)
             span = float(doy.max() - doy.min())
-            fraction = (doy - doy.min()) / span if span > 0 else np.zeros(n, dtype=float)
+            fraction = (
+                (doy - doy.min()) / span if span > 0 else np.zeros(n, dtype=float)
+            )
             return float(self.magnitude) * fraction
         raise ValueError(f"unknown error-process kind: {self.kind!r}")
 
@@ -169,12 +234,24 @@ SCENARIO_MODELS: dict[str, SensorErrorModel] = {
         seed_tag=FROZEN_NOISE_TAG,
         note="replica of the frozen 0.15 C iid Gaussian process (validation anchor)",
     ),
-    "bias_p0.15": SensorErrorModel(key="bias_p0.15", kind="bias", magnitude=0.15, note="+0.15 C all year"),
-    "bias_p0.30": SensorErrorModel(key="bias_p0.30", kind="bias", magnitude=0.30, note="+0.30 C all year"),
-    "bias_p0.50": SensorErrorModel(key="bias_p0.50", kind="bias", magnitude=0.50, note="+0.50 C all year"),
-    "bias_m0.15": SensorErrorModel(key="bias_m0.15", kind="bias", magnitude=-0.15, note="-0.15 C all year"),
-    "bias_m0.30": SensorErrorModel(key="bias_m0.30", kind="bias", magnitude=-0.30, note="-0.30 C all year"),
-    "bias_m0.50": SensorErrorModel(key="bias_m0.50", kind="bias", magnitude=-0.50, note="-0.50 C all year"),
+    "bias_p0.15": SensorErrorModel(
+        key="bias_p0.15", kind="bias", magnitude=0.15, note="+0.15 C all year"
+    ),
+    "bias_p0.30": SensorErrorModel(
+        key="bias_p0.30", kind="bias", magnitude=0.30, note="+0.30 C all year"
+    ),
+    "bias_p0.50": SensorErrorModel(
+        key="bias_p0.50", kind="bias", magnitude=0.50, note="+0.50 C all year"
+    ),
+    "bias_m0.15": SensorErrorModel(
+        key="bias_m0.15", kind="bias", magnitude=-0.15, note="-0.15 C all year"
+    ),
+    "bias_m0.30": SensorErrorModel(
+        key="bias_m0.30", kind="bias", magnitude=-0.30, note="-0.30 C all year"
+    ),
+    "bias_m0.50": SensorErrorModel(
+        key="bias_m0.50", kind="bias", magnitude=-0.50, note="-0.50 C all year"
+    ),
     "ar1_r0.70_sd0.15": SensorErrorModel(
         key="ar1_r0.70_sd0.15",
         kind="ar1",
@@ -207,7 +284,9 @@ def _error_column(model_key: str, estimator: str) -> str:
     return f"{model_key}__{estimator}"
 
 
-def build_station_scenarios(job: dict, model_keys: Sequence[str] = SCENARIO_ORDER) -> pd.DataFrame:
+def build_station_scenarios(
+    job: dict, model_keys: Sequence[str] = SCENARIO_ORDER
+) -> pd.DataFrame:
     """Every scored case contributed by one station, under several error models.
 
     Worker entry point; picklable. Mirrors
@@ -259,7 +338,9 @@ def build_station_scenarios(job: dict, model_keys: Sequence[str] = SCENARIO_ORDE
         else:
             train_mask = pd.Series(~year_mask, index=daily.index)
             peak_source = target.loc[target.index.year != int(year)]
-        models_for_year = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
+        models_for_year = StationModels(
+            target=target, donors=donors, air=air, train_mask=train_mask
+        )
         peak_doys = climatological_peak_window(peak_source, exclude_year=None)
 
         train_values = target.loc[train_mask].dropna()
@@ -268,7 +349,11 @@ def build_station_scenarios(job: dict, model_keys: Sequence[str] = SCENARIO_ORDE
 
         correlations = deseasonalized_correlations(target, donors, train_mask)
 
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), protocol))
+        rng = np.random.default_rng(
+            station_year_seed(
+                network_id, station_id, daily.columns, int(year), protocol
+            )
+        )
         realizations = design_for_year(
             year_index,
             peak_doys,
@@ -281,11 +366,18 @@ def build_station_scenarios(job: dict, model_keys: Sequence[str] = SCENARIO_ORDE
         # station-year, exactly as the frozen construction draws one noisy
         # reference per station-year and not per realization.
         errors = {
-            model.key: model.draw(year_index, network_id=network_id, station_id=station_id, year=int(year))
+            model.key: model.draw(
+                year_index,
+                network_id=network_id,
+                station_id=station_id,
+                station_ids=daily.columns,
+                year=int(year),
+            )
             for model in models
         }
         reference_metrics = {
-            model.key: hottest_window_mean(truth + errors[model.key]) for model in models
+            model.key: hottest_window_mean(truth + errors[model.key])
+            for model in models
         }
 
         for realization in realizations:
@@ -325,7 +417,9 @@ def build_station_scenarios(job: dict, model_keys: Sequence[str] = SCENARIO_ORDE
                 "longest_run": int(realization.longest_run),
                 "missing_fraction": float(mask.sum() / len(mask)),
                 "peak_overlap": peak_overlap_fraction(year_index, mask, peak_doys),
-                "warm_observed_fraction": float((~mask & warm).sum() / max(1, warm.sum())),
+                "warm_observed_fraction": float(
+                    (~mask & warm).sum() / max(1, warm.sum())
+                ),
                 "n_visible_donors": int(len(visible)),
                 "truth_hottest30": float(truth_metric),
             }
@@ -341,14 +435,18 @@ def build_station_scenarios(job: dict, model_keys: Sequence[str] = SCENARIO_ORDE
                     for model in models:
                         row[_error_column(model.key, name)] = float("nan")
                     continue
-                row[f"{CLEAN_PREFIX}{name}"] = float(abs(hottest_window_mean(completed) - truth_metric))
+                row[f"{CLEAN_PREFIX}{name}"] = float(
+                    abs(hottest_window_mean(completed) - truth_metric)
+                )
                 for model in models:
                     completed_noisy = (truth + errors[model.key]).copy()
                     completed_noisy[mask] = fill[mask]
                     value = hottest_window_mean(completed_noisy)
                     reference = float(reference_metrics[model.key])
                     row[_error_column(model.key, name)] = (
-                        float(abs(value - reference)) if np.isfinite(value) and np.isfinite(reference) else float("nan")
+                        float(abs(value - reference))
+                        if np.isfinite(value) and np.isfinite(reference)
+                        else float("nan")
                     )
             rows.append(row)
 
@@ -362,6 +460,7 @@ __all__ = [
     "FROZEN_NOISE_TAG",
     "MIDYEAR_DOY",
     "SCENARIO_MODELS",
+    "SCENARIO_SEED_CODES",
     "SCENARIO_ORDER",
     "TRUTH_PREFIX",
     "SensorErrorModel",

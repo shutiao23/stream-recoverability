@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 import numpy as np
@@ -54,7 +53,12 @@ def _write_synthetic_inputs(root: Path) -> dict[str, Path]:
             for replicate in range(3):
                 scenario = f"{experiment}-{station}-{mask_type}-{gap}-{replicate}"
                 for model_index, model in enumerate(models):
-                    mae = 0.35 + 0.10 * model_index + 0.01 * station_index + 0.01 * replicate
+                    mae = (
+                        0.35
+                        + 0.10 * model_index
+                        + 0.01 * station_index
+                        + 0.01 * replicate
+                    )
                     event_rows.append(
                         {
                             "scenario_id": scenario,
@@ -173,7 +177,9 @@ def _write_synthetic_inputs(root: Path) -> dict[str, Path]:
                 }
             )
     pd.DataFrame(curve_rows).to_csv(analysis / "skill_curves.csv", index=False)
-    pd.DataFrame(frontier_rows).to_csv(analysis / "recoverability_frontiers.csv", index=False)
+    pd.DataFrame(frontier_rows).to_csv(
+        analysis / "recoverability_frontiers.csv", index=False
+    )
 
     shapley_rows = []
     for station in stations["station_id"]:
@@ -261,16 +267,12 @@ def test_missing_inputs_are_explicitly_skipped_without_placeholder_results(tmp_p
     assert manifest["tables"]["table_02"]["status"] == "skipped"
     assert (tmp_path / "figures/main/figure_manifest.json").exists()
     assert (tmp_path / "paper_archived/tables/table_manifest.json").exists()
-    serialized = json.dumps(manifest).lower()
-    assert "sha256" not in serialized
 
 
 def test_all_core_figures_and_tables_are_generated_from_synthetic_results(tmp_path):
     inputs = _write_synthetic_inputs(tmp_path)
     daily = pd.read_parquet(inputs["daily"])
-    assert not (
-        daily["target"].eq("F") & daily["model"].eq("proposed")
-    ).any()
+    assert not (daily["target"].eq("F") & daily["model"].eq("proposed")).any()
     manifest = _generate(tmp_path, inputs)
     assert {value["status"] for value in manifest["figures"].values()} == {"generated"}
     assert {value["status"] for value in manifest["tables"].values()} == {"generated"}
@@ -306,6 +308,9 @@ def test_loso_figure_is_labeled_internal_and_never_as_external_validation(tmp_pa
     manifest = _generate(tmp_path, inputs)
     status = manifest["figures"]["figure_08"]
     assert status["title"] == LOSO_TITLE
-    assert status["details"]["validation_scope"] == "exploratory_internal_loso_not_external_validation"
+    assert (
+        status["details"]["validation_scope"]
+        == "exploratory_internal_loso_not_external_validation"
+    )
     assert status["details"]["is_external_validation"] is False
     assert "not external validation" in status["title"].lower()

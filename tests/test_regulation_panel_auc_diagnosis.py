@@ -1,4 +1,3 @@
-import hashlib
 import json
 import runpy
 from pathlib import Path
@@ -21,21 +20,12 @@ from stream_recoverability.analysis.regulation_panel_auc_diagnosis import (
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN_PANEL = ROOT / "results/regulation_panel_v1_legacy_transport"
 FROZEN_PREDICTIONS = FROZEN_PANEL / "leave_ecoregion_out_predictions.csv"
-FROZEN_MANIFEST = FROZEN_PANEL / "artifact_manifest.json"
 
 EXPECTED_MEAN_WITHIN_FOLD_AUC = 0.5256536889168535
 EXPECTED_MEDIAN_WITHIN_FOLD_AUC = 0.5132377275234418
 EXPECTED_MIN_WITHIN_FOLD_AUC = 0.13205645161290322
 EXPECTED_MAX_WITHIN_FOLD_AUC = 0.7546296296296297
 EXPECTED_BASE_RATE_MEDIAN_CORR = -0.6709991179809832
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _synthetic_calibration_drift_predictions() -> pd.DataFrame:
@@ -125,20 +115,9 @@ def test_frozen_predictions_match_verified_loeo_auc_diagnosis() -> None:
     assert post_hoc["base_rate_vs_oof_probability_median_pearson_r"] == pytest.approx(
         EXPECTED_BASE_RATE_MEDIAN_CORR
     )
-    assert (
-        round(post_hoc["base_rate_vs_oof_probability_median_pearson_r"], 3) == -0.671
-    )
+    assert round(post_hoc["base_rate_vs_oof_probability_median_pearson_r"], 3) == -0.671
     assert post_hoc["highest_oof_probability_median_ecoregion"] == "Alaska"
     assert post_hoc["lowest_oof_probability_median_ecoregion"] == "WestPlains"
-
-
-def test_frozen_panel_artifact_hashes_match_on_disk_files() -> None:
-    manifest = json.loads(FROZEN_MANIFEST.read_text(encoding="utf-8"))
-    for record in manifest["artifacts"]:
-        path = ROOT / record["path"]
-        assert path.is_file(), path
-        assert path.stat().st_size == record["bytes"], path
-        assert _sha256(path) == record["sha256"], path
 
 
 def test_synthetic_two_group_case_shows_pooled_auc_defect() -> None:

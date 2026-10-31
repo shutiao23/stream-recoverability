@@ -1711,7 +1711,6 @@
       "kind": "figure",
       "name": "f0_problem_frame",
       "size_bytes": 31659,
-      "sha256": "bca4d058146e2398b567494b9b82c30db65e9ce70477a1394780479d00b1d11f",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -1944,7 +1943,6 @@
       "kind": "figure",
       "name": "f1_example",
       "size_bytes": 28469,
-      "sha256": "ceed7d1baca722f8748bd59fffeb386757a9f683a7fb43fdeba504076c08eab0",
       "hard_failures": [
         {
           "file": "paper/wrr/figures/f1_example.pdf",
@@ -3367,7 +3365,6 @@
       "kind": "figure",
       "name": "f1_system_architecture",
       "size_bytes": 29280,
-      "sha256": "ca45825887373c820c4e3a8e47d2f2a0a44e9500753dfe69d6ce512349a6cf02",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -3589,7 +3586,6 @@
       "kind": "figure",
       "name": "f2_experiment_design",
       "size_bytes": 28717,
-      "sha256": "4d18da1c06bbfb9c27745174a6a865848eb2de86b97039915facfa06098e71bf",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -3811,7 +3807,6 @@
       "kind": "figure",
       "name": "f2a_endpoint_ordering",
       "size_bytes": 14952,
-      "sha256": "ff67caace741b2eb17724c25e4d3ec27cbbf2adef6e9dc73e18b54525cb4a179",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -4023,7 +4018,6 @@
       "kind": "figure",
       "name": "f2b_panel_heterogeneity",
       "size_bytes": 19577,
-      "sha256": "5e5cdcc9cddc6d8164e3f6553684b984bd1cc32e6c9e6ea207f4202660a9a7dc",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -4235,7 +4229,6 @@
       "kind": "figure",
       "name": "f3_evidence_chain",
       "size_bytes": 28239,
-      "sha256": "44f60db3d4bedb90d9143f2efb85a5ea5654638413fc9268fa0a4df0d1dcf7d2",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -4457,7 +4450,6 @@
       "kind": "figure",
       "name": "f4_deployment_workflow",
       "size_bytes": 31083,
-      "sha256": "bdbe30c7e991ba7b478221e7ced1bc6a260e258fd893ab2f5dce626056b8bab8",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -4689,7 +4681,6 @@
       "kind": "figure",
       "name": "fig1_mechanism",
       "size_bytes": 33944,
-      "sha256": "6c6a9cf667c19d7283d184c338b17f8b8dcb66797059f3f96f9b0a6092b80212",
       "hard_failures": [
         {
           "file": "paper/wrr/figures/fig1_mechanism.pdf",
@@ -6408,7 +6399,6 @@
       "kind": "figure",
       "name": "fig2_frontier",
       "size_bytes": 20050,
-      "sha256": "8517dd4aa1d79d968baf8465e202b625ae8ce6310554974ff96db6d205fa2fd6",
       "hard_failures": [],
       "warnings": [
         {
@@ -6763,7 +6753,6 @@
       "kind": "figure",
       "name": "fig3_calibration",
       "size_bytes": 20842,
-      "sha256": "72c47312791d9b96f0b1f8496dd683ea31b10ed2d845cef92131d00ae6a9fd15",
       "hard_failures": [],
       "warnings": [
         {
@@ -6989,7 +6978,6 @@
       "kind": "figure",
       "name": "fig4_consequence",
       "size_bytes": 18979,
-      "sha256": "184a01d0ded6658dc8c04c8093a5100f8e3fa364467b2a6c13410cc9b1886fc4",
       "hard_failures": [],
       "warnings": [
         {
@@ -7402,7 +7390,6 @@
       "kind": "figure",
       "name": "fig5_robustness",
       "size_bytes": 21747,
-      "sha256": "852564d11ade12912a96f5c57415ccb416800072e262461995cb43a306981a55",
       "hard_failures": [],
       "warnings": [
         {
@@ -7839,7 +7826,6 @@
       "kind": "figure",
       "name": "fig6_hydrology",
       "size_bytes": 20623,
-      "sha256": "0dfc3ec7df4d5e02aabb6949e05894731074f2ece5c4b53e7a6c459266b307f3",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -8059,7 +8045,6 @@
       "kind": "figure",
       "name": "figv1_outage_seasonality",
       "size_bytes": 21065,
-      "sha256": "9d740759cbebc5f00373e0096c59cfeb9a3e726f28ae916af720d1ceebdb1344",
       "hard_failures": [],
       "warnings": [],
       "fonts": {
@@ -8266,7 +8251,6 @@
       "kind": "figure",
       "name": "figv2_archive_deployment",
       "size_bytes": 19511,
-      "sha256": "fe55be6c8fca8b8073606db370be2547bac520502a2cb0e7e63013f95fa4c00c",
       "hard_failures": [],
       "warnings": [
         {
@@ -8835,7 +8819,6 @@
       "kind": "figure",
       "name": "figv3_support_law",
       "size_bytes": 24855,
-      "sha256": "8cf49c09811af3702ee54233a2b82515041c542935d2be871e920c1ebc70aad4",
       "hard_failures": [
         {
           "file": "paper/wrr/figures/figv3_support_law.pdf",
@@ -9331,7 +9314,6 @@
       "kind": "figure",
       "name": "figv4_representativeness",
       "size_bytes": 19256,
-      "sha256": "5d41e6a1707145e0abcc1d19f6c87d84ea0439166fdcb6e5fda01fd65511a5b5",
       "hard_failures": [],
       "warnings": [
         {
@@ -9709,7 +9691,6 @@
       "kind": "manuscript",
       "name": "wrr_manuscript",
       "size_bytes": 656440,
-      "sha256": "8a7bd8e2ff37a0b6a1107a923ebf8472159840f9056fdb8f6683e43b3cafa06e",
       "hard_failures": [
         {
           "file": "paper/wrr/wrr_manuscript.pdf",
@@ -14543,7 +14524,6 @@
       "kind": "supporting_information",
       "name": "wrr_supporting_information",
       "size_bytes": 390637,
-      "sha256": "12294ac272fab36dab3912dcbe6a55143a4f394874c69ee2fc004bbbf29adf94",
       "hard_failures": [
         {
           "file": "paper/wrr/wrr_supporting_information.pdf",

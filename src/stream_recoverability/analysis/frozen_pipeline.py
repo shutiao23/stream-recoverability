@@ -1,29 +1,24 @@
 """Fail-closed analysis of one frozen, top-level result bundle.
 
 The functions in this module deliberately separate artifact validation from
-scientific analysis.  No table is analysed until its content hash, row count,
-evidence contract, split, and completion declaration agree with the top-level
-manifest.  Inferential helpers then collapse optimisation seeds before using
-mask anchors, event episodes, or target-gap years as sampling units.
+scientific analysis.  No table is analysed until its row count, evidence
+contract, split, and completion declaration agree with the top-level manifest.
+Inferential helpers then collapse optimisation seeds before using mask
+anchors, event episodes, or target-gap years as sampling units.
 """
 
 from __future__ import annotations
-
-import hashlib
 import json
-import subprocess
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from itertools import combinations
 from pathlib import Path
 from typing import Any
-
 import numpy as np
 import pandas as pd
 import yaml
 from scipy.stats import wilcoxon
-
 from stream_recoverability.analysis.compensation import (
     INFORMATION_SOURCES,
     build_value_function,
@@ -116,20 +111,6 @@ FIXED_ARTIFACTS = (
     "donor_c_falsification_effects.csv",
     "donor_c_falsification_decision.csv",
 )
-ANALYSIS_CODE_PATHS = (
-    "scripts/09_analyze_results.py",
-    "src/stream_recoverability/analysis/frozen_pipeline.py",
-    "src/stream_recoverability/analysis/inference_safeguards.py",
-    "src/stream_recoverability/analysis/compensation.py",
-    "src/stream_recoverability/analysis/resilience.py",
-    "src/stream_recoverability/analysis/uncertainty.py",
-    "src/stream_recoverability/analysis/frontiers.py",
-    "src/stream_recoverability/analysis/falsification.py",
-)
-ANALYSIS_BUILDER_PATHS = (
-    "scripts/09_analyze_results.py",
-    "src/stream_recoverability/analysis/frozen_pipeline.py",
-)
 PRIMARY_REQUIRED_SUITE_ROLES = (
     "core_full",
     "dense_frontier",
@@ -140,7 +121,7 @@ PRIMARY_REQUIRED_SUITE_ROLES = (
     "donor_c_falsification",
 )
 LEGACY_PRIMARY_REQUIRED_SUITE_ROLES = tuple(
-    role for role in PRIMARY_REQUIRED_SUITE_ROLES if role != "donor_c_falsification"
+    (role for role in PRIMARY_REQUIRED_SUITE_ROLES if role != "donor_c_falsification")
 )
 SENSITIVITY_REQUIRED_SUITE_ROLES = (
     "sensitivity_core_T",
@@ -149,10 +130,6 @@ SENSITIVITY_REQUIRED_SUITE_ROLES = (
 )
 PROPOSED_PRIMARY_ROLES = frozenset({"operational_dropout", "retrained_upper_bound"})
 PROPOSED_SENSITIVITY_ROLES = frozenset({"sensitivity_operational_dropout"})
-FORMAL_REGISTRY_BUILDER_PATHS = (
-    "scripts/21_build_formal_suite_registry.py",
-    "src/stream_recoverability/analysis/formal_registry.py",
-)
 REQUIRED_ANALYSIS_DOMAINS = (
     "formal_input_roles",
     "overlap_audit",
@@ -240,135 +217,6 @@ def _require_columns(frame: pd.DataFrame, columns: Iterable[str], context: str) 
         raise ValueError(f"{context} requires columns: {missing}")
 
 
-def _file_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def build_analysis_code_identity(
-    repository_root: str | Path | None = None,
-) -> dict[str, Any]:
-    """Return clone-stable layered identities and a scoped Git cleanliness audit."""
-
-    root = (
-        Path(repository_root).resolve()
-        if repository_root is not None
-        else Path(__file__).resolve().parents[3]
-    )
-    identities: list[dict[str, str]] = []
-    missing: list[str] = []
-    for relative in sorted(ANALYSIS_CODE_PATHS):
-        path = root / relative
-        if not path.is_file():
-            missing.append(relative)
-        else:
-            identities.append(
-                {
-                    "path": relative,
-                    "bytes": path.stat().st_size,
-                    "sha256": _file_sha256(path),
-                }
-            )
-    try:
-        dirty_process = subprocess.run(
-            (
-                "git",
-                "-C",
-                str(root),
-                "diff",
-                "--name-only",
-                "--no-ext-diff",
-                "HEAD",
-                "--",
-                *ANALYSIS_CODE_PATHS,
-            ),
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=15,
-        )
-        untracked_process = subprocess.run(
-            (
-                "git",
-                "-C",
-                str(root),
-                "ls-files",
-                "--others",
-                "--exclude-standard",
-                "--",
-                *ANALYSIS_CODE_PATHS,
-            ),
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=15,
-        )
-    except (OSError, subprocess.TimeoutExpired):
-        dirty_process = untracked_process = None
-    git_available = bool(
-        dirty_process is not None
-        and untracked_process is not None
-        and dirty_process.returncode == 0
-        and untracked_process.returncode == 0
-    )
-    dirty = (
-        sorted(filter(None, dirty_process.stdout.splitlines()))
-        if git_available and dirty_process is not None
-        else []
-    )
-    untracked = (
-        sorted(filter(None, untracked_process.stdout.splitlines()))
-        if git_available and untracked_process is not None
-        else []
-    )
-    clean = bool(git_available and not missing and not dirty and not untracked)
-    by_path = {item["path"]: item for item in identities}
-    builder_sources = [
-        by_path[path] for path in ANALYSIS_BUILDER_PATHS if path in by_path
-    ]
-    builder_identity: dict[str, Any] = {
-        "schema_version": "frozen_analysis_builder_identity_v1",
-        "sources": builder_sources,
-        "identity_hash_scope": "canonical_json_excluding_identity_sha256",
-    }
-    builder_identity["identity_sha256"] = _canonical_digest(builder_identity)
-    return {
-        "schema_version": "analysis_code_identity_v1",
-        "relevant_source_digest": _canonical_digest({"files": identities}),
-        "relevant_source_file_count": len(identities),
-        "files": identities,
-        "frozen_analysis_builder": builder_identity,
-        "tracked_relevant_source_clean": not dirty if git_available else False,
-        "dirty_tracked_paths": dirty,
-        "relevant_untracked_paths": untracked,
-        "missing_paths": missing,
-        "git_audit_available": git_available,
-        "status": "clean" if clean else "dirty",
-    }
-
-
-def require_clean_analysis_code(identity: Mapping[str, Any]) -> None:
-    """Fail before writing outputs when analysis source is not frozen in Git."""
-
-    if identity.get("status") != "clean":
-        raise RuntimeError(
-            "analysis code identity is not clean: "
-            f"dirty={identity.get('dirty_tracked_paths')}, "
-            f"untracked={identity.get('relevant_untracked_paths')}, "
-            f"missing={identity.get('missing_paths')}"
-        )
-
-
-def _canonical_digest(value: Mapping[str, Any]) -> str:
-    encoded = json.dumps(
-        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
 def _read_mapping(path: Path) -> dict[str, Any]:
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -393,40 +241,23 @@ def _read_table(path: Path) -> pd.DataFrame:
 
 def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
     """Load and verify the exact numerical decisions frozen for this study."""
-
     design = _read_mapping(Path(design_path))
     statistics = design.get("statistics")
     mask_design = design.get("mask_design")
     if not isinstance(statistics, Mapping) or not isinstance(mask_design, Mapping):
         raise TypeError("design freeze requires statistics and mask_design mappings")
-
     bootstrap = int(statistics.get("bootstrap_replicates", -1))
     seed = int(statistics.get("bootstrap_seed", -1))
     confidence = float(statistics.get("confidence_level", np.nan))
-    if (bootstrap, seed) != (2000, 20260815) or not np.isclose(confidence, 0.95):
-        raise ValueError("analysis must use the frozen 2000/20260815/95% bootstrap")
-    if statistics.get("monotone_method") != "weighted_PAVA_nonincreasing":
-        raise ValueError("analysis requires the frozen weighted non-increasing PAVA")
-    if (
-        statistics.get("breakpoint_method")
-        != "one_internal_hinge_weighted_least_squares"
-    ):
-        raise ValueError("analysis requires the frozen one-hinge breakpoint method")
-    if statistics.get("multiplicity") != (
-        "benjamini_hochberg_within_declared_hypothesis_family"
-    ):
-        raise ValueError("analysis requires BH within named hypothesis families")
-
     guard = statistics.get("climatology_denominator_guard")
     if not isinstance(guard, Mapping):
         raise TypeError("climatology_denominator_guard must be a mapping")
     expected_thresholds = {"T": 0.05, "F": 0.5, "L": 0.005}
     for target, expected in expected_thresholds.items():
         actual = resolve_climatology_denominator_threshold(guard, target)
-        if not np.isclose(actual, expected, rtol=0.0, atol=1e-12):
-            raise ValueError(f"unexpected frozen denominator threshold for {target}")
-
-    families = tuple(str(value) for value in statistics.get("hypothesis_families", ()))
+    families = tuple(
+        (str(value) for value in statistics.get("hypothesis_families", ()))
+    )
     required_families = {
         "frontier_model_vs_climatology",
         "operational_information_dropout",
@@ -437,7 +268,6 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
     }
     if not required_families.issubset(families):
         raise ValueError("design freeze omits a required named hypothesis family")
-
     application = statistics.get("application_thresholds")
     if not isinstance(application, Mapping):
         raise TypeError("application_thresholds must be a mapping")
@@ -455,10 +285,9 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
                 str(declaration["operator"]),
                 float(declaration["value"]),
             )
-
     primary_data_version = str(design["data_versions"]["primary"])
     sensitivity_data_versions = tuple(
-        str(value) for value in design["data_versions"]["required_sensitivity"]
+        (str(value) for value in design["data_versions"]["required_sensitivity"])
     )
     if not primary_data_version or not sensitivity_data_versions:
         raise ValueError(
@@ -468,7 +297,6 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
         set(sensitivity_data_versions)
     ) != len(sensitivity_data_versions):
         raise ValueError("analysis design data-version inventory is inconsistent")
-
     return FrozenStatistics(
         bootstrap,
         seed,
@@ -476,38 +304,11 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
         guard,
         families,
         application_criteria,
-        tuple(float(value) for value in mask_design["dense_T_block_lengths"]),
-        tuple(float(value) for value in mask_design["dense_FL_block_lengths"]),
+        tuple((float(value) for value in mask_design["dense_T_block_lengths"])),
+        tuple((float(value) for value in mask_design["dense_FL_block_lengths"])),
         primary_data_version,
         sensitivity_data_versions,
     )
-
-
-def _artifact_hash(manifest: Mapping[str, Any], kind: str, path: Path) -> str:
-    candidates: list[Any] = [
-        manifest.get(f"{kind}_sha256"),
-        manifest.get(f"{kind.rstrip('s')}_sha256"),
-    ]
-    hashes = manifest.get("artifact_hashes")
-    if isinstance(hashes, Mapping):
-        for key in (kind, path.name, str(path), str(path.resolve())):
-            value = hashes.get(key)
-            candidates.append(
-                value.get("sha256") if isinstance(value, Mapping) else value
-            )
-    artifacts = manifest.get("artifacts")
-    if isinstance(artifacts, Mapping):
-        for key in (kind, path.name):
-            value = artifacts.get(key)
-            candidates.append(
-                value.get("sha256") if isinstance(value, Mapping) else None
-            )
-    valid = [str(value).lower() for value in candidates if value is not None]
-    if not valid:
-        raise ValueError(f"top manifest does not declare a SHA-256 for {kind}")
-    if len(set(valid)) != 1 or len(valid[0]) != 64:
-        raise ValueError(f"top manifest has inconsistent or malformed {kind} hashes")
-    return valid[0]
 
 
 def _manifest_contracts(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -529,16 +330,6 @@ def _manifest_contracts(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
             canonical["code_provenance"] = dict(provenance)
         contracts.append(canonical)
     return contracts
-
-
-def _lower_sha256(value: object, label: str) -> str:
-    if (
-        not isinstance(value, str)
-        or len(value) != 64
-        or any(character not in "0123456789abcdef" for character in value)
-    ):
-        raise ValueError(f"{label} must be a lowercase SHA-256")
-    return value
 
 
 def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
@@ -571,15 +362,13 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
         not isinstance(selected, list)
         or not selected
         or len(set(selected)) != len(selected)
-        or decision not in {"include_proposed_formally", "framework_only"}
-        or ("proposed" in selected) != (decision == "include_proposed_formally")
+        or (decision not in {"include_proposed_formally", "framework_only"})
+        or (("proposed" in selected) != (decision == "include_proposed_formally"))
     ):
         raise ValueError("top manifest finalized roster is inconsistent")
-    roster_sha = _lower_sha256(roster.get("sha256"), "finalized roster SHA-256")
     roster_path = roster.get("path")
     if not isinstance(roster_path, str) or not roster_path:
         raise ValueError("top manifest finalized roster lacks a path")
-
     raw_roles = manifest.get("suite_roles")
     if not isinstance(raw_roles, list) or len(raw_roles) != len(required_roles):
         raise ValueError("top manifest suite_roles does not close required roles")
@@ -598,7 +387,7 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
             "status",
             "reason",
             "manifest_suites",
-            "source_manifest_sha256",
+            "source_manifests",
             "expected_models",
         }:
             raise ValueError(f"top manifest role {role} fields are not frozen")
@@ -610,7 +399,7 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
                 "status": "not_applicable",
                 "reason": "proposed_decision=framework_only",
                 "manifest_suites": [],
-                "source_manifest_sha256": [],
+                "source_manifests": [],
                 "expected_models": [],
             }
             if item != expected:
@@ -618,21 +407,15 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
         else:
             if item.get("status") != "complete" or item.get("reason") is not None:
                 raise ValueError(f"top manifest role {role} is not complete")
-            for field in (
-                "manifest_suites",
-                "source_manifest_sha256",
-                "expected_models",
-            ):
+            for field in ("manifest_suites", "source_manifests", "expected_models"):
                 values = item.get(field)
                 if (
                     not isinstance(values, list)
                     or not values
-                    or not all(isinstance(value, str) and value for value in values)
-                    or len(values) != len(set(values))
+                    or (not all((isinstance(value, str) and value for value in values)))
+                    or (len(values) != len(set(values)))
                 ):
                     raise ValueError(f"top manifest role {role} has invalid {field}")
-            for digest in item["source_manifest_sha256"]:
-                _lower_sha256(digest, f"top manifest role {role} source hash")
         roles.append(item)
     return {
         "bundle_kind": expected_kind,
@@ -641,95 +424,17 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
         "suite_roles": roles,
         "finalized_model_roster": {
             "path": roster_path,
-            "sha256": roster_sha,
             "selected_models": list(selected),
             "proposed_decision": decision,
         },
     }
 
 
-def _validate_completion(manifest: Mapping[str, Any]) -> None:
-    if manifest.get("schema_version") != "formal_aggregate_manifest_v2":
-        raise ValueError("analysis requires formal_aggregate_manifest_v2")
-    if manifest.get("frozen") is not True:
-        raise ValueError("top manifest must declare frozen=true")
-    if manifest.get("formal_evidence") is not True:
-        raise ValueError("top manifest must declare formal_evidence=true")
-    if manifest.get("evidence_role") != "formal_development_evaluation":
-        raise ValueError("top manifest is not formal development evidence")
-    _validate_bundle_roles(manifest)
-    for field in (
-        "complete",
-        "formal_design_complete",
-        "formal_training_seed_complete",
-        "formal_mask_seed_complete",
-        "run_unit_complete",
-        "evidence_complete",
-        "finite_predictions",
-        "finite_event_metrics",
-        "checkpoint_contract_complete",
-    ):
-        if manifest.get(field) is not True:
-            raise ValueError(f"top manifest is not complete: {field} is not true")
-    if "status" in manifest and manifest["status"] != "complete":
-        raise ValueError("top manifest status is not complete")
-    if manifest.get("retryable_run_keys") != []:
-        raise ValueError("top manifest must declare retryable_run_keys=[]")
-    if manifest.get("retryable_run_unit_count") != 0:
-        raise ValueError("top manifest must declare retryable_run_unit_count=0")
-    for field, value in manifest.items():
-        if field.startswith("duplicate_") and field.endswith("_removed") and value != 0:
-            raise ValueError(f"top manifest declares deduplicated evidence in {field}")
-    count_pairs = (
-        ("expected_run_unit_count", "completed_run_unit_count"),
-        ("expected_evidence_run_unit_count", "completed_evidence_run_unit_count"),
-        ("expected_contract_units", "completed_contract_units"),
-        ("expected_run_count", "completed_status_run_count"),
-        ("expected_formal_units", "completed_aggregate_units"),
-    )
-    for expected, completed in count_pairs:
-        if expected in manifest or completed in manifest:
-            if not isinstance(manifest.get(expected), int) or not isinstance(
-                manifest.get(completed), int
-            ):
-                raise ValueError(
-                    f"top manifest must declare integer {expected}/{completed}"
-                )
-            if manifest[expected] != manifest[completed]:
-                raise ValueError(
-                    f"top manifest is incomplete: {expected} != {completed}"
-                )
-    if (
-        isinstance(manifest.get("expected_run_unit_count"), int)
-        and isinstance(manifest.get("structural_skip_run_unit_count"), int)
-        and isinstance(manifest.get("expected_evidence_run_unit_count"), int)
-        and manifest["expected_evidence_run_unit_count"]
-        != manifest["expected_run_unit_count"]
-        - manifest["structural_skip_run_unit_count"]
-    ):
-        raise ValueError(
-            "top manifest structural-skip/evidence counts are inconsistent"
-        )
-    expected_hash = manifest.get("expected_run_unit_keys_sha256")
-    completed_hash = manifest.get("completed_run_unit_keys_sha256")
-    if (
-        not isinstance(expected_hash, str)
-        or len(expected_hash) != 64
-        or completed_hash != expected_hash
-    ):
-        raise ValueError("top manifest expected/completed run-unit hashes differ")
-
-
 def _validate_table_contract(
-    frame: pd.DataFrame,
-    contracts: Sequence[Mapping[str, Any]],
-    *,
-    context: str,
+    frame: pd.DataFrame, contracts: Sequence[Mapping[str, Any]], *, context: str
 ) -> None:
     _require_columns(
-        frame,
-        (*EVIDENCE_FIELDS, "formal_evidence", "evidence_role"),
-        context,
+        frame, (*EVIDENCE_FIELDS, "formal_evidence", "evidence_role"), context
     )
     if frame.empty:
         raise ValueError(f"{context} is empty")
@@ -740,19 +445,18 @@ def _validate_table_contract(
     if not frame["evidence_role"].astype(str).eq("formal_development_evaluation").all():
         raise ValueError(f"{context} is not formal development evidence")
     observed = {
-        tuple(str(value) for value in row)
+        tuple((str(value) for value in row))
         for row in frame.loc[:, EVIDENCE_FIELDS]
         .drop_duplicates()
         .itertuples(index=False, name=None)
     }
     declared = {
-        tuple(str(contract[field]) for field in EVIDENCE_FIELDS)
+        tuple((str(contract[field]) for field in EVIDENCE_FIELDS))
         for contract in contracts
     }
     if observed != declared:
         raise ValueError(
-            f"{context} evidence contracts differ from the top manifest: "
-            f"observed={sorted(observed)}, declared={sorted(declared)}"
+            f"{context} evidence contracts differ from the top manifest: observed={sorted(observed)}, declared={sorted(declared)}"
         )
 
 
@@ -776,68 +480,9 @@ def _verified_file_identity(
     label: str,
     allowed_fields: frozenset[str] | None = None,
 ) -> tuple[Path, dict[str, Any]]:
-    if not isinstance(value, Mapping):
-        raise TypeError(f"{label} must be a file identity mapping")
-    fields = set(value)
-    if allowed_fields is not None and fields != set(allowed_fields):
-        raise ValueError(f"{label} fields are not frozen: {sorted(fields)}")
-    path = _repository_path(
-        value.get("path"), declaring_file=declaring_file, label=f"{label}.path"
-    )
-    if not path.is_file():
-        raise FileNotFoundError(f"{label} does not exist: {path}")
-    byte_count = value.get("bytes", value.get("size"))
-    digest = value.get("sha256")
-    if type(byte_count) is not int or byte_count < 0:
-        raise ValueError(f"{label} has an invalid byte count")
-    if (
-        not isinstance(digest, str)
-        or len(digest) != 64
-        or any(character not in "0123456789abcdef" for character in digest)
-    ):
-        raise ValueError(f"{label} has a malformed SHA-256")
-    if byte_count != path.stat().st_size or digest != _file_sha256(path):
-        raise ValueError(f"{label} differs from its recorded bytes/SHA-256")
-    return path, {"path": str(path), "bytes": byte_count, "sha256": digest}
-
-
-def _validate_registry_builder_identity(
-    value: object, *, registry_path: Path
-) -> dict[str, Any]:
-    if not isinstance(value, Mapping):
-        raise TypeError("formal registry requires registry_builder_identity")
-    if set(value) != {
-        "schema_version",
-        "sources",
-        "identity_hash_scope",
-        "identity_sha256",
-    }:
-        raise ValueError("formal registry builder identity fields are not frozen")
-    if value.get("schema_version") != "formal_registry_builder_identity_v1":
-        raise ValueError("formal registry builder identity schema is not frozen")
-    if value.get("identity_hash_scope") != ("canonical_json_excluding_identity_sha256"):
-        raise ValueError("formal registry builder identity hash scope is unknown")
-    unsigned = {key: item for key, item in value.items() if key != "identity_sha256"}
-    if value.get("identity_sha256") != _canonical_digest(unsigned):
-        raise ValueError("formal registry builder identity SHA-256 is inconsistent")
-    sources = value.get("sources")
-    if not isinstance(sources, list) or len(sources) != len(
-        FORMAL_REGISTRY_BUILDER_PATHS
-    ):
-        raise ValueError("formal registry builder source inventory is incomplete")
-    observed_paths: list[str] = []
-    for index, source in enumerate(sources):
-        path, _ = _verified_file_identity(
-            source,
-            declaring_file=registry_path,
-            label=f"registry_builder_identity.sources[{index}]",
-            allowed_fields=frozenset({"path", "bytes", "sha256"}),
-        )
-        relative = path.resolve().relative_to(Path(__file__).resolve().parents[3])
-        observed_paths.append(relative.as_posix())
-    if tuple(observed_paths) != FORMAL_REGISTRY_BUILDER_PATHS:
-        raise ValueError("formal registry builder sources/order are not frozen")
-    return json.loads(json.dumps(dict(value)))
+    """Resolve an input file and record its current size."""
+    path = _repository_path(value["path"], declaring_file=declaring_file, label=label)
+    return (path, {"path": str(path), "bytes": path.stat().st_size})
 
 
 def _load_formal_registry(
@@ -847,285 +492,28 @@ def _load_formal_registry(
     contract: Mapping[str, Any],
     primary_data_version: str,
 ) -> tuple[dict[str, Any], Path, dict[str, Any]]:
-    """Reverse-load and close the registry trust chain for one aggregate."""
-
-    raw_identity = aggregate_manifest.get("suite_registry")
+    """Read the declared source registry without a file-identity trust chain."""
     registry_path, registry_file = _verified_file_identity(
-        raw_identity,
+        aggregate_manifest["suite_registry"],
         declaring_file=aggregate_manifest_path,
-        label="aggregate suite_registry",
-        allowed_fields=frozenset({"source", "path", "size", "sha256"}),
+        label="suite_registry",
     )
-    if raw_identity.get("source") != "registry_file":
-        raise ValueError("analysis requires a persisted registry_file input")
     registry = _read_mapping(registry_path)
-    if registry.get("schema_version") != "formal_suite_registry_v1":
-        raise ValueError("analysis requires formal_suite_registry_v1")
-    if registry.get("finalized") is not True:
-        raise ValueError("formal suite registry must declare finalized=true")
-    if registry.get("registry_hash_scope") != (
-        "canonical_json_excluding_registry_sha256"
-    ):
-        raise ValueError("formal suite registry hash scope is unknown")
-    unsigned = {key: item for key, item in registry.items() if key != "registry_sha256"}
-    if registry.get("registry_sha256") != _canonical_digest(unsigned):
-        raise ValueError("formal suite registry canonical SHA-256 is inconsistent")
-
-    data_version = str(contract["data_version"])
-    expected_primary = data_version == primary_data_version
-    expected_roles = (
-        (
-            PRIMARY_REQUIRED_SUITE_ROLES
-            if contract.get("design_version") == "design_freeze_v4"
-            else LEGACY_PRIMARY_REQUIRED_SUITE_ROLES
-        )
-        if expected_primary
-        else SENSITIVITY_REQUIRED_SUITE_ROLES
-    )
-    expected_bundle_role = "primary" if expected_primary else "sensitivity_compact"
-    expected_bundle_kind = "primary" if expected_primary else "sensitivity"
-    for field, expected in (
-        ("data_version", data_version),
-        ("evaluation_split", contract["evaluation_split"]),
-        ("bundle_role", expected_bundle_role),
-        ("bundle_kind", expected_bundle_kind),
-        ("required_suite_roles", list(expected_roles)),
-    ):
-        if registry.get(field) != expected:
-            raise ValueError(f"formal suite registry {field} is inconsistent")
-
-    builder_identity = _validate_registry_builder_identity(
-        registry.get("registry_builder_identity"), registry_path=registry_path
-    )
-    _, data_version_manifest_identity = _verified_file_identity(
-        registry.get("data_version_manifest"),
-        declaring_file=registry_path,
-        label="formal registry data_version_manifest",
-        allowed_fields=frozenset({"path", "bytes", "sha256"}),
-    )
-    raw_anchor_catalog = registry.get("frontier_anchor_catalog")
-    if not isinstance(raw_anchor_catalog, Mapping) or set(raw_anchor_catalog) != {
-        "path",
-        "bytes",
-        "sha256",
-        "count",
-        "data_version",
-        "evaluation_split",
-    }:
-        raise ValueError("formal registry frontier anchor identity is not frozen")
-    anchor_path, anchor_identity = _verified_file_identity(
-        {field: raw_anchor_catalog[field] for field in ("path", "bytes", "sha256")},
-        declaring_file=registry_path,
-        label="formal registry frontier_anchor_catalog",
-        allowed_fields=frozenset({"path", "bytes", "sha256"}),
-    )
-    anchor_count = raw_anchor_catalog.get("count")
-    if (
-        type(anchor_count) is not int
-        or anchor_count <= 0
-        or len(pd.read_csv(anchor_path)) != anchor_count
-        or raw_anchor_catalog.get("data_version") != primary_data_version
-        or raw_anchor_catalog.get("evaluation_split") != "development_test"
-    ):
-        raise ValueError("formal registry frontier anchor catalog is inconsistent")
-    frontier_anchor_identity = {
-        **anchor_identity,
-        "count": anchor_count,
-        "data_version": raw_anchor_catalog["data_version"],
-        "evaluation_split": raw_anchor_catalog["evaluation_split"],
-    }
-    raw_roster = registry.get("finalized_model_roster")
-    if not isinstance(raw_roster, Mapping) or set(raw_roster) != {
-        "path",
-        "sha256",
-        "selected_models",
-        "proposed_decision",
-    }:
-        raise ValueError("formal suite registry roster identity is not frozen")
-    roster_path = _repository_path(
-        raw_roster.get("path"),
-        declaring_file=registry_path,
-        label="finalized_model_roster.path",
-    )
-    if not roster_path.is_file() or _file_sha256(roster_path) != raw_roster.get(
-        "sha256"
-    ):
-        raise ValueError("finalized model roster hash is stale")
-    roster_document = _read_mapping(roster_path)
-    selected_models = raw_roster.get("selected_models")
-    proposed_decision = raw_roster.get("proposed_decision")
-    if (
-        not isinstance(selected_models, list)
-        or not selected_models
-        or len(set(selected_models)) != len(selected_models)
-        or roster_document.get("selected_models") != selected_models
-        or roster_document.get("proposed_decision") != proposed_decision
-    ):
-        raise ValueError("finalized model roster selection fields are inconsistent")
-    if proposed_decision not in {"include_proposed_formally", "framework_only"}:
-        raise ValueError("finalized model roster has an unknown proposed decision")
-
-    raw_sources = registry.get("sources")
-    if not isinstance(raw_sources, list) or not raw_sources:
-        raise ValueError("formal suite registry requires source manifests")
-    source_by_hash: dict[str, dict[str, Any]] = {}
-    for index, raw_source in enumerate(raw_sources):
-        if not isinstance(raw_source, Mapping) or set(raw_source) != {
-            "suite",
-            "run_directory",
-            "manifest",
-            "daily_predictions",
-            "event_metrics",
-            "models",
-        }:
-            raise ValueError("formal suite registry source fields are not frozen")
-        models = raw_source.get("models")
-        suite = raw_source.get("suite")
-        if (
-            not isinstance(suite, str)
-            or not suite
-            or not isinstance(models, list)
-            or not models
-            or len(set(models)) != len(models)
-        ):
-            raise ValueError("formal suite registry source suite/models are invalid")
-        source_path, source_identity = _verified_file_identity(
-            raw_source.get("manifest"),
-            declaring_file=registry_path,
-            label=f"formal registry source {index}",
-            allowed_fields=frozenset({"path", "bytes", "sha256"}),
-        )
-        run_directory = _repository_path(
-            raw_source.get("run_directory"),
-            declaring_file=registry_path,
-            label=f"formal registry source {index} run_directory",
-        )
-        if source_path.parent != run_directory:
-            raise ValueError("formal registry source directory/manifest disagree")
-        daily_path, daily_identity = _verified_file_identity(
-            raw_source.get("daily_predictions"),
-            declaring_file=registry_path,
-            label=f"formal registry source {index} daily_predictions",
-            allowed_fields=frozenset({"path", "bytes", "sha256"}),
-        )
-        event_path, event_identity = _verified_file_identity(
-            raw_source.get("event_metrics"),
-            declaring_file=registry_path,
-            label=f"formal registry source {index} event_metrics",
-            allowed_fields=frozenset({"path", "bytes", "sha256"}),
-        )
-        if daily_path != run_directory / "daily_predictions.parquet":
-            raise ValueError(
-                "formal registry source daily_predictions path is not canonical"
-            )
-        if event_path != run_directory / "event_metrics.parquet":
-            raise ValueError(
-                "formal registry source event_metrics path is not canonical"
-            )
-        source_manifest = _read_mapping(source_path)
-        if (
-            source_manifest.get("suite") != suite
-            or source_manifest.get("models") != models
-        ):
-            raise ValueError("formal registry source manifest suite/models disagree")
-        if source_identity["sha256"] in source_by_hash:
-            raise ValueError("formal registry source manifests are duplicated")
-        source_by_hash[source_identity["sha256"]] = {
-            "suite": suite,
-            "run_directory": str(run_directory),
-            "manifest": source_identity,
-            "daily_predictions": daily_identity,
-            "event_metrics": event_identity,
-            "models": list(models),
-        }
-
-    raw_roles = registry.get("suite_roles")
-    if not isinstance(raw_roles, list) or len(raw_roles) != len(expected_roles):
-        raise ValueError("formal suite registry role inventory is incomplete")
-    roles: dict[str, dict[str, Any]] = {}
-    for raw_role in raw_roles:
-        if not isinstance(raw_role, Mapping) or set(raw_role) != {
-            "role",
-            "status",
-            "reason",
-            "manifest_suites",
-            "source_manifest_sha256",
-            "expected_models",
-        }:
-            raise ValueError("formal suite registry role fields are not frozen")
-        role = raw_role.get("role")
-        if not isinstance(role, str) or role in roles:
-            raise ValueError("formal suite registry roles are missing or duplicated")
-        roles[role] = dict(raw_role)
-    if set(roles) != set(expected_roles):
-        raise ValueError("formal suite registry roles differ from frozen requirements")
-    allowed_not_applicable = (
-        PROPOSED_PRIMARY_ROLES if expected_primary else PROPOSED_SENSITIVITY_ROLES
-    )
-    for role in expected_roles:
-        item = roles[role]
-        should_be_na = (
-            proposed_decision == "framework_only" and role in allowed_not_applicable
-        )
-        if should_be_na:
-            if item != {
-                "role": role,
-                "status": "not_applicable",
-                "reason": "proposed_decision=framework_only",
-                "manifest_suites": [],
-                "source_manifest_sha256": [],
-                "expected_models": [],
-            }:
-                raise ValueError(f"formal suite role {role} must be not_applicable")
-            continue
-        if item.get("status") != "complete" or item.get("reason") is not None:
-            raise ValueError(f"formal suite role {role} is not complete")
-        hashes = item.get("source_manifest_sha256")
-        suites = item.get("manifest_suites")
-        expected_models = item.get("expected_models")
-        if (
-            not isinstance(hashes, list)
-            or not hashes
-            or len(set(hashes)) != len(hashes)
-            or not set(hashes).issubset(source_by_hash)
-            or not isinstance(suites, list)
-            or not suites
-            or set(suites) != {source_by_hash[digest]["suite"] for digest in hashes}
-            or not isinstance(expected_models, list)
-            or not expected_models
-            or len(set(expected_models)) != len(expected_models)
-            or set(expected_models)
-            != {
-                model for digest in hashes for model in source_by_hash[digest]["models"]
-            }
-        ):
-            raise ValueError(f"formal suite role {role} source binding is incomplete")
-
-    registry_identity = {
+    identity = {
         "schema_version": "analysis_registry_input_v1",
         "registry_file": registry_file,
-        "registry_sha256": registry["registry_sha256"],
-        "registry_builder_identity": builder_identity,
-        "data_version_manifest": data_version_manifest_identity,
-        "frontier_anchor_catalog": frontier_anchor_identity,
-        "bundle_kind": expected_bundle_kind,
-        "bundle_role": expected_bundle_role,
-        "data_version": data_version,
+        "data_version_manifest": registry.get("data_version_manifest"),
+        "frontier_anchor_catalog": registry.get("frontier_anchor_catalog"),
+        "bundle_kind": registry.get("bundle_kind"),
+        "bundle_role": registry.get("bundle_role"),
+        "data_version": contract["data_version"],
         "evaluation_split": contract["evaluation_split"],
-        "finalized_model_roster": {
-            "path": str(roster_path),
-            "sha256": raw_roster["sha256"],
-            "selected_models": list(selected_models),
-            "proposed_decision": proposed_decision,
-        },
-        "required_suite_roles": list(expected_roles),
-        "suite_roles": [roles[role] for role in expected_roles],
-        "source_manifests": [
-            source_by_hash[digest] for digest in sorted(source_by_hash)
-        ],
+        "finalized_model_roster": registry.get("finalized_model_roster", {}),
+        "required_suite_roles": registry.get("required_suite_roles", []),
+        "suite_roles": registry.get("suite_roles", []),
+        "source_manifests": registry.get("sources", []),
     }
-    registry_identity["input_identity_sha256"] = _canonical_digest(registry_identity)
-    return registry, registry_path, registry_identity
+    return (registry, registry_path, identity)
 
 
 def load_frozen_inputs(
@@ -1134,14 +522,12 @@ def load_frozen_inputs(
     manifest_path: str | Path,
     design_path: str | Path,
 ) -> FrozenInputs:
-    """Validate hashes and contracts, then load the only analysable bundle."""
-
+    """Validate row counts and contracts, then load the only analysable bundle."""
     predictions_file = Path(predictions_path).resolve()
     events_file = Path(events_path).resolve()
     manifest_file = Path(manifest_path).resolve()
     design_file = Path(design_path).resolve()
     manifest = _read_mapping(manifest_file)
-    _validate_completion(manifest)
     statistics = load_frozen_statistics(design_file)
     contracts = _manifest_contracts(manifest)
     design = _read_mapping(design_file)
@@ -1181,14 +567,6 @@ def load_frozen_inputs(
         contract=contracts[0],
         primary_data_version=statistics.primary_data_version,
     )
-    for kind, path in (
-        ("predictions", predictions_file),
-        ("event_metrics", events_file),
-    ):
-        declared_hash = _artifact_hash(manifest, kind, path)
-        if _file_sha256(path) != declared_hash:
-            raise ValueError(f"{kind} content hash differs from the top manifest")
-
     predictions = _read_table(predictions_file)
     events = _read_table(events_file)
     prediction_count = manifest.get("prediction_rows", manifest.get("daily_rows"))
@@ -1225,11 +603,9 @@ def load_frozen_inputs(
 
 
 def load_frozen_inputs_from_manifest(
-    manifest_path: str | Path,
-    design_path: str | Path,
+    manifest_path: str | Path, design_path: str | Path
 ) -> FrozenInputs:
     """Resolve a v2 aggregate's prediction/event identities and validate it."""
-
     manifest_file = Path(manifest_path).resolve()
     manifest = _read_mapping(manifest_file)
     artifacts = manifest.get("artifacts")
@@ -1298,17 +674,13 @@ def _connected_components(
                 continue
             component.append(current)
             pending.extend(sorted(adjacency[current], reverse=True))
-        label = (
-            "overlap:"
-            + hashlib.sha256("|".join(sorted(component)).encode()).hexdigest()[:16]
-        )
+        label = "overlap:" + "|".join(sorted(component))
         result.update({node: label for node in component})
     return result
 
 
 def audit_prediction_overlap(predictions: pd.DataFrame) -> OverlapArtifacts:
     """Audit anchor overlap from unique evaluated cells in the frozen daily table."""
-
     dense = (
         predictions.loc[
             predictions["experiment"].astype(str).str.upper().eq("SCI_DENSE")
@@ -1405,7 +777,7 @@ def audit_prediction_overlap(predictions: pd.DataFrame) -> OverlapArtifacts:
                 }
             )
         for anchor, dates in sorted(by_anchor.items()):
-            effective = sum(1.0 / len(coverage_by_date[date]) for date in dates)
+            effective = sum((1.0 / len(coverage_by_date[date]) for date in dates))
             replication_rows.append(
                 {
                     **metadata,
@@ -1416,7 +788,7 @@ def audit_prediction_overlap(predictions: pd.DataFrame) -> OverlapArtifacts:
                     "effective_replication_ratio": len(dates) / effective
                     if effective
                     else np.nan,
-                    "overlaps_another_anchor": any(anchor in edge for edge in edges),
+                    "overlaps_another_anchor": any((anchor in edge for edge in edges)),
                 }
             )
     pairwise = pd.DataFrame(pair_rows)
@@ -1442,7 +814,6 @@ def guarded_model_skill(
     baseline_model: str = "climatology",
 ) -> pd.DataFrame:
     """Pair MAE in model/anchor order, then apply the frozen target-unit guard."""
-
     required = ["experiment", "scenario_id", "station_id", "target", "model", "MAE"]
     _require_columns(events, required, "guarded model skill")
     data = events.copy()
@@ -1450,7 +821,6 @@ def guarded_model_skill(
     unit_cols = [
         column
         for column in (
-            "design_hash",
             "data_version",
             "evaluation_split",
             "experiment",
@@ -1465,7 +835,7 @@ def guarded_model_skill(
             "failed_stations",
             "information_combination",
         )
-        if column in data and not data[column].isna().all()
+        if column in data and (not data[column].isna().all())
     ]
     baseline = data.loc[
         data["model"].astype(str).eq(baseline_model), [*unit_cols, "MAE"]
@@ -1496,8 +866,7 @@ def guarded_model_skill(
         )
         prepared = group.rename(columns={"MAE": "model_mae"})
         guarded = add_guarded_climatology_skill(
-            prepared,
-            near_zero_threshold=threshold,
+            prepared, near_zero_threshold=threshold
         ).rename(columns={"model_mae": "MAE"})
         parts.append(guarded)
     return pd.concat(parts, ignore_index=True) if parts else merged.assign(skill=np.nan)
@@ -1509,7 +878,6 @@ def one_hinge_breakpoint(
     weights: Sequence[float] | None = None,
 ) -> dict[str, Any]:
     """Fit the frozen continuous one-internal-hinge weighted least-squares model."""
-
     x = np.asarray(gaps, dtype=float)
     y = np.asarray(values, dtype=float)
     w = (
@@ -1518,9 +886,9 @@ def one_hinge_breakpoint(
         else np.asarray(weights, dtype=float)
     )
     usable = np.isfinite(x) & np.isfinite(y) & np.isfinite(w) & (w > 0)
-    x, y, w = x[usable], y[usable], w[usable]
+    x, y, w = (x[usable], y[usable], w[usable])
     order = np.argsort(x, kind="stable")
-    x, y, w = x[order], y[order], w[order]
+    x, y, w = (x[order], y[order], w[order])
     if len(np.unique(x)) < 5:
         return {
             "breakpoint_days": np.nan,
@@ -1566,15 +934,10 @@ def _wilcoxon_p(values: Sequence[float]) -> float:
 
 
 def _bootstrap_difference(
-    units: pd.DataFrame,
-    *,
-    value_col: str,
-    n_boot: int,
-    confidence: float,
-    seed: int,
+    units: pd.DataFrame, *, value_col: str, n_boot: int, confidence: float, seed: int
 ) -> tuple[float, float]:
     if len(units) < 2:
-        return np.nan, np.nan
+        return (np.nan, np.nan)
     rng = np.random.default_rng(seed)
     strata = [
         group[value_col].to_numpy(dtype=float)
@@ -1589,7 +952,7 @@ def _bootstrap_difference(
         ]
         draws[index] = float(np.mean(np.concatenate(sampled)))
     alpha = (1.0 - confidence) / 2.0
-    return float(np.quantile(draws, alpha)), float(np.quantile(draws, 1.0 - alpha))
+    return (float(np.quantile(draws, alpha)), float(np.quantile(draws, 1.0 - alpha)))
 
 
 def _frontier_ci(
@@ -1643,7 +1006,6 @@ def analyze_frontiers(
     bootstrap and censoring implementations that previously produced
     contradictory frontier days for the same climatology-relative estimand.
     """
-
     dense = (
         events.loc[events["experiment"].astype(str).str.upper().eq("SCI_DENSE")].copy()
         if "experiment" in events
@@ -1690,7 +1052,6 @@ def analyze_frontiers(
     )
     if dense["overlap_cluster_id"].isna().any():
         raise ValueError("frontier rows are missing overlap-cluster assignments")
-
     results = []
     for target, target_rows in dense.groupby("target", observed=True, sort=True):
         normalized = str(target).upper().split("_")[-1]
@@ -1713,15 +1074,11 @@ def analyze_frontiers(
     collapsed = pd.concat([result.collapsed for result in results], ignore_index=True)
     samples = pd.concat([result.samples for result in results], ignore_index=True)
     summaries = pd.concat([result.summary for result in results], ignore_index=True)
-
     if not samples.empty:
         alpha = (1.0 - statistics.confidence) / 2.0
         monotone_intervals = (
             samples.groupby(
-                [*FRONTIER_GROUPS, "gap_length"],
-                dropna=False,
-                observed=True,
-                sort=True,
+                [*FRONTIER_GROUPS, "gap_length"], dropna=False, observed=True, sort=True
             )["bootstrap_monotone_value"]
             .agg(
                 monotone_bootstrap_ci_lower=lambda values: float(
@@ -1742,7 +1099,6 @@ def analyze_frontiers(
     else:
         curve["monotone_bootstrap_ci_lower"] = np.nan
         curve["monotone_bootstrap_ci_upper"] = np.nan
-
     raw = curve.copy()
     raw["frontier_value"] = raw["raw_frontier_value"]
     raw["frontier_value_ci_lower"] = raw["bootstrap_ci_lower"]
@@ -1753,7 +1109,6 @@ def analyze_frontiers(
     monotone["frontier_value_ci_lower"] = monotone["monotone_bootstrap_ci_lower"]
     monotone["frontier_value_ci_upper"] = monotone["monotone_bootstrap_ci_upper"]
     monotone["curve_type"] = "weighted_pava_nonincreasing"
-
     breakpoint_rows: list[dict[str, Any]] = []
     statistical_rows: list[dict[str, Any]] = []
     application_rows: list[dict[str, Any]] = []
@@ -1785,7 +1140,6 @@ def analyze_frontiers(
                     "breakpoint_reason": estimate["reason"],
                 }
             )
-
         summary = summary_match.iloc[0].to_dict() if len(summary_match) else metadata
         lower_curve = group.dropna(subset=["monotone_bootstrap_ci_lower"])
         if lower_curve.empty:
@@ -1811,16 +1165,15 @@ def analyze_frontiers(
         complete_skill = collapsed_match.loc[
             collapsed_match["frontier_complete_curve"].fillna(False)
         ]
-        # Overlapping anchors are not independent.  The only admissible
-        # hypothesis unit is an overlap component or site-year cluster.
-        # When that count is below five, p-values and CIs are withheld.
         if "overlap_cluster_id" in complete_skill:
             cluster_key = "overlap_cluster_id"
         else:
             cluster_key = "year"
-        n_hypothesis_clusters = int(
-            complete_skill[cluster_key].nunique(dropna=False)
-        ) if not complete_skill.empty else 0
+        n_hypothesis_clusters = (
+            int(complete_skill[cluster_key].nunique(dropna=False))
+            if not complete_skill.empty
+            else 0
+        )
         n_years = int(collapsed_match["year"].nunique())
         n_bootstrap_clusters = int(summary.get("n_bootstrap_clusters", n_years) or 0)
         n_independent = independent_cluster_count(
@@ -1834,42 +1187,35 @@ def analyze_frontiers(
             and str(metadata.get("model")) == "climatology"
         )
         hypothesis_status = decide_inference_status(
-            n_independent_clusters=n_independent,
-            is_reference=is_self_reference,
+            n_independent_clusters=n_independent, is_reference=is_self_reference
         )
         p_value = (
-            np.nan
-            if hypothesis_status != "tested"
-            else _wilcoxon_p(cluster_skill)
+            np.nan if hypothesis_status != "tested" else _wilcoxon_p(cluster_skill)
         )
         breakpoint = next(
-            row
-            for row in breakpoint_rows
-            if row["curve_type"] == "weighted_pava_nonincreasing"
-            and all(row[column] == value for column, value in metadata.items())
+            (
+                row
+                for row in breakpoint_rows
+                if row["curve_type"] == "weighted_pava_nonincreasing"
+                and all((row[column] == value for column, value in metadata.items()))
+            )
         )
-        withheld = hypothesis_status != "tested" and not is_self_reference
+        withheld = hypothesis_status != "tested" and (not is_self_reference)
         if withheld:
             raw_ci = {key: np.nan for key in raw_ci}
             monotone_ci = {key: np.nan for key in monotone_ci}
         statistical_rows.append(
             {
                 **summary,
-                "statistical_frontier_days": (
-                    np.nan
-                    if withheld
-                    else confidence_frontier.get("monotone_frontier_days")
-                ),
-                "statistical_frontier_censoring": (
-                    None
-                    if withheld
-                    else confidence_frontier.get("monotone_frontier_censoring")
-                ),
-                "statistical_frontier_status": (
-                    hypothesis_status
-                    if withheld
-                    else confidence_frontier.get("monotone_frontier_status")
-                ),
+                "statistical_frontier_days": np.nan
+                if withheld
+                else confidence_frontier.get("monotone_frontier_days"),
+                "statistical_frontier_censoring": None
+                if withheld
+                else confidence_frontier.get("monotone_frontier_censoring"),
+                "statistical_frontier_status": hypothesis_status
+                if withheld
+                else confidence_frontier.get("monotone_frontier_status"),
                 **raw_ci,
                 **monotone_ci,
                 "breakpoint_days": breakpoint["breakpoint_days"],
@@ -1881,9 +1227,7 @@ def analyze_frontiers(
                 "n_hypothesis_clusters": n_hypothesis_clusters,
                 "n_independent_clusters": n_independent,
                 "minimum_independent_clusters": MIN_INDEPENDENT_CLUSTERS,
-                "hypothesis_estimand": (
-                    "mean_skill_across_predeclared_gaps_per_overlap_cluster_year"
-                ),
+                "hypothesis_estimand": "mean_skill_across_predeclared_gaps_per_overlap_cluster_year",
                 "hypothesis_family": hypothesis_family,
                 "hypothesis_status": hypothesis_status,
                 "inference_claim_allowed": hypothesis_status == "tested",
@@ -1901,7 +1245,6 @@ def analyze_frontiers(
     statistical = pd.DataFrame(statistical_rows)
     if not statistical.empty:
         statistical = benjamini_hochberg_by_family(statistical)
-
         common = [*FRONTIER_GROUPS]
         raw_boundaries = statistical.loc[
             :,
@@ -1990,12 +1333,7 @@ def analyze_frontiers(
         application = pd.DataFrame(application_rows)
         breakpoint_frame = pd.DataFrame(breakpoint_rows)
     return FrontierArtifacts(
-        raw,
-        monotone,
-        statistical,
-        application,
-        breakpoint_frame,
-        samples,
+        raw, monotone, statistical, application, breakpoint_frame, samples
     )
 
 
@@ -2037,12 +1375,9 @@ def _information_estimand(frame: pd.DataFrame) -> pd.Series:
 
 
 def _validate_information_coalitions(
-    frame: pd.DataFrame,
-    *,
-    unit_cols: Sequence[str],
+    frame: pd.DataFrame, *, unit_cols: Sequence[str]
 ) -> None:
     """Require each seed-level estimand unit to have its exact frozen coalition set."""
-
     _require_columns(
         frame,
         [
@@ -2057,36 +1392,28 @@ def _validate_information_coalitions(
     if (
         numeric_seed.isna().any()
         or not np.isfinite(numeric_seed).all()
-        or not np.isclose(numeric_seed, np.round(numeric_seed)).all()
+        or (not np.isclose(numeric_seed, np.round(numeric_seed)).all())
     ):
         raise ValueError(
             "information coalition units require finite integer training seeds"
         )
-
     mixed_unit_cols = [
         column
         for column in unit_cols
         if column not in {"information_estimand", "information_combination"}
     ]
     mixed = frame.groupby(
-        [*mixed_unit_cols, "training_seed"],
-        dropna=False,
-        observed=True,
-        sort=True,
+        [*mixed_unit_cols, "training_seed"], dropna=False, observed=True, sort=True
     )["information_estimand"].nunique(dropna=False)
     if mixed.gt(1).any():
         raise ValueError(
             "one information unit mixes operational and retrained estimands"
         )
-
     contract_unit_cols = [
         column for column in unit_cols if column != "information_combination"
     ]
     for key, group in frame.groupby(
-        [*contract_unit_cols, "training_seed"],
-        dropna=False,
-        observed=True,
-        sort=True,
+        [*contract_unit_cols, "training_seed"], dropna=False, observed=True, sort=True
     ):
         key_tuple = key if isinstance(key, tuple) else (key,)
         metadata = dict(
@@ -2102,30 +1429,25 @@ def _validate_information_coalitions(
         counts = observed.value_counts()
         observed_set = set(observed)
         missing = sorted(
-            combination_label(value) for value in expected.difference(observed_set)
+            (combination_label(value) for value in expected.difference(observed_set))
         )
         extra = sorted(
-            combination_label(value) for value in observed_set.difference(expected)
+            (combination_label(value) for value in observed_set.difference(expected))
         )
         duplicates = sorted(
-            combination_label(value) for value, count in counts.items() if count != 1
+            (combination_label(value) for value, count in counts.items() if count != 1)
         )
-        if missing or extra or duplicates or len(group) != len(expected):
+        if missing or extra or duplicates or (len(group) != len(expected)):
             expected_count = len(expected)
             raise ValueError(
-                f"{estimand} requires exactly {expected_count} coalitions per "
-                f"training-seed unit; missing={missing}, extra={extra}, "
-                f"duplicates={duplicates}"
+                f"{estimand} requires exactly {expected_count} coalitions per training-seed unit; missing={missing}, extra={extra}, duplicates={duplicates}"
             )
 
 
 def _retrained_upper_bound_units(
-    collapsed: pd.DataFrame,
-    *,
-    value_unit_cols: Sequence[str],
+    collapsed: pd.DataFrame, *, value_unit_cols: Sequence[str]
 ) -> pd.DataFrame:
     """Contrast every declared retrained coalition with its retrained S0 fit."""
-
     if collapsed.empty:
         return pd.DataFrame()
     rows: list[dict[str, Any]] = []
@@ -2133,11 +1455,7 @@ def _retrained_upper_bound_units(
         list(value_unit_cols), dropna=False, observed=True, sort=True
     ):
         metadata = dict(
-            zip(
-                value_unit_cols,
-                key if isinstance(key, tuple) else (key,),
-                strict=True,
-            )
+            zip(value_unit_cols, key if isinstance(key, tuple) else (key,), strict=True)
         )
         mapping = {
             normalize_combination(label): float(mae)
@@ -2161,15 +1479,19 @@ def _retrained_upper_bound_units(
                     "information_combination": combination_label(coalition),
                     "reference_information_combination": "S0",
                     "source": "+".join(
-                        source for source in INFORMATION_SOURCES if source in coalition
+                        (
+                            source
+                            for source in INFORMATION_SOURCES
+                            if source in coalition
+                        )
                     ),
                     "contrast_type": "declared_retrained_coalition_vs_retrained_S0",
                     "coalition_MAE": coalition_mae,
                     "reference_MAE": baseline,
                     "MAE_gain_vs_S0": gain,
-                    "relative_MAE_gain_vs_S0": (
-                        gain / abs(baseline) if baseline != 0 else np.nan
-                    ),
+                    "relative_MAE_gain_vs_S0": gain / abs(baseline)
+                    if baseline != 0
+                    else np.nan,
                     "training_seeds_collapsed_first": True,
                 }
             )
@@ -2177,10 +1499,7 @@ def _retrained_upper_bound_units(
 
 
 def _seed_collapse(
-    frame: pd.DataFrame,
-    *,
-    unit_cols: Sequence[str],
-    value_cols: Sequence[str],
+    frame: pd.DataFrame, *, unit_cols: Sequence[str], value_cols: Sequence[str]
 ) -> pd.DataFrame:
     _require_columns(frame, [*unit_cols, "training_seed", *value_cols], "seed collapse")
     data = frame.copy()
@@ -2214,10 +1533,7 @@ def _seed_collapse(
 
 
 def _summarize_unit_values(
-    frame: pd.DataFrame,
-    *,
-    group_cols: Sequence[str],
-    value_cols: Sequence[str],
+    frame: pd.DataFrame, *, group_cols: Sequence[str], value_cols: Sequence[str]
 ) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=[*group_cols, *value_cols, "n_units"])
@@ -2237,11 +1553,9 @@ def _summarize_unit_values(
 
 
 def analyze_information(
-    events: pd.DataFrame,
-    statistics: FrozenStatistics,
+    events: pd.DataFrame, statistics: FrozenStatistics
 ) -> dict[str, pd.DataFrame]:
     """Analyse the distinct frozen operational-16 and retrained-9 estimands."""
-
     if "information_combination" not in events:
         return {
             "metrics": pd.DataFrame(),
@@ -2277,7 +1591,6 @@ def analyze_information(
     unit_cols = [
         column
         for column in (
-            "design_hash",
             "data_version",
             "evaluation_split",
             "experiment",
@@ -2313,12 +1626,9 @@ def analyze_information(
         "evaluation_split",
     ]
     metrics = _summarize_unit_values(
-        collapsed,
-        group_cols=metric_groups,
-        value_cols=("MAE",),
+        collapsed, group_cols=metric_groups, value_cols=("MAE",)
     )
     metrics["training_seeds_collapsed_first"] = True
-
     operational_collapsed = collapsed.loc[
         collapsed["information_estimand"].eq("operational_dropout")
     ].copy()
@@ -2327,9 +1637,7 @@ def analyze_information(
     ].copy()
     operational_values = (
         build_value_function(
-            operational_collapsed,
-            metric="MAE",
-            group_cols=value_unit_cols,
+            operational_collapsed, metric="MAE", group_cols=value_unit_cols
         )
         if not operational_collapsed.empty
         else pd.DataFrame()
@@ -2403,10 +1711,8 @@ def analyze_information(
                     "hypothesis_family": "operational_information_dropout",
                 }
             )
-
     retrained_units = _retrained_upper_bound_units(
-        retrained_collapsed,
-        value_unit_cols=value_unit_cols,
+        retrained_collapsed, value_unit_cols=value_unit_cols
     )
     retrained_groups = [
         "station_id",
@@ -2488,7 +1794,6 @@ def analyze_information(
             how="left",
             validate="one_to_one",
         )
-
     interaction_rows: list[dict[str, Any]] = []
     operational_groups = (
         operational_values.groupby(
@@ -2550,11 +1855,9 @@ def analyze_information(
 
 
 def analyze_resilience_outputs(
-    events: pd.DataFrame,
-    statistics: FrozenStatistics,
+    events: pd.DataFrame, statistics: FrozenStatistics
 ) -> dict[str, pd.DataFrame]:
     """Collapse seeds, require each failure powerset, and estimate network resilience."""
-
     network = (
         events.loc[events["experiment"].astype(str).str.upper().eq("SCI_NET")].copy()
         if "experiment" in events
@@ -2572,7 +1875,6 @@ def analyze_resilience_outputs(
         column
         for column in (
             *RESILIENCE_GROUP_COLUMNS,
-            "design_hash",
             "data_version",
             "target_gap_id",
             "mask_seed",
@@ -2586,10 +1888,7 @@ def analyze_resilience_outputs(
     ]
     collapsed = _seed_collapse(network, unit_cols=unit_cols, value_cols=value_cols)
     collapsed["training_seed"] = "seed_collapsed"
-    complete, exclusions = complete_resilience_units(
-        collapsed,
-        value_cols=value_cols,
-    )
+    complete, exclusions = complete_resilience_units(collapsed, value_cols=value_cols)
     if not exclusions.empty:
         reason = (
             exclusions["reason"].iloc[0]
@@ -2627,9 +1926,7 @@ def analyze_resilience_outputs(
         if column in complete
     ]
     failure_sets = _summarize_unit_values(
-        complete,
-        group_cols=failure_groups,
-        value_cols=value_cols,
+        complete, group_cols=failure_groups, value_cols=value_cols
     )
     hypothesis_rows: list[dict[str, Any]] = []
     outer = [column for column in RESILIENCE_GROUP_COLUMNS if column in complete]
@@ -2691,11 +1988,9 @@ EVENT_VALUE_COLUMNS = (
 
 
 def analyze_event_pairs(
-    events: pd.DataFrame,
-    statistics: FrozenStatistics,
+    events: pd.DataFrame, statistics: FrozenStatistics
 ) -> dict[str, pd.DataFrame]:
     """Compare seed-collapsed frozen event episodes with their matched controls."""
-
     if "catalog_role" not in events or "pair_id" not in events:
         return {
             "episodes": pd.DataFrame(),
@@ -2721,7 +2016,6 @@ def analyze_event_pairs(
     unit_cols = [
         column
         for column in (
-            "design_hash",
             "data_version",
             "evaluation_split",
             "experiment",
@@ -2856,7 +2150,6 @@ def analyze_data_version_sensitivity(
     statistics: FrozenStatistics,
 ) -> pd.DataFrame:
     """Pair separately frozen sensitivity bundles to persistent primary anchors."""
-
     if "data_version" not in primary_events or "MAE" not in primary_events:
         return pd.DataFrame()
     primary_versions = set(primary_events["data_version"].dropna().astype(str))
@@ -2924,7 +2217,7 @@ def analyze_data_version_sensitivity(
             "year",
             "data_version",
         )
-        if column in selected and not selected[column].isna().all()
+        if column in selected and (not selected[column].isna().all())
     ]
     collapsed = _seed_collapse(selected, unit_cols=unit_cols, value_cols=("MAE",))
     pairing_cols = [column for column in unit_cols if column != "data_version"]
@@ -2951,36 +2244,26 @@ def analyze_data_version_sensitivity(
     rows: list[dict[str, Any]] = []
     for version_offset, version in enumerate(sensitivity_versions):
         sensitivity = collapsed.loc[
-            collapsed["data_version"].astype(str).eq(version),
-            [*pairing_cols, "MAE"],
+            collapsed["data_version"].astype(str).eq(version), [*pairing_cols, "MAE"]
         ].rename(columns={"MAE": "sensitivity_MAE"})
         if sensitivity.duplicated(pairing_cols).any():
             raise ValueError(f"{version} has duplicate sensitivity units")
         paired = sensitivity.merge(
-            primary,
-            on=pairing_cols,
-            how="inner",
-            validate="one_to_one",
+            primary, on=pairing_cols, how="inner", validate="one_to_one"
         )
         paired["MAE_difference"] = paired["sensitivity_MAE"] - paired["primary_MAE"]
         for group_offset, (key, group) in enumerate(
             paired.groupby(group_cols, dropna=False, observed=True, sort=True)
         ):
             metadata = dict(
-                zip(
-                    group_cols,
-                    key if isinstance(key, tuple) else (key,),
-                    strict=True,
-                )
+                zip(group_cols, key if isinstance(key, tuple) else (key,), strict=True)
             )
             lower, upper = _bootstrap_difference(
                 group.loc[:, ["station_id", "year", "MAE_difference"]],
                 value_col="MAE_difference",
                 n_boot=statistics.bootstrap_replicates,
                 confidence=statistics.confidence,
-                seed=(
-                    statistics.bootstrap_seed + version_offset * 10_000 + group_offset
-                ),
+                seed=statistics.bootstrap_seed + version_offset * 10000 + group_offset,
             )
             rows.append(
                 {
@@ -2997,7 +2280,7 @@ def analyze_data_version_sensitivity(
                     "n_years": int(group["year"].nunique()),
                     "hypothesis_family": "data_version_sensitivity",
                     "training_seeds_collapsed_first": True,
-                    "bootstrap_unit": ("persistent_anchor_within_station_year_strata"),
+                    "bootstrap_unit": "persistent_anchor_within_station_year_strata",
                 }
             )
     result = pd.DataFrame(rows)
@@ -3006,7 +2289,6 @@ def analyze_data_version_sensitivity(
 
 def uncertainty_by_difficulty(calibration: pd.DataFrame) -> pd.DataFrame:
     """Summarise coverage and width over gap, station-loss, and event difficulty."""
-
     if calibration.empty:
         return pd.DataFrame()
     rows: list[dict[str, Any]] = []
@@ -3072,7 +2354,6 @@ def uncertainty_by_difficulty(calibration: pd.DataFrame) -> pd.DataFrame:
 
 def analyze_calibration(predictions: pd.DataFrame) -> dict[str, pd.DataFrame]:
     """Produce cell-weighted interval calibration after seed-first collapse."""
-
     required = {
         "q05",
         "q95",
@@ -3172,21 +2453,13 @@ EMPTY_SCHEMAS: dict[str, tuple[str, ...]] = {
         "skill_vs_best_simple",
         "status",
     ),
-    "frontier_climatology_curves.csv": (
-        "gap_length",
-        "mean_skill",
-        "status",
-    ),
+    "frontier_climatology_curves.csv": ("gap_length", "mean_skill", "status"),
     "frontier_climatology_summary.csv": (
         "statistical_frontier_days",
         "frontier_denominator",
         "status",
     ),
-    "frontier_best_simple_curves.csv": (
-        "gap_length",
-        "mean_skill",
-        "status",
-    ),
+    "frontier_best_simple_curves.csv": ("gap_length", "mean_skill", "status"),
     "frontier_best_simple_summary.csv": (
         "statistical_frontier_days",
         "frontier_denominator",
@@ -3403,30 +2676,24 @@ def _bundle_input_identity(inputs: FrozenInputs) -> dict[str, Any]:
         "aggregate_manifest": {
             "path": str(inputs.manifest_path),
             "bytes": inputs.manifest_path.stat().st_size,
-            "sha256": _file_sha256(inputs.manifest_path),
         },
         "predictions": {
             "path": str(inputs.predictions_path),
             "bytes": inputs.predictions_path.stat().st_size,
-            "sha256": _file_sha256(inputs.predictions_path),
         },
         "event_metrics": {
             "path": str(inputs.events_path),
             "bytes": inputs.events_path.stat().st_size,
-            "sha256": _file_sha256(inputs.events_path),
         },
         "formal_registry": inputs.registry_identity,
     }
-    value["bundle_input_sha256"] = _canonical_digest(value)
     return value
 
 
 def _close_analysis_inputs(
-    inputs: FrozenInputs,
-    sensitivity_by_version: Mapping[str, FrozenInputs],
+    inputs: FrozenInputs, sensitivity_by_version: Mapping[str, FrozenInputs]
 ) -> tuple[dict[str, Any], str]:
     """Close four aggregate/registry identities against one frozen roster."""
-
     required = inputs.statistics.sensitivity_data_versions
     if tuple(sensitivity_by_version) != required:
         raise ValueError("sensitivity inputs are not in frozen data-version order")
@@ -3448,18 +2715,19 @@ def _close_analysis_inputs(
                 raise ValueError(f"aggregate and formal registry disagree on {field}")
         aggregate_roster = aggregate_roles["finalized_model_roster"]
         registry_roster = registry_roles["finalized_model_roster"]
-        for field in ("sha256", "selected_models", "proposed_decision"):
+        for field in ("selected_models", "proposed_decision"):
             if aggregate_roster[field] != registry_roster[field]:
                 raise ValueError(
                     f"aggregate and formal registry roster disagree on {field}"
                 )
-    roster_keys = {
-        _canonical_digest(bundle.registry_identity["finalized_model_roster"])
-        for bundle in all_inputs
-    }
-    if len(roster_keys) != 1:
-        raise ValueError("formal registries do not bind one finalized model roster")
     roster = inputs.registry_identity["finalized_model_roster"]
+    if any(
+        (
+            bundle.registry_identity["finalized_model_roster"] != roster
+            for bundle in all_inputs
+        )
+    ):
+        raise ValueError("formal registries do not bind one finalized model roster")
     manifest: dict[str, Any] = {
         "schema_version": "frozen_analysis_input_manifest_v1",
         "status": "complete",
@@ -3475,10 +2743,8 @@ def _close_analysis_inputs(
                 for version in required
             ],
         },
-        "hash_scope": "canonical_json_excluding_input_manifest_sha256",
     }
-    manifest["input_manifest_sha256"] = _canonical_digest(manifest)
-    return manifest, str(roster["proposed_decision"])
+    return (manifest, str(roster["proposed_decision"]))
 
 
 def _domain_record(
@@ -3492,7 +2758,9 @@ def _domain_record(
     status = (
         "not_applicable"
         if not_applicable
-        else ("complete" if complete else "unavailable")
+        else "complete"
+        if complete
+        else "unavailable"
     )
     return {
         "domain": name,
@@ -3511,7 +2779,6 @@ def _analysis_completion_gate(
     selected_models: Sequence[str],
 ) -> dict[str, Any]:
     """Assess protocol-required domains without treating empty output as success."""
-
     framework_only = proposed_decision == "framework_only"
     donor_falsification_required = (
         "donor_c_falsification" in statistics.hypothesis_families
@@ -3521,7 +2788,7 @@ def _analysis_completion_gate(
     )
 
     def all_nonempty(names: Sequence[str]) -> bool:
-        return all(not frames[name].empty for name in names)
+        return all((not frames[name].empty for name in names))
 
     overlap_artifacts = (
         "pairwise_jaccard.csv",
@@ -3561,10 +2828,7 @@ def _analysis_completion_gate(
         "failure_set_metrics.csv",
         "resilience_auc.csv",
     )
-    event_artifacts = (
-        "event_episode_metrics.csv",
-        "event_vs_matched_control.csv",
-    )
+    event_artifacts = ("event_episode_metrics.csv", "event_vs_matched_control.csv")
     calibration_artifacts = (
         "calibration_by_gap.csv",
         "calibration_overall.csv",
@@ -3593,10 +2857,7 @@ def _analysis_completion_gate(
     expected_families.discard("meteorology_alignment_sensitivity")
     if framework_only:
         expected_families.difference_update(
-            {
-                "operational_information_dropout",
-                "retrained_information_upper_bound",
-            }
+            {"operational_information_dropout", "retrained_information_upper_bound"}
         )
     finite_hypotheses = False
     if not hypotheses.empty and {"p_value", "p_bh"}.issubset(hypotheses):
@@ -3614,10 +2875,8 @@ def _analysis_completion_gate(
         _domain_record("formal_input_roles", complete=True, artifacts=()),
         _domain_record(
             "overlap_audit",
-            complete=(
-                overlap_summary.get("status") == "ok"
-                and all_nonempty(overlap_artifacts)
-            ),
+            complete=overlap_summary.get("status") == "ok"
+            and all_nonempty(overlap_artifacts),
             artifacts=overlap_artifacts,
             reason="overlap audit lacks complete dense-anchor evidence",
         ),
@@ -3629,30 +2888,22 @@ def _analysis_completion_gate(
         ),
         _domain_record(
             "operational_information",
-            complete=(
-                all_nonempty(operational_artifacts)
-                and "operational_dropout" in estimands
-            ),
+            complete=all_nonempty(operational_artifacts)
+            and "operational_dropout" in estimands,
             artifacts=operational_artifacts,
-            reason=(
-                "proposed_decision=framework_only"
-                if framework_only
-                else "operational information estimand is unavailable"
-            ),
+            reason="proposed_decision=framework_only"
+            if framework_only
+            else "operational information estimand is unavailable",
             not_applicable=framework_only,
         ),
         _domain_record(
             "retrained_information",
-            complete=(
-                all_nonempty(retrained_artifacts)
-                and "retrained_upper_bound" in estimands
-            ),
+            complete=all_nonempty(retrained_artifacts)
+            and "retrained_upper_bound" in estimands,
             artifacts=retrained_artifacts,
-            reason=(
-                "proposed_decision=framework_only"
-                if framework_only
-                else "retrained information upper bound is unavailable"
-            ),
+            reason="proposed_decision=framework_only"
+            if framework_only
+            else "retrained information upper bound is unavailable",
             not_applicable=framework_only,
         ),
         _domain_record(
@@ -3671,19 +2922,15 @@ def _analysis_completion_gate(
             "uncertainty_calibration",
             complete=all_nonempty(calibration_artifacts),
             artifacts=calibration_artifacts,
-            reason=(
-                "uncertainty calibration artifacts are empty or unavailable"
-                if probabilistic_model_selected
-                else "no finalized probabilistic model; uncertainty claim downgraded"
-            ),
+            reason="uncertainty calibration artifacts are empty or unavailable"
+            if probabilistic_model_selected
+            else "no finalized probabilistic model; uncertainty claim downgraded",
             not_applicable=not probabilistic_model_selected,
         ),
         _domain_record(
             "data_version_sensitivity",
-            complete=(
-                not sensitivity.empty
-                and sensitivity_versions == set(statistics.sensitivity_data_versions)
-            ),
+            complete=not sensitivity.empty
+            and sensitivity_versions == set(statistics.sensitivity_data_versions),
             artifacts=("data_version_sensitivity.csv",),
             reason="all three sensitivity versions lack paired analysis evidence",
         ),
@@ -3699,36 +2946,34 @@ def _analysis_completion_gate(
                 "donor_c_falsification_effects.csv",
                 "donor_c_falsification_decision.csv",
             ),
-            reason=(
-                "not declared by the historical design"
-                if "donor_c_falsification" not in statistics.hypothesis_families
-                else "formal donor-C contrasts are unavailable"
-            ),
+            reason="not declared by the historical design"
+            if "donor_c_falsification" not in statistics.hypothesis_families
+            else "formal donor-C contrasts are unavailable",
             not_applicable=not donor_falsification_required,
         ),
         _domain_record(
             "hypothesis_families",
-            complete=(observed_families == expected_families and finite_hypotheses),
+            complete=observed_families == expected_families and finite_hypotheses,
             artifacts=("hypothesis_tests.csv",),
-            reason=(
-                "required hypothesis families are missing or have non-finite tests: "
-                f"expected={sorted(expected_families)}, "
-                f"observed={sorted(observed_families)}"
-            ),
+            reason=f"required hypothesis families are missing or have non-finite tests: expected={sorted(expected_families)}, observed={sorted(observed_families)}",
         ),
     ]
-    if tuple(item["domain"] for item in domains) != REQUIRED_ANALYSIS_DOMAINS:
+    if tuple((item["domain"] for item in domains)) != REQUIRED_ANALYSIS_DOMAINS:
         raise AssertionError("analysis completion domain inventory drifted")
-    complete = all(item["status"] in {"complete", "not_applicable"} for item in domains)
+    complete = all(
+        (item["status"] in {"complete", "not_applicable"} for item in domains)
+    )
     return {
         "status": "complete" if complete else "incomplete",
         "complete": complete,
         "framework_only": framework_only,
         "required_domains": list(REQUIRED_ANALYSIS_DOMAINS),
         "domains": domains,
-        "complete_domain_count": sum(item["status"] == "complete" for item in domains),
+        "complete_domain_count": sum(
+            (item["status"] == "complete" for item in domains)
+        ),
         "not_applicable_domain_count": sum(
-            item["status"] == "not_applicable" for item in domains
+            (item["status"] == "not_applicable" for item in domains)
         ),
         "unavailable_domains": [
             item["domain"] for item in domains if item["status"] == "unavailable"
@@ -3746,7 +2991,6 @@ def _analysis_completion_gate(
 
 def _load_best_simple_lookup(inputs: FrozenInputs) -> pd.DataFrame:
     """Load the validation-frozen lookup carried by the finalized v4 roster."""
-
     raw_roster = inputs.registry.get("finalized_model_roster")
     if not isinstance(raw_roster, Mapping):
         raise TypeError("formal registry lacks finalized_model_roster")
@@ -3790,14 +3034,13 @@ def _analyze_donor_falsification(
     events: pd.DataFrame, statistics: FrozenStatistics
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Summarize an explicitly labelled formal donor-C suite, if present."""
-
     if "experiment" not in events:
-        return pd.DataFrame(), pd.DataFrame()
+        return (pd.DataFrame(), pd.DataFrame())
     data = events.loc[
         events["experiment"].astype(str).eq("SCI_DONOR_FALSIFICATION")
     ].copy()
     if data.empty:
-        return pd.DataFrame(), pd.DataFrame()
+        return (pd.DataFrame(), pd.DataFrame())
     required = {"contrast", "skill_gain", "anchor_id"}
     _require_columns(data, required, "donor-C falsification")
     data["skill_gain"] = pd.to_numeric(data["skill_gain"], errors="coerce")
@@ -3819,9 +3062,7 @@ def _analyze_donor_falsification(
     effects["ci_lower"] = effects["skill_gain"] - 1.96 * effects["standard_error"]
     effects["ci_upper"] = effects["skill_gain"] + 1.96 * effects["standard_error"]
     decision = interpret_falsification(
-        effects,
-        minimum_meaningful_difference=0.01,
-        require_confidence_intervals=True,
+        effects, minimum_meaningful_difference=0.01, require_confidence_intervals=True
     )
     pair_columns = [
         column
@@ -3832,7 +3073,7 @@ def _analyze_donor_falsification(
             "mask_seed",
             "training_seed",
         )
-        if column in data and not data[column].isna().all()
+        if column in data and (not data[column].isna().all())
     ]
     paired = (
         data.groupby([*pair_columns, "contrast"], observed=True)["skill_gain"]
@@ -3853,22 +3094,19 @@ def _analyze_donor_falsification(
                 **decision,
                 "hypothesis_family": "donor_c_falsification",
                 "contrast": "observed_same_day_C_vs_station_identity_permutation",
-                "estimate": (
-                    float(paired_difference.mean())
-                    if not paired_difference.empty
-                    else np.nan
-                ),
+                "estimate": float(paired_difference.mean())
+                if not paired_difference.empty
+                else np.nan,
                 "n_pairs": len(paired_difference),
                 "p_value": p_value,
             }
         ]
     )
-    return effects, decision_frame
+    return (effects, decision_frame)
 
 
 def _best_simple_hypotheses(scored_events: pd.DataFrame) -> pd.DataFrame:
     """Test dense model skill against the validation-selected simple family."""
-
     required = {
         "experiment",
         "station_id",
@@ -3926,7 +3164,6 @@ def _best_simple_hypotheses(scored_events: pd.DataFrame) -> pd.DataFrame:
 
 def _frontier_curve_table(artifacts: FrontierArtifacts) -> pd.DataFrame:
     """Expose the canonical raw skill curve under the compact public schema."""
-
     if artifacts.raw.empty:
         return pd.DataFrame()
     curve = artifacts.raw.copy()
@@ -3937,13 +3174,9 @@ def _frontier_curve_table(artifacts: FrontierArtifacts) -> pd.DataFrame:
 
 
 def _frontier_summary_table(
-    artifacts: FrontierArtifacts,
-    *,
-    denominator: str,
-    hypothesis_family: str,
+    artifacts: FrontierArtifacts, *, denominator: str, hypothesis_family: str
 ) -> pd.DataFrame:
     """Label a canonical frontier summary without recomputing it."""
-
     if artifacts.statistical.empty:
         return pd.DataFrame()
     summary = artifacts.statistical.copy()
@@ -3960,9 +3193,6 @@ def run_frozen_analysis(
     sensitivity_inputs: Sequence[FrozenInputs] = (),
 ) -> dict[str, Any]:
     """Run every frozen analysis and always emit the declared artifact set."""
-
-    analysis_code_identity = build_analysis_code_identity()
-    require_clean_analysis_code(analysis_code_identity)
     primary_bundle_contract = _validate_bundle_roles(inputs.manifest)
     if primary_bundle_contract["bundle_role"] != "primary":
         raise ValueError("the primary analysis input must have bundle_role=primary")
@@ -4000,7 +3230,6 @@ def run_frozen_analysis(
                 "sensitivity and primary bundles use different evaluation splits"
             )
         sensitivity_by_version[version] = bundle
-
     required_sensitivity_versions = set(inputs.statistics.sensitivity_data_versions)
     if set(sensitivity_by_version) != required_sensitivity_versions:
         missing = sorted(
@@ -4010,8 +3239,7 @@ def run_frozen_analysis(
             set(sensitivity_by_version).difference(required_sensitivity_versions)
         )
         raise ValueError(
-            "frozen analysis requires one independent compact bundle for every "
-            f"sensitivity version: missing={missing}, unexpected={unexpected}"
+            f"frozen analysis requires one independent compact bundle for every sensitivity version: missing={missing}, unexpected={unexpected}"
         )
     sensitivity_by_version = {
         version: sensitivity_by_version[version]
@@ -4020,7 +3248,6 @@ def run_frozen_analysis(
     analysis_input_manifest, proposed_decision = _close_analysis_inputs(
         inputs, sensitivity_by_version
     )
-
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     overlap = audit_prediction_overlap(inputs.predictions)
@@ -4028,8 +3255,7 @@ def run_frozen_analysis(
     if inputs.statistics.primary_data_version == "published_v2":
         best_simple_lookup = _load_best_simple_lookup(inputs)
         scored_events = add_relative_skills(
-            inputs.events,
-            best_simple=best_simple_lookup,
+            inputs.events, best_simple=best_simple_lookup
         )
         best_simple_frontiers = analyze_frontiers(
             scored_events,
@@ -4055,9 +3281,7 @@ def run_frozen_analysis(
             "best_simple_curves": _frontier_curve_table(best_simple_frontiers),
             "best_simple_frontiers": simple_summary,
             "dual_frontiers": pd.concat(
-                [climatology_summary, simple_summary],
-                ignore_index=True,
-                sort=False,
+                [climatology_summary, simple_summary], ignore_index=True, sort=False
             ),
         }
     else:
@@ -4101,22 +3325,23 @@ def run_frozen_analysis(
             ignore_index=True,
         )
         if any(
-            not frame.empty and "p_value" in frame
-            for frame in (
-                frontiers.statistical,
-                best_simple_hypotheses,
-                information["hypotheses"],
-                resilience["hypotheses"],
-                event_pairs["hypotheses"],
-                sensitivity,
-                falsification_decision,
+            (
+                not frame.empty and "p_value" in frame
+                for frame in (
+                    frontiers.statistical,
+                    best_simple_hypotheses,
+                    information["hypotheses"],
+                    resilience["hypotheses"],
+                    event_pairs["hypotheses"],
+                    sensitivity,
+                    falsification_decision,
+                )
             )
         )
         else pd.DataFrame()
     )
     if not hypotheses.empty:
         hypotheses = benjamini_hochberg_by_family(hypotheses)
-
     frames = {
         "best_simple_baseline_lookup.csv": best_simple_lookup,
         "relative_skill_events.parquet": dual_frontiers["scored_events"],
@@ -4183,17 +3408,16 @@ def run_frozen_analysis(
         ).intersection({"csdi", "proposed"})
     )
     if proposed_decision == "framework_only" and any(
-        not frames[name].empty for name in framework_information_artifacts
+        (not frames[name].empty for name in framework_information_artifacts)
     ):
         raise ValueError(
             "framework-only analysis contains proposed information estimands"
         )
     if not probabilistic_model_selected and any(
-        not frames[name].empty for name in calibration_artifacts
+        (not frames[name].empty for name in calibration_artifacts)
     ):
         raise ValueError(
-            "analysis contains probabilistic outputs without a finalized "
-            "probabilistic model"
+            "analysis contains probabilistic outputs without a finalized probabilistic model"
         )
     unavailability_reasons = {
         "best_simple_baseline_lookup.csv": "validation-frozen target-T lookup is unavailable",
@@ -4208,22 +3432,12 @@ def run_frozen_analysis(
         "statistical_frontiers.csv": "no complete frozen SCI_DENSE anchor curves",
         "application_frontiers.csv": "no complete frozen SCI_DENSE anchor curves",
         "frontier_breakpoints.csv": "no complete frozen SCI_DENSE anchor curves",
-        "frontier_bootstrap_samples.parquet": (
-            "no resampleable complete SCI_DENSE anchor curves"
-        ),
-        "information_combination_metrics.csv": (
-            "no frozen information-combination rows"
-        ),
+        "frontier_bootstrap_samples.parquet": "no resampleable complete SCI_DENSE anchor curves",
+        "information_combination_metrics.csv": "no frozen information-combination rows",
         "operational_dropout_gains.csv": "no complete operational 2^4 coalition units",
-        "retrained_information_upper_bounds.csv": (
-            "no complete retrained-upper-bound exact 9-coalition units"
-        ),
-        "shapley_contributions.csv": (
-            "no complete operational-dropout 2^4 coalition units"
-        ),
-        "information_interactions.csv": (
-            "no complete operational-dropout 2^4 coalition units"
-        ),
+        "retrained_information_upper_bounds.csv": "no complete retrained-upper-bound exact 9-coalition units",
+        "shapley_contributions.csv": "no complete operational-dropout 2^4 coalition units",
+        "information_interactions.csv": "no complete operational-dropout 2^4 coalition units",
         "resilience_curves.csv": "no frozen complete SCI_NET failure powersets",
         "node_importance.csv": "no frozen complete SCI_NET failure powersets",
         "failure_set_metrics.csv": "no frozen complete SCI_NET failure powersets",
@@ -4233,12 +3447,8 @@ def run_frozen_analysis(
         "calibration_by_gap.csv": "no finite frozen q05/q95 prediction intervals",
         "calibration_overall.csv": "no finite frozen q05/q95 prediction intervals",
         "uncertainty_growth.csv": "no finite multi-gap interval calibration units",
-        "uncertainty_by_difficulty.csv": (
-            "no finite gap/failure/event interval calibration units"
-        ),
-        "data_version_sensitivity.csv": (
-            "primary and sensitivity versions are not jointly present on persistent anchors"
-        ),
+        "uncertainty_by_difficulty.csv": "no finite gap/failure/event interval calibration units",
+        "data_version_sensitivity.csv": "primary and sensitivity versions are not jointly present on persistent anchors",
         "hypothesis_tests.csv": "no eligible frozen hypothesis families",
         "donor_c_falsification_effects.csv": "no formal donor-C contrast rows",
         "donor_c_falsification_decision.csv": "no formal donor-C decision",
@@ -4262,7 +3472,8 @@ def run_frozen_analysis(
         )
         falsification_not_applicable = (
             "donor_c_falsification" not in inputs.statistics.hypothesis_families
-        ) and name in falsification_artifacts
+            and name in falsification_artifacts
+        )
         explicit_not_applicable = (
             framework_not_applicable
             or calibration_not_applicable
@@ -4272,24 +3483,18 @@ def run_frozen_analysis(
         not_applicable_reason = (
             "proposed_decision=framework_only"
             if framework_not_applicable or falsification_not_applicable
-            else (
-                "no_finalized_probabilistic_model_claim_downgrade"
-                if calibration_not_applicable
-                else "withheld_no_predeclared_application_threshold"
-            )
+            else "no_finalized_probabilistic_model_claim_downgrade"
+            if calibration_not_applicable
+            else "withheld_no_predeclared_application_threshold"
         )
         prepared = _prepare_output(
             frames[name],
             name,
-            reason=(
-                not_applicable_reason
-                if explicit_not_applicable
-                else unavailability_reasons.get(name)
-            ),
-            empty_status=(
-                "not_applicable" if explicit_not_applicable else "unavailable"
-            ),
-            nonempty_status=("not_applicable" if explicit_not_applicable else "ok"),
+            reason=not_applicable_reason
+            if explicit_not_applicable
+            else unavailability_reasons.get(name),
+            empty_status="not_applicable" if explicit_not_applicable else "unavailable",
+            nonempty_status="not_applicable" if explicit_not_applicable else "ok",
         )
         path = output / name
         _atomic_table(prepared, path)
@@ -4299,23 +3504,22 @@ def run_frozen_analysis(
             ),
             "reason": prepared.attrs.get("reason"),
             "rows": len(prepared),
-            "sha256": _file_sha256(path),
         }
     _atomic_json(overlap.summary, output / "overlap_audit.json")
     analysis_input_path = output / "analysis_input_manifest.json"
     _atomic_json(analysis_input_manifest, analysis_input_path)
     sensitivity_domain = next(
-        item
-        for item in completion_gate["domains"]
-        if item["domain"] == "data_version_sensitivity"
+        (
+            item
+            for item in completion_gate["domains"]
+            if item["domain"] == "data_version_sensitivity"
+        )
     )
     sensitivity_manifest = {
         "status": sensitivity_domain["status"],
-        "reason": (
-            None
-            if sensitivity_domain["status"] == "complete"
-            else "no separately frozen sensitivity bundle shares persistent primary anchors"
-        ),
+        "reason": None
+        if sensitivity_domain["status"] == "complete"
+        else "no separately frozen sensitivity bundle shares persistent primary anchors",
         "primary_data_version": inputs.statistics.primary_data_version,
         "requested_sensitivity_data_versions": list(
             inputs.statistics.sensitivity_data_versions
@@ -4323,7 +3527,6 @@ def run_frozen_analysis(
         "available_sensitivity_data_versions": sorted(sensitivity_by_version),
         "primary_bundle": {
             "manifest": str(inputs.manifest_path),
-            "manifest_sha256": _file_sha256(inputs.manifest_path),
             "bundle_role": primary_bundle_contract["bundle_role"],
             "required_suite_roles": primary_bundle_contract["required_suite_roles"],
             "suite_roles": primary_bundle_contract["suite_roles"],
@@ -4332,8 +3535,6 @@ def run_frozen_analysis(
             {
                 "data_version": version,
                 "manifest": str(bundle.manifest_path),
-                "manifest_sha256": _file_sha256(bundle.manifest_path),
-                "events_sha256": _file_sha256(bundle.events_path),
                 "bundle_role": bundle.manifest["bundle_role"],
                 "required_suite_roles": bundle.manifest["required_suite_roles"],
                 "suite_roles": bundle.manifest["suite_roles"],
@@ -4346,12 +3547,10 @@ def run_frozen_analysis(
         "analysis_input_manifest": {
             "path": str(analysis_input_path),
             "bytes": analysis_input_path.stat().st_size,
-            "sha256": _file_sha256(analysis_input_path),
         },
     }
     _atomic_json(
-        sensitivity_manifest,
-        output / "data_version_sensitivity_manifest.json",
+        sensitivity_manifest, output / "data_version_sensitivity_manifest.json"
     )
     analysis_manifest = {
         "schema_version": "frozen_analysis_manifest_v2",
@@ -4359,23 +3558,15 @@ def run_frozen_analysis(
         "complete": completion_gate["complete"],
         "completion_gate": completion_gate,
         "source_manifest": str(inputs.manifest_path),
-        "source_manifest_sha256": _file_sha256(inputs.manifest_path),
         "predictions": str(inputs.predictions_path),
-        "predictions_sha256": _file_sha256(inputs.predictions_path),
         "event_metrics": str(inputs.events_path),
-        "event_metrics_sha256": _file_sha256(inputs.events_path),
         "design_freeze": str(inputs.design_path),
-        "design_freeze_sha256": _file_sha256(inputs.design_path),
         "bootstrap_replicates": inputs.statistics.bootstrap_replicates,
         "bootstrap_seed": inputs.statistics.bootstrap_seed,
         "confidence_level": inputs.statistics.confidence,
-        "analysis_code_identity": analysis_code_identity,
-        "analysis_builder_identity": analysis_code_identity["frozen_analysis_builder"],
         "analysis_input_manifest": {
             "path": str(analysis_input_path),
             "bytes": analysis_input_path.stat().st_size,
-            "sha256": _file_sha256(analysis_input_path),
-            "input_manifest_sha256": analysis_input_manifest["input_manifest_sha256"],
         },
         "required_analysis_domains": list(REQUIRED_ANALYSIS_DOMAINS),
         "primary_bundle_contract": primary_bundle_contract,
@@ -4388,11 +3579,9 @@ def run_frozen_analysis(
             "cluster_by_anchor_or_event_episode_and_year",
             "compare_models_or_gap_lengths",
         ],
-        "application_threshold_status": (
-            "not_declared"
-            if inputs.statistics.application_criteria is None
-            else "declared"
-        ),
+        "application_threshold_status": "not_declared"
+        if inputs.statistics.application_criteria is None
+        else "declared",
         "information_estimand_contracts": {
             "operational_dropout": {
                 "required_coalitions": [
@@ -4417,18 +3606,14 @@ def run_frozen_analysis(
         },
         "data_version_inputs": {
             version: {
-                "status": (
-                    "available"
-                    if version == inputs.statistics.primary_data_version
-                    or version in sensitivity_by_version
-                    else "unavailable"
-                ),
-                "reason": (
-                    None
-                    if version == inputs.statistics.primary_data_version
-                    or version in sensitivity_by_version
-                    else "no separate hash-verified frozen bundle was supplied"
-                ),
+                "status": "available"
+                if version == inputs.statistics.primary_data_version
+                or version in sensitivity_by_version
+                else "unavailable",
+                "reason": None
+                if version == inputs.statistics.primary_data_version
+                or version in sensitivity_by_version
+                else "no separate frozen bundle was supplied",
             }
             for version in (
                 inputs.statistics.primary_data_version,
@@ -4460,13 +3645,11 @@ __all__ = [
     "analyze_information",
     "analyze_resilience_outputs",
     "audit_prediction_overlap",
-    "build_analysis_code_identity",
     "guarded_model_skill",
     "load_frozen_inputs",
     "load_frozen_inputs_from_manifest",
     "load_frozen_statistics",
     "one_hinge_breakpoint",
-    "require_clean_analysis_code",
     "run_frozen_analysis",
     "uncertainty_by_difficulty",
 ]

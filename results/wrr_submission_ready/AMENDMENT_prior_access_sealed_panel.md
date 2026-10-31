@@ -63,5 +63,5 @@ the labelling, not the number, was wrong.
 2. `claim_registry.csv` rows `P0-07` and `P0-07-POOL` updated to this scope.
 3. The transport panel (pre-registered separately) applies the *strict* rule:
    every station must be `never_used_repo_wide = True` before sealing.
-4. The sealed manifest file itself is left byte-identical (its sha256 is part of
-   the seal); this amendment supersedes its label.
+4. The sealed manifest file itself is left byte-identical (it is part of the
+   seal); this amendment supersedes its label.

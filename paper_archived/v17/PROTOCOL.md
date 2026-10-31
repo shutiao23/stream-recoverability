@@ -27,7 +27,7 @@ Frozen alongside `results/v17_fitness/step9_freeze/SUCCESS_CRITERION_v17.json`.
 | 23 | Four gaps a fourth reading finds: mechanism gradients, an amplitude screen, the near-threshold subset, screening versus abstention | `scripts/200_v17_round4_gaps.py` | `step20_round4/` | done |
 | 24 | Catchment attribution: which rivers are hard, including the groundwater claim from the literature | `scripts/201_v17_hydrology.py` | `step21_hydrology/` | done — topography predicts difficulty; the groundwater prediction reverses and is decomposed |
 | 25 | Endpoint, threshold and reference-noise robustness, with clustered intervals on the axis contrasts | `scripts/202_v17_robustness.py` | `step22_robustness/` | done — all five contrasts exclude zero; nothing moves under 0.15 °C of reference noise |
-| 26 | Evidence ledger: claim to script, artifact and digest | `scripts/203_v17_evidence_ledger.py` | `evidence_ledger.csv` | done |
+| 26 | Evidence ledger: claim to script and artifact | `scripts/203_v17_evidence_ledger.py` | `evidence_ledger.csv` | done |
 | 27 | Figures for the catchment and robustness results | `scripts/204_v17_figures_q1.py` | `figures/v17/fig5`, `fig6` | done |
 
 ## Standing rules
@@ -58,10 +58,10 @@ Frozen alongside `results/v17_fitness/step9_freeze/SUCCESS_CRITERION_v17.json`.
    enforced in `feature_frame` and tested in `tests/test_v17_fitness.py`.
 9. **Disjoint networks.** Fitting, conformal calibration and test never share a
    network.
-10. **Deterministic experimental units.** Outage realizations are seeded from a
-    digest, never from `hash()`, which Python salts per process. A case table
-    that cannot be regenerated makes every number downstream unverifiable, and
-    a test pins this.
+10. **Deterministic experimental units.** Outage realizations are seeded
+    deterministically, never from a value that Python randomises per process.
+    A case table that cannot be regenerated makes every number downstream
+    unverifiable, and a test pins this.
 11. **Side outputs are named after their run.** A script that can write several
     outputs must not overwrite a shared summary file; the manuscript's numbers
     are extracted from the primary artifacts.

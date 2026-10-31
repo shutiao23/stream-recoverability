@@ -164,7 +164,7 @@ pages; each needs a specific new source.
    basis.
 4. **LUBW — the exact statistic of the parsed export column.** The daily-mean
    semantics are documented (page text + workbook attribute `Tagesmittelwert`), but
-   the Cadenza workbook id/hash is created per session, so the column index the
+   the Cadenza workbook id is created per session, so the column index the
    parser reads (`values[12]`, unit at `values[13]`) could not be re-verified against
    a durable URL. *Needed to close:* a durable LUBW export/documentation route, or
    column names captured in-session and recorded in the ingest manifest.

@@ -38,7 +38,7 @@ Power at 1x observed effect (n = 40/60/80/100/120/140/160): ΔRho
    commit as the outcomes (`package_manifest.json` admits: "same_commit_as_
    outcomes_not_external_preregistration"). v3 requires an OSF/Zenodo
    registration (DOI) or a separate public commit pushed **before** any v3
-   outcome is opened; the outcome commit must bind the frozen-commit SHA-256
+   outcome is opened; the outcome commit must reference the frozen commit
    (protocol §11).
 2. **Endpoints** — v2's mixed set (rank, calibration, intervals, triage,
    placement) becomes frozen paired network-level primaries: (a) ΔRho on

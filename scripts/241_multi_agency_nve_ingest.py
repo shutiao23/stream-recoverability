@@ -28,7 +28,7 @@ Design decisions (all recorded in ``ingest.json``):
   normal time (fixed UTC+1, matching NVE's documented day definition) and
   averaged within a station-day; duplicates are counted.
 * A *complete calendar year* is a year with >= 365 (366 in leap years)
-  QC-passing days, the same definition used by the sealed USGS confirmation
+  QC-passing days, the same definition used by the USGS confirmation score
   (`scripts/234_wrr_sealed_confirmation_score.py::_complete_years_from_series`).
 * Networks are NVE drainage basins (``vassdrag``) from ``regineNo`` (REGINE),
   with the basin name taken from the station metadata ``hierarchy`` field.
@@ -48,7 +48,6 @@ Usage::
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import math
 import re
@@ -76,7 +75,9 @@ OUT_ROOT = ROOT / "results" / "wrr_submission_ready" / "multi_agency_ingest" / "
 RAW = OUT_ROOT / "raw_cache"
 NETWORKS = OUT_ROOT / "networks"
 V17_ROSTER = ROOT / "results" / "v17_fitness" / "step1_panel" / "station_roster.csv"
-PROTOCOL = ROOT / "results" / "wrr_submission_ready" / "MULTI_AGENCY_TRANSPORT_PROTOCOL.md"
+PROTOCOL = (
+    ROOT / "results" / "wrr_submission_ready" / "MULTI_AGENCY_TRANSPORT_PROTOCOL.md"
+)
 
 PROVIDER = "nve_hydapi"
 # Provider-level assurance stratum required by
@@ -115,19 +116,13 @@ def utc_stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _safe_name(value: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "_", str(value)).replace(".", "_")
 
 
-def http_json(url: str, *, api_key: str, timeout: int = 300) -> tuple[dict | None, dict]:
+def http_json(
+    url: str, *, api_key: str, timeout: int = 300
+) -> tuple[dict | None, dict]:
     """GET a HydAPI URL with retries; return (document, response headers).
 
     A 404 returns ``(None, {})``: HydAPI answers 404 when a station id is not
@@ -146,7 +141,9 @@ def http_json(url: str, *, api_key: str, timeout: int = 300) -> tuple[dict | Non
         )
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                headers = {key.lower(): value for key, value in response.headers.items()}
+                headers = {
+                    key.lower(): value for key, value in response.headers.items()
+                }
                 payload = json.loads(response.read())
             time.sleep(REQUEST_PAUSE_S)
             return payload, headers
@@ -158,8 +155,10 @@ def http_json(url: str, *, api_key: str, timeout: int = 300) -> tuple[dict | Non
                 # deterministic client error: retrying cannot help
                 detail = error.read()[:300].decode("utf-8", "replace")
                 raise RuntimeError(f"HTTP 400 for {url}: {detail}") from error
-            sleep_for = min(2.0 ** attempt, 30.0)
-            remaining = error.headers.get("x-rate-limit-remaining") if error.headers else None
+            sleep_for = min(2.0**attempt, 30.0)
+            remaining = (
+                error.headers.get("x-rate-limit-remaining") if error.headers else None
+            )
             print(
                 f"  HTTP {error.code} (remaining={remaining}); retry in {sleep_for:.0f}s",
                 flush=True,
@@ -167,8 +166,11 @@ def http_json(url: str, *, api_key: str, timeout: int = 300) -> tuple[dict | Non
             time.sleep(sleep_for)
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
             last = error
-            sleep_for = min(2.0 ** attempt, 30.0)
-            print(f"  {type(error).__name__}: {error}; retry in {sleep_for:.0f}s", flush=True)
+            sleep_for = min(2.0**attempt, 30.0)
+            print(
+                f"  {type(error).__name__}: {error}; retry in {sleep_for:.0f}s",
+                flush=True,
+            )
             time.sleep(sleep_for)
     raise RuntimeError(f"request failed after {MAX_ATTEMPTS} attempts: {url}") from last
 
@@ -193,7 +195,7 @@ def _cache_request_entry(path: Path, url: str | None = None) -> dict:
 
 
 def complete_years_from_series(series: pd.Series) -> list[int]:
-    """Calendar years with >= 365 (366) QC-passing values, sealed definition."""
+    """Calendar years with >= 365 (366) QC-passing values (USGS confirmation definition)."""
 
     values = pd.to_numeric(series, errors="coerce")
     years: list[int] = []
@@ -305,7 +307,11 @@ def fetch_station_metadata(
     for position, station_id in enumerate(station_ids, start=1):
         path = meta_dir / f"{_safe_name(station_id)}.json"
         if refresh or not path.is_file():
-            url = HYDAPI + "/Stations?" + urllib.parse.urlencode({"StationId": station_id})
+            url = (
+                HYDAPI
+                + "/Stations?"
+                + urllib.parse.urlencode({"StationId": station_id})
+            )
             document, _headers = http_json(url, api_key=api_key)
             if document is None:
                 document = {"itemCount": 0, "data": [], "http_status": 404}
@@ -402,17 +408,26 @@ def fetch_observations(
         key = f"obs_{position:04d}_{_safe_name(stations[0])}__n{len(stations)}_{start}_{end}"
         path = obs_dir / f"{key}.json"
         if refresh or not path.is_file():
-            url = HYDAPI + "/Observations?" + urllib.parse.urlencode(
-                {
-                    "StationId": ",".join(stations),
-                    "Parameter": PARAMETER,
-                    "ResolutionTime": RESOLUTION_TIME,
-                    "ReferenceTime": f"{start}/{end}",
-                }
+            url = (
+                HYDAPI
+                + "/Observations?"
+                + urllib.parse.urlencode(
+                    {
+                        "StationId": ",".join(stations),
+                        "Parameter": PARAMETER,
+                        "ResolutionTime": RESOLUTION_TIME,
+                        "ReferenceTime": f"{start}/{end}",
+                    }
+                )
             )
             document, _headers = http_json(url, api_key=api_key)
             if document is None:
-                document = {"itemCount": 0, "data": [], "http_status": 404, "request_url": url}
+                document = {
+                    "itemCount": 0,
+                    "data": [],
+                    "http_status": 404,
+                    "request_url": url,
+                }
             document["_request_url"] = url
             document["_retrieved_utc"] = utc_stamp()
             path.write_text(json.dumps(document, ensure_ascii=False))
@@ -462,7 +477,9 @@ def fetch_observations(
 # --------------------------------------------------------------------------- #
 # stage 3: QC + networks
 # --------------------------------------------------------------------------- #
-def qc_observations(raw: pd.DataFrame, accepted: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+def qc_observations(
+    raw: pd.DataFrame, accepted: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     frame = raw.copy()
     frame["quality"] = pd.to_numeric(frame["quality"], errors="coerce")
     frame["correction"] = pd.to_numeric(frame["correction"], errors="coerce")
@@ -474,14 +491,13 @@ def qc_observations(raw: pd.DataFrame, accepted: pd.DataFrame) -> tuple[pd.DataF
     # NVE documents the 1440 series as the calendar day in Norwegian normal
     # time (UTC+1); snap the UTC timestamp into that day.
     frame["date"] = (
-        frame["time_utc"] + NORWAY_STANDARD_OFFSET
-    ).dt.tz_localize(None).dt.normalize()
+        (frame["time_utc"] + NORWAY_STANDARD_OFFSET).dt.tz_localize(None).dt.normalize()
+    )
 
     frame["drop_reason"] = ""
     frame.loc[frame["time_utc"].isna(), "drop_reason"] = "unparsable_timestamp"
     frame.loc[
-        frame["drop_reason"].eq("")
-        & ~frame["quality"].isin(ACCEPT_QUALITY),
+        frame["drop_reason"].eq("") & ~frame["quality"].isin(ACCEPT_QUALITY),
         "drop_reason",
     ] = "quality_not_primary_or_secondary_controlled"
     frame.loc[
@@ -506,8 +522,7 @@ def qc_observations(raw: pd.DataFrame, accepted: pd.DataFrame) -> tuple[pd.DataF
         "drop_reason",
     ] = "aggregation_method_not_mean"
     frame.loc[
-        frame["drop_reason"].eq("")
-        & ~frame["series_unit"].astype(str).eq("°C"),
+        frame["drop_reason"].eq("") & ~frame["series_unit"].astype(str).eq("°C"),
         "drop_reason",
     ] = "unit_not_degc"
     frame.loc[frame["drop_reason"].eq("") & frame["date"].isna(), "drop_reason"] = (
@@ -532,7 +547,9 @@ def qc_observations(raw: pd.DataFrame, accepted: pd.DataFrame) -> tuple[pd.DataF
         .sort_values(["station_id", "date"])
     )
     grouped["provider_quality_code"] = grouped["provider_quality_code"].astype(int)
-    grouped["provider_correction_code"] = grouped["provider_correction_code"].astype(int)
+    grouped["provider_correction_code"] = grouped["provider_correction_code"].astype(
+        int
+    )
     grouped["n_duplicate_extra"] = grouped["n_source_values"] - 1
 
     # per-station / per-year QC ledger
@@ -545,24 +562,36 @@ def qc_observations(raw: pd.DataFrame, accepted: pd.DataFrame) -> tuple[pd.DataF
         row["n_values_dropped_total"] = int(block["drop_reason"].ne("").sum())
         row["n_values_accepted"] = len(block) - row["n_values_dropped_total"]
         row["accepted_quality_codes"] = ";".join(
-            str(code) for code in sorted(block.loc[block["drop_reason"].eq(""), "quality"].dropna().unique())
+            str(code)
+            for code in sorted(
+                block.loc[block["drop_reason"].eq(""), "quality"].dropna().unique()
+            )
         )
         row["accepted_correction_codes"] = ";".join(
             str(code)
-            for code in sorted(block.loc[block["drop_reason"].eq(""), "correction"].dropna().unique())
+            for code in sorted(
+                block.loc[block["drop_reason"].eq(""), "correction"].dropna().unique()
+            )
         )
-        row["n_duplicate_extra_days"] = int(grouped.loc[grouped["station_id"].eq(station_id), "n_duplicate_extra"].sum())
+        row["n_duplicate_extra_days"] = int(
+            grouped.loc[grouped["station_id"].eq(station_id), "n_duplicate_extra"].sum()
+        )
         ledger_rows.append(row)
     ledger = pd.DataFrame(ledger_rows)
     return grouped, ledger
 
 
-def write_networks(wide: pd.DataFrame, stations: pd.DataFrame, record: dict) -> list[dict]:
+def write_networks(
+    wide: pd.DataFrame, stations: pd.DataFrame, record: dict
+) -> list[dict]:
     manifest_rows = []
     for network_id, group in stations.groupby("network_id"):
         if len(group) < MIN_STATIONS_PER_NETWORK:
             continue
-        if int((group["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()) < MIN_STATIONS_PER_NETWORK:
+        if (
+            int((group["n_complete_years"] >= MIN_COMPLETE_YEARS).sum())
+            < MIN_STATIONS_PER_NETWORK
+        ):
             continue
         directory = NETWORKS / str(network_id)
         directory.mkdir(parents=True, exist_ok=True)
@@ -589,13 +618,14 @@ def write_networks(wide: pd.DataFrame, stations: pd.DataFrame, record: dict) -> 
                 "n_stations": len(keep),
                 "network_in_v17_basin": bool(subset["network_in_v17_basin"].any()),
                 "station_ids": ";".join(keep),
-                "n_stations_ge4_years": int((subset["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()),
+                "n_stations_ge4_years": int(
+                    (subset["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()
+                ),
                 "n_complete_station_years": int(subset["n_complete_years"].sum()),
                 "first_date": first.date().isoformat(),
                 "last_date": last.date().isoformat(),
                 "n_days": int(len(panel)),
                 "daily_wide_temperature_csv": str(path.relative_to(ROOT)),
-                "daily_wide_temperature_sha256": sha256_file(path),
                 "stations_csv": str((directory / "stations.csv").relative_to(ROOT)),
             }
         )
@@ -613,31 +643,44 @@ def write_networks(wide: pd.DataFrame, stations: pd.DataFrame, record: dict) -> 
 # --------------------------------------------------------------------------- #
 # main
 # --------------------------------------------------------------------------- #
-def _load_catalog_with_metadata(api_key: str, *, refresh: bool, record: dict) -> pd.DataFrame:
+def _load_catalog_with_metadata(
+    api_key: str, *, refresh: bool, record: dict
+) -> pd.DataFrame:
     """Series catalog + station metadata + per-station keep/drop decision."""
 
     print("[stage] catalog", flush=True)
     catalog = fetch_catalog(api_key, refresh=refresh, record=record)
     print(f"  parameter {PARAMETER} daily series rows: {len(catalog)}", flush=True)
 
-    catalog["is_river"] = catalog["observation_place"].astype(str).str.startswith(
-        ACCEPT_OBSERVATION_PLACES
+    catalog["is_river"] = (
+        catalog["observation_place"]
+        .astype(str)
+        .str.startswith(ACCEPT_OBSERVATION_PLACES)
     )
     catalog["is_measured"] = (
-        catalog["measured_or_derived"].astype(str).str.strip().isin(ACCEPT_MEASURED_OR_DERIVED)
+        catalog["measured_or_derived"]
+        .astype(str)
+        .str.strip()
+        .isin(ACCEPT_MEASURED_OR_DERIVED)
     )
-    catalog["is_mean"] = catalog["aggregation_method"].astype(str).isin(ACCEPT_AGGREGATION)
+    catalog["is_mean"] = (
+        catalog["aggregation_method"].astype(str).isin(ACCEPT_AGGREGATION)
+    )
     catalog["in_v17_roster"] = catalog["station_id"].isin(V17_STATION_IDS)
     # v17 consumed whole NVE drainage basins; flag every candidate basin that the
     # v17 roster already touched so the downstream report can separate them
-    v17_basin_numbers = {basin_number(value) for value in V17_STATION_IDS if "." in str(value)}
+    v17_basin_numbers = {
+        basin_number(value) for value in V17_STATION_IDS if "." in str(value)
+    }
 
     print("[stage] station metadata", flush=True)
     metadata = fetch_station_metadata(
         api_key, sorted(catalog["station_id"]), refresh=refresh, record=record
     )
     catalog = catalog.merge(metadata, on="station_id", how="left")
-    catalog["metadata_available"] = catalog["metadata_available"].fillna(False).astype(bool)
+    catalog["metadata_available"] = (
+        catalog["metadata_available"].fillna(False).astype(bool)
+    )
     catalog["drop_reason"] = np.nan
     catalog["drop_reason"] = catalog["drop_reason"].astype(object)
     catalog["basin_number"] = catalog["station_id"].map(basin_number)
@@ -652,21 +695,34 @@ def _load_catalog_with_metadata(api_key: str, *, refresh: bool, record: dict) ->
     catalog["network_in_v17_basin"] = catalog["basin_number"].isin(v17_basin_numbers)
     catalog["network_name"] = catalog["hierarchy"].fillna("").astype(str)
     missing_name = catalog["network_name"].eq("")
-    catalog.loc[missing_name, "network_name"] = catalog.loc[missing_name, "river_name"].fillna("")
+    catalog.loc[missing_name, "network_name"] = catalog.loc[
+        missing_name, "river_name"
+    ].fillna("")
     catalog["network_name"] = catalog["network_name"].replace({"": np.nan})
-    catalog["is_svalbard"] = catalog["basin_number"].eq(SVALBARD_BASIN_NUMBER) | catalog[
-        "station_id"
-    ].astype(str).str.startswith("400.")
+    catalog["is_svalbard"] = catalog["basin_number"].eq(
+        SVALBARD_BASIN_NUMBER
+    ) | catalog["station_id"].astype(str).str.startswith("400.")
     catalog["in_coastal_catchment"] = (
-        catalog["river_name"].fillna("").astype(str).str.upper().str.contains("KYSTFELT")
+        catalog["river_name"]
+        .fillna("")
+        .astype(str)
+        .str.upper()
+        .str.contains("KYSTFELT")
     ) | (
-        catalog["hierarchy"].fillna("").astype(str).str.upper().str.contains("KYSTFELT|FJORD")
+        catalog["hierarchy"]
+        .fillna("")
+        .astype(str)
+        .str.upper()
+        .str.contains("KYSTFELT|FJORD")
     )
 
     catalog.loc[~catalog["is_river"], "drop_reason"] = "observation_place_not_river"
-    catalog.loc[catalog["is_river"] & ~catalog["is_measured"], "drop_reason"] = "not_measured"
+    catalog.loc[catalog["is_river"] & ~catalog["is_measured"], "drop_reason"] = (
+        "not_measured"
+    )
     catalog.loc[
-        catalog["is_river"] & catalog["is_measured"] & ~catalog["is_mean"], "drop_reason"
+        catalog["is_river"] & catalog["is_measured"] & ~catalog["is_mean"],
+        "drop_reason",
     ] = "daily_resolution_aggregation_not_mean"
     catalog.loc[catalog["in_v17_roster"], "drop_reason"] = "in_v17_station_roster"
     catalog.loc[catalog["is_svalbard"], "drop_reason"] = "svalbard_non_mainland"
@@ -683,17 +739,23 @@ def _load_catalog_with_metadata(api_key: str, *, refresh: bool, record: dict) ->
         "unique_stations": int(catalog["station_id"].nunique()),
         "observation_place_counts": {str(k): int(v) for k, v in place_counts.items()},
         "measured_or_derived_counts": {
-            str(k): int(v) for k, v in catalog["measured_or_derived"].value_counts().items()
+            str(k): int(v)
+            for k, v in catalog["measured_or_derived"].value_counts().items()
         },
         "aggregation_method_counts": {
-            str(k): int(v) for k, v in catalog["aggregation_method"].value_counts().items()
+            str(k): int(v)
+            for k, v in catalog["aggregation_method"].value_counts().items()
         },
-        "unit_counts": {str(k): int(v) for k, v in catalog["unit"].value_counts().items()},
+        "unit_counts": {
+            str(k): int(v) for k, v in catalog["unit"].value_counts().items()
+        },
         "river_measured_mean_rows": int(
             (catalog["is_river"] & catalog["is_measured"] & catalog["is_mean"]).sum()
         ),
         "dropped_observation_place_not_river": int((~catalog["is_river"]).sum()),
-        "dropped_not_measured": int((catalog["is_river"] & ~catalog["is_measured"]).sum()),
+        "dropped_not_measured": int(
+            (catalog["is_river"] & ~catalog["is_measured"]).sum()
+        ),
         "dropped_daily_resolution_aggregation_not_mean": int(
             (catalog["is_river"] & catalog["is_measured"] & ~catalog["is_mean"]).sum()
         ),
@@ -717,9 +779,13 @@ def _load_catalog_with_metadata(api_key: str, *, refresh: bool, record: dict) ->
             candidates.loc[candidates["network_name"].isna(), "network_id"].nunique()
         ),
         "basins_without_regine_number": int(
-            candidates.loc[candidates["regine_basin_number"].isna(), "network_id"].nunique()
+            candidates.loc[
+                candidates["regine_basin_number"].isna(), "network_id"
+            ].nunique()
         ),
-        "regine_prefix_mismatch_stations": int(candidates["basin_prefix_mismatch"].sum()),
+        "regine_prefix_mismatch_stations": int(
+            candidates["basin_prefix_mismatch"].sum()
+        ),
         "regulated_stations": int(
             candidates["catchment_regulation_type"]
             .fillna("")
@@ -727,7 +793,9 @@ def _load_catalog_with_metadata(api_key: str, *, refresh: bool, record: dict) ->
             .str.contains("regulert")
             .sum()
         ),
-        "coastal_catchment_river_stations": int(candidates["in_coastal_catchment"].sum()),
+        "coastal_catchment_river_stations": int(
+            candidates["in_coastal_catchment"].sum()
+        ),
     }
     return candidates
 
@@ -750,8 +818,12 @@ def _assemble(
 ) -> None:
     print("[stage] assemble", flush=True)
     accepted = candidates.dropna(subset=["network_id"]).copy()
-    accepted["station_latitude"] = accepted["metadata_latitude"].fillna(accepted["latitude"])
-    accepted["station_longitude"] = accepted["metadata_longitude"].fillna(accepted["longitude"])
+    accepted["station_latitude"] = accepted["metadata_latitude"].fillna(
+        accepted["latitude"]
+    )
+    accepted["station_longitude"] = accepted["metadata_longitude"].fillna(
+        accepted["longitude"]
+    )
     accepted["measurement_statistic"] = (
         "daily_mean_1440min_" + accepted["aggregation_method"].astype(str).str.lower()
     )
@@ -791,7 +863,9 @@ def _assemble(
     # complete-year screen (structural eligibility only; no scoring)
     year_rows = []
     for station_id, block in daily.groupby("station_id"):
-        for year in complete_years_from_series(block.set_index("date")["temperature_c"]):
+        for year in complete_years_from_series(
+            block.set_index("date")["temperature_c"]
+        ):
             year_rows.append({"station_id": station_id, "year": int(year)})
     year_frame = pd.DataFrame(year_rows, columns=["station_id", "year"])
     if len(year_frame):
@@ -839,10 +913,16 @@ def _assemble(
                 "regine_no": row.regine_no,
                 "n_complete_years": len(years),
                 "complete_years": ";".join(str(year) for year in years),
-                "first_date": present.index.min().date().isoformat() if len(present) else "",
-                "last_date": present.index.max().date().isoformat() if len(present) else "",
+                "first_date": present.index.min().date().isoformat()
+                if len(present)
+                else "",
+                "last_date": present.index.max().date().isoformat()
+                if len(present)
+                else "",
                 "n_days": int(len(present)),
-                "n_dropped_qc": int(entry.n_values_dropped_total) if entry is not None else 0,
+                "n_dropped_qc": int(entry.n_values_dropped_total)
+                if entry is not None
+                else 0,
                 "accepted_quality_codes": str(entry.accepted_quality_codes)
                 if entry is not None
                 else "",
@@ -869,7 +949,9 @@ def _assemble(
     eligible_pairs = (
         stations_frame[eligible_mask].groupby("network_id")["station_id"].nunique()
     )
-    kept_networks = sorted(eligible_pairs[eligible_pairs >= MIN_STATIONS_PER_NETWORK].index)
+    kept_networks = sorted(
+        eligible_pairs[eligible_pairs >= MIN_STATIONS_PER_NETWORK].index
+    )
 
     # only the stations that satisfy the structural eligibility rule enter the
     # written panel (a network may hold extra short-record stations that are
@@ -899,7 +981,9 @@ def _assemble(
         "stations_ge4_complete_years_in_kept_networks": int(
             (stations_out["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()
         ),
-        "complete_station_years_in_kept_networks": int(stations_out["n_complete_years"].sum()),
+        "complete_station_years_in_kept_networks": int(
+            stations_out["n_complete_years"].sum()
+        ),
         "basins_dropped_below_minimum_stations_or_years": int(
             candidates["network_id"].nunique() - len(kept_networks)
         ),
@@ -910,7 +994,9 @@ def _assemble(
             sum(1 for row in manifest_rows if row["network_in_v17_basin"])
         ),
         "stations_in_kept_networks_with_no_v17_station": int(
-            stations_out.loc[~stations_out["network_in_v17_basin"], "station_id"].nunique()
+            stations_out.loc[
+                ~stations_out["network_in_v17_basin"], "station_id"
+            ].nunique()
         ),
         "complete_station_years_in_kept_networks_with_no_v17_station": int(
             stations_out.loc[
@@ -931,7 +1017,9 @@ def _assemble(
     ]
     record["qc_ledger_totals"] = {
         "stations_in_qc_ledger": int(len(ledger)),
-        "stations_with_zero_accepted_values": int(ledger["n_values_accepted"].eq(0).sum()),
+        "stations_with_zero_accepted_values": int(
+            ledger["n_values_accepted"].eq(0).sum()
+        ),
     }
     record["caveats"] = build_caveats(record, stations_out, candidates)
     if dev_limited:
@@ -977,11 +1065,6 @@ def write_record(record: dict, *, merge_previous: bool = False) -> None:
                 set(record.get("stations_absent_from_api_response", []))
                 | set(previous.get("stations_absent_from_api_response", []))
             )
-    record["inputs_sha256"] = {
-        str(V17_ROSTER.relative_to(ROOT)): sha256_file(V17_ROSTER),
-        str(PROTOCOL.relative_to(ROOT)): sha256_file(PROTOCOL),
-        str(Path(__file__).relative_to(ROOT)): sha256_file(Path(__file__)),
-    }
     (OUT_ROOT / "ingest.json").write_text(
         json.dumps(record, indent=1, ensure_ascii=False, default=str)
     )
@@ -994,7 +1077,9 @@ def main(argv: list[str] | None = None) -> int:
         default="all",
         choices=("all", "catalog", "metadata", "observations", "assemble"),
     )
-    parser.add_argument("--refresh", action="store_true", help="ignore cached raw responses")
+    parser.add_argument(
+        "--refresh", action="store_true", help="ignore cached raw responses"
+    )
     parser.add_argument(
         "--dev-limit-stations",
         type=int,
@@ -1013,7 +1098,11 @@ def main(argv: list[str] | None = None) -> int:
         "generated_utc": utc_stamp(),
         "run_scope": (
             f"stage={args.stage}"
-            + (f", dev_limit_stations={args.dev_limit_stations}" if args.dev_limit_stations else "")
+            + (
+                f", dev_limit_stations={args.dev_limit_stations}"
+                if args.dev_limit_stations
+                else ""
+            )
             + (", refresh_cache" if args.refresh else "")
         ),
         "script": str(Path(__file__).relative_to(ROOT)),
@@ -1060,7 +1149,9 @@ def main(argv: list[str] | None = None) -> int:
     V17_STATION_IDS = set(roster["station_id"].astype(str))
     print(f"v17 roster stations excluded: {len(V17_STATION_IDS)}", flush=True)
 
-    candidates = _load_catalog_with_metadata(api_key, refresh=args.refresh, record=record)
+    candidates = _load_catalog_with_metadata(
+        api_key, refresh=args.refresh, record=record
+    )
     if args.stage in ("catalog", "metadata"):
         write_record(record, merge_previous=True)
         print("catalog + metadata stages complete", flush=True)
@@ -1089,15 +1180,20 @@ def main(argv: list[str] | None = None) -> int:
             print("observations stage complete", flush=True)
             return 0
 
-    _assemble(raw, candidates_for_run, record, dev_limited=bool(args.dev_limit_stations))
+    _assemble(
+        raw, candidates_for_run, record, dev_limited=bool(args.dev_limit_stations)
+    )
     return 0
 
-def build_caveats(record: dict, stations: pd.DataFrame, candidates: pd.DataFrame) -> list[str]:
+
+def build_caveats(
+    record: dict, stations: pd.DataFrame, candidates: pd.DataFrame
+) -> list[str]:
     caveats = [
         (
-            "PROTOCOL SCOPE: MULTI_AGENCY_TRANSPORT_PROTOCOL.md Amendment 1 states "
-            "that nve_hydapi 'is not part of the sealed transport panel' because the "
-            "provider participated in v17 development, and that new NVE basins are "
+            "PROTOCOL SCOPE: MULTI_AGENCY_TRANSPORT_PROTOCOL.md Amendment 1 keeps "
+            "nve_hydapi out of the primary transport panel because the "
+            "provider participated in v17 development, and states that new NVE basins are "
             "'reported separately as a secondary probe, never as transport "
             "confirmation'. This ingest is therefore a secondary-probe feed. Networks "
             "are flagged network_in_v17_basin when the station-id basin number already "
@@ -1172,7 +1268,11 @@ def build_caveats(record: dict, stations: pd.DataFrame, candidates: pd.DataFrame
         ),
     ]
     regulated = int(
-        candidates["catchment_regulation_type"].fillna("").astype(str).str.contains("regulert").sum()
+        candidates["catchment_regulation_type"]
+        .fillna("")
+        .astype(str)
+        .str.contains("regulert")
+        .sum()
     )
     if regulated:
         caveats.append(

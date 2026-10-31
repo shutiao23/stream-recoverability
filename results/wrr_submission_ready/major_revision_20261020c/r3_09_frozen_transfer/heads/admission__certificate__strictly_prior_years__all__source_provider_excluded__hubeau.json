@@ -47,7 +47,6 @@
   "identity": "admission__certificate__strictly_prior_years__all__source_provider_excluded__hubeau",
   "kind": "certificate",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__certificate__strictly_prior_years__all__source_provider_excluded__hubeau.joblib",
-  "model_sha256": "617a70659d62ed82fd9c352aeba6213e242dfd7f9c53e0e18aec3dd8eca852a1",
   "n_training_cases": 20445,
   "n_training_groups": 102,
   "name": "certificate",
@@ -57,8 +56,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

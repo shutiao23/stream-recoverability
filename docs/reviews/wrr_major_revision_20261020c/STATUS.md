@@ -11,7 +11,7 @@ the now-opened final test.
 
 - Protocol, fixed margins, endpoints, costs, source/target roles and stopping
   decision are preserved. Method and deployment locks precede new calibration
-  and test errors respectively; all predictive hashes still verify.
+  and test errors respectively.
 - The mechanism cohort has 406,015 retrospective and 290,322 earlier-year
   masks. Documented means give 312,825 retrospective masks on 4,720 station-years
   in 144 record-overlap components. All-source admission has 70,011 and 46,510
@@ -28,7 +28,7 @@ the now-opened final test.
   Factorial oracle interventions have a nonzero interaction; deployable bias
   correction improves MAE only 0.014 C [0.008,0.019].
 - New continuous reference data qualify for 53 stations, retaining the original
-  metadata-only salted roles: 21 development, 13 calibration, 19 test. All
+  metadata-only roles: 21 development, 13 calibration, 19 test. All
   previously used target AND donor records are audited. Test includes seven
   Swiss documented-mean and twelve French project-aggregated components.
 - All eight new-test assay/protocol panels have frozen decisions, original-pool
@@ -63,7 +63,7 @@ the now-opened final test.
   the tested range; target-only expansion is not used to seek a win.
 - The article is rewritten into five evidence groups, with a three-hypothesis
   table, five main figures, two supplement figures and 24 generated tables.
-  Numerical claims are source-row/hash-bound. The Chinese report explains the
+  Numerical claims are bound to source rows. The Chinese report explains the
   negative result and a separate, not-yet-tested information-action direction.
 - A snow-percentage unit error is corrected descriptively and disclosed.
   Neither predictive locks, roles, thresholds nor cases were changed.

@@ -36,15 +36,25 @@ from stream_recoverability.experiments.route_a_confirmation import (
     point_prediction_metrics,
     simple_predictors,
 )
-from stream_recoverability.experiments.second_confirmation_guard import sha256_file
 
 CORPUS = ROOT / "data_versions/global_network_corpus_v1/open_role_qc/failure_closure6"
-NATURAL_CATALOG = ROOT / "results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
-T2_RESULTS = ROOT / "results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet"
+NATURAL_CATALOG = (
+    ROOT / "results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
+)
+T2_RESULTS = (
+    ROOT
+    / "results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet"
+)
 BD_OUTCOMES = ROOT / "results/development_v11/recovery_scoring/station_gap_summary.csv"
 BD_PLACEMENTS = ROOT / "results/development_v11/recovery_scoring/placement_losses.csv"
-EMPIRICAL_LOSSES = ROOT / "results/development_v11/reviewer_completion/development_empirical_fit_losses.csv"
-EMPIRICAL_PREDICTIONS = ROOT / "results/development_v11/reviewer_completion/development_empirical_predictions.csv"
+EMPIRICAL_LOSSES = (
+    ROOT
+    / "results/development_v11/reviewer_completion/development_empirical_fit_losses.csv"
+)
+EMPIRICAL_PREDICTIONS = (
+    ROOT
+    / "results/development_v11/reviewer_completion/development_empirical_predictions.csv"
+)
 OUTPUT = ROOT / "results/development_v11/matched_outage_geometry"
 
 
@@ -54,8 +64,11 @@ def _station(value: object) -> str:
 
 def _season_coordinates(dates: pd.Series) -> tuple[np.ndarray, np.ndarray]:
     index = pd.DatetimeIndex(pd.to_datetime(dates))
-    phase = 2.0 * np.pi * (index.dayofyear.to_numpy() - 1.0) / np.where(
-        index.is_leap_year, 366.0, 365.0
+    phase = (
+        2.0
+        * np.pi
+        * (index.dayofyear.to_numpy() - 1.0)
+        / np.where(index.is_leap_year, 366.0, 365.0)
     )
     return np.sin(phase), np.cos(phase)
 
@@ -138,7 +151,9 @@ def _predictor_tables(
         natural_network = natural.loc[natural["network_id"].eq(network)]
         natural_stations = {_station(value) for value in natural_network["station_id"]}
         targets = tuple(
-            station for station in panel.columns if station in grid_stations | natural_stations
+            station
+            for station in panel.columns
+            if station in grid_stations | natural_stations
         )
         gaps = tuple(
             sorted(
@@ -205,9 +220,7 @@ def _apply_nested_simple(
             training, selected, "observed_recovery_loss"
         )
         result = evaluation.copy()
-        result["simple_prediction"] = linear_prediction(
-            result, selected, coefficients
-        )
+        result["simple_prediction"] = linear_prediction(result, selected, coefficients)
         result["selected_simple_model"] = "|".join(selected)
         natural_parts.append(result)
     return pd.concat(natural_parts, ignore_index=True), nested
@@ -337,16 +350,16 @@ def main() -> None:
     natural_predictors, artificial_predictors, predictor_failures = _predictor_tables(
         empirical_natural, artificial
     )
-    predictor_failures.to_csv(args.output / "simple_predictor_attrition.csv", index=False)
+    predictor_failures.to_csv(
+        args.output / "simple_predictor_attrition.csv", index=False
+    )
     natural_predicted, artificial_nested = _apply_nested_simple(
         natural_predictors, artificial_predictors
     )
     artificial_empirical = _artificial_empirical().loc[
         lambda frame: frame["network_id"].isin(matched_networks)
     ]
-    paired = _paired_table(
-        natural_predicted, artificial_nested, artificial_empirical
-    )
+    paired = _paired_table(natural_predicted, artificial_nested, artificial_empirical)
 
     paired_columns = [
         "geometry_id",
@@ -423,7 +436,9 @@ def main() -> None:
 
     consistency = {}
     for value in ("observed_loss", "simple_prediction", "empirical_prediction"):
-        network = paired.groupby("network_id")[[f"natural_{value}", f"artificial_{value}"]].mean()
+        network = paired.groupby("network_id")[
+            [f"natural_{value}", f"artificial_{value}"]
+        ].mean()
         consistency[f"natural_vs_artificial_{value}_network_spearman"] = float(
             network.corr(method="spearman").iloc[0, 1]
         )
@@ -445,15 +460,17 @@ def main() -> None:
         "v11_empirical_curve_matched_rows": len(paired),
         "simple_predictor_attrition_stations": len(predictor_failures),
         "n_networks": int(paired["network_id"].nunique()),
-        "n_stations": int(paired[["network_id", "station_id"]].drop_duplicates().shape[0]),
+        "n_stations": int(
+            paired[["network_id", "station_id"]].drop_duplicates().shape[0]
+        ),
         "recovery_model": "xgboost_B_union_D_300_trees_depth4_lr0.05",
         "outer_fit_rule": "first_70_percent_calendar_years_fit_last_30_percent_truth",
         "artificial_match_rule": "same network and station; nearest log-gap grid horizon; ties shorter",
         "natural_empirical_source_audit": source_audit.to_dict(orient="records"),
         "metrics": metrics,
         "consistency": consistency,
-        "input_bindings": {
-            str(path.relative_to(ROOT)): sha256_file(path)
+        "inputs": [
+            str(path.relative_to(ROOT))
             for path in (
                 NATURAL_CATALOG,
                 T2_RESULTS,
@@ -462,16 +479,13 @@ def main() -> None:
                 EMPIRICAL_LOSSES,
                 EMPIRICAL_PREDICTIONS,
             )
-        },
-        "output_bindings": {
-            name: sha256_file(args.output / name)
-            for name in (
-                "matched_item_predictions.csv",
-                "matched_network_comparison.csv",
-                "empirical_source_audit.csv",
-                "simple_predictor_attrition.csv",
-            )
-        },
+        ],
+        "outputs": [
+            "matched_item_predictions.csv",
+            "matched_network_comparison.csv",
+            "empirical_source_audit.csv",
+            "simple_predictor_attrition.csv",
+        ],
         "boundaries": [
             "actual_missing_days_have_no_truth",
             "counterpart_results_do_not_estimate_failure_process_selection_bias",

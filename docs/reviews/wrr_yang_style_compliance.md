@@ -1,7 +1,7 @@
 # Style compliance check: the twenty-point list
 
 Scope: `paper/wrr/wrr_manuscript.tex` (53 pp), `paper/wrr/wrr_supporting_information.tex`
-(15 pp) at commit `fbc1fec1b6` plus the caption and register pass of 2026-10-12.
+(15 pp) as committed on 2026-10-12, plus the caption and register pass of the same day.
 Every "evidence" entry names the place the claim can be checked.
 
 | # | item | status | evidence |
@@ -24,7 +24,7 @@ Every "evidence" entry names the place the claim can be checked.
 | 16 | Figure colour has fixed semantics and significance is not colour-only | done | grey = retrospective, blue = sealed confirmation, orange = transport; open markers for diagnostics and secondary strata; panel letters and intervals carry the meaning; palette inherited from `scripts/188_v17_figures.py` and recorded in `figures/wrr/f2_caption_material.md` |
 | 17 | Captions are readable without the main text | done | all ten main captions rewritten to 116--210 words: question first, panels a--c in order, units, n, the identity of the sample (retrospective / sealed / exploratory) and the source artifact |
 | 18 | Supporting information carries thresholds, alternatives and sensitivity | done | Text S1--S8, Figures S1--S7, Table S1: data provenance, QC rules, protocol history, the amendment register, declared predictions that failed, discarded runs, and the verification ledger |
-| 19 | Code, data and processing are reproducible | done | `results/wrr_submission_ready/current_data_manifest.csv` (hashes for the 146 networks), `metadata/data_rights.csv` (licences with live evidence), the companion dataset and dashboard, and `dist/wrr_study_inputs_v1.tar.gz` for confidential review |
+| 19 | Code, data and processing are reproducible | done | `results/wrr_submission_ready/current_data_manifest.csv` (inputs of the 146 networks), `metadata/data_rights.csv` (licences with live evidence), the companion dataset and dashboard, and `dist/wrr_study_inputs_v1.tar.gz` for confidential review |
 | 20 | The whole paper can be stated as one counter-intuitive but testable claim | done | *whether an incomplete year can carry a summer extreme depends on where the gap falls, not on how long it is; and the completeness thresholds in use are the right axis for annual means and the wrong one for extremes* |
 
 ## Verification behind the table

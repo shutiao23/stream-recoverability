@@ -1,7 +1,7 @@
 # Step 2 interim findings (development OOF + reserved learning curves)
 
 **Script:** `scripts/301_wrr_mr_step2_same_info_ablation.py`  
-**Date run:** 2026-10-14 (working tree; baseline science lock `53c88cc`)
+**Date run:** 2026-10-14 (working tree on the locked science baseline)
 
 ## Verdict for claim C1 (as pre-registered)
 

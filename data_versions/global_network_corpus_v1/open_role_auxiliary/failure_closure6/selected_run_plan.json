@@ -1,5 +1,4 @@
 {
-  "corpus_plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a",
   "execute": true,
   "manifest_schema": "t2_v91_open_role_mh_selected_run_plan_v1",
   "n_networks_selected": 67,
@@ -80,7 +79,6 @@
     "huc8_11030012",
     "huc8_11130206"
   ],
-  "selected_plan_sha256": "4a126bc43fb21b5cf4391c745cc775ef500d22001f965a7d0c29a700bcf812f3",
   "selection_mode": "all",
   "sequential_execution": true,
   "temperature_columns_read": []

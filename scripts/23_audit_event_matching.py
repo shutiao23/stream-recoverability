@@ -22,7 +22,6 @@ from stream_recoverability.analysis.event_matching_audit import (
     load_event_catalog_for_audit,
     write_event_matching_audit,
 )
-from stream_recoverability.experiments.contracts import file_sha256
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -53,12 +52,10 @@ def main() -> None:
         catalog,
         args.output_dir,
         audit_json=audit_json,
-        catalog_path=args.catalog,
     )
     payload = {
         **audit.summary,
         "catalog_path": str(args.catalog),
-        "catalog_sha256": file_sha256(args.catalog),
         "audit_json_path": str(args.audit_json),
         "output_dir": str(args.output_dir),
         "artifacts": sorted(audit.artifact_frames()),

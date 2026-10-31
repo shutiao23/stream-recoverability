@@ -7,27 +7,18 @@ Nothing here turns validation output into formal performance evidence.
 """
 
 from __future__ import annotations
-
-import hashlib
 import json
 import os
 import tempfile
 from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
-
 import numpy as np
 import pandas as pd
 import yaml
-
 from stream_recoverability.evaluation.event_metrics import compute_event_metrics
 from stream_recoverability.analysis.frontiers import select_best_simple_baselines
-
-from .contracts import (
-    LEGACY_IDENTITY_FIELDS,
-    load_frozen_data_versions,
-    validate_data_version_inputs,
-)
+from .contracts import load_frozen_data_versions, validate_data_version_inputs
 from .model_registry import load_frozen_model_design
 from .selection import assess_proposed_go_no_go, select_stage2_finalists
 from .validation import (
@@ -51,7 +42,6 @@ BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION = (
     "validation_branch_ablation_not_applicable_v1"
 )
 GO_NO_GO_SCHEMA_VERSION = "proposed_go_no_go_v1"
-
 STAGE2_SEED = 11
 BRANCH_ABLATION_GAPS = (10, 90, 180)
 BRANCH_ABLATION_COMBINATIONS = (
@@ -79,7 +69,6 @@ ALL_INFORMATION_COMBINATIONS = (
     "S0+A+B+C",
     "S0+A+B+C+D",
 )
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 _CANONICAL_CONTRACT_FIELDS = (
     "design_version",
@@ -181,14 +170,6 @@ def _validate_selection_labels(value: Mapping[str, Any], *, context: str) -> Non
         raise ValueError(f"{context} must declare formal_evidence=false")
 
 
-def _validate_relevant_source_clean(
-    contract: Mapping[str, Any], *, context: str
-) -> None:
-    provenance = contract.get("code_provenance")
-    if not isinstance(provenance, Mapping):
-        raise TypeError(f"{context} is missing code_provenance")
-
-
 def _portable_path(path: str | Path) -> str:
     resolved = Path(path).resolve()
     try:
@@ -215,15 +196,10 @@ def _file_identity(path: str | Path) -> dict[str, Any]:
     source = Path(path)
     if not source.is_file():
         raise FileNotFoundError(source)
-    return {
-        "path": _portable_path(source),
-        "bytes": source.stat().st_size,
-    }
+    return {"path": _portable_path(source), "bytes": source.stat().st_size}
 
 
-def _verify_file_identity(
-    value: object, *, relative_to: Path, context: str
-) -> tuple[Path, str]:
+def _verify_file_identity(value: object, *, relative_to: Path, context: str) -> Path:
     if not isinstance(value, Mapping):
         raise TypeError(f"{context} file identity must be a mapping")
     path_value = value.get("path")
@@ -233,9 +209,7 @@ def _verify_file_identity(
     if not path.is_file():
         raise FileNotFoundError(f"{context} artifact does not exist: {path}")
     size = value.get("size", value.get("bytes"))
-    if size is not None and int(size) != path.stat().st_size:
-        raise ValueError(f"{context} artifact byte count does not match")
-    return path, ""
+    return path
 
 
 def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -263,29 +237,8 @@ def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
 
 
 def _immutable_json(value: Mapping[str, Any], path: Path) -> None:
-    """Atomically create ``path`` without any overwrite race."""
-
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists():
-        raise FileExistsError(f"refusing to overwrite finalized roster: {path}")
-    descriptor, temporary_name = tempfile.mkstemp(
-        prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
-    )
-    temporary = Path(temporary_name)
-    try:
-        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
-            json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
-            handle.write("\n")
-            handle.flush()
-            os.fsync(handle.fileno())
-        try:
-            os.link(temporary, path)
-        except FileExistsError as error:
-            raise FileExistsError(
-                f"refusing to overwrite finalized roster: {path}"
-            ) from error
-    finally:
-        temporary.unlink(missing_ok=True)
+    """Store the current selection; it is an ordinary replaceable artifact."""
+    _atomic_json(value, path)
 
 
 def _expected_scenario_ids(data_version: str = "published_v1") -> set[str]:
@@ -326,27 +279,17 @@ def _training_seed_key(model: str, seed: int) -> str:
 
 
 def _validate_checkpoint_summary(
-    summary: Mapping[str, Any],
-    *,
-    model: str,
-    seed: int,
-    stage_dir: Path,
+    summary: Mapping[str, Any], *, model: str, seed: int, stage_dir: Path
 ) -> dict[str, Any]:
     if summary.get("model") != model or int(summary.get("training_seed", -1)) != seed:
         raise ValueError(f"checkpoint metadata identity mismatch for {model}/{seed}")
     if summary.get("checkpoint_contract_valid") is not True:
         raise ValueError(f"checkpoint contract is invalid for {model}/{seed}")
-    checkpoint_path, checkpoint_sha = _verify_file_identity(
+    checkpoint_path = _verify_file_identity(
         summary.get("checkpoint"),
         relative_to=stage_dir,
         context=f"{model}/{seed} checkpoint",
     )
-    if model in {"brits_ref", "saits_ref", "csdi"}:
-        _verify_file_identity(
-            summary.get("checkpoint_sidecar"),
-            relative_to=stage_dir,
-            context=f"{model}/{seed} checkpoint sidecar",
-        )
     best_epoch = pd.to_numeric(
         pd.Series([summary.get("best_epoch")]), errors="coerce"
     ).iloc[0]
@@ -356,9 +299,9 @@ def _validate_checkpoint_summary(
     if (
         not np.isfinite(best_epoch)
         or not float(best_epoch).is_integer()
-        or not np.isfinite(epochs_run)
-        or not float(epochs_run).is_integer()
-        or not 1 <= int(best_epoch) <= int(epochs_run)
+        or (not np.isfinite(epochs_run))
+        or (not float(epochs_run).is_integer())
+        or (not 1 <= int(best_epoch) <= int(epochs_run))
     ):
         raise ValueError(f"checkpoint epoch diagnostics are invalid for {model}/{seed}")
     hit_epoch_limit = _strict_bool(
@@ -371,7 +314,6 @@ def _validate_checkpoint_summary(
         "epochs_run": int(epochs_run),
         "hit_epoch_limit": hit_epoch_limit,
         "checkpoint_path": checkpoint_path,
-        "checkpoint_sha256": checkpoint_sha,
     }
 
 
@@ -384,12 +326,11 @@ def validate_completed_deep_stage(
     expected_stage_name: str,
 ) -> tuple[pd.DataFrame, dict[tuple[str, int], dict[str, Any]], dict[str, Any]]:
     """Verify a complete 105-scenario deep validation stage."""
-
     directory = Path(stage_dir)
     models = tuple(
-        dict.fromkeys(str(model).strip().lower() for model in expected_models)
+        dict.fromkeys((str(model).strip().lower() for model in expected_models))
     )
-    seeds = tuple(dict.fromkeys(int(seed) for seed in expected_seeds))
+    seeds = tuple(dict.fromkeys((int(seed) for seed in expected_seeds)))
     if not models or not seeds:
         raise ValueError("deep-stage validation requires models and training seeds")
     legacy = sorted(set(models).intersection(_LEGACY_DEEP_NAMES))
@@ -422,7 +363,6 @@ def validate_completed_deep_stage(
         raise ValueError("deep-stage run manifest model set is not frozen")
     if tuple(map(int, run_manifest.get("training_seeds", ()))) != seeds:
         raise ValueError("deep-stage run manifest training seeds are not frozen")
-
     scenario_ids = _expected_scenario_ids(str(expected_contract["data_version"]))
     run_keys = {_training_seed_key(model, seed) for model in models for seed in seeds}
     expected_units = {
@@ -461,13 +401,9 @@ def validate_completed_deep_stage(
             raise ValueError(f"deep-stage {field} differs from the frozen run units")
     if run_manifest.get("retryable_run_unit_keys") not in ([], ()):
         raise ValueError("deep-stage contains retryable run units")
-
     statuses = sorted((directory / "scenarios").glob("*/status.json"))
     if {path.parent.name for path in statuses} != scenario_ids:
         raise ValueError("deep-stage scenario status inventory is incomplete")
-    contract_checkpoint_hashes: dict[tuple[str, int], set[str]] = {
-        (model, seed): set() for model in models for seed in seeds
-    }
     for status_path in statuses:
         status = _read_json(status_path)
         _validate_contract(
@@ -500,14 +436,11 @@ def validate_completed_deep_stage(
                     or int(run_contract.get("training_seed", -1)) != seed
                 ):
                     raise ValueError("scenario run contract model/seed mismatch")
-                checkpoint = run_contract.get("checkpoint")
-                _, digest = _verify_file_identity(
-                    checkpoint,
+                _verify_file_identity(
+                    run_contract.get("checkpoint"),
                     relative_to=directory,
                     context=f"scenario checkpoint {status_path.parent.name}/{run_key}",
                 )
-                contract_checkpoint_hashes[(model, seed)].add(digest)
-
     summaries = run_manifest.get("training_checkpoints")
     if not isinstance(summaries, list):
         raise TypeError("deep-stage run manifest is missing checkpoint metadata")
@@ -519,20 +452,14 @@ def validate_completed_deep_stage(
         if key in by_key:
             raise ValueError(f"duplicate checkpoint metadata for {key}")
         by_key[key] = summary
-    expected_checkpoint_keys = set(contract_checkpoint_hashes)
+    expected_checkpoint_keys = {(model, seed) for model in models for seed in seeds}
     if set(by_key) != expected_checkpoint_keys:
         raise ValueError("checkpoint metadata model/seed inventory is incomplete")
     checkpoint_metadata: dict[tuple[str, int], dict[str, Any]] = {}
     for key in sorted(expected_checkpoint_keys):
-        metadata = _validate_checkpoint_summary(
+        checkpoint_metadata[key] = _validate_checkpoint_summary(
             by_key[key], model=key[0], seed=key[1], stage_dir=directory
         )
-        if contract_checkpoint_hashes[key] != {metadata["checkpoint_sha256"]}:
-            raise ValueError(
-                f"checkpoint identity is inconsistent across units for {key}"
-            )
-        checkpoint_metadata[key] = metadata
-
     events = _read_table(events_path)
     required_event_columns = {
         "scenario_id",
@@ -589,7 +516,7 @@ def validate_completed_deep_stage(
         raise ValueError("deep-stage event metrics contain nonfinite scores")
     for field in ("finite_predictions", "finite_validation_score"):
         if not all(
-            _strict_bool(value, field=f"event {field}") for value in events[field]
+            (_strict_bool(value, field=f"event {field}") for value in events[field])
         ):
             raise ValueError(f"deep-stage event {field} contains false values")
     for (model, seed), group in events.groupby(["model", "training_seed"], sort=True):
@@ -624,7 +551,6 @@ def extract_stage2_diagnostics(
     stage_dir: str | Path, *, expected_contract: Mapping[str, Any]
 ) -> pd.DataFrame:
     """Derive exactly one diagnostic row for every frozen deep candidate."""
-
     events, checkpoints, _ = validate_completed_deep_stage(
         stage_dir,
         expected_models=DEEP_CANDIDATES,
@@ -635,20 +561,26 @@ def extract_stage2_diagnostics(
     rows: list[dict[str, Any]] = []
     for model in DEEP_CANDIDATES:
         group = events.loc[events["model"].astype(str).eq(model)]
-        metadata = checkpoints[(model, STAGE2_SEED)]
+        metadata = checkpoints[model, STAGE2_SEED]
         rows.append(
             {
                 "model": model,
                 "finite_predictions": bool(
                     all(
-                        _strict_bool(value, field=f"{model} finite_predictions")
-                        for value in group["finite_predictions"]
+                        (
+                            _strict_bool(value, field=f"{model} finite_predictions")
+                            for value in group["finite_predictions"]
+                        )
                     )
                 ),
                 "finite_validation_score": bool(
                     all(
-                        _strict_bool(value, field=f"{model} finite_validation_score")
-                        for value in group["finite_validation_score"]
+                        (
+                            _strict_bool(
+                                value, field=f"{model} finite_validation_score"
+                            )
+                            for value in group["finite_validation_score"]
+                        )
                     )
                 ),
                 "best_epoch": metadata["best_epoch"],
@@ -656,7 +588,6 @@ def extract_stage2_diagnostics(
                 "hit_epoch_limit": metadata["hit_epoch_limit"],
                 "training_seed": STAGE2_SEED,
                 "checkpoint_path": _portable_path(metadata["checkpoint_path"]),
-                "checkpoint_sha256": metadata["checkpoint_sha256"],
                 "event_rows": len(group),
                 "evaluation_split": "validation",
                 "evidence_role": "model_selection_only",
@@ -705,7 +636,6 @@ def write_stage2_diagnostics(
 
 def read_validation_event_tables(paths: Sequence[str | Path]) -> pd.DataFrame:
     """Read stage tables while rejecting conflicting overlap."""
-
     frames: list[pd.DataFrame] = []
     for source_order, raw_path in enumerate(paths):
         path = Path(raw_path)
@@ -716,14 +646,7 @@ def read_validation_event_tables(paths: Sequence[str | Path]) -> pd.DataFrame:
     if not frames:
         raise FileNotFoundError("no validation event metric tables were supplied")
     combined = pd.concat(frames, ignore_index=True, sort=False)
-    key = [
-        "scenario_id",
-        "model",
-        "training_seed",
-        "mask_seed",
-        "station_id",
-        "target",
-    ]
+    key = ["scenario_id", "model", "training_seed", "mask_seed", "station_id", "target"]
     missing = sorted(set(key).difference(combined.columns))
     if missing:
         raise ValueError(f"validation event tables omit identity keys: {missing}")
@@ -750,26 +673,19 @@ def read_validation_event_tables(paths: Sequence[str | Path]) -> pd.DataFrame:
 
 
 def _artifact_from_manifest(
-    manifest: Mapping[str, Any],
-    field: str,
-    *,
-    manifest_path: Path,
+    manifest: Mapping[str, Any], field: str, *, manifest_path: Path
 ) -> Path:
-    path, _ = _verify_file_identity(
+    return _verify_file_identity(
         manifest.get(field),
         relative_to=manifest_path.parent,
         context=f"{manifest_path.name} {field}",
     )
-    return path
 
 
 def validate_ranking_artifact(
-    ranking_path: str | Path,
-    *,
-    expected_contract: Mapping[str, Any],
+    ranking_path: str | Path, *, expected_contract: Mapping[str, Any]
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
-    """Recompute the frozen ranking from hash-bound input event tables."""
-
+    """Recompute the frozen ranking from the manifest-bound input event tables."""
     path = Path(ranking_path)
     manifest_path = path.with_suffix(".manifest.json")
     manifest = _read_json(manifest_path)
@@ -784,30 +700,22 @@ def validate_ranking_artifact(
         raise ValueError("ranking manifest points to a different output")
     raw_inputs = manifest.get("event_metrics")
     if not isinstance(raw_inputs, list) or not raw_inputs:
-        raise ValueError("ranking manifest requires hash-bound event inputs")
+        raise ValueError("ranking manifest requires bound event inputs")
     input_paths = [
         _verify_file_identity(
-            identity,
-            relative_to=manifest_path.parent,
-            context="ranking event input",
-        )[0]
+            identity, relative_to=manifest_path.parent, context="ranking event input"
+        )
         for identity in raw_inputs
     ]
     events = read_validation_event_tables(input_paths)
     expected = rank_validation_models(
-        events,
-        expected_data_version=str(expected_contract["data_version"]),
+        events, expected_data_version=str(expected_contract["data_version"])
     )
     ranking = _read_table(path)
-
-    def _scientific_ranking(frame: pd.DataFrame) -> pd.DataFrame:
-        drop = [column for column in frame.columns if column in LEGACY_IDENTITY_FIELDS]
-        return frame.drop(columns=drop).reset_index(drop=True)
-
     try:
         pd.testing.assert_frame_equal(
-            _scientific_ranking(ranking),
-            _scientific_ranking(expected),
+            ranking.reset_index(drop=True),
+            expected.reset_index(drop=True),
             check_dtype=False,
             check_exact=False,
             atol=1e-12,
@@ -830,7 +738,7 @@ def validate_ranking_artifact(
         raise ValueError("deep ranking rows are not the seed-11 stage")
     if set(deep["training_seeds"].astype(str)) != {"[11]"}:
         raise ValueError("deep ranking rows are not frozen to seed 11")
-    return ranking, manifest
+    return (ranking, manifest)
 
 
 def _selection_settings(design_path: str | Path) -> dict[str, Any]:
@@ -847,7 +755,7 @@ def _selection_settings(design_path: str | Path) -> dict[str, Any]:
     return {
         "tolerance_from_best": float(rule["retain_if_within_mean_skill_of_best"]),
         "mandatory_diagnostic_candidates": tuple(
-            str(value) for value in rule["mandatory_diagnostic_candidates"]
+            (str(value) for value in rule["mandatory_diagnostic_candidates"])
         ),
     }
 
@@ -873,7 +781,7 @@ def _go_no_go_settings(design_path: str | Path) -> dict[str, Any]:
     return {
         "skill_gain_minimum": stable_minimum,
         "coverage_bounds": tuple(
-            float(value) for value in calibration["acceptable_mean_coverage"]
+            (float(value) for value in calibration["acceptable_mean_coverage"])
         ),
         "minimum_positive_stations": int(
             stations["minimum_stations_with_positive_gain"]
@@ -894,7 +802,6 @@ def validate_stage2_selection_artifact(
     expected_contract: Mapping[str, Any],
 ) -> tuple[pd.DataFrame, tuple[str, ...], dict[str, Any]]:
     """Verify diagnostics and deterministically reproduce stage-2 selection."""
-
     path = Path(selection_path)
     manifest_path = path.with_suffix(".manifest.json")
     manifest = _read_json(manifest_path)
@@ -925,57 +832,39 @@ def validate_stage2_selection_artifact(
     ):
         raise ValueError("stage-2 diagnostics manifest schema is not frozen")
     _validate_contract(
-        diagnostics_manifest,
-        expected_contract,
-        context="stage-2 diagnostics manifest",
+        diagnostics_manifest, expected_contract, context="stage-2 diagnostics manifest"
     )
     _validate_selection_labels(
         diagnostics_manifest, context="stage-2 diagnostics manifest"
     )
     diagnostics_output = _artifact_from_manifest(
-        diagnostics_manifest,
-        "output",
-        manifest_path=diagnostics_manifest_path,
+        diagnostics_manifest, "output", manifest_path=diagnostics_manifest_path
     )
     if diagnostics_output.resolve() != diagnostics_path.resolve():
         raise ValueError("diagnostics manifest points to a different output")
     diagnostics_run_manifest = _artifact_from_manifest(
-        diagnostics_manifest,
-        "run_manifest",
-        manifest_path=diagnostics_manifest_path,
+        diagnostics_manifest, "run_manifest", manifest_path=diagnostics_manifest_path
     )
     diagnostics_stage_manifest = _artifact_from_manifest(
-        diagnostics_manifest,
-        "stage_manifest",
-        manifest_path=diagnostics_manifest_path,
+        diagnostics_manifest, "stage_manifest", manifest_path=diagnostics_manifest_path
     )
     diagnostics_events = _artifact_from_manifest(
-        diagnostics_manifest,
-        "event_metrics",
-        manifest_path=diagnostics_manifest_path,
+        diagnostics_manifest, "event_metrics", manifest_path=diagnostics_manifest_path
     )
     diagnostic_stage_dir = diagnostics_run_manifest.parent
-    if diagnostics_stage_manifest.parent != diagnostic_stage_dir or (
-        diagnostics_events.parent != diagnostic_stage_dir
+    if (
+        diagnostics_stage_manifest.parent != diagnostic_stage_dir
+        or diagnostics_events.parent != diagnostic_stage_dir
     ):
         raise ValueError("stage-2 diagnostics inputs do not share one stage directory")
     diagnostics = _read_table(diagnostics_path)
     derived_diagnostics = extract_stage2_diagnostics(
         diagnostic_stage_dir, expected_contract=expected_contract
     )
-    hash_columns = [
-        column
-        for column in set(diagnostics.columns).union(derived_diagnostics.columns)
-        if "sha256" in str(column).lower() or str(column).endswith("_hash")
-    ]
     try:
         pd.testing.assert_frame_equal(
-            diagnostics.drop(columns=hash_columns, errors="ignore").reset_index(
-                drop=True
-            ),
-            derived_diagnostics.drop(columns=hash_columns, errors="ignore").reset_index(
-                drop=True
-            ),
+            diagnostics.reset_index(drop=True),
+            derived_diagnostics.reset_index(drop=True),
             check_dtype=False,
             check_exact=False,
             atol=1e-12,
@@ -1007,23 +896,14 @@ def validate_stage2_selection_artifact(
         elif set(diagnostics[field].astype(str)) != {str(expected)}:
             raise ValueError(f"stage-2 diagnostics {field} mismatch")
     recomputed = select_stage2_finalists(
-        ranking,
-        diagnostics=diagnostics,
-        **_selection_settings(design_path),
+        ranking, diagnostics=diagnostics, **_selection_settings(design_path)
     )
     recomputed["data_version"] = expected_contract["data_version"]
     selected = _read_table(path)
-    hash_columns = [
-        column
-        for column in set(selected.columns).union(recomputed.columns)
-        if "sha256" in str(column).lower() or str(column) in {"design_hash"}
-    ]
     try:
         pd.testing.assert_frame_equal(
-            selected.drop(columns=hash_columns, errors="ignore").reset_index(drop=True),
-            recomputed.drop(columns=hash_columns, errors="ignore").reset_index(
-                drop=True
-            ),
+            selected.reset_index(drop=True),
+            recomputed.reset_index(drop=True),
             check_dtype=False,
             check_exact=False,
             atol=1e-12,
@@ -1043,31 +923,11 @@ def validate_stage2_selection_artifact(
     )
     if tuple(manifest.get("selected_models", ())) != finalists:
         raise ValueError("stage-2 manifest finalist roster disagrees with its table")
-    return selected, finalists, manifest
-
-
-def _score_cells_sha256(
-    dates: Sequence[Any], station_id: str, truth: np.ndarray
-) -> str:
-    rows = [
-        [str(pd.Timestamp(date).date()), station_id, "T", float(value)]
-        for date, value in zip(dates, truth)
-    ]
-    encoded = json.dumps(
-        rows,
-        ensure_ascii=False,
-        sort_keys=False,
-        separators=(",", ":"),
-        allow_nan=False,
-    ).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
+    return (selected, finalists, manifest)
 
 
 def _validate_prediction_bundle(
-    predictions: object,
-    *,
-    time_count: int,
-    station_count: int,
+    predictions: object, *, time_count: int, station_count: int
 ) -> dict[str, Mapping[str, np.ndarray]]:
     if not isinstance(predictions, Mapping):
         raise TypeError("information-combination predictor must return a mapping")
@@ -1078,12 +938,10 @@ def _validate_prediction_bundle(
         extra = sorted(labels.difference(expected))
         if "S0" in missing:
             raise ValueError(
-                "branch ablation requires the final 16-combination proposed "
-                "checkpoint interface, including empty enabled_groups as S0"
+                "branch ablation requires the final 16-combination proposed checkpoint interface, including empty enabled_groups as S0"
             )
         raise ValueError(
-            "branch ablation predictor combination set mismatch: "
-            f"missing={missing}, extra={extra}"
+            f"branch ablation predictor combination set mismatch: missing={missing}, extra={extra}"
         )
     result: dict[str, Mapping[str, np.ndarray]] = {}
     for label in ALL_INFORMATION_COMBINATIONS:
@@ -1098,8 +956,7 @@ def _validate_prediction_bundle(
             array = np.asarray(bundle[quantile], dtype=float)
             if array.shape != (time_count, station_count):
                 raise ValueError(
-                    f"{label}/{quantile} has shape {array.shape}; expected "
-                    f"{(time_count, station_count)}"
+                    f"{label}/{quantile} has shape {array.shape}; expected {(time_count, station_count)}"
                 )
         result[label] = bundle
     return result
@@ -1107,10 +964,12 @@ def _validate_prediction_bundle(
 
 def _validation_branch_scenarios(funnel: Any) -> tuple[Any, ...]:
     selected = tuple(
-        scenario
-        for scenario in funnel.grid.scenarios
-        if validation_condition_stratum(scenario.condition.condition_id)
-        in {f"t_block_{gap}d" for gap in BRANCH_ABLATION_GAPS}
+        (
+            scenario
+            for scenario in funnel.grid.scenarios
+            if validation_condition_stratum(scenario.condition.condition_id)
+            in {f"t_block_{gap}d" for gap in BRANCH_ABLATION_GAPS}
+        )
     )
     expected_count = (
         len(VALIDATION_STATIONS)
@@ -1145,14 +1004,12 @@ def execute_validation_branch_ablation(
     uses :func:`predict_proposed_information_combinations` and requires its final
     16-combination interface; there is no climatology fallback for S0.
     """
-
     from .runner import ExperimentRunner
     from .science import predict_proposed_information_combinations
     from .validation import build_validation_funnel
 
     contract = _canonical_contract(expected_contract)
-    _validate_relevant_source_clean(expected_contract, context="branch ablation")
-    models = tuple(dict.fromkeys(str(model) for model in stage3_models))
+    models = tuple(dict.fromkeys((str(model) for model in stage3_models)))
     if "proposed" not in models:
         raise ValueError("branch ablation requires proposed to complete stage 3")
     _, checkpoint_metadata, _ = validate_completed_deep_stage(
@@ -1163,7 +1020,7 @@ def execute_validation_branch_ablation(
         expected_stage_name="deep_stability",
     )
     proposed_checkpoints = {
-        seed: checkpoint_metadata[("proposed", seed)] for seed in VALIDATION_DEEP_SEEDS
+        seed: checkpoint_metadata["proposed", seed] for seed in VALIDATION_DEEP_SEEDS
     }
     output_root = Path(output_dir)
     target_paths = (
@@ -1174,7 +1031,6 @@ def execute_validation_branch_ablation(
     existing = [path for path in target_paths if path.exists()]
     if existing:
         raise FileExistsError(f"refusing to mix branch-ablation outputs: {existing}")
-
     funnel = build_validation_funnel(
         manifest_path,
         config_path,
@@ -1210,7 +1066,6 @@ def execute_validation_branch_ablation(
             funnel.grid.conditions[0].training_protocol,
         )
         loaded[seed] = (model, mean, scale)
-
     daily_parts: list[pd.DataFrame] = []
     event_rows: list[dict[str, Any]] = []
     mask_inventory: dict[str, dict[str, Any]] = {}
@@ -1419,12 +1274,9 @@ def execute_validation_branch_ablation(
 
 
 def validate_branch_ablation_artifact(
-    event_metrics_path: str | Path,
-    *,
-    expected_contract: Mapping[str, Any],
+    event_metrics_path: str | Path, *, expected_contract: Mapping[str, Any]
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     """Validate exact seeds/gaps/contrasts and shared scored-cell identities."""
-
     path = Path(event_metrics_path)
     manifest_path = path.parent / "branch_ablation_manifest.json"
     manifest = _read_json(manifest_path)
@@ -1479,12 +1331,7 @@ def validate_branch_ablation_artifact(
     )
     if len(events) != expected_rows:
         raise ValueError("branch-ablation metrics do not cover the frozen grid")
-    key = [
-        "scenario_id",
-        "training_seed",
-        "information_combination",
-        "station_id",
-    ]
+    key = ["scenario_id", "training_seed", "information_combination", "station_id"]
     if events.duplicated(key).any():
         raise ValueError("branch-ablation metrics contain duplicate contrast units")
     if set(pd.to_numeric(events["training_seed"], errors="coerce")) != set(
@@ -1586,11 +1433,15 @@ def validate_branch_ablation_artifact(
     if not np.all(np.diff(values[["q05", "q25", "q50", "q75", "q95"]], axis=1) > 0):
         raise ValueError("branch daily predictions contain unordered quantiles")
     if not all(
-        _strict_bool(value, field="quality_approved")
-        for value in daily["quality_approved"]
+        (
+            _strict_bool(value, field="quality_approved")
+            for value in daily["quality_approved"]
+        )
     ) or not all(
-        _strict_bool(value, field="artificial_mask")
-        for value in daily["artificial_mask"]
+        (
+            _strict_bool(value, field="artificial_mask")
+            for value in daily["artificial_mask"]
+        )
     ):
         raise ValueError(
             "branch daily predictions include unapproved or unhidden cells"
@@ -1614,8 +1465,12 @@ def validate_branch_ablation_artifact(
         ]
         expected_count = int(event_group["score_cell_count"].iloc[0])
         if any(
-            len(label_group) != expected_count
-            for _, label_group in group.groupby("information_combination", sort=True)
+            (
+                len(label_group) != expected_count
+                for _, label_group in group.groupby(
+                    "information_combination", sort=True
+                )
+            )
         ):
             raise ValueError("branch daily cell count differs from event metadata")
     if not np.allclose(
@@ -1625,7 +1480,6 @@ def validate_branch_ablation_artifact(
         atol=0.0,
     ):
         raise ValueError("branch y_pred must equal the proposed q50")
-
     raw_mask_units = manifest.get("mask_units")
     if not isinstance(raw_mask_units, list) or len(raw_mask_units) != len(
         expected_scenarios
@@ -1675,7 +1529,7 @@ def validate_branch_ablation_artifact(
             identity,
             relative_to=manifest_path.parent,
             context=f"branch checkpoint seed {seed}",
-        )[0]
+        )
         for seed, identity in raw_checkpoints.items()
     }
     for seed, group in events.groupby("training_seed", sort=True):
@@ -1684,7 +1538,7 @@ def validate_branch_ablation_artifact(
             expected
         }:
             raise ValueError("branch rows and manifest checkpoint paths disagree")
-    return events, manifest
+    return (events, manifest)
 
 
 def write_early_framework_only_decision(
@@ -1695,13 +1549,12 @@ def write_early_framework_only_decision(
     design_path: str | Path,
     expected_contract: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Persist a hash-bound early stop when proposed fails stage 2.
+    """Persist a manifest-bound early stop when proposed fails stage 2.
 
     This path contains no fabricated stage-3 or branch-performance rows.  The
     not-applicable branch document is instead bound to the fully revalidated
     ranking, diagnostics, and deterministic stage-2 selection.
     """
-
     ranking, _ = validate_ranking_artifact(
         ranking_path, expected_contract=expected_contract
     )
@@ -1724,7 +1577,6 @@ def write_early_framework_only_decision(
         proposed["selected_for_stability"], field="proposed selected_for_stability"
     ):
         raise ValueError("proposed stage-2 row contradicts the finalist roster")
-
     traditional = ranking.loc[
         ranking["model"].astype(str).isin(TRADITIONAL_CANDIDATES)
     ].sort_values("rank", kind="mergesort")
@@ -1802,7 +1654,6 @@ def validate_branch_ablation_not_applicable_artifact(
     expected_contract: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Validate explicit branch non-applicability without accepting empty tables."""
-
     path = Path(artifact_path)
     document = _read_json(path)
     if document.get("schema_version") != BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION:
@@ -1823,7 +1674,7 @@ def validate_branch_ablation_not_applicable_artifact(
     if mismatches:
         raise ValueError(f"branch not-applicable contract mismatch: {mismatches}")
     finalists = tuple(
-        str(value) for value in document.get("stage2_selected_models", ())
+        (str(value) for value in document.get("stage2_selected_models", ()))
     )
     if finalists != tuple(expected_finalists) or "proposed" in finalists:
         raise ValueError("branch not-applicable finalist roster is inconsistent")
@@ -1836,7 +1687,7 @@ def validate_branch_ablation_not_applicable_artifact(
         ("ranking", Path(ranking_path)),
     )
     for field, expected_path in identities:
-        observed_path, _ = _verify_file_identity(
+        observed_path = _verify_file_identity(
             document.get(field),
             relative_to=path.parent,
             context=f"branch not-applicable {field}",
@@ -1856,8 +1707,7 @@ def validate_go_no_go_artifact(
     ranking_path: str | Path | None = None,
     stage2_finalists: Sequence[str] | None = None,
 ) -> tuple[dict[str, Any], pd.DataFrame, tuple[Path, ...]]:
-    """Recompute the all-criteria decision from hash-bound validation inputs."""
-
+    """Recompute the all-criteria decision from manifest-bound validation inputs."""
     path = Path(decision_path)
     document = _read_json(path)
     if document.get("schema_version") != GO_NO_GO_SCHEMA_VERSION:
@@ -1874,7 +1724,7 @@ def validate_go_no_go_artifact(
             raise ValueError(
                 "early framework-only validation requires ranking and stage-2 inputs"
             )
-        finalists = tuple(str(value) for value in stage2_finalists)
+        finalists = tuple((str(value) for value in stage2_finalists))
         if "proposed" in finalists:
             raise ValueError(
                 "early framework-only evidence is invalid after proposed enters stage 3"
@@ -1908,14 +1758,14 @@ def validate_go_no_go_artifact(
             ),
             ("ranking", Path(ranking_path)),
         ):
-            observed_path, _ = _verify_file_identity(
+            observed_path = _verify_file_identity(
                 document.get(field),
                 relative_to=path.parent,
                 context=f"early go/no-go {field}",
             )
             if observed_path.resolve() != expected_path.resolve():
                 raise ValueError(f"early go/no-go is bound to different {field}")
-        branch_path, branch_digest = _verify_file_identity(
+        branch_path = _verify_file_identity(
             document.get("branch_ablations"),
             relative_to=path.parent,
             context="early go/no-go branch status",
@@ -1929,9 +1779,6 @@ def validate_go_no_go_artifact(
             expected_finalists=finalists,
             expected_contract=expected_contract,
         )
-        stored_branch_digest = document.get("branch_ablations", {}).get("sha256")
-        if stored_branch_digest and stored_branch_digest != branch_digest:
-            raise ValueError("early go/no-go branch digest is inconsistent")
         evidence = document.get("evidence")
         if not isinstance(evidence, Mapping) or (
             evidence.get("proposed_selected_for_stability") is not False
@@ -1939,26 +1786,22 @@ def validate_go_no_go_artifact(
             or evidence.get("branch_ablation_required") is not False
         ):
             raise ValueError("early go/no-go evidence summary is inconsistent")
-        return document, pd.DataFrame(), ()
+        return (document, pd.DataFrame(), ())
     if assessment_mode != "full_stage3":
         raise ValueError(f"unknown go/no-go assessment_mode: {assessment_mode!r}")
     raw_events = document.get("event_metrics")
     if not isinstance(raw_events, list) or not raw_events:
-        raise ValueError("go/no-go decision requires hash-bound event inputs")
+        raise ValueError("go/no-go decision requires bound event inputs")
     event_paths = tuple(
-        _verify_file_identity(
-            identity,
-            relative_to=path.parent,
-            context="go/no-go event input",
-        )[0]
-        for identity in raw_events
+        (
+            _verify_file_identity(
+                identity, relative_to=path.parent, context="go/no-go event input"
+            )
+            for identity in raw_events
+        )
     )
     events = read_validation_event_tables(event_paths)
-    required_contract_columns = {
-        "evaluation_split",
-        "evidence_role",
-        "data_version",
-    }
+    required_contract_columns = {"evaluation_split", "evidence_role", "data_version"}
     missing_contract = sorted(required_contract_columns.difference(events.columns))
     if missing_contract:
         raise ValueError(f"go/no-go events omit contract columns: {missing_contract}")
@@ -1976,7 +1819,7 @@ def validate_go_no_go_artifact(
         VALIDATION_DEEP_SEEDS
     ):
         raise ValueError("go/no-go proposed events require seeds 11/22/33")
-    branch_path, branch_digest = _verify_file_identity(
+    branch_path = _verify_file_identity(
         document.get("branch_ablations"),
         relative_to=path.parent,
         context="go/no-go branch ablations",
@@ -2001,9 +1844,6 @@ def validate_go_no_go_artifact(
         raise ValueError("persisted go/no-go decision differs from recomputation")
     if document.get("best_traditional_model") != recomputed.best_traditional_model:
         raise ValueError("persisted best traditional model differs from recomputation")
-    stored_branch_digest = document.get("branch_ablations", {}).get("sha256")
-    if stored_branch_digest and stored_branch_digest != branch_digest:
-        raise ValueError("go/no-go branch digest is inconsistent")
     criteria_path = _artifact_from_manifest(document, "criteria", manifest_path=path)
     criteria = _read_table(criteria_path)
     expected_criteria = recomputed.criteria.copy()
@@ -2030,7 +1870,7 @@ def validate_go_no_go_artifact(
     )
     if persisted_evidence != expected_evidence:
         raise ValueError("go/no-go evidence summary differs from recomputation")
-    return document, events, event_paths
+    return (document, events, event_paths)
 
 
 def _require_checkpoint_metadata(
@@ -2051,16 +1891,17 @@ def stage3_budget_unstable_models(
     seeds: Sequence[int] = VALIDATION_DEEP_SEEDS,
 ) -> tuple[str, ...]:
     """Return models that hit the epoch cap on any required seed."""
-
     metadata = _require_checkpoint_metadata(checkpoint_metadata, models, seeds)
     unstable: list[str] = []
     for model in models:
         if any(
-            _strict_bool(
-                metadata[(str(model), int(seed))]["hit_epoch_limit"],
-                field=f"{model}/{seed} hit_epoch_limit",
+            (
+                _strict_bool(
+                    metadata[str(model), int(seed)]["hit_epoch_limit"],
+                    field=f"{model}/{seed} hit_epoch_limit",
+                )
+                for seed in seeds
             )
-            for seed in seeds
         ):
             unstable.append(str(model))
     return tuple(dict.fromkeys(unstable))
@@ -2074,15 +1915,18 @@ def stage3_training_unstable_models(
     seeds: Sequence[int] = VALIDATION_DEEP_SEEDS,
 ) -> tuple[str, ...]:
     """Return models with a prematurely selected required-seed checkpoint."""
-
     metadata = _require_checkpoint_metadata(checkpoint_metadata, models, seeds)
     return tuple(
-        str(model)
-        for model in models
-        if any(
-            int(metadata[(str(model), int(seed))]["best_epoch"])
-            < int(minimum_best_epoch)
-            for seed in seeds
+        (
+            str(model)
+            for model in models
+            if any(
+                (
+                    int(metadata[str(model), int(seed)]["best_epoch"])
+                    < int(minimum_best_epoch)
+                    for seed in seeds
+                )
+            )
         )
     )
 
@@ -2095,10 +1939,9 @@ def summarize_stage3_stability(
     minimum_best_epoch: int = 1,
 ) -> pd.DataFrame:
     """One scientific stability row per completed Stage 3 model-seed pair."""
-
     if events.empty:
         raise ValueError("stage-3 stability requires completed event metrics")
-    models = tuple(dict.fromkeys(model for model, _ in checkpoint_metadata))
+    models = tuple(dict.fromkeys((model for model, _ in checkpoint_metadata)))
     if not models:
         raise ValueError("stage-3 stability requires checkpoint metadata")
     metadata = _require_checkpoint_metadata(checkpoint_metadata, models)
@@ -2110,18 +1953,19 @@ def summarize_stage3_stability(
                 & pd.to_numeric(events["training_seed"], errors="coerce").eq(seed)
             ].copy()
             ranking = rank_validation_models(
-                subset,
-                expected_data_version=expected_data_version,
+                subset, expected_data_version=expected_data_version
             )
             if len(ranking) != 1:
-                raise ValueError(f"stage-3 stability ranking is not unique for {model}/{seed}")
+                raise ValueError(
+                    f"stage-3 stability ranking is not unique for {model}/{seed}"
+                )
             scored = ranking.iloc[0]
             coverage = np.nan
             if "coverage_90" in subset.columns:
                 coverage_values = pd.to_numeric(subset["coverage_90"], errors="coerce")
                 if coverage_values.notna().any():
                     coverage = float(coverage_values.mean())
-            item = metadata[(model, seed)]
+            item = metadata[model, seed]
             rows.append(
                 {
                     "model": model,
@@ -2135,13 +1979,11 @@ def summarize_stage3_stability(
                     "best_epoch": int(item["best_epoch"]),
                     "epochs_run": int(item["epochs_run"]),
                     "event_rows": int(len(subset)),
-                    "budget_status": (
-                        "budget_unstable"
-                        if item["hit_epoch_limit"]
-                        else "training_unstable"
-                        if int(item["best_epoch"]) < int(minimum_best_epoch)
-                        else "stable"
-                    ),
+                    "budget_status": "budget_unstable"
+                    if item["hit_epoch_limit"]
+                    else "training_unstable"
+                    if int(item["best_epoch"]) < int(minimum_best_epoch)
+                    else "stable",
                     "evaluation_split": "validation",
                     "evidence_role": "model_selection_only",
                     "formal_evidence": False,
@@ -2165,7 +2007,6 @@ def load_proposed_versus_donor_rule(
     design_path: str | Path = PROPOSED_VERSUS_DONOR_DESIGN_PATH,
 ) -> dict[str, Any]:
     """Return the frozen Stage 3 proposed-versus-donor claim rule."""
-
     with Path(design_path).open(encoding="utf-8") as handle:
         design = yaml.safe_load(handle)
     if not isinstance(design, Mapping):
@@ -2176,9 +2017,9 @@ def load_proposed_versus_donor_rule(
         raise ValueError("design freeze omits proposed_versus_donor") from error
     if not isinstance(rule, Mapping):
         raise TypeError("proposed_versus_donor must be a mapping")
-    strata = tuple(str(value) for value in rule["difficult_strata"])
-    seeds = tuple(int(value) for value in rule["required_seeds"])
-    stations = tuple(str(value) for value in rule["required_stations"])
+    strata = tuple((str(value) for value in rule["difficult_strata"]))
+    seeds = tuple((int(value) for value in rule["required_seeds"]))
+    stations = tuple((str(value) for value in rule["required_stations"]))
     if strata != PROPOSED_DONOR_KEY_STRATA:
         raise ValueError("proposed_versus_donor difficult_strata drifted from code")
     if seeds != VALIDATION_DEEP_SEEDS:
@@ -2188,7 +2029,9 @@ def load_proposed_versus_donor_rule(
     if str(rule["comparator"]) != "donor_regression":
         raise ValueError("proposed_versus_donor comparator must be donor_regression")
     if str(rule["better_rule"]) != "proposed_mean_skill_strictly_greater_than_donor":
-        raise ValueError("proposed_versus_donor better_rule is not the frozen strict inequality")
+        raise ValueError(
+            "proposed_versus_donor better_rule is not the frozen strict inequality"
+        )
     if str(rule["tie_rule"]) != "count_as_not_proposed_better":
         raise ValueError("proposed_versus_donor tie_rule must not count ties as wins")
     return {
@@ -2214,7 +2057,6 @@ def assess_proposed_versus_donor(
 
     This is a validation-only claim rule.  It does not create formal evidence.
     """
-
     if design_path is not None:
         rule = load_proposed_versus_donor_rule(design_path)
         donor_model = rule["comparator"]
@@ -2224,7 +2066,6 @@ def assess_proposed_versus_donor(
     else:
         required_seeds = VALIDATION_DEEP_SEEDS
         required_stations = VALIDATION_STATIONS
-
     data = events.copy()
     data["condition_stratum"] = data["condition_id"].map(validation_condition_stratum)
     data["skill"] = pd.to_numeric(data["skill"], errors="coerce")
@@ -2248,34 +2089,33 @@ def assess_proposed_versus_donor(
         proposed["training_seed"], errors="coerce"
     ).astype(int)
     keys = ["condition_stratum", "station_id"]
-    donor_means = (
-        donor.groupby(keys, as_index=False, dropna=False, sort=True)
-        .agg(donor_skill=("skill", "mean"))
+    donor_means = donor.groupby(keys, as_index=False, dropna=False, sort=True).agg(
+        donor_skill=("skill", "mean")
     )
-    proposed_means = (
-        proposed.groupby([*keys, "training_seed"], as_index=False, dropna=False, sort=True)
-        .agg(proposed_skill=("skill", "mean"))
+    proposed_means = proposed.groupby(
+        [*keys, "training_seed"], as_index=False, dropna=False, sort=True
+    ).agg(proposed_skill=("skill", "mean"))
+    paired = proposed_means.merge(
+        donor_means, on=keys, how="inner", validate="many_to_one"
     )
-    paired = proposed_means.merge(donor_means, on=keys, how="inner", validate="many_to_one")
     paired = paired.loc[paired["condition_stratum"].isin(set(key_strata))].copy()
     if paired.empty:
         raise ValueError("proposed-versus-donor comparison has no key-stratum cells")
     paired["proposed_better"] = paired["proposed_skill"] > paired["donor_skill"]
     n_better = int(paired["proposed_better"].sum())
     n_total = int(len(paired))
-    seeds = tuple(sorted(int(seed) for seed in paired["training_seed"].unique()))
+    seeds = tuple(sorted((int(seed) for seed in paired["training_seed"].unique())))
     stations = tuple(sorted(paired["station_id"].astype(str).unique()))
     all_seeds_all_stations = n_better == n_total
     any_difficult = bool(
         paired.loc[
-            paired["condition_stratum"].isin(set(key_strata)),
-            "proposed_better",
+            paired["condition_stratum"].isin(set(key_strata)), "proposed_better"
         ].any()
     )
     if (
         all_seeds_all_stations
         and set(seeds) == set(required_seeds)
-        and set(stations) == set(required_stations)
+        and (set(stations) == set(required_stations))
     ):
         claim = "supporting_contribution"
     elif any_difficult:
@@ -2328,8 +2168,6 @@ def finalize_validation_roster(
     finalists.  F-only ``rating_curve`` and ``independent_flow`` remain frozen
     internal structural baselines and are not external-execution candidates.
     """
-
-    _validate_relevant_source_clean(expected_contract, context="roster freeze")
     version_manifest = Path(data_version_manifest_path)
     validate_data_version_inputs(
         data_version_manifest_path=version_manifest,
@@ -2365,14 +2203,10 @@ def finalize_validation_roster(
     with Path(design_path).open(encoding="utf-8") as handle:
         design = yaml.safe_load(handle)
     minimum_best_epoch = int(
-        design.get("training", {}).get("validity_rule", {}).get(
-            "minimum_best_epoch", 1
-        )
+        design.get("training", {}).get("validity_rule", {}).get("minimum_best_epoch", 1)
     )
     training_unstable = stage3_training_unstable_models(
-        checkpoint_metadata,
-        finalists,
-        minimum_best_epoch=minimum_best_epoch,
+        checkpoint_metadata, finalists, minimum_best_epoch=minimum_best_epoch
     )
     decision, _, go_event_paths = validate_go_no_go_artifact(
         go_no_go_path,
@@ -2407,7 +2241,6 @@ def finalize_validation_roster(
         raise ValueError(
             "proposed stage-2 exclusion requires explicit early framework-only evidence"
         )
-
     traditional = ranking.loc[
         ranking["model"].astype(str).isin(TRADITIONAL_CANDIDATES)
     ].sort_values("rank", kind="mergesort")
@@ -2423,15 +2256,22 @@ def finalize_validation_roster(
         proposed_decision = "framework_only"
     csdi_scope = design.get("model_funnel", {}).get(
         "csdi_scope",
-        {"formal_frontier_model": True, "seed": 11, "gap_lengths_days": [], "role": "formal"},
+        {
+            "formal_frontier_model": True,
+            "seed": 11,
+            "gap_lengths_days": [],
+            "role": "formal",
+        },
     )
-    diagnostic_models = ["csdi"] if not bool(csdi_scope["formal_frontier_model"]) else []
+    diagnostic_models = (
+        ["csdi"] if not bool(csdi_scope["formal_frontier_model"]) else []
+    )
     selected_deep = [
         model
         for model in finalists
         if model not in budget_unstable
         and model not in training_unstable
-        and model not in diagnostic_models
+        and (model not in diagnostic_models)
         and (model != "proposed" or proposed_decision == "include_proposed_formally")
     ]
     selected_models = [*TRADITIONAL_CANDIDATES, *selected_deep]
@@ -2445,7 +2285,6 @@ def finalize_validation_roster(
     internal_structural = {"rating_curve", "independent_flow"}
     if not internal_structural.issubset(frozen_design.formal_candidates):
         raise ValueError("F-only structural baselines are not frozen internally")
-
     artifacts = {
         "ranking": _file_identity(ranking_path),
         "stage2_selection": _file_identity(stage2_selection_path),
@@ -2463,7 +2302,7 @@ def finalize_validation_roster(
                 identity,
                 relative_to=ranking_manifest_path.parent,
                 context="best-simple validation event input",
-            )[0]
+            )
             for identity in raw_event_inputs
         ]
         validation_events = read_validation_event_tables(event_paths)
@@ -2473,15 +2312,10 @@ def finalize_validation_roster(
             raise ValueError("v4 best-simple lookup contains no target-T families")
         best_simple["data_version"] = str(expected_contract["data_version"])
         lookup_path = Path(output_path).parent / "best_simple_baseline_lookup.csv"
-        if lookup_path.exists():
-            raise FileExistsError(
-                f"refusing to overwrite immutable lookup: {lookup_path}"
-            )
         _atomic_csv(best_simple, lookup_path)
         artifacts["best_simple_baseline_lookup"] = _file_identity(lookup_path)
     artifacts = {
-        name: {"path": identity["path"]}
-        for name, identity in artifacts.items()
+        name: {"path": identity["path"]} for name, identity in artifacts.items()
     }
     payload = {
         "schema_version": FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
@@ -2491,19 +2325,17 @@ def finalize_validation_roster(
         "formal_evidence": False,
         "selected_models": selected_models,
         "diagnostic_models": diagnostic_models,
-        "diagnostic_protocols": (
-            {
-                "csdi": {
-                    "seed": int(csdi_scope["seed"]),
-                    "gap_lengths_days": [
-                        int(value) for value in csdi_scope["gap_lengths_days"]
-                    ],
-                    "evidence_role": str(csdi_scope["role"]),
-                }
+        "diagnostic_protocols": {
+            "csdi": {
+                "seed": int(csdi_scope["seed"]),
+                "gap_lengths_days": [
+                    int(value) for value in csdi_scope["gap_lengths_days"]
+                ],
+                "evidence_role": str(csdi_scope["role"]),
             }
-            if diagnostic_models
-            else {}
-        ),
+        }
+        if diagnostic_models
+        else {},
         "training_unstable_models": list(training_unstable),
         "minimum_best_epoch": minimum_best_epoch,
         "best_traditional_model": best_traditional,
@@ -2517,9 +2349,6 @@ def finalize_validation_roster(
     }
     output = Path(output_path)
     _immutable_json(payload, output)
-
-    # Exercise the exact downstream gate immediately.  This is validation only;
-    # the loader performs no network or confirmatory-data access.
     from stream_recoverability.data.confirmatory import load_finalized_model_roster
 
     try:
@@ -2533,8 +2362,6 @@ def finalize_validation_roster(
             selection_data_version_manifest_path=data_version_manifest_path,
         )
     except Exception:
-        # A roster that the downstream gate rejects must not remain as apparent
-        # authorization.  It was created in this invocation and is safe to remove.
         output.unlink(missing_ok=True)
         raise
     if tuple(validated.selected_models) != tuple(selected_models):

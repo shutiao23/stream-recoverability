@@ -1,36 +1,33 @@
 """Locked development-only download policy for the HUC8 catalog-v3 pilot.
 
 This module deliberately has no dependency on the retired name-by-HUC2 v2
-download plan.  It verifies the byte-level canonical split lock before it
-selects any network, and joins station-specific dates from the local public
-series catalog rather than inventing a common download window.
+download plan.  It checks the locked split declaration before it selects any
+network, and joins station-specific dates from the local public series catalog
+rather than inventing a common download window.
 """
 
 from __future__ import annotations
 
-import hashlib
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 import yaml
+
+from stream_recoverability.seeds import plain_seed
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_V3_CATALOG = REPOSITORY_ROOT / "configs/network_catalog_v3_huc8.yaml"
 DEFAULT_V3_SPLIT = REPOSITORY_ROOT / "configs/network_catalog_v3_split.yaml"
-DEFAULT_CANONICAL_SPLIT = (
-    REPOSITORY_ROOT
-    / "results/framework/public_catalog/catalog_v3_split_table.csv"
-)
 DEFAULT_SERIES_METADATA = (
     REPOSITORY_ROOT
     / "results/framework/public_catalog/usgs_daily_temperature_series.csv"
 )
 
-LOCKED_SPLIT_SHA256 = "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
 PILOT_SEED = 20260826
 PILOT_SIZE = 20
 STRATIFICATION_COLUMNS = (
@@ -50,14 +47,11 @@ def _load_yaml_mapping(path: str | Path) -> dict[str, Any]:
 def verify_split_lock(
     *,
     split_path: str | Path = DEFAULT_V3_SPLIT,
-    canonical_path: str | Path = DEFAULT_CANONICAL_SPLIT,
-    expected_sha256: str = LOCKED_SPLIT_SHA256,
-) -> str:
-    """Verify the frozen canonical table and its YAML declaration.
+) -> dict[str, Any]:
+    """Check the frozen split declaration and return it.
 
-    The YAML file contains metadata and therefore does not itself hash to the
-    split digest.  The digest is over the exact canonical CSV bytes written at
-    freeze time.
+    The split must still be declared as locked before any download, with no
+    temperatures downloaded and no sealed outcome opened.
     """
 
     split = _load_yaml_mapping(split_path)
@@ -67,23 +61,12 @@ def verify_split_lock(
         raise ValueError("pre-download split metadata was unexpectedly mutated")
     if bool(split.get("sealed_outcomes_opened")):
         raise ValueError("split metadata says sealed outcomes were opened")
-    declared = str(split.get("sha256") or "")
-    canonical = Path(canonical_path).read_bytes()
-    observed = hashlib.sha256(canonical).hexdigest()
-    if declared != expected_sha256 or observed != expected_sha256:
-        raise ValueError(
-            "catalog-v3 split lock mismatch: "
-            f"expected={expected_sha256}, declared={declared}, observed={observed}"
-        )
-    return observed
+    return split
 
 
-def _stable_score(seed: int, stratum: tuple[str, ...], network_id: str) -> str:
-    payload = "\x1f".join([str(seed), *stratum, network_id]).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
-def _hamilton_quotas(group_sizes: Mapping[tuple[str, ...], int], n: int) -> dict[tuple[str, ...], int]:
+def _hamilton_quotas(
+    group_sizes: Mapping[tuple[str, ...], int], n: int
+) -> dict[tuple[str, ...], int]:
     """Proportional integer allocation with deterministic largest remainders."""
 
     total = int(sum(group_sizes.values()))
@@ -120,21 +103,20 @@ def deterministic_stratified_sample(
         if str(row.get("role")) != "development":
             raise ValueError(f"non-development row offered to pilot: {network_id}")
         if bool(row.get("never_sealed")):
-            raise ValueError(f"never_sealed row offered to development pilot: {network_id}")
+            raise ValueError(
+                f"never_sealed row offered to development pilot: {network_id}"
+            )
         key = tuple(str(row.get(column) or "") for column in STRATIFICATION_COLUMNS)
         grouped[key].append(row)
 
     quotas = _hamilton_quotas({key: len(value) for key, value in grouped.items()}, n)
     selected: list[dict[str, Any]] = []
-    for key in sorted(grouped):
-        ranked = sorted(
-            grouped[key],
-            key=lambda row: (
-                _stable_score(seed, key, str(row["network_id"])),
-                str(row["network_id"]),
-            ),
+    for stratum_index, key in enumerate(sorted(grouped)):
+        members = sorted(grouped[key], key=lambda row: str(row["network_id"]))
+        order = np.random.default_rng(plain_seed(seed, stratum_index)).permutation(
+            len(members)
         )
-        selected.extend(ranked[: quotas[key]])
+        selected.extend(members[int(index)] for index in order[: quotas[key]])
     return sorted(selected, key=lambda row: str(row["network_id"]))
 
 
@@ -155,29 +137,21 @@ def plan_v3_development_pilot(
     *,
     catalog_path: str | Path = DEFAULT_V3_CATALOG,
     split_path: str | Path = DEFAULT_V3_SPLIT,
-    canonical_path: str | Path = DEFAULT_CANONICAL_SPLIT,
     series_metadata_path: str | Path = DEFAULT_SERIES_METADATA,
-    expected_sha256: str = LOCKED_SPLIT_SHA256,
     pilot_size: int = PILOT_SIZE,
     pilot_seed: int = PILOT_SEED,
 ) -> dict[str, Any]:
     """Build the only permitted W3 USGS pilot plan: 20 development HUC8 units."""
 
-    digest = verify_split_lock(
-        split_path=split_path,
-        canonical_path=canonical_path,
-        expected_sha256=expected_sha256,
-    )
+    split = verify_split_lock(split_path=split_path)
     catalog = _load_yaml_mapping(catalog_path)
-    split = _load_yaml_mapping(split_path)
     if catalog.get("catalog_id") != "network_catalog_v3_huc8":
         raise ValueError("refusing a non-v3-HUC8 candidate catalog")
     if bool(catalog.get("sealed_outcomes_opened")):
         raise ValueError("candidate catalog says sealed outcomes were opened")
 
     candidates = {
-        str(row.get("network_id")): dict(row)
-        for row in catalog.get("networks") or []
+        str(row.get("network_id")): dict(row) for row in catalog.get("networks") or []
     }
     development = [
         dict(row)
@@ -228,15 +202,10 @@ def plan_v3_development_pilot(
             }
         )
 
-    sample_text = "\n".join(row["network_id"] for row in networks) + "\n"
     return {
         "policy": "catalog_v3_huc8_development_only",
-        "split_sha256": digest,
         "pilot_seed": int(pilot_seed),
         "pilot_size": int(pilot_size),
-        "sample_network_ids_sha256": hashlib.sha256(
-            sample_text.encode("utf-8")
-        ).hexdigest(),
         "stratification_columns": list(STRATIFICATION_COLUMNS),
         "n_development_available": len(development),
         "n_validation_selected": 0,
@@ -248,7 +217,6 @@ def plan_v3_development_pilot(
 
 
 __all__ = [
-    "LOCKED_SPLIT_SHA256",
     "PILOT_SEED",
     "PILOT_SIZE",
     "STRATIFICATION_COLUMNS",

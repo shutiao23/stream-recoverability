@@ -45,7 +45,6 @@
   "identity": "admission__generic_direct_h30_uncertainty__strictly_prior_years__all__source_provider_excluded__foen",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_direct_h30_uncertainty__strictly_prior_years__all__source_provider_excluded__foen.joblib",
-  "model_sha256": "3528fbe61dd55ed31d2581d06673f2efb88740f9b7446b20befa005693534192",
   "n_training_cases": 15588,
   "n_training_groups": 104,
   "name": "generic_direct_h30_uncertainty",
@@ -55,8 +54,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

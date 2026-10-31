@@ -1,6 +1,6 @@
 """Refresh INGEST_STATUS.json: preserve the strict-gate record, add the emitted stratum."""
 from __future__ import annotations
-import hashlib, json
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,9 +9,6 @@ ing = json.loads((OUT / "ingest.json").read_text())
 verify = json.loads((ROOT / "scratch/smhi_verify_emitted_report.json").read_text())
 prior = json.loads((ROOT / "scratch/smhi_prior_use_scan.json").read_text())
 old = json.loads((OUT / "INGEST_STATUS.json").read_text()) if (OUT / "INGEST_STATUS.json").is_file() else {}
-
-def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 strict = old.get("strict_gate", {k: old.get(k) for k in (
     "retrieval_utc", "n_downloaded", "n_stations_with_accepted_G_or_Y_days",
@@ -54,7 +51,6 @@ notice = {
         "emitted_panels_ok": verify["ok"],
         "problems": verify["problems"],
         "claim_vs_recomputed_mismatches": verify["claim_vs_recomputed"]["mismatches"],
-        "stations_csv_sha256": verify["stations_csv"]["sha256"],
     },
     "prior_use_scan": {
         "scope": "repo-wide scan of CSVs with a station_id column under results/ and metadata/ "
@@ -68,4 +64,3 @@ notice = {
 }
 (OUT / "INGEST_STATUS.json").write_text(json.dumps(notice, indent=2, ensure_ascii=False) + "\n")
 print(json.dumps(notice["amended_stratum"], indent=2, ensure_ascii=False))
-print("stations.csv sha256:", notice["independent_verification"]["stations_csv_sha256"])

@@ -47,7 +47,6 @@
   "identity": "generic_target_disagreement__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_target_disagreement__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers.joblib",
-  "model_sha256": "3e89bbcb989967c26b73f68d79c66a5391a6d6401a38009433852cfcafca8b1c",
   "n_training_cases": 50355,
   "n_training_groups": 54,
   "name": "generic_target_disagreement",
@@ -57,8 +56,7 @@
   "scope": "documented_daily_mean",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
-      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet"
     }
   ],
   "source_thresholds": {

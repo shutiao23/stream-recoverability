@@ -35,7 +35,7 @@ agent a directly against `results/revision_v12/` before writing.
 3. **Abstract** rewritten: model-conditional framing; reports the NEW
    same-unit paired results (0.945/0.805 vs 0.846/0.248 on the same 874
    units; paired +0.55 [+0.31, +0.81] and +0.098 [+0.06, +0.14]); contains
-   no evidence-provenance clutter (no amendment/hash-bound talk).
+   no evidence-provenance clutter (no amendment talk).
 4. **Introduction** now has exactly 5 paragraphs (task definition; literature
    gap; why uncertainty metrics fall short; the Design; three research
    questions) and three RQs instead of the v11 four.

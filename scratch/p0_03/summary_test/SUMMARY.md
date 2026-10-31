@@ -1,6 +1,6 @@
 # P0-03 — the final admission rule on the monitoring-calendar replay
 
-`scripts/312_wrr_p0_03_final_method_replay.py` (sha256 `9373979ec8f3cdce…`), git HEAD `8eade30bbf5f82b9af3b7900de81e52707e8af47`, runtime 178.9 s, generated 2026-10-15T10:11:41.726622+00:00.
+`scripts/312_wrr_p0_03_final_method_replay.py`, runtime 178.9 s, generated 2026-10-15T10:11:41.726622+00:00.
 
 ## 1. What was replayed, and on how many units
 

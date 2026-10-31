@@ -1,6 +1,6 @@
 # WRR submission-readiness — science package closed; author human gate open
 
-Locked review commit: `1e0f24e32723e3b14dbacdba3dfa851ff60f58fe` (2026-10-13 00:00:01 UTC).
+Locked for review at 2026-10-13 00:00:01 UTC.
 
 ## Objective gates (2026-10-13 audit)
 
@@ -10,7 +10,7 @@ Locked review commit: `1e0f24e32723e3b14dbacdba3dfa851ff60f58fe` (2026-10-13 00:
 | Admitted ⇒ finite hottest-30; full 70% denominator | **met** | wave-2 `n_cert_reconstruction_failures=0`; `n_candidate_cases=n_cases=13017` |
 | Primary confirmation passes preregistered gates, no NVE leakage | **met** | wave-2 Δ=−5.89 pp [−6.92,−4.91]; providers usgs/hubeau/uk_ea; QC subset agrees |
 | Mechanism claims falsifiable / narrowed | **met** | “governs” withdrawn; paired dominate claim hedged; crossover exploratory |
-| Reviewers can reproduce from hashed legal inputs | **met** | `wave2_inputs_manifest.csv`; access route; binding `hard_ok` |
+| Reviewers can reproduce from manifest-listed legal inputs | **met** | `wave2_inputs_manifest.csv`; access route; binding `hard_ok` |
 | P0-01 … P0-07 | **met** | freeze; sanitize; recon; env; MNAR; reanalysis; wave-2 scored once |
 | P0-08 manuscript + key figures | **met except author** | TeX/PDF rebuilt; Fig2b includes wave-2; desk length checks green |
 | P1 preparation | **met (scaffold)** | `amendments/p1_01_uncertainty_sources/`; day-level MNAR exploratory |

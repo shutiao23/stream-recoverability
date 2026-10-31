@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -26,14 +25,6 @@ DEFAULT_OUTPUT = ROOT / "results/development_v11/reviewer_completion"
 DEFAULT_GAGES = (
     ROOT / "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip"
 )
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def plot_level_slopes(levels: pd.DataFrame, output: Path) -> None:
@@ -68,9 +59,7 @@ def plot_level_slopes(levels: pd.DataFrame, output: Path) -> None:
                 label=risk_model.replace("_", " "),
             )
         axis.axvline(1.0, color="black", lw=1, ls="--")
-        axis.set_yticks(
-            range(len(names)), [name.replace("_", " ") for name in names]
-        )
+        axis.set_yticks(range(len(names)), [name.replace("_", " ") for name in names])
         axis.set_title(title)
         axis.grid(axis="x", alpha=0.2)
     for axis in axes:
@@ -126,7 +115,11 @@ def main() -> None:
             )
             coefficient_parts.append(coefficients)
             diagnostics.append(
-                {key: value for key, value in diagnostic.items() if key != "level_slopes"}
+                {
+                    key: value
+                    for key, value in diagnostic.items()
+                    if key != "level_slopes"
+                }
             )
             level_rows.extend(diagnostic["level_slopes"])
     coefficient_path = args.output / "us_heterogeneity_coefficients.csv"
@@ -185,12 +178,11 @@ def main() -> None:
         "inputs": {
             "gages_archive": {
                 "path": str(args.gages_archive.relative_to(ROOT)),
-                "sha256": sha256(args.gages_archive),
                 "redistributed": False,
             }
         },
-        "outputs": {
-            path.name: sha256(path)
+        "outputs": [
+            path.name
             for path in (
                 panel_path,
                 network_path,
@@ -198,7 +190,7 @@ def main() -> None:
                 level_path,
                 figure_path,
             )
-        },
+        ],
     }
     manifest_path = args.output / "us_heterogeneity_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

@@ -1,6 +1,6 @@
 # Finding closure after the aligned-policy round (2026-10-20)
 
-Base: `bfc797ef43` (the commit reviewed on 2026-10-19). This table supersedes the
+Base: the state reviewed on 2026-10-19. This table supersedes the
 2026-10-15 closure audit for findings F01–F11 of the 2026-10-19 review. The
 point-by-point response with numbers is `paper/wrr/RESPONSE_TO_REVIEW.md`; the
 round summary is `results/wrr_submission_ready/major_revision_20261020/README.md`.
@@ -17,7 +17,7 @@ round summary is `results/wrr_submission_ready/major_revision_20261020/README.md
 | F08 | Major | condition the mechanism claim; test residual correlation and competing peaks | "position governs" withdrawn; reconstructor range 0.24–0.64 °C at 30 days; linear interpolation keeps a 1.16 °C length effect at full support; misalignment 0.28–0.70 °C; residual persistence 0.84–0.88 and +0.16–0.36 °C above the median; competing peaks do not order the error (negative control) | manuscript §4.2–4.3, §5.1, `p1_mechanism_boundary/` |
 | F09 | Major, conditional | keep the validation scope honest | the external comparison is a cross-fit on an opened panel; stated in the abstract, the limitations and the open-research statement. No sealed claim is made | manuscript abstract, §5.4, Open Research |
 | F10 | Minor | counts, units and the SI | all counts regenerated from the aligned run (5,114; 53,721; 40,704; 13,017; 2,422; 418); shares as fractions, differences in points; the measurement-stratum gap is disclosed rather than assumed | manuscript §2.2, §5.4; SI §S5 |
-| F11 | Minor, submission | FAIR and administration | scripts, protocol fingerprints, manifests and figure sources in place; the build refuses submission-ready status while the author block is a placeholder. No claim of independent full reproduction is made | `paper/wrr/build_report.json`, SI §S9 |
+| F11 | Minor, submission | FAIR and administration | scripts, manifests and figure sources in place; the build refuses submission-ready status while the author block is a placeholder. No claim of independent full reproduction is made | `paper/wrr/build_report.json`, SI §S9 |
 
 ## What the round verifies
 

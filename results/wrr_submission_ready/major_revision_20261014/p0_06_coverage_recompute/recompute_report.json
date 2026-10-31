@@ -204,7 +204,7 @@
       {
         "input_key": "current_data_manifest",
         "file": "results/wrr_submission_ready/current_data_manifest.csv",
-        "role": "per-network data presence, artifact path and sha256, PART A",
+        "role": "per-network data presence, artifact path, PART A",
         "columns_used": [
           "network_id",
           "provider",
@@ -212,7 +212,6 @@
           "split_role",
           "input_path",
           "bytes",
-          "sha256",
           "status"
         ],
         "file_present": true
@@ -314,8 +313,7 @@
           "n_stations_ge4",
           "station_ids_ge4",
           "input_path",
-          "bytes",
-          "sha256"
+          "bytes"
         ],
         "file_present": true
       },

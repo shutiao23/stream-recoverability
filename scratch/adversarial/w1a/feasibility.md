@@ -66,7 +66,7 @@ optionally queries 2–3 groups. 404 = isolated origin, not a delete.
 ## Split (attack 8–9)
 
 Stratified 50/20/30 by climate_band × size tertile. Assignment key is
-SHA-256(`seed\\tnetwork_id`) with seed **20260826**, locked **before**
+a deterministic function of `seed` and `network_id` with seed **20260826**, locked **before**
 any new download. never_sealed (12 burned rivers + jinsha +
 chattahoochee, matched by site overlap / name tokens) cannot be sealed.
 Loire and Swiss Aare-Rhine have no public dated daily values here and

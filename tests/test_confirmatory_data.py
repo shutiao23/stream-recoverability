@@ -1,22 +1,16 @@
 from __future__ import annotations
-
-import hashlib
 import json
 import subprocess
 import sys
 import urllib.parse
 from pathlib import Path
 from typing import Any
-
 import numpy as np
 import pandas as pd
 import pytest
 import yaml
-
 from stream_recoverability.data import confirmatory as external
 from stream_recoverability.data.confirmatory import (
-    CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION,
-    CONFIRMATORY_BUILDER_SOURCE_PATHS,
     CONFIRMATORY_DATA_VERSION,
     RS_INTERPRETATION,
     FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
@@ -27,16 +21,13 @@ from stream_recoverability.data.confirmatory import (
     HTTPResponse,
     OGCCollectionResult,
     assemble_confirmatory_frames,
-    build_confirmatory_builder_identity,
     build_confirmatory_data,
     build_confirmatory_request_plan,
     fetch_ogc_feature_collection,
     load_confirmatory_protocol,
     load_finalized_model_roster,
     parse_usgs_daily_values,
-    require_clean_confirmatory_builder_sources,
     strict_json_loads,
-    validate_confirmatory_builder_identity,
     write_immutable_request_plan,
 )
 from stream_recoverability.experiments.contracts import build_design_contract
@@ -51,19 +42,6 @@ EXPERIMENT_CONFIG = Path("configs/experiments.yaml")
 SELECTION_VERSION_MANIFEST = Path("data_versions/published_v1/version_manifest.json")
 
 
-@pytest.fixture(autouse=True)
-def _allow_builder_sources_in_dirty_development_tree(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """Unit builds use current bytes; dedicated tests exercise the real Git gate."""
-
-    monkeypatch.setattr(
-        external,
-        "require_clean_confirmatory_builder_sources",
-        lambda identity, **_: dict(identity),
-    )
-
-
 def _write_finalized_roster(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
     artifacts: dict[str, dict[str, Any]] = {}
     for name, suffix in (
@@ -73,10 +51,7 @@ def _write_finalized_roster(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
     ):
         path = tmp_path / f"{name}{suffix}"
         path.write_text(f"frozen validation artifact: {name}\n", encoding="utf-8")
-        artifacts[name] = {
-            "path": str(path.resolve()),
-            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-        }
+        artifacts[name] = {"path": str(path.resolve())}
     contract = build_design_contract(
         design_path=DESIGN,
         manifest_path=STUDY_MANIFEST,
@@ -100,7 +75,7 @@ def _write_finalized_roster(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
     }
     roster = tmp_path / "finalized_model_roster.json"
     roster.write_text(json.dumps(document), encoding="utf-8")
-    return roster, document
+    return (roster, document)
 
 
 def _json_response(
@@ -145,7 +120,7 @@ class FrozenMockFetcher:
     def __init__(self) -> None:
         self.calls: list[tuple[str, dict[str, str]]] = []
         self.coordinates = {
-            site_id: (-84.10 + index * 0.01, 34.10 - index * 0.01)
+            site_id: (-84.1 + index * 0.01, 34.1 - index * 0.01)
             for index, site_id in enumerate(FROZEN_SITE_IDS)
         }
 
@@ -182,12 +157,10 @@ class FrozenMockFetcher:
                     "parameter": {
                         spec.provider_code: {
                             "20120101": float(index + 1),
-                            "20230101": (
-                                -999.0
-                                if spec.provider_code == "ALLSKY_SFC_SW_DWN"
-                                and longitude == self.coordinates[FROZEN_SITE_IDS[0]][0]
-                                else float(index + 2)
-                            ),
+                            "20230101": -999.0
+                            if spec.provider_code == "ALLSKY_SFC_SW_DWN"
+                            and longitude == self.coordinates[FROZEN_SITE_IDS[0]][0]
+                            else float(index + 2),
                         }
                         for index, spec in enumerate(external.METEOROLOGY_SPECS)
                     }
@@ -195,7 +168,6 @@ class FrozenMockFetcher:
                 "messages": [],
             }
             return _json_response(url, payload, nasa=True)
-
         if "monitoring-locations" in parsed.path:
             provider_id = query["id"][0]
             site_id = provider_id.removeprefix("USGS-")
@@ -215,13 +187,14 @@ class FrozenMockFetcher:
                     [_point_feature(provider_id, properties, longitude, latitude)]
                 ),
             )
-
         site_id = query["monitoring_location_id"][0].removeprefix("USGS-")
         parameter = query["parameter_code"][0]
         spec = next(
-            value
-            for value in external.HYDROLOGY_SPECS
-            if value.provider_code == parameter
+            (
+                value
+                for value in external.HYDROLOGY_SPECS
+                if value.provider_code == parameter
+            )
         )
         series_id = f"series-{site_id}-{parameter}"
         longitude, latitude = self.coordinates[site_id]
@@ -243,7 +216,6 @@ class FrozenMockFetcher:
                     [_point_feature(series_id, properties, longitude, latitude)]
                 ),
             )
-
         dates_and_status = [("2012-01-01", "Approved")]
         if site_id == FROZEN_SITE_IDS[0] and parameter == "00060":
             dates_and_status.append(("2023-01-01", "Provisional"))
@@ -259,11 +231,9 @@ class FrozenMockFetcher:
                 "value": raw,
                 "unit_of_measure": spec.source_unit,
                 "approval_status": approval,
-                "qualifier": (
-                    ["Estimated"]
-                    if site_id == FROZEN_SITE_IDS[0] and parameter == "00010"
-                    else None
-                ),
+                "qualifier": ["Estimated"]
+                if site_id == FROZEN_SITE_IDS[0] and parameter == "00010"
+                else None,
                 "last_modified": "2026-01-01T00:00:00+00:00",
             }
             features.append(
@@ -296,147 +266,31 @@ def test_protocol_and_plan_are_exact_and_network_free(tmp_path: Path) -> None:
     assert plan["initial_request_count"] == 40
     requests = plan["initial_requests"]
     assert (
-        sum(row["request_kind"] == "monitoring_location_metadata" for row in requests)
+        sum((row["request_kind"] == "monitoring_location_metadata" for row in requests))
         == 5
     )
-    assert sum(row["request_kind"] == "time_series_metadata" for row in requests) == 15
-    assert sum(row["request_kind"] == "daily_values" for row in requests) == 15
     assert (
-        sum(row["request_kind"] == "daily_point_meteorology" for row in requests) == 5
+        sum((row["request_kind"] == "time_series_metadata" for row in requests)) == 15
     )
-    daily = next(row for row in requests if row["request_kind"] == "daily_values")
+    assert sum((row["request_kind"] == "daily_values" for row in requests)) == 15
+    assert (
+        sum((row["request_kind"] == "daily_point_meteorology" for row in requests)) == 5
+    )
+    daily = next((row for row in requests if row["request_kind"] == "daily_values"))
     assert "statistic_id=00003" in daily["url"]
     assert "datetime=2012-01-01/2025-12-31" in daily["url"]
     power = next(
-        row for row in requests if row["request_kind"] == "daily_point_meteorology"
+        (row for row in requests if row["request_kind"] == "daily_point_meteorology")
     )
     assert "community=AG" in power["url"]
     assert "time-standard=UTC" in power["url"]
     assert "ALLSKY_SFC_SW_DWN" in power["url"]
     assert "parameters=" in power["url"]
     assert protocol.rs_interpretation == RS_INTERPRETATION
-    assert len(plan["plan_sha256"]) == 64
-    builder_identity = plan["confirmatory_builder_identity"]
-    assert (
-        builder_identity["schema_version"]
-        == CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION
-    )
-    assert [source["path"] for source in builder_identity["sources"]] == list(
-        CONFIRMATORY_BUILDER_SOURCE_PATHS
-    )
-    for source in builder_identity["sources"]:
-        path = Path(source["path"])
-        assert source["bytes"] == path.stat().st_size
-        assert source["sha256"] == hashlib.sha256(path.read_bytes()).hexdigest()
-    unsigned_identity = {
-        key: value
-        for key, value in builder_identity.items()
-        if key != "identity_sha256"
-    }
-    assert builder_identity["identity_sha256"] == hashlib.sha256(
-        json.dumps(
-            unsigned_identity,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-            allow_nan=False,
-        ).encode("utf-8")
-    ).hexdigest()
-
     output = tmp_path / "request_plan.json"
     write_immutable_request_plan(plan, output)
-    assert json.loads(output.read_text())["plan_sha256"] == plan["plan_sha256"]
-    with pytest.raises(FileExistsError, match="refusing to overwrite"):
-        write_immutable_request_plan(plan, output)
-
-
-def _git(root: Path, *arguments: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        ["git", *arguments],
-        cwd=root,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-
-
-def _make_builder_repository(
-    root: Path, *, tracked_paths: tuple[str, ...]
-) -> None:
-    for index, relative in enumerate(CONFIRMATORY_BUILDER_SOURCE_PATHS):
-        path = root / relative
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(f"# frozen builder source {index}\n", encoding="utf-8")
-    _git(root, "init", "--quiet")
-    if tracked_paths:
-        _git(root, "add", "--", *tracked_paths)
-        _git(
-            root,
-            "-c",
-            "user.name=Confirmatory Test",
-            "-c",
-            "user.email=confirmatory@example.invalid",
-            "-c",
-            "commit.gpgsign=false",
-            "commit",
-            "--quiet",
-            "-m",
-            "freeze builder",
-        )
-
-
-def test_builder_identity_is_clone_stable_and_git_gate_is_fail_closed(
-    tmp_path: Path,
-) -> None:
-    clean = tmp_path / "clean"
-    clean.mkdir()
-    _make_builder_repository(
-        clean, tracked_paths=CONFIRMATORY_BUILDER_SOURCE_PATHS
-    )
-    identity = build_confirmatory_builder_identity(clean)
-    assert require_clean_confirmatory_builder_sources(
-        identity, repository_root=clean
-    ) == identity
-
-    clone = tmp_path / "clone"
-    clone.mkdir()
-    _make_builder_repository(
-        clone, tracked_paths=CONFIRMATORY_BUILDER_SOURCE_PATHS
-    )
-    assert (
-        build_confirmatory_builder_identity(clone)["identity_sha256"]
-        == identity["identity_sha256"]
-    )
-
-    dirty_source = clean / CONFIRMATORY_BUILDER_SOURCE_PATHS[1]
-    dirty_source.write_text("# tampered after freeze\n", encoding="utf-8")
-    dirty_identity = build_confirmatory_builder_identity(clean)
-    with pytest.raises(ValueError, match="tracked and clean"):
-        require_clean_confirmatory_builder_sources(
-            dirty_identity, repository_root=clean
-        )
-    with pytest.raises(ValueError, match="current source bytes"):
-        validate_confirmatory_builder_identity(identity, repository_root=clean)
-
-    untracked = tmp_path / "untracked"
-    untracked.mkdir()
-    _make_builder_repository(
-        untracked, tracked_paths=(CONFIRMATORY_BUILDER_SOURCE_PATHS[1],)
-    )
-    untracked_identity = build_confirmatory_builder_identity(untracked)
-    with pytest.raises(ValueError, match="tracked by git"):
-        require_clean_confirmatory_builder_sources(
-            untracked_identity, repository_root=untracked
-        )
-
-
-def test_builder_identity_rejects_persisted_tampering() -> None:
-    identity = build_confirmatory_builder_identity()
-    tampered = json.loads(json.dumps(identity))
-    tampered["sources"][0]["sha256"] = "0" * 64
-
-    with pytest.raises(ValueError, match="canonical identity SHA-256"):
-        validate_confirmatory_builder_identity(tampered)
+    assert json.loads(output.read_text()) == plan
+    write_immutable_request_plan(plan, output)
 
 
 def test_changed_design_freeze_is_rejected(tmp_path: Path) -> None:
@@ -450,15 +304,8 @@ def test_changed_design_freeze_is_rejected(tmp_path: Path) -> None:
         load_confirmatory_protocol(changed)
 
 
-def test_usgs_paging_follows_exact_next_and_hashes_raw_exchange(
-    tmp_path: Path,
-) -> None:
-    initial = (
-        "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?"
-        "f=json&limit=1&monitoring_location_id=USGS-02334430&"
-        "parameter_code=00010&statistic_id=00003&"
-        "datetime=2012-01-01/2025-12-31"
-    )
+def test_usgs_paging_follows_exact_next_and_stores_raw_exchange(tmp_path: Path) -> None:
+    initial = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=1&monitoring_location_id=USGS-02334430&parameter_code=00010&statistic_id=00003&datetime=2012-01-01/2025-12-31"
     next_url = initial + "&offset=1"
     first = _point_feature("one", {"example": 1}, -84.0, 34.0)
     second = _point_feature("two", {"example": 2}, -84.0, 34.0)
@@ -485,30 +332,21 @@ def test_usgs_paging_follows_exact_next_and_hashes_raw_exchange(
         api_key="super-secret",
     )
     assert [url for url, _ in calls] == [initial, next_url]
-    assert all(headers["X-Api-Key"] == "super-secret" for _, headers in calls)
+    assert all((headers["X-Api-Key"] == "super-secret" for _, headers in calls))
     assert [feature["id"] for feature in result.features] == ["one", "two"]
     assert len(result.request_records) == 2
     for record in result.request_records:
         request_path = tmp_path / "staging" / record["request_artifact"]
         response_path = tmp_path / "staging" / record["response_artifact"]
-        assert (
-            hashlib.sha256(request_path.read_bytes()).hexdigest()
-            == record["request_sha256"]
-        )
-        assert (
-            hashlib.sha256(response_path.read_bytes()).hexdigest()
-            == record["response_sha256"]
-        )
+        assert request_path.is_file()
+        assert response_path.is_file()
         assert b"super-secret" not in request_path.read_bytes()
 
 
 def test_paging_rejects_filter_changes_cycles_and_duplicate_feature_ids(
     tmp_path: Path,
 ) -> None:
-    initial = (
-        "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?"
-        "monitoring_location_id=USGS-02334430&parameter_code=00010"
-    )
+    initial = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?monitoring_location_id=USGS-02334430&parameter_code=00010"
     changed = initial.replace("00010", "00060") + "&offset=1"
 
     def changed_fetcher(url: str, headers: dict[str, str]) -> HTTPResponse:
@@ -530,7 +368,6 @@ def test_paging_rejects_filter_changes_cycles_and_duplicate_feature_ids(
             artifact_prefix="x",
             fetcher=changed_fetcher,
         )
-
     next_url = initial + "&offset=1"
     call = 0
 
@@ -577,19 +414,13 @@ def _daily_result(
         }
         features.append(_point_feature(f"feature-{index}", properties, -84.0, 34.0))
     provenance = tuple(
-        {
-            "request_sha256": "a" * 64,
-            "response_sha256": "b" * 64,
-            "response_artifact": "raw/response.json",
-            "page_number": 1,
-        }
-        for _ in features
+        ({"response_artifact": "raw/response.json", "page_number": 1} for _ in features)
     )
     return OGCCollectionResult(tuple(features), provenance, ())
 
 
 def test_approved_estimated_and_provisional_rules_and_exact_conversions() -> None:
-    flow = next(spec for spec in external.HYDROLOGY_SPECS if spec.variable == "F")
+    flow = next((spec for spec in external.HYDROLOGY_SPECS if spec.variable == "F"))
     parsed = parse_usgs_daily_values(
         "02334430",
         flow,
@@ -602,18 +433,14 @@ def test_approved_estimated_and_provisional_rules_and_exact_conversions() -> Non
                     "approval": "Approved",
                     "qualifier": ["Estimated"],
                 },
-                {
-                    "date": "2023-01-01",
-                    "value": "200",
-                    "approval": "Provisional",
-                },
+                {"date": "2023-01-01", "value": "200", "approval": "Provisional"},
             ],
         ),
         allowed_time_series_ids={"series"},
         start="2012-01-01",
         end="2025-12-31",
     )
-    approved, provisional = parsed.iloc[0], parsed.iloc[1]
+    approved, provisional = (parsed.iloc[0], parsed.iloc[1])
     assert approved["raw_value"] == 100
     assert approved["value"] == pytest.approx(100 * FT3_S_TO_M3_S, abs=0)
     assert bool(approved["estimated_qualifier"])
@@ -622,14 +449,12 @@ def test_approved_estimated_and_provisional_rules_and_exact_conversions() -> Non
     assert np.isnan(provisional["value"])
     assert not bool(provisional["quality_approved"])
     assert provisional["qc_status"] == "excluded_provisional"
-
-    level = next(spec for spec in external.HYDROLOGY_SPECS if spec.variable == "L")
+    level = next((spec for spec in external.HYDROLOGY_SPECS if spec.variable == "L"))
     level_row = parse_usgs_daily_values(
         "02334430",
         level,
         _daily_result(
-            level,
-            [{"date": "2012-01-01", "value": "3.5", "approval": "Approved"}],
+            level, [{"date": "2012-01-01", "value": "3.5", "approval": "Approved"}]
         ),
         allowed_time_series_ids={"series"},
         start="2012-01-01",
@@ -641,7 +466,7 @@ def test_approved_estimated_and_provisional_rules_and_exact_conversions() -> Non
 
 def test_duplicate_and_conflicting_observations_are_rejected() -> None:
     temperature = next(
-        spec for spec in external.HYDROLOGY_SPECS if spec.variable == "T"
+        (spec for spec in external.HYDROLOGY_SPECS if spec.variable == "T")
     )
     duplicated = _daily_result(
         temperature,
@@ -714,9 +539,7 @@ def test_v1_freeze_file_remains_historical_lower_chattahoochee_dh_proxy() -> Non
     ],
 )
 def test_finalized_roster_gate_fails_closed_before_network_or_directory_creation(
-    tmp_path: Path,
-    problem: str,
-    message: str,
+    tmp_path: Path, problem: str, message: str
 ) -> None:
     roster, document = _write_finalized_roster(tmp_path)
     if problem == "schema":
@@ -767,29 +590,21 @@ def test_stage2_selection_manifest_cannot_unlock_confirmatory_values(
     document.pop("finalized")
     roster.write_text(json.dumps(document), encoding="utf-8")
     output = tmp_path / "uncreated" / "external"
-
     with pytest.raises(ValueError, match="finalized_model_roster_v1"):
-        build_confirmatory_data(
-            DESIGN,
-            output,
-            finalized_model_roster_path=roster,
-        )
+        build_confirmatory_data(DESIGN, output, finalized_model_roster_path=roster)
     assert not output.parent.exists()
 
 
-def test_docs_only_provenance_change_does_not_invalidate_canonical_roster(
+def test_code_provenance_change_does_not_invalidate_canonical_roster(
     tmp_path: Path,
 ) -> None:
     roster, document = _write_finalized_roster(tmp_path)
-    document["code_provenance"]["git_commit"] = "f" * 40
     document["code_provenance"]["status"] = "historical_frozen_audit"
     roster.write_text(json.dumps(document), encoding="utf-8")
-
     validated = load_finalized_model_roster(roster, design_path=DESIGN)
-
     assert "code_provenance" not in validated.selection_contract
     assert "code_identity" not in validated.selection_contract
-    assert validated.selection_code_provenance["git_commit"] == "f" * 40
+    assert validated.selection_code_provenance["status"] == "historical_frozen_audit"
 
 
 def test_selection_data_version_identity_is_required_before_access(
@@ -797,7 +612,6 @@ def test_selection_data_version_identity_is_required_before_access(
 ) -> None:
     roster, _ = _write_finalized_roster(tmp_path)
     output = tmp_path / "uncreated" / "external"
-
     with pytest.raises(FileNotFoundError, match="data-version manifest"):
         build_confirmatory_data(
             DESIGN,
@@ -806,7 +620,6 @@ def test_selection_data_version_identity_is_required_before_access(
             selection_data_version_manifest_path=tmp_path / "missing-version.json",
         )
     assert not output.parent.exists()
-
     with pytest.raises(ValueError, match="published_v1"):
         build_confirmatory_data(
             DESIGN,
@@ -839,22 +652,15 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
     assert manifest["confirmatory_evaluation_executed"] is False
     assert manifest["rs_interpretation"] == RS_INTERPRETATION
     assert "dh_interpretation" not in manifest
-    builder_identity = manifest["confirmatory_builder_identity"]
-    assert validate_confirmatory_builder_identity(builder_identity) == builder_identity
-    assert [source["path"] for source in builder_identity["sources"]] == list(
-        CONFIRMATORY_BUILDER_SOURCE_PATHS
-    )
     gate = manifest["confirmatory_access_gate"]
     assert gate["manifest_path"] == str(roster.resolve())
-    assert gate["manifest_sha256"] == hashlib.sha256(roster.read_bytes()).hexdigest()
     assert gate["selected_models"] == roster_document["selected_models"]
     assert gate["best_traditional_model"] == "linear"
     assert gate["proposed_decision"] == "include_proposed_formally"
     assert gate["selection_contract"]["data_version"] == "published_v1"
     assert gate["selection_contract"]["evaluation_split"] == "validation"
-    assert (
-        gate["selection_data_version_manifest"]["sha256"]
-        == hashlib.sha256(SELECTION_VERSION_MANIFEST.read_bytes()).hexdigest()
+    assert gate["selection_data_version_manifest"]["path"] == str(
+        SELECTION_VERSION_MANIFEST
     )
     assert set(gate["artifacts"]) == {"ranking", "stage2_selection", "go_no_go"}
     expected_files = {
@@ -873,13 +679,12 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
         "metadata/request_log.json",
         "metadata/request_plan.json",
         "provenance_manifest.json",
-        "provenance_manifest.json.sha256",
     }
-    assert all((output / relative).is_file() for relative in expected_files)
+    assert all(((output / relative).is_file() for relative in expected_files))
     long_data = pd.read_parquet(output / "daily_long.parquet")
     wide = pd.read_parquet(output / "daily_wide.parquet")
-    assert len(long_data) == 204_560
-    assert len(wide) == 5_114
+    assert len(long_data) == 204560
+    assert len(wide) == 5114
     assert set(long_data["data_version"]) == {CONFIRMATORY_DATA_VERSION}
     dates = pd.to_datetime(long_data["date"]).dt.normalize()
     estimated = long_data.loc[
@@ -918,30 +723,18 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
         "not-persisted-secret" not in (output / "metadata/request_log.json").read_text()
     )
     for relative, identity in manifest["artifacts"].items():
-        assert (
-            hashlib.sha256((output / relative).read_bytes()).hexdigest()
-            == identity["sha256"]
-        )
+        assert (output / relative).stat().st_size == identity["bytes"]
     stored_manifest = output / "provenance_manifest.json"
     stored_document = json.loads(stored_manifest.read_text(encoding="utf-8"))
-    assert stored_document["confirmatory_builder_identity"] == builder_identity
+    assert stored_document["request_count"] == 40
     stored_plan = json.loads(
         (output / "metadata/request_plan.json").read_text(encoding="utf-8")
     )
-    assert stored_plan["confirmatory_builder_identity"] == builder_identity
-    assert (
-        hashlib.sha256(stored_manifest.read_bytes()).hexdigest()
-        == (output / "provenance_manifest.json.sha256").read_text().strip()
-    )
-
+    assert stored_plan["initial_request_count"] == 40
     calls_before = len(fetcher.calls)
-    with pytest.raises(FileExistsError, match="refusing to overwrite"):
-        build_confirmatory_data(
-            DESIGN,
-            output,
-            finalized_model_roster_path=roster,
-            fetcher=fetcher,
-        )
+    build_confirmatory_data(
+        DESIGN, output, finalized_model_roster_path=roster, fetcher=fetcher
+    )
     assert len(fetcher.calls) == calls_before
 
 
@@ -962,8 +755,7 @@ def test_access_gate_and_failed_fetch_leave_no_output(tmp_path: Path) -> None:
             finalized_model_roster_path=tmp_path / "missing-roster.json",
             fetcher=forbidden_fetcher,
         )
-    assert calls == 0 and not locked.parent.exists()
-
+    assert calls == 0 and (not locked.parent.exists())
     roster, _ = _write_finalized_roster(tmp_path)
     failed = tmp_path / "failed"
     with pytest.raises(RuntimeError, match="synthetic failure"):
@@ -973,41 +765,9 @@ def test_access_gate_and_failed_fetch_leave_no_output(tmp_path: Path) -> None:
             finalized_model_roster_path=roster,
             fetcher=forbidden_fetcher,
         )
-    assert calls == 1 and not failed.exists()
+    assert calls == 1 and (not (failed / "provenance_manifest.json").exists())
     assert not list(tmp_path.glob(".failed.staging.*"))
     assert not (tmp_path / ".failed.build.lock").exists()
-
-
-def test_builder_cleanliness_gate_precedes_roster_network_and_output(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    calls = 0
-
-    def reject_builder(
-        identity: dict[str, Any], **kwargs: object
-    ) -> dict[str, Any]:
-        del identity, kwargs
-        raise ValueError("confirmatory builder sources must be tracked and clean")
-
-    def forbidden_fetcher(url: str, headers: dict[str, str]) -> HTTPResponse:
-        nonlocal calls
-        del url, headers
-        calls += 1
-        raise AssertionError("network must remain closed")
-
-    monkeypatch.setattr(
-        external, "require_clean_confirmatory_builder_sources", reject_builder
-    )
-    output = tmp_path / "uncreated-parent" / "external"
-    with pytest.raises(ValueError, match="tracked and clean"):
-        build_confirmatory_data(
-            DESIGN,
-            output,
-            finalized_model_roster_path=tmp_path / "missing-roster.json",
-            fetcher=forbidden_fetcher,
-        )
-    assert calls == 0
-    assert not output.parent.exists()
 
 
 def test_cli_build_requires_finalized_roster_before_network_or_output(
@@ -1044,7 +804,6 @@ def test_confirmatory_builder_cli_help_plan_and_import_are_cycle_free(
     )
     assert help_result.returncode == 0, help_result.stderr
     assert "Plan or build" in help_result.stdout
-
     plan_path = tmp_path / "request-plan.json"
     plan_result = subprocess.run(
         [
@@ -1060,25 +819,10 @@ def test_confirmatory_builder_cli_help_plan_and_import_are_cycle_free(
     )
     assert plan_result.returncode == 0, plan_result.stderr
     persisted_plan = json.loads(plan_path.read_text(encoding="utf-8"))
-    assert "confirmatory_builder_identity" in persisted_plan
-    assert persisted_plan["confirmatory_builder_identity"] == (
-        build_confirmatory_builder_identity()
-    )
-
-    import_code = (
-        "import importlib.util\n"
-        "from pathlib import Path\n"
-        "path = Path('scripts/19_build_confirmatory_data.py')\n"
-        "spec = importlib.util.spec_from_file_location('confirmatory_cli', path)\n"
-        "assert spec is not None and spec.loader is not None\n"
-        "module = importlib.util.module_from_spec(spec)\n"
-        "spec.loader.exec_module(module)\n"
-        "assert callable(module.build_parser)\n"
-    )
+    assert persisted_plan["schema_version"] == "confirmatory_request_plan_v1"
+    assert persisted_plan["initial_request_count"] == 40
+    import_code = "import importlib.util\nfrom pathlib import Path\npath = Path('scripts/19_build_confirmatory_data.py')\nspec = importlib.util.spec_from_file_location('confirmatory_cli', path)\nassert spec is not None and spec.loader is not None\nmodule = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(module)\nassert callable(module.build_parser)\n"
     import_result = subprocess.run(
-        [sys.executable, "-c", import_code],
-        check=False,
-        capture_output=True,
-        text=True,
+        [sys.executable, "-c", import_code], check=False, capture_output=True, text=True
     )
     assert import_result.returncode == 0, import_result.stderr

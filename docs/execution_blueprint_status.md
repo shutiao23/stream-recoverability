@@ -1,7 +1,6 @@
 # Execution blueprint status
 
 Date: 2026-08-27  
-Review lock: `main@c77804bdb09e460c14f773003f015ac7f0f3b28c`  
 Tracker for the WRR adversarial review blueprint (P0–P2).
 
 Machine-readable/current requirement audit:

@@ -5,13 +5,11 @@
     "provider": "Open-Meteo ERA5-Land",
     "variable": "hourly temperature_2m"
   },
-  "classical_calibration_sha256": "bde77397fba40479f2c43151b2fdf41df61963a9813ca4906465014864218d1e",
   "domain": "Continuous river records with at least four strict QC complete hot years after acquisition. No dry-bed physical temperature claim. All metadata-eligible candidates included; distance-based domain flags diagnostic only, never tuned on target errors.",
   "endpoint": "https://hilltop.gw.govt.nz/Data.hts",
   "grouping_evidence": "Agency SurfaceWaterZone conservatively merges connected Hutt tributaries and Wainuiomata, all Ruamahanga tributaries, and the selected Kapiti coastal catchments. Predictors share water donors only within these merged groups. Management grouping is structural; independent/exchangeable weather and errors across zones remain assumptions.",
   "independence_groups_verified": true,
-  "metadata_roster_file": "greater_wellington/registration_roster.csv",
-  "metadata_roster_sha256": "ac7d0be3918abd3954f474bf829d430611724a67a9b43550bcad1c6aee7f9d53",
+  "metadata_roster_file": "greater_wellington/cohort_roster.csv",
   "n_conservative_groups": 3,
   "n_prospective_stations": 9,
   "native_time_zone": "NZST fixed UTC+12, confirmed by all candidate TimeRange metadata",
@@ -65,7 +63,6 @@
       "to": "2026-10-24T13:20:00+12:00"
     }
   ],
-  "public_registration_required_before_acquisition": true,
   "qc_specification": {
     "accepted_quality_codes": [
       600
@@ -75,11 +72,11 @@
     "daily_completeness": 1.0,
     "native_clock": "NZST fixed UTC+12"
   },
-  "source_case_settings_sha256": "3d71fe5318af849bd9127b5426efa10459efcb9bbf0f4125061a82badd4812f5",
   "source_decision_hot_cutoff": 0.5775520449874613,
-  "source_generator_sha256": "d32cf048d7105753845f6edc54f0a3bc71bc38d95f8c372fd383064418c1dfcd",
-  "source_model_sha256": "1c7cbc30ce0d60e894f4d195e6381310caf6927ec324b80f4b11c4be23f4d78c",
-  "status": "metadata_roster_frozen",
+  "status": "metadata_cohort_selected",
   "study_interpretation": "Small prospective failure-detection/descriptive study; no budget reached 80 percent source planning power. Three conservative zones cannot implement E5 at ten labeled groups. No confirmation of universal transfer or individual conditional risk.",
-  "temperature_values_requested": false
+  "temperature_values_requested": false,
+  "execution": "direct local measurement plan; no public-registration prerequisite",
+  "validation_status": "unregistered new-region validation; do not describe as a preregistered confirmation",
+  "quality_code_mapping": "Legacy returned codes are not assumed equivalent to code 600 without provider documentation."
 }

@@ -1,6 +1,6 @@
 # Major revision, round 1 — what the new evidence changed
 
-Date: 2026-10-15.  Base commit: `8eade30bbf`.  This note is the index to the
+Date: 2026-10-15.  Base: the repository state of 2026-10-14.  This note is the index to the
 evidence produced in this round and the claims it changes.  Nothing here retunes
 the wave-2 seal or re-uses it as a new confirmation.
 

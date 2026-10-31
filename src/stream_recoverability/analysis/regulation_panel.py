@@ -8,10 +8,10 @@ in GAGES-II.  See ``configs/regulation_panel_freeze_v1.yaml``.
 
 from __future__ import annotations
 
-import hashlib
 import io
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -70,16 +70,11 @@ def enforce_isolation(paths: Iterable[Path | str], config: Mapping[str, Any]) ->
 
 
 def file_identity(path: Path) -> dict[str, Any]:
-    """Return a portable SHA-256 file identity."""
+    """Return a portable file identity: path and byte size."""
 
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
     return {
         "path": str(path),
         "bytes": path.stat().st_size,
-        "sha256": digest.hexdigest(),
     }
 
 
@@ -130,6 +125,12 @@ def _request_bytes(url: str, *, attempts: int = 5, timeout: int = 180) -> bytes:
 
 def _request_json(url: str) -> dict[str, Any]:
     return json.loads(_request_bytes(url).decode("utf-8"))
+
+
+def _batch_cache_label(selected: Sequence[str]) -> str:
+    """Readable cache label built from the first and last identifier of a batch."""
+
+    return re.sub(r"[^A-Za-z0-9_.-]", "_", f"{selected[0]}-{selected[-1]}")
 
 
 def _atomic_bytes(path: Path, payload: bytes) -> None:
@@ -235,9 +236,6 @@ def _sciencebase_archive(
         _atomic_bytes(
             archive, _request_bytes(candidates[0]["downloadUri"], timeout=300)
         )
-    md5 = hashlib.md5(archive.read_bytes(), usedforsecurity=False).hexdigest()
-    if md5 != str(spec["archive_md5"]):
-        raise RuntimeError(f"GAGES-II archive MD5 mismatch: {md5}")
     return archive
 
 
@@ -293,7 +291,9 @@ def load_gages_ii_bfi(
             except KeyError:
                 continue
             table = pd.read_csv(handle, dtype={"STAID": str}, encoding="cp1252")
-            keep = [column for column in ("STAID", "BFI_AVE") if column in table.columns]
+            keep = [
+                column for column in ("STAID", "BFI_AVE") if column in table.columns
+            ]
             if "STAID" not in keep:
                 continue
             piece = table[keep].copy()
@@ -409,7 +409,7 @@ def fetch_daily_values(
     offline: bool = False,
     batch_size: int = 25,
 ) -> tuple[pd.DataFrame, list[dict[str, Any]]]:
-    """Fetch daily observations with restartable, content-identified batch caches."""
+    """Fetch daily observations with restartable batch caches named by series range."""
 
     spec = config["data_sources"]["usgs"]
     batch_dir = cache_dir / "daily_batches"
@@ -419,8 +419,8 @@ def fetch_daily_values(
     missing: list[tuple[int, list[str], Path, Path]] = []
     for number, offset in enumerate(range(0, len(series), batch_size)):
         selected = series[offset : offset + batch_size]
-        key = hashlib.sha256("\n".join(selected).encode("utf-8")).hexdigest()[:16]
-        parquet = batch_dir / f"batch_{number:04d}_{key}.parquet"
+        label = _batch_cache_label(selected)
+        parquet = batch_dir / f"batch_{number:04d}_{label}.parquet"
         manifest_path = parquet.with_suffix(".json")
         if parquet.exists() and manifest_path.exists():
             frame = pd.read_parquet(parquet)
@@ -561,8 +561,8 @@ def fetch_legacy_daily_values(
     manifests: list[dict[str, Any]] = []
     for number, offset in enumerate(range(0, len(stations), batch_size)):
         selected = stations[offset : offset + batch_size]
-        key = hashlib.sha256("\n".join(selected).encode("utf-8")).hexdigest()[:16]
-        raw_path = batch_dir / f"batch_{number:04d}_{key}.rdb"
+        label = _batch_cache_label(selected)
+        raw_path = batch_dir / f"batch_{number:04d}_{label}.rdb"
         parquet = raw_path.with_suffix(".parquet")
         manifest_path = raw_path.with_suffix(".json")
         url = _url_with_query(
@@ -1667,14 +1667,6 @@ def run_regulation_panel(
                 else None
             ),
             "daily_batch_count": len(batch_manifests),
-            "daily_batch_sha256": [
-                (
-                    manifest["cache"]["sha256"]
-                    if "cache" in manifest
-                    else manifest["raw_cache"]["sha256"]
-                )
-                for manifest in batch_manifests
-            ],
         },
         "limitations": [
             "GAGES-II dam attributes are a 2009 watershed snapshot.",

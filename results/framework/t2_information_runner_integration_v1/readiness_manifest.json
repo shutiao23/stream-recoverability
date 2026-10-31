@@ -1,8 +1,7 @@
 {
   "all_meteorology_lag_sensitivity_cells_required": true,
-  "cache_contract": "load_and_hash_panel_and_auxiliary_once_per_network_and_reuse_adapter_by_train_mask_condition_lag",
+  "cache_contract": "load_panel_and_auxiliary_once_per_network_and_reuse_adapter_by_train_mask_condition_lag",
   "candidate_changes_v3_classification": true,
-  "catalog_split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "cells": [
     {
       "category": "executable",
@@ -199,7 +198,6 @@
   "formal_evidence": false,
   "future_item_identity_must_bind": [
     "integration_contract_version",
-    "materialized_auxiliary_daily_long_sha256",
     "meteorology_lag_days",
     "strict_requested_feature_coverage_semantics"
   ],
@@ -229,8 +227,6 @@
   "source_v3_work_item_count": 1384025,
   "source_v3_workload_bytes_unchanged": true,
   "source_v3_workload_path": "results/framework/t2_recovery_benchmark_v1/workload_manifest.json",
-  "source_v3_workload_sha256_after": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19",
-  "source_v3_workload_sha256_before": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19",
   "status": "candidate_consumer_ready_new_workload_freeze_required",
   "v3_item_ids_reusable_as_formal_candidate_ids": false,
   "v4_or_later_new_workload_freeze_required": true

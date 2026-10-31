@@ -35,7 +35,12 @@ from __future__ import annotations
 
 import os
 
-for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+for _var in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
     os.environ.setdefault(_var, "1")
 
 import argparse  # noqa: E402
@@ -52,12 +57,14 @@ from joblib import Parallel, delayed  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import wrr_r2_common as C  # noqa: E402
 
-from stream_recoverability.experiments.v17_fitness.paths import stable_seed  # noqa: E402
+from stream_recoverability.seeds import plain_seed  # noqa: E402
 
 OUT = C.RUN / "r2_02_same_capacity_ablation"
 CACHE = C.ROOT / "scratch" / "r2_02_ablation"
 
-M330 = C.load_script("wrr330", C.ROOT / "scripts" / "330_wrr_aligned_policy_admission.py")
+M330 = C.load_script(
+    "wrr330", C.ROOT / "scripts" / "330_wrr_aligned_policy_admission.py"
+)
 M311 = M330.M311
 M301 = M330.M301
 
@@ -92,6 +99,7 @@ LOGIT_BASE = (
     "estimator_disagreement",
 )
 
+
 def ordered(*groups: tuple[str, ...]) -> tuple[str, ...]:
     """Features in the canonical column order of ``301.SUPPORT``.
 
@@ -117,7 +125,10 @@ SPECS: dict[str, tuple[tuple[str, ...], str]] = {
     "gap_season+donors": (ordered(GAP_SEASON, DONORS), "gbr"),
     "gap_season+donors+support": (ordered(GAP_SEASON, DONORS, SUPPORT), "gbr"),
     "gap_season+donors+residual": (ordered(GAP_SEASON, DONORS, RESIDUAL), "gbr"),
-    "gap_season+donors+residual+support": (ordered(GAP_SEASON, DONORS, RESIDUAL, SUPPORT), "gbr"),
+    "gap_season+donors+residual+support": (
+        ordered(GAP_SEASON, DONORS, RESIDUAL, SUPPORT),
+        "gbr",
+    ),
     "generic": (ordered(GAP_SEASON, DONORS, RESIDUAL, HISTORY), "gbr"),
     "generic+support": (ordered(GAP_SEASON, DONORS, RESIDUAL, HISTORY, SUPPORT), "gbr"),
     "logit_small": (LOGIT_BASE, "logit"),
@@ -164,9 +175,24 @@ CONTRASTS = [
     ("generic+oracle_support", "generic"),
 ]
 
+#: Seeds.  Threshold selection uses script 330's seed (its ``aligned-select`` tag
+#: and panel and score codes), so the rules that 330 also scores reproduce 330's
+#: thresholds; the ladder rungs and the other rules take the codes after 330's,
+#: in sorted order.  The evaluation and contrast draws use the tags below.
+SEED_TAGS = {
+    "r2-ablation-eval": 11,
+    "r2-ablation-fixed": 12,
+    "r2-ablation-contrast": 13,
+}
+NAME_CODES = dict(M330.SCORE_CODES)
+for _name in sorted((set(SPECS) | set(RULES)) - set(NAME_CODES)):
+    NAME_CODES[_name] = len(NAME_CODES)
+
 
 # ---------------------------------------------------------------------------
-def logit_fit_predict(train: pd.DataFrame, test: pd.DataFrame, features, label: str, seed: int):
+def logit_fit_predict(
+    train: pd.DataFrame, test: pd.DataFrame, features, label: str, seed: int
+):
     from sklearn.impute import SimpleImputer
     from sklearn.linear_model import LogisticRegression
     from sklearn.pipeline import make_pipeline
@@ -181,7 +207,7 @@ def logit_fit_predict(train: pd.DataFrame, test: pd.DataFrame, features, label: 
     pipe = make_pipeline(
         SimpleImputer(strategy="median"),
         StandardScaler(),
-        LogisticRegression(C=1.0, max_iter=2000, random_state=int(seed) % (2**31)),
+        LogisticRegression(C=1.0, max_iter=2000, random_state=int(seed)),
     )
     y = train[label].astype(int).to_numpy()
     pipe.fit(block(train), y)
@@ -191,13 +217,17 @@ def logit_fit_predict(train: pd.DataFrame, test: pd.DataFrame, features, label: 
 def fit_predict(kind, train, test, features, seed):
     if kind == "gbr":
         return C.load_311().fit_predict_risk(
-            train, test, features, "abserr_policy", seed=seed % (2**31)
+            train, test, features, "abserr_policy", seed=seed
         )
     return logit_fit_predict(train, test, features, "bad_flag", seed)
 
 
 def crossfit(task: dict) -> dict:
-    """Nested group cross-fit identical in structure to ``311.crossfit_task``."""
+    """Nested group cross-fit identical in structure to ``311.crossfit_task``.
+
+    Inner folds and learner seeds come from ``311.draw_seed`` with the same
+    arguments, so the full specification reproduces the fitted score of 330.
+    """
 
     m311 = C.load_311()
     frame = task["frame"]
@@ -215,7 +245,9 @@ def crossfit(task: dict) -> dict:
         cal_mask = ~test_mask
         cal = frame.loc[cal_mask]
         cal_units = cal["independence_group"].astype(str).to_numpy()
-        inner = m311.assign_folds(cal_units, n_inner, stable_seed("inner", panel, fold_seed, fold))
+        inner = m311.assign_folds(
+            cal_units, n_inner, m311.draw_seed("inner", panel, fold_seed, fold)
+        )
         inner_ids = np.array([inner[u] for u in cal_units], dtype=int)
         positions = np.where(cal_mask)[0]
         for k in range(n_inner):
@@ -227,14 +259,14 @@ def crossfit(task: dict) -> dict:
                 cal.loc[~it],
                 cal.loc[it],
                 features,
-                stable_seed("innerfit", panel, fold_seed, fold, k),
+                m311.draw_seed("innerfit", panel, fold_seed, fold, k),
             )
         test_score[test_mask] = fit_predict(
             kind,
             cal,
             frame.loc[test_mask],
             features,
-            stable_seed("outerfit", panel, fold_seed, fold),
+            m311.draw_seed("outerfit", panel, fold_seed, fold),
         )
     if not np.isfinite(test_score).all():
         raise RuntimeError(f"{panel}/{spec}/{fold_seed}: missing test score")
@@ -259,12 +291,16 @@ def main() -> int:
         certs = pd.read_parquet(spec["certificates"]).reset_index(drop=True)
         table = M330.independence_table(cases)
         group_of = dict(
-            zip(table["network_id"].astype(str), table["independence_group"].astype(str))
+            zip(
+                table["network_id"].astype(str), table["independence_group"].astype(str)
+            )
         )
         cases["independence_group"] = cases["network_id"].astype(str).map(group_of)
         target = M330.policy_target(cases, certs)
         prepared = M301._prepare(cases)
-        prepared["independence_group"] = cases["independence_group"].astype(str).to_numpy()
+        prepared["independence_group"] = (
+            cases["independence_group"].astype(str).to_numpy()
+        )
         prepared["bad_flag"] = target["bad"].astype(int)
         prepared["arm_label"] = cases["arm"].astype(str).to_numpy()
         panels[panel] = {
@@ -287,20 +323,30 @@ def main() -> int:
             },
             "key": M330.case_key(cases),
         }
-        print(f"[{panel}] {len(cases)} cases, bad rate {target['bad_rate']:.4f}", flush=True)
+        print(
+            f"[{panel}] {len(cases)} cases, bad rate {target['bad_rate']:.4f}",
+            flush=True,
+        )
 
     # ---- cross-fit every (panel, seed, spec) ------------------------------
     needed_columns = sorted(
         {c for feats, _ in SPECS.values() for c in feats}
-        | {"network_id", "independence_group", "longest_run_month", "abserr_policy", "bad_flag"}
+        | {
+            "network_id",
+            "independence_group",
+            "longest_run_month",
+            "abserr_policy",
+            "bad_flag",
+        }
     )
     tasks, results = [], {}
     for panel, data in panels.items():
-        slim = data["prepared"][[c for c in needed_columns if c in data["prepared"].columns]]
-        sha = C.sha256_file(M330.PANELS[panel]["cases"])[:12]
+        slim = data["prepared"][
+            [c for c in needed_columns if c in data["prepared"].columns]
+        ]
         for seed in M330.FOLD_SEEDS:
             for spec, (features, kind) in SPECS.items():
-                path = CACHE / f"{panel}__{seed}__{spec.replace('+', '_')}__{sha}__v2.npz"
+                path = CACHE / f"{panel}__{seed}__{spec.replace('+', '_')}__v3.npz"
                 if path.exists() and not args.no_cache:
                     payload = np.load(path)
                     results[(panel, seed, spec)] = {
@@ -334,16 +380,20 @@ def main() -> int:
     checks = {}
     for panel in panels:
         for seed in M330.FOLD_SEEDS:
-            cached = sorted((C.ROOT / "scratch" / "p0_01_aligned").glob(f"{panel}__seed{seed}__fitted_risk__*.npz"))
-            if not cached:
+            cached = M330.CACHE_DIR / f"{M330.crossfit_cache_stem(panel, seed)}.npz"
+            if not cached.exists():
                 continue
-            ref = np.load(cached[-1])["test_score"]
+            ref = np.load(cached)["test_score"]
             mine = results[(panel, seed, "generic+support")]["test_score"]
             checks[f"{panel}|{seed}"] = {
                 "max_abs_diff": float(np.max(np.abs(ref - mine))),
                 "identical": bool(np.allclose(ref, mine, atol=1e-9, rtol=0.0)),
             }
-    print("[determinism] generic+support vs the 330 fitted score:", json.dumps(checks), flush=True)
+    print(
+        "[determinism] generic+support vs the 330 fitted score:",
+        json.dumps(checks),
+        flush=True,
+    )
 
     # ---- decision protocol -------------------------------------------------
     pooled_rows, contrast_rows, arm_rows = [], [], []
@@ -362,8 +412,12 @@ def main() -> int:
             scores = dict(data["rules"])
             cal_override = {}
             for spec in SPECS:
-                scores[spec] = np.asarray(results[(panel, seed, spec)]["test_score"], dtype=float)
-                cal_override[spec] = np.asarray(results[(panel, seed, spec)]["cal_score_by_fold"])
+                scores[spec] = np.asarray(
+                    results[(panel, seed, spec)]["test_score"], dtype=float
+                )
+                cal_override[spec] = np.asarray(
+                    results[(panel, seed, spec)]["cal_score_by_fold"]
+                )
             names = list(SPECS) + list(RULES)
             admit_cap, admit_fixed = {}, {}
             for name in names:
@@ -372,13 +426,23 @@ def main() -> int:
                 for fold in range(5):
                     test_mask = fold_ids == fold
                     cal_mask = ~test_mask
-                    cal = cal_override[name][fold][cal_mask] if name in SPECS else score[cal_mask]
+                    cal = (
+                        cal_override[name][fold][cal_mask]
+                        if name in SPECS
+                        else score[cal_mask]
+                    )
                     selection = M330.select_threshold(
                         cal,
                         bad[cal_mask],
                         groups[cal_mask],
                         draws=int(args.draws_select),
-                        seed=stable_seed("aligned-select", panel, seed, fold, name),
+                        seed=plain_seed(
+                            M330.SEED_TAGS["aligned-select"],
+                            M330.PANEL_CODES[panel],
+                            seed,
+                            fold,
+                            NAME_CODES[name],
+                        ),
                     )
                     admit[test_mask] = score[test_mask] <= selection["threshold"]
                 admit_cap[name] = admit
@@ -388,27 +452,77 @@ def main() -> int:
             admit_cap["reconstruct_all"] = np.isfinite(error)
 
             summary = M330.clustered_summary(
-                admit_cap, error, group_index, n_groups, draws=int(args.draws_eval),
-                seed=stable_seed("r2-ablation-eval", panel, seed),
+                admit_cap,
+                error,
+                group_index,
+                n_groups,
+                draws=int(args.draws_eval),
+                seed=plain_seed(
+                    SEED_TAGS["r2-ablation-eval"], M330.PANEL_CODES[panel], seed
+                ),
             )
             fixed = M330.clustered_summary(
-                admit_fixed, error, group_index, n_groups, draws=int(args.draws_eval),
-                seed=stable_seed("r2-ablation-fixed", panel, seed),
+                admit_fixed,
+                error,
+                group_index,
+                n_groups,
+                draws=int(args.draws_eval),
+                seed=plain_seed(
+                    SEED_TAGS["r2-ablation-fixed"], M330.PANEL_CODES[panel], seed
+                ),
             )
             for name, values in summary.items():
-                pooled_rows.append({"panel": panel, "fold_seed": seed, "score": name, "row_type": "riskcap", **values})
+                pooled_rows.append(
+                    {
+                        "panel": panel,
+                        "fold_seed": seed,
+                        "score": name,
+                        "row_type": "riskcap",
+                        **values,
+                    }
+                )
             for name, values in fixed.items():
-                pooled_rows.append({"panel": panel, "fold_seed": seed, "score": name, "row_type": "fixed70", **values})
+                pooled_rows.append(
+                    {
+                        "panel": panel,
+                        "fold_seed": seed,
+                        "score": name,
+                        "row_type": "fixed70",
+                        **values,
+                    }
+                )
 
             for left, right in CONTRASTS:
-                for metric, table in (("retention", admit_cap), ("false_admit", admit_fixed)):
+                for metric, table in (
+                    ("retention", admit_cap),
+                    ("false_admit", admit_fixed),
+                ):
                     contrast = M330.clustered_contrast(
-                        table[left], table[right], group_index, n_groups, metric=metric,
-                        error=error, draws=int(args.draws_eval),
-                        seed=stable_seed("r2-ablation-contrast", panel, seed, metric, left, right),
+                        table[left],
+                        table[right],
+                        group_index,
+                        n_groups,
+                        metric=metric,
+                        error=error,
+                        draws=int(args.draws_eval),
+                        seed=plain_seed(
+                            SEED_TAGS["r2-ablation-contrast"],
+                            M330.PANEL_CODES[panel],
+                            seed,
+                            M330.METRIC_CODES[metric],
+                            NAME_CODES[left],
+                            NAME_CODES[right],
+                        ),
                     )
                     contrast_rows.append(
-                        {"panel": panel, "fold_seed": seed, "metric": metric, "left": left, "right": right, **contrast}
+                        {
+                            "panel": panel,
+                            "fold_seed": seed,
+                            "metric": metric,
+                            "left": left,
+                            "right": right,
+                            **contrast,
+                        }
                     )
 
             for name in names + ["reconstruct_all"]:
@@ -423,7 +537,9 @@ def main() -> int:
                             "arm": arm,
                             "n_cases": int(sel.sum()),
                             "retention": float(adm.sum() / sel.sum()),
-                            "false_admit_rate": float(bad[adm].mean()) if adm.any() else float("nan"),
+                            "false_admit_rate": float(bad[adm].mean())
+                            if adm.any()
+                            else float("nan"),
                         }
                     )
             admission_frames.setdefault(panel, []).append(
@@ -436,12 +552,21 @@ def main() -> int:
                         "realization_id": cases["realization_id"].astype(str),
                         "arm": arm_label,
                         "policy_bad": bad,
-                        **{f"admit_{name}": admit_cap[name] for name in names + ["reconstruct_all"]},
-                        **{f"score_{name}": np.asarray(scores[name], dtype=float) for name in names},
+                        **{
+                            f"admit_{name}": admit_cap[name]
+                            for name in names + ["reconstruct_all"]
+                        },
+                        **{
+                            f"score_{name}": np.asarray(scores[name], dtype=float)
+                            for name in names
+                        },
                     }
                 )
             )
-            print(f"[{panel}/seed{seed}] decision protocol done ({time.time() - started:.0f}s)", flush=True)
+            print(
+                f"[{panel}/seed{seed}] decision protocol done ({time.time() - started:.0f}s)",
+                flush=True,
+            )
 
     pooled = pd.DataFrame(pooled_rows)
     contrasts = pd.DataFrame(contrast_rows)
@@ -449,20 +574,11 @@ def main() -> int:
     contrasts.to_csv(OUT / "ablation_contrasts.csv", index=False)
     pd.DataFrame(arm_rows).to_csv(OUT / "ablation_by_arm.csv", index=False)
     for panel, frames in admission_frames.items():
-        pd.concat(frames, ignore_index=True).to_parquet(OUT / f"case_admissions_{panel}.parquet", index=False)
+        pd.concat(frames, ignore_index=True).to_parquet(
+            OUT / f"case_admissions_{panel}.parquet", index=False
+        )
 
     write_summary(pooled, contrasts, pd.DataFrame(arm_rows), checks)
-    C.write_fingerprint(
-        OUT,
-        "scripts/341_wrr_same_capacity_ablation.py",
-        {panel: M330.PANELS[panel]["cases"] for panel in panels},
-        extra={
-            "specs": {k: {"features": list(v[0]), "model": v[1]} for k, v in SPECS.items()},
-            "determinism_check": checks,
-            "fold_seeds": list(M330.FOLD_SEEDS),
-            "elapsed_seconds": round(time.time() - started, 1),
-        },
-    )
     print(f"[341] done in {time.time() - started:.0f}s -> {OUT}", flush=True)
     return 0
 
@@ -478,32 +594,62 @@ def write_summary(pooled, contrasts, by_arm, checks) -> None:
     ok = all(v["identical"] for v in checks.values()) if checks else None
     lines.append(f"Determinism check (generic+support == the 330 fitted score): {ok}")
     lines.append("")
+    for key, value in checks.items():
+        lines.append(
+            f"- {key}: identical {value['identical']}, max abs difference {value['max_abs_diff']:.3g}"
+        )
+    if checks:
+        lines.append("")
     risk = pooled[pooled.row_type.eq("riskcap")]
     fixed = pooled[pooled.row_type.eq("fixed70")]
     for panel in risk.panel.unique():
-        lines += [f"## {panel}", "", "| score | retention at cap | false-admit | failure rate at fixed 70 % |", "|---|---:|---:|---:|"]
+        lines += [
+            f"## {panel}",
+            "",
+            "| score | retention at cap | false-admit | failure rate at fixed 70 % |",
+            "|---|---:|---:|---:|",
+        ]
         for name in list(SPECS) + list(RULES) + ["reconstruct_all"]:
             r = risk[(risk.panel == panel) & (risk.score == name)]
             f = fixed[(fixed.panel == panel) & (fixed.score == name)]
             if r.empty:
                 continue
             frate = f"{f.false_admit_rate.mean():.3f}" if not f.empty else "-"
-            lines.append(f"| {name} | {r.retention.mean():.3f} | {r.false_admit_rate.mean():.3f} | {frate} |")
+            lines.append(
+                f"| {name} | {r.retention.mean():.3f} | {r.false_admit_rate.mean():.3f} | {frate} |"
+            )
         lines.append("")
-    lines += ["## Paired contrasts (retention, percentage points; group-clustered 95 % interval)", ""]
-    lines += ["| panel | left - right | seed 101 | seed 202 | seed 303 |", "|---|---|---|---|---|"]
+    lines += [
+        "## Paired contrasts (retention, percentage points; group-clustered 95 % interval)",
+        "",
+    ]
+    lines += [
+        "| panel | left - right | seed 101 | seed 202 | seed 303 |",
+        "|---|---|---|---|---|",
+    ]
     ret = contrasts[contrasts.metric.eq("retention")]
     for panel in ret.panel.unique():
         for left, right in CONTRASTS:
             cells = []
             for seed in M330.FOLD_SEEDS:
-                row = ret[(ret.panel == panel) & (ret.left == left) & (ret.right == right) & (ret.fold_seed == seed)]
+                row = ret[
+                    (ret.panel == panel)
+                    & (ret.left == left)
+                    & (ret.right == right)
+                    & (ret.fold_seed == seed)
+                ]
                 if row.empty:
                     cells.append("-")
                     continue
                 r = row.iloc[0]
-                cells.append(f"{100 * r.point:+.1f} [{100 * r.ci_low:+.1f}, {100 * r.ci_high:+.1f}]")
+                cells.append(
+                    f"{100 * r.point:+.1f} [{100 * r.ci_low:+.1f}, {100 * r.ci_high:+.1f}]"
+                )
             lines.append(f"| {panel} | {left} - {right} | " + " | ".join(cells) + " |")
+    lines.append("")
+    lines += ["## Specifications", "", "| score | model | features |", "|---|---|---|"]
+    for name, (features, kind) in SPECS.items():
+        lines.append(f"| {name} | {kind} | {', '.join(features)} |")
     lines.append("")
     (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
 

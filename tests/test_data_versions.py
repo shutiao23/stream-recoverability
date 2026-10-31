@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -153,7 +152,6 @@ def test_builder_writes_immutable_versioned_artifacts_and_manifest(
 ) -> None:
     input_path = tmp_path / "daily_long.parquet"
     _source_long().to_parquet(input_path, index=False)
-    expected_hash = hashlib.sha256(input_path.read_bytes()).hexdigest()
     output_root = tmp_path / "data_versions"
 
     manifests = build_data_versions(input_path, output_root, DATA_VERSION_NAMES)
@@ -182,8 +180,15 @@ def test_builder_writes_immutable_versioned_artifacts_and_manifest(
         assert stored_wide["data_version"].eq(name).all()
         assert stored_scaler["data_version"] == name
         assert stored_manifest["data_version"] == name
-        assert stored_manifest["input_sha256"] == expected_hash
+        assert stored_manifest["input_bytes"] == input_path.stat().st_size
         assert stored_manifest["input_counts"]["long_rows"] == len(_source_long())
+        assert stored_manifest["artifacts"]["daily_long.parquet"] == {
+            "bytes": (version_dir / "daily_long.parquet").stat().st_size,
+            "rows": len(stored_long),
+        }
+        assert stored_manifest["artifacts"]["daily_wide.parquet"]["rows"] == len(
+            stored_wide
+        )
         assert (
             stored_manifest["output_counts"]["wide_rows"]
             == _source_long()["date"].nunique()

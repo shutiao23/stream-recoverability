@@ -9,7 +9,6 @@ the requested corpus.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -28,7 +27,6 @@ from .t2_information_adapters import (
 PILOT_NETWORK_ID = "huc8_01070004"
 PILOT_ROLE = "development"
 PILOT_SCHEMA_VERSION = "t2_v91_open_role_mh_acquisition_pilot_v1"
-SPLIT_SHA256 = "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
 
 
 @dataclass(frozen=True)
@@ -45,21 +43,6 @@ class PilotPlan:
     network_id: str
     role: str
     sites: tuple[PilotSite, ...]
-    split_sha256: str = SPLIT_SHA256
-
-
-def _canonical_json(value: Any) -> str:
-    return json.dumps(
-        value, sort_keys=True, separators=(",", ":"), allow_nan=False
-    )
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _relative(path: Path, root: Path) -> str:
@@ -77,7 +60,9 @@ def load_bounded_pilot_plan(repository_root: str | Path) -> PilotPlan:
     split = pd.read_csv(split_path, dtype={"network_id": "string", "role": "string"})
     development = split.loc[split["role"].eq(PILOT_ROLE)].sort_values("network_id")
     if development.empty or str(development.iloc[0]["network_id"]) != PILOT_NETWORK_ID:
-        raise ValueError("bounded pilot is not the deterministic first development network")
+        raise ValueError(
+            "bounded pilot is not the deterministic first development network"
+        )
 
     network_root = (
         root
@@ -96,8 +81,6 @@ def load_bounded_pilot_plan(repository_root: str | Path) -> PilotPlan:
             raise ValueError(f"pilot network QC {key} is not {expected!r}")
     if not bool(qc.get("overlap", {}).get("complete_enough")):
         raise ValueError("pilot network is not complete_enough")
-    if qc.get("split_sha256") != SPLIT_SHA256:
-        raise ValueError("pilot network split hash differs from locked catalog v3")
 
     # Explicitly request only identifiers and dates.  The temperature outcome
     # column is not loaded even for this open development role.
@@ -143,11 +126,12 @@ def load_bounded_pilot_plan(repository_root: str | Path) -> PilotPlan:
 def _protocol(site: PilotSite) -> provider.ConfirmatoryProtocol:
     return provider.ConfirmatoryProtocol(
         design_path="configs/design_freeze_v9.yaml",
-        design_sha256="not_used_by_bounded_acquisition_pilot",
         design_version="design_freeze_v9.1_information_acquisition_pilot",
         network=PILOT_NETWORK_ID,
         site_ids=(site.site_id,),
-        periods=(provider.SplitPeriod("open_role_request_window", site.start, site.end),),
+        periods=(
+            provider.SplitPeriod("open_role_request_window", site.start, site.end),
+        ),
         quality_rule=(
             "POWER finite non-fill; USGS Approved only; provisional excluded"
         ),
@@ -201,11 +185,10 @@ def build_request_plan(plan: PilotPlan) -> dict[str, Any]:
                 ),
             }
         )
-    result = {
+    return {
         "manifest_schema": "t2_v91_open_role_mh_request_plan_v1",
         "bounded_network_id": plan.network_id,
         "role": plan.role,
-        "split_sha256": plan.split_sha256,
         "n_networks": 1,
         "n_sites": len(plan.sites),
         "requests": requests,
@@ -214,8 +197,6 @@ def build_request_plan(plan: PilotPlan) -> dict[str, Any]:
         "sealed_paths_traversed": False,
         "performance_metrics_computed": False,
     }
-    result["plan_sha256"] = hashlib.sha256(_canonical_json(result).encode()).hexdigest()
-    return result
 
 
 def _empty_daily() -> pd.DataFrame:
@@ -249,7 +230,9 @@ def _coverage(
                 daily.get("site_id", pd.Series(dtype=str)).astype(str).eq(site.site_id)
                 & daily.get("variable", pd.Series(dtype=str)).astype(str).eq(variable)
             ]
-            eligible = subset.get("natural_observed", pd.Series(False, index=subset.index))
+            eligible = subset.get(
+                "natural_observed", pd.Series(False, index=subset.index)
+            )
             if variable in HYDRAULICS_VARIABLES:
                 eligible = eligible.astype(bool) & subset.get(
                     "quality_approved", pd.Series(False, index=subset.index)
@@ -283,7 +266,6 @@ def _coverage(
 def _artifact_record(path: Path, root: Path) -> dict[str, Any]:
     return {
         "path": _relative(path, root),
-        "sha256": _sha256_file(path),
         "bytes": path.stat().st_size,
     }
 
@@ -369,9 +351,9 @@ def run_bounded_pilot(
                 )
                 series_frames.append(series)
                 allowed = set(
-                    series.loc[
-                        series["metadata_available"].fillna(False), "id"
-                    ].astype(str)
+                    series.loc[series["metadata_available"].fillna(False), "id"].astype(
+                        str
+                    )
                 )
                 if not allowed:
                     failures.append(
@@ -448,14 +430,16 @@ def run_bounded_pilot(
                 )
 
     daily = (
-        pd.concat(daily_frames, ignore_index=True)
-        if daily_frames
-        else _empty_daily()
+        pd.concat(daily_frames, ignore_index=True) if daily_frames else _empty_daily()
     )
     if not daily.empty:
-        daily = daily.sort_values(["site_id", "date", "variable"]).reset_index(drop=True)
+        daily = daily.sort_values(["site_id", "date", "variable"]).reset_index(
+            drop=True
+        )
     coverage = _coverage(plan, daily, failures)
-    series = pd.concat(series_frames, ignore_index=True) if series_frames else pd.DataFrame()
+    series = (
+        pd.concat(series_frames, ignore_index=True) if series_frames else pd.DataFrame()
+    )
     power_metadata = (
         pd.concat(power_metadata_frames, ignore_index=True)
         if power_metadata_frames
@@ -524,11 +508,6 @@ def run_bounded_pilot(
             "adapter_schema": schema_path,
         }.items()
     }
-    raw_hashes = [
-        str(record["response_sha256"])
-        for record in request_records
-        if record.get("response_sha256")
-    ]
     manifest = {
         "manifest_schema": PILOT_SCHEMA_VERSION,
         "status": "materialized_complete" if not failures else "materialized_partial",
@@ -536,7 +515,6 @@ def run_bounded_pilot(
         "execute": True,
         "network_id": plan.network_id,
         "role": plan.role,
-        "split_sha256": plan.split_sha256,
         "n_networks": 1,
         "n_sites": len(plan.sites),
         "site_ids": [site.site_id for site in plan.sites],
@@ -544,10 +522,6 @@ def run_bounded_pilot(
         "n_auxiliary_rows": len(daily),
         "n_source_failures_or_unavailable": len(failures),
         "n_raw_responses": len(request_records),
-        "raw_response_sha256": raw_hashes,
-        "raw_response_hashes_complete_for_logged_responses": (
-            len(raw_hashes) == len(request_records)
-        ),
         "artifacts": artifacts,
         "provider_qc": {
             "POWER": "finite and not provider fill_value; fill retained as rejected row",

@@ -17,7 +17,6 @@ from stream_recoverability.analysis.compensation import (
     benjamini_hochberg_fdr,
     combination_label,
 )
-from stream_recoverability.experiments.contracts import file_sha256
 from stream_recoverability.experiments.model_registry import (
     load_frozen_model_design,
 )
@@ -49,7 +48,6 @@ VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 def _authorize_operational_test_runs(monkeypatch: pytest.MonkeyPatch) -> None:
     roster = SimpleNamespace(
         manifest_path="validation/finalized_model_roster.json",
-        manifest_sha256="a" * 64,
         selected_models=("linear", "proposed"),
         proposed_decision="include_proposed_formally",
     )
@@ -62,7 +60,6 @@ def _authorize_operational_test_runs(monkeypatch: pytest.MonkeyPatch) -> None:
         "expected_models": ["proposed"],
         "finalized_model_roster": {
             "path": roster.manifest_path,
-            "sha256": roster.manifest_sha256,
             "selected_models": list(roster.selected_models),
             "proposed_decision": roster.proposed_decision,
         },
@@ -171,7 +168,6 @@ def test_compensation_unit_contract_rejects_invalid_quantiles_and_metrics() -> N
         "component_estimator": "proposed_checkpoint",
         "attribution_estimand": "operational_dropout",
         "design_version": "test",
-        "design_hash": "a" * 64,
         "data_version": "published_v1",
         "evaluation_split": "development_test",
         "mask_schema_version": "mask_schema_v2",
@@ -510,8 +506,8 @@ def _write_small_processed_data(root: Path) -> tuple[Path, Path]:
             {
                 "data_version": "published_v1",
                 "artifacts": {
-                    "daily_wide.parquet": {"sha256": file_sha256(wide_path)},
-                    "daily_long.parquet": {"sha256": file_sha256(quality_path)},
+                    "daily_wide.parquet": {"bytes": wide_path.stat().st_size},
+                    "daily_long.parquet": {"bytes": quality_path.stat().st_size},
                 },
             }
         ),
@@ -579,13 +575,11 @@ def _write_compensation_checkpoint(
                         "path": str(wide_path.resolve()),
                         "size": wide_path.stat().st_size,
                         "mtime_ns": wide_path.stat().st_mtime_ns,
-                        "sha256": file_sha256(wide_path),
                     },
                     "quality": {
                         "path": str(quality_path.resolve()),
                         "size": quality_path.stat().st_size,
                         "mtime_ns": quality_path.stat().st_mtime_ns,
-                        "sha256": file_sha256(quality_path),
                     },
                 },
             },
@@ -796,7 +790,6 @@ def test_compensation_output_uses_checkpoint_for_s0_and_strict_score_mask(
     assert run_manifest["evaluation_split"] == "development_test"
     assert run_manifest["data_version"] == "published_v1"
     assert run_manifest["frontier_anchor_catalog_path"] is None
-    assert run_manifest["frontier_anchor_catalog_sha256"] is None
     assert run_manifest["frontier_anchor_count"] == 0
     assert run_manifest["anchor_availability_rows"] == 0
     assert run_manifest["unavailable_anchor_rows"] == 0
@@ -818,9 +811,11 @@ def test_compensation_output_uses_checkpoint_for_s0_and_strict_score_mask(
     assert run_manifest["finite_prediction_run_unit_count"] == 1
     assert run_manifest["finite_event_metric_run_unit_count"] == 1
     assert len(run_manifest["training_checkpoints"]) == 1
-    assert len(run_manifest["training_checkpoints"][0]["checkpoint"]["sha256"]) == 64
-    assert "design_hash" not in run_manifest
-    assert "code_identity" not in run_manifest
+    checkpoint_identity = run_manifest["training_checkpoints"][0]["checkpoint"]
+    assert Path(checkpoint_identity["path"]).is_file()
+    assert (
+        checkpoint_identity["size"] == Path(checkpoint_identity["path"]).stat().st_size
+    )
 
 
 def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(

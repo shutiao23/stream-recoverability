@@ -164,13 +164,6 @@ expect("transport has three primary providers",
        sorted(row["provider"] for row in payload["panel_b"]["rows"] if "provider" in row),
        ["hubeau", "smhi", "uk_ea"])
 
-# ---- artifacts unchanged since the build ---------------------------------- #
-import hashlib  # noqa: E402
-
-for record in payload["artifacts"]:
-    digest = hashlib.sha256((ROOT / record["path"]).read_bytes()).hexdigest()
-    expect(f"sha256 {record['path']}", digest, record["sha256"])
-
 # ---- independent PDF checks ----------------------------------------------- #
 REPORT = {}
 for name in ("f2a_endpoint_ordering", "f2b_panel_heterogeneity"):

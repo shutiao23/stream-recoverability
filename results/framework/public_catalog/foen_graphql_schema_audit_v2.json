@@ -6,9 +6,7 @@
   "v1_registry_metadata": {
     "n_objects": 208,
     "n_unique_byte_counts": 1,
-    "byte_count_each": 986,
-    "n_unique_response_sha256": 1,
-    "identical_response_sha256": "cfcfc7a891b65acbd324af50aba2f62a3685d5f60f177d4c09b719595283c0c4"
+    "byte_count_each": 986
   },
   "schema_introspection": {
     "timestamp_field_scalar": "AWSDateTime",
@@ -54,7 +52,6 @@
   },
   "diagnosis": "v1_releaseState_where_filter_is_invalid_not_AWSDateTime",
   "v2_query_template": "configs/foen_daily_value_query_v2.graphql",
-  "v2_query_template_sha256": "11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff",
   "v2_query_template_executed": false,
   "formal_evidence": false
 }

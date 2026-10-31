@@ -14,8 +14,6 @@ the identical provider day label.
 
 from __future__ import annotations
 
-import hashlib
-import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
@@ -30,13 +28,6 @@ SUPPORTED_CONDITIONS = (
     "B_union_D_union_M_union_H",
 )
 ADAPTER_CONTRACT_VERSION = "t2_v91_information_adapter_v1"
-
-
-def _canonical_sha(value: object) -> str:
-    payload = json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
 
 
 def _daily_index(values: Sequence[object] | pd.Index, *, name: str) -> pd.DatetimeIndex:
@@ -149,7 +140,6 @@ class FittedT2InformationAdapter:
     variables: tuple[str, ...]
     meteorology_lag_days: int
     target_index: tuple[str, ...]
-    train_day_sha256: str
     centers: Mapping[str, float | None]
     scales: Mapping[str, float | None]
     train_counts: Mapping[str, int]
@@ -199,7 +189,6 @@ class FittedT2InformationAdapter:
                 **audit,
                 "contract_version": self.contract_version,
                 "condition": self.condition,
-                "fit_train_day_sha256": self.train_day_sha256,
                 "fit_train_counts": dict(self.train_counts),
                 "temperature_columns_consumed": 0,
             },
@@ -215,7 +204,6 @@ class FittedT2InformationAdapter:
             "meteorology_lag_days": self.meteorology_lag_days,
             "meteorology_lag_semantics": "source_date_equals_target_date_plus_lag_days",
             "hydraulics_alignment": "same_provider_calendar_day_label",
-            "fit_train_day_sha256": self.train_day_sha256,
             "fit_train_counts": dict(self.train_counts),
             "centers": dict(self.centers),
             "scales": dict(self.scales),
@@ -258,10 +246,9 @@ def _materialize_raw(
     selected["provider_qc_basis"] = basis
     selected["aligned_date"] = selected["date"]
     is_met = selected["variable"].isin(METEOROLOGY_VARIABLES)
-    selected.loc[is_met, "aligned_date"] = (
-        selected.loc[is_met, "date"]
-        - pd.to_timedelta(int(meteorology_lag_days), unit="D")
-    )
+    selected.loc[is_met, "aligned_date"] = selected.loc[
+        is_met, "date"
+    ] - pd.to_timedelta(int(meteorology_lag_days), unit="D")
     selected["feature"] = [
         _feature_name(str(site), str(variable))
         for site, variable in zip(
@@ -289,7 +276,9 @@ def _materialize_raw(
         "n_input_auxiliary_rows": len(selected),
         "n_provider_eligible_rows": int(selected["provider_eligible"].sum()),
         "n_provider_rejected_rows": int((~selected["provider_eligible"]).sum()),
-        "provider_qc_basis_counts": {str(key): int(value) for key, value in counts.items()},
+        "provider_qc_basis_counts": {
+            str(key): int(value) for key, value in counts.items()
+        },
         "date_alignment": "exact_daily_label_no_resampling",
         "meteorology_source_date_equals_target_date_plus_lag_days": int(
             meteorology_lag_days
@@ -321,9 +310,7 @@ def fit_t2_information_adapter(
     index = _daily_index(target_index, name="target_index")
     fitting = _training_mask(train_mask, index)
     variables = METEOROLOGY_VARIABLES + (
-        HYDRAULICS_VARIABLES
-        if condition == "B_union_D_union_M_union_H"
-        else ()
+        HYDRAULICS_VARIABLES if condition == "B_union_D_union_M_union_H" else ()
     )
     raw, qc_audit = _materialize_raw(
         daily_long,
@@ -348,14 +335,12 @@ def fit_t2_information_adapter(
         scale = float(np.std(finite, ddof=0))
         centers[column] = center
         scales[column] = scale if scale > 0.0 else 1.0
-    train_days = [value.strftime("%Y-%m-%d") for value in index[fitting.to_numpy()]]
     return FittedT2InformationAdapter(
         condition=condition,
         site_ids=sites,
         variables=variables,
         meteorology_lag_days=int(meteorology_lag_days),
         target_index=tuple(value.strftime("%Y-%m-%d") for value in index),
-        train_day_sha256=_canonical_sha(train_days),
         centers=centers,
         scales=scales,
         train_counts=counts,
@@ -372,7 +357,9 @@ def attach_information_features(
     if not isinstance(temperature_panel.index, pd.DatetimeIndex):
         raise TypeError("temperature_panel must use a DatetimeIndex")
     if not temperature_panel.index.equals(bundle.features.index):
-        raise ValueError("temperature panel and information features are not date-aligned")
+        raise ValueError(
+            "temperature panel and information features are not date-aligned"
+        )
     overlap = sorted(set(temperature_panel.columns) & set(bundle.features.columns))
     if overlap:
         raise ValueError(f"information feature names collide with panel: {overlap}")

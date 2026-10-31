@@ -15,7 +15,6 @@
   "identity": "admission__peak_overlap_rule__strictly_prior_years__documented_daily_mean__local_fit__foen",
   "kind": "rule",
   "model_path": null,
-  "model_sha256": null,
   "n_training_cases": 551,
   "n_training_groups": 11,
   "name": "peak_overlap_rule",
@@ -25,8 +24,7 @@
   "scope": "documented_daily_mean",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

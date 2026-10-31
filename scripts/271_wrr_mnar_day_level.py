@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """P0-05 / F06: day-level MNAR sensitivity with true re-peaking.
 
-Reconstruct each reserved case's outage mask from ``stable_seed`` +
+Reconstruct each reserved case's outage mask from ``station_year_seed`` +
 ``design_for_year`` (the same path that built the case table), refill hidden
 days with the certificate-chosen estimator, add a constant δ °C only on those
 hidden days, then recompute the hottest-30 rolling mean. Window-switch rate is
@@ -46,8 +46,9 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     HOTTEST_WINDOW_DAYS,
     REALIZATIONS_PER_STATION_YEAR,
     TRUSTED_YEARS,
-    stable_seed,
+    station_year_seed,
 )
+
 READY = ROOT / "results" / "wrr_submission_ready"
 OUT = READY / "amendments" / "mnar_day_level"
 RETENTION = 0.70
@@ -58,13 +59,20 @@ N_EMPIRICAL = max(1, REALIZATIONS_PER_STATION_YEAR // 3)
 
 
 def peak_end(values: np.ndarray) -> int:
-    rolled = pd.Series(values, dtype=float).rolling(WINDOW, min_periods=WINDOW).mean().to_numpy()
+    rolled = (
+        pd.Series(values, dtype=float)
+        .rolling(WINDOW, min_periods=WINDOW)
+        .mean()
+        .to_numpy()
+    )
     if not np.isfinite(rolled).any():
         return -1
     return int(np.nanargmax(rolled))
 
 
-def complete_years_for(network_id: str, station_id: str, trusted: pd.DataFrame) -> tuple[int, ...]:
+def complete_years_for(
+    network_id: str, station_id: str, trusted: pd.DataFrame
+) -> tuple[int, ...]:
     block = trusted.loc[
         (trusted["network_id"].astype(str) == network_id)
         & (trusted["station_id"].astype(str) == station_id)
@@ -99,7 +107,9 @@ def fill_for_choice(
     return np.full(len(year_index), np.nan)
 
 
-def clustered_contrast(frame: pd.DataFrame, biased_abs: pd.Series, draws: int = 400, seed: int = 0) -> dict:
+def clustered_contrast(
+    frame: pd.DataFrame, biased_abs: pd.Series, draws: int = 400, seed: int = 0
+) -> dict:
     work = frame.reset_index(drop=True)
     biased = biased_abs.reset_index(drop=True).to_numpy(dtype=float)
     codes, _ = pd.factorize(work["network_id"])
@@ -145,9 +155,9 @@ def main() -> int:
     args = parser.parse_args()
 
     OUT.mkdir(parents=True, exist_ok=True)
-    cases = pd.read_parquet(ROOT / "results/v17_fitness/step10_confirmation/reserved_cases.parquet").reset_index(
-        drop=True
-    )
+    cases = pd.read_parquet(
+        ROOT / "results/v17_fitness/step10_confirmation/reserved_cases.parquet"
+    ).reset_index(drop=True)
     certs = pd.read_parquet(
         ROOT / "results/v17_fitness/step10_confirmation/reserved_certificates.parquet"
     ).reset_index(drop=True)
@@ -161,7 +171,9 @@ def main() -> int:
     }
 
     sizes = cases.groupby("network_id").size().sort_values()
-    networks = [str(n) for n in sizes.index if source_by_net.get(str(n))][: args.max_networks]
+    networks = [str(n) for n in sizes.index if source_by_net.get(str(n))][
+        : args.max_networks
+    ]
 
     reconstructed = []
     skipped = []
@@ -178,7 +190,10 @@ def main() -> int:
         block = cases.loc[cases["network_id"].astype(str).eq(network_id)]
         if args.max_cases_per_network:
             block = block.groupby(["station_id", "year"], group_keys=False).head(
-                max(1, args.max_cases_per_network // max(1, block["station_id"].nunique()))
+                max(
+                    1,
+                    args.max_cases_per_network // max(1, block["station_id"].nunique()),
+                )
             )
             block = block.head(args.max_cases_per_network)
         for (station_id, year, protocol), sub in block.groupby(
@@ -188,7 +203,13 @@ def main() -> int:
             year = int(year)
             protocol = str(protocol)
             if station_id not in daily.columns:
-                skipped.append({"network_id": network_id, "station_id": station_id, "reason": "station_absent"})
+                skipped.append(
+                    {
+                        "network_id": network_id,
+                        "station_id": station_id,
+                        "reason": "station_absent",
+                    }
+                )
                 continue
             target = pd.to_numeric(daily[station_id], errors="coerce")
             donors = daily.drop(columns=[station_id])
@@ -199,7 +220,12 @@ def main() -> int:
             truth = target.loc[year_mask].to_numpy(dtype=float)
             if not np.isfinite(truth).all() or len(truth) < 360:
                 skipped.append(
-                    {"network_id": network_id, "station_id": station_id, "year": year, "reason": "incomplete_truth"}
+                    {
+                        "network_id": network_id,
+                        "station_id": station_id,
+                        "year": year,
+                        "reason": "incomplete_truth",
+                    }
                 )
                 continue
             if protocol == "strictly_prior_years":
@@ -208,13 +234,22 @@ def main() -> int:
             else:
                 train_mask = pd.Series(~year_mask, index=daily.index)
                 peak_source = target.loc[target.index.year != year]
-            models = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
+            models = StationModels(
+                target=target, donors=donors, air=air, train_mask=train_mask
+            )
             peak_doys = climatological_peak_window(peak_source, exclude_year=None)
-            rng = np.random.default_rng(stable_seed(network_id, station_id, year, protocol))
+            rng = np.random.default_rng(
+                station_year_seed(network_id, station_id, daily.columns, year, protocol)
+            )
             realizations = {
                 item.realization_id: item
                 for item in design_for_year(
-                    year_index, peak_doys, pool, rng=rng, n_empirical=N_EMPIRICAL, cross_overlap=False
+                    year_index,
+                    peak_doys,
+                    pool,
+                    rng=rng,
+                    n_empirical=N_EMPIRICAL,
+                    cross_overlap=False,
                 )
             }
             wanted = set(sub["realization_id"].astype(str))
@@ -260,7 +295,11 @@ def main() -> int:
                     continue
                 baseline_peak = hottest_window_mean(completed)
                 baseline_end = peak_end(completed)
-                truth_peak = float(case["truth_hottest30"]) if np.isfinite(case["truth_hottest30"]) else hottest_window_mean(truth)
+                truth_peak = (
+                    float(case["truth_hottest30"])
+                    if np.isfinite(case["truth_hottest30"])
+                    else hottest_window_mean(truth)
+                )
                 truth_end = peak_end(truth)
                 reconstructed.append(
                     {
@@ -272,10 +311,14 @@ def main() -> int:
                         "certificate_choice": choice,
                         "cert_bound": float(case["cert_bound"]),
                         "longest_run": float(case["longest_run"]),
-                        "true_peak_hidden_fraction": float(case["true_peak_hidden_fraction"]),
+                        "true_peak_hidden_fraction": float(
+                            case["true_peak_hidden_fraction"]
+                        ),
                         "truth_hottest30": float(truth_peak),
                         "baseline_reconstructed_hottest30": float(baseline_peak),
-                        "baseline_abs_error": abs(float(baseline_peak) - float(truth_peak)),
+                        "baseline_abs_error": abs(
+                            float(baseline_peak) - float(truth_peak)
+                        ),
                         "baseline_window_end": int(baseline_end),
                         "truth_window_end": int(truth_end),
                         "n_hidden_days": int(mask.sum()),
@@ -320,7 +363,9 @@ def main() -> int:
                     "perturbed_hottest30": float(peak),
                     "abs_error_C": abs(float(peak) - float(truth)),
                     "signed_error_C": float(peak) - float(truth),
-                    "window_switched": bool(end != base_end and end >= 0 and base_end >= 0),
+                    "window_switched": bool(
+                        end != base_end and end >= 0 and base_end >= 0
+                    ),
                     "perturbed_window_end": int(end),
                 }
             )
@@ -332,7 +377,16 @@ def main() -> int:
     pd.DataFrame(skipped).to_csv(OUT / "skipped.csv", index=False)
 
     curve = []
-    meta = cases_out[["network_id", "station_id", "year", "realization_id", "cert_bound", "longest_run"]].copy()
+    meta = cases_out[
+        [
+            "network_id",
+            "station_id",
+            "year",
+            "realization_id",
+            "cert_bound",
+            "longest_run",
+        ]
+    ].copy()
     rng = np.random.default_rng(0)
     meta["length"] = meta["longest_run"] + rng.random(len(meta))
     for delta in BIASES:
@@ -374,7 +428,11 @@ def main() -> int:
         "bias_curve": curve,
     }
     pd.DataFrame(
-        [{k: v for k, v in row.items() if k != "by_arm"} | {"by_arm_json": json.dumps(row["by_arm"])} for row in curve]
+        [
+            {k: v for k, v in row.items() if k != "by_arm"}
+            | {"by_arm_json": json.dumps(row["by_arm"])}
+            for row in curve
+        ]
     ).to_csv(OUT / "bias_curve.csv", index=False)
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps({k: summary[k] for k in summary if k != "bias_curve"}, indent=2))

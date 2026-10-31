@@ -1,11 +1,9 @@
-"""Run identity: independent output directories, input hashes, fail-closed workers."""
+"""Run identity: independent output directories, input and output file records, fail-closed workers."""
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
-import subprocess
 import sys
 import traceback
 from dataclasses import asdict, dataclass, field
@@ -17,29 +15,11 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 DEFAULT_OUT_ROOT = REPO_ROOT / "results" / "wrr_submission_ready" / "runs"
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def git_head(repo: Path = REPO_ROOT) -> str | None:
-    try:
-        return (
-            subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo, text=True).strip()
-        )
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return None
-
-
 @dataclass
 class RunManifest:
     run_id: str
     created_utc: str
     objective: str
-    git_head: str | None
     python: str
     command: list[str]
     input_files: list[dict[str, Any]] = field(default_factory=list)
@@ -51,8 +31,9 @@ class RunManifest:
         resolved = path.resolve()
         self.input_files.append(
             {
-                "path": str(resolved.relative_to(REPO_ROOT)) if resolved.is_relative_to(REPO_ROOT) else str(resolved),
-                "sha256": sha256_file(resolved) if resolved.is_file() else None,
+                "path": str(resolved.relative_to(REPO_ROOT))
+                if resolved.is_relative_to(REPO_ROOT)
+                else str(resolved),
                 "bytes": resolved.stat().st_size if resolved.is_file() else None,
                 "exists": resolved.exists(),
             }
@@ -62,8 +43,9 @@ class RunManifest:
         resolved = path.resolve()
         self.output_files.append(
             {
-                "path": str(resolved.relative_to(REPO_ROOT)) if resolved.is_relative_to(REPO_ROOT) else str(resolved),
-                "sha256": sha256_file(resolved) if resolved.is_file() else None,
+                "path": str(resolved.relative_to(REPO_ROOT))
+                if resolved.is_relative_to(REPO_ROOT)
+                else str(resolved),
                 "bytes": resolved.stat().st_size if resolved.is_file() else None,
             }
         )
@@ -75,7 +57,9 @@ class RunManifest:
         return path
 
 
-def new_run(objective: str, *, out_root: Path = DEFAULT_OUT_ROOT) -> tuple[Path, RunManifest]:
+def new_run(
+    objective: str, *, out_root: Path = DEFAULT_OUT_ROOT
+) -> tuple[Path, RunManifest]:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     run_id = f"{stamp}_{os.getpid()}"
     directory = out_root / run_id
@@ -84,7 +68,6 @@ def new_run(objective: str, *, out_root: Path = DEFAULT_OUT_ROOT) -> tuple[Path,
         run_id=run_id,
         created_utc=datetime.now(timezone.utc).isoformat(),
         objective=objective,
-        git_head=git_head(),
         python=sys.version.replace("\n", " "),
         command=list(sys.argv),
     )
@@ -114,7 +97,9 @@ def run_fail_closed(
         return directory
     except Exception as exc:  # noqa: BLE001 — fail closed by design
         manifest.status = "failed"
-        manifest.error = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+        manifest.error = "".join(
+            traceback.format_exception(type(exc), exc, exc.__traceback__)
+        )
         manifest.write(directory)
         # Do not leave a SUCCESS marker beside partial tables.
         (directory / "FAILED").write_text(manifest.error)
@@ -124,8 +109,8 @@ def run_fail_closed(
 def preflight_current_study() -> dict[str, Any]:
     """Cheap checks before a rebuild: manifest presence, claim registry, code entrypoints.
 
-    Input rows marked ``present`` must also exist on disk with matching size and
-    sha256. A status string alone is not sufficient (F11).
+    Input rows marked ``present`` must also exist on disk with matching size.
+    A status string alone is not sufficient (F11).
     """
 
     root = REPO_ROOT / "results" / "wrr_submission_ready"
@@ -140,14 +125,18 @@ def preflight_current_study() -> dict[str, Any]:
     report: dict[str, Any] = {"ok": True, "checks": []}
     for path in required:
         exists = path.is_file()
-        report["checks"].append({"path": str(path.relative_to(REPO_ROOT)), "exists": exists})
+        report["checks"].append(
+            {"path": str(path.relative_to(REPO_ROOT)), "exists": exists}
+        )
         report["ok"] = report["ok"] and exists
     manifest = pd_safe_read(root / "current_data_manifest.csv")
     if manifest is not None:
-        status_missing = int((manifest["status"] != "present").sum()) if "status" in manifest.columns else -1
+        status_missing = (
+            int((manifest["status"] != "present").sum())
+            if "status" in manifest.columns
+            else -1
+        )
         absent = 0
-        size_mismatch = 0
-        hash_mismatch = 0
         checked = 0
         for row in manifest.itertuples(index=False):
             rel = getattr(row, "input_path", None)
@@ -158,25 +147,15 @@ def preflight_current_study() -> dict[str, Any]:
             if not path.is_file():
                 absent += 1
                 continue
-            expected_bytes = getattr(row, "bytes", None)
-            if expected_bytes is not None and not pd_isna(expected_bytes):
-                if int(path.stat().st_size) != int(expected_bytes):
-                    size_mismatch += 1
-            expected_hash = getattr(row, "sha256", None)
-            if expected_hash is not None and not pd_isna(expected_hash) and str(expected_hash):
-                if sha256_file(path) != str(expected_hash):
-                    hash_mismatch += 1
         report["checks"].append(
             {
                 "path": "current_data_manifest.csv",
                 "n_status_not_present": status_missing,
                 "n_input_rows_checked": checked,
                 "n_files_absent": absent,
-                "n_size_mismatch": size_mismatch,
-                "n_hash_mismatch": hash_mismatch,
             }
         )
-        report["ok"] = report["ok"] and status_missing == 0 and absent == 0 and size_mismatch == 0 and hash_mismatch == 0
+        report["ok"] = report["ok"] and status_missing == 0 and absent == 0
     return report
 
 

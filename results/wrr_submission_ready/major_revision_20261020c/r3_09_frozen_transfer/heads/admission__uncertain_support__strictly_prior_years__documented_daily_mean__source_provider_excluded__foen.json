@@ -53,7 +53,6 @@
   "identity": "admission__uncertain_support__strictly_prior_years__documented_daily_mean__source_provider_excluded__foen",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__uncertain_support__strictly_prior_years__documented_daily_mean__source_provider_excluded__foen.joblib",
-  "model_sha256": "56936db4cf53d5df4d9000375887d0a14fa5821f5e3023d312daae350379b2d1",
   "n_training_cases": 17990,
   "n_training_groups": 80,
   "name": "uncertain_support",
@@ -63,8 +62,7 @@
   "scope": "documented_daily_mean",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

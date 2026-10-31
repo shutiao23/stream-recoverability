@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 import tarfile
@@ -17,7 +16,9 @@ from stream_recoverability.governance import public_export_exclude
 DIST = ROOT / "dist"
 RELEASE_VERSION = "1.1.0"
 ARCHIVE = DIST / f"stream-recoverability-v{RELEASE_VERSION}-archive-candidate.tar.gz"
-MANIFEST = DIST / f"stream-recoverability-v{RELEASE_VERSION}-archive-candidate.manifest.json"
+MANIFEST = (
+    DIST / f"stream-recoverability-v{RELEASE_VERSION}-archive-candidate.manifest.json"
+)
 
 TOP_LEVEL = {
     ".zenodo.json",
@@ -53,7 +54,6 @@ SAFE_METADATA_FILES = {
     "metadata/editor_data_exception_approval.json",
     "metadata/gems_reviewer_data_upload.json",
     "metadata/quality_codebook.csv",
-    "metadata/regulation_panel_freeze_v1.sha256",
     "metadata/source_documentation/README.md",
     "metadata/source_documentation/source_provenance_v3.md",
     "metadata/station_metadata.csv",
@@ -154,14 +154,6 @@ IGNORED_SUFFIXES = {".pyc", ".pt", ".npz"}
 IGNORED_NAMES = {"__pycache__", ".DS_Store"}
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _selected(relative: str) -> bool:
     if (
         relative in TOP_LEVEL
@@ -219,7 +211,6 @@ def main() -> None:
                 {
                     "path": relative.as_posix(),
                     "bytes": path.stat().st_size,
-                    "sha256": _sha256(path),
                 }
             )
     payload = {
@@ -228,7 +219,6 @@ def main() -> None:
         "doi": None,
         "archive": ARCHIVE.name,
         "archive_bytes": ARCHIVE.stat().st_size,
-        "archive_sha256": _sha256(ARCHIVE),
         "file_count": len(records),
         "files": records,
         "blockers": [
@@ -248,7 +238,6 @@ def main() -> None:
                 "status": payload["status"],
                 "files": len(records),
                 "archive_bytes": payload["archive_bytes"],
-                "archive_sha256": payload["archive_sha256"],
             },
             sort_keys=True,
         )

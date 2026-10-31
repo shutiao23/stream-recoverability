@@ -3,7 +3,7 @@ Traceback (most recent call last):
     raise SystemExit(main())
                      ^^^^^^
   File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1155, in main
-    write_summary(decomp, counts, compare, sensitivity, cross, fingerprint)
+    write_summary(decomp, counts, compare, sensitivity, cross, record)
   File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1497, in write_summary
     f"reaches {max(abs(sel_lo), abs(sel_hi)):.3f} pp in magnitude. Consequences:")
                        ^^^^^^

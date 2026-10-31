@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -16,63 +15,22 @@ from stream_recoverability.experiments.t2_result_aggregation import (
     PREDICTOR_SCHEMA,
     AggregationContractError,
     aggregate_t2_results,
-    checkpoint_result_set_sha256,
-    input_inventory_sha256,
 )
 
-
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+ITEM_ID = "huc8_test-station_a-donor_regression-30-0-900-B_union_D"
 
 
-def _canonical_sha(value: object) -> str:
-    return hashlib.sha256(
-        json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
-    ).hexdigest()
-
-
-def _work_item_stream_sha(rows: list[dict[str, object]]) -> str:
-    digest = hashlib.sha256()
-    for row in sorted(rows, key=lambda value: int(value["ordinal"])):
-        digest.update(str(row["item_id"]).encode())
-        digest.update(b"\n")
-    return digest.hexdigest()
-
-
-def _identity(design_sha: str, input_sha: str) -> dict[str, object]:
-    return {
-        "design_sha256": design_sha,
-        "input_sha256": input_sha,
-        "network_id": "huc8_test",
-        "target_station": "station_a",
-        "model": "donor_regression",
-        "gap_length": 30,
-        "placement": 0,
-        "start_index": 900,
-        "information_condition": "B_union_D",
-        "task": "offline_archival",
-        "geometry": "artificial_stress",
-        "runner_contract_version": RUNNER_CONTRACT_VERSION,
-    }
-
-
-def _fixture(tmp_path: Path, *, expected_n: int = 1) -> dict[str, Path | str]:
+def _fixture(tmp_path: Path, *, expected_n: int = 1) -> dict[str, Path]:
     design = tmp_path / "design.yaml"
     design.write_text("design_id: design_freeze_v9\n", encoding="utf-8")
-    input_sha = "b" * 64
-    item_id = _canonical_sha([_identity(_sha(design), input_sha)])[:24]
     workload = {
         "manifest_schema": "t2_v91_open_role_workload_v2",
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
-        "design_sha256": _sha(design),
         "sealed_temperature_records_read": False,
         "input_inventory": {"sealed_input_roots_allowed": []},
         "n_networks": 1,
         "tier_1": {
             "n_work_items": expected_n,
-            "work_item_identity_sha256": _work_item_stream_sha(
-                [{"ordinal": 0, "item_id": item_id}]
-            ),
             "online_causal_status": "ready",
         },
         "geometry_dependencies": {
@@ -89,17 +47,13 @@ def _fixture(tmp_path: Path, *, expected_n: int = 1) -> dict[str, Path | str]:
         "design": design,
         "workload": workload_path,
         "checkpoint_dir": checkpoint_dir,
-        "input_sha": input_sha,
     }
 
 
-def _write_checkpoint(paths: dict[str, Path | str]) -> dict[str, object]:
-    design_sha = _sha(paths["design"])  # type: ignore[arg-type]
-    identity = _identity(design_sha, str(paths["input_sha"]))
-    item_id = _canonical_sha([identity])[:24]
+def _write_checkpoint(paths: dict[str, Path]) -> dict[str, object]:
     record = {
         "ordinal": 0,
-        "item_id": item_id,
+        "item_id": ITEM_ID,
         "network_id": "huc8_test",
         "role": "validation",
         "source_key": "open_role_qc/validation",
@@ -111,40 +65,32 @@ def _write_checkpoint(paths: dict[str, Path | str]) -> dict[str, object]:
         "information_condition": "B_union_D",
         "task": "offline_archival",
         "geometry": "artificial_stress",
-        "input_sha256": paths["input_sha"],
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
         "status": "complete",
         "mae_deg_c": 0.75,
         "achieved_skill": 0.25,
         "sealed_temperature_records_read": False,
     }
-    checkpoint = paths["checkpoint_dir"] / f"{item_id}.json"  # type: ignore[operator]
+    checkpoint = paths["checkpoint_dir"] / f"{ITEM_ID}.json"
     checkpoint.write_text(json.dumps(record), encoding="utf-8")
     return record
 
 
-def _write_binding(paths: dict[str, Path | str]) -> Path:
-    result_set_sha, files = checkpoint_result_set_sha256(paths["checkpoint_dir"])
-    input_map = {"huc8_test": str(paths["input_sha"])}
+def _write_binding(paths: dict[str, Path]) -> Path:
     binding = {
         "manifest_schema": BINDING_SCHEMA,
-        "workload_manifest_sha256": _sha(paths["workload"]),  # type: ignore[arg-type]
-        "design_sha256": _sha(paths["design"]),  # type: ignore[arg-type]
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
         "checkpoint_namespace": "checkpoints_v2",
-        "result_set_sha256": result_set_sha,
-        "n_records": len(files),
+        "n_records": len(list(paths["checkpoint_dir"].glob("*.json"))),
         "completeness": "complete",
         "sealed_temperature_records_read": False,
-        "input_sha256_by_network": input_map,
-        "input_inventory_sha256": input_inventory_sha256(input_map),
     }
-    path = Path(paths["checkpoint_dir"]).parent / "checkpoint_binding.json"
+    path = paths["checkpoint_dir"].parent / "checkpoint_binding.json"
     path.write_text(json.dumps(binding), encoding="utf-8")
     return path
 
 
-def _write_predictors(paths: dict[str, Path | str]) -> Path:
+def _write_predictors(paths: dict[str, Path]) -> Path:
     table = pd.DataFrame(
         [
             {
@@ -159,14 +105,10 @@ def _write_predictors(paths: dict[str, Path | str]) -> Path:
             }
         ]
     )
-    table_path = Path(paths["checkpoint_dir"]).parent / "predictors.csv"
+    table_path = paths["checkpoint_dir"].parent / "predictors.csv"
     table.to_csv(table_path, index=False)
-    input_map = {"huc8_test": str(paths["input_sha"])}
     manifest = {
         "manifest_schema": PREDICTOR_SCHEMA,
-        "workload_manifest_sha256": _sha(paths["workload"]),  # type: ignore[arg-type]
-        "design_sha256": _sha(paths["design"]),  # type: ignore[arg-type]
-        "input_inventory_sha256": input_inventory_sha256(input_map),
         "fit_role": "development",
         "trained_on_open_roles_only": True,
         "outcome_rows_read_during_fit": False,
@@ -174,7 +116,6 @@ def _write_predictors(paths: dict[str, Path | str]) -> Path:
         "completeness": "complete",
         "predictions_path": table_path.name,
         "predictions_format": "csv",
-        "predictions_sha256": _sha(table_path),
         "join_keys": ["network_id", "station_id", "gap_length"],
     }
     path = table_path.parent / "predictor_manifest.json"
@@ -199,6 +140,7 @@ def test_incomplete_checkpoint_set_writes_readiness_only(tmp_path: Path) -> None
     assert manifest["network_inference_status"] == "withheld_n_lt_100_network_interval"
     assert manifest["network_interval"] is None
     assert "result_workload_incomplete_0_of_2" in manifest["blockers"]
+    assert "checkpoint_result_set_missing_binding" in manifest["blockers"]
     assert (output / "readiness_manifest.json").is_file()
     assert not (output / "t2_mixed_model_input.csv").exists()
     assert not (output / "t2_mixed_model_input.parquet").exists()
@@ -231,16 +173,16 @@ def test_complete_bound_set_writes_inference_schema_but_withholds_small_n_ci(
     assert csv.loc[0, "observed_recovery_loss"] == pytest.approx(0.75)
     assert csv.loc[0, "predicted_conditional_risk"] == pytest.approx(0.8)
     assert csv.loc[0, "station_id"] == "station_a"
+    assert csv.loc[0, "item_id"] == ITEM_ID
 
 
-def test_input_or_result_set_sha_mismatch_is_rejected(tmp_path: Path) -> None:
+def test_checkpoint_binding_record_count_mismatch_is_rejected(tmp_path: Path) -> None:
     paths = _fixture(tmp_path)
     record = _write_checkpoint(paths)
     binding = _write_binding(paths)
-    record["input_sha256"] = "c" * 64
-    checkpoint = next(Path(paths["checkpoint_dir"]).glob("*.json"))
-    checkpoint.write_text(json.dumps(record), encoding="utf-8")
-    with pytest.raises(AggregationContractError, match="result_set_sha256"):
+    extra = paths["checkpoint_dir"] / "unbound_extra.json"
+    extra.write_text(json.dumps({**record, "ordinal": 1}), encoding="utf-8")
+    with pytest.raises(AggregationContractError, match="n_records"):
         aggregate_t2_results(
             workload_manifest_path=paths["workload"],
             design_path=paths["design"],

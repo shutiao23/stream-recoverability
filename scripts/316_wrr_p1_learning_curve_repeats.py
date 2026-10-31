@@ -64,8 +64,7 @@ Determinism / read-only guarantees
 ----------------------------------
 Only `scripts/316_...py`, `results/.../p1_learning_curve_repeats/**` and
 `scratch/p1_learning_curves/**` are written. No git state is changed. Panel
-identity, seeds, input sha256 and git HEAD are written to
-`protocol_fingerprint.json`.
+identity, seeds and protocol constants are written to `protocol.json`.
 
 Run:
     PYTHONPATH=src python3 scripts/316_wrr_p1_learning_curve_repeats.py
@@ -73,13 +72,11 @@ Run:
 
 from __future__ import annotations
 
-import hashlib
 import importlib.util
 import json
 import math
 import os
 import platform
-import subprocess
 import sys
 import time
 from pathlib import Path
@@ -87,7 +84,12 @@ from pathlib import Path
 # One BLAS/OpenMP thread per worker: 64 single-threaded fits beat 64 workers that
 # each spawn 128 OpenMP threads (the fits are small; oversubscription is the
 # only realistic way this grid misses its wall-time budget).
-for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+for _var in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
     os.environ[_var] = "1"
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -105,6 +107,7 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     STEP4_CEILING,
     STEP10_CONFIRM,
 )
+from stream_recoverability.seeds import position_index  # noqa: E402
 
 # --------------------------------------------------------------------------
 # Protocol constants (frozen; OP-70 / OP-RISK5 as pre-registered in
@@ -120,9 +123,11 @@ FEATURE_SET_ORDER = (
 TRAIN_SIZES = (10, 25, 50, 75, None)  # None == all development networks
 # Frozen values. The P1_* environment variables exist only so that a smoke test
 # can run a reduced grid; every effective value is written to
-# protocol_fingerprint.json, so a reduced run can never masquerade as the full one.
+# protocol.json, so a reduced run can never masquerade as the full one.
 N_DRAWS = int(os.environ.get("P1_N_DRAWS", 20))  # independent network subsets per cell
-N_MODEL_SEED_DRAWS = int(os.environ.get("P1_N_MODEL_SEED_DRAWS", 10))  # learner-seed repeats
+N_MODEL_SEED_DRAWS = int(
+    os.environ.get("P1_N_MODEL_SEED_DRAWS", 10)
+)  # learner-seed repeats
 SUBSET_SEED_BASE = 20261014
 MODEL_SEED_BASE = 17  # identical to scripts/301 SEED, so draw 0 reproduces it
 N_JOBS = int(os.environ.get("P1_N_JOBS", 64))
@@ -163,38 +168,18 @@ SEED_REPEAT_SIZES = (10, 75)
 # --------------------------------------------------------------------------
 # helpers
 # --------------------------------------------------------------------------
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with open(path, "rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+def subset_membership(networks: list[str]) -> str:
+    """The drawn network set as one readable key (sorted ids, comma separated)."""
 
-
-def git_head() -> dict:
-    def run(args: list[str]) -> str:
-        try:
-            return subprocess.run(
-                args, cwd=ROOT, capture_output=True, text=True, check=True
-            ).stdout.strip()
-        except Exception as exc:  # pragma: no cover - diagnostic only
-            return f"unavailable: {exc}"
-
-    return {
-        "head": run(["git", "rev-parse", "HEAD"]),
-        "status_porcelain": run(["git", "status", "--porcelain"]),
-    }
-
-
-def subset_hash(networks: list[str]) -> str:
-    joined = ",".join(sorted(str(n) for n in networks))
-    return hashlib.sha1(joined.encode("utf-8")).hexdigest()[:12]
+    return ",".join(sorted(str(n) for n in networks))
 
 
 def load_step2_module():
     """Import scripts/301... verbatim (module name starts with a digit)."""
 
-    spec = importlib.util.spec_from_file_location("wrr_step2_same_info_ablation", STEP2_SCRIPT)
+    spec = importlib.util.spec_from_file_location(
+        "wrr_step2_same_info_ablation", STEP2_SCRIPT
+    )
     if spec is None or spec.loader is None:  # pragma: no cover
         raise RuntimeError(f"cannot import {STEP2_SCRIPT}")
     module = importlib.util.module_from_spec(spec)
@@ -249,7 +234,9 @@ def _retention_cutoff(score: pd.Series, errors: pd.Series, retention: float) -> 
     return float(values[order[: k - 1]].max())
 
 
-def _rate_above(score: np.ndarray, err: np.ndarray, retention: float, tolerance: float) -> dict:
+def _rate_above(
+    score: np.ndarray, err: np.ndarray, retention: float, tolerance: float
+) -> dict:
     """OP-70 style read-out: keep the lowest-risk `retention`, report bad share."""
 
     order = np.argsort(score, kind="mergesort")
@@ -284,7 +271,9 @@ def run_draw(spec: dict) -> dict:
         picked = rng.choice(len(nets), size=int(n_req), replace=False)
         train_nets = [nets[int(i)] for i in picked]
         n_used = int(n_req)
-    train = dev[dev["network_id"].astype(str).isin(set(train_nets))].reset_index(drop=True)
+    train = dev[dev["network_id"].astype(str).isin(set(train_nets))].reset_index(
+        drop=True
+    )
     if train.empty:  # pragma: no cover - cannot happen for the frozen pool
         raise RuntimeError("empty training draw")
 
@@ -306,12 +295,15 @@ def run_draw(spec: dict) -> dict:
     fit_seconds = time.perf_counter() - t0
 
     # ---- evaluation on the fixed external panel --------------------------
-    err_eval = pd.to_numeric(res["abserr_policy"], errors="coerce").to_numpy(dtype=float)
+    err_eval = pd.to_numeric(res["abserr_policy"], errors="coerce").to_numpy(
+        dtype=float
+    )
     good = np.isfinite(err_eval)
     score_good = score[good]
     err_good = err_eval[good]
     frontier = frontier_for_score(
-        pd.Series(score, index=res.index), pd.to_numeric(res["abserr_policy"], errors="coerce")
+        pd.Series(score, index=res.index),
+        pd.to_numeric(res["abserr_policy"], errors="coerce"),
     )
     at70 = frontier.loc[frontier["retention"].eq(RETENTION)].iloc[0]
 
@@ -331,10 +323,16 @@ def run_draw(spec: dict) -> dict:
         threshold_eval = {
             "retention": float(keep.mean()),
             "n_retained": int(keep.sum()),
-            "rate": float((err_good[keep] > PRIMARY_TOLERANCE_C).mean()) if keep.any() else float("nan"),
+            "rate": float((err_good[keep] > PRIMARY_TOLERANCE_C).mean())
+            if keep.any()
+            else float("nan"),
         }
     else:
-        threshold_eval = {"retention": float("nan"), "n_retained": 0, "rate": float("nan")}
+        threshold_eval = {
+            "retention": float("nan"),
+            "n_retained": 0,
+            "rate": float("nan"),
+        }
 
     return {
         "draw_kind": spec["draw_kind"],
@@ -346,7 +344,6 @@ def run_draw(spec: dict) -> dict:
         "n_train_rows": int(len(train)),
         "subset_seed": int(spec["subset_seed"]),
         "model_seed": int(spec["model_seed"]),
-        "subset_sha1": subset_hash(train_nets),
         "rate_above_0.5_at_70": float(at70["rate_above_0.5"]),
         "mean_abs_error_c_at_70": float(at70["mean_abs_error_c"]),
         "risk5_retention_calibrated": r_star,
@@ -372,7 +369,9 @@ def run_draw(spec: dict) -> dict:
 # --------------------------------------------------------------------------
 # statistics over draws
 # --------------------------------------------------------------------------
-def paired_bootstrap(diffs: np.ndarray, *, draws: int = BOOT_DRAWS, seed: int = BOOT_SEED) -> dict:
+def paired_bootstrap(
+    diffs: np.ndarray, *, draws: int = BOOT_DRAWS, seed: int = BOOT_SEED
+) -> dict:
     values = np.asarray(diffs, dtype=float)
     values = values[np.isfinite(values)]
     if values.size == 0:
@@ -398,13 +397,21 @@ def paired_bootstrap(diffs: np.ndarray, *, draws: int = BOOT_DRAWS, seed: int = 
     }
 
 
-def unpaired_bootstrap(a: np.ndarray, b: np.ndarray, *, draws: int = BOOT_DRAWS, seed: int = BOOT_SEED) -> dict:
+def unpaired_bootstrap(
+    a: np.ndarray, b: np.ndarray, *, draws: int = BOOT_DRAWS, seed: int = BOOT_SEED
+) -> dict:
     x = np.asarray(a, dtype=float)
     y = np.asarray(b, dtype=float)
     x = x[np.isfinite(x)]
     y = y[np.isfinite(y)]
     if x.size == 0 or y.size == 0:
-        return {"n_a": int(x.size), "n_b": int(y.size), "mean": float("nan"), "low": float("nan"), "high": float("nan")}
+        return {
+            "n_a": int(x.size),
+            "n_b": int(y.size),
+            "mean": float("nan"),
+            "low": float("nan"),
+            "high": float("nan"),
+        }
     rng = np.random.default_rng(int(seed))
     mx = x[rng.integers(0, x.size, size=(int(draws), x.size))].mean(axis=1)
     my = y[rng.integers(0, y.size, size=(int(draws), y.size))].mean(axis=1)
@@ -427,7 +434,7 @@ def sign_test_p(diffs: np.ndarray) -> float:
     if n == 0:
         return float("nan")
     k = int((values > 0).sum())
-    tail = sum(math.comb(n, i) for i in range(0, min(k, n - k) + 1)) / (2 ** n)
+    tail = sum(math.comb(n, i) for i in range(0, min(k, n - k) + 1)) / (2**n)
     return float(min(1.0, 2.0 * tail))
 
 
@@ -453,7 +460,9 @@ def build_tasks() -> list[dict]:
             for name in FEATURE_SET_ORDER:
                 tasks.append(
                     {
-                        "draw_kind": "full_pool_single" if n_req is None else "network_subset",
+                        "draw_kind": "full_pool_single"
+                        if n_req is None
+                        else "network_subset",
                         "draw_index": d,
                         "feature_set": name,
                         "n_train_requested": n_req,
@@ -486,7 +495,8 @@ def build_tasks() -> list[dict]:
                             "draw_index": d,
                             "feature_set": name,
                             "n_train_requested": n_req,
-                            "subset_seed": SUBSET_SEED_BASE + 1000 * si,  # draw 0 subset
+                            "subset_seed": SUBSET_SEED_BASE
+                            + 1000 * si,  # draw 0 subset
                             "model_seed": MODEL_SEED_BASE + d,
                         }
                     )
@@ -517,27 +527,33 @@ def curve_summary(rows: pd.DataFrame) -> pd.DataFrame:
             "feature_set": name,
             "n_features": int(block["n_features"].iloc[0]),
             "n_draws": int(len(block)),
-            "n_unique_subsets": int(block["subset_sha1"].nunique()),
+            "n_unique_subsets": int(block["subset_id"].nunique()),
             "n_unique_model_seeds": int(block["model_seed"].nunique()),
             "n_train_networks_used": int(block["n_train_networks"].iloc[0]),
             "n_train_rows_mean": float(block["n_train_rows"].mean()),
             "n_train_rows_min": int(block["n_train_rows"].min()),
             "n_train_rows_max": int(block["n_train_rows"].max()),
             "fit_seconds_mean": float(block["fit_seconds"].mean()),
-            "fit_seconds_sd": float(block["fit_seconds"].std(ddof=1)) if len(block) > 1 else float("nan"),
+            "fit_seconds_sd": float(block["fit_seconds"].std(ddof=1))
+            if len(block) > 1
+            else float("nan"),
             "calibration_seconds_mean": float(block["calibration_seconds"].mean()),
             "job_seconds_mean": float(block["job_seconds"].mean()),
         }
         for metric in SUMMARY_METRICS:
             values = pd.to_numeric(block[metric], errors="coerce")
             row[f"{metric}__mean"] = float(values.mean())
-            row[f"{metric}__sd"] = float(values.std(ddof=1)) if len(block) > 1 else float("nan")
+            row[f"{metric}__sd"] = (
+                float(values.std(ddof=1)) if len(block) > 1 else float("nan")
+            )
             row[f"{metric}__min"] = float(values.min())
             row[f"{metric}__max"] = float(values.max())
         out_rows.append(row)
-    return pd.DataFrame(out_rows).sort_values(
-        ["draw_kind", "n_train_networks_used", "feature_set"]
-    ).reset_index(drop=True)
+    return (
+        pd.DataFrame(out_rows)
+        .sort_values(["draw_kind", "n_train_networks_used", "feature_set"])
+        .reset_index(drop=True)
+    )
 
 
 METRIC_DIRECTION = {
@@ -567,19 +583,31 @@ def paired_differences(rows: pd.DataFrame) -> pd.DataFrame:
     """Draw-level paired contrasts + the cross-size sample-efficiency contrast."""
 
     out_rows = []
-    combos = [("generic_plus_support", "generic"), ("generic_plus_support_plus_peakmargin", "generic"),
-              ("generic_plus_support_plus_peakmargin", "generic_plus_support")]
+    combos = [
+        ("generic_plus_support", "generic"),
+        ("generic_plus_support_plus_peakmargin", "generic"),
+        ("generic_plus_support_plus_peakmargin", "generic_plus_support"),
+    ]
     metrics = ("rate_above_0.5_at_70", "risk5_retention_calibrated")
     keys = ["draw_kind", "n_train_requested", "draw_index"]
 
     for kind in sorted(rows["draw_kind"].unique()):
         for n_req in sorted(rows["n_train_requested"].unique()):
-            block = rows[(rows["draw_kind"].eq(kind)) & (rows["n_train_requested"].eq(n_req))]
+            block = rows[
+                (rows["draw_kind"].eq(kind)) & (rows["n_train_requested"].eq(n_req))
+            ]
             if block.empty:
                 continue
             for left, right in combos:
-                wide = block.pivot_table(index=keys, columns="feature_set", values=list(metrics), aggfunc="first")
-                if left not in wide.columns.get_level_values(1) or right not in wide.columns.get_level_values(1):
+                wide = block.pivot_table(
+                    index=keys,
+                    columns="feature_set",
+                    values=list(metrics),
+                    aggfunc="first",
+                )
+                if left not in wide.columns.get_level_values(
+                    1
+                ) or right not in wide.columns.get_level_values(1):
                     continue
                 for metric in metrics:
                     a = pd.to_numeric(wide[(metric, left)], errors="coerce")
@@ -590,7 +618,9 @@ def paired_differences(rows: pd.DataFrame) -> pd.DataFrame:
                     direction = metric_direction(metric)
                     # "a better" for the metric's own direction
                     better = (
-                        int((diffs < 0).sum()) if direction == "lower_is_better" else int((diffs > 0).sum())
+                        int((diffs < 0).sum())
+                        if direction == "lower_is_better"
+                        else int((diffs > 0).sum())
                     )
                     out_rows.append(
                         {
@@ -600,7 +630,9 @@ def paired_differences(rows: pd.DataFrame) -> pd.DataFrame:
                             "metric": metric,
                             "metric_direction": direction,
                             "n_train_requested": int(n_req),
-                            "n_train_size_label": "all" if int(n_req) < 0 else str(int(n_req)),
+                            "n_train_size_label": "all"
+                            if int(n_req) < 0
+                            else str(int(n_req)),
                             "draw_kind": kind,
                             "pairing": (
                                 "same_network_subset_and_model_seed"
@@ -608,17 +640,19 @@ def paired_differences(rows: pd.DataFrame) -> pd.DataFrame:
                                 else "same_fixed_network_set_model_seed_varied"
                             ),
                             "n_draws": stat["n"],
-                            "n_unique_subsets": int(block["subset_sha1"].nunique()),
+                            "n_unique_subsets": int(block["subset_id"].nunique()),
                             "arm_a_draw_kind": kind,
                             "arm_b_draw_kind": kind,
                             "n_draws_arm_a": stat["n"],
                             "n_draws_arm_b": stat["n"],
-                            "n_unique_subsets_arm_a": int(block["subset_sha1"].nunique()),
-                            "n_unique_subsets_arm_b": int(block["subset_sha1"].nunique()),
+                            "n_unique_subsets_arm_a": int(block["subset_id"].nunique()),
+                            "n_unique_subsets_arm_b": int(block["subset_id"].nunique()),
                             "mean_diff": stat["mean"],
                             "mean_diff_pp": stat["mean"] * 100.0,
                             "sd_diff": stat["sd"],
-                            "sd_diff_pp": stat["sd"] * 100.0 if math.isfinite(stat["sd"]) else float("nan"),
+                            "sd_diff_pp": stat["sd"] * 100.0
+                            if math.isfinite(stat["sd"])
+                            else float("nan"),
                             "ci_low": stat["low"],
                             "ci_high": stat["high"],
                             "ci_low_pp": stat["low"] * 100.0,
@@ -628,15 +662,23 @@ def paired_differences(rows: pd.DataFrame) -> pd.DataFrame:
                             "bootstrap_seed": BOOT_SEED,
                             "ci_defined": stat["ci_defined"],
                             "ci_excludes_zero": bool(
-                                stat["ci_defined"] and (stat["low"] > 0 or stat["high"] < 0)
+                                stat["ci_defined"]
+                                and (stat["low"] > 0 or stat["high"] < 0)
                             ),
                             "n_draws_arm_a_better": better,
-                            "share_draws_arm_a_better": (float(better) / float(stat["n"])) if stat["n"] else float("nan"),
+                            "share_draws_arm_a_better": (
+                                float(better) / float(stat["n"])
+                            )
+                            if stat["n"]
+                            else float("nan"),
                             "prob_arm_a_beats_arm_b": float("nan"),
                             "sign_test_p": sign_test_p(diffs),
                             "interpretation": (
                                 "distinguishable from zero at 95% (draw bootstrap CI excludes 0, n>=2 draws)"
-                                if (stat["ci_defined"] and (stat["low"] > 0 or stat["high"] < 0))
+                                if (
+                                    stat["ci_defined"]
+                                    and (stat["low"] > 0 or stat["high"] < 0)
+                                )
                                 else (
                                     "not distinguishable from zero: CI undefined (single draw)"
                                     if not stat["ci_defined"]
@@ -686,13 +728,13 @@ def paired_differences(rows: pd.DataFrame) -> pd.DataFrame:
                     "draw_kind": "cross_size",
                     "pairing": "unpaired_independent_draw_sets",
                     "n_draws": stat["n_a"],
-                    "n_unique_subsets": int(support_small["subset_sha1"].nunique()),
+                    "n_unique_subsets": int(support_small["subset_id"].nunique()),
                     "arm_a_draw_kind": "network_subset",
                     "arm_b_draw_kind": arm_b_kind,
                     "n_draws_arm_a": int(len(support_small)),
                     "n_draws_arm_b": int(len(generic_large)),
-                    "n_unique_subsets_arm_a": int(support_small["subset_sha1"].nunique()),
-                    "n_unique_subsets_arm_b": int(generic_large["subset_sha1"].nunique()),
+                    "n_unique_subsets_arm_a": int(support_small["subset_id"].nunique()),
+                    "n_unique_subsets_arm_b": int(generic_large["subset_id"].nunique()),
                     "mean_diff": stat["mean"],
                     "mean_diff_pp": stat["mean"] * 100.0,
                     "sd_diff": float("nan"),
@@ -734,7 +776,9 @@ def main() -> int:
     s2 = load_step2_module()
     if tuple(s2.FEATURE_SETS) != FEATURE_SET_ORDER:  # pragma: no cover
         raise RuntimeError(f"script 301 feature sets changed: {tuple(s2.FEATURE_SETS)}")
-    if float(s2.RETENTION) != RETENTION or float(s2.RISK_CAP) != RISK_CAP:  # pragma: no cover
+    if (
+        float(s2.RETENTION) != RETENTION or float(s2.RISK_CAP) != RISK_CAP
+    ):  # pragma: no cover
         raise RuntimeError("script 301 OP-70 / OP-RISK5 constants changed")
 
     # panel identity / disjointness -------------------------------------------------
@@ -743,7 +787,9 @@ def main() -> int:
     dev_nets = sorted(dev_ids["network_id"].astype(str).unique())
     res_nets = sorted(res_ids["network_id"].astype(str).unique())
     net_overlap = sorted(set(dev_nets) & set(res_nets))
-    station_overlap = sorted(set(dev_ids["station_id"].astype(str)) & set(res_ids["station_id"].astype(str)))
+    station_overlap = sorted(
+        set(dev_ids["station_id"].astype(str)) & set(res_ids["station_id"].astype(str))
+    )
     print(
         f"training pool: {len(dev_nets)} development networks | "
         f"evaluation panel: {len(res_nets)} reserved/wave-2 networks | "
@@ -762,9 +808,21 @@ def main() -> int:
     grid_seconds = time.perf_counter() - t0
 
     rows = pd.DataFrame(results)
+    # A drawn network set is identified by its position among the distinct sets
+    # of this run, in sorted order of their member lists.
+    membership = rows["_train_nets"].map(subset_membership)
+    rows.insert(
+        rows.columns.get_loc("model_seed") + 1,
+        "subset_id",
+        membership.map(position_index(membership)).astype(int),
+    )
     subsets = {
-        f"{size_token(r['n_train_requested'])}|{r['subset_sha1']}": sorted(r["_train_nets"])
-        for _, r in rows.drop_duplicates(subset=["n_train_requested", "subset_sha1"]).iterrows()
+        f"{size_token(r['n_train_requested'])}|subset_{int(r['subset_id'])}": sorted(
+            r["_train_nets"]
+        )
+        for _, r in rows.drop_duplicates(
+            subset=["n_train_requested", "subset_id"]
+        ).iterrows()
     }
     (SCRATCH / "drawn_subsets.json").write_text(json.dumps(subsets, indent=2) + "\n")
     rows = rows.drop(columns=["_train_nets"])
@@ -776,11 +834,9 @@ def main() -> int:
     paired.to_csv(OUT / "paired_differences.csv", index=False)
 
     wall_seconds = time.perf_counter() - started
-    fingerprint = {
+    record = {
         "script": str(Path(__file__).resolve().relative_to(ROOT)),
-        "script_sha256": sha256_file(Path(__file__).resolve()),
         "reused_script": str(STEP2_SCRIPT.relative_to(ROOT)),
-        "reused_script_sha256": sha256_file(STEP2_SCRIPT),
         "reused_helpers": [
             "FEATURE_SETS/GENERIC/SUPPORT/PEAK_MARGIN (public constants)",
             "_prepare (module-private helper, imported verbatim)",
@@ -791,13 +847,11 @@ def main() -> int:
         "inputs": {
             "development_cases": {
                 "path": str(DEV_CASES.relative_to(ROOT)),
-                "sha256": sha256_file(DEV_CASES),
                 "n_cases": int(len(dev_ids)),
                 "n_networks": int(len(dev_nets)),
             },
             "reserved_cases": {
                 "path": str(RES_CASES.relative_to(ROOT)),
-                "sha256": sha256_file(RES_CASES),
                 "n_cases": int(len(res_ids)),
                 "n_networks": int(len(res_nets)),
             },
@@ -860,14 +914,21 @@ def main() -> int:
             "numpy": np.__version__,
             "pandas": pd.__version__,
             "sklearn": __import__("sklearn").__version__,
-            "threads_per_worker": {v: os.environ.get(v) for v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")},
+            "threads_per_worker": {
+                v: os.environ.get(v)
+                for v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS")
+            },
         },
-        "git": git_head(),
+        "subset_id_rule": (
+            "position of the drawn network set among the distinct sets of this run, in sorted "
+            "order of the comma-joined sorted network ids; scratch/p1_learning_curves/"
+            "drawn_subsets.json lists the members of each"
+        ),
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
-    (OUT / "protocol_fingerprint.json").write_text(json.dumps(fingerprint, indent=2) + "\n")
+    (OUT / "protocol.json").write_text(json.dumps(record, indent=2) + "\n")
 
-    write_summary(rows, curve, paired, fingerprint, grid_seconds, wall_seconds)
+    write_summary(rows, curve, paired, record, grid_seconds, wall_seconds)
     print(
         f"done: {len(tasks)} draws in {grid_seconds:.1f}s grid / {wall_seconds:.1f}s wall -> {OUT}",
         flush=True,
@@ -879,24 +940,29 @@ def write_summary(
     rows: pd.DataFrame,
     curve: pd.DataFrame,
     paired: pd.DataFrame,
-    fingerprint: dict,
+    record: dict,
     grid_seconds: float,
     wall_seconds: float,
 ) -> None:
     def fmt(value: float, nd: int = 4) -> str:
-        return "NA" if value is None or not math.isfinite(float(value)) else f"{float(value):.{nd}f}"
+        return (
+            "NA"
+            if value is None or not math.isfinite(float(value))
+            else f"{float(value):.{nd}f}"
+        )
 
-    primary = curve[curve["draw_kind"].eq("network_subset") | curve["draw_kind"].eq("full_pool_single")]
+    primary = curve[
+        curve["draw_kind"].eq("network_subset")
+        | curve["draw_kind"].eq("full_pool_single")
+    ]
     model_seed = curve[curve["draw_kind"].eq("full_pool_model_seed")]
     fixed_subset = curve[curve["draw_kind"].eq("fixed_subset_model_seed")]
 
     lines = [
         "# P1 / F11 — learning curves with repeated training-network draws",
         "",
-        f"Script: `scripts/316_wrr_p1_learning_curve_repeats.py` (sha256 "
-        f"`{fingerprint['script_sha256'][:12]}`), feature sets and learner imported verbatim from "
-        f"`scripts/301_wrr_mr_step2_same_info_ablation.py` (sha256 "
-        f"`{fingerprint['reused_script_sha256'][:12]}`).",
+        "Script: `scripts/316_wrr_p1_learning_curve_repeats.py`, feature sets and learner imported "
+        "verbatim from `scripts/301_wrr_mr_step2_same_info_ablation.py`.",
         "",
         "## Why",
         "",
@@ -906,22 +972,22 @@ def write_summary(
         "",
         "## Design (fixed before the grid was run)",
         "",
-        f"- **Training pool:** {fingerprint['training_pool']['n_networks']} development networks "
-        f"(`{fingerprint['inputs']['development_cases']['path']}`, "
-        f"{fingerprint['inputs']['development_cases']['n_cases']} cases).",
-        f"- **Evaluation set (fixed, external):** {fingerprint['evaluation_panel']['n_networks']} "
-        f"reserved / wave-2 networks, {fingerprint['evaluation_panel']['n_cases']} cases "
-        f"(`{fingerprint['inputs']['reserved_cases']['path']}`). Network overlap with the training pool = "
-        f"{fingerprint['evaluation_panel']['network_overlap_with_training_pool']}, station overlap = "
-        f"{fingerprint['evaluation_panel']['station_overlap_with_training_pool']}; the evaluation panel is "
+        f"- **Training pool:** {record['training_pool']['n_networks']} development networks "
+        f"(`{record['inputs']['development_cases']['path']}`, "
+        f"{record['inputs']['development_cases']['n_cases']} cases).",
+        f"- **Evaluation set (fixed, external):** {record['evaluation_panel']['n_networks']} "
+        f"reserved / wave-2 networks, {record['evaluation_panel']['n_cases']} cases "
+        f"(`{record['inputs']['reserved_cases']['path']}`). Network overlap with the training pool = "
+        f"{record['evaluation_panel']['network_overlap_with_training_pool']}, station overlap = "
+        f"{record['evaluation_panel']['station_overlap_with_training_pool']}; the evaluation panel is "
         "never part of any training draw and its labels never enter model fitting, feature choice, or the "
         "risk-cap calibration. It is an external, already-opened retrospective panel (not a new seal).",
-        f"- **Sizes:** {', '.join(str(s) for s in fingerprint['protocol']['train_sizes'])} development "
+        f"- **Sizes:** {', '.join(str(s) for s in record['protocol']['train_sizes'])} development "
         "networks (`all` = the full 110-network pool; that cell has exactly one possible network set, so it "
         "is run once and additionally repeated over learner seeds).",
-        f"- **Draws:** {fingerprint['protocol']['n_draws_network_subset']} independent subsets per size "
+        f"- **Draws:** {record['protocol']['n_draws_network_subset']} independent subsets per size "
         f"(seeds `SUBSET_SEED_BASE + 1000*size_index + draw_index`, base "
-        f"{fingerprint['protocol']['subset_seed_base']}, recorded per row); learner seed held at "
+        f"{record['protocol']['subset_seed_base']}, recorded per row); learner seed held at "
         f"{MODEL_SEED_BASE} so that only the drawn networks change. The three feature sets share the subset "
         "and the seed inside a draw, so all contrasts are paired on the draw.",
         "- **Metrics** (identical definitions to the pre-registered OP-70 / OP-RISK5):",
@@ -932,8 +998,8 @@ def write_summary(
         "(`oof_risk_scores` + `retention_at_risk_cap` from script 301), then applied to the evaluation "
         "panel. Script 301 selected this retention on the evaluation panel itself; that leak is removed "
         "here.",
-        f"- **Compute:** {fingerprint['protocol']['n_jobs']} joblib/loky workers; "
-        f"{fingerprint['runtime']['n_draw_jobs']} draw jobs; grid {grid_seconds:.1f} s, wall {wall_seconds:.1f} s.",
+        f"- **Compute:** {record['protocol']['n_jobs']} joblib/loky workers; "
+        f"{record['runtime']['n_draw_jobs']} draw jobs; grid {grid_seconds:.1f} s, wall {wall_seconds:.1f} s.",
         "",
         "## 1. Curve summary — mean / SD / min / max across draws",
         "",
@@ -944,7 +1010,9 @@ def write_summary(
         "| draw_kind | n_train | feature_set | n_draws | n_sub | rate70 mean | rate70 SD | rate70 min | rate70 max | risk5 mean | risk5 SD | risk5 min | risk5 max |",
         "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
-    for _, row in primary.sort_values(["n_train_networks_used", "feature_set"]).iterrows():
+    for _, row in primary.sort_values(
+        ["n_train_networks_used", "feature_set"]
+    ).iterrows():
         lines.append(
             f"| {row['draw_kind']} | {row['n_train_size_label']} | {row['feature_set']} | "
             f"{row['n_draws']} | {row['n_unique_subsets']} | "
@@ -962,9 +1030,11 @@ def write_summary(
         "| draw_kind | n_train | feature_set | n_draws | rate70 mean | rate70 SD | risk5 mean | risk5 SD |",
         "|---|---|---|---|---|---|---|---|",
     ]
-    for _, row in pd.concat([model_seed, fixed_subset]).sort_values(
-        ["draw_kind", "n_train_networks_used", "feature_set"]
-    ).iterrows():
+    for _, row in (
+        pd.concat([model_seed, fixed_subset])
+        .sort_values(["draw_kind", "n_train_networks_used", "feature_set"])
+        .iterrows()
+    ):
         lines.append(
             f"| {row['draw_kind']} | {row['n_train_size_label']} | {row['feature_set']} | "
             f"{row['n_draws']} | {fmt(row['rate_above_0.5_at_70__mean'])} | "
@@ -981,9 +1051,14 @@ def write_summary(
         "| n_train | feature_set | r* mean | r* SD | eval bad-rate at r* (mean) | eval bad-rate at r* (min) | eval bad-rate at r* (max) |",
         "|---|---|---|---|---|---|---|",
     ]
-    for _, row in primary[primary["draw_kind"].eq("network_subset") | primary["draw_kind"].eq("full_pool_single")].sort_values(
-        ["n_train_networks_used", "feature_set"]
-    ).iterrows():
+    for _, row in (
+        primary[
+            primary["draw_kind"].eq("network_subset")
+            | primary["draw_kind"].eq("full_pool_single")
+        ]
+        .sort_values(["n_train_networks_used", "feature_set"])
+        .iterrows()
+    ):
         lines.append(
             f"| {row['n_train_size_label']} | {row['feature_set']} | "
             f"{fmt(row['risk5_retention_calibrated__mean'], 3)} | "
@@ -1006,7 +1081,9 @@ def write_summary(
     ]
     if PUBLISHED_CURVE.exists():
         pub = pd.read_csv(PUBLISHED_CURVE)
-        pub["n_label"] = pub["n_train_networks"].map(lambda v: "all" if int(v) >= 110 else str(int(v)))
+        pub["n_label"] = pub["n_train_networks"].map(
+            lambda v: "all" if int(v) >= 110 else str(int(v))
+        )
         for _, prow in pub.sort_values(["feature_set", "n_train_networks"]).iterrows():
             block = primary[
                 primary["n_train_size_label"].eq(prow["n_label"])
@@ -1033,7 +1110,9 @@ def write_summary(
             "leak-free repeats are the number to quote.",
         ]
     else:  # pragma: no cover
-        lines.append("| n/a | n/a | n/a | n/a | n/a | n/a | published curve not found |")
+        lines.append(
+            "| n/a | n/a | n/a | n/a | n/a | n/a | published curve not found |"
+        )
 
     lines += [
         "",
@@ -1048,7 +1127,9 @@ def write_summary(
         "|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     coin = paired[~paired["pairing"].eq("unpaired_independent_draw_sets")]
-    for _, row in coin.sort_values(["metric", "draw_kind", "n_train_requested", "contrast"]).iterrows():
+    for _, row in coin.sort_values(
+        ["metric", "draw_kind", "n_train_requested", "contrast"]
+    ).iterrows():
         lines.append(
             f"| {row['contrast']} | {row['n_train_size_label']} | {row['draw_kind']} | {row['pairing']} | "
             f"{row['metric']} | "
@@ -1126,7 +1207,7 @@ def write_summary(
         "",
         f"Runtime: grid {grid_seconds:.1f} s, wall {wall_seconds:.1f} s on {N_JOBS} workers. "
         f"Outputs: `learning_curves_repeats.csv`, `curve_summary.csv`, `paired_differences.csv`, "
-        "`protocol_fingerprint.json`, `SUMMARY.md`.",
+        "`protocol.json`, `SUMMARY.md`.",
         "",
     ]
     (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
@@ -1141,7 +1222,10 @@ def verdict_text(primary: pd.DataFrame, paired: pd.DataFrame) -> str:
         ("rate_above_0.5_at_70", "false-admit rate at 70 % retention"),
         ("risk5_retention_calibrated", "risk-cap retention"),
     ]:
-        block = coin[coin["metric"].eq(metric) & coin["contrast"].eq("generic_plus_support - generic")]
+        block = coin[
+            coin["metric"].eq(metric)
+            & coin["contrast"].eq("generic_plus_support - generic")
+        ]
         if block.empty:
             continue
         decisive = block[block["ci_excludes_zero"].fillna(False)]
@@ -1165,10 +1249,20 @@ def verdict_text(primary: pd.DataFrame, paired: pd.DataFrame) -> str:
                     f"Δ={row['mean_diff_pp']:+.3f} pp [{row['ci_low_pp']:+.3f}, {row['ci_high_pp']:+.3f}] "
                     f"-> {'support better' if favours_a else 'generic better'}"
                 )
-            zero_sizes = ", ".join(block.loc[~block["ci_excludes_zero"].fillna(False), "n_train_size_label"])
+            zero_sizes = ", ".join(
+                block.loc[
+                    ~block["ci_excludes_zero"].fillna(False), "n_train_size_label"
+                ]
+            )
             lines.append(
-                f"- **{label}**: the CI excludes zero at " + "; ".join(parts) + "."
-                + (f" At {zero_sizes} the interval includes zero." if zero_sizes else "")
+                f"- **{label}**: the CI excludes zero at "
+                + "; ".join(parts)
+                + "."
+                + (
+                    f" At {zero_sizes} the interval includes zero."
+                    if zero_sizes
+                    else ""
+                )
             )
     # range overlap between the two feature sets at every size
     overlap_notes = []
@@ -1222,9 +1316,12 @@ def verdict_text(primary: pd.DataFrame, paired: pd.DataFrame) -> str:
             )
 
     # ---- how many extra networks the same-size support gain is worth -------
-    gen_curve = primary[primary["feature_set"].eq("generic")].sort_values("n_train_networks_used")
+    gen_curve = primary[primary["feature_set"].eq("generic")].sort_values(
+        "n_train_networks_used"
+    )
     sup_small_rows = primary[
-        primary["feature_set"].eq("generic_plus_support") & primary["n_train_size_label"].eq("10")
+        primary["feature_set"].eq("generic_plus_support")
+        & primary["n_train_size_label"].eq("10")
     ]
     if not gen_curve.empty and not sup_small_rows.empty:
         xs = gen_curve["n_train_networks_used"].to_numpy(dtype=float)
@@ -1267,7 +1364,9 @@ def verdict_text(primary: pd.DataFrame, paired: pd.DataFrame) -> str:
             + "; ".join(
                 f"n={row['n_train_size_label']} {row['metric']} Δ={row['mean_diff_pp']:+.3f} pp "
                 f"[{row['ci_low_pp']:+.3f}, {row['ci_high_pp']:+.3f}] (SD {row['sd_diff_pp']:.3f} pp)"
-                for _, row in seed_repeat.sort_values(["metric", "n_train_requested"]).iterrows()
+                for _, row in seed_repeat.sort_values(
+                    ["metric", "n_train_requested"]
+                ).iterrows()
             )
             + " — this is the part of the spread that is learner noise rather than network choice."
         )
@@ -1279,7 +1378,9 @@ def verdict_text(primary: pd.DataFrame, paired: pd.DataFrame) -> str:
             "generic budget at the sizes tested; the paper's claim must be narrowed accordingly."
         )
     else:
-        rate_rows = same_size_decisive[same_size_decisive["metric"].eq("rate_above_0.5_at_70")]
+        rate_rows = same_size_decisive[
+            same_size_decisive["metric"].eq("rate_above_0.5_at_70")
+        ]
         detail = "; ".join(
             f"n={row['n_train_size_label']} {row['mean_diff_pp']:+.3f} pp "
             f"[{row['ci_low_pp']:+.3f}, {row['ci_high_pp']:+.3f}], sign reverses in "

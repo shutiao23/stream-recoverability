@@ -61,6 +61,8 @@ def test_supporting_information_uses_unmodified_si_class_and_complete_contents()
         assert not duplicates, name+' multiply-defined labels: '+', '.join(duplicates)
     leftover=['tab:time-support-legacy-weak','tab:time-support-legacy-report']
     assert all(label not in expanded and label not in article for label in leftover)
+    assert r'\label{tab:time-paired-revision}' in expanded
+    assert '0.4100' in expanded and '13.265' in expanded and '13.343' in expanded
     report=(ROOT/'scripts/963_process_revision_report.py').read_text()
     assert 'save(fig, "03_time_support")' not in report
     assert 'save(fig, "03_time_support_legacy")' in report

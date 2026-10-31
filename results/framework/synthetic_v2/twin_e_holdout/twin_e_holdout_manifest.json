@@ -22,7 +22,6 @@
       "twin_e_holdout_009"
     ],
     "holdout_family_locked_before_scoring": true,
-    "lock_commit": "d27bb4571ea9dbeffd600350b2d17fed18d633d7",
     "n_rows": 54,
     "numeric_thresholds_met": false,
     "operator_calibration_intercept": 0.03084014902544273,
@@ -41,7 +40,6 @@
     "univariate_spearman_max": 0.7
   },
   "historical_a_to_d_artifacts_overwritten": false,
-  "lock_commit": "d27bb4571ea9dbeffd600350b2d17fed18d633d7",
   "lock_path": "configs/twin_e_holdout_freeze_v1.yaml",
   "operator_path": "empirical_hat_sigma_public_conditional_observability_api",
   "protocol_amendment": "v9.1",

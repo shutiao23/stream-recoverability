@@ -14,7 +14,6 @@ replace either with forward fill, linear extrapolation, or a Kalman filter.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
@@ -54,36 +53,37 @@ ONLINE_CHECKPOINT_NAMESPACE = "online_checkpoints_v1"
 NONNEGATIVE_DONOR_LAGS = tuple(range(31))
 
 
-def _sha256(value: object) -> str:
-    payload = json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
+PLACEMENT_SIGNATURE_FIELDS = (
+    "network_id",
+    "role",
+    "source_key",
+    "target_station",
+    "gap_length",
+    "placement",
+    "start_index",
+    "geometry",
+    "geometry_id",
+    "truth_start_date",
+    "observed_missing_start_date",
+    "donor_mask_rule",
+    "target_mask_scope",
+    "boundary_mode",
+    "stress_id",
+)
 
 
 def placement_signature(item: WorkItem) -> str:
-    """Identify frozen placement/geometry independently of task and model."""
+    """Identify frozen placement/geometry independently of task and model.
 
-    return _sha256(
-        {
-            "network_id": item.network_id,
-            "role": item.role,
-            "source_key": item.source_key,
-            "target_station": item.target_station,
-            "gap_length": item.gap_length,
-            "placement": item.placement,
-            "start_index": item.start_index,
-            "geometry": item.geometry,
-            "geometry_id": item.geometry_id,
-            "geometry_catalog_file_sha256": item.geometry_catalog_file_sha256,
-            "geometry_row_sha256": item.geometry_row_sha256,
-            "truth_start_date": item.truth_start_date,
-            "observed_missing_start_date": item.observed_missing_start_date,
-            "donor_mask_rule": item.donor_mask_rule,
-            "target_mask_scope": item.target_mask_scope,
-            "boundary_mode": item.boundary_mode,
-            "stress_id": item.stress_id,
-        }
+    The signature is the compact, key-sorted JSON of every placement and
+    geometry field, so equal signatures mean an identical frozen placement.
+    """
+
+    return json.dumps(
+        {field: getattr(item, field) for field in PLACEMENT_SIGNATURE_FIELDS},
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
     )
 
 
@@ -92,18 +92,10 @@ def bind_online_item(item: WorkItem, *, ordinal: int | None = None) -> WorkItem:
 
     if item.task != "offline_archival":
         raise ValueError("online binding requires an offline_archival source WorkItem")
-    identity = {
-        "online_runner_contract_version": ONLINE_RUNNER_CONTRACT_VERSION,
-        "source_runner_item_id": item.item_id,
-        "placement_signature": placement_signature(item),
-        "model": item.model,
-        "information_condition": item.information_condition,
-        "task": ONLINE_TASK,
-    }
     return replace(
         item,
         ordinal=item.ordinal if ordinal is None else int(ordinal),
-        item_id=_sha256(identity)[:24],
+        item_id=f"{item.item_id}.{ONLINE_TASK}",
         task=ONLINE_TASK,
     )
 
@@ -167,12 +159,16 @@ def iter_online_workload(
             repo_root,
             selected_networks,
             budget,
-            natural.loc[natural["network_id"].isin(
-                [network.network_id for network in selected_networks]
-            )],
-            adversarial.loc[adversarial["network_id"].isin(
-                [network.network_id for network in selected_networks]
-            )],
+            natural.loc[
+                natural["network_id"].isin(
+                    [network.network_id for network in selected_networks]
+                )
+            ],
+            adversarial.loc[
+                adversarial["network_id"].isin(
+                    [network.network_id for network in selected_networks]
+                )
+            ],
             manifest,
             models=selected_models,
             information_conditions=selected_information,
@@ -275,7 +271,9 @@ def online_cell_contract(item: WorkItem) -> dict[str, Any]:
     }
 
 
-def causal_exposure(panel: pd.DataFrame, item: WorkItem) -> tuple[pd.DataFrame, pd.Series]:
+def causal_exposure(
+    panel: pd.DataFrame, item: WorkItem
+) -> tuple[pd.DataFrame, pd.Series]:
     """Materialize the maximum panel visible to this online gap forecast."""
 
     start = int(item.start_index)
@@ -285,7 +283,9 @@ def causal_exposure(panel: pd.DataFrame, item: WorkItem) -> tuple[pd.DataFrame, 
     exposed = panel.iloc[:stop].copy()
     exposed.iloc[start:, exposed.columns.get_loc(item.target_station)] = np.nan
     if item.donor_mask_rule == "mask_all_network_stations_during_gap":
-        donors = [column for column in exposed.columns if str(column) != item.target_station]
+        donors = [
+            column for column in exposed.columns if str(column) != item.target_station
+        ]
         exposed.loc[exposed.index[start:stop], donors] = np.nan
     train = pd.Series(False, index=exposed.index, dtype=bool)
     train.iloc[:start] = True
@@ -309,13 +309,6 @@ def _causal_boundary_frame(
     return result, feature_name
 
 
-def _prediction_sha256(values: np.ndarray) -> str:
-    array = np.asarray(values, dtype="<f8")
-    return hashlib.sha256(
-        array.shape.__repr__().encode() + b"|" + array.tobytes()
-    ).hexdigest()
-
-
 def execute_online_item(
     repo_root: str | Path,
     network: OpenNetwork,
@@ -326,7 +319,6 @@ def execute_online_item(
     contract = online_cell_contract(item)
     base: dict[str, Any] = {
         **asdict(item),
-        "input_sha256": network.wide_sha256,
         "runner_contract_version": ONLINE_RUNNER_CONTRACT_VERSION,
         "placement_signature": placement_signature(item),
         "available_information_condition": item.information_condition,
@@ -372,13 +364,17 @@ def execute_online_item(
         climatology = ClimatologyBaseline(target_col=target).fit(
             exposed, dates=exposed.index, train_mask=train_mask
         )
-        climate_prediction = climatology.predict(
-            exposed, dates=exposed.index
-        ).iloc[start:stop]
+        climate_prediction = climatology.predict(exposed, dates=exposed.index).iloc[
+            start:stop
+        ]
         climate_values = climate_prediction.to_numpy(dtype=float)
         climate_valid = np.isfinite(truth) & np.isfinite(climate_values)
         if not climate_valid.any():
-            return {**base, "status": "failed", "reason": "no_finite_climatology_truth_pairs"}
+            return {
+                **base,
+                "status": "failed",
+                "reason": "no_finite_climatology_truth_pairs",
+            }
         climate_mae = float(
             np.mean(np.abs(climate_values[climate_valid] - truth[climate_valid]))
         )
@@ -399,7 +395,9 @@ def execute_online_item(
                 covariate_cols=covariates,
                 candidate_lags=NONNEGATIVE_DONOR_LAGS,
             ).fit(model_frame, dates=model_frame.index, train_mask=train_mask)
-            prediction = model.predict(model_frame, dates=model_frame.index).iloc[start:stop]
+            prediction = model.predict(model_frame, dates=model_frame.index).iloc[
+                start:stop
+            ]
             implementation = (
                 "causal_seasonal_ridge_nonnegative_donor_lags_plus_left_B"
                 if covariates
@@ -423,7 +421,9 @@ def execute_online_item(
             model = XGBoostBaseline(features, target_col=target).fit(
                 model_frame, dates=model_frame.index, train_mask=train_mask
             )
-            prediction = model.predict(model_frame, dates=model_frame.index).iloc[start:stop]
+            prediction = model.predict(model_frame, dates=model_frame.index).iloc[
+                start:stop
+            ]
             implementation = (
                 "causal_xgboost_contemporaneous_D_plus_left_B"
                 if item.information_condition == "B_union_D"
@@ -447,11 +447,16 @@ def execute_online_item(
             "mae_deg_c": climate_mae if reference else mae,
             "climatology_mae_deg_c": climate_mae,
             "achieved_skill": 0.0 if reference else recoverability(mae, climate_mae),
-            "prediction_sha256": _prediction_sha256(predicted),
             "reference_ignores_available_information": reference,
             "runtime_seconds": float(perf_counter() - began),
         }
-    except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+    except (
+        ImportError,
+        KeyError,
+        RuntimeError,
+        ValueError,
+        np.linalg.LinAlgError,
+    ) as error:
         return {
             **base,
             "status": "failed",
@@ -496,7 +501,8 @@ def run_online_items(
         result = execute_online_item(repo_root, lookup[item.network_id], item)
         temporary = path.with_suffix(".json.tmp")
         temporary.write_text(
-            json.dumps(json_safe(result), indent=2, sort_keys=True, allow_nan=False) + "\n",
+            json.dumps(json_safe(result), indent=2, sort_keys=True, allow_nan=False)
+            + "\n",
             encoding="utf-8",
         )
         temporary.replace(path)
@@ -538,8 +544,6 @@ def build_online_workload_manifest(
     geometries: Counter[str] = Counter()
     models: Counter[str] = Counter()
     information: Counter[str] = Counter()
-    digest = hashlib.sha256()
-    placement_digest = hashlib.sha256()
     seen_placements: set[str] = set()
     n_items = 0
     for item in iter_online_workload(
@@ -549,11 +553,7 @@ def build_online_workload_manifest(
         include_frozen_geometry=include_frozen_geometry,
     ):
         n_items += 1
-        digest.update(item.item_id.encode() + b"\n")
-        signature = placement_signature(item)
-        if signature not in seen_placements:
-            seen_placements.add(signature)
-            placement_digest.update(signature.encode() + b"\n")
+        seen_placements.add(placement_signature(item))
         geometries[item.geometry] += 1
         models[item.model] += 1
         information[item.information_condition] += 1
@@ -577,7 +577,6 @@ def build_online_workload_manifest(
         "runner_contract_version": ONLINE_RUNNER_CONTRACT_VERSION,
         "design_id": budget["design_id"],
         "protocol_amendment": budget["protocol_amendment"],
-        "design_sha256": budget["design_sha256"],
         "task": ONLINE_TASK,
         "purpose": "pipeline_verification_not_evidence",
         "runner_implementation_ready": True,
@@ -599,9 +598,7 @@ def build_online_workload_manifest(
         "network_ids": [network.network_id for network in networks],
         "input_inventory": dict(inventory),
         "n_work_items": n_items,
-        "work_item_identity_sha256": digest.hexdigest(),
         "n_unique_frozen_placements": len(seen_placements),
-        "placement_roster_identity_sha256": placement_digest.hexdigest(),
         "placement_binding": {
             "source": "existing_offline_WorkItem_and_frozen_geometry",
             "reselected_for_online": False,

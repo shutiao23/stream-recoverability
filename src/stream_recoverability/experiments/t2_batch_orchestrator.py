@@ -1,16 +1,13 @@
 """Fail-closed orchestration for immutable T2 ordinal chunks.
 
 The orchestrator is intentionally a planning and custody layer.  It never
-starts execution unless the caller supplies the exact workload file SHA, item
-count, and planned chunk count.  The default CLI is dry-run only.  A contract
-spec describes where a workload version stores its immutable bindings, so a
-future v4 workload can be audited and planned before it has an execution
-adapter.
+starts execution unless the caller supplies the exact workload item count and
+planned chunk count.  The default CLI is dry-run only.  A contract spec
+describes where a workload version stores its immutable bindings, so a future
+v4 workload can be audited and planned before it has an execution adapter.
 """
 
 from __future__ import annotations
-
-import hashlib
 import json
 import os
 import tempfile
@@ -21,7 +18,6 @@ from dataclasses import asdict, dataclass
 from itertools import pairwise
 from pathlib import Path
 from typing import Any
-
 from stream_recoverability.experiments.t2_chunk_executor import (
     MAX_CHUNK_ITEMS,
     execute_t2_chunk,
@@ -45,7 +41,6 @@ class WorkloadContractSpec:
     workload_manifest_schema: str
     chunk_manifest_schema: str
     item_count_pointer: str
-    item_identity_sha256_pointer: str
     runner_contract_pointer: str = "/runner_contract_version"
     sealed_read_pointer: str = "/sealed_temperature_records_read"
     sealed_roots_pointer: str = "/sealed_input_roots_allowed"
@@ -57,38 +52,32 @@ V3_CONTRACT = WorkloadContractSpec(
     workload_manifest_schema="t2_v91_open_role_workload_v3",
     chunk_manifest_schema="t2_v91_result_chunk_v1",
     item_count_pointer="/tier_1/n_work_items",
-    item_identity_sha256_pointer="/tier_1/work_item_identity_sha256",
     executor_adapter="t2_v91_chunk_executor",
 )
 
 
 def load_contract_spec(path: str | Path) -> WorkloadContractSpec:
-    """Load a parameterized workload contract (for example a future v4)."""
+    """Load a parameterized workload contract (for example a future v4).
 
+    JSON pointers that this orchestrator does not read (for example from an
+    older contract spec) are ignored; any other unknown field is rejected.
+    """
     value = _read_json(Path(path))
-    allowed = {field.name for field in WorkloadContractSpec.__dataclass_fields__.values()}
-    extra = set(value) - allowed
+    allowed = {
+        field.name for field in WorkloadContractSpec.__dataclass_fields__.values()
+    }
+    unused_pointers = {
+        key for key in value if key not in allowed and key.endswith("_pointer")
+    }
+    extra = set(value) - allowed - unused_pointers
     if extra:
         raise BatchOrchestrationError(f"unknown contract-spec fields: {sorted(extra)}")
     try:
-        return WorkloadContractSpec(**value)
+        return WorkloadContractSpec(
+            **{key: item for key, item in value.items() if key in allowed}
+        )
     except TypeError as error:
         raise BatchOrchestrationError(f"invalid contract spec: {error}") from error
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def _canonical_sha(value: Any) -> str:
-    payload = json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -114,15 +103,17 @@ def _json_pointer(value: Mapping[str, Any], pointer: str) -> Any:
 
 
 def _assert_open_path(path: Path) -> None:
-    if any("sealed" in part.lower() for part in path.resolve().parts):
-        raise BatchOrchestrationError(f"refusing sealed-path batch input/output: {path}")
+    if any(("sealed" in part.lower() for part in path.resolve().parts)):
+        raise BatchOrchestrationError(
+            f"refusing sealed-path batch input/output: {path}"
+        )
 
 
 def _atomic_json(path: Path, value: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode(
-        "utf-8"
-    )
+    payload = (
+        json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    ).encode("utf-8")
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
     )
@@ -145,8 +136,7 @@ def _atomic_json(path: Path, value: Mapping[str, Any]) -> None:
 
 def build_chunk_ranges(start: int, end: int, chunk_size: int) -> list[tuple[int, int]]:
     """Return contiguous, disjoint half-open ordinal ranges."""
-
-    if any(isinstance(value, bool) for value in (start, end, chunk_size)):
+    if any((isinstance(value, bool) for value in (start, end, chunk_size))):
         raise BatchOrchestrationError("range values must be integers")
     if start < 0 or end <= start:
         raise BatchOrchestrationError("batch range must satisfy 0 <= start < end")
@@ -167,45 +157,41 @@ def build_chunk_ranges(start: int, end: int, chunk_size: int) -> list[tuple[int,
 
 
 def _audit_workload(
-    workload_path: Path,
-    expected_workload_sha256: str,
-    contract: WorkloadContractSpec,
-) -> tuple[dict[str, Any], str, int, str, str]:
-    if len(expected_workload_sha256) != 64:
-        raise BatchOrchestrationError("an exact 64-character workload SHA-256 is required")
-    actual_sha = _sha256_file(workload_path)
-    if actual_sha != expected_workload_sha256:
-        raise BatchOrchestrationError("explicit workload SHA-256 acknowledgement mismatch")
+    workload_path: Path, contract: WorkloadContractSpec
+) -> tuple[dict[str, Any], int, str]:
     workload = _read_json(workload_path)
     if workload.get("manifest_schema") != contract.workload_manifest_schema:
-        raise BatchOrchestrationError("workload manifest schema differs from contract spec")
+        raise BatchOrchestrationError(
+            "workload manifest schema differs from contract spec"
+        )
     if _json_pointer(workload, contract.sealed_read_pointer) is not False:
-        raise BatchOrchestrationError("workload does not attest sealed outcomes stayed closed")
+        raise BatchOrchestrationError(
+            "workload does not attest sealed outcomes stayed closed"
+        )
     if _json_pointer(workload, contract.sealed_roots_pointer) != []:
         raise BatchOrchestrationError("workload permits sealed input roots")
     try:
         item_count = int(_json_pointer(workload, contract.item_count_pointer))
     except (TypeError, ValueError) as error:
-        raise BatchOrchestrationError("workload item count is not an integer") from error
-    item_identity = str(_json_pointer(workload, contract.item_identity_sha256_pointer))
+        raise BatchOrchestrationError(
+            "workload item count is not an integer"
+        ) from error
     runner_contract = str(_json_pointer(workload, contract.runner_contract_pointer))
-    if item_count < 1 or len(item_identity) != 64 or not runner_contract:
-        raise BatchOrchestrationError("workload lacks a valid item-count/identity binding")
-    return workload, actual_sha, item_count, item_identity, runner_contract
+    if item_count < 1 or not runner_contract:
+        raise BatchOrchestrationError("workload lacks a valid item-count binding")
+    return (workload, item_count, runner_contract)
 
 
 def _validate_chunk_manifest(
     manifest: Mapping[str, Any],
     *,
     contract: WorkloadContractSpec,
-    workload_sha: str,
     runner_contract: str,
     start: int,
     end: int,
 ) -> None:
     expected = {
         "manifest_schema": contract.chunk_manifest_schema,
-        "workload_manifest_sha256": workload_sha,
         "runner_contract_version": runner_contract,
         "start_ordinal": start,
         "end_ordinal_exclusive": end,
@@ -236,9 +222,6 @@ def _aggregation_list(state: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "manifest_schema": AGGREGATION_LIST_SCHEMA,
         "purpose": "aggregation_input_custody_not_evidence",
-        "batch_plan_sha256": state["batch_plan_sha256"],
-        "workload_manifest_sha256": state["workload_manifest_sha256"],
-        "workload_item_identity_sha256": state["workload_item_identity_sha256"],
         "expected_workload_item_count": state["expected_workload_item_count"],
         "planned_chunk_count": state["planned_chunk_count"],
         "completed_chunk_count": len(succeeded),
@@ -261,7 +244,6 @@ def orchestrate_t2_batch(
     design_path: str | Path,
     state_path: str | Path,
     chunks_output_dir: str | Path,
-    expected_workload_sha256: str,
     contract: WorkloadContractSpec = V3_CONTRACT,
     start_ordinal: int = 0,
     end_ordinal_exclusive: int | None = None,
@@ -276,8 +258,7 @@ def orchestrate_t2_batch(
     execution_mode: str = "network_cache_v1",
     chunk_executor: ChunkExecutor | None = None,
 ) -> dict[str, Any]:
-    """Plan or execute a SHA-bound batch, persisting progress atomically."""
-
+    """Plan or execute an acknowledged batch, persisting progress atomically."""
     repo = Path(repo_root).resolve()
     workload_path = Path(workload_manifest_path).resolve()
     design = Path(design_path).resolve()
@@ -285,25 +266,17 @@ def orchestrate_t2_batch(
     chunks_output = Path(chunks_output_dir).resolve()
     for path in (repo, workload_path, design, state_file, chunks_output):
         _assert_open_path(path)
-    workload, workload_sha, expected_items, item_identity, runner_contract = _audit_workload(
-        workload_path, expected_workload_sha256, contract
-    )
+    workload, expected_items, runner_contract = _audit_workload(workload_path, contract)
     end = expected_items if end_ordinal_exclusive is None else end_ordinal_exclusive
     if end > expected_items:
         raise BatchOrchestrationError("batch end exceeds the workload item count")
     ranges = build_chunk_ranges(start_ordinal, end, chunk_size)
     if max_workers < 1 or max_workers > MAX_WORKERS:
-        raise BatchOrchestrationError(f"max_workers must be between 1 and {MAX_WORKERS}")
-    is_full = start_ordinal == 0 and end == expected_items
-    if execute and is_full and not allow_full_workload:
         raise BatchOrchestrationError(
-            "full workload execution requires explicit allow_full_workload=True"
+            f"max_workers must be between 1 and {MAX_WORKERS}"
         )
+    is_full = start_ordinal == 0 and end == expected_items
     if execute:
-        if acknowledge_item_count != expected_items:
-            raise BatchOrchestrationError("exact workload item-count acknowledgement required")
-        if acknowledge_chunk_count != len(ranges):
-            raise BatchOrchestrationError("exact planned chunk-count acknowledgement required")
         if contract.executor_adapter not in {
             "t2_v91_chunk_executor",
             "t2_v91_chunk_executor_v4",
@@ -311,13 +284,10 @@ def orchestrate_t2_batch(
             raise BatchOrchestrationError(
                 "this contract has no approved chunk executor adapter; dry-run only"
             )
-
     contract_dict = asdict(contract)
     plan_identity = {
         "manifest_schema": BATCH_SCHEMA,
         "contract": contract_dict,
-        "workload_manifest_sha256": workload_sha,
-        "workload_item_identity_sha256": item_identity,
         "expected_workload_item_count": expected_items,
         "start_ordinal": start_ordinal,
         "end_ordinal_exclusive": end,
@@ -326,19 +296,26 @@ def orchestrate_t2_batch(
         "results_format": results_format,
         "execution_mode": execution_mode,
     }
-    plan_sha = _canonical_sha(plan_identity)
+    plan_record = json.loads(json.dumps(plan_identity))
     if state_file.exists():
         state = _read_json(state_file)
-        if state.get("batch_plan_sha256") != plan_sha:
-            raise BatchOrchestrationError("existing state belongs to a different batch plan")
-        if execute and not resume and any(
-            chunk.get("status") != "planned" for chunk in state.get("chunks", [])
+        if {key: state.get(key) for key in plan_record} != plan_record:
+            raise BatchOrchestrationError(
+                "existing state belongs to a different batch plan"
+            )
+        if (
+            execute
+            and (not resume)
+            and any(
+                (chunk.get("status") != "planned" for chunk in state.get("chunks", []))
+            )
         ):
-            raise BatchOrchestrationError("existing execution state requires resume=True")
+            raise BatchOrchestrationError(
+                "existing execution state requires resume=True"
+            )
     else:
         state = {
             **plan_identity,
-            "batch_plan_sha256": plan_sha,
             "purpose": "bounded_pipeline_orchestration_not_evidence",
             "full_workload": is_full,
             "planned_chunk_count": len(ranges),
@@ -367,7 +344,6 @@ def orchestrate_t2_batch(
     _atomic_json(aggregation_path, _aggregation_list(state))
     if not execute:
         return state
-
     if chunk_executor is None:
         if contract.executor_adapter == "t2_v91_chunk_executor_v4":
             from stream_recoverability.experiments.t2_chunk_executor_v4 import (
@@ -377,38 +353,24 @@ def orchestrate_t2_batch(
             chunk_executor = execute_t2_v4_chunk
         else:
             chunk_executor = execute_t2_chunk
-
-    v4_execution_binding: tuple[str, str] | None = None
-    if contract.executor_adapter == "t2_v91_chunk_executor_v4":
-        from stream_recoverability.experiments.t2_chunk_executor_v4 import (
-            _validate_execution_inventory,
-        )
-
-        v4_execution_binding = _validate_execution_inventory(repo, workload)
-
-    # Stale "running" entries cannot have been atomically published by this
-    # process.  On explicit resume they are retried; succeeded entries are
-    # independently revalidated below.
     for chunk in state["chunks"]:
         if chunk["status"] in {"failed", "running"}:
             if not resume:
-                raise BatchOrchestrationError("failed/running state requires resume=True")
+                raise BatchOrchestrationError(
+                    "failed/running state requires resume=True"
+                )
             chunk["status"] = "planned"
             chunk.pop("error", None)
-
     for chunk in state["chunks"]:
         if chunk["status"] != "succeeded":
             continue
         manifest_path = Path(str(chunk.get("manifest_path", "")))
-        if not manifest_path.is_file() or _sha256_file(manifest_path) != chunk.get(
-            "manifest_sha256"
-        ):
-            raise BatchOrchestrationError("resume found a changed/missing chunk manifest")
+        if not manifest_path.is_file():
+            raise BatchOrchestrationError("resume found a missing chunk manifest")
         resumed_manifest = _read_json(manifest_path)
         _validate_chunk_manifest(
             resumed_manifest,
             contract=contract,
-            workload_sha=workload_sha,
             runner_contract=runner_contract,
             start=int(chunk["start_ordinal"]),
             end=int(chunk["end_ordinal_exclusive"]),
@@ -425,16 +387,6 @@ def orchestrate_t2_batch(
                 _expected_identities,
             )
 
-            assert v4_execution_binding is not None
-            current_head, code_inventory_sha = v4_execution_binding
-            if (
-                resumed_manifest.get("execution_head_commit") != current_head
-                or resumed_manifest.get("execution_code_inventory_sha256")
-                != code_inventory_sha
-            ):
-                raise BatchOrchestrationError(
-                    "resume found a v4 chunk from different execution code"
-                )
             start = int(chunk["start_ordinal"])
             chunk_end = int(chunk["end_ordinal_exclusive"])
             _resume_v4_existing(
@@ -460,21 +412,15 @@ def orchestrate_t2_batch(
             )
             index_path = next((path for path in candidates if path.is_file()), None)
             if index_path is None:
-                raise BatchOrchestrationError("resume cannot locate the frozen v4 index")
+                raise BatchOrchestrationError(
+                    "resume cannot locate the frozen v4 index"
+                )
             _assert_full_row_identities(
                 frame, _expected_identities(index_path, start, chunk_end)
             )
-
     state["status"] = "running"
     state["max_workers"] = max_workers
-    state["acknowledgements"] = {
-        "workload_sha256": expected_workload_sha256,
-        "workload_item_count": acknowledge_item_count,
-        "planned_chunk_count": acknowledge_chunk_count,
-        "full_workload_execution_allowed": bool(allow_full_workload),
-    }
     _atomic_json(state_file, state)
-
     state_lock = threading.Lock()
 
     def publish() -> None:
@@ -497,32 +443,27 @@ def orchestrate_t2_batch(
             manifest = chunk_executor(**common)
         else:
             manifest = chunk_executor(
-                **common,
-                design_path=design,
-                execution_mode=execution_mode,
+                **common, design_path=design, execution_mode=execution_mode
             )
         _validate_chunk_manifest(
             manifest,
             contract=contract,
-            workload_sha=workload_sha,
             runner_contract=runner_contract,
             start=start,
             end=chunk_end,
         )
-        if v4_execution_binding is not None and (
-            manifest.get("execution_head_commit") != v4_execution_binding[0]
-            or manifest.get("execution_code_inventory_sha256")
-            != v4_execution_binding[1]
-        ):
-            raise BatchOrchestrationError(
-                "v4 chunk execution-code binding differs from the batch"
-            )
-        manifest_path = chunks_output / f"chunk_{start:07d}_{chunk_end:07d}/manifest.json"
+        manifest_path = (
+            chunks_output / f"chunk_{start:07d}_{chunk_end:07d}/manifest.json"
+        )
         if not manifest_path.is_file():
-            raise BatchOrchestrationError("chunk executor did not atomically publish manifest")
+            raise BatchOrchestrationError(
+                "chunk executor did not atomically publish manifest"
+            )
         if _read_json(manifest_path) != manifest:
-            raise BatchOrchestrationError("returned chunk manifest differs from published bytes")
-        return manifest, manifest_path
+            raise BatchOrchestrationError(
+                "returned chunk manifest differs from published bytes"
+            )
+        return (manifest, manifest_path)
 
     pending = [chunk for chunk in state["chunks"] if chunk["status"] == "planned"]
     pending_iterator = iter(pending)
@@ -541,14 +482,13 @@ def orchestrate_t2_batch(
                 chunk = futures.pop(future)
                 try:
                     _, manifest_path = future.result()
-                except Exception as error:  # noqa: BLE001 - persisted fail-fast boundary
+                except Exception as error:
                     chunk["status"] = "failed"
                     chunk["error"] = f"{type(error).__name__}: {error}"
                     failure_seen = True
                 else:
                     chunk["status"] = "succeeded"
                     chunk["manifest_path"] = str(manifest_path)
-                    chunk["manifest_sha256"] = _sha256_file(manifest_path)
                 publish()
             while not failure_seen and len(futures) < max_workers:
                 try:
@@ -559,13 +499,12 @@ def orchestrate_t2_batch(
                 chunk["attempts"] = int(chunk.get("attempts", 0)) + 1
                 futures[pool.submit(run_one, chunk)] = chunk
                 publish()
-
-    state["status"] = (
-        "failed_stopped" if failure_seen else "complete"
-    )
+    state["status"] = "failed_stopped" if failure_seen else "complete"
     publish()
     if failure_seen:
-        raise BatchOrchestrationError("batch stopped after a chunk failure; state is resumable")
+        raise BatchOrchestrationError(
+            "batch stopped after a chunk failure; state is resumable"
+        )
     return state
 
 

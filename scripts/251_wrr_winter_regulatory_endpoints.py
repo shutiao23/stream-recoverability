@@ -49,7 +49,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 import time
@@ -86,7 +85,7 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     RESULTS_ROOT,
     STEP1_PANEL,
     STEP3_CASES,
-    stable_seed,
+    station_year_seed,
 )
 from stream_recoverability.experiments.v17_fitness.policies import (  # noqa: E402
     CANDIDATE_ESTIMATORS,
@@ -94,12 +93,18 @@ from stream_recoverability.experiments.v17_fitness.policies import (  # noqa: E4
     information_conditioned_choice,
 )
 
-OUT_WINTER = ROOT / "results" / "wrr_submission_ready" / "amendments" / "winter_regulatory"
-OUT_REG = ROOT / "results" / "wrr_submission_ready" / "amendments" / "regulatory_daily_max"
+OUT_WINTER = (
+    ROOT / "results" / "wrr_submission_ready" / "amendments" / "winter_regulatory"
+)
+OUT_REG = (
+    ROOT / "results" / "wrr_submission_ready" / "amendments" / "regulatory_daily_max"
+)
 V18_ENDPOINT_CASES = ROOT / "results" / "v18_closure" / "endpoint_cases.parquet"
 STEP17 = RESULTS_ROOT / "step17_metric_generality"
 STEP22 = RESULTS_ROOT / "step22_robustness"
-CONFIRMATION_MANIFEST = ROOT / "results" / "wrr_submission_ready" / "confirmation_inputs_manifest.csv"
+CONFIRMATION_MANIFEST = (
+    ROOT / "results" / "wrr_submission_ready" / "confirmation_inputs_manifest.csv"
+)
 CONFIRMATION_INGEST = ROOT / "results" / "wrr_submission_ready" / "confirmation_ingest"
 
 COLD_WINDOW_DAYS = 30
@@ -114,15 +119,10 @@ BOOTSTRAP_DRAWS = 1200
 
 
 def _write_json(path: Path, payload: object) -> None:
-    path.write_text(json.dumps(payload, indent=2, sort_keys=False, default=str) + "\n", encoding="utf-8")
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=False, default=str) + "\n",
+        encoding="utf-8",
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -134,10 +134,14 @@ def combine_winter_outputs() -> None:
     """Merge the two F16 sections into the single pair of files the amendment names."""
 
     OUT_WINTER.mkdir(parents=True, exist_ok=True)
-    sections = [OUT_WINTER / name for name in ("report_section_a.md", "report_section_b.md")]
+    sections = [
+        OUT_WINTER / name for name in ("report_section_a.md", "report_section_b.md")
+    ]
     parts = [path.read_text(encoding="utf-8") for path in sections if path.exists()]
     if parts:
-        (OUT_WINTER / "REPORT.md").write_text("\n\n".join(part.rstrip() for part in parts) + "\n", encoding="utf-8")
+        (OUT_WINTER / "REPORT.md").write_text(
+            "\n\n".join(part.rstrip() for part in parts) + "\n", encoding="utf-8"
+        )
     merged: dict[str, object] = {}
     for name in ("summary_cold.json", "summary_sine.json"):
         path = OUT_WINTER / name
@@ -171,9 +175,15 @@ def cold_season_fraction_from_columns(cases: pd.DataFrame) -> pd.Series:
     touches the hidden values; it is the stored decision-time features only.
     """
 
-    total_missing = pd.to_numeric(cases["total_missing"], errors="coerce").to_numpy(dtype=float)
-    missing_fraction = pd.to_numeric(cases["missing_fraction"], errors="coerce").to_numpy(dtype=float)
-    warm_observed = pd.to_numeric(cases["warm_observed_fraction"], errors="coerce").to_numpy(dtype=float)
+    total_missing = pd.to_numeric(cases["total_missing"], errors="coerce").to_numpy(
+        dtype=float
+    )
+    missing_fraction = pd.to_numeric(
+        cases["missing_fraction"], errors="coerce"
+    ).to_numpy(dtype=float)
+    warm_observed = pd.to_numeric(
+        cases["warm_observed_fraction"], errors="coerce"
+    ).to_numpy(dtype=float)
     years = pd.to_numeric(cases["year"], errors="coerce").to_numpy(dtype=int)
 
     with np.errstate(divide="ignore", invalid="ignore"):
@@ -189,7 +199,9 @@ def cold_season_fraction_from_columns(cases: pd.DataFrame) -> pd.Series:
         fraction = observed_cold / n_cold
     out = pd.Series(fraction, index=cases.index, dtype=float)
     diagnostics = {
-        "n_days_consistency_max_abs_deviation": float(np.nanmax(np.abs(n_days - calendar_days))),
+        "n_days_consistency_max_abs_deviation": float(
+            np.nanmax(np.abs(n_days - calendar_days))
+        ),
         "n_days_distinct": sorted({int(v) for v in n_days[np.isfinite(n_days)]}),
         "max_abs_out_of_unit_interval": float(
             np.nanmax(np.abs(out.to_numpy(dtype=float) - 0.5) - 0.5)
@@ -199,7 +211,10 @@ def cold_season_fraction_from_columns(cases: pd.DataFrame) -> pd.Series:
 
 
 def climatological_trough_window(
-    target: pd.Series, *, exclude_year: int | None = None, window: int = COLD_WINDOW_DAYS
+    target: pd.Series,
+    *,
+    exclude_year: int | None = None,
+    window: int = COLD_WINDOW_DAYS,
 ) -> np.ndarray:
     """Day-of-year indices of the climatological coldest ``window``-day stretch.
 
@@ -215,11 +230,20 @@ def climatological_trough_window(
     if values.empty:
         return np.arange(20, 20 + window)
     doy = values.index.dayofyear
-    climatology = values.groupby(doy).mean().reindex(range(1, 367)).interpolate(limit_direction="both")
-    padded = np.concatenate([climatology.to_numpy(), climatology.to_numpy()[: window - 1]])
+    climatology = (
+        values.groupby(doy)
+        .mean()
+        .reindex(range(1, 367))
+        .interpolate(limit_direction="both")
+    )
+    padded = np.concatenate(
+        [climatology.to_numpy(), climatology.to_numpy()[: window - 1]]
+    )
     rolling = np.convolve(padded, np.ones(window) / window, mode="valid")[:366]
     start = int(np.nanargmin(rolling)) + 1
-    return np.array([((start - 1 + offset) % 366) + 1 for offset in range(window)], dtype=int)
+    return np.array(
+        [((start - 1 + offset) % 366) + 1 for offset in range(window)], dtype=int
+    )
 
 
 def cold_support_rows(job: dict) -> pd.DataFrame:
@@ -249,9 +273,17 @@ def cold_support_rows(job: dict) -> pd.DataFrame:
         source = target.loc[target.index.year != int(year)]
         peak_doys = climatological_peak_window(source, exclude_year=None)
         trough_doys = climatological_trough_window(source, exclude_year=None)
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), protocol))
+        rng = np.random.default_rng(
+            station_year_seed(
+                network_id, station_id, daily.columns, int(year), protocol
+            )
+        )
         realizations = design_for_year(
-            year_index, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3)
+            year_index,
+            peak_doys,
+            pool,
+            rng=rng,
+            n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3),
         )
         months = year_index.month.to_numpy()
         cold = np.isin(months, COLD_MONTHS)
@@ -274,13 +306,19 @@ def cold_support_rows(job: dict) -> pd.DataFrame:
                     "total_missing": int(mask.sum()),
                     "missing_fraction": float(mask.mean()),
                     "peak_overlap": peak_overlap_fraction(year_index, mask, peak_doys),
-                    "warm_observed_fraction": float((~mask & warm).sum() / max(1, warm.sum())),
-                    "cold_season_observed_fraction": float((~mask & cold).sum() / max(1, cold.sum())),
+                    "warm_observed_fraction": float(
+                        (~mask & warm).sum() / max(1, warm.sum())
+                    ),
+                    "cold_season_observed_fraction": float(
+                        (~mask & cold).sum() / max(1, cold.sum())
+                    ),
                     "cold_window_overlap": float(mask[in_trough].mean()),
                     "cold_window_observed_fraction": float((~mask)[in_trough].mean()),
                     "cold_window_doy_start": int(trough_doys[0]),
                     "warm_window_doy_start": int(peak_doys[0]),
-                    "trough_overlap_peak_window": float(np.isin(trough_doys, peak_doys).mean()),
+                    "trough_overlap_peak_window": float(
+                        np.isin(trough_doys, peak_doys).mean()
+                    ),
                 }
             )
     return pd.DataFrame(rows)
@@ -296,7 +334,10 @@ def build_cold_support_table(workers: int) -> pd.DataFrame:
     for job in jobs:
         job["fit_protocol"] = "leave_one_year_out"
     jobs = [job for job in jobs if str(job["split_role"]) == "development"]
-    print(f"[cold] regenerating outage realizations for {len(jobs)} development stations", flush=True)
+    print(
+        f"[cold] regenerating outage realizations for {len(jobs)} development stations",
+        flush=True,
+    )
 
     frames: list[pd.DataFrame] = []
     started = time.time()
@@ -306,7 +347,10 @@ def build_cold_support_table(workers: int) -> pd.DataFrame:
             if len(frame):
                 frames.append(frame)
             if i % 25 == 0:
-                print(f"  {i}/{len(jobs)} stations ({time.time() - started:.0f}s)", flush=True)
+                print(
+                    f"  {i}/{len(jobs)} stations ({time.time() - started:.0f}s)",
+                    flush=True,
+                )
     else:
         with ProcessPoolExecutor(max_workers=workers) as pool:
             futures = {pool.submit(cold_support_rows, job): job for job in jobs}
@@ -315,9 +359,14 @@ def build_cold_support_table(workers: int) -> pd.DataFrame:
                 if len(frame):
                     frames.append(frame)
                 if done % 25 == 0:
-                    print(f"  {done}/{len(jobs)} stations ({time.time() - started:.0f}s)", flush=True)
+                    print(
+                        f"  {done}/{len(jobs)} stations ({time.time() - started:.0f}s)",
+                        flush=True,
+                    )
     table = pd.concat(frames, ignore_index=True)
-    return table.sort_values(["network_id", "station_id", "year", "realization_id"]).reset_index(drop=True)
+    return table.sort_values(
+        ["network_id", "station_id", "year", "realization_id"]
+    ).reset_index(drop=True)
 
 
 def numpy_cluster_bootstrap(
@@ -343,7 +392,12 @@ def numpy_cluster_bootstrap(
     index_by_key = {key: np.flatnonzero(clusters == key) for key in keys}
     point = float(statistic(arrays))
     if len(keys) < 2:
-        return {"point": point, "low": float("nan"), "high": float("nan"), "n_clusters": len(keys)}
+        return {
+            "point": point,
+            "low": float("nan"),
+            "high": float("nan"),
+            "n_clusters": len(keys),
+        }
     rng = np.random.default_rng(int(seed))
     values = np.empty(int(draws), dtype=float)
     for draw in range(int(draws)):
@@ -358,7 +412,12 @@ def numpy_cluster_bootstrap(
             values[draw] = np.nan
     finite = values[np.isfinite(values)]
     if finite.size == 0:
-        return {"point": point, "low": float("nan"), "high": float("nan"), "n_clusters": len(keys)}
+        return {
+            "point": point,
+            "low": float("nan"),
+            "high": float("nan"),
+            "n_clusters": len(keys),
+        }
     return {
         "point": point,
         "low": float(np.quantile(finite, alpha / 2)),
@@ -373,7 +432,9 @@ def policy_error(cases: pd.DataFrame, metric: str) -> np.ndarray:
     return gather(cases, choice, prefix=f"abserr_{metric}_")
 
 
-def risk_auc(label: np.ndarray, score: np.ndarray, *, higher_is_worse: bool = True) -> float:
+def risk_auc(
+    label: np.ndarray, score: np.ndarray, *, higher_is_worse: bool = True
+) -> float:
     from sklearn.metrics import roc_auc_score
 
     good = np.isfinite(score) & np.isfinite(label)
@@ -392,14 +453,18 @@ def frontier_rate(score: np.ndarray, error: np.ndarray, tolerance: float) -> flo
     return float((error[order[:k]] > tolerance).mean())
 
 
-def grouped_logistic_auc(features: pd.DataFrame, label: pd.Series, groups: np.ndarray) -> float:
+def grouped_logistic_auc(
+    features: pd.DataFrame, label: pd.Series, groups: np.ndarray
+) -> float:
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import roc_auc_score
     from sklearn.model_selection import GroupKFold
     from sklearn.pipeline import make_pipeline
     from sklearn.preprocessing import StandardScaler
 
-    model = make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000, random_state=0))
+    model = make_pipeline(
+        StandardScaler(), LogisticRegression(max_iter=2000, random_state=0)
+    )
     oof = np.full(len(label), np.nan)
     for train_idx, test_idx in GroupKFold(n_splits=5).split(features, label, groups):
         model.fit(features.iloc[train_idx], label.iloc[train_idx])
@@ -422,7 +487,9 @@ def run_cold(workers: int) -> int:
     OUT_WINTER.mkdir(parents=True, exist_ok=True)
     cases = pd.read_parquet(STEP3_CASES / "cases.parquet")
     cases = cases.loc[cases["split_role"].eq("development")].reset_index(drop=True)
-    cases["cold_season_observed_fraction"], column_diag = cold_season_fraction_from_columns(cases)
+    cases["cold_season_observed_fraction"], column_diag = (
+        cold_season_fraction_from_columns(cases)
+    )
     print(f"[cold] development cases: {len(cases)}", flush=True)
 
     support = build_cold_support_table(workers)
@@ -430,13 +497,22 @@ def run_cold(workers: int) -> int:
     print(f"[cold] regenerated realizations: {len(support)}", flush=True)
 
     key = ["network_id", "station_id", "year", "realization_id"]
-    merged = cases.merge(support, on=key, how="inner", suffixes=("", "_regen"), validate="one_to_one")
+    merged = cases.merge(
+        support, on=key, how="inner", suffixes=("", "_regen"), validate="one_to_one"
+    )
     print(f"[cold] merged cases: {len(merged)}", flush=True)
 
     checks = {}
-    for column in ("longest_run", "total_missing", "peak_overlap", "warm_observed_fraction"):
+    for column in (
+        "longest_run",
+        "total_missing",
+        "peak_overlap",
+        "warm_observed_fraction",
+    ):
         stored = pd.to_numeric(merged[column], errors="coerce").to_numpy(dtype=float)
-        regen = pd.to_numeric(merged[f"{column}_regen"], errors="coerce").to_numpy(dtype=float)
+        regen = pd.to_numeric(merged[f"{column}_regen"], errors="coerce").to_numpy(
+            dtype=float
+        )
         delta = np.abs(stored - regen)
         checks[f"max_abs_deviation_{column}"] = float(np.nanmax(delta))
         checks[f"agreement_within_1e-9_{column}"] = float(np.mean(delta <= 1e-9))
@@ -476,15 +552,21 @@ def run_cold(workers: int) -> int:
         .dropna()
     )
     window_shift = window_shift.loc[window_shift["n_years"] >= 2]
-    trough_months = pd.to_datetime(
-        "2001-01-01"
-    ) + pd.to_timedelta(support["cold_window_doy_start"].astype(float) - 1, unit="D")
-    trough_month_counts = {int(k): int(v) for k, v in trough_months.dt.month.value_counts().sort_index().items()}
+    trough_months = pd.to_datetime("2001-01-01") + pd.to_timedelta(
+        support["cold_window_doy_start"].astype(float) - 1, unit="D"
+    )
+    trough_month_counts = {
+        int(k): int(v)
+        for k, v in trough_months.dt.month.value_counts().sort_index().items()
+    }
     starts = sorted({int(v) for v in support["cold_window_doy_start"].unique()})
     inside = []
     for start in starts:
         days = [((start - 1 + offset) % 366) + 1 for offset in range(COLD_WINDOW_DAYS)]
-        months = {(pd.Timestamp("2001-01-01") + pd.Timedelta(days=int(d) - 1)).month for d in days}
+        months = {
+            (pd.Timestamp("2001-01-01") + pd.Timedelta(days=int(d) - 1)).month
+            for d in days
+        }
         inside.append(bool(months.issubset(set(COLD_MONTHS))))
     trough_inside_cold = float(np.mean(inside)) if inside else float("nan")
 
@@ -495,7 +577,10 @@ def run_cold(workers: int) -> int:
     tolerances = {
         metric: (
             ("literal_0.5C", TOLERANCE_LITERAL_C),
-            ("equal_relative_0.4717sd", TOLERANCE_FRACTION * float(step17.loc[metric, "interannual_sd"])),
+            (
+                "equal_relative_0.4717sd",
+                TOLERANCE_FRACTION * float(step17.loc[metric, "interannual_sd"]),
+            ),
         )
         for metric in ("coldest30", "hottest30")
     }
@@ -509,7 +594,9 @@ def run_cold(workers: int) -> int:
             jitter = rng.random(len(merged))
             scores = {}
             for name, column, higher in AXES:
-                raw = pd.to_numeric(merged[column], errors="coerce").to_numpy(dtype=float)
+                raw = pd.to_numeric(merged[column], errors="coerce").to_numpy(
+                    dtype=float
+                )
                 scores[name] = raw if higher else -raw
             row = {
                 "metric": metric,
@@ -521,10 +608,13 @@ def run_cold(workers: int) -> int:
             }
             for name, _, _ in AXES:
                 row[f"auc_{name}"] = risk_auc(label, scores[name], higher_is_worse=True)
-                row[f"rate_at_70_{name}_rule"] = frontier_rate(scores[name] + jitter * 1e-9, error, tolerance)
+                row[f"rate_at_70_{name}_rule"] = frontier_rate(
+                    scores[name] + jitter * 1e-9, error, tolerance
+                )
             tone = "cold" if metric == "coldest30" else "warm"
             row["best_cold_axis"] = max(
-                ("cold_window_overlap", "cold_season_observed_fraction"), key=lambda k: row[f"auc_{k}"]
+                ("cold_window_overlap", "cold_season_observed_fraction"),
+                key=lambda k: row[f"auc_{k}"],
             )
             row[f"auc_best_cold_axis_minus_longest_run"] = (
                 row[f"auc_{row['best_cold_axis']}"] - row["auc_longest_run"]
@@ -533,22 +623,37 @@ def run_cold(workers: int) -> int:
                 row["auc_cold_window_overlap"] - row["auc_warm_observed_fraction"]
             )
             row["rate_at_70_best_cold_rule_minus_length_rule"] = (
-                row[f"rate_at_70_{row['best_cold_axis']}_rule"] - row["rate_at_70_longest_run_rule"]
+                row[f"rate_at_70_{row['best_cold_axis']}_rule"]
+                - row["rate_at_70_longest_run_rule"]
             )
 
-            X_len = merged.loc[keep, ["longest_run"]].apply(pd.to_numeric, errors="coerce")
-            X_both = merged.loc[keep, ["longest_run", "cold_window_overlap"]].apply(pd.to_numeric, errors="coerce")
-            X_both_season = merged.loc[keep, ["longest_run", "cold_season_observed_fraction"]].apply(
+            X_len = merged.loc[keep, ["longest_run"]].apply(
                 pd.to_numeric, errors="coerce"
             )
-            X_len_missing = merged.loc[keep, ["longest_run", "missing_fraction"]].apply(pd.to_numeric, errors="coerce")
+            X_both = merged.loc[keep, ["longest_run", "cold_window_overlap"]].apply(
+                pd.to_numeric, errors="coerce"
+            )
+            X_both_season = merged.loc[
+                keep, ["longest_run", "cold_season_observed_fraction"]
+            ].apply(pd.to_numeric, errors="coerce")
+            X_len_missing = merged.loc[keep, ["longest_run", "missing_fraction"]].apply(
+                pd.to_numeric, errors="coerce"
+            )
             y = label.loc[keep]
             g = groups[keep]
             if y.nunique() >= 2:
-                row["grouped_logistic_auc_length_only"] = grouped_logistic_auc(X_len, y, g)
-                row["grouped_logistic_auc_length_plus_cold_window"] = grouped_logistic_auc(X_both, y, g)
-                row["grouped_logistic_auc_length_plus_cold_season"] = grouped_logistic_auc(X_both_season, y, g)
-                row["grouped_logistic_auc_length_plus_missing_fraction"] = grouped_logistic_auc(X_len_missing, y, g)
+                row["grouped_logistic_auc_length_only"] = grouped_logistic_auc(
+                    X_len, y, g
+                )
+                row["grouped_logistic_auc_length_plus_cold_window"] = (
+                    grouped_logistic_auc(X_both, y, g)
+                )
+                row["grouped_logistic_auc_length_plus_cold_season"] = (
+                    grouped_logistic_auc(X_both_season, y, g)
+                )
+                row["grouped_logistic_auc_length_plus_missing_fraction"] = (
+                    grouped_logistic_auc(X_len_missing, y, g)
+                )
             else:
                 for name in (
                     "length_only",
@@ -564,38 +669,50 @@ def run_cold(workers: int) -> int:
             arrays = {
                 "error": error[keep_block],
                 "length": (scores["longest_run"] + jitter * 1e-9)[keep_block],
-                "cold_window": (scores["cold_window_overlap"] + jitter * 1e-9)[keep_block],
-                "cold_season": (scores["cold_season_observed_fraction"] + jitter * 1e-9)[keep_block],
-                "cold_obs": pd.to_numeric(merged["cold_window_overlap"], errors="coerce").to_numpy(dtype=float)[
+                "cold_window": (scores["cold_window_overlap"] + jitter * 1e-9)[
                     keep_block
                 ],
-                "longest_run": pd.to_numeric(merged["longest_run"], errors="coerce").to_numpy(dtype=float)[
-                    keep_block
-                ],
+                "cold_season": (
+                    scores["cold_season_observed_fraction"] + jitter * 1e-9
+                )[keep_block],
+                "cold_obs": pd.to_numeric(
+                    merged["cold_window_overlap"], errors="coerce"
+                ).to_numpy(dtype=float)[keep_block],
+                "longest_run": pd.to_numeric(
+                    merged["longest_run"], errors="coerce"
+                ).to_numpy(dtype=float)[keep_block],
             }
             block_clusters = groups[keep_block]
 
             def rate_gap(values: dict, tol: float = float(tolerance)) -> float:
-                return frontier_rate(values["cold_window"], values["error"], tol) - frontier_rate(
-                    values["length"], values["error"], tol
-                )
+                return frontier_rate(
+                    values["cold_window"], values["error"], tol
+                ) - frontier_rate(values["length"], values["error"], tol)
 
             def rate_gap_season(values: dict, tol: float = float(tolerance)) -> float:
-                return frontier_rate(values["cold_season"], values["error"], tol) - frontier_rate(
-                    values["length"], values["error"], tol
-                )
+                return frontier_rate(
+                    values["cold_season"], values["error"], tol
+                ) - frontier_rate(values["length"], values["error"], tol)
 
             def auc_gap(values: dict, tol: float = float(tolerance)) -> float:
                 lab = (values["error"] > tol).astype(float)
-                return risk_auc(lab, values["cold_obs"]) - risk_auc(lab, values["longest_run"])
+                return risk_auc(lab, values["cold_obs"]) - risk_auc(
+                    lab, values["longest_run"]
+                )
 
-            bootstrap[f"{metric}__{tolerance_label}__rate_gap_cold_window_minus_length"] = numpy_cluster_bootstrap(
+            bootstrap[
+                f"{metric}__{tolerance_label}__rate_gap_cold_window_minus_length"
+            ] = numpy_cluster_bootstrap(
                 arrays, rate_gap, block_clusters, draws=BOOTSTRAP_DRAWS, seed=0
             )
-            bootstrap[f"{metric}__{tolerance_label}__rate_gap_cold_season_minus_length"] = numpy_cluster_bootstrap(
+            bootstrap[
+                f"{metric}__{tolerance_label}__rate_gap_cold_season_minus_length"
+            ] = numpy_cluster_bootstrap(
                 arrays, rate_gap_season, block_clusters, draws=BOOTSTRAP_DRAWS, seed=0
             )
-            bootstrap[f"{metric}__{tolerance_label}__auc_gap_cold_window_minus_length"] = numpy_cluster_bootstrap(
+            bootstrap[
+                f"{metric}__{tolerance_label}__auc_gap_cold_window_minus_length"
+            ] = numpy_cluster_bootstrap(
                 arrays, auc_gap, block_clusters, draws=BOOTSTRAP_DRAWS, seed=0
             )
 
@@ -605,7 +722,9 @@ def run_cold(workers: int) -> int:
                     column = f"abserr_{metric}_{estimator}"
                     if column not in merged.columns:
                         continue
-                    err = pd.to_numeric(merged[column], errors="coerce").to_numpy(dtype=float)
+                    err = pd.to_numeric(merged[column], errors="coerce").to_numpy(
+                        dtype=float
+                    )
                     keep_e = np.isfinite(err)
                     lab_e = (err[keep_e] > tolerance).astype(float)
                     if len(np.unique(lab_e)) < 2:
@@ -618,10 +737,17 @@ def run_cold(workers: int) -> int:
                             "tolerance_c": float(tolerance),
                             "n": int(keep_e.sum()),
                             "base_rate": float(lab_e.mean()),
-                            "auc_cold_window_overlap": risk_auc(lab_e, merged.loc[keep_e, "cold_window_overlap"].to_numpy()),
-                            "auc_longest_run": risk_auc(lab_e, merged.loc[keep_e, "longest_run"].to_numpy()),
+                            "auc_cold_window_overlap": risk_auc(
+                                lab_e,
+                                merged.loc[keep_e, "cold_window_overlap"].to_numpy(),
+                            ),
+                            "auc_longest_run": risk_auc(
+                                lab_e, merged.loc[keep_e, "longest_run"].to_numpy()
+                            ),
                             "auc_warm_observed_fraction": risk_auc(
-                                lab_e, merged.loc[keep_e, "warm_observed_fraction"].to_numpy(), higher_is_worse=False
+                                lab_e,
+                                merged.loc[keep_e, "warm_observed_fraction"].to_numpy(),
+                                higher_is_worse=False,
                             ),
                         }
                     )
@@ -631,15 +757,21 @@ def run_cold(workers: int) -> int:
     warm_win_overlap = float(np.nanmean(support["trough_overlap_peak_window"]))
     warm_win_overlap_max = float(np.nanmax(support["trough_overlap_peak_window"]))
     corr = float(
-        pd.Series(support["warm_observed_fraction"]).corr(pd.Series(support["cold_window_overlap"]), method="spearman")
+        pd.Series(support["warm_observed_fraction"]).corr(
+            pd.Series(support["cold_window_overlap"]), method="spearman"
+        )
     )
     corr_lr = float(
-        pd.Series(support["longest_run"]).corr(pd.Series(support["cold_window_overlap"]), method="spearman")
+        pd.Series(support["longest_run"]).corr(
+            pd.Series(support["cold_window_overlap"]), method="spearman"
+        )
     )
 
     table = pd.DataFrame(results)
     table.to_csv(OUT_WINTER / "cold_support_contrast.csv", index=False)
-    pd.DataFrame(per_estimator).to_csv(OUT_WINTER / "cold_support_per_estimator.csv", index=False)
+    pd.DataFrame(per_estimator).to_csv(
+        OUT_WINTER / "cold_support_per_estimator.csv", index=False
+    )
 
     summary = {
         "question": (
@@ -668,9 +800,15 @@ def run_cold(workers: int) -> int:
         "regeneration_checks": checks,
         "cold_window_wander": {
             "n_stations": int(len(window_shift)),
-            "circular_sd_days_median": float(window_shift["trough_circular_sd_days"].median()),
-            "circular_sd_days_mean": float(window_shift["trough_circular_sd_days"].mean()),
-            "circular_sd_days_p90": float(window_shift["trough_circular_sd_days"].quantile(0.90)),
+            "circular_sd_days_median": float(
+                window_shift["trough_circular_sd_days"].median()
+            ),
+            "circular_sd_days_mean": float(
+                window_shift["trough_circular_sd_days"].mean()
+            ),
+            "circular_sd_days_p90": float(
+                window_shift["trough_circular_sd_days"].quantile(0.90)
+            ),
             "raw_doy_sd_median": float(window_shift["trough_std_doy"].median()),
             "note": "raw doy sd is inflated by the 31 December wrap; circular sd is the honest figure",
         },
@@ -691,8 +829,35 @@ def run_cold(workers: int) -> int:
     _write_json(OUT_WINTER / "summary_cold.json", summary)
     write_cold_report(table, per_estimator, summary, checks)
     combine_winter_outputs()
-    print(table[["metric", "tolerance_rule", "n", "base_rate", "auc_cold_window_overlap", "auc_cold_season_observed_fraction", "auc_longest_run", "auc_peak_overlap", "auc_warm_observed_fraction"]].round(4).to_string(index=False))
-    print(json.dumps({k: {"point": round(v["point"], 4), "ci": [round(v["low"], 4), round(v["high"], 4)]} for k, v in bootstrap.items()}, indent=2))
+    print(
+        table[
+            [
+                "metric",
+                "tolerance_rule",
+                "n",
+                "base_rate",
+                "auc_cold_window_overlap",
+                "auc_cold_season_observed_fraction",
+                "auc_longest_run",
+                "auc_peak_overlap",
+                "auc_warm_observed_fraction",
+            ]
+        ]
+        .round(4)
+        .to_string(index=False)
+    )
+    print(
+        json.dumps(
+            {
+                k: {
+                    "point": round(v["point"], 4),
+                    "ci": [round(v["low"], 4), round(v["high"], 4)],
+                }
+                for k, v in bootstrap.items()
+            },
+            indent=2,
+        )
+    )
     return 0
 
 
@@ -712,7 +877,9 @@ def write_cold_report(
     literal = "literal_0.5C"
     scaled = "equal_relative_0.4717sd"
     lines: list[str] = []
-    lines.append("# F16(a) - can a cold-season support axis replace the length rule for the coldest 30-day mean?")
+    lines.append(
+        "# F16(a) - can a cold-season support axis replace the length rule for the coldest 30-day mean?"
+    )
     lines.append("")
     lines.append(
         "Artifact: `results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv`. "
@@ -743,12 +910,14 @@ def write_cold_report(
         "realizations were regenerated from the v17 seeds. The regeneration reproduces {:,} of {:,} stored "
         "rows one-for-one, with maximum absolute deviation {:.1f} on `longest_run`, `total_missing`, "
         "`peak_overlap` and `warm_observed_fraction`.".format(
-            summary["n_cases"], summary["n_cases"], max(
+            summary["n_cases"],
+            summary["n_cases"],
+            max(
                 checks["max_abs_deviation_longest_run"],
                 checks["max_abs_deviation_total_missing"],
                 checks["max_abs_deviation_peak_overlap"],
                 checks["max_abs_deviation_warm_observed_fraction"],
-            )
+            ),
         )
     )
     lines.append("")
@@ -763,17 +932,16 @@ def write_cold_report(
         "n = {:,} development cases, {} networks, coldest-30 error through the information-conditioned "
         "policy of step 17 (whose warm-endpoint numbers this table reproduces to four decimals: hottest-30 "
         "peak overlap {:.4f}, warm coverage {:.4f}, length {:.4f}).".format(
-            summary["n_cases"], summary["n_networks"],
+            summary["n_cases"],
+            summary["n_networks"],
             get("hottest30", scaled, "auc_peak_overlap"),
             get("hottest30", scaled, "auc_warm_observed_fraction"),
             get("hottest30", scaled, "auc_longest_run"),
         )
     )
     lines.append("")
-    header = (
-        "| axis | AUC (0.5 C) | AUC (0.4717 sd = {:.3f} C) | consequential-error rate at 70% (0.5 C) | rate (0.4717 sd) |".format(
-            get("coldest30", scaled, "tolerance_c")
-        )
+    header = "| axis | AUC (0.5 C) | AUC (0.4717 sd = {:.3f} C) | consequential-error rate at 70% (0.5 C) | rate (0.4717 sd) |".format(
+        get("coldest30", scaled, "tolerance_c")
     )
     lines.append(header)
     lines.append("| --- | --- | --- | --- | --- |")
@@ -797,18 +965,26 @@ def write_cold_report(
     lines.append("")
     lines.append(
         "Base rate of a consequential cold error: {:.4f} at 0.5 C, {:.4f} at 0.4717 sd.".format(
-            get("coldest30", literal, "base_rate"), get("coldest30", scaled, "base_rate")
+            get("coldest30", literal, "base_rate"),
+            get("coldest30", scaled, "base_rate"),
         )
     )
     lines.append("")
-    lines.append("| contrast (network-clustered bootstrap, {} draws) | point | 95% CI |".format(BOOTSTRAP_DRAWS))
+    lines.append(
+        "| contrast (network-clustered bootstrap, {} draws) | point | 95% CI |".format(
+            BOOTSTRAP_DRAWS
+        )
+    )
     lines.append("| --- | --- | --- |")
     for key, value in boot.items():
         if not key.startswith("coldest30"):
             continue
         lines.append(
             "| {} | {:+.5f} | ({:+.5f}, {:+.5f}) |".format(
-                key.replace("coldest30__", ""), value["point"], value["low"], value["high"]
+                key.replace("coldest30__", ""),
+                value["point"],
+                value["low"],
+                value["high"],
             )
         )
     lines.append("")
@@ -825,7 +1001,12 @@ def write_cold_report(
     lines.append("")
     lines.append("| feature set | AUC (0.5 C) | AUC (0.4717 sd) |")
     lines.append("| --- | --- | --- |")
-    for suffix in ("length_only", "length_plus_missing_fraction", "length_plus_cold_window", "length_plus_cold_season"):
+    for suffix in (
+        "length_only",
+        "length_plus_missing_fraction",
+        "length_plus_cold_window",
+        "length_plus_cold_season",
+    ):
         lines.append(
             "| `{}` | {:.4f} | {:.4f} |".format(
                 suffix.replace("_", " "),
@@ -839,12 +1020,18 @@ def write_cold_report(
     estimator_table = pd.DataFrame(per_estimator)
     if len(estimator_table):
         pivot = estimator_table.loc[estimator_table["tolerance_rule"].eq(literal)]
-        lines.append("| estimator | n | base rate | AUC cold window | AUC length | AUC warm coverage |")
+        lines.append(
+            "| estimator | n | base rate | AUC cold window | AUC length | AUC warm coverage |"
+        )
         lines.append("| --- | --- | --- | --- | --- | --- |")
         for row in pivot.itertuples(index=False):
             lines.append(
                 "| `{}` | {:,} | {:.4f} | {:.4f} | {:.4f} | {:.4f} |".format(
-                    row.estimator, row.n, row.base_rate, row.auc_cold_window_overlap, row.auc_longest_run,
+                    row.estimator,
+                    row.n,
+                    row.base_rate,
+                    row.auc_cold_window_overlap,
+                    row.auc_longest_run,
                     row.auc_warm_observed_fraction,
                 )
             )
@@ -857,7 +1044,7 @@ def write_cold_report(
         "reverses'): *\"peak-window overlap has an AUC of 0.447 for the cold extreme, because hiding the "
         "summer peak carries no information about the winter minimum\"*. (ii) In 'What an agency should "
         "change, and in what order': *\"keep length-based rules for annual means, cold extremes and the "
-        "sine-fit regime parameters\"*. Assertion (i) is reproduced here exactly ({:.4f} at 0.4717 sd) and "
+        'sine-fit regime parameters"*. Assertion (i) is reproduced here exactly ({:.4f} at 0.4717 sd) and '
         "is true as stated - it is a statement about the warm-window axis. Assertion (ii) is the "
         "non-sequitur: it draws a rule for cold extremes from a measurement that cannot see the cold "
         "window, without ever measuring a cold-season axis. The stored tables measure why the inference "
@@ -869,15 +1056,23 @@ def write_cold_report(
         "climatological hottest-30-day window (maximum {:.4f} across cases), so the warm-season coverage "
         "axis is measuring a window that is disjoint from the cold support. It cannot be evidence about it "
         "either way.".format(
-            summary["cold_window_placement"]["mean_share_of_cold_window_inside_climatological_peak_window"],
-            summary["cold_window_placement"]["max_share_of_cold_window_inside_climatological_peak_window"],
+            summary["cold_window_placement"][
+                "mean_share_of_cold_window_inside_climatological_peak_window"
+            ],
+            summary["cold_window_placement"][
+                "max_share_of_cold_window_inside_climatological_peak_window"
+            ],
         )
     )
     lines.append(
         "* Spearman correlation between `warm_observed_fraction` and `cold_window_overlap` is {:.4f}; "
         "between `longest_run` and `cold_window_overlap` it is {:.4f}.".format(
-            summary["cold_versus_warm_support"]["spearman_warm_observed_fraction_vs_cold_window_overlap"],
-            summary["cold_versus_warm_support"]["spearman_longest_run_vs_cold_window_overlap"],
+            summary["cold_versus_warm_support"][
+                "spearman_warm_observed_fraction_vs_cold_window_overlap"
+            ],
+            summary["cold_versus_warm_support"][
+                "spearman_longest_run_vs_cold_window_overlap"
+            ],
         )
     )
     lines.append(
@@ -886,9 +1081,15 @@ def write_cold_report(
         "tolerance, and {:.4f} vs {:.4f} at 0.5 C.".format(
             get("coldest30", scaled, "auc_cold_window_overlap"),
             get("coldest30", scaled, "auc_longest_run"),
-            boot["coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length"]["point"],
-            boot["coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length"]["low"],
-            boot["coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length"]["high"],
+            boot[
+                "coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length"
+            ]["point"],
+            boot[
+                "coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length"
+            ]["low"],
+            boot[
+                "coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length"
+            ]["high"],
             get("coldest30", literal, "auc_cold_window_overlap"),
             get("coldest30", literal, "auc_longest_run"),
         )
@@ -930,7 +1131,11 @@ def write_cold_report(
     lines.append(
         "* {:.1%} of distinct climatological cold windows fall entirely inside the Oct-Apr cold months, "
         "so the season-length axis and the window axis are measuring the same season, not two different "
-        "ones.".format(summary["cold_window_placement"]["share_of_distinct_windows_fully_inside_cold_months"])
+        "ones.".format(
+            summary["cold_window_placement"][
+                "share_of_distinct_windows_fully_inside_cold_months"
+            ]
+        )
     )
     lines.append(
         "* Rates at 70% retention break ties in the axis score with a uniform jitter, the convention step 17 "
@@ -952,13 +1157,33 @@ def write_cold_report(
         "estimators; the single exception is `air_ridge` (n = {:,} cases only, where air forcing exists), "
         "AUC {:.4f} against {:.4f}. The ordering is therefore a property of the endpoint, not of the "
         "policy's estimator choice.".format(
-            int(estimator_table.loc[estimator_table['tolerance_rule'].eq(literal) & estimator_table['estimator'].eq('air_ridge'), 'n'].iloc[0]),
-            float(estimator_table.loc[estimator_table['tolerance_rule'].eq(literal) & estimator_table['estimator'].eq('air_ridge'), 'auc_cold_window_overlap'].iloc[0]),
-            float(estimator_table.loc[estimator_table['tolerance_rule'].eq(literal) & estimator_table['estimator'].eq('air_ridge'), 'auc_longest_run'].iloc[0]),
+            int(
+                estimator_table.loc[
+                    estimator_table["tolerance_rule"].eq(literal)
+                    & estimator_table["estimator"].eq("air_ridge"),
+                    "n",
+                ].iloc[0]
+            ),
+            float(
+                estimator_table.loc[
+                    estimator_table["tolerance_rule"].eq(literal)
+                    & estimator_table["estimator"].eq("air_ridge"),
+                    "auc_cold_window_overlap",
+                ].iloc[0]
+            ),
+            float(
+                estimator_table.loc[
+                    estimator_table["tolerance_rule"].eq(literal)
+                    & estimator_table["estimator"].eq("air_ridge"),
+                    "auc_longest_run",
+                ].iloc[0]
+            ),
         )
     )
     lines.append("")
-    (OUT_WINTER / "report_section_a.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (OUT_WINTER / "report_section_a.md").write_text(
+        "\n".join(lines) + "\n", encoding="utf-8"
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -981,8 +1206,13 @@ def sine_fit(values: np.ndarray) -> dict[str, float]:
     y = np.asarray(values, dtype=float)
     t = np.arange(len(y), dtype=float)
     good = np.isfinite(y)
-    nan = {"sine_mean": np.nan, "sine_amplitude": np.nan, "sine_phase": np.nan, "sine_resid_sd": np.nan,
-           "n_used": float(good.sum())}
+    nan = {
+        "sine_mean": np.nan,
+        "sine_amplitude": np.nan,
+        "sine_phase": np.nan,
+        "sine_resid_sd": np.nan,
+        "n_used": float(good.sum()),
+    }
     if good.sum() < 30:
         return nan
     angle = 2 * np.pi * t[good] / DAYS_IN_YEAR
@@ -994,7 +1224,10 @@ def sine_fit(values: np.ndarray) -> dict[str, float]:
     intercept, a, b = (float(v) for v in beta)
     amplitude = float(np.hypot(a, b))
     phi = float(np.arctan2(-b, a) % (2 * np.pi))
-    peak_day = float((phi * DAYS_IN_YEAR / (2 * np.pi) + DAYS_IN_YEAR / 4.0) % DAYS_IN_YEAR) + 1.0
+    peak_day = (
+        float((phi * DAYS_IN_YEAR / (2 * np.pi) + DAYS_IN_YEAR / 4.0) % DAYS_IN_YEAR)
+        + 1.0
+    )
     resid = y[good] - design @ beta
     dof = max(1, int(good.sum()) - 3)
     return {
@@ -1030,10 +1263,20 @@ def sine_support_rows(job: dict) -> pd.DataFrame:
         truth = target.loc[year_mask].to_numpy(dtype=float)
         if not np.isfinite(truth).all() or len(truth) < 360:
             continue
-        peak_doys = climatological_peak_window(target.loc[target.index.year != int(year)], exclude_year=None)
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), protocol))
+        peak_doys = climatological_peak_window(
+            target.loc[target.index.year != int(year)], exclude_year=None
+        )
+        rng = np.random.default_rng(
+            station_year_seed(
+                network_id, station_id, daily.columns, int(year), protocol
+            )
+        )
         realizations = design_for_year(
-            year_index, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3)
+            year_index,
+            peak_doys,
+            pool,
+            rng=rng,
+            n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3),
         )
         truth_fit = sine_fit(truth)
         for realization in realizations:
@@ -1076,15 +1319,24 @@ def build_sine_support_table(workers: int) -> pd.DataFrame:
             if len(frame):
                 frames.append(frame)
             if done % 50 == 0:
-                print(f"  {done}/{len(jobs)} stations ({time.time() - started:.0f}s)", flush=True)
+                print(
+                    f"  {done}/{len(jobs)} stations ({time.time() - started:.0f}s)",
+                    flush=True,
+                )
     return pd.concat(frames, ignore_index=True)
 
 
 def circular_phase_tolerance(cases: pd.DataFrame) -> tuple[float, float]:
     """Interannual sd of the true phase, and 0.4717 of it, in days."""
 
-    truth = cases.groupby(["network_id", "station_id", "year"])["truth_sine_phase"].first().reset_index()
-    per_station = truth.groupby(["network_id", "station_id"])["truth_sine_phase"].agg(["std", "size"])
+    truth = (
+        cases.groupby(["network_id", "station_id", "year"])["truth_sine_phase"]
+        .first()
+        .reset_index()
+    )
+    per_station = truth.groupby(["network_id", "station_id"])["truth_sine_phase"].agg(
+        ["std", "size"]
+    )
     per_station = per_station.loc[per_station["size"] >= 4, "std"].dropna()
     scale = float(per_station.mean())
     return scale, TOLERANCE_FRACTION * scale
@@ -1099,33 +1351,54 @@ def run_sine(workers: int) -> int:
     support = build_sine_support_table(workers)
     support.to_parquet(OUT_WINTER / "sine_support_cases.parquet", index=False)
     key = ["network_id", "station_id", "year", "realization_id"]
-    merged = cases.merge(support, on=key, how="inner", suffixes=("", "_regen"), validate="one_to_one")
+    merged = cases.merge(
+        support, on=key, how="inner", suffixes=("", "_regen"), validate="one_to_one"
+    )
     coverage = float(len(merged) / len(cases))
     print(f"[sine] merged {len(merged)} of {len(cases)} cases", flush=True)
 
     amplitude_deviation = float(
         np.nanmax(
             np.abs(
-                pd.to_numeric(merged["observed_sine_amplitude"], errors="coerce").to_numpy(dtype=float)
-                - pd.to_numeric(merged["observed_sine_amplitude_check"], errors="coerce").to_numpy(dtype=float)
+                pd.to_numeric(
+                    merged["observed_sine_amplitude"], errors="coerce"
+                ).to_numpy(dtype=float)
+                - pd.to_numeric(
+                    merged["observed_sine_amplitude_check"], errors="coerce"
+                ).to_numpy(dtype=float)
             )
         )
     )
     phase_deviation = float(
         np.nanmax(
             np.abs(
-                pd.to_numeric(merged["observed_sine_phase"], errors="coerce").to_numpy(dtype=float)
-                - pd.to_numeric(merged["observed_sine_phase_check"], errors="coerce").to_numpy(dtype=float)
+                pd.to_numeric(merged["observed_sine_phase"], errors="coerce").to_numpy(
+                    dtype=float
+                )
+                - pd.to_numeric(
+                    merged["observed_sine_phase_check"], errors="coerce"
+                ).to_numpy(dtype=float)
             )
         )
     )
 
     phase_scale, phase_tolerance = circular_phase_tolerance(merged)
-    print(f"[sine] phase interannual sd {phase_scale:.4f} d, tolerance {phase_tolerance:.4f} d", flush=True)
+    print(
+        f"[sine] phase interannual sd {phase_scale:.4f} d, tolerance {phase_tolerance:.4f} d",
+        flush=True,
+    )
 
     protocols = {
-        "repaired": ("policy_sine_amplitude", "abserr_sine_phase", "sine_resid_sd_observed"),
-        "observed_days_only": ("observed_sine_amplitude", "abserr_observed_sine_phase", "sine_resid_sd_observed"),
+        "repaired": (
+            "policy_sine_amplitude",
+            "abserr_sine_phase",
+            "sine_resid_sd_observed",
+        ),
+        "observed_days_only": (
+            "observed_sine_amplitude",
+            "abserr_observed_sine_phase",
+            "sine_resid_sd_observed",
+        ),
     }
     bins = [0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 8.0, np.inf]
     binned_rows: list[dict] = []
@@ -1135,7 +1408,9 @@ def run_sine(workers: int) -> int:
     k_theory_value = float("nan")
     case_frames: list[pd.DataFrame] = []
     for protocol, (amp_col, err_col, sd_col) in protocols.items():
-        amplitude = pd.to_numeric(merged[amp_col], errors="coerce").to_numpy(dtype=float)
+        amplitude = pd.to_numeric(merged[amp_col], errors="coerce").to_numpy(
+            dtype=float
+        )
         error = pd.to_numeric(merged[err_col], errors="coerce").to_numpy(dtype=float)
         sigma = pd.to_numeric(merged[sd_col], errors="coerce").to_numpy(dtype=float)
         ratio = amplitude / sigma
@@ -1151,7 +1426,9 @@ def run_sine(workers: int) -> int:
                 "resid_sd_observed": sigma,
                 "amplitude_to_noise": ratio,
                 "amplitude_to_noise_truth_scale": amplitude
-                / pd.to_numeric(merged["sine_resid_sd_truth"], errors="coerce").to_numpy(dtype=float),
+                / pd.to_numeric(
+                    merged["sine_resid_sd_truth"], errors="coerce"
+                ).to_numpy(dtype=float),
                 "abs_phase_error_days": error,
                 "n_observed_days": merged["n_observed_days"],
                 "truth_amplitude": merged["truth_sine_amplitude"],
@@ -1163,8 +1440,14 @@ def run_sine(workers: int) -> int:
         # se(phi) = sigma*sqrt(2/n)/A radians, converted to days.
         with np.errstate(divide="ignore", invalid="ignore"):
             implied_se_days = (
-                sigma * np.sqrt(2.0 / merged["n_observed_days"].to_numpy(dtype=float)) / amplitude
-            ) * DAYS_IN_YEAR / (2 * np.pi)
+                (
+                    sigma
+                    * np.sqrt(2.0 / merged["n_observed_days"].to_numpy(dtype=float))
+                    / amplitude
+                )
+                * DAYS_IN_YEAR
+                / (2 * np.pi)
+            )
         for low, high in zip(bins[:-1], bins[1:]):
             inside = (ratio >= low) & (ratio < high)
             if not inside.any():
@@ -1177,18 +1460,23 @@ def run_sine(workers: int) -> int:
                     "n": int(inside.sum()),
                     "share_of_cases": float(inside.mean()),
                     "median_abs_phase_error_days": float(np.nanmedian(error[inside])),
-                    "q90_abs_phase_error_days": float(np.nanquantile(error[inside], 0.90)),
+                    "q90_abs_phase_error_days": float(
+                        np.nanquantile(error[inside], 0.90)
+                    ),
                     "median_abs_phase_error_days_normalised": float(
                         np.nanmedian(error[inside]) / phase_scale
                     ),
                     "consequential_rate": float(np.nanmean(label[inside])),
                     "median_fitted_amplitude": float(np.nanmedian(amplitude[inside])),
-                    "median_noise_implied_se_days": float(np.nanmedian(implied_se_days[inside])),
+                    "median_noise_implied_se_days": float(
+                        np.nanmedian(implied_se_days[inside])
+                    ),
                     "median_noise_implied_95pct_half_width_days": float(
                         2 * np.nanmedian(implied_se_days[inside])
                     ),
                     "median_observed_over_implied_error": float(
-                        np.nanmedian(error[inside]) / max(1e-9, np.nanmedian(implied_se_days[inside]))
+                        np.nanmedian(error[inside])
+                        / max(1e-9, np.nanmedian(implied_se_days[inside]))
                     ),
                 }
             )
@@ -1209,9 +1497,15 @@ def run_sine(workers: int) -> int:
                     "n_retained": int(keep.sum()),
                     "share_retained": float(keep.mean()),
                     "consequential_rate_retained": float(np.nanmean(label[keep])),
-                    "median_abs_phase_error_days_retained": float(np.nanmedian(error[keep])),
-                    "q90_abs_phase_error_days_retained": float(np.nanquantile(error[keep], 0.90)),
-                    "consequential_rate_suppressed": float(np.nanmean(label[~keep])) if (~keep).any() else float("nan"),
+                    "median_abs_phase_error_days_retained": float(
+                        np.nanmedian(error[keep])
+                    ),
+                    "q90_abs_phase_error_days_retained": float(
+                        np.nanquantile(error[keep], 0.90)
+                    ),
+                    "consequential_rate_suppressed": float(np.nanmean(label[~keep]))
+                    if (~keep).any()
+                    else float("nan"),
                     "share_of_all_phase_errors_suppressed": float(
                         np.nansum(label & ~keep) / max(1, np.nansum(label))
                     ),
@@ -1223,12 +1517,21 @@ def run_sine(workers: int) -> int:
                 "k_amplitude_over_noise": float(round(rule_k_theory, 4)),
                 "n_retained": int((ratio >= rule_k_theory).sum()),
                 "share_retained": float((ratio >= rule_k_theory).mean()),
-                "consequential_rate_retained": float(np.nanmean(label[ratio >= rule_k_theory])),
-                "median_abs_phase_error_days_retained": float(np.nanmedian(error[ratio >= rule_k_theory])),
-                "q90_abs_phase_error_days_retained": float(np.nanquantile(error[ratio >= rule_k_theory], 0.90)),
-                "consequential_rate_suppressed": float(np.nanmean(label[ratio < rule_k_theory])),
+                "consequential_rate_retained": float(
+                    np.nanmean(label[ratio >= rule_k_theory])
+                ),
+                "median_abs_phase_error_days_retained": float(
+                    np.nanmedian(error[ratio >= rule_k_theory])
+                ),
+                "q90_abs_phase_error_days_retained": float(
+                    np.nanquantile(error[ratio >= rule_k_theory], 0.90)
+                ),
+                "consequential_rate_suppressed": float(
+                    np.nanmean(label[ratio < rule_k_theory])
+                ),
                 "share_of_all_phase_errors_suppressed": float(
-                    np.nansum(label & (ratio < rule_k_theory)) / max(1, np.nansum(label))
+                    np.nansum(label & (ratio < rule_k_theory))
+                    / max(1, np.nansum(label))
                 ),
             }
         )
@@ -1242,10 +1545,14 @@ def run_sine(workers: int) -> int:
                     "amplitude_to_noise_cut": cut,
                     "n_below": int(below.sum()),
                     "share_below": float(below.mean()),
-                    "median_abs_phase_error_days_below": float(np.nanmedian(error[below]))
+                    "median_abs_phase_error_days_below": float(
+                        np.nanmedian(error[below])
+                    )
                     if below.any()
                     else float("nan"),
-                    "consequential_rate_below": float(np.nanmean(label[below])) if below.any() else float("nan"),
+                    "consequential_rate_below": float(np.nanmean(label[below]))
+                    if below.any()
+                    else float("nan"),
                     "share_of_all_consequential_errors_below": float(
                         np.nansum(label & below) / max(1, np.nansum(label))
                     ),
@@ -1261,13 +1568,15 @@ def run_sine(workers: int) -> int:
                     )
                 ),
                 "spearman_fitted_amplitude_vs_abs_phase_error": float(
-                    pd.Series(amplitude[finite_ratio]).corr(pd.Series(error[finite_ratio]), method="spearman")
+                    pd.Series(amplitude[finite_ratio]).corr(
+                        pd.Series(error[finite_ratio]), method="spearman"
+                    )
                 ),
                 "spearman_truth_amplitude_vs_abs_phase_error": float(
                     pd.Series(
-                        pd.to_numeric(merged["truth_sine_amplitude"], errors="coerce").to_numpy(dtype=float)[
-                            finite_ratio
-                        ]
+                        pd.to_numeric(
+                            merged["truth_sine_amplitude"], errors="coerce"
+                        ).to_numpy(dtype=float)[finite_ratio]
                     ).corr(pd.Series(error[finite_ratio]), method="spearman")
                 ),
             }
@@ -1307,8 +1616,14 @@ def run_sine(workers: int) -> int:
     axis_contrasts = {}
     populations = (
         ("all_cases", axis_frame),
-        ("identifiable_only", axis_frame.loc[axis_frame["amplitude_to_noise"] >= rule_k]),
-        ("identifiable_truth_noise_scale", axis_frame.loc[axis_frame["amplitude_to_noise_truth_scale"] >= rule_k]),
+        (
+            "identifiable_only",
+            axis_frame.loc[axis_frame["amplitude_to_noise"] >= rule_k],
+        ),
+        (
+            "identifiable_truth_noise_scale",
+            axis_frame.loc[axis_frame["amplitude_to_noise_truth_scale"] >= rule_k],
+        ),
     )
     for name, subset in populations:
         subset = subset.dropna(subset=["consequential"]).reset_index(drop=True)
@@ -1316,14 +1631,28 @@ def run_sine(workers: int) -> int:
         row = {
             "n": int(len(subset)),
             "base_rate": float(label.mean()),
-            "auc_peak_overlap": risk_auc(label, subset["peak_overlap"].to_numpy(dtype=float)),
-            "auc_transition_overlap": risk_auc(label, subset["transition_overlap"].to_numpy(dtype=float)),
-            "auc_missing_fraction": risk_auc(label, subset["missing_fraction"].to_numpy(dtype=float)),
-            "auc_longest_run": risk_auc(label, subset["longest_run"].to_numpy(dtype=float)),
-            "auc_influence_hidden": risk_auc(label, subset["influence_hidden_sine_phase"].to_numpy(dtype=float)),
+            "auc_peak_overlap": risk_auc(
+                label, subset["peak_overlap"].to_numpy(dtype=float)
+            ),
+            "auc_transition_overlap": risk_auc(
+                label, subset["transition_overlap"].to_numpy(dtype=float)
+            ),
+            "auc_missing_fraction": risk_auc(
+                label, subset["missing_fraction"].to_numpy(dtype=float)
+            ),
+            "auc_longest_run": risk_auc(
+                label, subset["longest_run"].to_numpy(dtype=float)
+            ),
+            "auc_influence_hidden": risk_auc(
+                label, subset["influence_hidden_sine_phase"].to_numpy(dtype=float)
+            ),
         }
-        row["auc_influence_minus_longest_run"] = row["auc_influence_hidden"] - row["auc_longest_run"]
-        row["auc_influence_minus_missing_fraction"] = row["auc_influence_hidden"] - row["auc_missing_fraction"]
+        row["auc_influence_minus_longest_run"] = (
+            row["auc_influence_hidden"] - row["auc_longest_run"]
+        )
+        row["auc_influence_minus_missing_fraction"] = (
+            row["auc_influence_hidden"] - row["auc_missing_fraction"]
+        )
 
         arrays = {
             "error": subset["abs_phase_error_days"].to_numpy(dtype=float),
@@ -1353,7 +1682,9 @@ def run_sine(workers: int) -> int:
 
     binned = pd.DataFrame(binned_rows)
     sweep = pd.DataFrame(sweep_rows)
-    pd.concat(case_frames, ignore_index=True).to_parquet(OUT_WINTER / "sine_phase_cases.parquet", index=False)
+    pd.concat(case_frames, ignore_index=True).to_parquet(
+        OUT_WINTER / "sine_phase_cases.parquet", index=False
+    )
     binned.to_csv(OUT_WINTER / "sine_phase_amplitude.csv", index=False)
     sweep.to_csv(OUT_WINTER / "sine_phase_rule_sweep.csv", index=False)
 
@@ -1397,8 +1728,12 @@ def run_sine(workers: int) -> int:
             "sensitivity": "sine_resid_sd_truth (residual sd of the same fit to the complete year)",
             "median_ratio_observed_over_truth": float(
                 np.nanmedian(
-                    pd.to_numeric(merged["sine_resid_sd_observed"], errors="coerce").to_numpy(dtype=float)
-                    / pd.to_numeric(merged["sine_resid_sd_truth"], errors="coerce").to_numpy(dtype=float)
+                    pd.to_numeric(
+                        merged["sine_resid_sd_observed"], errors="coerce"
+                    ).to_numpy(dtype=float)
+                    / pd.to_numeric(
+                        merged["sine_resid_sd_truth"], errors="coerce"
+                    ).to_numpy(dtype=float)
                 )
             ),
             "note": (
@@ -1413,10 +1748,20 @@ def run_sine(workers: int) -> int:
                 "radians, so requiring a 95% interval no wider than the study's own phase tolerance tau "
                 "gives A/sigma >= 2*sqrt(2/n)/tau"
             ),
-            "n_observed_days_median": float(np.nanmedian(merged["n_observed_days"].to_numpy(dtype=float))),
+            "n_observed_days_median": float(
+                np.nanmedian(merged["n_observed_days"].to_numpy(dtype=float))
+            ),
             "tau_radians": float(2 * np.pi * phase_tolerance / DAYS_IN_YEAR),
-            "k_theory": float(2 * np.sqrt(2.0 / float(np.nanmedian(merged["n_observed_days"].to_numpy(dtype=float))))
-                              / (2 * np.pi * phase_tolerance / DAYS_IN_YEAR)),
+            "k_theory": float(
+                2
+                * np.sqrt(
+                    2.0
+                    / float(
+                        np.nanmedian(merged["n_observed_days"].to_numpy(dtype=float))
+                    )
+                )
+                / (2 * np.pi * phase_tolerance / DAYS_IN_YEAR)
+            ),
             "k_used": rule_k,
             "sensitivity_checks": sweep_rows,
         },
@@ -1436,7 +1781,11 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
     rule = summary["reporting_rule"]
     k = float(rule["k_used"])
     repaired = binned.loc[binned["protocol"].eq("repaired")]
-    repaired_sweep = sweep.loc[sweep["protocol"].eq("repaired")].sort_values("k_amplitude_over_noise").reset_index(drop=True)
+    repaired_sweep = (
+        sweep.loc[sweep["protocol"].eq("repaired")]
+        .sort_values("k_amplitude_over_noise")
+        .reset_index(drop=True)
+    )
     observed = binned.loc[binned["protocol"].eq("observed_days_only")]
     observed_cut = {
         row["amplitude_to_noise_cut"]: row
@@ -1449,7 +1798,9 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         if row["protocol"] == "repaired"
     }
     lines: list[str] = []
-    lines.append("# F16(b) - the sine-fit phase has no low-amplitude identifiability rule")
+    lines.append(
+        "# F16(b) - the sine-fit phase has no low-amplitude identifiability rule"
+    )
     lines.append("")
     lines.append(
         "Artifacts: `sine_phase_amplitude.csv`, `sine_phase_rule_sweep.csv`, `sine_phase_cases.parquet`, "
@@ -1472,9 +1823,12 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "`sine_parameters`, so it was recomputed here. The recomputation is checked against the stored "
         "columns: $n$ = {:,} development cases, {:.1%} of them regenerated, maximum absolute deviation "
         "{:.2e} on `observed_sine_amplitude` and {:.2e} days on `observed_sine_phase`.".format(
-            summary["n_cases"], summary["regeneration_coverage"],
+            summary["n_cases"],
+            summary["regeneration_coverage"],
             summary["regeneration_checks"]["max_abs_deviation_observed_sine_amplitude"],
-            summary["regeneration_checks"]["max_abs_deviation_observed_sine_phase_days"],
+            summary["regeneration_checks"][
+                "max_abs_deviation_observed_sine_phase_days"
+            ],
         )
     )
     lines.append("")
@@ -1484,42 +1838,70 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "Phase error is the circular difference from the complete-year fit, in days; the study's own phase "
         "tolerance is {:.4f} days ({:.4f} of the phase's interannual sd of {:.3f} days). A phase drawn at "
         "random from the year has an expected absolute error of {:.1f} days.".format(
-            phase["tolerance_days"], TOLERANCE_FRACTION, phase["interannual_sd_days"],
+            phase["tolerance_days"],
+            TOLERANCE_FRACTION,
+            phase["interannual_sd_days"],
             summary["random_phase_error_days_expected"],
         )
     )
     lines.append("")
     lines.append("Protocol `repaired` (the manuscript's Table 3 row):")
     lines.append("")
-    lines.append("| fitted amplitude / residual sd | n | share | median abs phase error (d) | q90 (d) | noise-implied 95% half-width (d) | median error / implied | consequential rate |")
+    lines.append(
+        "| fitted amplitude / residual sd | n | share | median abs phase error (d) | q90 (d) | noise-implied 95% half-width (d) | median error / implied | consequential rate |"
+    )
     lines.append("| --- | --- | --- | --- | --- | --- | --- | --- |")
     for row in repaired.itertuples(index=False):
-        upper = "inf" if row.amplitude_to_noise_high is None or (
-            isinstance(row.amplitude_to_noise_high, float) and not np.isfinite(row.amplitude_to_noise_high)
-        ) else "{:.1f}".format(row.amplitude_to_noise_high)
+        upper = (
+            "inf"
+            if row.amplitude_to_noise_high is None
+            or (
+                isinstance(row.amplitude_to_noise_high, float)
+                and not np.isfinite(row.amplitude_to_noise_high)
+            )
+            else "{:.1f}".format(row.amplitude_to_noise_high)
+        )
         lines.append(
             "| [{:.1f}, {}) | {:,} | {:.1%} | {:.1f} | {:.1f} | {:.2f} | {:.2f} | {:.3f} |".format(
-                row.amplitude_to_noise_low, upper, row.n, row.share_of_cases,
-                row.median_abs_phase_error_days, row.q90_abs_phase_error_days,
+                row.amplitude_to_noise_low,
+                upper,
+                row.n,
+                row.share_of_cases,
+                row.median_abs_phase_error_days,
+                row.q90_abs_phase_error_days,
                 row.median_noise_implied_95pct_half_width_days,
-                row.median_observed_over_implied_error, row.consequential_rate,
+                row.median_observed_over_implied_error,
+                row.consequential_rate,
             )
         )
     lines.append("")
     lines.append("Protocol `observed_days_only` (Johnson et al.'s own protocol):")
     lines.append("")
-    lines.append("| fitted amplitude / residual sd | n | share | median abs phase error (d) | q90 (d) | noise-implied 95% half-width (d) | median error / implied | consequential rate |")
+    lines.append(
+        "| fitted amplitude / residual sd | n | share | median abs phase error (d) | q90 (d) | noise-implied 95% half-width (d) | median error / implied | consequential rate |"
+    )
     lines.append("| --- | --- | --- | --- | --- | --- | --- | --- |")
     for row in observed.itertuples(index=False):
-        upper = "inf" if row.amplitude_to_noise_high is None or (
-            isinstance(row.amplitude_to_noise_high, float) and not np.isfinite(row.amplitude_to_noise_high)
-        ) else "{:.1f}".format(row.amplitude_to_noise_high)
+        upper = (
+            "inf"
+            if row.amplitude_to_noise_high is None
+            or (
+                isinstance(row.amplitude_to_noise_high, float)
+                and not np.isfinite(row.amplitude_to_noise_high)
+            )
+            else "{:.1f}".format(row.amplitude_to_noise_high)
+        )
         lines.append(
             "| [{:.1f}, {}) | {:,} | {:.1%} | {:.1f} | {:.1f} | {:.2f} | {:.2f} | {:.3f} |".format(
-                row.amplitude_to_noise_low, upper, row.n, row.share_of_cases,
-                row.median_abs_phase_error_days, row.q90_abs_phase_error_days,
+                row.amplitude_to_noise_low,
+                upper,
+                row.n,
+                row.share_of_cases,
+                row.median_abs_phase_error_days,
+                row.q90_abs_phase_error_days,
                 row.median_noise_implied_95pct_half_width_days,
-                row.median_observed_over_implied_error, row.consequential_rate,
+                row.median_observed_over_implied_error,
+                row.consequential_rate,
             )
         )
     lines.append("")
@@ -1533,26 +1915,41 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "interval ($\\pm 2\\,\\mathrm{{se}}$) to be no wider than the study's own phase tolerance "
         "$\\tau$ gives $A/\\sigma \\ge 2\\sqrt{{2/n}}/\\tau$. With the median $n$ = {:,} observed days and "
         "$\\tau$ = {:.4f} rad ({:.4f} days) this is $k^\\ast$ = {:.2f}.".format(
-            int(rule["n_observed_days_median"]), rule["tau_radians"], phase["tolerance_days"], rule["k_theory"],
+            int(rule["n_observed_days_median"]),
+            rule["tau_radians"],
+            phase["tolerance_days"],
+            rule["k_theory"],
         )
     )
     lines.append("")
     lines.append(
         "Rounded to the nearest half, the applied rule is **report phase when $A/\\sigma \\ge {:.1f}$, "
-        "suppress below**. The sweep shows the consequence of moving that line:".format(k)
+        "suppress below**. The sweep shows the consequence of moving that line:".format(
+            k
+        )
     )
     lines.append("")
-    lines.append("| k (A/sigma) | retained cases | share retained | consequential rate retained | consequential rate suppressed | share of all consequential errors suppressed |")
+    lines.append(
+        "| k (A/sigma) | retained cases | share retained | consequential rate retained | consequential rate suppressed | share of all consequential errors suppressed |"
+    )
     lines.append("| --- | --- | --- | --- | --- | --- |")
     for row in repaired_sweep.itertuples(index=False):
-        if abs(float(row.k_amplitude_over_noise) - round(float(row.k_amplitude_over_noise))) > 1e-9 and abs(
-            float(row.k_amplitude_over_noise) - k
-        ) > 1e-9:
+        if (
+            abs(
+                float(row.k_amplitude_over_noise)
+                - round(float(row.k_amplitude_over_noise))
+            )
+            > 1e-9
+            and abs(float(row.k_amplitude_over_noise) - k) > 1e-9
+        ):
             continue
         lines.append(
             "| {:.2f} | {:,} | {:.1%} | {:.3f} | {:.3f} | {:.1%} |".format(
-                row.k_amplitude_over_noise, row.n_retained, row.share_retained,
-                row.consequential_rate_retained, row.consequential_rate_suppressed,
+                row.k_amplitude_over_noise,
+                row.n_retained,
+                row.share_retained,
+                row.consequential_rate_retained,
+                row.consequential_rate_suppressed,
                 row.share_of_all_phase_errors_suppressed,
             )
         )
@@ -1567,8 +1964,12 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
     for row in summary["threshold_cuts"]:
         lines.append(
             "| {} | {:.1f} | {:,} | {:.3%} | {:.1f} | {:.3f} | {:.1%} |".format(
-                row["protocol"], row["amplitude_to_noise_cut"], row["n_below"], row["share_below"],
-                row["median_abs_phase_error_days_below"], row["consequential_rate_below"],
+                row["protocol"],
+                row["amplitude_to_noise_cut"],
+                row["n_below"],
+                row["share_below"],
+                row["median_abs_phase_error_days_below"],
+                row["consequential_rate_below"],
                 row["share_of_all_consequential_errors_below"],
             )
         )
@@ -1580,7 +1981,8 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
             "* `{}`: Spearman rho between log(A/sigma) and the absolute phase error is {:+.4f}; between the "
             "fitted amplitude itself and the error, {:+.4f}; between the *true* seasonal amplitude and the "
             "error, {:+.4f}.".format(
-                row["protocol"], row["spearman_log_ratio_vs_abs_phase_error"],
+                row["protocol"],
+                row["spearman_log_ratio_vs_abs_phase_error"],
                 row["spearman_fitted_amplitude_vs_abs_phase_error"],
                 row["spearman_truth_amplitude_vs_abs_phase_error"],
             )
@@ -1596,12 +1998,24 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "{:.2f} days in [8.0, inf) - which is why the overall Spearman correlation between log(A/sigma) and "
         "the error is slightly *positive* rather than negative. Two readings are consistent with that, and "
         "they have different consequences:".format(
-            float(low_bin["median_abs_phase_error_days"].iloc[0]) if len(low_bin) else float("nan"),
-            float(mid_bin["median_abs_phase_error_days"].iloc[0]) if len(mid_bin) else float("nan"),
-            float(low_bin["consequential_rate"].iloc[0]) if len(low_bin) else float("nan"),
-            float(mid_bin["consequential_rate"].iloc[0]) if len(mid_bin) else float("nan"),
-            float(mid_bin["median_abs_phase_error_days"].iloc[0]) if len(mid_bin) else float("nan"),
-            float(top_bin["median_abs_phase_error_days"].iloc[0]) if len(top_bin) else float("nan"),
+            float(low_bin["median_abs_phase_error_days"].iloc[0])
+            if len(low_bin)
+            else float("nan"),
+            float(mid_bin["median_abs_phase_error_days"].iloc[0])
+            if len(mid_bin)
+            else float("nan"),
+            float(low_bin["consequential_rate"].iloc[0])
+            if len(low_bin)
+            else float("nan"),
+            float(mid_bin["consequential_rate"].iloc[0])
+            if len(mid_bin)
+            else float("nan"),
+            float(mid_bin["median_abs_phase_error_days"].iloc[0])
+            if len(mid_bin)
+            else float("nan"),
+            float(top_bin["median_abs_phase_error_days"].iloc[0])
+            if len(top_bin)
+            else float("nan"),
         )
     )
     lines.append("")
@@ -1610,14 +2024,26 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "while the observed q90 error is {:.1f} days - a factor {:.1f} - against a factor of {:.1f} in the "
         "[4.0, 5.0) bin, where the fit is closest to the sampling-theory prediction. If the rule were read "
         "as a claim that above the floor the phase error is pure sampling noise, the top bin rejects it.".format(
-            float(top_bin["median_noise_implied_95pct_half_width_days"].iloc[0]) if len(top_bin) else float("nan"),
-            float(top_bin["q90_abs_phase_error_days"].iloc[0]) if len(top_bin) else float("nan"),
-            float(top_bin["q90_abs_phase_error_days"].iloc[0]) / max(
-                1e-9, float(top_bin["median_noise_implied_95pct_half_width_days"].iloc[0])
-            ) if len(top_bin) else float("nan"),
-            float(mid_bin["q90_abs_phase_error_days"].iloc[0]) / max(
-                1e-9, float(mid_bin["median_noise_implied_95pct_half_width_days"].iloc[0])
-            ) if len(mid_bin) else float("nan"),
+            float(top_bin["median_noise_implied_95pct_half_width_days"].iloc[0])
+            if len(top_bin)
+            else float("nan"),
+            float(top_bin["q90_abs_phase_error_days"].iloc[0])
+            if len(top_bin)
+            else float("nan"),
+            float(top_bin["q90_abs_phase_error_days"].iloc[0])
+            / max(
+                1e-9,
+                float(top_bin["median_noise_implied_95pct_half_width_days"].iloc[0]),
+            )
+            if len(top_bin)
+            else float("nan"),
+            float(mid_bin["q90_abs_phase_error_days"].iloc[0])
+            / max(
+                1e-9,
+                float(mid_bin["median_noise_implied_95pct_half_width_days"].iloc[0]),
+            )
+            if len(mid_bin)
+            else float("nan"),
         )
     )
     lines.append(
@@ -1636,8 +2062,10 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "* an **identifiability floor** at $A/\\sigma \\ge 1$ (or 1.5) removes the cases whose phase is drawn "
         "from noise - {:,} cases ({:.2%}) under the observed-days protocol, with a {:.1%} consequential rate "
         "- and costs {:.2%} of the repaired sample;".format(
-            observed_cut[1.0]["n_below"], observed_cut[1.0]["share_below"],
-            observed_cut[1.0]["consequential_rate_below"], repaired_cut[1.5]["share_below"],
+            observed_cut[1.0]["n_below"],
+            observed_cut[1.0]["share_below"],
+            observed_cut[1.0]["consequential_rate_below"],
+            repaired_cut[1.5]["share_below"],
         )
     )
     lines.append(
@@ -1645,9 +2073,25 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "additionally guarantees the phase's 95% interval fits inside this study's own tolerance, at the cost "
         "of {:.1%} of the repaired sample with no improvement in the consequential-error rate "
         "({:.3f} retained against {:.3f} suppressed, i.e. the discarded cases were not the erroneous ones).".format(
-            k, 1 - float(repaired_sweep.loc[repaired_sweep["k_amplitude_over_noise"].eq(k), "share_retained"].iloc[0]),
-            float(repaired_sweep.loc[repaired_sweep["k_amplitude_over_noise"].eq(k), "consequential_rate_retained"].iloc[0]),
-            float(repaired_sweep.loc[repaired_sweep["k_amplitude_over_noise"].eq(k), "consequential_rate_suppressed"].iloc[0]),
+            k,
+            1
+            - float(
+                repaired_sweep.loc[
+                    repaired_sweep["k_amplitude_over_noise"].eq(k), "share_retained"
+                ].iloc[0]
+            ),
+            float(
+                repaired_sweep.loc[
+                    repaired_sweep["k_amplitude_over_noise"].eq(k),
+                    "consequential_rate_retained",
+                ].iloc[0]
+            ),
+            float(
+                repaired_sweep.loc[
+                    repaired_sweep["k_amplitude_over_noise"].eq(k),
+                    "consequential_rate_suppressed",
+                ].iloc[0]
+            ),
         )
     )
     lines.append("")
@@ -1666,9 +2110,20 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         lines.append(
             "| {} | {:,} | {:.4f} | {:.4f} | {:.4f} | {:.4f} | {:.4f} | {:.4f} | "
             "{:+.4f} ({:+.4f}, {:+.4f}) | {:+.4f} ({:+.4f}, {:+.4f}) |".format(
-                name, row["n"], row["base_rate"], row["auc_peak_overlap"], row["auc_transition_overlap"],
-                row["auc_missing_fraction"], row["auc_longest_run"], row["auc_influence_hidden"],
-                ci["point"], ci["low"], ci["high"], ci_len["point"], ci_len["low"], ci_len["high"],
+                name,
+                row["n"],
+                row["base_rate"],
+                row["auc_peak_overlap"],
+                row["auc_transition_overlap"],
+                row["auc_missing_fraction"],
+                row["auc_longest_run"],
+                row["auc_influence_hidden"],
+                ci["point"],
+                ci["low"],
+                ci["high"],
+                ci_len["point"],
+                ci_len["low"],
+                ci_len["high"],
             )
         )
     lines.append("")
@@ -1684,7 +2139,9 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
     lines.append("")
     lines.append("## Verdict")
     lines.append("")
-    ident = summary["effect_on_the_reported_phase_comparison"]["identifiable_only"]["summary"]
+    ident = summary["effect_on_the_reported_phase_comparison"]["identifiable_only"][
+        "summary"
+    ]
     allc = summary["effect_on_the_reported_phase_comparison"]["all_cases"]["summary"]
     lines.append(
         "The requirement is supported. The nuance that matters for how it is written up is that the "
@@ -1698,7 +2155,8 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "amplitude below the residual sd; their median absolute phase error is {:.1f} days against {:.1f} "
         "days expected from a phase drawn at random, and {:.1%} of them are consequential errors. Those "
         "cases carry no phase information and are currently scored.".format(
-            observed_cut[1.0]["n_below"], observed_cut[1.0]["share_below"],
+            observed_cut[1.0]["n_below"],
+            observed_cut[1.0]["share_below"],
             observed_cut[1.0]["median_abs_phase_error_days_below"],
             summary["random_phase_error_days_expected"],
             observed_cut[1.0]["consequential_rate_below"],
@@ -1708,16 +2166,22 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         "* Under the repaired protocol the defect is latent rather than active: repair restores the "
         "seasonal cycle, so only {:,} of {:,} cases ({:.4%}) fall below A/sigma = 1 and {:,} ({:.2%}) "
         "below 1.5. The rule is still required, but it is not what rescues the repaired phase result.".format(
-            repaired_cut[1.0]["n_below"], allc["n"], repaired_cut[1.0]["share_below"],
-            repaired_cut[1.5]["n_below"], repaired_cut[1.5]["share_below"],
+            repaired_cut[1.0]["n_below"],
+            allc["n"],
+            repaired_cut[1.0]["share_below"],
+            repaired_cut[1.5]["n_below"],
+            repaired_cut[1.5]["share_below"],
         )
     )
     lines.append(
         "* Applying the derived rule at k = {:.1f} removes {:.1%} of the repaired cases (n = {:,} retained) and "
         "leaves the axis conclusion unchanged: influence-weighted beats the whole-year missing fraction by "
         "{:+.4f} and outage length by {:+.4f}, both intervals excluding zero.".format(
-            k, 1 - ident["n"] / allc["n"], ident["n"],
-            ident["auc_influence_minus_missing_fraction"], ident["auc_influence_minus_longest_run"],
+            k,
+            1 - ident["n"] / allc["n"],
+            ident["n"],
+            ident["auc_influence_minus_missing_fraction"],
+            ident["auc_influence_minus_longest_run"],
         )
     )
     lines.append("")
@@ -1731,7 +2195,9 @@ def write_sine_report(binned: pd.DataFrame, sweep: pd.DataFrame, summary: dict) 
         )
     )
     lines.append("")
-    (OUT_WINTER / "report_section_b.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (OUT_WINTER / "report_section_b.md").write_text(
+        "\n".join(lines) + "\n", encoding="utf-8"
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -1765,7 +2231,9 @@ MIN_VALID_DAYS_PER_YEAR = 330
 def _read_rdb(text: str) -> pd.DataFrame:
     """Parse a USGS RDB table (comment lines, header, format line, data)."""
 
-    lines = [line for line in text.splitlines() if line.strip() and not line.startswith("#")]
+    lines = [
+        line for line in text.splitlines() if line.strip() and not line.startswith("#")
+    ]
     if len(lines) < 2:
         return pd.DataFrame()
     header = lines[0].split("\t")
@@ -1774,20 +2242,27 @@ def _read_rdb(text: str) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=header)
 
 
-def _fetch_text(url: str, cache_path: Path, *, refresh: bool = False, pause: float = 0.35) -> tuple[str, str]:
-    """Download once, cache on disk, and return (text, sha256)."""
+def _fetch_text(
+    url: str, cache_path: Path, *, refresh: bool = False, pause: float = 0.35
+) -> str:
+    """Download once, cache on disk, and return the text."""
 
     if cache_path.exists() and not refresh:
-        text = cache_path.read_text(encoding="utf-8", errors="replace")
-        return text, _sha256(cache_path)
-    request = urllib.request.Request(url, headers={"User-Agent": NWIS_USER_AGENT, "Accept": "text/plain"})
+        return cache_path.read_text(encoding="utf-8", errors="replace")
+    request = urllib.request.Request(
+        url, headers={"User-Agent": NWIS_USER_AGENT, "Accept": "text/plain"}
+    )
     last_error: Exception | None = None
     for attempt in range(4):
         try:
             with urllib.request.urlopen(request, timeout=120) as response:
                 text = response.read().decode("utf-8", errors="replace")
             break
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:  # pragma: no cover
+        except (
+            urllib.error.URLError,
+            urllib.error.HTTPError,
+            TimeoutError,
+        ) as error:  # pragma: no cover
             last_error = error
             time.sleep(2.0 * (attempt + 1))
     else:  # pragma: no cover
@@ -1795,7 +2270,7 @@ def _fetch_text(url: str, cache_path: Path, *, refresh: bool = False, pause: flo
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(text, encoding="utf-8")
     time.sleep(pause)
-    return text, _sha256(cache_path)
+    return text
 
 
 def confirmation_station_ids() -> list[str]:
@@ -1825,11 +2300,12 @@ def verify_daily_max_availability(stations: list[str], cache_dir: Path) -> pd.Da
                 }
             )
         )
-        text, digest = _fetch_text(url, cache_dir / f"series_catalog_{start:03d}.rdb", pause=0.4)
+        text = _fetch_text(
+            url, cache_dir / f"series_catalog_{start:03d}.rdb", pause=0.4
+        )
         table = _read_rdb(text)
         if table.empty:
             continue
-        table["_catalog_sha256"] = digest
         rows.append(table)
     if not rows:
         return pd.DataFrame()
@@ -1845,7 +2321,6 @@ def verify_daily_max_availability(stations: list[str], cache_dir: Path) -> pd.Da
             "end_date",
             "count_nu",
             "access_cd",
-            "_catalog_sha256",
         )
         if column in catalog.columns
     ]
@@ -1877,9 +2352,13 @@ def download_daily_values(
             )
         )
         cache_path = cache_dir / f"{station}_{stat_cd}.rdb"
-        text, digest = _fetch_text(url, cache_path, refresh=refresh)
+        text = _fetch_text(url, cache_path, refresh=refresh)
         table = _read_rdb(text)
-        value_columns = [column for column in table.columns if column.endswith(f"_{stat_cd}")] if not table.empty else []
+        value_columns = (
+            [column for column in table.columns if column.endswith(f"_{stat_cd}")]
+            if not table.empty
+            else []
+        )
         n_values = 0
         if value_columns:
             value_column = value_columns[0]
@@ -1888,8 +2367,12 @@ def download_daily_values(
                 {
                     "site_id": table["site_no"].astype(str),
                     "date": pd.to_datetime(table["datetime"], errors="coerce"),
-                    "temperature_c": pd.to_numeric(table[value_column], errors="coerce"),
-                    "qualifier": table[code_column].astype(str) if code_column in table.columns else "",
+                    "temperature_c": pd.to_numeric(
+                        table[value_column], errors="coerce"
+                    ),
+                    "qualifier": table[code_column].astype(str)
+                    if code_column in table.columns
+                    else "",
                 }
             )
             frame = frame.dropna(subset=["date"])
@@ -1903,13 +2386,15 @@ def download_daily_values(
                 "url": url,
                 "cache_path": str(cache_path.relative_to(ROOT)),
                 "bytes": int(cache_path.stat().st_size),
-                "sha256": digest,
                 "n_rows": int(len(table)),
                 "n_numeric_values": n_values,
             }
         )
         if index % 20 == 0:
-            print(f"  [dadmax] stat {stat_cd}: {index}/{len(stations)} stations", flush=True)
+            print(
+                f"  [dadmax] stat {stat_cd}: {index}/{len(stations)} stations",
+                flush=True,
+            )
     long = (
         pd.concat(frames, ignore_index=True)
         if frames
@@ -1951,8 +2436,12 @@ def station_year_statistics(values: pd.Series, *, window: int = 7) -> pd.DataFra
                 "year": int(year),
                 "n_valid_days": int(series.notna().sum()),
                 "coverage": float(series.notna().sum() / n_days_in_year),
-                "hottest_window_mean": float(rolling.max()) if rolling.notna().any() else float("nan"),
-                "peak_day": series.index[int(np.nanargmax(rolling.to_numpy(dtype=float)))]
+                "hottest_window_mean": float(rolling.max())
+                if rolling.notna().any()
+                else float("nan"),
+                "peak_day": series.index[
+                    int(np.nanargmax(rolling.to_numpy(dtype=float)))
+                ]
                 if rolling.notna().any()
                 else pd.NaT,
                 "single_day_max": float(series.max()),
@@ -1961,7 +2450,9 @@ def station_year_statistics(values: pd.Series, *, window: int = 7) -> pd.DataFra
     return pd.DataFrame(rows)
 
 
-def _annual_stats_by_station(clean: pd.DataFrame, renames: dict[str, str]) -> pd.DataFrame:
+def _annual_stats_by_station(
+    clean: pd.DataFrame, renames: dict[str, str]
+) -> pd.DataFrame:
     rows = []
     if clean.empty:
         return pd.DataFrame()
@@ -1986,7 +2477,12 @@ def cross_check_against_ingest(mean_clean: pd.DataFrame) -> dict:
             continue
         wide = pd.read_csv(path, parse_dates=["date"])
         stations = [column for column in wide.columns if column != "date"]
-        melted = wide.melt(id_vars="date", value_vars=stations, var_name="site_id", value_name="panel_mean")
+        melted = wide.melt(
+            id_vars="date",
+            value_vars=stations,
+            var_name="site_id",
+            value_name="panel_mean",
+        )
         frames.append(melted.dropna(subset=["panel_mean"]))
     if not frames:
         return {"available": False}
@@ -2033,20 +2529,28 @@ def run_dadmax(workers: int) -> int:
             "n_stations_in_catalog": int(catalog["site_no"].nunique()),
             "n_stations_with_daily_max_00001": int(max_rows["site_no"].nunique()),
             "n_stations_with_daily_mean_00003": int(mean_rows["site_no"].nunique()),
-            "n_stations_with_max_but_no_mean": sorted(set(max_rows["site_no"]) - set(mean_rows["site_no"])),
-            "n_stations_with_mean_but_no_max": sorted(set(mean_rows["site_no"]) - set(max_rows["site_no"])),
-            "stations_missing_from_catalog": sorted(set(stations) - set(catalog["site_no"])),
-            "catalog_sha256": sorted(
-                {str(value) for value in catalog.get("_catalog_sha256", []) if isinstance(value, str)}
+            "n_stations_with_max_but_no_mean": sorted(
+                set(max_rows["site_no"]) - set(mean_rows["site_no"])
+            ),
+            "n_stations_with_mean_but_no_max": sorted(
+                set(mean_rows["site_no"]) - set(max_rows["site_no"])
+            ),
+            "stations_missing_from_catalog": sorted(
+                set(stations) - set(catalog["site_no"])
             ),
         }
     else:  # pragma: no cover
-        availability = {"n_stations_requested": int(len(stations)), "catalog_empty": True}
+        availability = {
+            "n_stations_requested": int(len(stations)),
+            "catalog_empty": True,
+        }
     _write_json(OUT_REG / "daily_max_availability_summary.json", availability)
 
     max_long, max_manifest = download_daily_values(stations, "00001", cache_dir)
     mean_long, mean_manifest = download_daily_values(stations, "00003", cache_dir)
-    pd.DataFrame(max_manifest + mean_manifest).to_csv(OUT_REG / "raw_cache_manifest.csv", index=False)
+    pd.DataFrame(max_manifest + mean_manifest).to_csv(
+        OUT_REG / "raw_cache_manifest.csv", index=False
+    )
     max_long.to_parquet(OUT_REG / "daily_max_long_raw.parquet", index=False)
     mean_long.to_parquet(OUT_REG / "daily_mean_long_raw.parquet", index=False)
 
@@ -2085,17 +2589,31 @@ def run_dadmax(workers: int) -> int:
     # The sealed panel's station-years, read for context only (never re-scored).
     sealed_years: set[tuple[str, int]] = set()
     sealed_path = (
-        ROOT / "results" / "wrr_submission_ready" / "p0_07_sealed_confirmation" / "sealed_cases.parquet"
+        ROOT
+        / "results"
+        / "wrr_submission_ready"
+        / "p0_07_sealed_confirmation"
+        / "sealed_cases.parquet"
     )
     if sealed_path.exists():
         sealed = pd.read_parquet(sealed_path, columns=["station_id", "year"])
-        sealed_years = {(str(site), int(year)) for site, year in zip(sealed["station_id"], sealed["year"])}
+        sealed_years = {
+            (str(site), int(year))
+            for site, year in zip(sealed["station_id"], sealed["year"])
+        }
 
-    paired = max_stats.merge(mean_stats, on=["site_id", "year"], how="inner", suffixes=("", "_mean"))
-    paired["difference_dadmax_minus_hottest7_mean"] = paired["dadmax7"] - paired["hottest7_mean"]
-    paired["peak_window_shift_days"] = (paired["dadmax_peak_day"] - paired["hottest7_peak_day"]).dt.days
+    paired = max_stats.merge(
+        mean_stats, on=["site_id", "year"], how="inner", suffixes=("", "_mean")
+    )
+    paired["difference_dadmax_minus_hottest7_mean"] = (
+        paired["dadmax7"] - paired["hottest7_mean"]
+    )
+    paired["peak_window_shift_days"] = (
+        paired["dadmax_peak_day"] - paired["hottest7_peak_day"]
+    ).dt.days
     paired["in_sealed_panel"] = [
-        (str(site), int(year)) in sealed_years for site, year in zip(paired["site_id"], paired["year"])
+        (str(site), int(year)) in sealed_years
+        for site, year in zip(paired["site_id"], paired["year"])
     ]
     paired["max_below_mean"] = paired["difference_dadmax_minus_hottest7_mean"] < 0
     paired.to_parquet(OUT_REG / "station_year_pairs.parquet", index=False)
@@ -2132,7 +2650,9 @@ def run_dadmax(workers: int) -> int:
                 "class_change_rate": float((exceeds_mean != exceeds_max).mean()),
                 "base_rate_dadmax": float(exceeds_max.mean()),
                 "base_rate_hottest7_mean": float(exceeds_mean.mean()),
-                "cohen_kappa": float((agreement - expected) / (1 - expected)) if expected < 1 else float("nan"),
+                "cohen_kappa": float((agreement - expected) / (1 - expected))
+                if expected < 1
+                else float("nan"),
                 "share_of_true_exceedances_missed": float(
                     (~exceeds_mean & exceeds_max).sum() / max(1, exceeds_max.sum())
                 ),
@@ -2148,14 +2668,20 @@ def run_dadmax(workers: int) -> int:
                 "in_manuscript_grid": threshold in DADMAX_THRESHOLDS_C,
             }
         )
-    threshold_table = pd.DataFrame(threshold_rows).sort_values("threshold_c").reset_index(drop=True)
+    threshold_table = (
+        pd.DataFrame(threshold_rows).sort_values("threshold_c").reset_index(drop=True)
+    )
     threshold_table["equal_count_implied_shift_c"] = (
         threshold_table["equal_count_threshold_c"] - threshold_table["threshold_c"]
     )
     threshold_table.to_csv(OUT_REG / "threshold_class_change.csv", index=False)
 
-    differences = comparison["difference_dadmax_minus_hottest7_mean"].to_numpy(dtype=float)
-    valid = comparison.dropna(subset=["hottest7_mean", "difference_dadmax_minus_hottest7_mean"])
+    differences = comparison["difference_dadmax_minus_hottest7_mean"].to_numpy(
+        dtype=float
+    )
+    valid = comparison.dropna(
+        subset=["hottest7_mean", "difference_dadmax_minus_hottest7_mean"]
+    )
     slope, intercept = np.polyfit(
         valid["hottest7_mean"].to_numpy(dtype=float),
         valid["difference_dadmax_minus_hottest7_mean"].to_numpy(dtype=float),
@@ -2168,7 +2694,9 @@ def run_dadmax(workers: int) -> int:
         "n_stations_analysis": int(comparison["site_id"].nunique()),
         "year_min": int(comparison["year"].min()),
         "year_max": int(comparison["year"].max()),
-        "n_station_years_also_in_sealed_panel": int(comparison["in_sealed_panel"].sum()),
+        "n_station_years_also_in_sealed_panel": int(
+            comparison["in_sealed_panel"].sum()
+        ),
         "min_valid_days_per_year_rule": MIN_VALID_DAYS_PER_YEAR,
         "difference_c": {
             "mean": float(np.nanmean(differences)),
@@ -2186,17 +2714,27 @@ def run_dadmax(workers: int) -> int:
         },
         "difference_c_fully_complete_subset": {
             "n": int(len(complete_both)),
-            "mean": float(complete_both["difference_dadmax_minus_hottest7_mean"].mean()),
-            "median": float(complete_both["difference_dadmax_minus_hottest7_mean"].median()),
-            "sd": float(complete_both["difference_dadmax_minus_hottest7_mean"].std(ddof=1)),
+            "mean": float(
+                complete_both["difference_dadmax_minus_hottest7_mean"].mean()
+            ),
+            "median": float(
+                complete_both["difference_dadmax_minus_hottest7_mean"].median()
+            ),
+            "sd": float(
+                complete_both["difference_dadmax_minus_hottest7_mean"].std(ddof=1)
+            ),
         },
         "peak_window_shift_days": {
             "median": float(comparison["peak_window_shift_days"].median()),
             "share_same_day": float((comparison["peak_window_shift_days"] == 0).mean()),
-            "share_abs_le_7": float((comparison["peak_window_shift_days"].abs() <= 7).mean()),
+            "share_abs_le_7": float(
+                (comparison["peak_window_shift_days"].abs() <= 7).mean()
+            ),
         },
         "sanity_max_below_mean_station_years": int(paired["max_below_mean"].sum()),
-        "sanity_max_below_mean_station_years_analysis_set": int(comparison["max_below_mean"].sum()),
+        "sanity_max_below_mean_station_years_analysis_set": int(
+            comparison["max_below_mean"].sum()
+        ),
         "difference_vs_level_regression": {
             "slope_c_per_c": float(slope),
             "intercept_c": float(intercept),
@@ -2228,8 +2766,12 @@ def run_dadmax(workers: int) -> int:
         "qc": "the repository's own confirmation QC (ingest_qc.qc_long_frame / clean_long_frame) applied to both statistics",
         "stations": {
             "requested": int(len(stations)),
-            "with_daily_max_after_qc": int(max_clean["site_id"].nunique()) if len(max_clean) else 0,
-            "with_daily_mean_after_qc": int(mean_clean["site_id"].nunique()) if len(mean_clean) else 0,
+            "with_daily_max_after_qc": int(max_clean["site_id"].nunique())
+            if len(max_clean)
+            else 0,
+            "with_daily_mean_after_qc": int(mean_clean["site_id"].nunique())
+            if len(mean_clean)
+            else 0,
         },
         "availability": availability,
         "download_matches_sealed_panel_mean_files": ingest_check,
@@ -2244,7 +2786,10 @@ def run_dadmax(workers: int) -> int:
             "artifact": "results/v17_fitness/step22_robustness/threshold_sweep.csv",
             "note": "the 16/18/20 C grid is the manuscript's own",
             "step22_grid": sorted(
-                float(value) for value in pd.read_csv(STEP22 / "threshold_sweep.csv")["threshold_c"].unique()
+                float(value)
+                for value in pd.read_csv(STEP22 / "threshold_sweep.csv")[
+                    "threshold_c"
+                ].unique()
             ),
         },
     }
@@ -2255,9 +2800,13 @@ def run_dadmax(workers: int) -> int:
     return 0
 
 
-def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: dict) -> None:
+def write_dadmax_report(
+    threshold_table: pd.DataFrame, pooled: dict, summary: dict
+) -> None:
     diff = pooled["difference_c"]
-    grid = threshold_table.loc[threshold_table["in_manuscript_grid"]].sort_values("threshold_c")
+    grid = threshold_table.loc[threshold_table["in_manuscript_grid"]].sort_values(
+        "threshold_c"
+    )
     grid_changes = [float(value) for value in grid["class_change_rate"]]
     twenty = [
         float(row.class_change_rate)
@@ -2265,11 +2814,13 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         if row.threshold_c == 20.0
     ][0]
     lines: list[str] = []
-    lines.append("# F17 - the regulatory illustration uses daily means, but the criterion is 7-DADMax")
+    lines.append(
+        "# F17 - the regulatory illustration uses daily means, but the criterion is 7-DADMax"
+    )
     lines.append("")
     lines.append(
         "Artifacts: `dadmax_comparison.csv`, `threshold_class_change.csv`, `summary.json`, "
-        "`daily_max_availability.csv`, `raw_cache/` (hashes in `raw_cache_manifest.csv`). "
+        "`daily_max_availability.csv`, `raw_cache/` (listed in `raw_cache_manifest.csv`). "
         "Script: `scripts/251_wrr_winter_regulatory_endpoints.py dadmax`."
     )
     lines.append("")
@@ -2306,11 +2857,12 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
     )
     lines.append(
         "* after QC, {} stations contribute a daily-maximum series and {} a daily-mean series.".format(
-            summary["stations"]["with_daily_max_after_qc"], summary["stations"]["with_daily_mean_after_qc"]
+            summary["stations"]["with_daily_max_after_qc"],
+            summary["stations"]["with_daily_mean_after_qc"],
         )
     )
     lines.append(
-        "* raw responses and hashes: {files} files, {bytes:,} bytes, in `raw_cache/`.".format(
+        "* raw responses: {files} files, {bytes:,} bytes, in `raw_cache/`.".format(
             **summary["raw_cache"]
         )
     )
@@ -2322,7 +2874,9 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
             "files. Across {:,} common station-days at {} stations the maximum absolute difference is "
             "{:.1f} C and {:.1%} of the values are exactly equal, so the daily-maximum series fetched from "
             "the same service in the same way is the same vintage and treatment as the panel.".format(
-                check["n_common_rows"], check["n_stations_checked"], check["max_abs_difference_c"],
+                check["n_common_rows"],
+                check["n_stations_checked"],
+                check["max_abs_difference_c"],
                 check["share_exactly_equal"],
             )
         )
@@ -2347,7 +2901,9 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         )
     )
     lines.append("")
-    lines.append("Distribution of `7-DADMax - hottest-7 daily mean` over the same station-years:")
+    lines.append(
+        "Distribution of `7-DADMax - hottest-7 daily mean` over the same station-years:"
+    )
     lines.append("")
     lines.append("| statistic | value (C) |")
     lines.append("| --- | --- |")
@@ -2363,9 +2919,17 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         ("maximum", "max"),
     ):
         lines.append("| {} | {:+.3f} |".format(label, diff[key]))
-    lines.append("| share where 7-DADMax > hottest-7 mean | {:.1%} |".format(diff["share_positive"]))
+    lines.append(
+        "| share where 7-DADMax > hottest-7 mean | {:.1%} |".format(
+            diff["share_positive"]
+        )
+    )
     lines.append("| share exactly equal | {:.1%} |".format(diff["share_zero"]))
-    lines.append("| share where 7-DADMax < hottest-7 mean | {:.2%} |".format(diff["share_negative"]))
+    lines.append(
+        "| share where 7-DADMax < hottest-7 mean | {:.2%} |".format(
+            diff["share_negative"]
+        )
+    )
     lines.append("")
     regression = pooled["difference_vs_level_regression"]
     lines.append(
@@ -2375,7 +2939,9 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         "window, and it means the daily-mean surrogate never manufactures a false exceedance - it only "
         "misses real ones.".format(
             pooled["n_station_years_analysis"],
-            diff["share_positive"], diff["share_zero"], diff["share_negative"],
+            diff["share_positive"],
+            diff["share_zero"],
+            diff["share_negative"],
         )
     )
     lines.append("")
@@ -2385,7 +2951,10 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         "{:+.3f} C per C with Pearson r = {:+.3f}, against a mean difference of {:+.2f} C and a standard "
         "deviation of {:.2f} C. That distinction matters for how the finding is closed out, so it is "
         "spelled out rather than asserted:".format(
-            regression["slope_c_per_c"], regression["pearson_r"], diff["mean"], diff["sd"]
+            regression["slope_c_per_c"],
+            regression["pearson_r"],
+            diff["mean"],
+            diff["sd"],
         )
     )
     lines.append("")
@@ -2432,8 +3001,8 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
     lines.append("")
     lines.append(
         "The 16/18/20 C grid is the manuscript's own (`step22_robustness/threshold_sweep.csv`). "
-        "\"mean only\" means the daily-mean statistic calls an exceedance that the 7-DADMax does not; "
-        "\"7-DADMax only\" is the reverse."
+        '"mean only" means the daily-mean statistic calls an exceedance that the 7-DADMax does not; '
+        '"7-DADMax only" is the reverse.'
     )
     lines.append("")
     lines.append(
@@ -2446,22 +3015,35 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         lines.append(
             "| {:.0f} | {:,} | {:,} | {:,} | **{:,}** ({:.2%}) | **{:,}** | {:,} | {:.2%} | {:.3f} | "
             "{:.2f} |".format(
-                row.threshold_c, row.n, row.n_exceed_dadmax, row.n_exceed_hottest7_mean,
-                row.n_mean_only + row.n_dadmax_only, row.class_change_rate, row.n_dadmax_only,
-                row.n_mean_only, row.share_of_true_exceedances_missed, row.cohen_kappa,
+                row.threshold_c,
+                row.n,
+                row.n_exceed_dadmax,
+                row.n_exceed_hottest7_mean,
+                row.n_mean_only + row.n_dadmax_only,
+                row.class_change_rate,
+                row.n_dadmax_only,
+                row.n_mean_only,
+                row.share_of_true_exceedances_missed,
+                row.cohen_kappa,
                 row.equal_count_threshold_c,
             )
         )
     lines.append("")
     lines.append("The same over the whole swept grid:")
     lines.append("")
-    lines.append("| threshold (C) | exceed: 7-DADMax | exceed: hottest-7 mean | class-change rate | mean only | 7-DADMax only |")
+    lines.append(
+        "| threshold (C) | exceed: 7-DADMax | exceed: hottest-7 mean | class-change rate | mean only | 7-DADMax only |"
+    )
     lines.append("| --- | --- | --- | --- | --- | --- |")
     for row in threshold_table.itertuples(index=False):
         lines.append(
             "| {:.0f} | {:,} | {:,} | {:.2%} | {:,} | {:,} |".format(
-                row.threshold_c, row.n_exceed_dadmax, row.n_exceed_hottest7_mean,
-                row.class_change_rate, row.n_mean_only, row.n_dadmax_only,
+                row.threshold_c,
+                row.n_exceed_dadmax,
+                row.n_exceed_hottest7_mean,
+                row.class_change_rate,
+                row.n_mean_only,
+                row.n_dadmax_only,
             )
         )
     lines.append("")
@@ -2490,18 +3072,25 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         "could match the *counts* - the table gives the matching threshold at each grid value - but it "
         "cannot match the *decisions* (the offset has an sd of {:.2f} C), and a criterion is not a free "
         "parameter. The illustration must be recomputed on the 7-DADMax or relabelled.".format(
-            diff["median"], diff["mean"], diff["q05"], diff["q95"],
+            diff["median"],
+            diff["mean"],
+            diff["q05"],
+            diff["q95"],
             int(grid.iloc[0]["n_mean_only"] + grid.iloc[0]["n_dadmax_only"]),
             int(grid.iloc[1]["n_mean_only"] + grid.iloc[1]["n_dadmax_only"]),
             int(grid.iloc[2]["n_mean_only"] + grid.iloc[2]["n_dadmax_only"]),
-            grid_changes[0], grid_changes[1], grid_changes[2],
+            grid_changes[0],
+            grid_changes[1],
+            grid_changes[2],
             pooled["difference_vs_level_regression"]["slope_c_per_c"],
             pooled["difference_vs_level_regression"]["pearson_r"],
             diff["sd"],
         )
     )
     lines.append("")
-    lines.append("**Corrected statement.** Replace the illustration with one of two claims:")
+    lines.append(
+        "**Corrected statement.** Replace the illustration with one of two claims:"
+    )
     lines.append("")
     lines.append(
         "1. *Preferred, and now computable.* Where an archive is screening a WAC-style criterion, the "
@@ -2518,8 +3107,11 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         "{:+.2f} C), that at 20 C it misses {:,} of {:,} exceedances ({:.1%}) while creating none, and "
         "that the manuscript's misclassification numbers are therefore not compliance numbers for WAC "
         "173-201A-200.".format(
-            diff["median"], diff["q05"], diff["q95"],
-            int(grid.iloc[2]["n_dadmax_only"]), int(grid.iloc[2]["n_exceed_dadmax"]),
+            diff["median"],
+            diff["q05"],
+            diff["q95"],
+            int(grid.iloc[2]["n_dadmax_only"]),
+            int(grid.iloc[2]["n_exceed_dadmax"]),
             float(grid.iloc[2]["share_of_true_exceedances_missed"]),
         )
     )

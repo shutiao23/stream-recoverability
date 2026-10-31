@@ -1,12 +1,10 @@
 {
-  "corpus_plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
   "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_6",
   "n_networks_selected": 67,
   "performance_metrics_computed": false,
   "previous_root_state": {
     "bytes": 1632,
-    "path": "root_run_history/run_0007.json",
-    "sha256": "f97386b6ccf449115c792bdfeee342a465713e91fef52361d4aa245e77138d7e"
+    "path": "root_run_history/run_0007.json"
   },
   "sealed_temperature_records_read": false,
   "selected_network_ids": [
@@ -78,7 +76,6 @@
     "huc8_11030012",
     "huc8_11130206"
   ],
-  "selected_plan_sha256": "4732dbd85557dac2c0672bbe62f217af1e1cd6ad999fd1860458460119941803",
   "started_at_utc": "2026-08-26T23:19:15.395148+00:00",
   "status": "in_progress",
   "v1_ogc_root_read_or_mutated": false

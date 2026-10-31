@@ -1,7 +1,7 @@
 # Step 4 decision — demote undeployed support-location uncertainty
 
 **Date:** 2026-10-14  
-**Locked science baseline:** `53c88cc`  
+**Locked science baseline:** the 2026-10-14 review state in `PROPOSITION_TABLE.md`  
 **Decision:** **Demote** support-width / support-location uncertainty from claimed method innovation.
 
 ## Why (evidence-aligned)

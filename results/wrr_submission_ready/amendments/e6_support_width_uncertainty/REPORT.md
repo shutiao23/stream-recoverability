@@ -319,16 +319,13 @@ Not supportable: an exact crossover day; any claim that the crossover is a prope
   },
   "inputs": {
     "endpoint_cases": {
-      "path": "results/v18_closure/endpoint_cases.parquet",
-      "sha256": "b5112ef8e548f15de6b9774df3349f17ada132f281fe74ad9f5125a6c323428f"
+      "path": "results/v18_closure/endpoint_cases.parquet"
     },
     "cases_development": {
-      "path": "results/v17_fitness/step3_cases/cases.parquet",
-      "sha256": "845ca7f91ede1315d69683f85b5d6902ac04ecae93e2d94c59caec6db5c6e097"
+      "path": "results/v17_fitness/step3_cases/cases.parquet"
     },
     "cases_reserved_open": {
-      "path": "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
-      "sha256": "51b5771520fc599f7319f9b017e5e954c6bf7d4a4bd74d7ae146f526d5610730"
+      "path": "results/v17_fitness/step10_confirmation/reserved_cases.parquet"
     },
     "frozen_summary": "results/v18_closure/e6_support_width/summary.json"
   },

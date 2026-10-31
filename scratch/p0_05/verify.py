@@ -5,12 +5,11 @@ D = '/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_r
 pd.set_option('display.width', 300)
 pd.set_option('display.max_colwidth', 130)
 
-fp = json.load(open(D + 'protocol_fingerprint.json'))
-print('HEAD', fp['git']['commit'][:12], '| script sha', fp['script_sha256'][:16])
+fp = json.load(open(D + 'protocol_record.json'))
 print('config', {k: fp['config'][k] for k in ('outer_draws', 'outer_draws_by_panel', 'inner_draws', 'n_jobs', 'seed', 'leverage_draws')})
 print('inputs:')
 for item in fp['inputs']:
-    print('   ', item['path'], (item['sha256'] or 'MISSING')[:16], item['bytes'])
+    print('   ', item['path'], item['bytes'])
 print('self_check', fp['self_check'])
 print('timing', {k: round(v, 1) for k, v in fp['timing_seconds'].items()})
 print()

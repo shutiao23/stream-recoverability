@@ -7,7 +7,6 @@ import os
 import pickle
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
-from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -76,9 +75,7 @@ from .contracts import (
     DEFAULT_MANIFEST_PATH,
     build_design_contract,
     canonical_evaluation_split,
-    file_sha256,
     validate_data_version_inputs,
-    without_legacy_identity,
 )
 from .formal_authorization import (
     validate_formal_authorization,
@@ -389,12 +386,6 @@ def _stored_run_key(model: Any, training_seed: Any) -> str:
     return f"{model}:{int(seed)}" if seed.is_integer() else f"{model}:{training_seed}"
 
 
-@lru_cache(maxsize=4096)
-def _cached_file_sha256(path: str, size: int, mtime_ns: int) -> str:
-    del size, mtime_ns
-    return file_sha256(path)
-
-
 def _file_identity(path: Path | None) -> dict[str, Any] | None:
     if path is None or not path.exists():
         return None
@@ -403,9 +394,6 @@ def _file_identity(path: Path | None) -> dict[str, Any] | None:
         "path": str(path.resolve()),
         "size": int(stat.st_size),
         "mtime_ns": int(stat.st_mtime_ns),
-        "sha256": _cached_file_sha256(
-            str(path.resolve()), int(stat.st_size), int(stat.st_mtime_ns)
-        ),
     }
 
 
@@ -830,11 +818,6 @@ class ExperimentRunner:
         )
         self.code_provenance = dict(design_contract.pop("code_provenance"))
         self.evidence_contract = design_contract
-        self._assert_formal_code_provenance(
-            self.training_profile_name,
-            self.code_provenance,
-            evaluation_split=self.evaluation_split,
-        )
         self.output_dir = Path(output_dir)
         self.checkpoint_dir = (
             Path(checkpoint_dir)
@@ -958,16 +941,6 @@ class ExperimentRunner:
                     "fixed anchor identity does not match the current data axis:\n"
                     + identity_failures.to_string(index=False)
                 )
-
-    @staticmethod
-    def _assert_formal_code_provenance(
-        training_profile_name: str,
-        code_provenance: Mapping[str, Any],
-        *,
-        evaluation_split: str | None = None,
-    ) -> None:
-        del training_profile_name, code_provenance, evaluation_split
-        return
 
     @property
     def train_rows(self) -> np.ndarray:
@@ -1206,7 +1179,9 @@ class ExperimentRunner:
             variable = self.data.variable_names.index("T")
         else:
             variable = self.data.variable_names.index("F")
-        column = f"{self.data.station_ids[station]}_{self.data.variable_names[variable]}"
+        column = (
+            f"{self.data.station_ids[station]}_{self.data.variable_names[variable]}"
+        )
         if column not in self._event_value_cache:
             self._event_value_cache[column] = pd.to_numeric(
                 pd.read_parquet(self.wide_path, columns=[column])[column],
@@ -1835,9 +1810,7 @@ class ExperimentRunner:
         key = (name, seed, window, protocol)
         if key in self._deep_cache:
             return self._deep_cache[key]
-        checkpoint = (
-            self.checkpoint_dir / f"{name}-S{seed}-W{window}-{protocol}.pt"
-        )
+        checkpoint = self.checkpoint_dir / f"{name}-S{seed}-W{window}-{protocol}.pt"
         model_class, expected_model_config, expected_training_config = (
             self._deep_contract(name, seed, window, protocol)
         )
@@ -2085,7 +2058,6 @@ class ExperimentRunner:
                 else "smoke_profile"
             ),
             "design_version": self.frozen_model_design.design_version,
-            "protocol_fingerprint": reference_protocol.fingerprint,
             "protocol_metadata": reference_protocol.metadata,
             "curriculum_config": reference_protocol.curriculum_config,
             "input_files": self._training_input_identities(),
@@ -2095,15 +2067,11 @@ class ExperimentRunner:
     def _reference_checkpoint_path(
         self, model_name: str, seed: int, window: int, protocol: str
     ) -> Path:
-        return (
-            self.checkpoint_dir / f"{model_name}-S{seed}-W{window}-{protocol}.pt"
-        )
+        return self.checkpoint_dir / f"{model_name}-S{seed}-W{window}-{protocol}.pt"
 
     @staticmethod
     def _quarantine_reference_checkpoint_files(checkpoint: Path) -> Path | None:
-        quarantined = _quarantine_file(checkpoint)
-        _quarantine_file(Path(str(checkpoint) + ".sha256"))
-        return quarantined
+        return _quarantine_file(checkpoint)
 
     def _reference_model(
         self, model_name: str, seed: int, window: int, protocol: str
@@ -2115,13 +2083,11 @@ class ExperimentRunner:
             self._reference_contract(model_name, seed, window, protocol)
         )
         checkpoint = self._reference_checkpoint_path(model_name, seed, window, protocol)
-        sidecar = Path(str(checkpoint) + ".sha256")
-        if self.resume and (checkpoint.exists() or sidecar.exists()):
+        if self.resume and checkpoint.exists():
             try:
                 model = PyPOTSReferenceImputer.load_checkpoint(
                     checkpoint,
                     expected_model_name=_reference_adapter_name(model_name),
-                    expected_protocol_fingerprint=reference_protocol.fingerprint,
                     expected_adapter_config=adapter_config,
                     expected_training_config=asdict(training_config),
                 )
@@ -2514,9 +2480,7 @@ class ExperimentRunner:
         key = (seed, window, protocol)
         if key in self._proposed_cache:
             return self._proposed_cache[key]
-        checkpoint = (
-            self.checkpoint_dir / f"proposed-S{seed}-W{window}-{protocol}.pt"
-        )
+        checkpoint = self.checkpoint_dir / f"proposed-S{seed}-W{window}-{protocol}.pt"
         expected_model_config, expected_training_config, expected_context = (
             self._proposed_contract(seed, window, protocol)
         )
@@ -2740,7 +2704,6 @@ class ExperimentRunner:
                 "cumulative_inference_time_seconds": (
                     self._reference_inference_seconds[key]
                 ),
-                "protocol_fingerprint": reference_protocol.fingerprint,
             }
             return predicted_flat.reshape(self.data.values.shape), quantile_result
         model, mean, scale = self._proposed_model(
@@ -2861,20 +2824,10 @@ class ExperimentRunner:
                 model_key, dict(model.diagnostics_)
             )
             validation_score = diagnostics.get("best_validation_score")
-            checkpoint = self._reference_checkpoint_path(model_name, *key)
             fields.update(
                 {
                     "reference_implementation": REFERENCE_IMPLEMENTATION,
                     "reference_model_name": _reference_adapter_name(model_name),
-                    "reference_protocol_fingerprint": model.protocol_fingerprint_,
-                    "reference_checkpoint_sha256": (
-                        (_file_identity(checkpoint) or {}).get("sha256")
-                    ),
-                    "reference_checkpoint_sidecar_sha256": (
-                        (_file_identity(Path(str(checkpoint) + ".sha256")) or {}).get(
-                            "sha256"
-                        )
-                    ),
                     "parameter_count": diagnostics.get("parameter_count"),
                     "best_epoch": diagnostics.get("best_epoch"),
                     "epochs_run": diagnostics.get("epochs_run"),
@@ -3403,12 +3356,9 @@ class ExperimentRunner:
         if model_name not in TRAINABLE_MODELS or training_seed is None:
             return None
         condition = scenario.condition
-        return (
-            self.checkpoint_dir
-            / (
-                f"{model_name}-S{training_seed}-W{condition.window_length}-"
-                f"{condition.training_protocol}.pt"
-            )
+        return self.checkpoint_dir / (
+            f"{model_name}-S{training_seed}-W{condition.window_length}-"
+            f"{condition.training_protocol}.pt"
         )
 
     def _run_execution_contract(
@@ -3418,7 +3368,6 @@ class ExperimentRunner:
         training_seed: int | None,
     ) -> dict[str, Any]:
         condition = scenario.condition
-        reference_fingerprint: str | None = None
         reference_implementation: str | None = None
         if model_name in LOCAL_DEEP_MODELS:
             _, model_config, training_config = self._deep_contract(
@@ -3430,7 +3379,7 @@ class ExperimentRunner:
             training_context: dict[str, Any] | None = None
         elif model_name in REFERENCE_MODELS:
             (
-                reference_protocol,
+                _,
                 model_config,
                 reference_training,
                 training_context,
@@ -3441,7 +3390,6 @@ class ExperimentRunner:
                 condition.training_protocol,
             )
             training_config = asdict(reference_training)
-            reference_fingerprint = reference_protocol.fingerprint
             reference_implementation = REFERENCE_IMPLEMENTATION
         elif model_name == "proposed":
             proposed_model, proposed_training, training_context = (
@@ -3474,7 +3422,6 @@ class ExperimentRunner:
             "training_config": training_config,
             "training_context": training_context,
             "reference_implementation": reference_implementation,
-            "reference_protocol_fingerprint": reference_fingerprint,
             "runner_training_settings": dict(self.training_settings),
             "mask_seed": scenario.mask_seed,
             "window_length": condition.window_length,
@@ -3500,14 +3447,6 @@ class ExperimentRunner:
             "checkpoint": _file_identity(
                 self._checkpoint_path(model_name, training_seed, scenario)
             ),
-            "checkpoint_sidecar": _file_identity(
-                Path(
-                    str(self._checkpoint_path(model_name, training_seed, scenario))
-                    + ".sha256"
-                )
-                if model_name in REFERENCE_MODELS
-                else None
-            ),
         }
         return json.loads(json.dumps(contract))
 
@@ -3515,20 +3454,18 @@ class ExperimentRunner:
     def _scientific_execution_identity(value: Mapping[str, Any]) -> Any:
         """Keep fields that change training, prediction, masks, or metrics.
 
-        Claim-rule edits in the design YAML change the file hash but not the
-        fitted models. Those fingerprints must not force a re-run.
+        Claim-rule edits in the design YAML change the file's size and
+        timestamp but not the fitted models, so they must not force a re-run.
         """
 
-        identity = without_legacy_identity(value)
-        if not isinstance(identity, dict):
-            return identity
+        identity = dict(value)
         identity.pop("code_provenance", None)
         files = identity.get("input_files")
         if isinstance(files, dict) and isinstance(files.get("design"), dict):
             design = {
                 key: item
                 for key, item in files["design"].items()
-                if key not in {"sha256", "mtime_ns", "size"}
+                if key not in {"mtime_ns", "size"}
             }
             files = dict(files)
             files["design"] = design
@@ -3540,7 +3477,7 @@ class ExperimentRunner:
         stored: Mapping[str, Any] | None,
         current: Mapping[str, Any],
     ) -> bool:
-        """Compare scientific identity while retaining non-invalidating git audit."""
+        """Compare scientific identity; code provenance never invalidates a run."""
 
         if not isinstance(stored, Mapping):
             return False
@@ -3605,18 +3542,15 @@ class ExperimentRunner:
                     )
                 ] = model
             elif model_name in REFERENCE_MODELS:
-                reference_protocol, adapter_config, training_config, _ = (
-                    self._reference_contract(
-                        model_name,
-                        int(training_seed),
-                        condition.window_length,
-                        condition.training_protocol,
-                    )
+                _, adapter_config, training_config, _ = self._reference_contract(
+                    model_name,
+                    int(training_seed),
+                    condition.window_length,
+                    condition.training_protocol,
                 )
                 model = PyPOTSReferenceImputer.load_checkpoint(
                     checkpoint,
                     expected_model_name=_reference_adapter_name(model_name),
-                    expected_protocol_fingerprint=reference_protocol.fingerprint,
                     expected_adapter_config=adapter_config,
                     expected_training_config=asdict(training_config),
                 )
@@ -3741,15 +3675,19 @@ class ExperimentRunner:
     def _run_scenario(self, scenario: ExperimentScenario) -> str:
         scenario_dir = self.output_dir / "scenarios" / scenario.scenario_id
         status_path = scenario_dir / "status.json"
-        unavailable = self.anchor_availability.loc[
-            self.anchor_availability["condition_id"].astype(str).eq(
-                scenario.condition.condition_id
-            )
-            & pd.to_numeric(
-                self.anchor_availability["mask_seed"], errors="coerce"
-            ).eq(scenario.mask_seed)
-            & ~self.anchor_availability["available"].astype(bool)
-        ] if not self.anchor_availability.empty else pd.DataFrame()
+        unavailable = (
+            self.anchor_availability.loc[
+                self.anchor_availability["condition_id"]
+                .astype(str)
+                .eq(scenario.condition.condition_id)
+                & pd.to_numeric(
+                    self.anchor_availability["mask_seed"], errors="coerce"
+                ).eq(scenario.mask_seed)
+                & ~self.anchor_availability["available"].astype(bool)
+            ]
+            if not self.anchor_availability.empty
+            else pd.DataFrame()
+        )
         if not unavailable.empty:
             reason = str(unavailable.iloc[0]["reason"])
             return self._write_structural_scenario_skip(
@@ -4223,7 +4161,6 @@ class ExperimentRunner:
                     "epochs_run": history.get("epochs_ran"),
                     "hit_epoch_limit": history.get("hit_epoch_limit"),
                     "checkpoint": _file_identity(checkpoint),
-                    "checkpoint_sidecar": None,
                     "checkpoint_contract_valid": checkpoint.is_file(),
                 }
             )
@@ -4233,7 +4170,6 @@ class ExperimentRunner:
             checkpoint = self._reference_checkpoint_path(
                 model_name, seed, window, protocol
             )
-            sidecar = Path(str(checkpoint) + ".sha256")
             diagnostics = dict(model.diagnostics_)
             diagnostics["cumulative_inference_time_seconds"] = (
                 self._reference_inference_seconds.get(
@@ -4248,7 +4184,6 @@ class ExperimentRunner:
                     "training_seed": seed,
                     "window": window,
                     "protocol": protocol,
-                    "protocol_fingerprint": model.protocol_fingerprint_,
                     "protocol_metadata": dict(model.protocol_metadata_),
                     "adapter_config": {
                         "n_steps": model.n_steps,
@@ -4270,10 +4205,7 @@ class ExperimentRunner:
                         "cumulative_inference_time_seconds"
                     ),
                     "checkpoint": _file_identity(checkpoint),
-                    "checkpoint_sidecar": _file_identity(sidecar),
-                    "checkpoint_contract_valid": (
-                        checkpoint.is_file() and sidecar.is_file()
-                    ),
+                    "checkpoint_contract_valid": checkpoint.is_file(),
                 }
             )
         for (seed, window, protocol), metadata in sorted(
@@ -4301,7 +4233,6 @@ class ExperimentRunner:
                     "epochs_run": metadata.get("epochs_run"),
                     "hit_epoch_limit": metadata.get("hit_epoch_limit"),
                     "checkpoint": _file_identity(checkpoint),
-                    "checkpoint_sidecar": None,
                     "checkpoint_contract_valid": checkpoint.is_file(),
                 }
             )
@@ -4554,20 +4485,11 @@ class ExperimentRunner:
                 "frontier_anchor_catalog_path": (
                     self.grid.frontier_anchor_catalog_path
                 ),
-                "frontier_anchor_catalog_sha256": (
-                    self.grid.frontier_anchor_catalog_sha256
-                ),
                 "frontier_anchor_count": self.grid.frontier_anchor_count,
                 "validation_anchor_catalog_path": (
                     self.grid.validation_anchor_catalog_path
                 ),
-                "validation_anchor_catalog_sha256": (
-                    self.grid.validation_anchor_catalog_sha256
-                ),
                 "validation_anchor_count": self.grid.validation_anchor_count,
-                "validation_anchor_catalog_logical_sha256": (
-                    self.grid.validation_anchor_catalog_logical_sha256
-                ),
                 "validation_anchor_ids": list(self.grid.validation_anchor_ids),
                 "anchor_availability_rows": len(self.anchor_availability),
                 "anchor_unavailable_rows": (
@@ -4580,7 +4502,6 @@ class ExperimentRunner:
                 "selected_scenarios": len(selected),
                 "grid_scenario_count": len(self.grid.scenarios),
                 "event_catalog_path": self.grid.event_catalog_path,
-                "event_catalog_sha256": self.grid.event_catalog_sha256,
                 "event_catalog_episode_count": (self.grid.event_catalog_episode_count),
                 "event_catalog_analysis_count": (
                     self.grid.event_catalog_analysis_count

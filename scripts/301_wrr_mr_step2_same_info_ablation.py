@@ -45,7 +45,9 @@ OUT = (
     / "major_revision_20261014"
     / "step2_same_info_ablation"
 )
-PROTOCOL = ROOT / "docs" / "reviews" / "wrr_major_revision_20261014" / "STEP2_PROTOCOL.md"
+PROTOCOL = (
+    ROOT / "docs" / "reviews" / "wrr_major_revision_20261014" / "STEP2_PROTOCOL.md"
+)
 
 RETENTION = 0.70
 RISK_CAP = 0.05
@@ -131,7 +133,9 @@ def _fit_predict_risk(
     return model.predict(X_test)
 
 
-def oof_risk_scores(cases: pd.DataFrame, features: tuple[str, ...], *, seed: int) -> pd.Series:
+def oof_risk_scores(
+    cases: pd.DataFrame, features: tuple[str, ...], *, seed: int
+) -> pd.Series:
     networks = sorted(cases["network_id"].astype(str).unique())
     rng = np.random.default_rng(int(seed))
     order = rng.permutation(len(networks))
@@ -157,17 +161,23 @@ def rule_scores(cases: pd.DataFrame, *, seed: int) -> dict[str, pd.Series]:
     rng = np.random.default_rng(int(seed))
 
     def jitter(values: pd.Series, scale: float) -> pd.Series:
-        return pd.to_numeric(values, errors="coerce") + rng.random(len(values)) * float(scale)
+        return pd.to_numeric(values, errors="coerce") + rng.random(len(values)) * float(
+            scale
+        )
 
     return {
         "length_rule": jitter(cases["longest_run"], 1.0),
-        "warm_coverage_rule": jitter(-pd.to_numeric(cases["warm_observed_fraction"], errors="coerce"), 1e-3),
+        "warm_coverage_rule": jitter(
+            -pd.to_numeric(cases["warm_observed_fraction"], errors="coerce"), 1e-3
+        ),
         "peak_overlap_rule": jitter(cases["peak_overlap"], 1e-3),
         "estimator_disagreement_rule": jitter(cases["estimator_disagreement"], 1e-3),
     }
 
 
-def retention_at_risk_cap(score: pd.Series, errors: pd.Series, *, risk_cap: float = RISK_CAP) -> dict:
+def retention_at_risk_cap(
+    score: pd.Series, errors: pd.Series, *, risk_cap: float = RISK_CAP
+) -> dict:
     values = pd.to_numeric(score, errors="coerce").to_numpy(dtype=float)
     err = pd.to_numeric(errors, errors="coerce").to_numpy(dtype=float)
     good = np.isfinite(err)
@@ -179,13 +189,21 @@ def retention_at_risk_cap(score: pd.Series, errors: pd.Series, *, risk_cap: floa
         k = max(1, int(round(float(retention) * len(err))))
         rate = float((err[order[:k]] > PRIMARY_TOLERANCE_C).mean())
         if rate <= risk_cap:
-            best = {"retention": float(retention), "rate_above_0.5": rate, "n_retained": int(k)}
+            best = {
+                "retention": float(retention),
+                "rate_above_0.5": rate,
+                "n_retained": int(k),
+            }
     # Also try denser grid near the optimum for a slightly sharper retention.
     for retention in np.round(np.arange(0.05, 1.001, 0.01), 3):
         k = max(1, int(round(float(retention) * len(err))))
         rate = float((err[order[:k]] > PRIMARY_TOLERANCE_C).mean())
         if rate <= risk_cap and float(retention) >= best["retention"]:
-            best = {"retention": float(retention), "rate_above_0.5": rate, "n_retained": int(k)}
+            best = {
+                "retention": float(retention),
+                "rate_above_0.5": rate,
+                "n_retained": int(k),
+            }
     return best
 
 
@@ -251,8 +269,12 @@ def learning_curve_row(
     )
     errors = pd.to_numeric(reserved["abserr_policy"], errors="coerce")
     row = operating_rows(f"n_train_nets={n_used}", score, errors, "learning_curve")
-    row["feature_set"] = "generic_plus_support" if features == SUPPORT else (
-        "generic" if features == GENERIC else "generic_plus_support_plus_peakmargin"
+    row["feature_set"] = (
+        "generic_plus_support"
+        if features == SUPPORT
+        else (
+            "generic" if features == GENERIC else "generic_plus_support_plus_peakmargin"
+        )
     )
     row["n_train_networks"] = n_used
     return row
@@ -274,7 +296,11 @@ def main() -> int:
     op_rows = []
     frontier_pieces = []
     for name, score in scores.items():
-        kind = "rule" if name.endswith("_rule") or name == "estimator_disagreement_rule" else "model"
+        kind = (
+            "rule"
+            if name.endswith("_rule") or name == "estimator_disagreement_rule"
+            else "model"
+        )
         op_rows.append(operating_rows(name, score, errors_dev, kind))
         fr = frontier_for_score(score, errors_dev)
         fr["screen"] = name
@@ -347,7 +373,9 @@ def main() -> int:
             "ci_high_pp": float(stat["high"]) * 100,
             "n_clusters": stat["n_clusters"],
             "panel": "development_oof",
-            "predeclared_success_plus5pp": bool(stat["point"] >= 0.05 and stat["low"] > 0),
+            "predeclared_success_plus5pp": bool(
+                stat["point"] >= 0.05 and stat["low"] > 0
+            ),
         }
 
     # Learning curves on reserved (retrospective label).
@@ -378,9 +406,11 @@ def main() -> int:
         reserved_ops.append(operating_rows(label, score, errors_res, "model_reserved"))
     for name, score in rule_scores(reserved, seed=SEED).items():
         reserved_ops.append(operating_rows(name, score, errors_res, "rule_reserved"))
-    pd.DataFrame(reserved_ops).to_csv(OUT / "operating_points_reserved.csv", index=False)
+    pd.DataFrame(reserved_ops).to_csv(
+        OUT / "operating_points_reserved.csv", index=False
+    )
 
-    fingerprint = {
+    protocol_record = {
         "protocol": str(PROTOCOL.relative_to(ROOT)),
         "seed": SEED,
         "n_splits": N_SPLITS,
@@ -399,8 +429,12 @@ def main() -> int:
             "warm_observed_fraction + month harmonics used in generic budget."
         ),
     }
-    (OUT / "protocol_fingerprint.json").write_text(json.dumps(fingerprint, indent=2) + "\n")
-    (OUT / "contrasts_network_ci.json").write_text(json.dumps(contrasts, indent=2) + "\n")
+    (OUT / "protocol_parameters.json").write_text(
+        json.dumps(protocol_record, indent=2) + "\n"
+    )
+    (OUT / "contrasts_network_ci.json").write_text(
+        json.dumps(contrasts, indent=2) + "\n"
+    )
 
     # Human summary
     lines = [

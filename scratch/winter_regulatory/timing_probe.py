@@ -6,7 +6,7 @@ import numpy as np, pandas as pd
 from stream_recoverability.experiments.v17_fitness.panel import load_network_panel, station_jobs, station_roster
 from stream_recoverability.experiments.v17_fitness.cases import station_geometry_pool
 from stream_recoverability.experiments.v17_fitness.paths import (
-    REALIZATIONS_PER_STATION_YEAR, stable_seed, STEP3_CASES, STEP1_PANEL,
+    REALIZATIONS_PER_STATION_YEAR, station_year_seed, STEP3_CASES, STEP1_PANEL,
 )
 from stream_recoverability.experiments.v17_fitness.outages import (
     climatological_peak_window, design_for_year, peak_overlap_fraction,
@@ -33,7 +33,7 @@ for job in jobs[:5]:
         if not np.isfinite(truth).all() or len(truth) < 360:
             continue
         peak_doys = climatological_peak_window(target.loc[target.index.year != int(year)], exclude_year=None)
-        rng = np.random.default_rng(stable_seed(net, st, int(year), "leave_one_year_out"))
+        rng = np.random.default_rng(station_year_seed(net, st, daily.columns, int(year), "leave_one_year_out"))
         reals = design_for_year(yi, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3))
         for r in reals:
             m = r.mask(len(yi))

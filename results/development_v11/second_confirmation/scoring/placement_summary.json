@@ -16,11 +16,6 @@
   "simple_minimax_mean_regret": 0.24082499531267318,
   "random_mean_regret": 0.2562125454181433,
   "simple_minimax_improvement_over_random": 0.015387550105470132,
-  "input_bindings": {
-    "placement_losses_sha256": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
-    "frozen_roster_sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
-    "authorization_amendment_sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035"
-  },
   "simple_minimax_relative_regret_reduction_vs_random": 0.060057754316274345,
   "directional_improvement_observed": true,
   "preregistered_margin_or_significance_threshold": false,

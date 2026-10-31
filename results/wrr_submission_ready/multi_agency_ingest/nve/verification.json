@@ -33,19 +33,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_002/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_002:sha256_matches_manifest",
-   "ok": true,
-   "detail": "6325057459012d02ea917b30ece5dbc30135a60fd8f4a1195bfb333156cec608"
-  },
-  {
    "check": "nve_basin_012:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_012/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_012:sha256_matches_manifest",
-   "ok": true,
-   "detail": "1b14c2dd7ab2851e9332b5d3bcd6f8ecf584cdb4f21d964eb469918c11bc4748"
   },
   {
    "check": "nve_basin_015:files_exist",
@@ -53,19 +43,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_015/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_015:sha256_matches_manifest",
-   "ok": true,
-   "detail": "4852f402b076a55f2a80ea446ca81c4894db45ed28d2a4b412044d73eb4e0afb"
-  },
-  {
    "check": "nve_basin_021:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_021/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_021:sha256_matches_manifest",
-   "ok": true,
-   "detail": "16444ae3aa43406bc3c999870bfca0008a5546110b4c9ed8d4f6c7e04a4cbcf5"
   },
   {
    "check": "nve_basin_022:files_exist",
@@ -73,19 +53,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_022/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_022:sha256_matches_manifest",
-   "ok": true,
-   "detail": "a0ece66eb97d03b66be5fd99ed8391ab6241a60da2453444eb4860459dc92283"
-  },
-  {
    "check": "nve_basin_023:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_023/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_023:sha256_matches_manifest",
-   "ok": true,
-   "detail": "8056185185923a41eabed3722668157c54fb099f3961e005a2368954b34beb73"
   },
   {
    "check": "nve_basin_062:files_exist",
@@ -93,19 +63,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_062/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_062:sha256_matches_manifest",
-   "ok": true,
-   "detail": "5d415e0f45510c53c8d387f5d8d0fbff5f04e9253c44cfdf0f79065ecf502cf2"
-  },
-  {
    "check": "nve_basin_072:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_072/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_072:sha256_matches_manifest",
-   "ok": true,
-   "detail": "98b90e603c4ac0f7128276b28472ac67a81972ef3065b940ca239c624c7aaebb"
   },
   {
    "check": "nve_basin_073:files_exist",
@@ -113,19 +73,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_073/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_073:sha256_matches_manifest",
-   "ok": true,
-   "detail": "00bcec93cbc09ca6cb0392cdc6eec1a4e1cc1cdcd682fd12788b8ce3c95d6f6c"
-  },
-  {
    "check": "nve_basin_075:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_075/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_075:sha256_matches_manifest",
-   "ok": true,
-   "detail": "d48390bc2d048df9cb2604d487170fc5835eedb0b0c5130c6421d400c53a078f"
   },
   {
    "check": "nve_basin_083:files_exist",
@@ -133,19 +83,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_083/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_083:sha256_matches_manifest",
-   "ok": true,
-   "detail": "7263d3eb2722168fb49d093245f2b307e2376639bda54695742d363ed9523bee"
-  },
-  {
    "check": "nve_basin_087:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_087/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_087:sha256_matches_manifest",
-   "ok": true,
-   "detail": "c19adffb27981e107c1db8bfe81560619ca087f291ca2b53a916cafabc96b8c9"
   },
   {
    "check": "nve_basin_112:files_exist",
@@ -153,19 +93,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_112/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_112:sha256_matches_manifest",
-   "ok": true,
-   "detail": "135545f82eebb1a6053750032019be33bc808a9fcf4b3e92114b453956c88a7c"
-  },
-  {
    "check": "nve_basin_124:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_124/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_124:sha256_matches_manifest",
-   "ok": true,
-   "detail": "62ed843681aef7ce711dda688ade09d210ce4b082d818bd56692d40e79013cdf"
   },
   {
    "check": "nve_basin_139:files_exist",
@@ -173,19 +103,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_139/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_139:sha256_matches_manifest",
-   "ok": true,
-   "detail": "e06365f272bfc166ae2a313ee280b44b1b2e2e3433adeab5578e412a53993111"
-  },
-  {
    "check": "nve_basin_156:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_156/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_156:sha256_matches_manifest",
-   "ok": true,
-   "detail": "edce6d7611cc9b07cee946c4bbd37bd0adbc6fc6c462ad6235aca8305348f50e"
   },
   {
    "check": "nve_basin_163:files_exist",
@@ -193,19 +113,9 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_163/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_163:sha256_matches_manifest",
-   "ok": true,
-   "detail": "6a5178195d89f2c47184a32d93d8af29cc24f39b9f53f472610e624501164cd6"
-  },
-  {
    "check": "nve_basin_166:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_166/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_166:sha256_matches_manifest",
-   "ok": true,
-   "detail": "3baecd021fa023c0c1c4b8bfb7c9cf11fc5b96a60efe56f7ae4f27977b27d350"
   },
   {
    "check": "nve_basin_196:files_exist",
@@ -213,29 +123,14 @@
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_196/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_196:sha256_matches_manifest",
-   "ok": true,
-   "detail": "a99b30e66c92d3b2210540f923de1493a921cf79332ae014799ab746a3403ea6"
-  },
-  {
    "check": "nve_basin_212:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_212/daily_wide_temperature.csv"
   },
   {
-   "check": "nve_basin_212:sha256_matches_manifest",
-   "ok": true,
-   "detail": "5c0dce5e6cd0929bbb88774b52f347160ce35230bcd1f99f13faecdd83a58920"
-  },
-  {
    "check": "nve_basin_234:files_exist",
    "ok": true,
    "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_234/daily_wide_temperature.csv"
-  },
-  {
-   "check": "nve_basin_234:sha256_matches_manifest",
-   "ok": true,
-   "detail": "146b615702cdb386aff6f7071037a0674ec89c31dde7e15a3175f4ac8e8db133"
   },
   {
    "check": "nve_basin_002:no_empty_station_column",

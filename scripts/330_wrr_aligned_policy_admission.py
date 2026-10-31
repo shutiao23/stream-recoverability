@@ -43,15 +43,18 @@ from __future__ import annotations
 
 import os
 
-for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+for _var in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
     os.environ.setdefault(_var, "1")
 
 import argparse  # noqa: E402
-import hashlib  # noqa: E402
 import importlib.util  # noqa: E402
 import json  # noqa: E402
 import platform  # noqa: E402
-import subprocess  # noqa: E402
 import sys  # noqa: E402
 import time  # noqa: E402
 import warnings  # noqa: E402
@@ -74,13 +77,15 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     PRIMARY_TOLERANCE_C,
     STEP4_CEILING,
     STEP6_SCREEN,
-    stable_seed,
 )
+from stream_recoverability.seeds import plain_seed, position_index  # noqa: E402
 
 READY = ROOT / "results" / "wrr_submission_ready"
 RUN = READY / "major_revision_20261020"
 OUT = RUN / "p0_01_aligned_policy_admission"
 PREV = READY / "major_revision_20261019" / "p0_02_isolated_risk_thresholds"
+CACHE_DIR = ROOT / "scratch" / "p0_01_aligned"
+CACHE_VERSION = 5
 
 TOL_C = float(PRIMARY_TOLERANCE_C)
 RISK_CAP = 0.05
@@ -95,7 +100,10 @@ ALPHA = 0.05
 
 PANELS = {
     "wave2_confirmation": {
-        "cases": READY / "p0_07_wave2_ingest" / "p0_07_wave2_confirmation" / "wave2_cases.parquet",
+        "cases": READY
+        / "p0_07_wave2_ingest"
+        / "p0_07_wave2_confirmation"
+        / "wave2_cases.parquet",
         "certificates": READY
         / "p0_07_wave2_ingest"
         / "p0_07_wave2_confirmation"
@@ -118,9 +126,20 @@ PANELS = {
 #: Score name -> (raw column or construction, direction).  Every score is
 #: label-free at deployment: it is built from the decision-time features and the
 #: stored certificate bound, never from an evaluation label.
-MODEL_FREE_SCORES = ("length_rule", "peak_overlap_rule", "uncalibrated_bound", "calibrated_bound")
+MODEL_FREE_SCORES = (
+    "length_rule",
+    "peak_overlap_rule",
+    "uncalibrated_bound",
+    "calibrated_bound",
+)
 FITTED_SCORES = ("fitted_risk",)
-ALL_SCORES = ("fitted_risk", "peak_overlap_rule", "length_rule", "calibrated_bound", "uncalibrated_bound")
+ALL_SCORES = (
+    "fitted_risk",
+    "peak_overlap_rule",
+    "length_rule",
+    "calibrated_bound",
+    "uncalibrated_bound",
+)
 ARMS = ALL_SCORES + ("reconstruct_all",)
 
 SCORE_NOTES = {
@@ -132,28 +151,22 @@ SCORE_NOTES = {
     "reconstruct_all": "admit every candidate with a defined policy reconstruction",
 }
 
+#: Bootstrap seeds are ``plain_seed(tag, panel, fold seed, ...)``: the tag code
+#: below, then the panel, score and metric as their positions in sorted order.
+SEED_TAGS = {
+    "aligned-select": 1,
+    "aligned-eval": 2,
+    "aligned-fixed70": 3,
+    "aligned-contrast": 4,
+}
+PANEL_CODES = position_index(PANELS)
+SCORE_CODES = position_index(ARMS)
+METRIC_CODES = {"retention": 0, "false_admit": 1}
+
 
 # ---------------------------------------------------------------------------
 # utilities
 # ---------------------------------------------------------------------------
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def git_head() -> str:
-    try:
-        out = subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True
-        )
-        return out.stdout.strip()
-    except Exception:  # pragma: no cover - diagnostics only
-        return "unknown"
-
-
 def load_script_module(name: str, path: Path):
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
@@ -161,8 +174,12 @@ def load_script_module(name: str, path: Path):
     return module
 
 
-M301 = load_script_module("wrr301", ROOT / "scripts" / "301_wrr_mr_step2_same_info_ablation.py")
-M311 = load_script_module("wrr311", ROOT / "scripts" / "311_wrr_p0_02_frozen_risk_thresholds.py")
+M301 = load_script_module(
+    "wrr301", ROOT / "scripts" / "301_wrr_mr_step2_same_info_ablation.py"
+)
+M311 = load_script_module(
+    "wrr311", ROOT / "scripts" / "311_wrr_p0_02_frozen_risk_thresholds.py"
+)
 # 311 binds its feature-builder only when it is run as __main__; importing it
 # leaves M311.M301 = None.  Bind it explicitly so the imported construction is
 # the one 311 actually uses, rather than a re-implementation.
@@ -173,14 +190,24 @@ def case_key(cases: pd.DataFrame) -> np.ndarray:
     """A stable, deployment-available key for deterministic tie-breaks.
 
     Row order is not a property of a case.  ``(network, station, year,
-    realization)`` is, and an agency holds it before the decision is made.
+    realization)`` is, and an agency holds it before the decision is made.  The
+    key is the position of ``network|station|year|realization`` in sorted order.
     """
 
     columns = ["network_id", "station_id", "year", "realization_id"]
     parts = [cases[column].astype(str) for column in columns if column in cases.columns]
     text = parts[0].str.cat(parts[1:], sep="|")
-    hashed = pd.util.hash_pandas_object(text, index=False).to_numpy(dtype=np.uint64)
-    return hashed
+    return np.unique(text.to_numpy(dtype=str), return_inverse=True)[1].astype(np.int64)
+
+
+def crossfit_cache_stem(panel: str, fold_seed: int) -> str:
+    """Readable file stem of the cached nested cross-fit of the fitted score."""
+
+    return (
+        f"{panel}__seed{int(fold_seed)}__fitted_risk__abserr_policy__"
+        f"{len(M301.SUPPORT)}features__outer{N_SPLITS}_inner{N_INNER_SPLITS}__"
+        f"independence_group__v{CACHE_VERSION}"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -193,26 +220,42 @@ def policy_target(cases: pd.DataFrame, certs: pd.DataFrame) -> dict:
     value before it is used, so an alignment error cannot pass silently.
     """
 
-    policy_err = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(dtype=float)
+    policy_err = pd.to_numeric(cases["abserr_policy"], errors="coerce").to_numpy(
+        dtype=float
+    )
     choice = cases["policy_choice"].astype(str).to_numpy()
     pred = np.full(len(cases), np.nan)
-    for name in ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge", "air_ridge"):
+    for name in (
+        "doy_climatology",
+        "smooth_climatology",
+        "linear_interp",
+        "donor_ridge",
+        "air_ridge",
+    ):
         mask = choice == name
         column = f"hottest30_{name}"
         if not mask.any() or column not in cases.columns:
             continue
-        pred[mask] = pd.to_numeric(cases.loc[mask, column], errors="coerce").to_numpy(dtype=float)
-    truth = pd.to_numeric(cases["truth_hottest30"], errors="coerce").to_numpy(dtype=float)
+        pred[mask] = pd.to_numeric(cases.loc[mask, column], errors="coerce").to_numpy(
+            dtype=float
+        )
+    truth = pd.to_numeric(cases["truth_hottest30"], errors="coerce").to_numpy(
+        dtype=float
+    )
     recomputed = np.abs(pred - truth)
     finite = np.isfinite(policy_err) & np.isfinite(recomputed)
     if not np.allclose(policy_err[finite], recomputed[finite], atol=1e-6, rtol=0.0):
         worst = float(np.nanmax(np.abs(policy_err[finite] - recomputed[finite])))
-        raise RuntimeError(f"abserr_policy is not |hottest30_<policy_choice> - truth|: max {worst}")
+        raise RuntimeError(
+            f"abserr_policy is not |hottest30_<policy_choice> - truth|: max {worst}"
+        )
 
     missing = ~np.isfinite(policy_err)
     bad = missing | (policy_err > TOL_C)
 
-    cert_err = pd.to_numeric(certs["certificate_abs_error"], errors="coerce").to_numpy(dtype=float)
+    cert_err = pd.to_numeric(certs["certificate_abs_error"], errors="coerce").to_numpy(
+        dtype=float
+    )
     cert_bad = (~np.isfinite(cert_err)) | (cert_err > TOL_C)
     return {
         "error": policy_err,
@@ -239,8 +282,12 @@ def raw_scores(cases: pd.DataFrame, certs: pd.DataFrame) -> dict:
 
     length = pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy(dtype=float)
     peak = pd.to_numeric(cases["peak_overlap"], errors="coerce").to_numpy(dtype=float)
-    raw_bound = pd.to_numeric(certs["certificate_raw_bound"], errors="coerce").to_numpy(dtype=float)
-    cal_bound = pd.to_numeric(certs["certificate_bound"], errors="coerce").to_numpy(dtype=float)
+    raw_bound = pd.to_numeric(certs["certificate_raw_bound"], errors="coerce").to_numpy(
+        dtype=float
+    )
+    cal_bound = pd.to_numeric(certs["certificate_bound"], errors="coerce").to_numpy(
+        dtype=float
+    )
     raw_bound = np.where(np.isfinite(raw_bound), raw_bound, np.inf)
     cal_bound = np.where(np.isfinite(cal_bound), cal_bound, np.inf)
     return {
@@ -256,7 +303,9 @@ def raw_scores(cases: pd.DataFrame, certs: pd.DataFrame) -> dict:
 # ---------------------------------------------------------------------------
 def clustered_draw_counts(n_net: int, draws: int, seed: int) -> np.ndarray:
     rng = np.random.default_rng(int(seed))
-    return rng.multinomial(int(n_net), np.full(int(n_net), 1.0 / int(n_net)), size=int(draws))
+    return rng.multinomial(
+        int(n_net), np.full(int(n_net), 1.0 / int(n_net)), size=int(draws)
+    )
 
 
 def candidate_thresholds(score_cal: np.ndarray) -> np.ndarray:
@@ -305,18 +354,24 @@ def select_threshold(
     for column, threshold in enumerate(candidates):
         mask = score <= threshold
         admitted[:, column] = np.bincount(g[mask], minlength=n_units)
-        badmitted[:, column] = np.bincount(g[mask], weights=bad[mask], minlength=n_units)
+        badmitted[:, column] = np.bincount(
+            g[mask], weights=bad[mask], minlength=n_units
+        )
 
     weights = clustered_draw_counts(n_units, int(draws), seed).astype(float)
     draw_adm = weights @ admitted
     draw_bad = weights @ badmitted
     with np.errstate(invalid="ignore", divide="ignore"):
-        draw_rate = np.where(draw_adm > 0, draw_bad / np.maximum(draw_adm, 1e-12), np.nan)
+        draw_rate = np.where(
+            draw_adm > 0, draw_bad / np.maximum(draw_adm, 1e-12), np.nan
+        )
 
     n_candidates = int(candidates.size)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
-        upper_simultaneous = np.nanquantile(draw_rate, 1.0 - ALPHA / n_candidates, axis=0)
+        upper_simultaneous = np.nanquantile(
+            draw_rate, 1.0 - ALPHA / n_candidates, axis=0
+        )
         upper_pointwise = np.nanquantile(draw_rate, 1.0 - ALPHA, axis=0)
 
     from scipy.stats import beta as _beta
@@ -324,7 +379,9 @@ def select_threshold(
     admitted_point = admitted.sum(axis=0)
     bad_point = badmitted.sum(axis=0)
     with np.errstate(invalid="ignore", divide="ignore"):
-        rate_point = np.where(admitted_point > 0, bad_point / np.maximum(admitted_point, 1e-12), np.nan)
+        rate_point = np.where(
+            admitted_point > 0, bad_point / np.maximum(admitted_point, 1e-12), np.nan
+        )
     upper_binomial = np.where(
         bad_point >= admitted_point,
         1.0,
@@ -354,13 +411,21 @@ def select_threshold(
         "n_admissible_pointwise": int(ok_pointwise.size),
         "chosen_index": chosen,
         "threshold": float(candidates[chosen]) if chosen is not None else -float("inf"),
-        "retention_cal": float(admitted_point[chosen] / n) if chosen is not None else 0.0,
+        "retention_cal": float(admitted_point[chosen] / n)
+        if chosen is not None
+        else 0.0,
         "rate_cal": float(rate_point[chosen]) if chosen is not None else float("nan"),
-        "upper_cal": float(upper_simultaneous[chosen]) if chosen is not None else float("nan"),
+        "upper_cal": float(upper_simultaneous[chosen])
+        if chosen is not None
+        else float("nan"),
         "threshold_pointwise": (
-            float(candidates[chosen_pointwise]) if chosen_pointwise is not None else -float("inf")
+            float(candidates[chosen_pointwise])
+            if chosen_pointwise is not None
+            else -float("inf")
         ),
-        "status": "threshold_found" if chosen is not None else "no_admissible_threshold",
+        "status": "threshold_found"
+        if chosen is not None
+        else "no_admissible_threshold",
     }
 
 
@@ -391,17 +456,32 @@ def clustered_summary(
     bad_point = AB.sum(axis=0)
     err_point = np.where(np.isfinite(err), err, 0.0)
     with np.errstate(invalid="ignore", divide="ignore"):
-        rate_point = np.where(admitted_point > 0, bad_point / np.maximum(admitted_point, 1e-12), np.nan)
-        mean_point = np.where(admitted_point > 0, AE.sum(axis=0) / np.maximum(admitted_point, 1e-12), np.nan)
+        rate_point = np.where(
+            admitted_point > 0, bad_point / np.maximum(admitted_point, 1e-12), np.nan
+        )
+        mean_point = np.where(
+            admitted_point > 0,
+            AE.sum(axis=0) / np.maximum(admitted_point, 1e-12),
+            np.nan,
+        )
 
     per_group_adm = np.column_stack(
-        [np.bincount(g, weights=A[:, c], minlength=int(n_groups)) for c in range(A.shape[1])]
+        [
+            np.bincount(g, weights=A[:, c], minlength=int(n_groups))
+            for c in range(A.shape[1])
+        ]
     )
     per_group_bad = np.column_stack(
-        [np.bincount(g, weights=AB[:, c], minlength=int(n_groups)) for c in range(A.shape[1])]
+        [
+            np.bincount(g, weights=AB[:, c], minlength=int(n_groups))
+            for c in range(A.shape[1])
+        ]
     )
     per_group_err = np.column_stack(
-        [np.bincount(g, weights=AE[:, c], minlength=int(n_groups)) for c in range(A.shape[1])]
+        [
+            np.bincount(g, weights=AE[:, c], minlength=int(n_groups))
+            for c in range(A.shape[1])
+        ]
     )
     per_group_n = np.bincount(g, minlength=int(n_groups)).astype(float)
 
@@ -416,8 +496,12 @@ def clustered_summary(
         errm = weights @ per_group_err[:, column]
         draw_ret[:, column] = adm / np.maximum(drawn_total, 1e-12)
         with np.errstate(invalid="ignore", divide="ignore"):
-            draw_rate[:, column] = np.where(adm > 0, badm / np.maximum(adm, 1e-12), np.nan)
-            draw_mean[:, column] = np.where(adm > 0, errm / np.maximum(adm, 1e-12), np.nan)
+            draw_rate[:, column] = np.where(
+                adm > 0, badm / np.maximum(adm, 1e-12), np.nan
+            )
+            draw_mean[:, column] = np.where(
+                adm > 0, errm / np.maximum(adm, 1e-12), np.nan
+            )
 
     out = {}
     for column, name in enumerate(names):
@@ -445,7 +529,9 @@ def _interval(values: np.ndarray) -> tuple:
     finite = values[np.isfinite(values)]
     if finite.size == 0:
         return float("nan"), float("nan")
-    return float(np.quantile(finite, ALPHA / 2)), float(np.quantile(finite, 1 - ALPHA / 2))
+    return float(np.quantile(finite, ALPHA / 2)), float(
+        np.quantile(finite, 1 - ALPHA / 2)
+    )
 
 
 def clustered_contrast(
@@ -463,7 +549,7 @@ def clustered_contrast(
 
     left = np.asarray(left, dtype=float)
     right = np.asarray(right, dtype=float)
-    bad = ((np.asarray(error, dtype=float) > TOL_C)).astype(float)
+    bad = (np.asarray(error, dtype=float) > TOL_C).astype(float)
     g = np.asarray(group_index, dtype=np.int64)
     weights = clustered_draw_counts(int(n_groups), int(draws), seed).astype(float)
 
@@ -486,7 +572,9 @@ def clustered_contrast(
         weight = weights[index]
         if metric == "retention":
             total = weight @ per_group_n
-            draw[index] = (weight @ per_group_l - weight @ per_group_r) / max(total, 1e-12)
+            draw[index] = (weight @ per_group_l - weight @ per_group_r) / max(
+                total, 1e-12
+            )
         else:
             la = weight @ per_group_l
             ra = weight @ per_group_r
@@ -499,13 +587,17 @@ def clustered_contrast(
         "point": point(left, right),
         "ci_low": lo,
         "ci_high": hi,
-        "ci_excludes_zero": bool(np.isfinite(lo) and np.isfinite(hi) and (lo > 0 or hi < 0)),
+        "ci_excludes_zero": bool(
+            np.isfinite(lo) and np.isfinite(hi) and (lo > 0 or hi < 0)
+        ),
         "n_groups": int(n_groups),
         "n_cases": int(left.size),
     }
 
 
-def fixed_retention_admit(score: np.ndarray, folds: np.ndarray, keys: np.ndarray) -> np.ndarray:
+def fixed_retention_admit(
+    score: np.ndarray, folds: np.ndarray, keys: np.ndarray
+) -> np.ndarray:
     """Admit the safest 70% of each fold, ties broken by a stable case key.
 
     This is a second deployment rule, not the risk-cap rule: it is defined for
@@ -550,7 +642,10 @@ def main() -> int:
             raise RuntimeError(f"{panel}: cases and certificates differ in length")
         group_table = independence_table(cases)
         group_of = dict(
-            zip(group_table["network_id"].astype(str), group_table["independence_group"].astype(str))
+            zip(
+                group_table["network_id"].astype(str),
+                group_table["independence_group"].astype(str),
+            )
         )
         cases["independence_group"] = cases["network_id"].astype(str).map(group_of)
         if cases["independence_group"].isna().any():
@@ -560,7 +655,9 @@ def main() -> int:
         prepared["certificate_abs_error"] = pd.to_numeric(
             certs["certificate_abs_error"], errors="coerce"
         ).to_numpy(dtype=float)
-        prepared["independence_group"] = cases["independence_group"].astype(str).to_numpy()
+        prepared["independence_group"] = (
+            cases["independence_group"].astype(str).to_numpy()
+        )
         groups = cases["independence_group"].astype(str).to_numpy()
         panels[panel] = {
             "cases": cases,
@@ -583,15 +680,16 @@ def main() -> int:
             flush=True,
         )
         if cases.network_id.nunique() != spec["expected_networks"]:
-            raise RuntimeError(f"{panel}: expected {spec['expected_networks']} networks")
+            raise RuntimeError(
+                f"{panel}: expected {spec['expected_networks']} networks"
+            )
         if panels[panel]["n_groups"] != spec["expected_groups"]:
             raise RuntimeError(f"{panel}: expected {spec['expected_groups']} groups")
 
     # --- nested group cross-fit of the fitted score -----------------------
     from joblib import Parallel, delayed
 
-    cache_dir = ROOT / "scratch" / "p0_01_aligned"
-    cache_dir.mkdir(parents=True, exist_ok=True)
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
     features = tuple(M301.SUPPORT)
     tasks = []
     crossfit = {}
@@ -607,26 +705,10 @@ def main() -> int:
                 *features,
             ]
         ].copy()
-        cases_sha = sha256_file(PANELS[panel]["cases"])
         for fold_seed in FOLD_SEEDS:
-            key = hashlib.sha256(
-                json.dumps(
-                    {
-                        "panel": panel,
-                        "fold_seed": int(fold_seed),
-                        "target": "abserr_policy",
-                        "features": list(features),
-                        "n_splits": N_SPLITS,
-                        "n_inner": N_INNER_SPLITS,
-                        "cases": cases_sha,
-                        "fold_unit": "independence_group",
-                        "cache_version": 4,
-                    },
-                    sort_keys=True,
-                ).encode()
-            ).hexdigest()[:16]
-            npz = cache_dir / f"{panel}__seed{fold_seed}__fitted_risk__{key}.npz"
-            model_path = cache_dir / f"{panel}__seed{fold_seed}__fitted_risk__{key}_models.joblib"
+            stem = crossfit_cache_stem(panel, fold_seed)
+            npz = CACHE_DIR / f"{stem}.npz"
+            model_path = CACHE_DIR / f"{stem}_models.joblib"
             if npz.exists() and model_path.exists() and not args.no_cache:
                 payload = np.load(npz)
                 import joblib
@@ -652,7 +734,9 @@ def main() -> int:
             )
 
     if tasks:
-        print(f"[crossfit] fitting {len(tasks)} tasks on {args.jobs} workers", flush=True)
+        print(
+            f"[crossfit] fitting {len(tasks)} tasks on {args.jobs} workers", flush=True
+        )
 
         def _run(task):
             return M311.crossfit_task(task)
@@ -699,23 +783,38 @@ def main() -> int:
             shared = shared_stations_across_folds(
                 cases,
                 data["group_table"],
-                {network: folds_map[group] for network, group in data["group_of"].items()},
+                {
+                    network: folds_map[group]
+                    for network, group in data["group_of"].items()
+                },
             )
             shared_years = shared_station_years_across_folds(
                 cases,
-                {network: folds_map[group] for network, group in data["group_of"].items()},
+                {
+                    network: folds_map[group]
+                    for network, group in data["group_of"].items()
+                },
             )
             if shared or shared_years:
-                raise RuntimeError(f"[{panel}/seed{fold_seed}] folds share target stations")
+                raise RuntimeError(
+                    f"[{panel}/seed{fold_seed}] folds share target stations"
+                )
             if fold_seed == FOLD_SEEDS[0]:
                 pd.DataFrame(
                     {
                         "panel": panel,
                         "network_id": sorted(data["group_of"]),
-                        "independence_group": [data["group_of"][x] for x in sorted(data["group_of"])],
-                        "fold": [folds_map[data["group_of"][x]] for x in sorted(data["group_of"])],
+                        "independence_group": [
+                            data["group_of"][x] for x in sorted(data["group_of"])
+                        ],
+                        "fold": [
+                            folds_map[data["group_of"][x]]
+                            for x in sorted(data["group_of"])
+                        ],
                     }
-                ).to_csv(OUT / f"fold_assignment_{panel}_seed{fold_seed}.csv", index=False)
+                ).to_csv(
+                    OUT / f"fold_assignment_{panel}_seed{fold_seed}.csv", index=False
+                )
 
             fitted = crossfit[(panel, fold_seed)]
             scores = dict(data["scores_model_free"])
@@ -733,7 +832,9 @@ def main() -> int:
                     if not test_mask.any() or not cal_mask.any():
                         continue
                     if score_name in FITTED_SCORES:
-                        cal_score = np.asarray(fitted["cal_score_by_fold"])[fold][cal_mask]
+                        cal_score = np.asarray(fitted["cal_score_by_fold"])[fold][
+                            cal_mask
+                        ]
                     else:
                         cal_score = score[cal_mask]
                     selection = select_threshold(
@@ -742,7 +843,13 @@ def main() -> int:
                         groups[cal_mask],
                         risk_cap=RISK_CAP,
                         draws=int(args.draws_select),
-                        seed=stable_seed("aligned-select", panel, fold_seed, fold, score_name),
+                        seed=plain_seed(
+                            SEED_TAGS["aligned-select"],
+                            PANEL_CODES[panel],
+                            fold_seed,
+                            fold,
+                            SCORE_CODES[score_name],
+                        ),
                     )
                     admit[test_mask] = score[test_mask] <= selection["threshold"]
                     threshold_rows.append(
@@ -792,7 +899,9 @@ def main() -> int:
                 group_index,
                 n_groups,
                 draws=int(args.draws_eval),
-                seed=stable_seed("aligned-eval", panel, fold_seed),
+                seed=plain_seed(
+                    SEED_TAGS["aligned-eval"], PANEL_CODES[panel], fold_seed
+                ),
             )
             for name, values in summary.items():
                 pooled_rows.append(
@@ -818,7 +927,9 @@ def main() -> int:
                 group_index,
                 n_groups,
                 draws=int(args.draws_eval),
-                seed=stable_seed("aligned-fixed70", panel, fold_seed),
+                seed=plain_seed(
+                    SEED_TAGS["aligned-fixed70"], PANEL_CODES[panel], fold_seed
+                ),
             )
             for name, values in fixed_summary.items():
                 pooled_rows.append(
@@ -843,7 +954,10 @@ def main() -> int:
                 ("peak_overlap_rule", "reconstruct_all"),
                 ("reconstruct_all", "length_rule"),
             ]
-            for metric, table in (("retention", admit_riskcap), ("false_admit", fixed_admit)):
+            for metric, table in (
+                ("retention", admit_riskcap),
+                ("false_admit", fixed_admit),
+            ):
                 for left, right in pairs:
                     if left not in table or right not in table:
                         continue
@@ -855,7 +969,14 @@ def main() -> int:
                         metric=metric,
                         error=error,
                         draws=int(args.draws_eval),
-                        seed=stable_seed("aligned-contrast", panel, fold_seed, metric, left, right),
+                        seed=plain_seed(
+                            SEED_TAGS["aligned-contrast"],
+                            PANEL_CODES[panel],
+                            fold_seed,
+                            METRIC_CODES[metric],
+                            SCORE_CODES[left],
+                            SCORE_CODES[right],
+                        ),
                     )
                     contrast_rows.append(
                         {
@@ -878,8 +999,12 @@ def main() -> int:
                         "year": cases["year"],
                         "independence_group": groups,
                         "provider": cases["provider"].astype(str),
-                        "longest_run": pd.to_numeric(cases["longest_run"], errors="coerce"),
-                        "peak_overlap": pd.to_numeric(cases["peak_overlap"], errors="coerce"),
+                        "longest_run": pd.to_numeric(
+                            cases["longest_run"], errors="coerce"
+                        ),
+                        "peak_overlap": pd.to_numeric(
+                            cases["peak_overlap"], errors="coerce"
+                        ),
                         "true_peak_hidden_fraction": pd.to_numeric(
                             cases["true_peak_hidden_fraction"], errors="coerce"
                         ),
@@ -909,7 +1034,10 @@ def main() -> int:
                             f"admit_riskcap_{name}": admit_riskcap[name]
                             for name in ARMS
                         },
-                        **{f"admit_fixed70_{name}": fixed_admit[name] for name in ALL_SCORES},
+                        **{
+                            f"admit_fixed70_{name}": fixed_admit[name]
+                            for name in ALL_SCORES
+                        },
                     }
                 )
             )
@@ -924,7 +1052,9 @@ def main() -> int:
             fitted = crossfit[(panel, fold_seed)]
             for score_name in ALL_SCORES:
                 score = np.asarray(
-                    fitted["test_score"] if score_name == "fitted_risk" else data["scores_model_free"][score_name],
+                    fitted["test_score"]
+                    if score_name == "fitted_risk"
+                    else data["scores_model_free"][score_name],
                     dtype=float,
                 )
                 for fold in range(N_SPLITS):
@@ -939,14 +1069,26 @@ def main() -> int:
                         bad[cal_mask],
                         groups[cal_mask],
                         draws=int(args.draws_select),
-                        seed=stable_seed("aligned-select", panel, fold_seed, fold, score_name),
+                        seed=plain_seed(
+                            SEED_TAGS["aligned-select"],
+                            PANEL_CODES[panel],
+                            fold_seed,
+                            fold,
+                            SCORE_CODES[score_name],
+                        ),
                     )
                     wide = select_threshold(
                         cal_score,
                         bad[cal_mask],
                         groups[cal_mask],
                         draws=int(args.stability_draws),
-                        seed=stable_seed("aligned-select", panel, fold_seed, fold, score_name),
+                        seed=plain_seed(
+                            SEED_TAGS["aligned-select"],
+                            PANEL_CODES[panel],
+                            fold_seed,
+                            fold,
+                            SCORE_CODES[score_name],
+                        ),
                     )
                     stability_rows.append(
                         {
@@ -987,8 +1129,12 @@ def main() -> int:
                 "policy_bad_rate": target["bad_rate"],
                 "policy_mean_abs_error": float(np.nanmean(target["error"])),
                 "certificate_bad": target["n_certificate_bad"],
-                "certificate_bad_rate": float(target["n_certificate_bad"] / len(data["cases"])),
-                "certificate_mean_abs_error": float(np.nanmean(target["certificate_error"])),
+                "certificate_bad_rate": float(
+                    target["n_certificate_bad"] / len(data["cases"])
+                ),
+                "certificate_mean_abs_error": float(
+                    np.nanmean(target["certificate_error"])
+                ),
                 "both_bad": int((target["bad"] & target["certificate_bad"]).sum()),
                 "neither_bad": int((~target["bad"] & ~target["certificate_bad"]).sum()),
                 "policy_only": target["n_policy_only"],
@@ -1017,13 +1163,21 @@ def main() -> int:
                 "certificate_abs_error": target["certificate_error"],
                 "certificate_failure": target["certificate_bad"],
             }
-        ).to_csv(OUT / f"loss_object_alignment_{panel}.csv.gz", index=False, compression="gzip")
+        ).to_csv(
+            OUT / f"loss_object_alignment_{panel}.csv.gz",
+            index=False,
+            compression="gzip",
+        )
 
     # thresholds for downstream replay
     threshold_json = {}
     for row in pd.DataFrame(threshold_rows).itertuples(index=False):
-        threshold_json.setdefault(f"{row.panel}|{row.score}|{row.fold_seed}", {})[str(row.fold)] = row.threshold
-    (OUT / "final_thresholds.json").write_text(json.dumps(threshold_json, indent=2, sort_keys=True) + "\n")
+        threshold_json.setdefault(f"{row.panel}|{row.score}|{row.fold_seed}", {})[
+            str(row.fold)
+        ] = row.threshold
+    (OUT / "final_thresholds.json").write_text(
+        json.dumps(threshold_json, indent=2, sort_keys=True) + "\n"
+    )
 
     # per-fold calibration scores, so a downstream diagnostic cannot silently use
     # a test-fold-derived score for calibration
@@ -1042,12 +1196,12 @@ def main() -> int:
             name = f"model_{panel}_fitted_risk_seed{fold_seed}_fold{fold}.joblib"
             joblib.dump(model, OUT / "models" / name)
             model_index[f"{panel}|{fold_seed}|{fold}"] = name
-    (OUT / "model_index.json").write_text(json.dumps(model_index, indent=2, sort_keys=True) + "\n")
+    (OUT / "model_index.json").write_text(
+        json.dumps(model_index, indent=2, sort_keys=True) + "\n"
+    )
 
-    fingerprint = {
+    record = {
         "script": Path(__file__).name,
-        "script_sha256": sha256_file(Path(__file__)),
-        "git_head": git_head(),
         "python": platform.python_version(),
         "numpy": np.__version__,
         "pandas": pd.__version__,
@@ -1057,7 +1211,11 @@ def main() -> int:
             "fold_unit": "connected component of networks sharing a station_id",
             "fold_seeds": list(FOLD_SEEDS),
             "n_splits": N_SPLITS,
-            "retention_grid": [float(RETENTION_GRID[0]), float(RETENTION_GRID[-1]), 0.01],
+            "retention_grid": [
+                float(RETENTION_GRID[0]),
+                float(RETENTION_GRID[-1]),
+                0.01,
+            ],
             "tie_rule": "no jitter; threshold is an observed score; score <= threshold admits whole tie blocks",
             "selection_rule": (
                 "largest snapped threshold whose independence-group clustered bootstrap "
@@ -1066,12 +1224,19 @@ def main() -> int:
             "select_draws": int(args.draws_select),
             "eval_draws": int(args.draws_eval),
             "fixed_retention": FIXED_RETENTION,
-            "fixed_retention_tiebreak": "stable case key (network|station|year|realization)",
+            "fixed_retention_tiebreak": "case key network|station|year|realization in sorted order",
+            "bootstrap_seeds": (
+                "plain_seed(tag, panel position, fold seed, ...) with tags "
+                f"{SEED_TAGS}; scores and metrics enter as their positions in sorted order"
+            ),
         },
-        "inputs": {panel: sha256_file(spec["cases"]) for panel, spec in PANELS.items()},
+        "inputs": {
+            panel: str(spec["cases"].relative_to(ROOT))
+            for panel, spec in PANELS.items()
+        },
         "elapsed_seconds": round(time.time() - started, 1),
     }
-    (OUT / "protocol_fingerprint.json").write_text(json.dumps(fingerprint, indent=2) + "\n")
+    (OUT / "protocol.json").write_text(json.dumps(record, indent=2) + "\n")
 
     write_summary(pooled, pd.DataFrame(contrast_rows), crosstab, stability)
     print(f"[330] done in {time.time() - started:.1f}s -> {OUT}", flush=True)
@@ -1159,7 +1324,15 @@ def write_summary(pooled, contrasts, crosstab, stability) -> None:
                     f"{rows.mean_abs_error_admitted.mean():.3f} |"
                 )
 
-    lines.extend(["", "## Paired contrasts", "", "| panel | seed | metric | left | right | point | 95% interval | excludes 0 |", "|---|---:|---|---|---|---:|---|---|"])
+    lines.extend(
+        [
+            "",
+            "## Paired contrasts",
+            "",
+            "| panel | seed | metric | left | right | point | 95% interval | excludes 0 |",
+            "|---|---:|---|---|---|---:|---|---|",
+        ]
+    )
     for row in contrasts.itertuples(index=False):
         lines.append(
             f"| {row.panel} | {row.fold_seed} | {row.metric} | {row.left} | {row.right} | "

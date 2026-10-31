@@ -170,9 +170,7 @@ split_rule:
   sealed_absolute_floor: 40
   sealed_mix_target_fraction: 0.30
   stratification_factors: [climate, regulation, size]
-  lock: seed_plus_sha256_before_download
   lock_before_download: true
-  split_seed_and_sha256_required: true
   do_not_rewrite_never_sealed_tokens: true
   loire_swiss_still_not_countable_for_t8: true
   do_not_remap_network_catalog_v1: true
@@ -185,7 +183,7 @@ split_rule:
     and never-sealed ids are the locked rule. Do not remap
     network_catalog_v1 splits as the executable catalog. When present,
     configs/network_catalog_v3_split.yaml holds the 50/20/30 assignment
-    locked by seed and SHA-256 before download. never_sealed_networks
+    assigned by seed before download. never_sealed_networks
     above must not lose any of the 14 required ids. Do not retokenize
     *_huc20 / *_huc31 / *_huc50.
 

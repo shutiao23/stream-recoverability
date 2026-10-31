@@ -183,8 +183,8 @@ That is exactly what the frozen directory shows. The tables carry mtime
 2026-09-23 20:55:41Z, 8 hours apart in the same commit; the frozen
 `REPORT.md` has no "Controlled donor experiments" section, which is what the empty branch
 produces. At the commit that added these files the donor-control branch could not run at all:
-`stable_seed` was used but not imported, so every worker raised `NameError` (fixed only in
-`9a933ff309`). The committed provenance is therefore a table from generation A beside a
+the seed helper was used but not imported, so every worker raised `NameError` (fixed only in a
+later commit). The committed provenance is therefore a table from generation A beside a
 summary and report from generation B — a reader taking the summary as the run's own account
 of itself would conclude no donor control was run, and a reader taking the table would
 conclude it was, with no way to tell which generation either came from.
@@ -203,7 +203,7 @@ The guard in this module and script: worker exceptions are captured per job and 
 or as a documented empty reason (an empty frame without a reason is itself an error);
 `require_controls` refuses an empty or single-network control frame; `write_generation` writes
 `summary.json` last and closes the set with a `MANIFEST.json` binding every file to one
-generation id; `verify_generation` re-checks the hashes and rejects unlisted files that a
+generation id; `verify_generation` re-checks the listed files and rejects unlisted files that a
 later partial run could have left behind.
 
 ## Recommended manuscript edit
@@ -242,5 +242,5 @@ correlation while holding the count fixed costs $+0.082^{\circ}$C (95% interval 
 - `contrast_by_k.csv` — the matched contrast per donor count K.
 - `donor_controls_paired.parquet` — case-level table carrying both specifications.
 - `summary.json` — machine-readable version of everything above.
-- `MANIFEST.json` — the generation id, its inputs and the sha256 of every file above.
-- `../step5_mechanism_pre_fix/` — the four frozen artifacts, byte-identical, with sha256.
+- `MANIFEST.json` — the generation id, its inputs and the list of every file above (no longer kept in the repository).
+- `../step5_mechanism_pre_fix/` — the four frozen artifacts, byte-identical.

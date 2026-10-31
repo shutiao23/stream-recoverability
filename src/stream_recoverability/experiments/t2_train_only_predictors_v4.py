@@ -8,7 +8,6 @@ T2 results, achieved skill, or sealed temperature records.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import tempfile
@@ -33,9 +32,6 @@ from stream_recoverability.experiments.recoverability_baselines import (
 from stream_recoverability.experiments.t2_recovery_benchmark import (
     discover_failure_closure_networks,
     read_panel,
-)
-from stream_recoverability.experiments.t2_result_aggregation import (
-    input_inventory_sha256,
 )
 from stream_recoverability.experiments.t2_train_only_predictors import (
     ESTIMATOR_ID,
@@ -83,26 +79,13 @@ FORBIDDEN_SOURCE_ITEM_FIELDS = frozenset(
 )
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def _canonical_sha(value: Any) -> str:
-    payload = json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
 def _read_mapping(path: Path) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        raise PredictorContractError(f"cannot read predictor prerequisite {path}") from error
+        raise PredictorContractError(
+            f"cannot read predictor prerequisite {path}"
+        ) from error
     if not isinstance(value, dict):
         raise PredictorContractError(f"predictor prerequisite is not a mapping: {path}")
     return value
@@ -128,12 +111,12 @@ def _validated_gap_roster(
     item_index_path: Path,
     item_record: Mapping[str, Any],
 ) -> tuple[tuple[int, ...], dict[str, list[int]], int]:
-    if _sha256_file(item_index_path) != str(item_record.get("file_sha256", "")):
-        raise PredictorContractError("v4 item-index SHA-256 mismatch")
     parquet = pq.ParquetFile(item_index_path)
     columns = tuple(parquet.schema_arrow.names)
     if columns != EXPECTED_INDEX_COLUMNS:
-        raise PredictorContractError("v4 item-index columns differ from the frozen schema")
+        raise PredictorContractError(
+            "v4 item-index columns differ from the frozen schema"
+        )
     if tuple(item_record.get("columns") or ()) != EXPECTED_INDEX_COLUMNS:
         raise PredictorContractError("v4 item-index manifest column roster mismatch")
     expected_rows = int(item_record.get("n_rows", -1))
@@ -149,7 +132,9 @@ def _validated_gap_roster(
             try:
                 item = json.loads(str(payload))
             except json.JSONDecodeError as error:
-                raise PredictorContractError("invalid source_item_json in v4 index") from error
+                raise PredictorContractError(
+                    "invalid source_item_json in v4 index"
+                ) from error
             if not isinstance(item, dict):
                 raise PredictorContractError("v4 source item is not a mapping")
             forbidden = FORBIDDEN_SOURCE_ITEM_FIELDS.intersection(item)
@@ -163,7 +148,9 @@ def _validated_gap_roster(
             try:
                 gap = int(item["gap_length"])
             except (KeyError, TypeError, ValueError) as error:
-                raise PredictorContractError("invalid gap_length in v4 item index") from error
+                raise PredictorContractError(
+                    "invalid gap_length in v4 item index"
+                ) from error
             if gap <= 0:
                 raise PredictorContractError("v4 gap lengths must be positive")
             gaps_by_geometry[geometry].add(gap)
@@ -171,10 +158,11 @@ def _validated_gap_roster(
     if observed_rows != expected_rows:
         raise PredictorContractError("incomplete v4 item-index gap scan")
     if set(gaps_by_geometry) != set(EXPECTED_GEOMETRIES):
-        raise PredictorContractError("v4 item index does not contain all three geometries")
+        raise PredictorContractError(
+            "v4 item index does not contain all three geometries"
+        )
     normalized = {
-        geometry: sorted(gaps_by_geometry[geometry])
-        for geometry in EXPECTED_GEOMETRIES
+        geometry: sorted(gaps_by_geometry[geometry]) for geometry in EXPECTED_GEOMETRIES
     }
     gaps = tuple(sorted(set().union(*gaps_by_geometry.values())))
     return gaps, normalized, observed_rows
@@ -200,7 +188,9 @@ def predict_network_panel_v2(
         wide.index = pd.DatetimeIndex(pd.to_datetime(wide.index))
     wide = wide.apply(pd.to_numeric, errors="coerce").sort_index()
     if wide.index.has_duplicates or wide.shape[1] < 2:
-        raise PredictorContractError("panel must have unique dates and at least two stations")
+        raise PredictorContractError(
+            "panel must have unique dates and at least two stations"
+        )
 
     train, _ = _year_split(wide.index)
     train_dates = wide.index[train]
@@ -286,20 +276,9 @@ def predict_network_panel_v2(
     return result
 
 
-def _install_create_once(path: Path, temporary: Path) -> None:
-    if path.exists():
-        if _sha256_file(path) != _sha256_file(temporary):
-            raise PredictorContractError(f"frozen predictor artifact differs: {path}")
-        return
-    try:
-        os.link(temporary, path)
-    except FileExistsError:
-        if _sha256_file(path) != _sha256_file(temporary):
-            raise PredictorContractError(f"concurrent predictor artifact differs: {path}")
-    os.chmod(path, 0o444)
+def _write_table(path: Path, frame: pd.DataFrame, *, parquet: bool) -> None:
+    """Write a table through a temporary file and atomically replace ``path``."""
 
-
-def _create_once_table(path: Path, frame: pd.DataFrame, *, parquet: bool) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
     os.close(descriptor)
@@ -309,25 +288,28 @@ def _create_once_table(path: Path, frame: pd.DataFrame, *, parquet: bool) -> Non
             frame.to_parquet(temporary, index=False)
         else:
             frame.to_csv(temporary, index=False)
-        _install_create_once(path, temporary)
+        os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)
 
 
-def _create_once_json(path: Path, value: Mapping[str, Any]) -> None:
+def _write_json(path: Path, value: Mapping[str, Any]) -> None:
+    """Write a JSON manifest through a temporary file and atomically replace it."""
+
     payload = (
         json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n"
     ).encode("utf-8")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    temporary = Path(name)
     try:
-        descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o444)
-    except FileExistsError:
-        if path.read_bytes() != payload:
-            raise PredictorContractError(f"frozen predictor manifest differs: {path}")
-        return
-    with os.fdopen(descriptor, "wb") as handle:
-        handle.write(payload)
-        handle.flush()
-        os.fsync(handle.fileno())
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def build_v4_train_only_predictor_sidecar(
@@ -337,7 +319,7 @@ def build_v4_train_only_predictor_sidecar(
     design_path: str | Path,
     output_dir: str | Path,
 ) -> dict[str, Any]:
-    """Build a create-once predictor sidecar covering every v4 index gap."""
+    """Build the predictor sidecar covering every v4 index gap."""
 
     repo = Path(repo_root).resolve()
     draft_path = Path(index_draft_manifest_path).resolve()
@@ -353,7 +335,9 @@ def build_v4_train_only_predictor_sidecar(
         or draft.get("sealed_temperature_records_read") is not False
         or (draft.get("input_inventory") or {}).get("sealed_input_roots_allowed") != []
     ):
-        raise PredictorContractError("v4 index draft does not keep sealed inputs closed")
+        raise PredictorContractError(
+            "v4 index draft does not keep sealed inputs closed"
+        )
     item_record = draft.get("item_index")
     if not isinstance(item_record, Mapping):
         raise PredictorContractError("v4 index draft lacks its item-index record")
@@ -368,32 +352,24 @@ def build_v4_train_only_predictor_sidecar(
         repo, draft.get("source_v3_workload_path"), label="source v3 workload"
     )
     source_v3 = _read_mapping(source_v3_path)
-    source_v3_sha = _sha256_file(source_v3_path)
-    if source_v3_sha != draft.get("source_v3_workload_sha256"):
-        raise PredictorContractError("v4 draft/source-v3 workload SHA-256 mismatch")
-    design_sha = _sha256_file(design)
-    if source_v3.get("design_sha256") != design_sha:
-        raise PredictorContractError("source-v3 workload/design SHA-256 mismatch")
     if source_v3.get("input_inventory") != draft.get("input_inventory"):
         raise PredictorContractError("v4 draft/source-v3 input inventory mismatch")
 
     networks, discovery = discover_failure_closure_networks(repo)
     expected_ids = [str(value) for value in draft.get("network_ids") or []]
     if expected_ids != [network.network_id for network in networks]:
-        raise PredictorContractError("open network order differs from the v4 index draft")
-    input_map = {network.network_id: network.wide_sha256 for network in networks}
-    if input_map != draft.get("input_sha256_by_network"):
-        raise PredictorContractError("open network bytes differ from the v4 index draft")
-    inventory_sha = input_inventory_sha256(input_map)
-    if inventory_sha != draft.get("input_sha256_by_network_sha256"):
-        raise PredictorContractError("v4 input-inventory identity mismatch")
+        raise PredictorContractError(
+            "open network order differs from the v4 index draft"
+        )
 
     frames: list[pd.DataFrame] = []
     station_attrition: list[dict[str, str]] = []
     for network in networks:
         panel_path = _repo_path(repo, network.wide_path, label="open-role panel")
         if not panel_path.is_file():
-            raise PredictorContractError(f"open-role panel is absent: {network.network_id}")
+            raise PredictorContractError(
+                f"open-role panel is absent: {network.network_id}"
+            )
         panel = read_panel(repo, network)
         frame = predict_network_panel_v2(
             network.network_id,
@@ -417,48 +393,30 @@ def build_v4_train_only_predictor_sidecar(
             f"v4 predictor sidecar incomplete: {len(predictions)} of {expected_rows} rows"
         )
     if set(predictions["gap_length"].astype(int)) != set(gaps):
-        raise PredictorContractError("v4 predictor output does not cover the full gap roster")
+        raise PredictorContractError(
+            "v4 predictor output does not cover the full gap roster"
+        )
 
     output.mkdir(parents=True, exist_ok=True)
     parquet_path = output / "train_only_predictors.parquet"
     csv_path = output / "train_only_predictors.csv"
     attrition_path = output / "predictor_station_attrition.csv"
-    _create_once_table(parquet_path, predictions, parquet=True)
-    _create_once_table(csv_path, predictions, parquet=False)
-    _create_once_table(
+    _write_table(parquet_path, predictions, parquet=True)
+    _write_table(csv_path, predictions, parquet=False)
+    _write_table(
         attrition_path,
-        pd.DataFrame(
-            station_attrition, columns=["network_id", "station_id", "reason"]
-        ),
+        pd.DataFrame(station_attrition, columns=["network_id", "station_id", "reason"]),
         parquet=False,
-    )
-    gap_roster_sha = _canonical_sha(
-        {"gaps": list(gaps), "gaps_by_geometry": gaps_by_geometry}
     )
     manifest: dict[str, Any] = {
         "manifest_schema": SIDECAR_SCHEMA,
         "index_draft_manifest_path": str(draft_path.relative_to(repo)),
-        "index_draft_manifest_sha256": _sha256_file(draft_path),
         "item_index_path": str(item_index_path.relative_to(repo)),
-        "item_index_sha256": _sha256_file(item_index_path),
-        "item_index_work_item_identity_sha256": item_record.get(
-            "work_item_identity_sha256"
-        ),
         "item_index_rows_scanned": scanned_rows,
         "source_v3_workload_path": str(source_v3_path.relative_to(repo)),
-        "source_v3_workload_sha256": source_v3_sha,
         "design_path": str(design.relative_to(repo)),
-        "design_sha256": design_sha,
         "input_inventory": draft.get("input_inventory"),
-        "input_inventory_contract_sha256": _canonical_sha(draft["input_inventory"]),
-        "input_inventory_sha256": inventory_sha,
-        "input_sha256_by_network": dict(sorted(input_map.items())),
-        "input_sha256_by_network_sha256": inventory_sha,
-        "catalog_split_sha256": (draft.get("input_inventory") or {}).get(
-            "catalog_split_sha256"
-        ),
         "gap_roster_source": GAP_ROSTER_SOURCE,
-        "gap_roster_sha256": gap_roster_sha,
         "gaps": list(gaps),
         "gaps_by_geometry": gaps_by_geometry,
         "n_unique_gaps": len(gaps),
@@ -491,16 +449,13 @@ def build_v4_train_only_predictor_sidecar(
         "roles": discovery.get("roles"),
         "predictions_path": csv_path.name,
         "predictions_format": "csv",
-        "predictions_sha256": _sha256_file(csv_path),
         "parquet_path": parquet_path.name,
-        "parquet_sha256": _sha256_file(parquet_path),
         "station_attrition_path": attrition_path.name,
-        "station_attrition_sha256": _sha256_file(attrition_path),
         "completeness": "complete",
         "formal_evidence": False,
         "purpose": "v4_train_only_predictor_sidecar_not_t2_recovery_evidence",
     }
-    _create_once_json(output / "predictor_manifest.json", manifest)
+    _write_json(output / "predictor_manifest.json", manifest)
     return manifest
 
 

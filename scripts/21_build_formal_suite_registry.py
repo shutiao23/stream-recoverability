@@ -47,14 +47,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--data-version", required=True)
     parser.add_argument("--evaluation-split", required=True)
-    parser.add_argument("--design-hash", default="")
     parser.add_argument(
         "--data-version-manifest",
         type=Path,
         required=True,
-        help=(
-            "target version_manifest.json for the requested data version"
-        ),
+        help=("target version_manifest.json for the requested data version"),
     )
     parser.add_argument(
         "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v4.yaml"
@@ -90,7 +87,6 @@ def main() -> None:
         output_path=args.output,
         data_version=args.data_version,
         evaluation_split=args.evaluation_split,
-        design_hash=args.design_hash,
         design_path=args.design,
         study_manifest_path=args.study_manifest,
         experiment_config_path=args.experiment_config,

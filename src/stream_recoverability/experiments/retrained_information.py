@@ -10,7 +10,6 @@ estimand.
 from __future__ import annotations
 
 import copy
-import hashlib
 import json
 import pickle
 from collections import defaultdict
@@ -46,7 +45,6 @@ from stream_recoverability.models.proposed_training import (
     validate_proposed_checkpoint_contract,
 )
 
-from .contracts import file_sha256
 from .formal_authorization import proposed_estimand_authorization
 from .grid import DEFAULT_FRONTIER_ANCHOR_PATH, ExperimentGrid, ExperimentScenario
 from .runner import ExperimentRunner
@@ -90,20 +88,12 @@ REQUIRED_EVIDENCE_FIELDS = (
 )
 
 
-def _canonical_sha256(value: object) -> str:
-    encoded = json.dumps(
-        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
 def _file_identity(path: str | Path) -> dict[str, Any]:
     resolved = Path(path).resolve()
     stat = resolved.stat()
     return {
         "path": str(resolved),
         "size": int(stat.st_size),
-        "sha256": file_sha256(resolved),
     }
 
 
@@ -237,7 +227,6 @@ def _write_not_applicable_manifest(
         "proposed_decision": roster.proposed_decision,
         "finalized_model_roster": {
             "path": roster.manifest_path,
-            "sha256": roster.manifest_sha256,
             "selected_models": list(roster.selected_models),
             "proposed_decision": roster.proposed_decision,
         },
@@ -286,10 +275,6 @@ def _base_training_contract(
         "model_config": asdict(model_config),
         "training_config": asdict(training_config),
         "training_context": training_context,
-        "input_hashes": {
-            name: identity.get("sha256")
-            for name, identity in training_context["input_files"].items()
-        },
         "fit_split": "train",
         "early_stopping_split": "validation",
         "evaluation_split": runner.evaluation_split,
@@ -692,7 +677,6 @@ def _train_or_load_checkpoint(
             "training_seed": int(training_seed),
             "data_version": runner.data.data_version,
             "design_version": runner.evidence_contract["design_version"],
-            "input_hashes": contract["input_hashes"],
             "fit_split": "train",
             "early_stopping_split": "validation",
         },
@@ -754,7 +738,7 @@ def _unit_contract(
         "training_seed": int(training_seed),
         "mask_seed": int(scenario.mask_seed),
         "checkpoint": _file_identity(checkpoint_path),
-        "checkpoint_contract_sha256": _canonical_sha256(checkpoint_contract),
+        "checkpoint_contract": checkpoint_contract,
     }
     return json.loads(json.dumps(contract))
 
@@ -779,8 +763,6 @@ def _score_unit(
     model: MissingAwareMultisourceImputer,
     mean: np.ndarray,
     scale: np.ndarray,
-    checkpoint_path: Path,
-    checkpoint_contract: Mapping[str, Any],
     climatology_by_station: Mapping[int, np.ndarray],
     *,
     device: str,
@@ -826,8 +808,6 @@ def _score_unit(
     climatology = climatology_by_station[station]
     reference = runner._training_reference(station, target_index)
     scenario_id = _retrained_scenario_id(scenario, coalition)
-    checkpoint_identity = _file_identity(checkpoint_path)
-    checkpoint_contract_sha = _canonical_sha256(checkpoint_contract)
     row_metadata = {
         **metadata,
         "scenario_id": scenario_id,
@@ -876,8 +856,6 @@ def _score_unit(
         "external_validation_status": grid.external_validation_status,
         "validation_scope": scenario.condition.validation_scope,
         "is_external_validation": False,
-        "checkpoint_sha256": checkpoint_identity["sha256"],
-        "checkpoint_contract_sha256": checkpoint_contract_sha,
         "high_threshold": reference.q90,
         "low_threshold": reference.q10,
         "normalization_iqr": reference.iqr,
@@ -948,7 +926,6 @@ def _validate_unit_tables(
             "mask_seed",
             "information_combination",
             "attribution_estimand",
-            "checkpoint_sha256",
         }
         missing = sorted(required.difference(frame.columns))
         if missing:
@@ -995,7 +972,6 @@ def _write_unit(
             ),
             "information_combination": daily["information_combination"].iloc[0],
             "execution_contract": contract,
-            "execution_contract_sha256": _canonical_sha256(contract),
             "daily_predictions": _file_identity(daily_path),
             "event_metrics": _file_identity(events_path),
             "daily_rows": len(daily),
@@ -1017,12 +993,9 @@ def _read_unit(
         return None
     try:
         status = json.loads(status_path.read_text(encoding="utf-8"))
-        if (
-            status.get("status") != "complete"
-            or status.get("execution_contract") != dict(expected_contract)
-            or status.get("execution_contract_sha256")
-            != _canonical_sha256(expected_contract)
-        ):
+        if status.get("status") != "complete" or status.get(
+            "execution_contract"
+        ) != dict(expected_contract):
             return None
         daily_identity = status["daily_predictions"]
         event_identity = status["event_metrics"]
@@ -1061,8 +1034,6 @@ def _checkpoint_summary(
         "best_validation_score": metadata["best_validation_score"],
         "validation_scores": metadata["validation_scores"],
         "checkpoint": _file_identity(path),
-        "checkpoint_sidecar": None,
-        "checkpoint_contract_sha256": _canonical_sha256(contract),
         "checkpoint_contract_valid": True,
     }
 
@@ -1261,8 +1232,6 @@ def run_retrained_information_upper_bounds(
                     model,
                     mean,
                     scale,
-                    checkpoint,
-                    checkpoint_contract,
                     climatology_by_station,
                     device=device,
                 )
@@ -1468,13 +1437,11 @@ def run_retrained_information_upper_bounds(
         ],
         "finalized_model_roster": {
             "path": roster.manifest_path,
-            "sha256": roster.manifest_sha256,
             "selected_models": list(roster.selected_models),
             "proposed_decision": roster.proposed_decision,
         },
         "formal_execution_authorization": runner.formal_authorization,
         "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
-        "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
         "frontier_anchor_count": grid.frontier_anchor_count,
         "formal_grid_contract_complete": runner.formal_grid_contract is not None,
         "formal_grid_contract": runner.formal_grid_contract,

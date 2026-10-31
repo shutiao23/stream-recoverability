@@ -43,8 +43,8 @@ cross-domain decision boundary. The manuscript does not claim a new Gaussian
 sensor-design objective, reservoir causation, operational safe filling, or a
 validated basis for removing stations. First-panel real-data placement replay
 and labelled domain-adaptation curves are identified as
-post-confirmation method development. The second-confirmation v2 amendment was internally frozen and
-hash-bound to the exact roster before recovery scoring, but it was not placed
+post-confirmation method development. The second-confirmation v2 amendment was internally frozen
+together with the exact roster before recovery scoring, but it was not placed
 in a separate public commit before the outcomes; we report that provenance
 limitation explicitly.
 

@@ -14,8 +14,6 @@ PYTHONPATH=src python scripts/73_cache_foen_sealed_corpus.py
 The v2 dry-run must report 10 networks, 51 stations, 52 years, and 2,652
 station-year requests, with:
 
-- query-template SHA
-  `11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff`;
 - `provider_requests_opened: false`;
 - `query_template_executed: false`;
 - `json_decoded/value_fields_inspected/sealed_outcomes_opened: false`;
@@ -32,14 +30,7 @@ find results/framework/public_catalog/foen_sealed_byte_registry_v2 -type f 2>/de
 
 Commit the v2 template/split, schema audit, deviation note, custody module,
 runner, tests, this checklist, and the `.gitignore`/governance v2 vault
-exclusion. Record the full 40-character SHA:
-
-```bash
-git rev-parse HEAD
-```
-
-Execution rechecks every protected file against that commit. An abbreviated SHA
-or uncommitted protected-file drift fails before provider contact.
+exclusion. Do not change any of these files between the commit and the retry.
 
 ## 3. Retry exactly one network
 
@@ -47,8 +38,7 @@ or uncommitted protected-file drift fails before provider contact.
 PYTHONPATH=src python scripts/73_cache_foen_sealed_corpus.py \
   --execute \
   --max-networks 1 \
-  --acknowledge-sealed foen-sealed-opaque-bytes-no-json \
-  --implementation-commit <FULL_V2_IMPLEMENTATION_COMMIT>
+  --acknowledge-sealed foen-sealed-opaque-bytes-no-json
 ```
 
 This writes 208 new objects under the **v2** vault and registry. It never resumes
@@ -58,11 +48,10 @@ The retry manifest must have zero custody failures and:
 
 - `n_objects_registered: 208`;
 - `v1_failed_pilot_objects_reused: false`;
-- `opaque_response_diversity.n_unique_response_sha256 > 1`;
 - `opaque_response_diversity.all_response_bodies_byte_identical: false`;
 - `opaque_response_diversity.opaque_response_diversity_gate_pass: true`.
 
-This is only a transport/compilation guard based on response-byte hashes. It is
+This is only a transport/compilation guard based on the response bytes. It is
 not value inspection, QC, or evidence. If all 208 v2 bodies are again identical,
 stop. Do not open them to diagnose the error.
 
@@ -73,8 +62,7 @@ PYTHONPATH=src python scripts/73_cache_foen_sealed_corpus.py \
   --execute \
   --all-networks \
   --acknowledge-sealed foen-sealed-opaque-bytes-no-json \
-  --acknowledge-full-corpus foen-all-ten-sealed-networks-authorized \
-  --implementation-commit <FULL_V2_IMPLEMENTATION_COMMIT>
+  --acknowledge-full-corpus foen-all-ten-sealed-networks-authorized
 ```
 
 Before constructing any new provider request, the runner requires all 208 v2

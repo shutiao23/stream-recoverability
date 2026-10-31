@@ -8,12 +8,10 @@
       "size_tertile"
     ],
     "balance_path": "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_balance.csv",
-    "balance_sha256": "c9b727190b130d77940a4c4f9c442e3283a617c277130cb2b212f25ac7711650",
     "candidate_inventory_count": 177,
     "candidate_qualified_count": 99,
     "excluded_count": 78,
     "exclusions_path": "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_exclusions.csv",
-    "exclusions_sha256": "89563acbf26dc8433ef5859330f755af0a047729dc0819681d89e11cfc441d0e",
     "qualified_outside_huc8_candidates": 0
   },
   "corpus_component_counts": {

@@ -53,16 +53,6 @@ def _site_id(value: Any) -> str:
     return text.zfill(8) if text.isdigit() and len(text) <= 8 else text
 
 
-def _sha256(path: Path) -> str:
-    import hashlib
-
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def reject_outcome_columns(frames: Sequence[pd.DataFrame]) -> None:
     """Fail closed if a caller tries to make matching outcome-dependent."""
 
@@ -92,9 +82,7 @@ def collapse_predictor_rosters(predictors: pd.DataFrame) -> pd.DataFrame:
     data["network_id"] = data["network_id"].astype(str)
     data["station_id"] = data["station_id"].map(_site_id)
     invariant = ["role", "n_donors", "donor_station_ids"]
-    counts = data.groupby(["network_id", "station_id"])[invariant].nunique(
-        dropna=False
-    )
+    counts = data.groupby(["network_id", "station_id"])[invariant].nunique(dropna=False)
     if counts.gt(1).any(axis=None):
         bad = counts.loc[counts.gt(1).any(axis=1)].index.tolist()
         raise ValueError(f"donor roster varies across gap lengths: {bad[:5]}")
@@ -192,9 +180,7 @@ def build_station_covariates(
         raise ValueError(f"full GAGES-II attributes missing columns: {missing_gages}")
     gages_work["station_id"] = gages_work["STAID"].map(_site_id)
     major_dams = pd.to_numeric(gages_work["MAJ_NDAMS_2009"], errors="coerce")
-    gages_work["upstream_major_dam_2009"] = major_dams.ge(1).where(
-        major_dams.notna()
-    )
+    gages_work["upstream_major_dam_2009"] = major_dams.ge(1).where(major_dams.notna())
     gages_work = gages_work.drop_duplicates("station_id").set_index("station_id")
     bfi_work = bfi.copy()
     bfi_work["STAID"] = bfi_work["STAID"].map(_site_id)
@@ -259,18 +245,26 @@ def build_station_covariates(
         if target not in coords.index:
             reasons.append("target_coordinates_missing")
         else:
-            target_lat = float(pd.to_numeric(coords.loc[target].get("latitude"), errors="coerce"))
-            target_lon = float(pd.to_numeric(coords.loc[target].get("longitude"), errors="coerce"))
+            target_lat = float(
+                pd.to_numeric(coords.loc[target].get("latitude"), errors="coerce")
+            )
+            target_lon = float(
+                pd.to_numeric(coords.loc[target].get("longitude"), errors="coerce")
+            )
             distances: list[float] = []
             if np.isfinite(target_lat) and np.isfinite(target_lon):
                 for donor in donors:
                     if donor not in coords.index:
                         continue
                     donor_lat = float(
-                        pd.to_numeric(coords.loc[donor].get("latitude"), errors="coerce")
+                        pd.to_numeric(
+                            coords.loc[donor].get("latitude"), errors="coerce"
+                        )
                     )
                     donor_lon = float(
-                        pd.to_numeric(coords.loc[donor].get("longitude"), errors="coerce")
+                        pd.to_numeric(
+                            coords.loc[donor].get("longitude"), errors="coerce"
+                        )
                     )
                     if np.isfinite(donor_lat) and np.isfinite(donor_lon):
                         distances.append(
@@ -306,7 +300,9 @@ def build_station_covariates(
                 "climate": climate,
                 "bfi": bfi_value,
                 "catalog_climate_band": (
-                    str(split_row.get("climate_band", "")) if split_row is not None else ""
+                    str(split_row.get("climate_band", ""))
+                    if split_row is not None
+                    else ""
                 ),
                 "catalog_regulation_stratum": (
                     str(split_row.get("regulation_stratum", ""))
@@ -367,9 +363,7 @@ def make_pair_plan(covariates: pd.DataFrame) -> pd.DataFrame:
         "bfi": _scale(usable["bfi"]),
     }
     pairs: list[dict[str, Any]] = []
-    for key, piece in usable.groupby(
-        list(EXACT_MATCH_STRATA), dropna=False, sort=True
-    ):
+    for key, piece in usable.groupby(list(EXACT_MATCH_STRATA), dropna=False, sort=True):
         treated = piece.loc[piece["regulated"].eq(True)].sort_values(
             ["network_id", "station_id"], kind="mergesort"
         )
@@ -432,14 +426,14 @@ def make_pair_plan(covariates: pd.DataFrame) -> pd.DataFrame:
                     ),
                 }
             )
-    return pd.DataFrame(pairs, columns=_pair_columns()).sort_values(
-        ["role", "regulated_id", "control_id"], kind="mergesort"
-    ).reset_index(drop=True)
+    return (
+        pd.DataFrame(pairs, columns=_pair_columns())
+        .sort_values(["role", "regulated_id", "control_id"], kind="mergesort")
+        .reset_index(drop=True)
+    )
 
 
-def make_pair_attrition(
-    covariates: pd.DataFrame, pairs: pd.DataFrame
-) -> pd.DataFrame:
+def make_pair_attrition(covariates: pd.DataFrame, pairs: pd.DataFrame) -> pd.DataFrame:
     """Explain why each complete-six-factor station was not assigned."""
 
     reject_outcome_columns([covariates, pairs])
@@ -521,17 +515,13 @@ def matching_readiness(
         else {}
     )
     identities = {
-        name: {"path": path.as_posix(), "sha256": _sha256(path)}
+        name: {"path": path.as_posix()}
         for name, path in sorted((input_paths or {}).items())
         if path.is_file()
     }
     network_pair_columns = {"regulated_network_id", "control_network_id"}
     n_unique_network_pairs = (
-        len(
-            pairs.loc[:, sorted(network_pair_columns)]
-            .astype(str)
-            .drop_duplicates()
-        )
+        len(pairs.loc[:, sorted(network_pair_columns)].astype(str).drop_duplicates())
         if network_pair_columns.issubset(pairs.columns)
         else 0
     )
@@ -551,14 +541,10 @@ def matching_readiness(
         ),
         "max_log_drainage_area_abs_diff": max_log_drainage,
         "max_drainage_area_ratio": (
-            float(np.exp(max_log_drainage))
-            if max_log_drainage is not None
-            else None
+            float(np.exp(max_log_drainage)) if max_log_drainage is not None else None
         ),
         "max_bfi_abs_diff": maximum("bfi_abs_diff"),
-        "max_standardized_l1_match_distance": maximum(
-            "standardized_l1_match_distance"
-        ),
+        "max_standardized_l1_match_distance": maximum("standardized_l1_match_distance"),
         "caliper_invented_or_applied": False,
         "balance_supports_formal_confound_control": False,
     }

@@ -125,17 +125,12 @@ data_versions:
     external: external_upper_middle_chattahoochee_v1
   published_v1_rs_rebuild:
     report: results/data_audit/internal_nasa_rs_rebuild.json
-    daily_long_sha256: be1e7dd21c854c67f34f0edec29452a73026d7f854fbbfed801b3817dd929b3e
-    daily_wide_sha256: 407b622865502d7c81f1582f019a15e6a8df91dd306d4285bca5d4da0c9a706c
-    version_manifest_sha256: a92d4f46cf367796f8f3e4f5ad4cd5d34d0a703ca875164f376b1483df218cf4
     hydro_cma_invariants: T_F_L_Ta_P_W_RH_DH_values_unchanged
     dh_role: sensitivity_only_not_renamed_to_Rs
   published_v2_build:
     status: built
     builder: scripts/14_build_data_versions.py
     source: data_versions/published_v1/daily_long.parquet
-    note: do_not_name_artifact_hashes_in_this_freeze
-  note: v2_directories_exist_hashes_are_not_pinned_here
 
 required_protocol_sensitivities:
   meteorology_alignment_v1:

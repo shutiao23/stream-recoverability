@@ -44,12 +44,9 @@
     20260815
   ],
   "frontier_anchor_catalog_path": null,
-  "frontier_anchor_catalog_sha256": null,
   "frontier_anchor_count": 0,
   "validation_anchor_catalog_path": null,
-  "validation_anchor_catalog_sha256": null,
   "validation_anchor_count": 0,
-  "validation_anchor_catalog_logical_sha256": null,
   "validation_anchor_ids": [],
   "anchor_availability_rows": 0,
   "anchor_unavailable_rows": 0,
@@ -58,7 +55,6 @@
   "selected_scenarios": 60,
   "grid_scenario_count": 60,
   "event_catalog_path": null,
-  "event_catalog_sha256": null,
   "event_catalog_episode_count": 0,
   "event_catalog_analysis_count": 0,
   "expected_run_count": 540,
@@ -3425,17 +3421,5 @@
   "design_version": "design_freeze_v4",
   "mask_schema_version": "mask_schema_v2",
   "model_schema_version": "model_schema_v3",
-  "statistics_schema_version": "statistics_schema_v3",
-  "code_provenance": {
-    "schema_version": "code_provenance_v1",
-    "git_commit": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
-    "tracked_worktree_clean": true,
-    "relevant_source_clean": true,
-    "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
-    "relevant_source_file_count": 50,
-    "dirty_tracked_paths": [],
-    "relevant_untracked_paths": [],
-    "external_relevant_input_count": 0,
-    "status": "clean"
-  }
+  "statistics_schema_version": "statistics_schema_v3"
 }

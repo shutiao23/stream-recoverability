@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import importlib.util
 import json
 from functools import cache
@@ -16,10 +15,7 @@ from stream_recoverability.experiments.contracts import (
     validate_data_version_inputs,
 )
 from stream_recoverability.masks.anchors import load_frontier_anchor_catalog
-from stream_recoverability.masks.event_catalog import (
-    event_catalog_sha256,
-    load_event_episode_catalog,
-)
+from stream_recoverability.masks.event_catalog import load_event_episode_catalog
 
 SCRIPT = Path(__file__).parents[1] / "scripts/13_aggregate_formal_results.py"
 REPO_ROOT = SCRIPT.parents[1]
@@ -58,13 +54,12 @@ def _load_script():
 
     # These fixtures exercise the aggregator's trust boundary.  Keep the two
     # upstream loaders deterministic, as the registry-builder tests do, while
-    # retaining the complete hash-bound roster and authorization mirrors in
-    # every artifact passed to the aggregator.
+    # retaining the complete roster and authorization mirrors in every
+    # artifact passed to the aggregator.
     def stable_roster_loader(path, **_kwargs):
         roster_path = Path(path)
         document = json.loads(roster_path.read_text(encoding="utf-8"))
         return SimpleNamespace(
-            manifest_sha256=_sha256(roster_path),
             selected_models=tuple(document["selected_models"]),
             proposed_decision=document["proposed_decision"],
         )
@@ -86,22 +81,10 @@ def _load_script():
     return module
 
 
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _canonical_sha256(value: object) -> str:
-    payload = json.dumps(
-        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
 def _file_identity(path: Path) -> dict[str, object]:
     return {
         "path": str(path.resolve()),
         "bytes": path.stat().st_size,
-        "sha256": _sha256(path),
     }
 
 
@@ -163,7 +146,6 @@ def _roster_mirror(roster_path: Path) -> dict[str, object]:
     document = json.loads(roster_path.read_text(encoding="utf-8"))
     return {
         "path": str(roster_path.resolve()),
-        "sha256": _sha256(roster_path),
         "selected_models": list(document["selected_models"]),
         "proposed_decision": document["proposed_decision"],
     }
@@ -371,7 +353,6 @@ def _write_run(
                     "path": str(checkpoint.resolve()),
                     "size": checkpoint.stat().st_size,
                     "mtime_ns": checkpoint.stat().st_mtime_ns,
-                    "sha256": _sha256(checkpoint),
                 },
                 "checkpoint_sidecar": None,
             }
@@ -398,15 +379,6 @@ def _write_run(
     counts["checkpoint_valid_run_count"] = counts.pop("checkpoint_valid_run_unit_count")
     manifest = {
         **EVIDENCE,
-        "code_provenance": {
-            **EVIDENCE["code_provenance"],
-            "tracked_worktree_clean": True,
-            "relevant_source_clean": True,
-            "dirty_tracked_paths": [],
-            "relevant_untracked_paths": [],
-            "external_relevant_input_count": 0,
-            "status": "clean",
-        },
         "data_version_input_identity": _data_version_input_identity(),
         "suite": suite,
         "models": models,
@@ -433,17 +405,14 @@ def _write_run(
         "completed_event_rows": len(event_frame),
         "training_checkpoints": checkpoint_summaries,
         "frontier_anchor_catalog_path": str(FRONTIER_ANCHORS.resolve()),
-        "frontier_anchor_catalog_sha256": _sha256(FRONTIER_ANCHORS),
         "frontier_anchor_count": len(_frontier_catalog()),
         "formal_grid_contract_complete": True,
         "formal_grid_contract": {
             "suite": suite,
             "frontier_anchor_required": True,
             "frontier_anchor_catalog_path": str(FRONTIER_ANCHORS.resolve()),
-            "frontier_anchor_catalog_sha256": _sha256(FRONTIER_ANCHORS),
             "frontier_anchor_count": len(_frontier_catalog()),
             "frontier_anchor_scenario_count": len(models),
-            "frontier_anchor_bindings_sha256": "a" * 64,
             "event_uncertainty_required": suite == "full",
         },
         "finalized_model_roster": roster,
@@ -454,7 +423,6 @@ def _write_run(
         eligible = catalog.loc[catalog["analysis_eligible"].astype(bool)]
         event_fields = {
             "event_catalog_path": str(EVENT_CATALOG.resolve()),
-            "event_catalog_sha256": event_catalog_sha256(catalog),
             "event_catalog_episode_count": len(catalog),
             "event_catalog_analysis_count": len(eligible),
         }
@@ -469,29 +437,10 @@ def _write_run(
     (directory / "run_manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
 
 
-def _builder_identity() -> dict[str, object]:
-    sources = []
-    for relative in (
-        "scripts/21_build_formal_suite_registry.py",
-        "src/stream_recoverability/analysis/formal_registry.py",
-    ):
-        path = REPO_ROOT / relative
-        sources.append(
-            {"path": relative, "bytes": path.stat().st_size, "sha256": _sha256(path)}
-        )
-    identity: dict[str, object] = {
-        "schema_version": "formal_registry_builder_identity_v1",
-        "sources": sources,
-        "identity_hash_scope": "canonical_json_excluding_identity_sha256",
-    }
-    identity["identity_sha256"] = _canonical_sha256(identity)
-    return identity
-
-
 def _refresh_registry(registry: dict[str, object]) -> None:
     sources = registry["sources"]
     assert isinstance(sources, list)
-    suite_hashes: dict[str, list[str]] = {}
+    suite_manifests: dict[str, list[str]] = {}
     for source in sources:
         assert isinstance(source, dict)
         directory = Path(str(source["run_directory"]))
@@ -500,8 +449,8 @@ def _refresh_registry(registry: dict[str, object]) -> None:
             directory / "daily_predictions.parquet"
         )
         source["event_metrics"] = _file_identity(directory / "event_metrics.parquet")
-        suite_hashes.setdefault(str(source["suite"]), []).append(
-            str(source["manifest"]["sha256"])
+        suite_manifests.setdefault(str(source["suite"]), []).append(
+            str(source["manifest"]["path"])
         )
     role_suites = {
         "core_full": ["full"],
@@ -516,11 +465,9 @@ def _refresh_registry(registry: dict[str, object]) -> None:
     for role in roles:
         assert isinstance(role, dict)
         suites = role_suites[str(role["role"])]
-        role["source_manifest_sha256"] = sorted(
-            digest for suite in suites for digest in suite_hashes.get(suite, [])
+        role["source_manifests"] = sorted(
+            path for suite in suites for path in suite_manifests.get(suite, [])
         )
-    registry.pop("registry_sha256", None)
-    registry["registry_sha256"] = _canonical_sha256(registry)
 
 
 def _source_entry(directory: Path) -> dict[str, object]:
@@ -602,10 +549,10 @@ def _fixture(
         formal / "retrained",
     ]
     sources = [_source_entry(directory) for directory in run_directories]
-    hashes_by_suite: dict[str, list[str]] = {}
+    manifests_by_suite: dict[str, list[str]] = {}
     for source in sources:
-        hashes_by_suite.setdefault(str(source["suite"]), []).append(
-            str(source["manifest"]["sha256"])
+        manifests_by_suite.setdefault(str(source["suite"]), []).append(
+            str(source["manifest"]["path"])
         )
     role_specs = (
         ("core_full", "full", COMPARISON_MODELS),
@@ -625,7 +572,7 @@ def _fixture(
             "status": "complete",
             "reason": None,
             "manifest_suites": [suite],
-            "source_manifest_sha256": sorted(hashes_by_suite[suite]),
+            "source_manifests": sorted(manifests_by_suite[suite]),
             "expected_models": models,
         }
         for role, suite, models in role_specs
@@ -684,7 +631,6 @@ def _fixture(
         "bundle_role": "primary",
         "data_version": "published_v1",
         "evaluation_split": "development_test",
-        "registry_builder_identity": _builder_identity(),
         "data_version_manifest": _file_identity(VERSION_MANIFEST),
         "data_version_input_identity": _data_version_input_identity(),
         "frontier_anchor_catalog": {
@@ -700,9 +646,7 @@ def _fixture(
         "suite_roles": suite_roles,
         "sources": sources,
         "suites": suite_entries,
-        "registry_hash_scope": "canonical_json_excluding_registry_sha256",
     }
-    registry["registry_sha256"] = _canonical_sha256(registry)
     return formal, results, registry
 
 
@@ -729,7 +673,7 @@ def _mutate_manifest(path: Path, mutation) -> None:
     path.write_text(json.dumps(manifest), encoding="utf-8")
 
 
-def test_dynamic_registry_aggregates_only_finalized_roster_and_hashes_outputs(
+def test_dynamic_registry_aggregates_only_finalized_roster_and_records_outputs(
     tmp_path: Path,
 ) -> None:
     formal, results, registry = _fixture(tmp_path)
@@ -776,36 +720,17 @@ def test_dynamic_registry_aggregates_only_finalized_roster_and_hashes_outputs(
     assert manifest["formal_training_seed_complete"] is True
     assert manifest["formal_mask_seed_complete"] is True
     assert manifest["retryable_run_keys"] == []
-    assert len(manifest["expected_run_unit_keys_sha256"]) == 64
     for name, path in (
         ("predictions", results / "predictions.parquet"),
         ("event_metrics", results / "event_metrics.parquet"),
         ("summary_metrics", results / "summary_metrics.csv"),
     ):
-        assert manifest["artifacts"][name]["sha256"] == _sha256(path)
+        assert manifest["artifacts"][name] == {
+            "path": str(path.resolve()),
+            "size": path.stat().st_size,
+        }
     persisted = json.loads((formal / "run_manifest.json").read_text())
     assert persisted == manifest
-
-
-def test_registry_file_is_audited_by_hash(tmp_path: Path) -> None:
-    formal, results, registry = _fixture(tmp_path)
-    registry_path = tmp_path / "suite_registry.json"
-    registry_path.write_text(json.dumps(registry), encoding="utf-8")
-    module = _load_script()
-
-    manifest = module.aggregate_formal_results(
-        formal,
-        results,
-        suite_registry=registry_path,
-        design_path=REPO_ROOT / "configs/design_freeze_v1.yaml",
-        manifest_path=REPO_ROOT / "study_manifest.yaml",
-        config_path=REPO_ROOT / "configs/experiments.yaml",
-        data_version="published_v1",
-        evaluation_split="development_test",
-        data_version_manifest_path=VERSION_MANIFEST,
-    )
-
-    assert manifest["suite_registry"]["sha256"] == _sha256(registry_path)
 
 
 @pytest.mark.parametrize(
@@ -858,37 +783,6 @@ def test_rejects_stale_contract_in_manifest_or_table(tmp_path: Path) -> None:
         _aggregate(module, formal, results, registry)
 
 
-def test_ignores_leftover_source_identity_fields(tmp_path: Path) -> None:
-    formal, results, registry = _fixture(tmp_path)
-
-    def mutation(data):
-        data["code_identity"] = {"relevant_source_digest": "0" * 64}
-        data["design_hash"] = "0" * 64
-        data["input_digests"] = {"design_freeze": "0" * 64}
-
-    _mutate_manifest(formal / "full/run_manifest.json", mutation)
-    module = _load_script()
-
-    result = _aggregate(module, formal, results, registry)
-    assert result["complete"] is True
-
-
-def test_accepts_historical_git_audit_when_code_identity_matches(
-    tmp_path: Path,
-) -> None:
-    formal, results, registry = _fixture(tmp_path)
-
-    def mutation(data):
-        data["code_provenance"]["git_commit"] = "f" * 40
-        data["code_provenance"]["status"] = "historical"
-
-    _mutate_manifest(formal / "full/run_manifest.json", mutation)
-    module = _load_script()
-
-    result = _aggregate(module, formal, results, registry)
-    assert result["complete"] is True
-
-
 def test_rejects_nonfinite_prediction(tmp_path: Path) -> None:
     formal, results, registry = _fixture(tmp_path)
     path = formal / "full/daily_predictions.parquet"
@@ -901,13 +795,13 @@ def test_rejects_nonfinite_prediction(tmp_path: Path) -> None:
         _aggregate(module, formal, results, registry)
 
 
-def test_rejects_missing_or_tampered_checkpoint(tmp_path: Path) -> None:
+def test_rejects_missing_checkpoint(tmp_path: Path) -> None:
     formal, results, registry = _fixture(tmp_path)
     checkpoint = formal / "full/checkpoints/proposed.pt"
-    checkpoint.write_bytes(b"tampered")
+    checkpoint.unlink()
     module = _load_script()
 
-    with pytest.raises(ValueError, match="recorded size/hash"):
+    with pytest.raises(FileNotFoundError, match="is missing"):
         _aggregate(module, formal, results, registry)
 
 

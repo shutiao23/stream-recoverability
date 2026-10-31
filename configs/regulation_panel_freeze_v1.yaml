@@ -1,7 +1,6 @@
 design_id: regulation_panel_freeze_v1
 status: frozen_before_temperature_panel_outcomes
 frozen_at_utc: "2026-08-24T22:13:49Z"
-parent_repository_commit: 42a553f69d
 purpose: >-
   Independent station-panel test of whether the already defined, observation-only
   memory-range fingerprint distinguishes USGS stream-temperature sites with at
@@ -41,7 +40,6 @@ data_sources:
     doi: 10.5066/P96CPHOT
     sciencebase_item_id: 631405bbd34e36012efa304a
     archive_name: basinchar_and_report_sept_2011.zip
-    archive_md5: 88175f5162b01636a319c7b1206dd133
     release_snapshot: 2009_dam_attributes_released_2011
     required_tables:
       - conterm_basinid.txt

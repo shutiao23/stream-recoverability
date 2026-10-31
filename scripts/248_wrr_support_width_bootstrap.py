@@ -56,7 +56,6 @@ and caches the regenerated dilation columns under ``scratch/f05/``.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import multiprocessing as mp
 import os
@@ -88,7 +87,7 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     REALIZATIONS_PER_STATION_YEAR,
     STEP10_CONFIRM,
     STEP3_CASES,
-    stable_seed,
+    station_year_seed,
 )
 from stream_recoverability.experiments.v18_closure.analysis import (  # noqa: E402
     auc,
@@ -119,7 +118,13 @@ CASES_BY_SPLIT = {
 }
 SPLIT_LABEL = {"development": "development", "reserved": "reserved_open"}
 
-OUT_DIR = ROOT / "results" / "wrr_submission_ready" / "amendments" / "e6_support_width_uncertainty"
+OUT_DIR = (
+    ROOT
+    / "results"
+    / "wrr_submission_ready"
+    / "amendments"
+    / "e6_support_width_uncertainty"
+)
 SCRATCH = ROOT / "scratch" / "f05"
 DILATION_CACHE = SCRATCH / "e6_dilation_columns.parquet"
 SEED = 20261012
@@ -132,28 +137,25 @@ AXIS_DEFS = {
     "peak_window_30": lambda frame, w: frame["peak_overlap"].to_numpy(float),
     "missing_fraction": lambda frame, w: frame["missing_fraction"].to_numpy(float),
     "longest_run": lambda frame, w: frame["longest_run"].to_numpy(float),
-    "warm_observed_fraction": lambda frame, w: -frame["warm_observed_fraction"].to_numpy(float),
+    "warm_observed_fraction": lambda frame, w: (
+        -frame["warm_observed_fraction"].to_numpy(float)
+    ),
 }
 DILATION_AXIS_DEFS = {
-    "fixed_centre_dilation": lambda frame, w: frame[f"fcd_smooth_hidden_{w}"].to_numpy(float),
-    "fixed_centre_dilation_mirror": lambda frame, w: frame[f"fcd_smooth_hi_hidden_{w}"].to_numpy(float),
-    "fixed_centre_dilation_raw_peak": lambda frame, w: frame[f"fcd_raw_hidden_{w}"].to_numpy(float),
+    "fixed_centre_dilation": lambda frame, w: frame[f"fcd_smooth_hidden_{w}"].to_numpy(
+        float
+    ),
+    "fixed_centre_dilation_mirror": lambda frame, w: frame[
+        f"fcd_smooth_hi_hidden_{w}"
+    ].to_numpy(float),
+    "fixed_centre_dilation_raw_peak": lambda frame, w: frame[
+        f"fcd_raw_hidden_{w}"
+    ].to_numpy(float),
 }
 
 # --------------------------------------------------------------------------
 # Small helpers
 # --------------------------------------------------------------------------
-
-
-def _sha256(path: Path, limit: int = 1 << 22) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        while True:
-            block = handle.read(limit)
-            if not block:
-                break
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _jsonable(value):
@@ -242,7 +244,9 @@ def crossover_summary(curve_draws: np.ndarray, point_curve: np.ndarray) -> dict:
         interp[row] = _interp_first_crossing(y)
     crossed = np.isfinite(interp)
     low, high, se = _ci(interp[crossed]) if crossed.any() else (np.nan, np.nan, np.nan)
-    dlow, dhigh, _ = _ci(discrete[crossed]) if crossed.any() else (np.nan, np.nan, np.nan)
+    dlow, dhigh, _ = (
+        _ci(discrete[crossed]) if crossed.any() else (np.nan, np.nan, np.nan)
+    )
     counts = {str(k): int(v) for k, v in pd.Series(reasons).value_counts().items()}
     point = np.asarray(point_curve, dtype=float)
     non_positive = np.flatnonzero(point <= 0)
@@ -250,7 +254,9 @@ def crossover_summary(curve_draws: np.ndarray, point_curve: np.ndarray) -> dict:
         "widths_days": [int(w) for w in WIDTHS],
         "point_curve": [float(v) for v in point],
         "point_crossover_days_interpolated": float(_interp_first_crossing(point)),
-        "point_crossover_days_script215_rule": float(_script215_first_sign_change(point)),
+        "point_crossover_days_script215_rule": float(
+            _script215_first_sign_change(point)
+        ),
         "point_crossover_grid_width_days": (
             float(WIDTHS[int(non_positive[0])]) if non_positive.size else float("nan")
         ),
@@ -258,11 +264,15 @@ def crossover_summary(curve_draws: np.ndarray, point_curve: np.ndarray) -> dict:
         "p_crossover": float(np.mean(crossed)),
         "p_no_crossover": float(1.0 - np.mean(crossed)),
         "p_no_crossover_reason_counts": counts,
-        "p_never_positive_in_range": float(np.mean(reasons == "never_positive_in_range")),
+        "p_never_positive_in_range": float(
+            np.mean(reasons == "never_positive_in_range")
+        ),
         "p_advantage_gained_later_not_lost": float(
             np.mean(reasons == "advantage_gained_later_not_lost")
         ),
-        "p_positive_at_every_width": float(np.mean(reasons == "positive_at_every_width")),
+        "p_positive_at_every_width": float(
+            np.mean(reasons == "positive_at_every_width")
+        ),
         "p_positive_at_shortest_width": float(np.mean(draws[:, 0] > 0)),
         "p_positive_at_widest_width": float(np.mean(draws[:, -1] > 0)),
         "bootstrap_crossover_days_median": (
@@ -280,7 +290,9 @@ def crossover_summary(curve_draws: np.ndarray, point_curve: np.ndarray) -> dict:
         "bootstrap_discrete_crossover_ci95_low": float(dlow),
         "bootstrap_discrete_crossover_ci95_high": float(dhigh),
         "bootstrap_discrete_crossover_mode_days": (
-            float(pd.Series(discrete[crossed]).mode().iloc[0]) if crossed.any() else float("nan")
+            float(pd.Series(discrete[crossed]).mode().iloc[0])
+            if crossed.any()
+            else float("nan")
         ),
         "p_contrast_positive_by_width": {
             str(w): float(np.mean(draws[:, i] > 0)) for i, w in enumerate(WIDTHS)
@@ -325,7 +337,10 @@ def validate_against_case_tables(frame: pd.DataFrame) -> dict:
         cases["station_id"] = cases["station_id"].astype(str)
         block = frame.loc[frame["split_role"] == split]
         merged = block.merge(
-            cases[KEY_COLUMNS + shared], on=KEY_COLUMNS, how="left", suffixes=("", "_frozen")
+            cases[KEY_COLUMNS + shared],
+            on=KEY_COLUMNS,
+            how="left",
+            suffixes=("", "_frozen"),
         )
         unmatched = int(merged["split_role_frozen"].isna().sum())
         diffs = {
@@ -333,7 +348,9 @@ def validate_against_case_tables(frame: pd.DataFrame) -> dict:
                 (merged["truth_hottest_30"] - merged["truth_hottest30"]).abs().max()
             ),
             "missing_fraction": float(
-                (merged["missing_fraction"] - merged["missing_fraction_frozen"]).abs().max()
+                (merged["missing_fraction"] - merged["missing_fraction_frozen"])
+                .abs()
+                .max()
             ),
             "peak_overlap": float(
                 (merged["peak_overlap"] - merged["peak_overlap_frozen"]).abs().max()
@@ -376,9 +393,13 @@ def reproduce_script215(frame: pd.DataFrame) -> dict:
         for width in WIDTHS:
             scale = interannual_scale(block, f"truth_hottest_{width}")
             label = (
-                block[f"abserr_hottest_{width}"] > TOLERANCE_FRACTION * scale
-            ).astype(float).to_numpy()
-            a_support = auc(label, block[f"support_hidden_{width}"].to_numpy(dtype=float))
+                (block[f"abserr_hottest_{width}"] > TOLERANCE_FRACTION * scale)
+                .astype(float)
+                .to_numpy()
+            )
+            a_support = auc(
+                label, block[f"support_hidden_{width}"].to_numpy(dtype=float)
+            )
             a_peak = auc(label, block["peak_overlap"].to_numpy(dtype=float))
             a_missing = auc(label, block["missing_fraction"].to_numpy(dtype=float))
             rows[int(width)] = {
@@ -391,7 +412,9 @@ def reproduce_script215(frame: pd.DataFrame) -> dict:
                 "fixed_peak_window_minus_missing_fraction": float(a_peak - a_missing),
             }
         out[name] = rows
-    frozen = json.loads((V18_RESULTS_ROOT / "e6_support_width" / "summary.json").read_text())
+    frozen = json.loads(
+        (V18_RESULTS_ROOT / "e6_support_width" / "summary.json").read_text()
+    )
     dev_rows = out["development"]
     differences = {
         "P1_advantage_by_width": {
@@ -410,7 +433,12 @@ def reproduce_script215(frame: pd.DataFrame) -> dict:
         },
         "development_crossover_width_days": abs(
             _interp_first_crossing(
-                np.array([dev_rows[w]["fixed_peak_window_minus_missing_fraction"] for w in WIDTHS])
+                np.array(
+                    [
+                        dev_rows[w]["fixed_peak_window_minus_missing_fraction"]
+                        for w in WIDTHS
+                    ]
+                )
             )
             - frozen["P2_crossover"]["crossover_width_days"]
         ),
@@ -426,6 +454,7 @@ def reproduce_script215(frame: pd.DataFrame) -> dict:
             - frozen["reserved_crossover_width_days"]
         ),
     }
+
     def _leaves(value):
         if isinstance(value, dict):
             for item in value.values():
@@ -433,9 +462,7 @@ def reproduce_script215(frame: pd.DataFrame) -> dict:
         else:
             yield float(value)
 
-    out["max_abs_difference_vs_frozen_summary_json"] = float(
-        max(_leaves(differences))
-    )
+    out["max_abs_difference_vs_frozen_summary_json"] = float(max(_leaves(differences)))
     out["differences"] = differences
     return out
 
@@ -445,7 +472,9 @@ def reproduce_script215(frame: pd.DataFrame) -> dict:
 # --------------------------------------------------------------------------
 
 
-def dilation_window_positions(centre: float, width: int, n: int, tie: str = "low") -> np.ndarray:
+def dilation_window_positions(
+    centre: float, width: int, n: int, tie: str = "low"
+) -> np.ndarray:
     """The ``width`` positions of a year closest to a fixed circular centre.
 
     ``centre`` is a (possibly half-integer) position on the 0..n-1 ring. The
@@ -531,12 +560,17 @@ def network_dilation_rows(job: dict) -> list[dict]:
             raw_start = int(peak_doys[0])
             raw_windows = {
                 w: np.flatnonzero(
-                    np.isin(year_index.dayofyear.to_numpy(), dilation_doy_window(raw_start, w))
+                    np.isin(
+                        year_index.dayofyear.to_numpy(),
+                        dilation_doy_window(raw_start, w),
+                    )
                 )
                 for w in WIDTHS
             }
             rng = np.random.default_rng(
-                stable_seed(network_id, station_id, year, "leave_one_year_out")
+                station_year_seed(
+                    network_id, station_id, daily.columns, year, "leave_one_year_out"
+                )
             )
             realizations = design_for_year(
                 year_index,
@@ -557,20 +591,30 @@ def network_dilation_rows(job: dict) -> list[dict]:
                     "arm": realization.arm,
                     "n_days": int(n),
                     "missing_fraction_regen": float(mask.mean()),
-                    "peak_overlap_regen": peak_overlap_fraction(year_index, mask, peak_doys),
+                    "peak_overlap_regen": peak_overlap_fraction(
+                        year_index, mask, peak_doys
+                    ),
                     "peak_start_doy": raw_start,
                     "smooth30_centre": float(smooth_centre),
                 }
                 for w in WIDTHS:
                     reseek = reseek_windows[w]
-                    fixed_smooth = dilation_window_positions(smooth_centre, w, n, tie="low")
-                    fixed_smooth_hi = dilation_window_positions(smooth_centre, w, n, tie="high")
+                    fixed_smooth = dilation_window_positions(
+                        smooth_centre, w, n, tie="low"
+                    )
+                    fixed_smooth_hi = dilation_window_positions(
+                        smooth_centre, w, n, tie="high"
+                    )
                     fixed_raw = raw_windows[w]
                     row[f"reseek_hidden_{w}"] = float(mask[reseek].mean())
                     row[f"fcd_smooth_hidden_{w}"] = float(mask[fixed_smooth].mean())
-                    row[f"fcd_smooth_hi_hidden_{w}"] = float(mask[fixed_smooth_hi].mean())
+                    row[f"fcd_smooth_hi_hidden_{w}"] = float(
+                        mask[fixed_smooth_hi].mean()
+                    )
                     row[f"fcd_raw_hidden_{w}"] = (
-                        float(mask[fixed_raw].mean()) if len(fixed_raw) else float("nan")
+                        float(mask[fixed_raw].mean())
+                        if len(fixed_raw)
+                        else float("nan")
                     )
                     reseek_centre = (float(reseek[0]) + (w - 1) / 2.0) % n
                     row[f"centre_shift_days_{w}"] = float(
@@ -595,7 +639,9 @@ def build_dilation_columns(workers: int, refresh: bool) -> pd.DataFrame:
     grouped: dict[tuple[str, str], list[tuple[str, tuple[int, ...]]]] = {}
     for job in jobs:
         key = (str(job["network_id"]), str(job["source_root"]))
-        grouped.setdefault(key, []).append((str(job["station_id"]), tuple(job["complete_years"])))
+        grouped.setdefault(key, []).append(
+            (str(job["station_id"]), tuple(job["complete_years"]))
+        )
     work = [
         {"network_id": net, "source_root": root, "stations": stations}
         for (net, root), stations in sorted(grouped.items())
@@ -606,7 +652,11 @@ def build_dilation_columns(workers: int, refresh: bool) -> pd.DataFrame:
     else:
         blocks = _parallel(network_dilation_rows, work, workers)
     rows = [row for block in blocks for row in block]
-    frame = pd.DataFrame(rows).sort_values(KEY_COLUMNS, kind="mergesort").reset_index(drop=True)
+    frame = (
+        pd.DataFrame(rows)
+        .sort_values(KEY_COLUMNS, kind="mergesort")
+        .reset_index(drop=True)
+    )
     frame.to_parquet(DILATION_CACHE, index=False)
     print(
         f"[masks] regenerated {len(frame)} development cases from {len(work)} networks "
@@ -619,7 +669,11 @@ def build_dilation_columns(workers: int, refresh: bool) -> pd.DataFrame:
 def _parallel(func, items, workers: int):
     if workers <= 1:
         return [func(item) for item in items]
-    ctx = mp.get_context("fork") if "fork" in mp.get_all_start_methods() else mp.get_context()
+    ctx = (
+        mp.get_context("fork")
+        if "fork" in mp.get_all_start_methods()
+        else mp.get_context()
+    )
     with ProcessPoolExecutor(max_workers=workers, mp_context=ctx) as pool:
         return list(pool.map(func, items, chunksize=1))
 
@@ -662,7 +716,9 @@ def validate_regenerated_masks(dilation: pd.DataFrame, stored: pd.DataFrame) -> 
     # a 366-day year, so it is not exactly the whole-year missing fraction.
     leap = merged["n_days"] > 365
     diffs["width365_reseek_vs_missing_fraction_leap_years"] = float(
-        (merged.loc[leap, "reseek_hidden_365"] - merged.loc[leap, "missing_fraction"]).abs().max()
+        (merged.loc[leap, "reseek_hidden_365"] - merged.loc[leap, "missing_fraction"])
+        .abs()
+        .max()
     )
     return {
         "n_regenerated_cases": int(len(merged)),
@@ -713,7 +769,9 @@ def _chunk(task: tuple[str, int, int]):
             out[row, :] = np.nanmean(grid["extras"][idx], axis=0)
             continue
         for col, (label_key, axis_key) in enumerate(grid["pairs"]):
-            out[row, col] = auc(grid["labels"][label_key][idx], grid["axes"][axis_key][idx])
+            out[row, col] = auc(
+                grid["labels"][label_key][idx], grid["axes"][axis_key][idx]
+            )
     return name, start, out
 
 
@@ -764,7 +822,9 @@ def _scale_refit_chunk(task: tuple[str, int, int]):
                 if not np.isfinite(label).any() or label.min() == label.max():
                     continue
                 for ai, axis_name in enumerate(axis_names):
-                    out[row, wi, fi, ai] = auc(label, axes[(axis_name, WIDTHS[wi])][row_idx])
+                    out[row, wi, fi, ai] = auc(
+                        label, axes[(axis_name, WIDTHS[wi])][row_idx]
+                    )
     return name, start, out
 
 
@@ -807,15 +867,20 @@ def run_grids(grids: dict[str, dict], workers: int) -> dict[str, np.ndarray]:
 
 def panel_payload(frame: pd.DataFrame, axes: dict, fractions: dict) -> dict:
     groups = {
-        str(k): np.asarray(v) for k, v in frame.groupby("network_id", sort=True).indices.items()
+        str(k): np.asarray(v)
+        for k, v in frame.groupby("network_id", sort=True).indices.items()
     }
     keys = list(groups)
     scales = {w: float(interannual_scale(frame, f"truth_hottest_{w}")) for w in WIDTHS}
-    abserr = np.column_stack([frame[f"abserr_hottest_{w}"].to_numpy(float) for w in WIDTHS])
+    abserr = np.column_stack(
+        [frame[f"abserr_hottest_{w}"].to_numpy(float) for w in WIDTHS]
+    )
     labels: dict[tuple[str, int], np.ndarray] = {}
     for name, fraction in fractions.items():
         for i, width in enumerate(WIDTHS):
-            labels[(name, width)] = (abserr[:, i] > fraction * scales[width]).astype(float)
+            labels[(name, width)] = (abserr[:, i] > fraction * scales[width]).astype(
+                float
+            )
     axis_arrays = {
         (axis_name, width): axes[axis_name](frame, width)
         for axis_name in axes
@@ -853,7 +918,9 @@ def panel_payload(frame: pd.DataFrame, axes: dict, fractions: dict) -> dict:
     }
 
 
-def auc_grid(payload: dict, fractions: list[str], axes: list[str], picks: np.ndarray) -> tuple[dict, list]:
+def auc_grid(
+    payload: dict, fractions: list[str], axes: list[str], picks: np.ndarray
+) -> tuple[dict, list]:
     pairs = [
         ((fraction, width), (axis_name, width))
         for fraction in fractions
@@ -876,11 +943,17 @@ def auc_grid(payload: dict, fractions: list[str], axes: list[str], picks: np.nda
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--draws", type=int, default=2000, help="bootstrap replicates (>= 1000)")
+    parser.add_argument(
+        "--draws", type=int, default=2000, help="bootstrap replicates (>= 1000)"
+    )
     parser.add_argument("--workers", type=int, default=min(32, os.cpu_count() or 1))
     parser.add_argument("--seed", type=int, default=SEED)
-    parser.add_argument("--refresh-masks", action="store_true", help="ignore the scratch cache")
-    parser.add_argument("--skip-masks", action="store_true", help="reuse the scratch cache")
+    parser.add_argument(
+        "--refresh-masks", action="store_true", help="ignore the scratch cache"
+    )
+    parser.add_argument(
+        "--skip-masks", action="store_true", help="reuse the scratch cache"
+    )
     args = parser.parse_args()
     if args.draws < 1000:
         raise SystemExit("--draws must be >= 1000 for a reportable interval")
@@ -890,7 +963,9 @@ def main() -> int:
 
     started = time.time()
     stored = load_stored_curve()
-    development = stored.loc[stored["split_role"] == "development"].reset_index(drop=True)
+    development = stored.loc[stored["split_role"] == "development"].reset_index(
+        drop=True
+    )
     reserved = stored.loc[stored["split_role"] == "reserved"].reset_index(drop=True)
 
     validation = {
@@ -908,8 +983,12 @@ def main() -> int:
         dilation["network_id"] = dilation["network_id"].astype(str)
         dilation["station_id"] = dilation["station_id"].astype(str)
     else:
-        dilation = build_dilation_columns(workers=args.workers, refresh=args.refresh_masks)
-    validation["regenerated_masks_vs_stored"] = validate_regenerated_masks(dilation, stored)
+        dilation = build_dilation_columns(
+            workers=args.workers, refresh=args.refresh_masks
+        )
+    validation["regenerated_masks_vs_stored"] = validate_regenerated_masks(
+        dilation, stored
+    )
     print(
         "[validate] regenerated masks identical to stored: "
         f"{validation['regenerated_masks_vs_stored']['all_identical']}",
@@ -927,12 +1006,18 @@ def main() -> int:
     # any bootstrap so that every row of curve_with_ci.csv carries one
     points: dict[tuple[str, float, int, str], float] = {}
     for label, frame in (("development", development), ("reserved_open", reserved)):
-        fractions = FRACTIONS if label == "development" else {PRIMARY: FRACTIONS[PRIMARY]}
+        fractions = (
+            FRACTIONS if label == "development" else {PRIMARY: FRACTIONS[PRIMARY]}
+        )
         axes = AXIS_DEFS if label == "development" else AXIS_DEFS
         for fraction_name, fraction in fractions.items():
             for width in WIDTHS:
                 scale = interannual_scale(frame, f"truth_hottest_{width}")
-                y = (frame[f"abserr_hottest_{width}"] > fraction * scale).astype(float).to_numpy()
+                y = (
+                    (frame[f"abserr_hottest_{width}"] > fraction * scale)
+                    .astype(float)
+                    .to_numpy()
+                )
                 for axis_name, axis_fn in axes.items():
                     points[(label, fraction_name, width, axis_name)] = float(
                         auc(y, axis_fn(frame, width))
@@ -941,17 +1026,31 @@ def main() -> int:
     for endpoint_width in WIDTHS:
         scale = dev_payload["scales"][endpoint_width]
         y = (
-            development[f"abserr_hottest_{endpoint_width}"] > FRACTIONS[PRIMARY] * scale
-        ).astype(float).to_numpy()
+            (
+                development[f"abserr_hottest_{endpoint_width}"]
+                > FRACTIONS[PRIMARY] * scale
+            )
+            .astype(float)
+            .to_numpy()
+        )
         for conditioning_width in WIDTHS:
-            points[("development", PRIMARY, endpoint_width, f"cond_{conditioning_width}")] = float(
-                auc(y, development[f"support_hidden_{conditioning_width}"].to_numpy(float))
+            points[
+                ("development", PRIMARY, endpoint_width, f"cond_{conditioning_width}")
+            ] = float(
+                auc(
+                    y,
+                    development[f"support_hidden_{conditioning_width}"].to_numpy(float),
+                )
             )
     # dilation-axis points, on the merged frame the bootstrap actually scores
     for fraction_name, fraction in FRACTIONS.items():
         for width in WIDTHS:
             scale = dev_payload["scales"][width]
-            y = (merged[f"abserr_hottest_{width}"] > fraction * scale).astype(float).to_numpy()
+            y = (
+                (merged[f"abserr_hottest_{width}"] > fraction * scale)
+                .astype(float)
+                .to_numpy()
+            )
             for axis_name, axis_fn in DILATION_AXIS_DEFS.items():
                 points[("development", fraction_name, width, axis_name)] = float(
                     auc(y, axis_fn(merged, width))
@@ -961,11 +1060,21 @@ def main() -> int:
     res_picks = bootstrap_picks(len(res_payload["keys"]), args.draws, args.seed + 1)
 
     curve_axes = list(AXIS_DEFS)
-    dil_axes = list(DILATION_AXIS_DEFS) + ["support_reseeking", "peak_window_30", "missing_fraction"]
+    dil_axes = list(DILATION_AXIS_DEFS) + [
+        "support_reseeking",
+        "peak_window_30",
+        "missing_fraction",
+    ]
     grids: dict[str, dict] = {}
-    grids["dev_curve"], dev_curve_pairs = auc_grid(dev_payload, list(FRACTIONS), curve_axes, dev_picks)
-    grids["res_curve"], res_curve_pairs = auc_grid(res_payload, [PRIMARY], curve_axes, res_picks)
-    grids["dev_dilation"], dil_pairs = auc_grid(dil_payload, list(FRACTIONS), dil_axes, dev_picks)
+    grids["dev_curve"], dev_curve_pairs = auc_grid(
+        dev_payload, list(FRACTIONS), curve_axes, dev_picks
+    )
+    grids["res_curve"], res_curve_pairs = auc_grid(
+        res_payload, [PRIMARY], curve_axes, res_picks
+    )
+    grids["dev_dilation"], dil_pairs = auc_grid(
+        dil_payload, list(FRACTIONS), dil_axes, dev_picks
+    )
 
     # conditioning matrix: label at endpoint width k against the re-seeking
     # window at conditioning width c (the diagonal is the estimand's own support)
@@ -1035,7 +1144,9 @@ def main() -> int:
             np.abs(merged[f"centre_shift_days_{width}"].to_numpy(float)),
             merged[f"centre_shift_days_{width}"].to_numpy(float),
             merged[f"windows_differ_{width}"].to_numpy(float),
-            (merged[f"fcd_smooth_hidden_{width}"] - merged[f"reseek_hidden_{width}"]).to_numpy(float),
+            (
+                merged[f"fcd_smooth_hidden_{width}"] - merged[f"reseek_hidden_{width}"]
+            ).to_numpy(float),
         ]
     grids["dev_geometry"] = {
         "kind": "mean",
@@ -1068,8 +1179,20 @@ def main() -> int:
     print(f"[boot] bootstrap done at {time.time() - started:.1f}s", flush=True)
 
     return _assemble(
-        args, started, results, grids, validation, points, dev_payload, res_payload,
-        dil_payload, dev_curve_pairs, res_curve_pairs, dil_pairs, cond_pairs, dil_axes,
+        args,
+        started,
+        results,
+        grids,
+        validation,
+        points,
+        dev_payload,
+        res_payload,
+        dil_payload,
+        dev_curve_pairs,
+        res_curve_pairs,
+        dil_pairs,
+        cond_pairs,
+        dil_axes,
         geometry_names,
     )
 
@@ -1080,13 +1203,27 @@ def main() -> int:
 
 
 def _assemble(
-    args, started, results, grids, validation, points, dev_payload, res_payload,
-    dil_payload, dev_curve_pairs, res_curve_pairs, dil_pairs, cond_pairs, dil_axes,
+    args,
+    started,
+    results,
+    grids,
+    validation,
+    points,
+    dev_payload,
+    res_payload,
+    dil_payload,
+    dev_curve_pairs,
+    res_curve_pairs,
+    dil_pairs,
+    cond_pairs,
+    dil_axes,
     geometry_names,
 ):
     refit_axes = list(AXIS_DEFS)
     refit_pairs = [
-        ((PRIMARY, width), (axis_name, width)) for width in WIDTHS for axis_name in refit_axes
+        ((PRIMARY, width), (axis_name, width))
+        for width in WIDTHS
+        for axis_name in refit_axes
     ]
     loo_pairs = [
         ((PRIMARY, width), (axis_name, width))
@@ -1101,7 +1238,12 @@ def _assemble(
     n_clusters = {name: len(grids[name]["keys"]) for name in grids}
 
     def auc_rows(
-        grid_name, panel, pairs, fraction_names, axes, scale_mode="fixed_full_sample",
+        grid_name,
+        panel,
+        pairs,
+        fraction_names,
+        axes,
+        scale_mode="fixed_full_sample",
         source="curve",
     ):
         draws = results[grid_name]
@@ -1126,7 +1268,11 @@ def _assemble(
                             "width_days": int(width),
                             "conditioning_width_days": -1,
                             "point": (
-                                float(points.get((panel, fraction_name, width, axis_name), np.nan))
+                                float(
+                                    points.get(
+                                        (panel, fraction_name, width, axis_name), np.nan
+                                    )
+                                )
                                 if scale_mode == "fixed_full_sample"
                                 else float("nan")
                             ),
@@ -1141,15 +1287,26 @@ def _assemble(
                         }
                     )
 
-    auc_rows("dev_curve", "development", dev_curve_pairs, list(FRACTIONS), list(AXIS_DEFS))
+    auc_rows(
+        "dev_curve", "development", dev_curve_pairs, list(FRACTIONS), list(AXIS_DEFS)
+    )
     auc_rows("res_curve", "reserved_open", res_curve_pairs, [PRIMARY], list(AXIS_DEFS))
     auc_rows(
-        "dev_dilation", "development", dil_pairs, list(FRACTIONS), list(DILATION_AXIS_DEFS),
+        "dev_dilation",
+        "development",
+        dil_pairs,
+        list(FRACTIONS),
+        list(DILATION_AXIS_DEFS),
         source="dilation",
     )
     auc_rows(
-        "refit:dev_curve", "development", refit_pairs, [PRIMARY], refit_axes,
-        scale_mode="refit_within_draw", source="refit",
+        "refit:dev_curve",
+        "development",
+        refit_pairs,
+        [PRIMARY],
+        refit_axes,
+        scale_mode="refit_within_draw",
+        source="refit",
     )
 
     # conditioning matrix rows
@@ -1158,7 +1315,10 @@ def _assemble(
         row: dict[str, object] = {}
         for conditioning_width in WIDTHS:
             col = cond_pairs.index(
-                ((PRIMARY, endpoint_width), (f"cond_{conditioning_width}", endpoint_width))
+                (
+                    (PRIMARY, endpoint_width),
+                    (f"cond_{conditioning_width}", endpoint_width),
+                )
             )
             values = results["dev_conditioning"][:, col]
             low, high, se = _ci(values)
@@ -1183,7 +1343,15 @@ def _assemble(
                     "width_days": int(endpoint_width),
                     "conditioning_width_days": int(conditioning_width),
                     "point": float(
-                        points.get(( "development", PRIMARY, endpoint_width, f"cond_{conditioning_width}"), np.nan)
+                        points.get(
+                            (
+                                "development",
+                                PRIMARY,
+                                endpoint_width,
+                                f"cond_{conditioning_width}",
+                            ),
+                            np.nan,
+                        )
                     ),
                     "boot_mean": float(np.nanmean(values)),
                     "low": float(low),
@@ -1201,7 +1369,9 @@ def _assemble(
         row["best_conditioning_width_days_mean_auc"] = best
         row["second_best_conditioning_width_days"] = int(runner_up)
         row["auc_gap_best_to_second_best"] = float(means[best] - means[runner_up])
-        row["auc_gap_best_to_own_support"] = float(means[best] - means[int(endpoint_width)])
+        row["auc_gap_best_to_own_support"] = float(
+            means[best] - means[int(endpoint_width)]
+        )
         row["penalty_of_universal_conditioning_window"] = {
             str(w): float(means[best] - means[int(w)]) for w in WIDTHS
         }
@@ -1209,11 +1379,20 @@ def _assemble(
         for other in WIDTHS:
             if other == best:
                 continue
-            diff = results["dev_conditioning"][
-                :, cond_pairs.index(((PRIMARY, endpoint_width), (f"cond_{best}", endpoint_width)))
-            ] - results["dev_conditioning"][
-                :, cond_pairs.index(((PRIMARY, endpoint_width), (f"cond_{other}", endpoint_width)))
-            ]
+            diff = (
+                results["dev_conditioning"][
+                    :,
+                    cond_pairs.index(
+                        ((PRIMARY, endpoint_width), (f"cond_{best}", endpoint_width))
+                    ),
+                ]
+                - results["dev_conditioning"][
+                    :,
+                    cond_pairs.index(
+                        ((PRIMARY, endpoint_width), (f"cond_{other}", endpoint_width))
+                    ),
+                ]
+            )
             clow, chigh, _ = _ci(diff)
             separation[str(other)] = {
                 "auc_difference": float(np.nanmean(diff)),
@@ -1226,32 +1405,97 @@ def _assemble(
 
     # contrasts
     contrast_specs = [
-        ("dev_curve", "development", "support_reseeking", "missing_fraction",
-         "support_restricted_minus_missing_fraction"),
-        ("dev_curve", "development", "peak_window_30", "missing_fraction",
-         "fixed_peak_window_30_minus_missing_fraction"),
-        ("dev_curve", "development", "support_reseeking", "peak_window_30",
-         "support_restricted_minus_fixed_peak_window_30"),
-        ("dev_curve", "development", "longest_run", "missing_fraction",
-         "longest_run_minus_missing_fraction"),
-        ("res_curve", "reserved_open", "support_reseeking", "missing_fraction",
-         "support_restricted_minus_missing_fraction"),
-        ("res_curve", "reserved_open", "peak_window_30", "missing_fraction",
-         "fixed_peak_window_30_minus_missing_fraction"),
-        ("res_curve", "reserved_open", "support_reseeking", "peak_window_30",
-         "support_restricted_minus_fixed_peak_window_30"),
-        ("dev_dilation", "development", "fixed_centre_dilation", "support_reseeking",
-         "fixed_centre_dilation_minus_reseeking"),
-        ("dev_dilation", "development", "fixed_centre_dilation_mirror", "support_reseeking",
-         "fixed_centre_dilation_mirror_minus_reseeking"),
-        ("dev_dilation", "development", "fixed_centre_dilation_raw_peak", "support_reseeking",
-         "fixed_centre_dilation_raw_peak_minus_reseeking"),
-        ("dev_dilation", "development", "fixed_centre_dilation", "missing_fraction",
-         "fixed_centre_dilation_minus_missing_fraction"),
-        ("dev_dilation", "development", "fixed_centre_dilation_raw_peak", "missing_fraction",
-         "fixed_centre_dilation_raw_peak_minus_missing_fraction"),
-        ("dev_dilation", "development", "fixed_centre_dilation_mirror", "missing_fraction",
-         "fixed_centre_dilation_mirror_minus_missing_fraction"),
+        (
+            "dev_curve",
+            "development",
+            "support_reseeking",
+            "missing_fraction",
+            "support_restricted_minus_missing_fraction",
+        ),
+        (
+            "dev_curve",
+            "development",
+            "peak_window_30",
+            "missing_fraction",
+            "fixed_peak_window_30_minus_missing_fraction",
+        ),
+        (
+            "dev_curve",
+            "development",
+            "support_reseeking",
+            "peak_window_30",
+            "support_restricted_minus_fixed_peak_window_30",
+        ),
+        (
+            "dev_curve",
+            "development",
+            "longest_run",
+            "missing_fraction",
+            "longest_run_minus_missing_fraction",
+        ),
+        (
+            "res_curve",
+            "reserved_open",
+            "support_reseeking",
+            "missing_fraction",
+            "support_restricted_minus_missing_fraction",
+        ),
+        (
+            "res_curve",
+            "reserved_open",
+            "peak_window_30",
+            "missing_fraction",
+            "fixed_peak_window_30_minus_missing_fraction",
+        ),
+        (
+            "res_curve",
+            "reserved_open",
+            "support_reseeking",
+            "peak_window_30",
+            "support_restricted_minus_fixed_peak_window_30",
+        ),
+        (
+            "dev_dilation",
+            "development",
+            "fixed_centre_dilation",
+            "support_reseeking",
+            "fixed_centre_dilation_minus_reseeking",
+        ),
+        (
+            "dev_dilation",
+            "development",
+            "fixed_centre_dilation_mirror",
+            "support_reseeking",
+            "fixed_centre_dilation_mirror_minus_reseeking",
+        ),
+        (
+            "dev_dilation",
+            "development",
+            "fixed_centre_dilation_raw_peak",
+            "support_reseeking",
+            "fixed_centre_dilation_raw_peak_minus_reseeking",
+        ),
+        (
+            "dev_dilation",
+            "development",
+            "fixed_centre_dilation",
+            "missing_fraction",
+            "fixed_centre_dilation_minus_missing_fraction",
+        ),
+        (
+            "dev_dilation",
+            "development",
+            "fixed_centre_dilation_raw_peak",
+            "missing_fraction",
+            "fixed_centre_dilation_raw_peak_minus_missing_fraction",
+        ),
+        (
+            "dev_dilation",
+            "development",
+            "fixed_centre_dilation_mirror",
+            "missing_fraction",
+            "fixed_centre_dilation_mirror_minus_missing_fraction",
+        ),
     ]
     pairs_by_grid = {
         "dev_curve": dev_curve_pairs,
@@ -1345,20 +1589,34 @@ def _assemble(
                 "auc_refit_low": float(low),
                 "auc_refit_high": float(high),
                 "auc_fixed_mean": float(np.nanmean(fixed)),
-                "difference_refit_minus_fixed_mean": float(np.nanmean(refit_values - fixed)),
+                "difference_refit_minus_fixed_mean": float(
+                    np.nanmean(refit_values - fixed)
+                ),
                 "difference_low": float(dlow),
                 "difference_high": float(dhigh),
                 "difference_ci_excludes_zero": bool(dlow > 0 or dhigh < 0),
             }
         refit_summary[str(width)] = entry
     for left, right, name in (
-        ("support_reseeking", "missing_fraction", "support_restricted_minus_missing_fraction"),
-        ("peak_window_30", "missing_fraction", "fixed_peak_window_30_minus_missing_fraction"),
+        (
+            "support_reseeking",
+            "missing_fraction",
+            "support_restricted_minus_missing_fraction",
+        ),
+        (
+            "peak_window_30",
+            "missing_fraction",
+            "fixed_peak_window_30_minus_missing_fraction",
+        ),
     ):
         curves = np.column_stack(
             [
-                results["refit:dev_curve"][:, refit_pairs.index(((PRIMARY, w), (left, w)))]
-                - results["refit:dev_curve"][:, refit_pairs.index(((PRIMARY, w), (right, w)))]
+                results["refit:dev_curve"][
+                    :, refit_pairs.index(((PRIMARY, w), (left, w)))
+                ]
+                - results["refit:dev_curve"][
+                    :, refit_pairs.index(((PRIMARY, w), (right, w)))
+                ]
                 for w in WIDTHS
             ]
         )
@@ -1372,17 +1630,32 @@ def _assemble(
                 ]
             ),
         )
-        summary.update({"left": left, "right": right, "panel": "development",
-                        "tolerance_fraction": float(FRACTIONS[PRIMARY]),
-                        "tolerance_fraction_name": PRIMARY, "scale_mode": "refit_within_draw",
-                        "label": LABEL})
+        summary.update(
+            {
+                "left": left,
+                "right": right,
+                "panel": "development",
+                "tolerance_fraction": float(FRACTIONS[PRIMARY]),
+                "tolerance_fraction_name": PRIMARY,
+                "scale_mode": "refit_within_draw",
+                "label": LABEL,
+            }
+        )
         refit_crossovers[name] = {PRIMARY: summary}
 
     # leave-one-network-out jackknife
     jackknife: dict[str, dict] = {}
     for left, right, name in (
-        ("support_reseeking", "missing_fraction", "support_restricted_minus_missing_fraction"),
-        ("peak_window_30", "missing_fraction", "fixed_peak_window_30_minus_missing_fraction"),
+        (
+            "support_reseeking",
+            "missing_fraction",
+            "support_restricted_minus_missing_fraction",
+        ),
+        (
+            "peak_window_30",
+            "missing_fraction",
+            "fixed_peak_window_30_minus_missing_fraction",
+        ),
     ):
         curves = np.column_stack(
             [
@@ -1391,23 +1664,37 @@ def _assemble(
                 for w in WIDTHS
             ]
         )
-        crossings = np.array([_interp_first_crossing(curves[i]) for i in range(curves.shape[0])])
+        crossings = np.array(
+            [_interp_first_crossing(curves[i]) for i in range(curves.shape[0])]
+        )
         finite = crossings[np.isfinite(crossings)]
         se = float("nan")
         if finite.size > 1:
             # the usual delete-one jackknife SE: the raw spread of LOO replicates
             # is NOT a confidence interval, because each replicate still holds
             # n-1 of the n networks
-            se = float(np.sqrt((finite.size - 1) / finite.size * np.sum((finite - finite.mean()) ** 2)))
+            se = float(
+                np.sqrt(
+                    (finite.size - 1)
+                    / finite.size
+                    * np.sum((finite - finite.mean()) ** 2)
+                )
+            )
         jackknife[name] = {
             "n_replicates": int(curves.shape[0]),
             "n_with_crossover": int(finite.size),
             "p_no_crossover": float(1.0 - finite.size / curves.shape[0]),
             "crossover_days_min": float(finite.min()) if finite.size else float("nan"),
             "crossover_days_max": float(finite.max()) if finite.size else float("nan"),
-            "crossover_days_median": float(np.median(finite)) if finite.size else float("nan"),
-            "crossover_days_q25": float(np.quantile(finite, 0.25)) if finite.size else float("nan"),
-            "crossover_days_q75": float(np.quantile(finite, 0.75)) if finite.size else float("nan"),
+            "crossover_days_median": float(np.median(finite))
+            if finite.size
+            else float("nan"),
+            "crossover_days_q25": float(np.quantile(finite, 0.25))
+            if finite.size
+            else float("nan"),
+            "crossover_days_q75": float(np.quantile(finite, 0.75))
+            if finite.size
+            else float("nan"),
             "jackknife_se_days": se,
             "jackknife_ci95_days": (
                 [float(finite.mean() - 1.96 * se), float(finite.mean() + 1.96 * se)]
@@ -1420,9 +1707,15 @@ def _assemble(
                 "roughly sqrt(n_networks). The jackknife SE and its normal CI are the "
                 "comparable quantities"
             ),
-            "contrast_positive_at_30_days": float(np.mean(curves[:, WIDTHS.index(30)] > 0)),
-            "contrast_positive_at_90_days": float(np.mean(curves[:, WIDTHS.index(90)] > 0)),
-            "contrast_positive_at_365_days": float(np.mean(curves[:, WIDTHS.index(365)] > 0)),
+            "contrast_positive_at_30_days": float(
+                np.mean(curves[:, WIDTHS.index(30)] > 0)
+            ),
+            "contrast_positive_at_90_days": float(
+                np.mean(curves[:, WIDTHS.index(90)] > 0)
+            ),
+            "contrast_positive_at_365_days": float(
+                np.mean(curves[:, WIDTHS.index(365)] > 0)
+            ),
         }
 
     # dilation vs re-seeking table
@@ -1439,7 +1732,9 @@ def _assemble(
             "n_draws": int(args.draws),
         }
         for axis_name in dil_axes:
-            values = results["dev_dilation"][:, dil_pairs.index(((PRIMARY, width), (axis_name, width)))]
+            values = results["dev_dilation"][
+                :, dil_pairs.index(((PRIMARY, width), (axis_name, width)))
+            ]
             low, high, _ = _ci(values)
             row[f"auc_{axis_name}"] = float(np.nanmean(values))
             row[f"auc_{axis_name}_low"] = float(low)
@@ -1447,15 +1742,33 @@ def _assemble(
             row[f"auc_{axis_name}_p_gt_half"] = float(np.mean(values > 0.5))
         for left, right, name in (
             ("fixed_centre_dilation", "support_reseeking", "fcd_minus_reseeking"),
-            ("fixed_centre_dilation_mirror", "support_reseeking", "fcd_mirror_minus_reseeking"),
-            ("fixed_centre_dilation_raw_peak", "support_reseeking", "fcd_raw_minus_reseeking"),
+            (
+                "fixed_centre_dilation_mirror",
+                "support_reseeking",
+                "fcd_mirror_minus_reseeking",
+            ),
+            (
+                "fixed_centre_dilation_raw_peak",
+                "support_reseeking",
+                "fcd_raw_minus_reseeking",
+            ),
             ("fixed_centre_dilation", "missing_fraction", "fcd_minus_missing"),
-            ("fixed_centre_dilation_mirror", "missing_fraction", "fcd_mirror_minus_missing"),
-            ("fixed_centre_dilation_raw_peak", "missing_fraction", "fcd_raw_minus_missing"),
+            (
+                "fixed_centre_dilation_mirror",
+                "missing_fraction",
+                "fcd_mirror_minus_missing",
+            ),
+            (
+                "fixed_centre_dilation_raw_peak",
+                "missing_fraction",
+                "fcd_raw_minus_missing",
+            ),
             ("support_reseeking", "missing_fraction", "reseek_minus_missing"),
             ("peak_window_30", "missing_fraction", "peak30_minus_missing"),
         ):
-            diff = contrast_draws("dev_dilation", dil_pairs, PRIMARY, width, left, right)
+            diff = contrast_draws(
+                "dev_dilation", dil_pairs, PRIMARY, width, left, right
+            )
             low, high, _ = _ci(diff)
             row[f"contrast_{name}"] = float(np.nanmean(diff))
             row[f"contrast_{name}_low"] = float(low)
@@ -1498,18 +1811,17 @@ def _assemble(
         "inputs": {
             "endpoint_cases": {
                 "path": str(ENDPOINT_CASES.relative_to(ROOT)),
-                "sha256": _sha256(ENDPOINT_CASES),
             },
             "cases_development": {
                 "path": str(CASES_BY_SPLIT["development"].relative_to(ROOT)),
-                "sha256": _sha256(CASES_BY_SPLIT["development"]),
             },
             "cases_reserved_open": {
                 "path": str(CASES_BY_SPLIT["reserved"].relative_to(ROOT)),
-                "sha256": _sha256(CASES_BY_SPLIT["reserved"]),
             },
             "frozen_summary": str(
-                (V18_RESULTS_ROOT / "e6_support_width" / "summary.json").relative_to(ROOT)
+                (V18_RESULTS_ROOT / "e6_support_width" / "summary.json").relative_to(
+                    ROOT
+                )
             ),
         },
         "n_development_cases": int(dev_payload["n_cases"]),
@@ -1597,11 +1909,16 @@ def _assemble(
         json.dumps(_jsonable(payload), indent=2), encoding="utf-8"
     )
     write_report(curve, dilation, payload, provenance)
-    print(f"[done] wrote {OUT_DIR.relative_to(ROOT)} at {time.time() - started:.1f}s", flush=True)
+    print(
+        f"[done] wrote {OUT_DIR.relative_to(ROOT)} at {time.time() - started:.1f}s",
+        flush=True,
+    )
     return 0
 
 
-def _table(lines: list[str], rows: list[dict], columns: list[str], floatfmt: str = ".3f") -> None:
+def _table(
+    lines: list[str], rows: list[dict], columns: list[str], floatfmt: str = ".3f"
+) -> None:
     frame = pd.DataFrame(rows)
     lines.append(frame[columns].to_markdown(index=False, floatfmt=floatfmt))
     lines.append("")
@@ -1609,7 +1926,9 @@ def _table(lines: list[str], rows: list[dict], columns: list[str], floatfmt: str
 
 def write_report(curve, dilation, payload, provenance) -> None:
     lines: list[str] = []
-    lines.append("# E6 support-width law — uncertainty and construction dependence (F05)")
+    lines.append(
+        "# E6 support-width law — uncertainty and construction dependence (F05)"
+    )
     lines.append("")
     lines.append(
         "**Evidence class: `exploratory_post_open`.** This is a post-hoc stress test of an "
@@ -1702,8 +2021,12 @@ def write_report(curve, dilation, payload, provenance) -> None:
     at90_fixed = _crow("development", "fixed_peak_window_30_minus_missing_fraction", 90)
     at90_dil = _crow("development", "fixed_centre_dilation_minus_missing_fraction", 90)
     at90_re = _crow("development", "support_restricted_minus_missing_fraction", 90)
-    at182_fixed = _crow("development", "fixed_peak_window_30_minus_missing_fraction", 182)
-    at182_dil = _crow("development", "fixed_centre_dilation_minus_missing_fraction", 182)
+    at182_fixed = _crow(
+        "development", "fixed_peak_window_30_minus_missing_fraction", 182
+    )
+    at182_dil = _crow(
+        "development", "fixed_centre_dilation_minus_missing_fraction", 182
+    )
     dil_vs_re = dilation["contrast_fcd_minus_reseeking"].abs().max()
 
     def _fmt(row):
@@ -1757,7 +2080,9 @@ def write_report(curve, dilation, payload, provenance) -> None:
         if w <= 90
     )
     _pen90_wide = _cond["365"]["penalty_of_universal_conditioning_window"]["90"]
-    _p2 = payload["contrasts"]["development | fixed_peak_window_30_minus_missing_fraction"]
+    _p2 = payload["contrasts"][
+        "development | fixed_peak_window_30_minus_missing_fraction"
+    ]
     lines.append(
         f"* **A single universal conditioning window** in the 60-90 day band costs at most "
         f"{_pen90_narrow:.4f} AUC against the per-endpoint optimum for every endpoint up to 90 "
@@ -1798,7 +2123,9 @@ def write_report(curve, dilation, payload, provenance) -> None:
         ["axis", "width_days", "point", "low", "high", "se", "p_at_or_above_null"],
         ".4f",
     )
-    lines.append("Contrasts on the same resamples (paired; the interval is of the difference):")
+    lines.append(
+        "Contrasts on the same resamples (paired; the interval is of the difference):"
+    )
     lines.append("")
     show = curve.loc[
         (curve["panel"] == "development")
@@ -1834,7 +2161,9 @@ def write_report(curve, dilation, payload, provenance) -> None:
         "bootstrap median | 95% CI | P(no crossover) | no crossover: never positive | "
         "no crossover: gained later | no crossover: positive throughout |"
     )
-    lines.append("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
+    lines.append(
+        "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    )
     for key, block in payload["contrasts"].items():
         name = key.split(" | ", 1)[-1]
         for fraction_name, summary in block.items():
@@ -1911,8 +2240,21 @@ def write_report(curve, dilation, payload, provenance) -> None:
         }
         for name, block in payload["jackknife_leave_one_network_out"].items()
     ]
-    _table(lines, jack, ["contrast", "replicates", "P(no crossover)", "LOO min", "LOO median",
-                         "LOO max", "jackknife SE", "jackknife 95% CI"], ".2f")
+    _table(
+        lines,
+        jack,
+        [
+            "contrast",
+            "replicates",
+            "P(no crossover)",
+            "LOO min",
+            "LOO median",
+            "LOO max",
+            "jackknife SE",
+            "jackknife 95% CI",
+        ],
+        ".2f",
+    )
     lines.append(
         "The raw leave-one-out range is **not** a confidence interval — each replicate still "
         "contains 109 of the 110 networks — so read the jackknife SE column. Its normal CI is "
@@ -1937,10 +2279,15 @@ def write_report(curve, dilation, payload, provenance) -> None:
         lines,
         dilation.to_dict("records"),
         [
-            "width_days", "auc_support_reseeking", "auc_fixed_centre_dilation",
-            "auc_fixed_centre_dilation_raw_peak", "auc_missing_fraction",
-            "contrast_fcd_minus_reseeking", "contrast_fcd_minus_reseeking_low",
-            "contrast_fcd_minus_reseeking_high", "abs_centre_shift_days_mean",
+            "width_days",
+            "auc_support_reseeking",
+            "auc_fixed_centre_dilation",
+            "auc_fixed_centre_dilation_raw_peak",
+            "auc_missing_fraction",
+            "contrast_fcd_minus_reseeking",
+            "contrast_fcd_minus_reseeking_low",
+            "contrast_fcd_minus_reseeking_high",
+            "abs_centre_shift_days_mean",
             "windows_differ_mean",
         ],
         ".4f",
@@ -1956,10 +2303,15 @@ def write_report(curve, dilation, payload, provenance) -> None:
         lines,
         dilation.to_dict("records"),
         [
-            "width_days", "contrast_peak30_minus_missing", "contrast_peak30_minus_missing_low",
-            "contrast_peak30_minus_missing_high", "contrast_fcd_minus_missing",
-            "contrast_fcd_minus_missing_low", "contrast_fcd_minus_missing_high",
-            "contrast_reseek_minus_missing", "contrast_reseek_minus_missing_low",
+            "width_days",
+            "contrast_peak30_minus_missing",
+            "contrast_peak30_minus_missing_low",
+            "contrast_peak30_minus_missing_high",
+            "contrast_fcd_minus_missing",
+            "contrast_fcd_minus_missing_low",
+            "contrast_fcd_minus_missing_high",
+            "contrast_reseek_minus_missing",
+            "contrast_reseek_minus_missing_low",
             "contrast_reseek_minus_missing_high",
         ],
         ".4f",
@@ -1987,8 +2339,13 @@ def write_report(curve, dilation, payload, provenance) -> None:
     _table(
         lines,
         dilation.to_dict("records"),
-        ["width_days", "abs_centre_shift_days_mean", "centre_shift_days_mean",
-         "windows_differ_mean", "hidden_difference_fcd_minus_reseek_mean"],
+        [
+            "width_days",
+            "abs_centre_shift_days_mean",
+            "centre_shift_days_mean",
+            "windows_differ_mean",
+            "hidden_difference_fcd_minus_reseek_mean",
+        ],
         ".3f",
     )
 
@@ -2001,7 +2358,9 @@ def write_report(curve, dilation, payload, provenance) -> None:
     )
     lines.append("")
     rows = []
-    for endpoint_width, block in payload["conditioning_width_matrix_development"].items():
+    for endpoint_width, block in payload[
+        "conditioning_width_matrix_development"
+    ].items():
         best = block["best_conditioning_width_days_mean_auc"]
         rows.append(
             {
@@ -2019,9 +2378,21 @@ def write_report(curve, dilation, payload, provenance) -> None:
                 "competing_widths": len(block["separation_of_best_from_other_widths"]),
             }
         )
-    _table(lines, rows, ["endpoint_width_days", "best_conditioning_width_days", "auc_at_best",
-                         "auc_at_own_support", "gap_to_second_best", "gap_to_own_support",
-                         "separated_from", "competing_widths"], ".4f")
+    _table(
+        lines,
+        rows,
+        [
+            "endpoint_width_days",
+            "best_conditioning_width_days",
+            "auc_at_best",
+            "auc_at_own_support",
+            "gap_to_second_best",
+            "gap_to_own_support",
+            "separated_from",
+            "competing_widths",
+        ],
+        ".4f",
+    )
     lines.append(
         "What a *single universal* conditioning window would cost, in AUC, relative to each "
         "endpoint's own best conditioning width (0.0000 means the universal window is the best "
@@ -2029,21 +2400,35 @@ def write_report(curve, dilation, payload, provenance) -> None:
     )
     lines.append("")
     universal = []
-    for endpoint_width, block in payload["conditioning_width_matrix_development"].items():
+    for endpoint_width, block in payload[
+        "conditioning_width_matrix_development"
+    ].items():
         penalty = block["penalty_of_universal_conditioning_window"]
         universal.append(
             {
                 "endpoint_width_days": int(endpoint_width),
-                "best_conditioning_width_days": block["best_conditioning_width_days_mean_auc"],
+                "best_conditioning_width_days": block[
+                    "best_conditioning_width_days_mean_auc"
+                ],
                 "universal_30d_penalty": penalty["30"],
                 "universal_60d_penalty": penalty["60"],
                 "universal_90d_penalty": penalty["90"],
                 "universal_182d_penalty": penalty["182"],
             }
         )
-    _table(lines, universal, ["endpoint_width_days", "best_conditioning_width_days",
-                              "universal_30d_penalty", "universal_60d_penalty",
-                              "universal_90d_penalty", "universal_182d_penalty"], ".4f")
+    _table(
+        lines,
+        universal,
+        [
+            "endpoint_width_days",
+            "best_conditioning_width_days",
+            "universal_30d_penalty",
+            "universal_60d_penalty",
+            "universal_90d_penalty",
+            "universal_182d_penalty",
+        ],
+        ".4f",
+    )
     lines.append(
         "Reading: a universal window in the 60-90 day band costs at most "
         f"{max(max(u['universal_60d_penalty'], u['universal_90d_penalty']) for u in universal if u['endpoint_width_days'] <= 90):.4f} "
@@ -2061,7 +2446,9 @@ def write_report(curve, dilation, payload, provenance) -> None:
     )
     lines.append("")
     worst = []
-    for width, entry in payload["scale_refit_sensitivity_development"]["auc_by_width"].items():
+    for width, entry in payload["scale_refit_sensitivity_development"][
+        "auc_by_width"
+    ].items():
         for axis_name, values in entry.items():
             worst.append(
                 {
@@ -2075,9 +2462,15 @@ def write_report(curve, dilation, payload, provenance) -> None:
             )
     worst_frame = pd.DataFrame(worst)
     order = worst_frame["mean_difference"].abs().sort_values(ascending=False).index[:6]
-    _table(lines, worst_frame.loc[order].to_dict("records"),
-           ["width_days", "axis", "mean_difference", "low", "high", "ci_excludes_zero"], ".4f")
-    for name, block in payload["scale_refit_sensitivity_development"]["crossovers"].items():
+    _table(
+        lines,
+        worst_frame.loc[order].to_dict("records"),
+        ["width_days", "axis", "mean_difference", "low", "high", "ci_excludes_zero"],
+        ".4f",
+    )
+    for name, block in payload["scale_refit_sensitivity_development"][
+        "crossovers"
+    ].items():
         summary = block[PRIMARY]
         lines.append(
             f"* refit tolerance, `{name}`: point crossover "
@@ -2103,11 +2496,21 @@ def write_report(curve, dilation, payload, provenance) -> None:
 
 
 def _verdict_text(payload, curve, dilation) -> str:
-    prim = payload["contrasts"]["development | fixed_peak_window_30_minus_missing_fraction"][PRIMARY]
-    prim_res = payload["contrasts"]["reserved_open | fixed_peak_window_30_minus_missing_fraction"][PRIMARY]
-    support = payload["contrasts"]["development | support_restricted_minus_missing_fraction"][PRIMARY]
-    dil = payload["contrasts"]["development | fixed_centre_dilation_minus_missing_fraction"][PRIMARY]
-    raw = payload["contrasts"]["development | fixed_centre_dilation_raw_peak_minus_missing_fraction"][PRIMARY]
+    prim = payload["contrasts"][
+        "development | fixed_peak_window_30_minus_missing_fraction"
+    ][PRIMARY]
+    prim_res = payload["contrasts"][
+        "reserved_open | fixed_peak_window_30_minus_missing_fraction"
+    ][PRIMARY]
+    support = payload["contrasts"][
+        "development | support_restricted_minus_missing_fraction"
+    ][PRIMARY]
+    dil = payload["contrasts"][
+        "development | fixed_centre_dilation_minus_missing_fraction"
+    ][PRIMARY]
+    raw = payload["contrasts"][
+        "development | fixed_centre_dilation_raw_peak_minus_missing_fraction"
+    ][PRIMARY]
     reseek_row = dilation.loc[dilation["width_days"] == 90].iloc[0]
     reseek_at_90 = (
         f"{reseek_row['contrast_fcd_minus_reseeking']:+.4f} AUC "
@@ -2118,10 +2521,13 @@ def _verdict_text(payload, curve, dilation) -> str:
         f"[{support['bootstrap_crossover_days_ci95_low']:.0f}, "
         f"{support['bootstrap_crossover_days_ci95_high']:.0f}]"
     )
-    _p2_verdict = payload["contrasts"]["development | fixed_peak_window_30_minus_missing_fraction"]
+    _p2_verdict = payload["contrasts"][
+        "development | fixed_peak_window_30_minus_missing_fraction"
+    ]
     _cond_v = payload["conditioning_width_matrix_development"]
     _pen90_band = max(
-        _cond_v[str(w)]["penalty_of_universal_conditioning_window"]["90"] for w in (1, 3, 7, 15, 30, 60)
+        _cond_v[str(w)]["penalty_of_universal_conditioning_window"]["90"]
+        for w in (1, 3, 7, 15, 30, 60)
     )
     _pen90_wide_v = _cond_v["365"]["penalty_of_universal_conditioning_window"]["90"]
     _pen182_v = _cond_v["182"]["penalty_of_universal_conditioning_window"]["90"]

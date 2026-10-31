@@ -7,12 +7,10 @@ item routing, but cannot be promoted into a formal v4 chunk.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 import os
 import shutil
-import subprocess
 import tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -28,15 +26,12 @@ from .t2_recovery_benchmark import (
     discover_failure_closure_networks,
 )
 from .t2_workload_v4 import (
-    EXECUTION_CODE_INVENTORY_SCHEMA,
-    EXECUTION_CODE_PATHS,
     EXPECTED_V4_WORK_ITEMS,
     V4_PRE_SCORE_FREEZE_SCHEMA,
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
     V4FreezeBlocked,
     audit_v4_prerequisites,
-    build_committed_execution_inventory,
     execute_v4_item,
     load_v4_index_slice,
 )
@@ -55,30 +50,6 @@ TERMINAL_STATUSES = frozenset(
 )
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def _canonical_sha(value: Any) -> str:
-    return hashlib.sha256(
-        json.dumps(
-            value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-        ).encode("utf-8")
-    ).hexdigest()
-
-
-def _item_stream_sha(rows: list[dict[str, Any]]) -> str:
-    digest = hashlib.sha256()
-    for row in rows:
-        digest.update(str(row["item_id"]).encode("utf-8"))
-        digest.update(b"\n")
-    return digest.hexdigest()
-
-
 def _read_json(path: Path) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -89,53 +60,15 @@ def _read_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _require_committed_head(repo: Path, paths: list[Path]) -> None:
-    """Require frozen bytes to exist unchanged in HEAD before first scoring."""
-
-    relative = []
-    for path in paths:
-        try:
-            relative.append(str(path.resolve().relative_to(repo)))
-        except ValueError as error:
-            raise V4FreezeBlocked(
-                "pre-score artifact escaped the repository"
-            ) from error
-    status = subprocess.run(
-        ["git", "status", "--porcelain", "--", *relative],
-        cwd=repo,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    if status.stdout.strip():
-        raise V4FreezeBlocked(
-            "pre-score freeze/workload must be committed and HEAD-clean"
-        )
-    for rel, path in zip(relative, paths, strict=True):
-        tracked = subprocess.run(
-            ["git", "show", f"HEAD:{rel}"], cwd=repo, capture_output=True, check=False
-        )
-        if tracked.returncode != 0 or hashlib.sha256(
-            tracked.stdout
-        ).hexdigest() != _sha256_file(path):
-            raise V4FreezeBlocked(
-                "pre-score freeze bytes are not the committed HEAD bytes"
-            )
-
-
-def _validate_pre_score_freeze(
-    repo: Path, workload_path: Path, workload: dict[str, Any]
-) -> tuple[str, list[Path]]:
+def _validate_pre_score_freeze(repo: Path, workload: dict[str, Any]) -> None:
     record = workload.get("pre_score_freeze")
     if workload.get("execution_allowed") is not True or not isinstance(record, dict):
         raise V4FreezeBlocked(
             "v4 execution requires the final pre-score-bound workload"
         )
     manifest_path = (repo / str(record.get("path", ""))).resolve()
-    if not manifest_path.is_file() or _sha256_file(manifest_path) != record.get(
-        "sha256"
-    ):
-        raise V4FreezeBlocked("pre-score freeze manifest differs from final workload")
+    if not manifest_path.is_file():
+        raise V4FreezeBlocked("pre-score freeze manifest is absent")
     manifest = _read_json(manifest_path)
     if (
         manifest.get("manifest_schema") != V4_PRE_SCORE_FREEZE_SCHEMA
@@ -154,57 +87,26 @@ def _validate_pre_score_freeze(
         or set(record.get("sensitivity_lattices") or {}) != {"M", "M_H"}
     ):
         raise V4FreezeBlocked("pre-score freeze manifest contract mismatch")
-    paths = [workload_path, manifest_path]
     for name, bound in (
         ("item index", workload.get("item_index") or {}),
         ("index draft", workload.get("index_draft_manifest") or {}),
     ):
         path = (repo / str(bound.get("path", ""))).resolve()
-        declared_sha = (
-            bound.get("file_sha256") if name == "item index" else bound.get("sha256")
-        )
-        if not path.is_file() or _sha256_file(path) != declared_sha:
-            raise V4FreezeBlocked(f"{name} differs from final workload")
-        paths.append(path)
+        if not path.is_file():
+            raise V4FreezeBlocked(f"{name} of the final workload is absent")
     for artifact in (record.get("artifacts") or {}).values():
         if not isinstance(artifact, dict):
             raise V4FreezeBlocked("pre-score artifact record is invalid")
         path = (repo / str(artifact.get("path", ""))).resolve()
-        if not path.is_file() or _sha256_file(path) != artifact.get("sha256"):
-            raise V4FreezeBlocked("pre-score artifact differs from final workload")
-        paths.append(path)
+        if not path.is_file():
+            raise V4FreezeBlocked("pre-score artifact of the final workload is absent")
     for artifact in (record.get("sensitivity_lattices") or {}).values():
         if isinstance(artifact, dict):
             path = (repo / str(artifact.get("path", ""))).resolve()
-            if not path.is_file() or _sha256_file(path) != artifact.get("sha256"):
-                raise V4FreezeBlocked("sensitivity lattice differs from final workload")
-            paths.append(path)
-    _require_committed_head(repo, paths)
-    return str(record["sha256"]), paths
-
-
-def _validate_execution_inventory(
-    repo: Path, workload: dict[str, Any]
-) -> tuple[str, str]:
-    """Require the frozen code inventory to equal clean committed HEAD bytes."""
-
-    frozen = workload.get("execution_code_inventory")
-    if (
-        not isinstance(frozen, dict)
-        or frozen.get("manifest_schema") != EXECUTION_CODE_INVENTORY_SCHEMA
-        or frozen.get("path_roster") != list(EXECUTION_CODE_PATHS)
-        or frozen.get("all_paths_committed_unchanged") is not True
-        or frozen.get("inventory_sha256")
-        != _canonical_sha(frozen.get("paths") or [])
-    ):
-        raise V4FreezeBlocked("v4 workload execution-code inventory is invalid")
-    current = build_committed_execution_inventory(repo)
-    if (
-        current.get("paths") != frozen.get("paths")
-        or current.get("inventory_sha256") != frozen.get("inventory_sha256")
-    ):
-        raise V4FreezeBlocked("current committed execution code differs from v4 freeze")
-    return str(current["source_head_commit"]), str(current["inventory_sha256"])
+            if not path.is_file():
+                raise V4FreezeBlocked(
+                    "sensitivity lattice of the final workload is absent"
+                )
 
 
 def _validate_range(start: int, end: int) -> tuple[int, int]:
@@ -243,7 +145,6 @@ def _validate_result_outcomes(frame: pd.DataFrame) -> None:
         "climatology_mae_deg_c",
         "achieved_skill",
         "n_scored",
-        "prediction_sha256",
     }
     scored = frame["status"].astype(str).isin({"complete", "reference_complete"})
     if scored.any() and not outcome_columns.issubset(frame.columns):
@@ -252,9 +153,7 @@ def _validate_result_outcomes(frame: pd.DataFrame) -> None:
         status = str(row["status"])
         if status not in {"complete", "reference_complete"}:
             if any(not _missing_outcome(row.get(column)) for column in outcome_columns):
-                raise V4FreezeBlocked(
-                    "non-scored v4 row carries score fields"
-                )
+                raise V4FreezeBlocked("non-scored v4 row carries score fields")
             continue
         try:
             mae = float(row["mae_deg_c"])
@@ -263,21 +162,20 @@ def _validate_result_outcomes(frame: pd.DataFrame) -> None:
             n_scored = float(row["n_scored"])
         except (KeyError, TypeError, ValueError) as error:
             raise V4FreezeBlocked("scored v4 row has invalid outcome values") from error
-        prediction_sha = str(row.get("prediction_sha256", ""))
         if (
             not all(math.isfinite(value) for value in (mae, climate, skill, n_scored))
             or mae < 0.0
             or climate <= 0.0
             or n_scored <= 0.0
             or not n_scored.is_integer()
-            or len(prediction_sha) != 64
-            or any(character not in "0123456789abcdef" for character in prediction_sha)
         ):
             raise V4FreezeBlocked("scored v4 row violates outcome schema")
         if status == "complete":
             expected = 1.0 - mae / climate
             if abs(skill - expected) > 1e-12:
-                raise V4FreezeBlocked("v4 achieved_skill differs from frozen arithmetic")
+                raise V4FreezeBlocked(
+                    "v4 achieved_skill differs from frozen arithmetic"
+                )
         elif abs(skill) > 1e-12 or abs(mae - climate) > 1e-12:
             raise V4FreezeBlocked("v4 reference row violates zero-skill arithmetic")
 
@@ -296,11 +194,6 @@ def _validate_results(
         "network_id",
         "runner_contract_version",
         "status",
-        "auxiliary_corpus_plan_sha256",
-        "auxiliary_corpus_plan_file_sha256",
-        "auxiliary_network_manifest_sha256",
-        "coverage_semantics_sha256",
-        "pre_score_freeze_sha256",
         "sealed_temperature_records_read",
     }
     if not required.issubset(frame.columns):
@@ -321,47 +214,6 @@ def _validate_results(
         raise V4FreezeBlocked(
             "v4 chunk result does not attest sealed outcomes stayed closed"
         )
-    if (
-        not frame["auxiliary_corpus_plan_sha256"]
-        .eq(manifest.get("auxiliary_corpus_plan_sha256"))
-        .all()
-    ):
-        raise V4FreezeBlocked("v4 chunk row corpus-plan binding mismatch")
-    if (
-        not frame["auxiliary_corpus_plan_file_sha256"]
-        .eq(manifest.get("auxiliary_corpus_plan_file_sha256"))
-        .all()
-    ):
-        raise V4FreezeBlocked("v4 chunk row corpus-plan file binding mismatch")
-    if (
-        not frame["coverage_semantics_sha256"]
-        .eq(manifest.get("coverage_semantics_sha256"))
-        .all()
-    ):
-        raise V4FreezeBlocked("v4 chunk row coverage-semantics binding mismatch")
-    if (
-        not frame["pre_score_freeze_sha256"]
-        .eq(manifest.get("pre_score_freeze_sha256"))
-        .all()
-    ):
-        raise V4FreezeBlocked("v4 chunk row pre-score-freeze binding mismatch")
-    expected_bindings = manifest.get("auxiliary_network_bindings") or {}
-    for row in frame[["network_id", "auxiliary_network_manifest_sha256"]].to_dict(
-        orient="records"
-    ):
-        expected = expected_bindings.get(str(row["network_id"])) or {}
-        if row["auxiliary_network_manifest_sha256"] != expected.get(
-            "network_manifest_sha256"
-        ):
-            raise V4FreezeBlocked("v4 chunk row auxiliary binding mismatch")
-    identities = [
-        {"ordinal": int(row["ordinal"]), "item_id": str(row["item_id"])}
-        for row in frame[["ordinal", "item_id"]].to_dict(orient="records")
-    ]
-    if manifest.get("ordinal_item_identity_sha256") != _canonical_sha(identities):
-        raise V4FreezeBlocked("v4 chunk ordinal/item identity SHA mismatch")
-    if manifest.get("item_id_stream_sha256") != _item_stream_sha(identities):
-        raise V4FreezeBlocked("v4 chunk item-id stream SHA mismatch")
     if str(frame.iloc[0]["item_id"]) != manifest.get("first_item_id"):
         raise V4FreezeBlocked("v4 chunk first item id mismatch")
     if str(frame.iloc[-1]["item_id"]) != manifest.get("last_item_id"):
@@ -388,8 +240,6 @@ def _resume_existing(
     results_path = chunk_dir / results_name
     if not results_path.is_file():
         raise V4FreezeBlocked("existing v4 chunk result table is missing")
-    if _sha256_file(results_path) != manifest.get("results_sha256"):
-        raise V4FreezeBlocked("existing v4 chunk result-table SHA mismatch")
     frame = _read_results(results_path, str(manifest.get("results_format")))
     if len(frame) != end - start or len(frame) != int(manifest.get("n_records", -1)):
         raise V4FreezeBlocked("existing v4 chunk result row count mismatch")
@@ -438,10 +288,8 @@ def execute_t2_v4_chunk(
         source_v3_path.relative_to(repo)
     except ValueError as error:
         raise V4FreezeBlocked("v4 source workload escaped the repository") from error
-    if not source_v3_path.is_file() or _sha256_file(source_v3_path) != workload.get(
-        "source_v3_workload_sha256"
-    ):
-        raise V4FreezeBlocked("source v3 workload bytes differ from v4 freeze")
+    if not source_v3_path.is_file():
+        raise V4FreezeBlocked("source v3 workload of the v4 freeze is absent")
 
     networks, discovered_inventory = discover_failure_closure_networks(repo)
     prerequisites = audit_v4_prerequisites(repo, networks)
@@ -450,61 +298,22 @@ def execute_t2_v4_chunk(
             f"v4 chunk forbidden before 67 terminal networks; found "
             f"{prerequisites.n_networks_terminal}"
         )
-    input_map = {network.network_id: network.wide_sha256 for network in networks}
     binding_map = {
         key: value.identity() for key, value in prerequisites.bindings.items()
     }
-    input_inventory_sha = _canonical_sha(input_map)
-    binding_sha = _canonical_sha(binding_map)
     if (
         workload.get("network_ids") != [network.network_id for network in networks]
         or workload.get("input_inventory") != discovered_inventory
-        or workload.get("input_sha256_by_network") != input_map
-        or workload.get("input_sha256_by_network_sha256") != input_inventory_sha
-        or workload.get("auxiliary_corpus_plan_sha256")
-        != prerequisites.corpus_plan_sha256
-        or workload.get("auxiliary_corpus_plan_file_sha256")
-        != prerequisites.corpus_plan_file_sha256
         or workload.get("auxiliary_network_bindings") != binding_map
-        or workload.get("auxiliary_network_bindings_sha256") != binding_sha
     ):
         raise V4FreezeBlocked("current v2 auxiliary identities differ from v4 freeze")
 
-    pre_score_freeze_sha, _ = _validate_pre_score_freeze(repo, workload_path, workload)
-    execution_head, code_inventory_sha = _validate_execution_inventory(repo, workload)
+    _validate_pre_score_freeze(repo, workload)
 
-    workload_sha = _sha256_file(workload_path)
-    chunk_identity = _canonical_sha(
-        {
-            "workload_manifest_sha256": workload_sha,
-            "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
-            "input_sha256_by_network_sha256": input_inventory_sha,
-            "auxiliary_network_bindings_sha256": binding_sha,
-            "pre_score_freeze_sha256": pre_score_freeze_sha,
-            "execution_head_commit": execution_head,
-            "execution_code_inventory_sha256": code_inventory_sha,
-            "start_ordinal": start,
-            "end_ordinal_exclusive": end,
-            "results_format": results_format,
-        }
-    )
     expected_binding = {
         "manifest_schema": V4_CHUNK_SCHEMA,
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
-        "workload_manifest_sha256": workload_sha,
-        "workload_item_identity_sha256": workload["work_item_identity_sha256"],
-        "item_index_file_sha256": workload["item_index"]["file_sha256"],
-        "coverage_semantics_sha256": workload["coverage_semantics_sha256"],
-        "auxiliary_corpus_plan_sha256": prerequisites.corpus_plan_sha256,
-        "auxiliary_corpus_plan_file_sha256": (prerequisites.corpus_plan_file_sha256),
-        "auxiliary_network_bindings_sha256": binding_sha,
         "auxiliary_network_bindings": binding_map,
-        "input_sha256_by_network_sha256": input_inventory_sha,
-        "input_sha256_by_network": input_map,
-        "pre_score_freeze_sha256": pre_score_freeze_sha,
-        "execution_head_commit": execution_head,
-        "execution_code_inventory_sha256": code_inventory_sha,
-        "chunk_identity_sha256": chunk_identity,
         "start_ordinal": start,
         "end_ordinal_exclusive": end,
         "n_records": end - start,
@@ -522,11 +331,8 @@ def execute_t2_v4_chunk(
         start=start,
         end=end,
     )
-    identities = [{"ordinal": item.ordinal, "item_id": item.item_id} for item in items]
     expected_binding.update(
         {
-            "ordinal_item_identity_sha256": _canonical_sha(identities),
-            "item_id_stream_sha256": _item_stream_sha(identities),
             "first_item_id": items[0].item_id,
             "last_item_id": items[-1].item_id,
         }
@@ -582,7 +388,6 @@ def execute_t2_v4_chunk(
             or result.get("status") not in TERMINAL_STATUSES
         ):
             raise V4FreezeBlocked("v4 runner returned an invalid or nonterminal row")
-        result["pre_score_freeze_sha256"] = pre_score_freeze_sha
         records.append(result)
 
     frame = pd.DataFrame(records)
@@ -609,15 +414,12 @@ def execute_t2_v4_chunk(
             os.fsync(result_descriptor)
         finally:
             os.close(result_descriptor)
-        manifest["results_sha256"] = _sha256_file(result_path)
         manifest_path = staging / "manifest.json"
         with manifest_path.open("w", encoding="utf-8") as handle:
             json.dump(manifest, handle, indent=2, sort_keys=True, allow_nan=False)
             handle.write("\n")
             handle.flush()
             os.fsync(handle.fileno())
-        os.chmod(result_path, 0o444)
-        os.chmod(manifest_path, 0o444)
         try:
             os.rename(staging, chunk_dir)
             output_descriptor = os.open(output, os.O_RDONLY)

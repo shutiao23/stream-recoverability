@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -14,15 +13,6 @@ from stream_recoverability.experiments.t2_train_only_predictors import (
     PREDICTOR_COLUMNS,
     PredictorContractError,
 )
-
-
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _canonical_sha(value: object) -> str:
-    payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
-    return hashlib.sha256(payload).hexdigest()
 
 
 def _panel() -> pd.DataFrame:
@@ -61,12 +51,8 @@ def _write_contract(tmp_path: Path, *, forbidden: bool = False) -> tuple[Path, P
     design.parent.mkdir(parents=True)
     design.write_text("design_id: design_freeze_v9\n", encoding="utf-8")
     source = repo / "source_v3.json"
-    inventory = {"sealed_input_roots_allowed": [], "catalog_split_sha256": "c" * 64}
-    input_map = {"huc8_test": "a" * 64}
-    source.write_text(
-        json.dumps({"design_sha256": _sha(design), "input_inventory": inventory}),
-        encoding="utf-8",
-    )
+    inventory = {"sealed_input_roots_allowed": [], "qualification_mode": "fixture"}
+    source.write_text(json.dumps({"input_inventory": inventory}), encoding="utf-8")
     item = {
         "geometry": "artificial_stress",
         "gap_length": 7,
@@ -97,8 +83,6 @@ def _write_contract(tmp_path: Path, *, forbidden: bool = False) -> tuple[Path, P
         "columns": list(v4_predictors.EXPECTED_INDEX_COLUMNS),
         "n_rows": len(rows),
         "path": index.name,
-        "file_sha256": _sha(index),
-        "work_item_identity_sha256": "b" * 64,
     }
     draft = repo / "index_draft_manifest.json"
     draft.write_text(
@@ -109,10 +93,7 @@ def _write_contract(tmp_path: Path, *, forbidden: bool = False) -> tuple[Path, P
                 "sealed_temperature_records_read": False,
                 "input_inventory": inventory,
                 "source_v3_workload_path": source.name,
-                "source_v3_workload_sha256": _sha(source),
                 "network_ids": ["huc8_test"],
-                "input_sha256_by_network": input_map,
-                "input_sha256_by_network_sha256": _canonical_sha(input_map),
                 "item_index": item_record,
             }
         ),
@@ -121,7 +102,7 @@ def _write_contract(tmp_path: Path, *, forbidden: bool = False) -> tuple[Path, P
     return draft, design
 
 
-def test_builder_binds_complete_index_roster_and_is_create_once(
+def test_builder_binds_complete_index_roster_and_reruns_identically(
     tmp_path: Path, monkeypatch
 ) -> None:
     draft, design = _write_contract(tmp_path)
@@ -130,7 +111,6 @@ def test_builder_binds_complete_index_roster_and_is_create_once(
         role="development",
         source_key="open",
         wide_path="open/panel.csv",
-        wide_sha256="a" * 64,
         manifest_path="open/manifest.json",
         n_days=len(_panel()),
         n_stations=3,
@@ -167,8 +147,12 @@ def test_builder_binds_complete_index_roster_and_is_create_once(
     }
     assert first["n_rows"] == 9
     assert first["achieved_skill_read"] is False
-    assert first["item_index_sha256"] == _sha(tmp_path / "item_index.parquet")
-    assert first["input_inventory_sha256"] == _canonical_sha({"huc8_test": "a" * 64})
+    assert first["item_index_path"] == "item_index.parquet"
+    assert first["input_inventory"] == {
+        "sealed_input_roots_allowed": [],
+        "qualification_mode": "fixture",
+    }
+    assert len(pd.read_parquet(output / "train_only_predictors.parquet")) == 9
 
 
 def test_builder_rejects_outcome_field_in_item_index(tmp_path: Path) -> None:

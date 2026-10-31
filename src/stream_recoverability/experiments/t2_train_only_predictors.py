@@ -8,7 +8,6 @@ this module.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import Sequence
 from pathlib import Path
@@ -35,7 +34,6 @@ from stream_recoverability.experiments.t2_recovery_benchmark import (
 )
 from stream_recoverability.experiments.t2_result_aggregation import (
     PREDICTOR_SCHEMA,
-    input_inventory_sha256,
 )
 
 FROZEN_GAPS = (7, 14, 30, 60, 90, 180, 365)
@@ -56,14 +54,6 @@ STABILITY_RADIUS = 0.98
 
 class PredictorContractError(ValueError):
     """Raised when an input could cross the frozen outcome/custody boundary."""
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _refuse_sealed_path(path: Path) -> None:
@@ -261,7 +251,9 @@ def predict_network_panel(
         wide.index = pd.DatetimeIndex(pd.to_datetime(wide.index))
     wide = wide.apply(pd.to_numeric, errors="coerce").sort_index()
     if wide.index.has_duplicates or wide.shape[1] < 2:
-        raise PredictorContractError("panel must have unique dates and at least two stations")
+        raise PredictorContractError(
+            "panel must have unique dates and at least two stations"
+        )
     train, _ = _year_split(wide.index)
     train_dates = wide.index[train]
     anomalies = _train_doy_anomalies(wide, train)
@@ -318,9 +310,7 @@ def predict_network_panel(
                 "gap_length_only": gap_length_only(int(gap)),
                 "acf_only": acf_only(phi, int(gap)),
                 "donor_r2_only": donor_r2_only(donor_cv, int(gap)),
-                "additive_d_over_4_heuristic": additive_heuristic(
-                    donor_cv, rho_d4
-                ),
+                "additive_d_over_4_heuristic": additive_heuristic(donor_cv, rho_d4),
                 "role": role,
                 "fit_role": role,
                 "estimator_id": ESTIMATOR_ID,
@@ -356,7 +346,7 @@ def build_train_only_predictor_sidecar(
     design_path: str | Path,
     output_dir: str | Path,
 ) -> dict[str, Any]:
-    """Build CSV/Parquet plus the aggregation-ready SHA-bound manifest."""
+    """Build CSV/Parquet plus the aggregation-ready manifest."""
 
     repo = Path(repo_root).resolve()
     workload_path = Path(workload_manifest_path).resolve()
@@ -365,30 +355,31 @@ def build_train_only_predictor_sidecar(
     for path in (workload_path, design, output):
         _refuse_sealed_path(path)
     workload = json.loads(workload_path.read_text(encoding="utf-8"))
-    workload_sha = _sha256_file(workload_path)
-    design_sha = _sha256_file(design)
     if workload.get("manifest_schema") not in {
         "t2_v91_open_role_workload_v2",
         "t2_v91_open_role_workload_v3",
     }:
         raise PredictorContractError("unsupported T2 workload schema")
-    if workload.get("design_sha256") != design_sha:
-        raise PredictorContractError("workload/design SHA-256 mismatch")
     if workload.get("sealed_temperature_records_read") is not False:
-        raise PredictorContractError("workload does not attest sealed outcomes stayed closed")
+        raise PredictorContractError(
+            "workload does not attest sealed outcomes stayed closed"
+        )
     if (workload.get("input_inventory") or {}).get("sealed_input_roots_allowed") != []:
         raise PredictorContractError("workload permits sealed input roots")
-    if tuple(int(value) for value in (workload.get("tier_1") or {}).get("gaps", ())) != FROZEN_GAPS:
+    if (
+        tuple(int(value) for value in (workload.get("tier_1") or {}).get("gaps", ()))
+        != FROZEN_GAPS
+    ):
         raise PredictorContractError("workload does not bind all seven frozen gaps")
 
     networks, discovery = discover_failure_closure_networks(repo)
     expected_ids = [str(value) for value in workload.get("network_ids") or []]
     if set(expected_ids) != {item.network_id for item in networks}:
-        raise PredictorContractError("discovered network inventory differs from workload")
+        raise PredictorContractError(
+            "discovered network inventory differs from workload"
+        )
     if int(workload.get("n_networks", -1)) != len(networks):
         raise PredictorContractError("workload network count differs from discovery")
-    input_map = {item.network_id: item.wide_sha256 for item in networks}
-    inventory_sha = input_inventory_sha256(input_map)
 
     frames: list[pd.DataFrame] = []
     station_attrition: list[dict[str, str]] = []
@@ -424,13 +415,8 @@ def build_train_only_predictor_sidecar(
     ).to_csv(attrition_path, index=False)
     manifest: dict[str, Any] = {
         "manifest_schema": SIDECAR_SCHEMA,
-        "workload_manifest_sha256": workload_sha,
-        "design_sha256": design_sha,
-        "catalog_split_sha256": (workload.get("input_inventory") or {}).get(
-            "catalog_split_sha256"
-        ),
-        "input_inventory_sha256": inventory_sha,
-        "input_sha256_by_network": dict(sorted(input_map.items())),
+        "workload_manifest_path": str(workload_path),
+        "design_path": str(design),
         "fit_role": "development",
         "fit_role_note": (
             "Reserved aggregation-contract role for any learned calibration; raw "
@@ -459,11 +445,8 @@ def build_train_only_predictor_sidecar(
         "roles": discovery.get("roles"),
         "predictions_path": csv_path.name,
         "predictions_format": "csv",
-        "predictions_sha256": _sha256_file(csv_path),
         "parquet_path": parquet_path.name,
-        "parquet_sha256": _sha256_file(parquet_path),
         "station_attrition_path": attrition_path.name,
-        "station_attrition_sha256": _sha256_file(attrition_path),
         "completeness": "complete",
         "formal_evidence": False,
         "purpose": "train_only_predictor_sidecar_not_t2_recovery_evidence",

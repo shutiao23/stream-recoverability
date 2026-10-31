@@ -1,5 +1,4 @@
 {
-  "corpus_plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
   "execute": true,
   "manifest_schema": "t2_v91_open_role_mh_selected_run_plan_v2",
   "n_networks_selected": 67,
@@ -87,7 +86,6 @@
     "huc8_11030012",
     "huc8_11130206"
   ],
-  "selected_plan_sha256": "4732dbd85557dac2c0672bbe62f217af1e1cd6ad999fd1860458460119941803",
   "sequential_execution": true,
   "v1_ogc_root_read_or_mutated": false
 }

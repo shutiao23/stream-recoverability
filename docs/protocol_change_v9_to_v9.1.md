@@ -54,7 +54,7 @@ BL-016、BL-017 与本文件同时打开。不重写 BL-015。
    - 目录重叠 ≠ 合格年。下载后的同期日值、300 天年、QC 门另算。预登衰减 25–40%。衰减后若合格河网 <100，走 v9 已写的 3 站 / 6 年失败分支并报告；不得把 HUC8 分组本身说成那次放宽。
    - 约 161 在本目录上等于 naive `zfill(8)[:8]`，不是精确计数，也不是截断组合（截断在本目录上仍给出 166）。W1-A 精确最大重叠子集给出目录级 **166**。**166 不是 T2 完成**，也不是 150 条合格河网已经到手。禁止 161≥150 或 166≥150 所以 T2；禁止「比 98 多 63 条」或「比 98 多 68 条」。v2 混名 HUC8-only 表的 166 仍排除在诚实库存之外；W1-A 的 166 是同一规则下的精确目录单元，仍然只是目录重叠。
    - `never_sealed_networks` 原 14 个 id **一字不删、不改 token、不用补零 HUC2 重命名 `*_huc20` / `*_huc31` / `*_huc50`：** `jinsha_upper`，`chattahoochee_upper_middle`，`delaware_river_huc20`，`willamette_river_huc17`，`suwannee_river_huc31`，`yellowstone_river_huc10`，`rio_grande_huc13`，`madison_river_huc10`，`cahaba_river_huc31`，`mckenzie_river_huc17`，`mahoning_river_huc50`，`roanoke_river_huc30`，`santa_fe_river_huc31`，`clearwater_river_huc17`。
-   - 切分：整条河网 50/20/30，按 climate × regulation × size 分层，seed + SHA-256，**下载前锁死**。实现文件在写出后为 `configs/network_catalog_v3_huc8.yaml` 与 `configs/network_catalog_v3_split.yaml`。本修订只锁规则，不把 `network_catalog_v1` 重映射成 executable catalog。
+   - 切分：整条河网 50/20/30，按 climate × regulation × size 分层，固定 seed，**下载前锁死**。实现文件在写出后为 `configs/network_catalog_v3_huc8.yaml` 与 `configs/network_catalog_v3_split.yaml`。本修订只锁规则，不把 `network_catalog_v1` 重映射成 executable catalog。
    - 禁止下载 name×HUC2 的 98 名单来「凑」T2。
    - `loire_mainstem` 与 `swiss_aar_rhine` 仍不得计入 T8 或 10 条非北美密封，直到日值公开可下载。
 
@@ -80,7 +80,7 @@ BL-016、BL-017 与本文件同时打开。不重写 BL-015。
 5. **恢复基准改成下载前锁定的两档预算。**  
    - **Tier 1（全语料）：** climatology、PCHIP/linear、Kalman、donor_regression、XGBoost，跑完整 gap × placement × information 格子。这档产出 T2 主 \(y\)（achieved skill）。  
    - **Tier 2（约 30 条河网，敏感性，不是主 \(y\)）：** 抽样规则现在锁死，不得下载后再「看哪些河算得动」：
-     - \(n\) 目标 30，允许范围 \([28,32]\)；越界必须写 ledger，禁止静默变成 12 或 6。分层：气候带 × 调控状态 × 网络规模。样本与 SHA 在**下载前**锁死（`sample_locked_before_download: true`）。
+     - \(n\) 目标 30，允许范围 \([28,32]\)；越界必须写 ledger，禁止静默变成 12 或 6。分层：气候带 × 调控状态 × 网络规模。样本在**下载前**锁死（`sample_locked_before_download: true`）。
      - 加上 air2stream、SAITS、CSDI、GRIN。SAITS 与 CSDI 与 GRIN 都在名单里；禁止写成 `csdi_or_grin` 一槽或。
      - 缺口 **30 与 90 与 180 全部跑**。禁止「30、90 或 180」。禁止看完 envelope 只报 90 或只报 180（BL-006 类）。`recovery_benchmark.primary_evidence_forbids` 与 `forbidden_after_seal` 同样列入 `selecting_the_better_of_90_and_180_days` 和 `posthoc_roster_shrink_after_download`。
      - 用途：强模型会不会改变可恢复性校准。答「会」或「不会」都不是把第二层提成 T2 主 \(y\) 的许可证。  
@@ -124,7 +124,7 @@ BL-016、BL-017 与本文件同时打开。不重写 BL-015。
 ## What did not change
 
 1. `design_id` / `design_version` 仍是 `design_freeze_v9`。不是 executable。`DEFAULT_DESIGN_PATH` / `EXECUTABLE_DESIGN_VERSION` 仍是 `design_freeze_v4`。
-2. 历史 once-lock、全国面板冻结哈希、BL-014、BL-015、密封未打开、`formal_evidence: false`、标题许可 false、水库不进标题。
+2. 历史 once-lock、全国面板冻结、BL-014、BL-015、密封未打开、`formal_evidence: false`、标题许可 false、水库不进标题。
 3. T2 地板：`out_of_network_spearman_min` 不得低于 0.60；`network_bootstrap_lower_bound_min` 不得低于 0.40。两条 CI 规则仍在。定方法阶段只许加严这些数。六河没过关不是改这些数的理由。12 河 / 6 河 / 任何 \(n<100\) 不得报告网络级 CI。
 4. `never_sealed_networks` 的 14 个 id 原样保留。金沙江 / Chattahoochee / 已下载 12 条河永远不当 sealed。
 5. Loire / Swiss 仍不能计入 T8 或 10 条非北美密封。

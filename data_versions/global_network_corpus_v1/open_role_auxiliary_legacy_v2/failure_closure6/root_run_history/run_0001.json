@@ -1,5 +1,4 @@
 {
-  "corpus_plan_sha256": "9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783",
   "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_1",
   "n_networks_selected": 67,
   "performance_metrics_computed": false,
@@ -75,7 +74,6 @@
     "huc8_11030012",
     "huc8_11130206"
   ],
-  "selected_plan_sha256": "dc35a77874a3b5893431548dd11dd8114326f2c8c519047a214ab9ada5f14182",
   "started_at_utc": "2026-08-26T21:01:03.318292+00:00",
   "status": "in_progress",
   "v1_ogc_root_read_or_mutated": false

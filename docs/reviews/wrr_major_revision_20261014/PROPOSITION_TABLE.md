@@ -1,6 +1,6 @@
 # WRR Major Revision — research proposition table
 
-**Locked review commit:** `53c88cc2f56359859b4beb36456ee024434b87c1` (2026-10-14)  
+**Locked review state:** the wave-2 confirmation closure of 2026-10-14  
 **Verdict driving this plan:** Major revision (not accept; not strong accept)  
 **Primary metric:** hottest continuous 30-day mean (°C)  
 **Primary operating point (predeclared, do not retune after test):** 70% retention, 0.5 °C consequential-error tolerance  
@@ -51,7 +51,7 @@ Phase analysis, continuous width scans, maintenance calendars, and regional tren
 
 ## What is already allowed evidence (do not re-litigate)
 
-Locked at `53c88cc` / wave-2 seal (designed missingness panel):
+Locked at the 2026-10-14 review state / wave-2 seal (designed missingness panel):
 
 | Result | Number | May claim as… | Must not claim as… |
 |---|---|---|---|

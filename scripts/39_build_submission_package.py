@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import subprocess
@@ -14,7 +13,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-PAPER = ROOT / "paper"
+PAPER = ROOT / "paper_archived"
 OUTPUT = PAPER / "submission"
 
 
@@ -22,19 +21,10 @@ def _words(text: str) -> int:
     return len(re.findall(r"\b[\w’'-]+\b", text))
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _identity(path: Path) -> dict[str, object]:
     return {
         "path": str(path.relative_to(ROOT)),
         "bytes": path.stat().st_size,
-        "sha256": _sha256(path),
     }
 
 

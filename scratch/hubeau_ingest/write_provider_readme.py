@@ -142,7 +142,7 @@ lines = [
     "- `raw_cache/` - every API response (gzip JSON envelope with url + retrieval time), "
     "`url_manifest.csv`, `station_table.csv`, `station_spans.csv`, `qualification_counts.csv`, "
     "`station_qc.csv`, `station_year_coverage.csv`, `complete_year_sensitivity.csv`, "
-    "`network_inputs_manifest.csv` (network_id, input_path, sha256, station ids for the seal)",
+    "`network_inputs_manifest.csv` (network_id, input_path, station ids for the seal)",
     "",
     "## Independent verification",
     "",

@@ -36,14 +36,9 @@ def _documented_counts(path: Path) -> dict[str, tuple[int, int]]:
     return result
 
 
-def _experiment_inventory(
-    grid: ExperimentGrid, experiment: str
-) -> tuple[int, int]:
+def _experiment_inventory(grid: ExperimentGrid, experiment: str) -> tuple[int, int]:
     conditions = Counter(condition.experiment for condition in grid.conditions)
-    scenarios = Counter(
-        scenario.condition.experiment
-        for scenario in grid.scenarios
-    )
+    scenarios = Counter(scenario.condition.experiment for scenario in grid.scenarios)
     return conditions[experiment], scenarios[experiment]
 
 
@@ -55,9 +50,7 @@ def test_readme_and_methods_grid_counts_follow_executable_builders() -> None:
     smoke = build_experiment_grid(suite="smoke")
     core = build_experiment_grid(suite="core")
     full_without_catalog = build_experiment_grid(suite="full")
-    full = build_experiment_grid(
-        suite="full", event_catalog_path=EVENT_CATALOG
-    )
+    full = build_experiment_grid(suite="full", event_catalog_path=EVENT_CATALOG)
     computed = {
         "smoke": _grid_size(smoke),
         "core": _grid_size(core),
@@ -72,13 +65,11 @@ def test_readme_and_methods_grid_counts_follow_executable_builders() -> None:
         "resilience": _grid_size(build_resilience_science_grid()),
         "retrained": _grid_size(build_retrained_information_grid()),
         "external": _grid_size(
-            build_external_confirmation_grid(
-                training_seeds=(11, 22, 33, 44, 55)
-            )
+            build_external_confirmation_grid(training_seeds=(11, 22, 33, 44, 55))
         ),
     }
 
-    readme = _documented_counts(REPOSITORY_ROOT / "README.md")
+    readme = _documented_counts(REPOSITORY_ROOT / "docs/project_history.md")
     methods = _documented_counts(REPOSITORY_ROOT / "paper_archived/methods.md")
     assert readme == computed
     assert methods == computed
@@ -89,5 +80,5 @@ def test_pre_freeze_tombstone_exists_and_is_linked_from_readme() -> None:
     assert tombstone.is_file()
     text = tombstone.read_text(encoding="utf-8")
     assert "not scientific evidence" in text.lower()
-    readme = (REPOSITORY_ROOT / "README.md").read_text(encoding="utf-8")
+    readme = (REPOSITORY_ROOT / "docs/project_history.md").read_text(encoding="utf-8")
     assert "results/formal/PRE_FREEZE_INVALID.md" in readme

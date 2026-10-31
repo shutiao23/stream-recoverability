@@ -2,26 +2,21 @@
   "artifacts": {
     "corpus_request_plan": {
       "bytes": 72771,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/corpus_request_plan.json",
-      "sha256": "8fd806e1696ba6ce1576ccf944dd0778db8c1e0da0330c46c167854102341319"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/corpus_request_plan.json"
     },
     "global_attrition": {
       "bytes": 8503,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition.csv",
-      "sha256": "ac4f905887991b5103f2a62627155fa37a91259d75269b9e6687bb35116365b6"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition.csv"
     },
     "global_attrition_summary": {
       "bytes": 597,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition_summary.json",
-      "sha256": "0694e12709bc0b6e4a114585f179fe93dfe7e005fd32cb03bdf8b1e43e5f49d7"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition_summary.json"
     },
     "selected_run_plan": {
       "bytes": 2211,
-      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/selected_run_plan.json",
-      "sha256": "d2883ede8b1717f04d8dc0ba248724953d16c15859447fd99c56053d75f88e94"
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/selected_run_plan.json"
     }
   },
-  "corpus_plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
   "dry_run": false,
   "execute": true,
   "formal_evidence": false,
@@ -38,7 +33,6 @@
     "n_source_failures_or_unavailable": 327,
     "passed": false,
     "performance_metrics_computed": false,
-    "plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
     "sealed_temperature_records_read": false,
     "temperature_columns_read": [],
     "v1_ogc_root_read_or_mutated": false
@@ -405,7 +399,6 @@
   ],
   "sealed_paths_traversed": false,
   "sealed_temperature_records_read": false,
-  "selected_plan_sha256": "4732dbd85557dac2c0672bbe62f217af1e1cd6ad999fd1860458460119941803",
   "status": "execution_complete_for_selected_scope",
   "stop": null,
   "temperature_columns_read": [],

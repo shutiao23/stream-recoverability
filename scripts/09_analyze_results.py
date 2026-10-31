@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analyse one complete, hash-verified frozen result bundle."""
+"""Analyse one complete frozen result bundle."""
 
 from __future__ import annotations
 
@@ -51,7 +51,7 @@ def _formal_training_seed_coverage(
     """Compatibility diagnostic; the frozen pipeline trusts no table alone.
 
     This helper remains importable for focused diagnostics, but the CLI requires
-    the stronger top-manifest completion and hash contract before analysis.
+    the stronger top-manifest completion and row-count contract before analysis.
     Legacy ambiguous model names (``brits``/``saits``) are intentionally not in
     the canonical registry.
     """

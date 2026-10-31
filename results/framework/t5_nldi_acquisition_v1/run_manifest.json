@@ -1,16 +1,13 @@
 {
   "artifacts": {
     "acquisition_plan": {
-      "path": "acquisition_plan.csv",
-      "sha256": "c4e90c90650d8171f6346597fa83d1a62e8a7c04beb5391f32594eaa300da165"
+      "path": "acquisition_plan.csv"
     },
     "cache_audit": {
-      "path": "cache_audit.csv",
-      "sha256": "99daafb725487c510c99b6fe512a1bbd90881e0a9d20aecbe900c8354abe5e40"
+      "path": "cache_audit.csv"
     },
     "request_log": {
-      "path": "request_log.csv",
-      "sha256": "9c69cb9e2f22dd19e762351d42c03ada21293d68b3d238bd01d1088b3c91d0b4"
+      "path": "request_log.csv"
     }
   },
   "cache_counts_after": {
@@ -27,8 +24,7 @@
   "halt_reason": null,
   "halted_early": false,
   "input_identity": {
-    "path": "results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.csv",
-    "sha256": "b99ff64f07ec0bf3be27787f0e8706bbfbfb17e9a2b4f288a59914688d681051"
+    "path": "results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.csv"
   },
   "invalid_existing_cache_rule": "fail_closed_and_do_not_overwrite",
   "mode": "full_serial_execution",

@@ -29,7 +29,6 @@ anything to check.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
 import sys
@@ -49,7 +48,6 @@ BUILT_PDFS = (
 REQUIRED_FILE_KEYS = {
     "path",
     "kind",
-    "sha256",
     "fonts",
     "geometry",
     "text_bounds",
@@ -59,10 +57,6 @@ REQUIRED_FILE_KEYS = {
     "hard_failures",
     "warnings",
 }
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _skip_reason() -> str | None:
@@ -75,7 +69,9 @@ def _skip_reason() -> str | None:
     return None
 
 
-def _run_harness(tmp_path: Path, *, extra: tuple[str, ...] = ()) -> tuple[subprocess.CompletedProcess[str], Path, Path]:
+def _run_harness(
+    tmp_path: Path, *, extra: tuple[str, ...] = ()
+) -> tuple[subprocess.CompletedProcess[str], Path, Path]:
     json_path = tmp_path / "figure_qa.json"
     md_path = tmp_path / "figure_qa_report.md"
     proc = subprocess.run(
@@ -137,16 +133,24 @@ def test_report_shape(report: dict) -> None:
     assert report["schema_version"]
     assert report["files"], "no file was analysed"
     for record in report["files"]:
-        assert REQUIRED_FILE_KEYS <= set(record), f"{record.get('path')} lacks required keys"
-        assert record["kind"] in {"figure", "manuscript", "supporting_information", "other"}
-        assert len(record["sha256"]) == 64
+        assert REQUIRED_FILE_KEYS <= set(record), (
+            f"{record.get('path')} lacks required keys"
+        )
+        assert record["kind"] in {
+            "figure",
+            "manuscript",
+            "supporting_information",
+            "other",
+        }
 
 
 def test_every_figure_pdf_is_analysed(report: dict) -> None:
     """One record per figure PDF, and none of them is silently dropped."""
     expected = sorted(path.name for path in FIGURES_DIR.glob("*.pdf"))
     analysed = sorted(
-        Path(record["path"]).name for record in report["files"] if record["kind"] == "figure"
+        Path(record["path"]).name
+        for record in report["files"]
+        if record["kind"] == "figure"
     )
     assert analysed == expected
 
@@ -157,7 +161,9 @@ def test_font_check_matches_raw_measurement(report: dict) -> None:
         fonts = record["fonts"]
         assert fonts["n_non_embedded"] == len(fonts["non_embedded"])
         flagged = [
-            failure for failure in record["hard_failures"] if failure["check"] == "FONT_NOT_EMBEDDED"
+            failure
+            for failure in record["hard_failures"]
+            if failure["check"] == "FONT_NOT_EMBEDDED"
         ]
         assert len(flagged) == fonts["n_non_embedded"], record["path"]
         for entry in fonts["non_embedded"]:
@@ -171,7 +177,11 @@ def test_no_hard_failure_is_a_warning(report: dict) -> None:
     hard = [item for record in report["files"] for item in record["hard_failures"]]
     warnings = [item for record in report["files"] for item in record["warnings"]]
     environment = [item for item in report["warnings"] if item["file"] == "-"]
-    assert report["summary"]["n_hard_failures"] == len(hard) == len(report["hard_failures"])
+    assert (
+        report["summary"]["n_hard_failures"]
+        == len(hard)
+        == len(report["hard_failures"])
+    )
     assert report["summary"]["n_warnings"] == len(warnings) + len(environment)
     for item in hard:
         assert item["check"] and item["detail"] and item["file"]
@@ -188,7 +198,9 @@ def test_hard_failure_checks_are_the_documented_ones(report: dict) -> None:
         "SCHEMATIC_WITHOUT_DRAWIO_SOURCE",
     }
     for item in report["hard_failures"]:
-        assert item["check"] in allowed, f"unexpected hard-failure check {item['check']}"
+        assert item["check"] in allowed, (
+            f"unexpected hard-failure check {item['check']}"
+        )
 
 
 def test_figure_page_count_rule(report: dict) -> None:
@@ -196,7 +208,8 @@ def test_figure_page_count_rule(report: dict) -> None:
     for record in report["files"]:
         pages = record["geometry"]["pages"]
         flagged = any(
-            failure["check"] == "FIGURE_NOT_SINGLE_PAGE" for failure in record["hard_failures"]
+            failure["check"] == "FIGURE_NOT_SINGLE_PAGE"
+            for failure in record["hard_failures"]
         )
         if record["kind"] == "figure":
             assert flagged == (pages != 1), record["path"]
@@ -208,17 +221,28 @@ def test_violations_carry_coordinates(report: dict) -> None:
     """Every flagged word is reported with a box so the coordinator can find it."""
     for record in report["files"]:
         for violation in record["text_bounds"]["violations"]:
-            assert violation["max_overflow_pt"] > report["thresholds"]["text_outside_page_pt"]
+            assert (
+                violation["max_overflow_pt"]
+                > report["thresholds"]["text_outside_page_pt"]
+            )
             for key in ("x0", "y0", "x1", "y1", "page", "text", "overflow_pt"):
                 assert key in violation, f"{record['path']}: {key} missing"
         for violation in record["min_text_height"]["violations"]:
             # the criterion is the estimated typeset size of the word's own line
-            assert violation["line_estimated_height_pt"] < report["thresholds"]["min_text_height_pt"]
-            assert violation["height_pt"] <= violation["line_estimated_height_pt"] + 1e-6
+            assert (
+                violation["line_estimated_height_pt"]
+                < report["thresholds"]["min_text_height_pt"]
+            )
+            assert (
+                violation["height_pt"] <= violation["line_estimated_height_pt"] + 1e-6
+            )
             for key in ("x0", "y0", "x1", "y1", "page", "text"):
                 assert key in violation, f"{record['path']}: {key} missing"
         for pair in record["overlaps"]["pairs"]:
-            assert pair["overlap_fraction"] > report["thresholds"]["overlap_fraction_of_smaller_box"]
+            assert (
+                pair["overlap_fraction"]
+                > report["thresholds"]["overlap_fraction_of_smaller_box"]
+            )
             for side in ("word_a", "word_b"):
                 box = pair[side]
                 assert {"text", "x0", "y0", "x1", "y1"} <= set(box)
@@ -241,7 +265,9 @@ def test_ink_gate_decides_page_overflow(report: dict) -> None:
         for page_key, verdict in verdicts.items():
             page = int(page_key)
             if verdict == "padding_only":
-                assert page in warning_pages, f"{record['path']} p{page} should warn, not fail"
+                assert page in warning_pages, (
+                    f"{record['path']} p{page} should warn, not fail"
+                )
                 assert page not in hard_pages
             elif verdict in {"clipped", "unavailable", "not_run"}:
                 assert page in hard_pages, f"{record['path']} p{page} should fail"
@@ -254,14 +280,16 @@ def test_ink_gate_decides_page_overflow(report: dict) -> None:
 def test_flagged_pages_have_ink_measurements(report: dict) -> None:
     """Regression: the ink checks must reach the JSON (they were reset once)."""
     flagged = [
-        record
-        for record in report["files"]
-        if record["text_bounds"]["violations"]
+        record for record in report["files"] if record["text_bounds"]["violations"]
     ]
     for record in flagged:
-        assert record["ink_checks"], f"{record['path']} has box violations but no ink evidence"
+        assert record["ink_checks"], (
+            f"{record['path']} has box violations but no ink evidence"
+        )
         for check in record["ink_checks"]:
-            assert check.get("available"), f"{record['path']} p{check.get('page')} not rendered"
+            assert check.get("available"), (
+                f"{record['path']} p{check.get('page')} not rendered"
+            )
             assert "margin_pt" in check and "ink_bbox_pt" in check
     reported = sum(len(record["ink_checks"]) for record in report["files"])
     assert report["summary"]["ink_verification_pages"] == reported
@@ -274,7 +302,8 @@ def test_small_relative_words_are_advisory(report: dict) -> None:
         assert record["min_text_height"]["n_small_relative_words"] >= len(small)
         if record["min_text_height"]["n_small_relative_words"]:
             assert any(
-                warning["check"] == "SMALL_RELATIVE_WORD_BOXES" for warning in record["warnings"]
+                warning["check"] == "SMALL_RELATIVE_WORD_BOXES"
+                for warning in record["warnings"]
             ), record["path"]
         hard_checks = {failure["check"] for failure in record["hard_failures"]}
         assert "SMALL_RELATIVE_WORD_BOXES" not in hard_checks
@@ -285,8 +314,14 @@ def test_overlap_counts_are_consistent(report: dict) -> None:
     for record in report["files"]:
         overlaps = record["overlaps"]
         kinds = overlaps["counts_by_kind"]
-        assert sum(kinds.values()) == overlaps["n_candidate_pairs"] == len(overlaps["pairs"])
-        assert overlaps["n_same_baseline_pairs"] == kinds.get("same_baseline_horizontal", 0)
+        assert (
+            sum(kinds.values())
+            == overlaps["n_candidate_pairs"]
+            == len(overlaps["pairs"])
+        )
+        assert overlaps["n_same_baseline_pairs"] == kinds.get(
+            "same_baseline_horizontal", 0
+        )
         for pair in overlaps["pairs"]:
             a, b = pair["word_a"], pair["word_b"]
             assert pair["overlap_fraction"] > 0.25
@@ -342,7 +377,10 @@ def test_provenance_is_recorded_for_every_figure(report: dict) -> None:
                 for failure in record["hard_failures"]
             ), record["path"]
         if provenance["kind"] == "unknown":
-            assert any(warning["check"] == "PROVENANCE_UNKNOWN" for warning in record["warnings"])
+            assert any(
+                warning["check"] == "PROVENANCE_UNKNOWN"
+                for warning in record["warnings"]
+            )
 
 
 def test_derived_print_scale_is_self_consistent(report: dict) -> None:
@@ -400,11 +438,13 @@ def test_sources_are_not_modified(tmp_path: Path) -> None:
         pytest.skip(reason)
     watched = [
         path
-        for path in list(FIGURES_DIR.glob("*.pdf"))[:1] + list(BUILT_PDFS) + list(PAPER_DIR.glob("*.tex"))
+        for path in list(FIGURES_DIR.glob("*.pdf"))[:1]
+        + list(BUILT_PDFS)
+        + list(PAPER_DIR.glob("*.tex"))
         if path.is_file()
     ]
     assert watched
-    before = {path: _sha256(path) for path in watched}
+    before = {path: path.read_bytes() for path in watched}
     _run_harness(tmp_path, extra=("--report-only", "--no-ink-verify"))
-    after = {path: _sha256(path) for path in watched}
-    assert before == after, "the harness modified a paper/ or figures/ artifact"
+    changed = [str(path) for path in watched if path.read_bytes() != before[path]]
+    assert not changed, f"the harness modified a paper/ or figures/ artifact: {changed}"

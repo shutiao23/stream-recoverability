@@ -48,7 +48,6 @@
   "identity": "generic_daily_disagreement__strictly_prior_years__all__local_fit__hubeau",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_daily_disagreement__strictly_prior_years__all__local_fit__hubeau.joblib",
-  "model_sha256": "f60314c2e51c2f14de2440b5f26f4c04de12056adc02eb5eff76d43458df321c",
   "n_training_cases": 1680,
   "n_training_groups": 9,
   "name": "generic_daily_disagreement",
@@ -58,8 +57,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
-      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

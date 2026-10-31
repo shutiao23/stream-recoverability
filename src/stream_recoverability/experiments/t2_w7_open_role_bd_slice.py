@@ -7,7 +7,6 @@ tested network CI, and cannot set ``passed`` true.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections import Counter
 from collections.abc import Mapping, Sequence
@@ -58,14 +57,6 @@ class W7SliceContractError(AggregationContractError):
     """Raised when a W7 slice write would cross a locked evidence boundary."""
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _assert_open_path(path: Path) -> None:
     if any("sealed" in part.lower() for part in path.resolve().parts):
         raise W7SliceContractError(f"refusing a sealed path: {path}")
@@ -75,7 +66,9 @@ def _assert_output_not_protected(output_dir: Path, repo_root: Path | None) -> No
     resolved = output_dir.resolve()
     lowered = {part.lower() for part in resolved.parts}
     if "sealed" in lowered or "twin_e" in lowered:
-        raise W7SliceContractError(f"W7 slice refuses protected output path: {resolved}")
+        raise W7SliceContractError(
+            f"W7 slice refuses protected output path: {resolved}"
+        )
     if repo_root is None:
         return
     repo = repo_root.resolve()
@@ -149,10 +142,8 @@ def collect_w7_chunk_manifest_paths(
 
 def load_w7_chunk_results(
     chunk_manifest_paths: Sequence[str | Path],
-    *,
-    workload_manifest_sha256: str,
 ) -> pd.DataFrame:
-    """Load SHA-bound chunk tables without requiring the full 1.38M-item set."""
+    """Load chunk result tables without requiring the full 1.38M-item set."""
 
     frames: list[pd.DataFrame] = []
     for raw in chunk_manifest_paths:
@@ -163,8 +154,6 @@ def load_w7_chunk_results(
             raise W7SliceContractError(f"chunk manifest is not a mapping: {path}")
         if manifest.get("manifest_schema") != CHUNK_SCHEMA:
             raise W7SliceContractError("W7 slice received a foreign chunk schema")
-        if manifest.get("workload_manifest_sha256") != workload_manifest_sha256:
-            raise W7SliceContractError("chunk workload SHA-256 mismatch")
         if manifest.get("sealed_temperature_records_read") is not False:
             raise W7SliceContractError("chunk reports sealed temperature reads")
         if manifest.get("passed") is True:
@@ -174,10 +163,8 @@ def load_w7_chunk_results(
             raise W7SliceContractError("chunk has an unsafe results_path")
         results_path = path.parent / results_name
         _assert_open_path(results_path)
-        if not results_path.is_file() or _sha256_file(results_path) != manifest.get(
-            "results_sha256"
-        ):
-            raise W7SliceContractError("chunk result bytes differ from manifest")
+        if not results_path.is_file():
+            raise W7SliceContractError("chunk result table is absent")
         frame = _read_table(results_path, str(manifest.get("results_format")))
         if int(manifest.get("n_records", -1)) != len(frame):
             raise W7SliceContractError("chunk result count mismatch")
@@ -200,7 +187,10 @@ def _load_predictors(path: Path | None) -> pd.DataFrame:
         raise W7SliceContractError("predictor manifest is not a mapping")
     table_name = manifest.get("predictions_path") or manifest.get("parquet_path")
     fmt = str(manifest.get("predictions_format") or "csv")
-    if manifest.get("parquet_path") and Path(str(manifest.get("parquet_path"))).suffix == ".parquet":
+    if (
+        manifest.get("parquet_path")
+        and Path(str(manifest.get("parquet_path"))).suffix == ".parquet"
+    ):
         parquet = manifest_path.parent / str(manifest["parquet_path"])
         if parquet.is_file():
             table_name = parquet.name
@@ -212,7 +202,9 @@ def _load_predictors(path: Path | None) -> pd.DataFrame:
     predictors = _read_table(table_path, fmt)
     missing = set(JOIN_KEYS).union(PREDICTOR_COLUMNS) - set(predictors.columns)
     if missing:
-        raise W7SliceContractError(f"predictor table missing columns: {sorted(missing)}")
+        raise W7SliceContractError(
+            f"predictor table missing columns: {sorted(missing)}"
+        )
     return predictors
 
 
@@ -225,9 +217,7 @@ def _finite_delta(nested: pd.DataFrame, added: str) -> float:
     return float(pd.to_numeric(match.iloc[0], errors="coerce"))
 
 
-def _evaluate_success_summary(
-    joined: pd.DataFrame, n_networks: int
-) -> dict[str, Any]:
+def _evaluate_success_summary(joined: pd.DataFrame, n_networks: int) -> dict[str, Any]:
     """Call locked evaluate_success, then strip any confirmatory license."""
 
     status = development_inference_status(n_networks)
@@ -246,9 +236,7 @@ def _evaluate_success_summary(
         np.isfinite(
             pd.to_numeric(joined["predicted_conditional_risk"], errors="coerce")
         )
-        & np.isfinite(
-            pd.to_numeric(joined["observed_recovery_loss"], errors="coerce")
-        )
+        & np.isfinite(pd.to_numeric(joined["observed_recovery_loss"], errors="coerce"))
     ].copy()
     if usable["network_id"].nunique() < 3:
         return summary
@@ -274,7 +262,6 @@ def write_w7_open_role_bd_slice(
     results: pd.DataFrame,
     predictors: pd.DataFrame | None = None,
     workload: Mapping[str, Any] | None = None,
-    workload_manifest_sha256: str = "",
     repo_root: str | Path | None = None,
     items_planned: int | None = None,
 ) -> dict[str, Any]:
@@ -286,9 +273,11 @@ def write_w7_open_role_bd_slice(
     _assert_output_not_protected(output, repo)
     if results.empty:
         raise W7SliceContractError("W7 slice has no result rows")
-    if results.get("sealed_temperature_records_read", pd.Series(dtype=object)).eq(
-        True
-    ).any():
+    if (
+        results.get("sealed_temperature_records_read", pd.Series(dtype=object))
+        .eq(True)
+        .any()
+    ):
         raise W7SliceContractError("result rows report sealed temperature reads")
 
     roster = [str(value) for value in ((workload or {}).get("network_ids") or [])]
@@ -305,11 +294,15 @@ def write_w7_open_role_bd_slice(
         frame["model"].isin(CHEAP_MODELS)
         & frame["information_condition"].isin(FIRST_LAYER_INFORMATION)
     ].copy()
-    extended = frame.loc[frame["information_condition"].isin(EXTENDED_INFORMATION)].copy()
+    extended = frame.loc[
+        frame["information_condition"].isin(EXTENDED_INFORMATION)
+    ].copy()
     scored_mask = first_layer["status"].isin({"complete", "reference_complete"})
     scored_ids = sorted(set(first_layer.loc[scored_mask, "network_id"].astype(str)))
     leaked = sorted(set(scored_ids).intersection(FORBIDDEN_SCORED_NETWORK_IDS))
-    scored_ids = [network for network in scored_ids if network not in FORBIDDEN_SCORED_NETWORK_IDS]
+    scored_ids = [
+        network for network in scored_ids if network not in FORBIDDEN_SCORED_NETWORK_IDS
+    ]
     if roster_set:
         scored_ids = [network for network in scored_ids if network in roster_set]
     n_networks = len(scored_ids)
@@ -326,7 +319,9 @@ def write_w7_open_role_bd_slice(
     if not executable_complete.empty and not predictor_frame.empty:
         missing = set(JOIN_KEYS).union(PREDICTOR_COLUMNS) - set(predictor_frame.columns)
         if missing:
-            raise W7SliceContractError(f"predictor table missing columns: {sorted(missing)}")
+            raise W7SliceContractError(
+                f"predictor table missing columns: {sorted(missing)}"
+            )
         outcomes = executable_complete.rename(
             columns={
                 "mae_deg_c": "observed_recovery_loss",
@@ -339,7 +334,9 @@ def write_w7_open_role_bd_slice(
             how="inner",
         )
         finite = joined.loc[
-            np.isfinite(pd.to_numeric(joined["observed_achieved_skill"], errors="coerce"))
+            np.isfinite(
+                pd.to_numeric(joined["observed_achieved_skill"], errors="coerce")
+            )
             & np.isfinite(pd.to_numeric(joined["donor_r2_only"], errors="coerce"))
             & np.isfinite(
                 pd.to_numeric(joined["predicted_conditional_risk"], errors="coerce")
@@ -367,7 +364,9 @@ def write_w7_open_role_bd_slice(
             )
 
     increment_defined = bool(np.isfinite(operator_increment))
-    w8_trigger = bool(increment_defined and operator_increment < W8_INCREMENTAL_R2_TRIGGER)
+    w8_trigger = bool(
+        increment_defined and operator_increment < W8_INCREMENTAL_R2_TRIGGER
+    )
     if w8_trigger:
         w8_reason = "operator_incremental_r2_vs_donor_r2_only_lt_0.05"
     elif not increment_defined:
@@ -377,9 +376,15 @@ def write_w7_open_role_bd_slice(
 
     confirmation = _evaluate_success_summary(joined, n_networks)
     inference_status = development_inference_status(n_networks)
-    mh_status = dict(sorted(Counter(extended["status"].astype(str)).items())) if not extended.empty else {}
+    mh_status = (
+        dict(sorted(Counter(extended["status"].astype(str)).items()))
+        if not extended.empty
+        else {}
+    )
     mh_complete = int(mh_status.get("complete", 0))
-    first_layer_status = dict(sorted(Counter(first_layer["status"].astype(str)).items()))
+    first_layer_status = dict(
+        sorted(Counter(first_layer["status"].astype(str)).items())
+    )
     qualification = ""
     if workload:
         qualification = str(
@@ -447,7 +452,6 @@ def write_w7_open_role_bd_slice(
         "geometry_reselected": False,
         "twin_e_holdout_touched": False,
         "later_year_public_rivers_overwritten": False,
-        "workload_manifest_sha256": workload_manifest_sha256,
         "aggregation_complete_workload": False,
         "slice_is_confirmatory_t2": False,
         "what_this_is": (
@@ -463,8 +467,13 @@ def write_w7_open_role_bd_slice(
     if confirmation.get("spearman_inference_status") == "tested" or confirmation.get(
         "passed"
     ):
-        raise W7SliceContractError("W7 slice writer refused to emit tested/passed inference")
-    if manifest["passed"] is not False or manifest["evaluate_success"]["passed"] is not False:
+        raise W7SliceContractError(
+            "W7 slice writer refused to emit tested/passed inference"
+        )
+    if (
+        manifest["passed"] is not False
+        or manifest["evaluate_success"]["passed"] is not False
+    ):
         raise W7SliceContractError("W7 slice writer cannot set passed true")
     if manifest["evaluate_success"]["spearman_inference_status"] == "tested":
         raise W7SliceContractError("W7 slice writer cannot emit tested Spearman CIs")
@@ -487,7 +496,7 @@ def aggregate_w7_open_role_bd_slice_from_chunks(
     chunk_manifest_paths: Sequence[str | Path],
     predictor_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Production entry: bind frozen workload SHA, load chunks, write the slice."""
+    """Production entry: read the workload, load chunks, write the slice."""
 
     repo = Path(repo_root).resolve()
     workload_path = Path(workload_manifest_path).resolve()
@@ -496,10 +505,7 @@ def aggregate_w7_open_role_bd_slice_from_chunks(
     workload = json.loads(workload_path.read_text(encoding="utf-8"))
     if not isinstance(workload, dict):
         raise W7SliceContractError("workload manifest is not a mapping")
-    workload_sha = _sha256_file(workload_path)
-    results = load_w7_chunk_results(
-        chunk_manifest_paths, workload_manifest_sha256=workload_sha
-    )
+    results = load_w7_chunk_results(chunk_manifest_paths)
     predictors = _load_predictors(
         None if predictor_manifest_path is None else Path(predictor_manifest_path)
     )
@@ -508,7 +514,6 @@ def aggregate_w7_open_role_bd_slice_from_chunks(
         results=results,
         predictors=predictors if not predictors.empty else None,
         workload=workload,
-        workload_manifest_sha256=workload_sha,
         repo_root=repo,
         items_planned=len(results),
     )

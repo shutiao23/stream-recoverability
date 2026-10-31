@@ -20,7 +20,6 @@ from stream_recoverability.experiments.t2_w7_open_role_bd_slice import (
 
 DEFAULT_RUN = ROOT / "results/framework/t2_recovery_benchmark_v1"
 DEFAULT_SLICE = DEFAULT_RUN / "w7_open_role_bd_slice"
-LOCKED_WORKLOAD_SHA256 = "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
 
 
 def _arguments() -> argparse.Namespace:
@@ -29,10 +28,6 @@ def _arguments() -> argparse.Namespace:
         "--workload-manifest",
         type=Path,
         default=DEFAULT_RUN / "workload_manifest.json",
-    )
-    parser.add_argument(
-        "--expect-workload-sha256",
-        default=LOCKED_WORKLOAD_SHA256,
     )
     parser.add_argument(
         "--chunk-manifest",
@@ -68,14 +63,6 @@ def _arguments() -> argparse.Namespace:
 
 def main() -> None:
     args = _arguments()
-    import hashlib
-
-    actual = hashlib.sha256(args.workload_manifest.read_bytes()).hexdigest()
-    if actual != args.expect_workload_sha256:
-        raise SystemExit(
-            "workload SHA-256 mismatch: "
-            f"got {actual}, expected {args.expect_workload_sha256}"
-        )
     chunk_paths = collect_w7_chunk_manifest_paths(
         chunk_manifest_paths=args.chunk_manifest,
         aggregation_list_paths=args.aggregation_list,

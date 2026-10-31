@@ -20,7 +20,6 @@ The dry manifest must report exactly:
 - `provider_requests_opened: false`
 - `query_template_executed: false`
 - `content_parsed/json_decoded/value_fields_inspected: false`
-- the locked split, catalog, and query-template SHA-256 values from BL-018.
 
 Confirm that no FOEN provider vault or registry object was created by dry-run:
 
@@ -45,31 +44,20 @@ Commit at least these files together:
   condition note (unchanged bytes are acceptable; they must exist in the commit
   tree).
 
-Record the full commit SHA:
-
-```bash
-git rev-parse HEAD
-```
-
-The execution runner rejects abbreviated SHAs and verifies that every protected
-path byte-matches that commit. Unrelated dirty worktree paths do not authorize
-or prevent custody, but any drift in a protected path fails closed.
+Do not change any of these files between the commit and the download.
 
 ## 3. First-download pilot: one sealed network, still no parsing
-
-Replace `<FULL_IMPLEMENTATION_COMMIT>` with the committed 40-character SHA:
 
 ```bash
 PYTHONPATH=src python scripts/73_cache_foen_sealed_corpus.py \
   --execute \
   --max-networks 1 \
-  --acknowledge-sealed foen-sealed-opaque-bytes-no-json \
-  --implementation-commit <FULL_IMPLEMENTATION_COMMIT>
+  --acknowledge-sealed foen-sealed-opaque-bytes-no-json
 ```
 
 The deterministic first network is `foen_doubs_rhonegebiet`: four stations ×
 52 years = 208 response objects. Every successful response body must be streamed
-directly to the provider vault, hashed while writing, changed to mode `000`, and
+directly to the provider vault, changed to mode `000`, and
 paired with one strict registry JSON. Do not open an object to inspect whether a
 year is empty or valid; a successful GraphQL response with an empty data array
 is still an opaque sealed response.
@@ -97,8 +85,7 @@ PYTHONPATH=src python scripts/73_cache_foen_sealed_corpus.py \
   --execute \
   --all-networks \
   --acknowledge-sealed foen-sealed-opaque-bytes-no-json \
-  --acknowledge-full-corpus foen-all-ten-sealed-networks-authorized \
-  --implementation-commit <FULL_IMPLEMENTATION_COMMIT>
+  --acknowledge-full-corpus foen-all-ten-sealed-networks-authorized
 ```
 
 A complete failure-free corpus has 2,652 registered station-year objects.

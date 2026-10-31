@@ -31,7 +31,7 @@ existing catalogue):
   written as a CSV only, never as panels.
 * A *complete calendar year* is a year with >= 365 (366 in leap years)
   QC-passing days, the same definition as
-  ``scripts/241_multi_agency_nve_ingest.py`` and the sealed USGS confirmation.
+  ``scripts/241_multi_agency_nve_ingest.py`` and the USGS confirmation score.
 * Stations in ``results/v17_fitness/step1_panel/station_roster.csv`` are
   excluded before network selection (protocol rule 6).
 
@@ -56,7 +56,6 @@ Usage::
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 import sys
@@ -87,8 +86,12 @@ OUT_ROOT = ROOT / "results" / "wrr_submission_ready" / "multi_agency_ingest" / "
 RAW = OUT_ROOT / "raw_cache"
 NETWORKS = OUT_ROOT / "networks"
 V17_ROSTER = ROOT / "results" / "v17_fitness" / "step1_panel" / "station_roster.csv"
-CATALOG = ROOT / "results" / "framework" / "public_catalog" / "uk_ea_temperature_stations.csv"
-PROTOCOL = ROOT / "results" / "wrr_submission_ready" / "MULTI_AGENCY_TRANSPORT_PROTOCOL.md"
+CATALOG = (
+    ROOT / "results" / "framework" / "public_catalog" / "uk_ea_temperature_stations.csv"
+)
+PROTOCOL = (
+    ROOT / "results" / "wrr_submission_ready" / "MULTI_AGENCY_TRANSPORT_PROTOCOL.md"
+)
 
 PROVIDER = "uk_ea"
 CONTEXT = "temperate_oceanic"
@@ -144,14 +147,6 @@ def utc_stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def safe_name(value: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "_", str(value))
 
@@ -183,7 +178,7 @@ def http_json(url: str, *, timeout: int = 300) -> dict:
 
 
 def complete_years_from_series(series: pd.Series) -> list[int]:
-    """Calendar years with >= 365 (366) QC-passing values (sealed definition)."""
+    """Calendar years with >= 365 (366) QC-passing values (USGS confirmation definition)."""
 
     values = pd.to_numeric(series, errors="coerce")
     years: list[int] = []
@@ -197,14 +192,18 @@ def complete_years_from_series(series: pd.Series) -> list[int]:
 
 
 def readings_url(measure_id: str, start: str, end: str, limit: int, offset: int) -> str:
-    return READINGS_URL + "?" + urllib.parse.urlencode(
-        {
-            "measure": measure_id,
-            "mineq-date": start,
-            "max-date": end,
-            "_limit": str(limit),
-            "_offset": str(offset),
-        }
+    return (
+        READINGS_URL
+        + "?"
+        + urllib.parse.urlencode(
+            {
+                "measure": measure_id,
+                "mineq-date": start,
+                "max-date": end,
+                "_limit": str(limit),
+                "_offset": str(offset),
+            }
+        )
     )
 
 
@@ -228,7 +227,9 @@ def parse_measure(item: dict) -> dict:
         "statistic_token": match.group("stat") if match else None,
         "id_period": int(match.group("period")) if match else None,
         "qualification": match.group("qual") if match else None,
-        "hydrometric_station_id": bool(station_id and is_hydrometric_site_id(station_id)),
+        "hydrometric_station_id": bool(
+            station_id and is_hydrometric_site_id(station_id)
+        ),
         "station_id_shape": station_id_shape(station_id),
     }
 
@@ -249,7 +250,11 @@ def stage_measures(*, refresh: bool, record: dict) -> pd.DataFrame:
         if refresh or not path.is_file():
             path.write_bytes(http_bytes(url))
             record["requests"].append(
-                {"url": url, "cache_path": str(path.relative_to(ROOT)), "retrieved_utc": utc_stamp()}
+                {
+                    "url": url,
+                    "cache_path": str(path.relative_to(ROOT)),
+                    "retrieved_utc": utc_stamp(),
+                }
             )
             print(f"  measures page {page} offset {offset}", flush=True)
         chunk = json.loads(path.read_text()).get("items") or []
@@ -262,7 +267,8 @@ def stage_measures(*, refresh: bool, record: dict) -> pd.DataFrame:
     table = pd.DataFrame([parse_measure(item) for item in items])
     table.to_csv(RAW / "measures_all_flat.csv", index=False)
     record["measure_catalogue"] = {
-        "n_measures_total": int(len(table)),        "n_temperature_measures": int(table["parameter"].eq("TEMPERATURE").sum()),
+        "n_measures_total": int(len(table)),
+        "n_temperature_measures": int(table["parameter"].eq("TEMPERATURE").sum()),
         "temperature_measure_kinds": {
             str(key): int(value)
             for key, value in table.loc[table["parameter"].eq("TEMPERATURE")]
@@ -271,7 +277,8 @@ def stage_measures(*, refresh: bool, record: dict) -> pd.DataFrame:
                     frame["statistic_token"].eq("m") & frame["period"].eq(86400),
                     "provider_daily_mean_86400s",
                     np.where(
-                        frame["statistic_token"].isin(["min", "max"]) & frame["period"].eq(86400),
+                        frame["statistic_token"].isin(["min", "max"])
+                        & frame["period"].eq(86400),
                         "provider_daily_min_or_max_86400s",
                         np.where(
                             frame["station_id_shape"].eq("hydrometric_guid")
@@ -323,13 +330,19 @@ def stage_metadata(
     meta_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     for row in daily_measures.sort_values("station_id").itertuples(index=False):
-        url = STATION_URL.format(station=urllib.parse.quote(str(row.station_id), safe=""))
+        url = STATION_URL.format(
+            station=urllib.parse.quote(str(row.station_id), safe="")
+        )
         path = meta_dir / f"{safe_name(str(row.station_id))}.json"
         if refresh or not path.is_file():
             payload = http_bytes(url)
             path.write_bytes(payload)
             record["requests"].append(
-                {"url": url, "cache_path": str(path.relative_to(ROOT)), "retrieved_utc": utc_stamp()}
+                {
+                    "url": url,
+                    "cache_path": str(path.relative_to(ROOT)),
+                    "retrieved_utc": utc_stamp(),
+                }
             )
         document = json.loads(path.read_text())
         item = (document.get("items") or [document])[0]
@@ -337,7 +350,9 @@ def stage_metadata(
             str(entry.get("@id", "")).rstrip("/").split("/")[-1]
             for entry in (item.get("type") or [])
         ]
-        name = " ".join([str(item.get("label") or ""), str(item.get("riverName") or "")])
+        name = " ".join(
+            [str(item.get("label") or ""), str(item.get("riverName") or "")]
+        )
         lowered = name.lower()
         type_blob = " ".join(types).lower()
         rows.append(
@@ -350,12 +365,16 @@ def stage_metadata(
                 "longitude": pd.to_numeric(item.get("long"), errors="coerce"),
                 "date_opened": item.get("dateOpened"),
                 "station_status": (
-                    str(item.get("status", {}).get("@id", "")).rstrip("/").split("/")[-1]
+                    str(item.get("status", {}).get("@id", ""))
+                    .rstrip("/")
+                    .split("/")[-1]
                     if isinstance(item.get("status"), dict)
                     else str(item.get("status"))
                 ),
                 "station_types": ";".join(types),
-                "is_river_station_type": any("river" in token.lower() for token in types),
+                "is_river_station_type": any(
+                    "river" in token.lower() for token in types
+                ),
                 "n_measures": len(item.get("measures") or []),
                 "label_and_river_lower": lowered,
                 "type_blob": type_blob,
@@ -399,7 +418,9 @@ def stage_metadata(
         "dropped_counts": {str(k): int(v) for k, v in drop_counts.items()},
         "dropped_fraction": float(sum(drop_counts.values()) / max(1, len(meta))),
         "kept": int(meta["river_only_drop_reason"].eq("").sum()),
-        "flagged_canal_or_navigation_but_kept": int(meta["flagged_waterbody_class"].ne("").sum()),
+        "flagged_canal_or_navigation_but_kept": int(
+            meta["flagged_waterbody_class"].ne("").sum()
+        ),
     }
     dropped = meta.loc[meta["river_only_drop_reason"].ne("")]
     return meta, dropped
@@ -487,7 +508,9 @@ def stage_observations(
     kept = meta.loc[meta["river_only_drop_reason"].eq("")].copy()
     frames: list[pd.DataFrame] = []
     errors: list[dict] = []
-    print(f"  downloading provider daily mean series for {len(kept)} stations", flush=True)
+    print(
+        f"  downloading provider daily mean series for {len(kept)} stations", flush=True
+    )
     with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
         futures = {
             executor.submit(
@@ -505,7 +528,12 @@ def stage_observations(
             try:
                 frame = future.result()
             except Exception as error:  # noqa: BLE001
-                errors.append({"station_id": station_id, "error": f"{type(error).__name__}: {error}"})
+                errors.append(
+                    {
+                        "station_id": station_id,
+                        "error": f"{type(error).__name__}: {error}",
+                    }
+                )
                 print(f"  {station_id}: ERROR {error}", flush=True)
                 continue
             print(f"  {station_id}: {len(frame)} daily rows", flush=True)
@@ -539,9 +567,16 @@ def stage_derived(
     ].copy()
     kept_ids = set(meta.loc[meta["river_only_drop_reason"].eq(""), "station_id"])
     subdaily = subdaily.loc[subdaily["station_id"].isin(kept_ids)]
-    subdaily = subdaily.drop_duplicates("station_id").sort_values("station_id").head(max_stations)
+    subdaily = (
+        subdaily.drop_duplicates("station_id")
+        .sort_values("station_id")
+        .head(max_stations)
+    )
     if subdaily.empty or daily.empty:
-        record["derived_subdaily_qc"] = {"stations": 0, "note": "no 15-minute series matched"}
+        record["derived_subdaily_qc"] = {
+            "stations": 0,
+            "note": "no 15-minute series matched",
+        }
         return pd.DataFrame()
 
     def one(row) -> dict:
@@ -578,7 +613,9 @@ def stage_derived(
             on="date",
             how="inner",
         )
-        merged["temperature_c"] = pd.to_numeric(merged["temperature_c"], errors="coerce")
+        merged["temperature_c"] = pd.to_numeric(
+            merged["temperature_c"], errors="coerce"
+        )
         merged["derived_daily_mean_c"] = pd.to_numeric(
             merged["derived_daily_mean_c"], errors="coerce"
         )
@@ -593,7 +630,9 @@ def stage_derived(
             "mean_difference_c": float(difference.mean()),
             "mean_abs_difference_c": float(difference.abs().mean()),
             "max_abs_difference_c": float(difference.abs().max()),
-            "pearson_r": float(merged["derived_daily_mean_c"].corr(merged["temperature_c"])),
+            "pearson_r": float(
+                merged["derived_daily_mean_c"].corr(merged["temperature_c"])
+            ),
             "n_provider_days_in_year": int(
                 provider.loc[provider["date"].dt.year.eq(year)].shape[0]
             ),
@@ -601,16 +640,22 @@ def stage_derived(
 
     rows = []
     with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
-        futures = [executor.submit(one, row) for row in subdaily.itertuples(index=False)]
+        futures = [
+            executor.submit(one, row) for row in subdaily.itertuples(index=False)
+        ]
         for future in as_completed(futures):
             rows.append(future.result())
     table = pd.DataFrame(rows).sort_values("station_id")
     table.to_csv(OUT_ROOT / "derived_subdaily_vs_provider_daily.csv", index=False)
     record["derived_subdaily_qc"] = {
         "stations_tested": int(len(table)),
-        "stations_with_overlap": int((table.get("compared_days", pd.Series(dtype=int)) > 0).sum()),
+        "stations_with_overlap": int(
+            (table.get("compared_days", pd.Series(dtype=int)) > 0).sum()
+        ),
         "median_mean_abs_difference_c": (
-            float(table.loc[table["compared_days"] > 0, "mean_abs_difference_c"].median())
+            float(
+                table.loc[table["compared_days"] > 0, "mean_abs_difference_c"].median()
+            )
             if (table.get("compared_days", pd.Series(dtype=int)) > 0).any()
             else None
         ),
@@ -662,20 +707,26 @@ def flat_line_census(block: pd.DataFrame, *, min_run_days: int = 7) -> dict:
     index = series.index
     out["longest_identical_run_days"] = int(best_length)
     out["longest_identical_run_start"] = index[best_start].date().isoformat()
-    out["longest_identical_run_end"] = index[best_start + best_length - 1].date().isoformat()
+    out["longest_identical_run_end"] = (
+        index[best_start + best_length - 1].date().isoformat()
+    )
     out["frozen_sensor_suspected"] = bool(
         best_length >= min_run_days and float(values[best_start]) == 0.0
     )
     return out
 
 
-def qc_daily(raw: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+def qc_daily(
+    raw: pd.DataFrame, meta: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     frame = raw.copy()
     frame["station_id"] = frame["station_id"].astype(str)
     frame["date"] = pd.to_datetime(frame["date"], errors="coerce")
     frame["temperature_c"] = pd.to_numeric(frame["temperature_c"], errors="coerce")
     frame["provider_quality"] = frame["provider_quality"].astype(str)
-    quality_counts = {str(k): int(v) for k, v in frame["provider_quality"].value_counts().items()}
+    quality_counts = {
+        str(k): int(v) for k, v in frame["provider_quality"].value_counts().items()
+    }
     completeness_counts = {
         str(k): int(v) for k, v in frame["provider_completeness"].value_counts().items()
     }
@@ -704,7 +755,10 @@ def qc_daily(raw: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
     passed = passed.sort_values(["station_id", "date"])
     grouped = passed.groupby(["station_id", "date"], as_index=False).agg(
         temperature_c=("temperature_c", "mean"),
-        provider_quality_code=("provider_quality", lambda values: str(values.mode().iloc[0])),
+        provider_quality_code=(
+            "provider_quality",
+            lambda values: str(values.mode().iloc[0]),
+        ),
         n_source_values=("temperature_c", "size"),
         n_distinct_values=("temperature_c", "nunique"),
     )
@@ -713,14 +767,18 @@ def qc_daily(raw: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
     ledger_rows = []
     for station_id, block in frame.groupby("station_id"):
         row = {"station_id": station_id, "n_values_returned": int(len(block))}
-        for reason in sorted(reason for reason in block["drop_reason"].unique() if reason):
+        for reason in sorted(
+            reason for reason in block["drop_reason"].unique() if reason
+        ):
             row[f"dropped_{reason}"] = int(block["drop_reason"].eq(reason).sum())
         row["n_values_dropped_total"] = int(block["drop_reason"].ne("").sum())
         row["n_values_accepted"] = int(len(block) - row["n_values_dropped_total"])
         row["accepted_quality_codes"] = ";".join(
             sorted(
                 str(code)
-                for code in block.loc[block["drop_reason"].eq(""), "provider_quality"].dropna().unique()
+                for code in block.loc[block["drop_reason"].eq(""), "provider_quality"]
+                .dropna()
+                .unique()
             )
         )
         row["rejected_quality_codes"] = ";".join(
@@ -728,7 +786,9 @@ def qc_daily(raw: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
                 str(code)
                 for code in block.loc[
                     block["drop_reason"].eq("quality_code_rejected"), "provider_quality"
-                ].dropna().unique()
+                ]
+                .dropna()
+                .unique()
             )
         )
         row["n_duplicate_extra_days"] = int(
@@ -743,7 +803,9 @@ def qc_daily(raw: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
         "rows_dropped_total": int(frame["drop_reason"].ne("").sum()),
         "drop_reason_totals": {
             reason: int(frame["drop_reason"].eq(reason).sum())
-            for reason in sorted(reason for reason in frame["drop_reason"].unique() if reason)
+            for reason in sorted(
+                reason for reason in frame["drop_reason"].unique() if reason
+            )
         },
     }
     return grouped, ledger, counts
@@ -761,7 +823,9 @@ def frozen_sensor_sensitivity(
 
     rows = []
     for position, row in stations.iterrows():
-        if int(row["longest_identical_run_days"]) < 7 or not bool(row["frozen_sensor_suspected"]):
+        if int(row["longest_identical_run_days"]) < 7 or not bool(
+            row["frozen_sensor_suspected"]
+        ):
             continue
         station_id = str(row["station_id"])
         if station_id not in wide.columns:
@@ -790,27 +854,41 @@ def frozen_sensor_sensitivity(
     path = OUT_ROOT / "frozen_sensor_sensitivity.csv"
     if frame.empty:
         frame = pd.DataFrame(
-            columns=["station_id", "run_start", "run_end", "run_days", "n_complete_years_kept_values", "n_complete_years_minus_frozen_run", "complete_years_lost"]
+            columns=[
+                "station_id",
+                "run_start",
+                "run_end",
+                "run_days",
+                "n_complete_years_kept_values",
+                "n_complete_years_minus_frozen_run",
+                "complete_years_lost",
+            ]
         )
     frame.to_csv(path, index=False)
     adjusted = stations.copy()
     adjusted["_years_after"] = adjusted["n_complete_years"]
     for entry in rows:
-        adjusted.loc[
-            adjusted["station_id"].eq(entry["station_id"]), "_years_after"
-        ] = entry["n_complete_years_minus_frozen_run"]
+        adjusted.loc[adjusted["station_id"].eq(entry["station_id"]), "_years_after"] = (
+            entry["n_complete_years_minus_frozen_run"]
+        )
     eligible_after = (
         adjusted.loc[adjusted["_years_after"] >= MIN_COMPLETE_YEARS]
         .groupby("network_id")["station_id"]
         .nunique()
     )
     networks_after = sorted(
-        network for network, count in eligible_after.items() if count >= MIN_STATIONS_PER_NETWORK
+        network
+        for network, count in eligible_after.items()
+        if count >= MIN_STATIONS_PER_NETWORK
     )
     record["frozen_sensor_census"]["sensitivity_csv"] = str(path.relative_to(ROOT))
     record["frozen_sensor_census"]["sensitivity"] = frame.to_dict(orient="records")
-    record["frozen_sensor_census"]["networks_kept_after_frozen_run_filter"] = networks_after
-    record["frozen_sensor_census"]["n_networks_kept_after_frozen_run_filter"] = len(networks_after)
+    record["frozen_sensor_census"]["networks_kept_after_frozen_run_filter"] = (
+        networks_after
+    )
+    record["frozen_sensor_census"]["n_networks_kept_after_frozen_run_filter"] = len(
+        networks_after
+    )
     return stations
 
 
@@ -863,10 +941,16 @@ def stage_assemble(
                 "longitude": getattr(meta_row, "longitude", np.nan),
                 "n_complete_years": len(years),
                 "complete_years": ";".join(str(year) for year in years),
-                "first_date": present.index.min().date().isoformat() if len(present) else "",
-                "last_date": present.index.max().date().isoformat() if len(present) else "",
+                "first_date": present.index.min().date().isoformat()
+                if len(present)
+                else "",
+                "last_date": present.index.max().date().isoformat()
+                if len(present)
+                else "",
                 "n_days": int(len(present)),
-                "n_dropped_qc": int(entry.n_values_dropped_total) if entry is not None else 0,
+                "n_dropped_qc": int(entry.n_values_dropped_total)
+                if entry is not None
+                else 0,
                 "accepted_quality_codes": (
                     str(entry.accepted_quality_codes) if entry is not None else ""
                 ),
@@ -876,21 +960,33 @@ def stage_assemble(
                 "station_types": getattr(meta_row, "station_types", None),
                 "measure_id": getattr(meta_row, "measure_id", None),
                 "date_opened": getattr(meta_row, "date_opened", None),
-                "flagged_waterbody_class": getattr(meta_row, "flagged_waterbody_class", ""),
+                "flagged_waterbody_class": getattr(
+                    meta_row, "flagged_waterbody_class", ""
+                ),
                 "n_days_value_exactly_0c": int(
-                    getattr(entry, "n_days_value_exactly_0c", 0) if entry is not None else 0
+                    getattr(entry, "n_days_value_exactly_0c", 0)
+                    if entry is not None
+                    else 0
                 ),
                 "longest_identical_run_days": int(
-                    getattr(entry, "longest_identical_run_days", 0) if entry is not None else 0
+                    getattr(entry, "longest_identical_run_days", 0)
+                    if entry is not None
+                    else 0
                 ),
                 "longest_identical_run_start": (
-                    str(getattr(entry, "longest_identical_run_start", "")) if entry is not None else ""
+                    str(getattr(entry, "longest_identical_run_start", ""))
+                    if entry is not None
+                    else ""
                 ),
                 "longest_identical_run_end": (
-                    str(getattr(entry, "longest_identical_run_end", "")) if entry is not None else ""
+                    str(getattr(entry, "longest_identical_run_end", ""))
+                    if entry is not None
+                    else ""
                 ),
                 "frozen_sensor_suspected": bool(
-                    getattr(entry, "frozen_sensor_suspected", False) if entry is not None else False
+                    getattr(entry, "frozen_sensor_suspected", False)
+                    if entry is not None
+                    else False
                 ),
             }
         )
@@ -904,7 +1000,9 @@ def stage_assemble(
             "step can exclude the station explicitly"
         ),
         "stations_flagged": sorted(
-            stations.loc[stations["frozen_sensor_suspected"], "station_id"].astype(str).tolist()
+            stations.loc[stations["frozen_sensor_suspected"], "station_id"]
+            .astype(str)
+            .tolist()
         ),
         "detail": stations.loc[
             stations["longest_identical_run_days"] >= 7,
@@ -942,7 +1040,9 @@ def stage_assemble(
         "grouping": "complete_linkage_max_pairwise_geodesic (uk_ea_spatial.cluster_uk_ea_spatial)",
     }
     clusters.to_csv(OUT_ROOT / "spatial_clusters_50km.csv", index=False)
-    clusters_100.to_csv(OUT_ROOT / "spatial_clusters_100km_sensitivity.csv", index=False)
+    clusters_100.to_csv(
+        OUT_ROOT / "spatial_clusters_100km_sensitivity.csv", index=False
+    )
 
     station_to_cluster = {}
     for row in clusters.itertuples(index=False):
@@ -952,19 +1052,31 @@ def stage_assemble(
 
     stations = frozen_sensor_sensitivity(stations, wide, record)
 
-    eligible_counts = stations.loc[stations["_eligible"]].groupby("network_id")["station_id"].nunique()
+    eligible_counts = (
+        stations.loc[stations["_eligible"]]
+        .groupby("network_id")["station_id"]
+        .nunique()
+    )
     kept_networks = sorted(
-        network for network, count in eligible_counts.items() if count >= MIN_STATIONS_PER_NETWORK
+        network
+        for network, count in eligible_counts.items()
+        if count >= MIN_STATIONS_PER_NETWORK
     )
     stations = stations.loc[stations["network_id"].isin(kept_networks)].copy()
-    isolated_ids = set(str(item) for item in wide.columns) - set(stations["station_id"].astype(str))
+    isolated_ids = set(str(item) for item in wide.columns) - set(
+        stations["station_id"].astype(str)
+    )
     isolated_100km = {}
     for row in clusters_100.itertuples(index=False):
-        members = [item.strip() for item in str(row.site_ids).split(",") if item.strip()]
+        members = [
+            item.strip() for item in str(row.site_ids).split(",") if item.strip()
+        ]
         for station_id in members:
             if station_id in isolated_ids:
                 isolated_100km[station_id] = len(members)
-    record["spatial_clustering"]["isolated_station_100km_cluster_sizes"] = isolated_100km
+    record["spatial_clustering"]["isolated_station_100km_cluster_sizes"] = (
+        isolated_100km
+    )
     record["spatial_clustering"]["isolated_station_ids"] = sorted(isolated_ids)
 
     manifest_rows = []
@@ -994,10 +1106,11 @@ def stage_assemble(
                 "last_date": panel.index.max().date().isoformat(),
                 "n_days": int(len(panel)),
                 "max_pairwise_km": float(
-                    clusters.loc[clusters["cluster_id"].eq(network_id), "max_pairwise_km"].iloc[0]
+                    clusters.loc[
+                        clusters["cluster_id"].eq(network_id), "max_pairwise_km"
+                    ].iloc[0]
                 ),
                 "daily_wide_temperature_csv": str(panel_path.relative_to(ROOT)),
-                "daily_wide_temperature_sha256": sha256_file(panel_path),
                 "stations_csv": str((directory / "stations.csv").relative_to(ROOT)),
                 "measurement_statistic": "provider_daily_mean_86400s_degc",
             }
@@ -1011,17 +1124,24 @@ def stage_assemble(
     manifest.to_csv(OUT_ROOT / "networks_manifest.csv", index=False)
     record["networks"] = manifest.to_dict(orient="records")
 
-    stations.drop(columns=["_eligible"]).sort_values(["network_id", "station_id"]).to_csv(
-        OUT_ROOT / "stations.csv", index=False
-    )
+    stations.drop(columns=["_eligible"]).sort_values(
+        ["network_id", "station_id"]
+    ).to_csv(OUT_ROOT / "stations.csv", index=False)
     record["final_counts"] = {
-        "stations_with_provider_daily_mean_series_downloaded": int(daily["station_id"].nunique()),
+        "stations_with_provider_daily_mean_series_downloaded": int(
+            daily["station_id"].nunique()
+        ),
         "stations_with_qc_passing_days": int(len(stations)),
-        "stations_ge4_complete_years": int(stations["n_complete_years"].ge(MIN_COMPLETE_YEARS).sum()),
+        "stations_ge4_complete_years": int(
+            stations["n_complete_years"].ge(MIN_COMPLETE_YEARS).sum()
+        ),
         "networks_kept": int(len(manifest)),
-        "complete_station_years_in_kept_networks": int(stations["n_complete_years"].sum()),
+        "complete_station_years_in_kept_networks": int(
+            stations["n_complete_years"].sum()
+        ),
         "stations_with_data_but_no_network": sorted(
-            set(str(item) for item in wide.columns) - set(stations["station_id"].astype(str))
+            set(str(item) for item in wide.columns)
+            - set(stations["station_id"].astype(str))
         ),
     }
     record["panel_construction"] = {
@@ -1061,48 +1181,59 @@ def write_readme(record: dict, manifest: pd.DataFrame, stations: pd.DataFrame) -
         f"| {row.network_id} | {row.station_id[:8]} | {row.river_name} | "
         f"{row.n_complete_years} | {row.n_days} | {row.n_dropped_qc} | "
         f"{row.longest_identical_run_days} | {row.frozen_sensor_suspected} |"
-        for row in stations.sort_values(["network_id", "station_id"]).itertuples(index=False)
+        for row in stations.sort_values(["network_id", "station_id"]).itertuples(
+            index=False
+        )
     )
     kind_rows = "\n".join(f"- `{key}`: {value}" for key, value in kinds.items())
     shape_rows = "\n".join(f"- `{key}`: {value}" for key, value in shapes.items())
     longest_row = stations.sort_values("n_days", ascending=False).iloc[0]
     longest_span_years = (
-        pd.Timestamp(str(longest_row["last_date"])) - pd.Timestamp(str(longest_row["first_date"]))
+        pd.Timestamp(str(longest_row["last_date"]))
+        - pd.Timestamp(str(longest_row["first_date"]))
     ).days / 365.25
-    isolated_100km = record.get("spatial_clustering", {}).get("isolated_station_100km_cluster_sizes", {})
+    isolated_100km = record.get("spatial_clustering", {}).get(
+        "isolated_station_100km_cluster_sizes", {}
+    )
     isolated_text = (
         "; at the 100 km sensitivity cap "
-        + ", ".join(f"{key[:8]} joins a {value}-station cluster" for key, value in isolated_100km.items())
+        + ", ".join(
+            f"{key[:8]} joins a {value}-station cluster"
+            for key, value in isolated_100km.items()
+        )
         if isolated_100km
         else ""
     )
-    sensitivity_rows = "\n".join(
-        f"| {entry['station_id'][:8]} | {entry['run_start']} | {entry['run_end']} | "
-        f"{entry['run_days']} | {entry['n_complete_years_kept_values']} | "
-        f"{entry['n_complete_years_minus_frozen_run']} | {entry['complete_years_lost'] or 'none'} |"
-        for entry in sensitivity
-    ) or "| (none) | | | | | | |"
+    sensitivity_rows = (
+        "\n".join(
+            f"| {entry['station_id'][:8]} | {entry['run_start']} | {entry['run_end']} | "
+            f"{entry['run_days']} | {entry['n_complete_years_kept_values']} | "
+            f"{entry['n_complete_years_minus_frozen_run']} | {entry['complete_years_lost'] or 'none'} |"
+            for entry in sensitivity
+        )
+        or "| (none) | | | | | | |"
+    )
 
     document = f"""# UK Environment Agency (`uk_ea`) — transport-panel ingest
 
 Generated by `scripts/244_multi_agency_uk_ea_ingest.py`
 (`PYTHONPATH=src python3 scripts/244_multi_agency_uk_ea_ingest.py`), retrieved
-{record.get('generated_utc')}.  Ingest + QC only: no frozen-screen performance was
+{record.get("generated_utc")}.  Ingest + QC only: no frozen-screen performance was
 computed on this data.
 
 Verdict: **feasible, but small**.  The EA Hydrology API does publish a *provider
 daily statistic* for river water temperature, and it survives the pre-registered
-eligibility rule — for {counts.get('networks_kept')} spatial networks,
-{counts.get('stations_with_qc_passing_days')} stations, of which
-{counts.get('stations_ge4_complete_years')} have >= 4 complete calendar years
-({counts.get('complete_station_years_in_kept_networks')} complete station-years in
+eligibility rule — for {counts.get("networks_kept")} spatial networks,
+{counts.get("stations_with_qc_passing_days")} stations, of which
+{counts.get("stations_ge4_complete_years")} have >= 4 complete calendar years
+({counts.get("complete_station_years_in_kept_networks")} complete station-years in
 the kept networks).
 
 ## What the live API actually exposes
 
 `{MEASURES_URL}` (paged, `_limit={MEASURE_PAGE_LIMIT}`) lists
-{record.get('measure_catalogue', {}).get('n_measures_total')} measures, of which
-{record.get('measure_catalogue', {}).get('n_temperature_measures')} carry
+{record.get("measure_catalogue", {}).get("n_measures_total")} measures, of which
+{record.get("measure_catalogue", {}).get("n_temperature_measures")} carry
 `parameter = TEMPERATURE`:
 
 {kind_rows}
@@ -1117,8 +1248,12 @@ different statistic; the 15-minute series and the event-monitor spot series are 
 daily statistics.  Because the existing catalogue
 (`results/framework/public_catalog/uk_ea_temperature_stations.csv`) is not treated
 as evidence, liveness was re-verified from the live measures collection and per
-station documents: {record.get('existing_catalog_check', {}).get('n_catalog_stations_with_provider_daily_mean_measure')}
-of its {record.get('existing_catalog_check', {}).get('n_catalog_stations')} stations
+station documents: {
+        record.get("existing_catalog_check", {}).get(
+            "n_catalog_stations_with_provider_daily_mean_measure"
+        )
+    }
+of its {record.get("existing_catalog_check", {}).get("n_catalog_stations")} stations
 have a provider daily mean temperature measure.
 
 Day boundary: the provider publishes one value per calendar date (`date`, and
@@ -1128,12 +1263,12 @@ UK local time as published.  No timezone shift is applied.
 ## Networks
 
 Spatial proxy for the agency-native grouping: complete-linkage on lat/lon with a
-{record.get('spatial_clustering', {}).get('cap_km')} km maximum pairwise geodesic cap
+{record.get("spatial_clustering", {}).get("cap_km")} km maximum pairwise geodesic cap
 (`stream_recoverability.data.uk_ea_spatial`), >= {MIN_STATIONS_PER_NETWORK} stations,
 each network needing >= {MIN_STATIONS_PER_NETWORK} stations with
 >= {MIN_COMPLETE_YEARS} complete calendar years.  The
-{record.get('spatial_clustering', {}).get('sensitivity_cap_km')} km sensitivity
-grouping ({record.get('spatial_clustering', {}).get('n_clusters_100km')} clusters,
+{record.get("spatial_clustering", {}).get("sensitivity_cap_km")} km sensitivity
+grouping ({record.get("spatial_clustering", {}).get("n_clusters_100km")} clusters,
 including one that merges the isolated station) is written to
 `spatial_clusters_100km_sensitivity.csv` and is **not** emitted as panels.
 
@@ -1161,37 +1296,44 @@ dropped instead (`frozen_sensor_sensitivity.csv`):
 {sensitivity_rows}
 
 With that filter the kept networks would be
-{record.get('frozen_sensor_census', {}).get('networks_kept_after_frozen_run_filter')}
+{record.get("frozen_sensor_census", {}).get("networks_kept_after_frozen_run_filter")}
 — i.e. the panel structure is unchanged; only the affected station-years would go.
 
 ## Derived sub-daily QC (not a panel)
 
-`uk_ea_temperature.uk_ea_daily` was used for {derived.get('stations_tested')} stations
+`uk_ea_temperature.uk_ea_daily` was used for {derived.get("stations_tested")} stations
 to derive a daily mean from the 15-minute series for the last provider year and to
 compare it with the provider daily mean
-(`derived_subdaily_vs_provider_daily.csv`, {derived.get('stations_with_overlap')}
+(`derived_subdaily_vs_provider_daily.csv`, {derived.get("stations_with_overlap")}
 stations with overlap, median mean absolute difference
-{derived.get('median_mean_abs_difference_c')} degC).  Derived values are **not**
+{derived.get("median_mean_abs_difference_c")} degC).  Derived values are **not**
 emitted as transport networks: protocol rule 3 requires the provider's own daily
 statistic.
 
 ## Caveats a reviewer should raise
 
-1. Under-delivery: {counts.get('networks_kept')} networks and
-   {counts.get('stations_ge4_complete_years')} eligible stations are far below the
+1. Under-delivery: {counts.get("networks_kept")} networks and
+   {counts.get("stations_ge4_complete_years")} eligible stations are far below the
    30-network panel target.  The pre-registered rule was not loosened to repair this.
 2. One station with data and >= {MIN_COMPLETE_YEARS} complete years
-   ({counts.get('stations_with_data_but_no_network')}) has no partner within the
-   {record.get('spatial_clustering', {}).get('cap_km')} km cap, so it forms no network{
-   isolated_text}.
-3. Complete years use the sealed >= 365/366-day definition; the archive ends
-   {record.get('networks', [{}])[0].get('last_date') if record.get('networks') else 'n/a'},
+   ({counts.get("stations_with_data_but_no_network")}) has no partner within the
+   {record.get("spatial_clustering", {}).get("cap_km")} km cap, so it forms no network{
+        isolated_text
+    }.
+3. Complete years use the USGS-confirmation >= 365/366-day definition; the archive ends
+   {
+        record.get("networks", [{}])[0].get("last_date")
+        if record.get("networks")
+        else "n/a"
+    },
    so the final calendar year is incomplete everywhere and is excluded.
 4. Every span is gappy: EA "Missing" days and one-day holes reduce apparently long
-   series (e.g. station {longest_row.station_id[:8]} has {int(longest_row.n_days)} accepted
+   series (e.g. station {longest_row.station_id[:8]} has {
+        int(longest_row.n_days)
+    } accepted
    days across {longest_span_years:.1f} years) to
-   {counts.get('stations_ge4_complete_years')} eligible stations with
-   {counts.get('complete_station_years_in_kept_networks')} complete years in total.
+   {counts.get("stations_ge4_complete_years")} eligible stations with
+   {counts.get("complete_station_years_in_kept_networks")} complete years in total.
 5. The networks are a documented spatial proxy, not an EA catchment label; the
    hydrology API exposes no catchment grouping for these stations.
 6. Two member stations carry frozen-sensor evidence (see above); keeping their
@@ -1222,7 +1364,9 @@ def main(argv: list[str] | None = None) -> int:
         default="all",
         choices=("all", "measures", "metadata", "observations", "derived", "assemble"),
     )
-    parser.add_argument("--refresh", action="store_true", help="ignore cached raw responses")
+    parser.add_argument(
+        "--refresh", action="store_true", help="ignore cached raw responses"
+    )
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--derived-max-stations", type=int, default=8)
     args = parser.parse_args(argv)
@@ -1289,7 +1433,9 @@ def main(argv: list[str] | None = None) -> int:
     record["daily_mean_measure_selection"] = {
         "n_daily_mean_temperature_measures": int(len(daily_measures)),
         "n_distinct_stations": int(daily_measures["station_id"].nunique()),
-        "n_hydrometric_station_ids": int(daily_measures["hydrometric_station_id"].sum()),
+        "n_hydrometric_station_ids": int(
+            daily_measures["hydrometric_station_id"].sum()
+        ),
         "selection": "parameter=TEMPERATURE, period=86400, statistic token 'm', unit °C",
     }
     if CATALOG.is_file():
@@ -1298,7 +1444,9 @@ def main(argv: list[str] | None = None) -> int:
             "catalog": str(CATALOG.relative_to(ROOT)),
             "n_catalog_stations": int(len(catalog)),
             "n_catalog_stations_with_provider_daily_mean_measure": int(
-                catalog["site_id"].isin(set(daily_measures["station_id"].astype(str))).sum()
+                catalog["site_id"]
+                .isin(set(daily_measures["station_id"].astype(str)))
+                .sum()
             ),
             "note": (
                 "the existing catalog is not trusted as evidence: liveness and the "
@@ -1321,7 +1469,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     print("[stage] observations", flush=True)
-    raw_daily = stage_observations(meta, refresh=args.refresh, record=record, workers=args.workers)
+    raw_daily = stage_observations(
+        meta, refresh=args.refresh, record=record, workers=args.workers
+    )
     print(f"  raw daily rows: {len(raw_daily)}", flush=True)
 
     derived = pd.DataFrame()
@@ -1339,24 +1489,23 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  derived comparisons: {len(derived)}", flush=True)
 
     print("[stage] assemble", flush=True)
-    manifest, kept_stations = stage_assemble(raw_daily, meta, record, roster_ids=roster_ids)
+    manifest, kept_stations = stage_assemble(
+        raw_daily, meta, record, roster_ids=roster_ids
+    )
     record["caveats"] = build_caveats(record, manifest)
     write_readme(record, manifest, kept_stations)
     record["artifacts"] = {
         "readme": str((OUT_ROOT / "README.md").relative_to(ROOT)),
-        "readme_sha256": sha256_file(OUT_ROOT / "README.md"),
-        "networks_manifest": str((OUT_ROOT / "networks_manifest.csv").relative_to(ROOT)),
+        "networks_manifest": str(
+            (OUT_ROOT / "networks_manifest.csv").relative_to(ROOT)
+        ),
         "stations": str((OUT_ROOT / "stations.csv").relative_to(ROOT)),
         "qc_ledger": str((OUT_ROOT / "qc_ledger.csv").relative_to(ROOT)),
         "raw_cache": str(RAW.relative_to(ROOT)),
     }
-    record["inputs_sha256"] = {
-        str(V17_ROSTER.relative_to(ROOT)): sha256_file(V17_ROSTER),
-        str(PROTOCOL.relative_to(ROOT)): sha256_file(PROTOCOL),
-        str(Path(__file__).relative_to(ROOT)): sha256_file(Path(__file__)),
-    }
     (OUT_ROOT / "ingest.json").write_text(
-        json.dumps(record, indent=1, ensure_ascii=False, default=str) + "\n", encoding="utf-8"
+        json.dumps(record, indent=1, ensure_ascii=False, default=str) + "\n",
+        encoding="utf-8",
     )
     print(json.dumps(record.get("final_counts", {}), indent=1), flush=True)
     return 0
@@ -1408,7 +1557,7 @@ def build_caveats(record: dict, manifest: pd.DataFrame) -> list[str]:
             "never emitted as panels, so no station is double counted across caps."
         ),
         (
-            "Complete years use the sealed definition (>= 365 days, 366 in leap years). The "
+            "Complete years use the USGS-confirmation definition (>= 365 days, 366 in leap years). The "
             "EA daily archive currently ends 2024-12-30, so calendar year 2024 is incomplete "
             "for every station and is excluded, which costs one otherwise complete year per "
             "station."

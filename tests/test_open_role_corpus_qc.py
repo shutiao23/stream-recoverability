@@ -15,7 +15,6 @@ from stream_recoverability.data.open_role_corpus_qc import (
     run_open_role_qc,
 )
 from stream_recoverability.data.sealed_corpus import (
-    LOCKED_SPLIT_SHA256,
     HUC8CorpusGate,
     LockedV3Catalog,
     SealedOutcomeAccessError,
@@ -51,13 +50,12 @@ def _response(site_id: str, values: list[float]) -> bytes:
 def _catalog(role: str) -> LockedV3Catalog:
     sites = ("site_a", "site_b", "site_sentinel", "site_missing")
     end = (
-        pd.Timestamp("2020-01-01") + pd.Timedelta(days=8 * 365 - 1)
-    ).date().isoformat()
+        (pd.Timestamp("2020-01-01") + pd.Timedelta(days=8 * 365 - 1)).date().isoformat()
+    )
     return LockedV3Catalog(
         roles={"huc8_test": role},
         stations={"huc8_test": sites},
         dates={site: ("2020-01-01", end) for site in sites},
-        split_sha256=LOCKED_SPLIT_SHA256,
     )
 
 
@@ -120,7 +118,10 @@ def test_open_role_qc_uses_gate_and_only_registered_objects(
     assert expected.issubset({path.name for path in network.iterdir()})
     report = pd.read_csv(network / "ingest_qc_report.csv", dtype={"site_id": str})
     assert set(report["site_id"]) == {"site_a", "site_b", "site_sentinel"}
-    assert report.set_index("site_id").loc["site_sentinel", "verdict"] == "rejected_sentinel"
+    assert (
+        report.set_index("site_id").loc["site_sentinel", "verdict"]
+        == "rejected_sentinel"
+    )
     clean = pd.read_csv(network / "daily_long_qc.csv", dtype={"site_id": str})
     assert set(clean["site_id"]) == {"site_a", "site_b"}
     wide = pd.read_csv(network / "daily_wide_qc.csv", index_col=0)
@@ -154,12 +155,12 @@ def test_parser_rejects_response_for_another_station(tmp_path: Path) -> None:
     path = tmp_path / "response.json"
     path.write_bytes(_response("wrong_site", [10.0]))
     with path.open("rb") as handle, pytest.raises(ValueError, match="differs"):
-            parse_nwis_daily_json(
+        parse_nwis_daily_json(
             handle,
             expected_site_id="expected_site",
             expected_start="2020-01-01",
-                expected_end="2020-01-01",
-            )
+            expected_end="2020-01-01",
+        )
 
 
 def test_failure_closure_is_fixed_at_six_reparses_raw_and_preserves_primary(
@@ -167,9 +168,7 @@ def test_failure_closure_is_fixed_at_six_reparses_raw_and_preserves_primary(
 ) -> None:
     catalog = _catalog("validation")
     gate = _gate(catalog, tmp_path)
-    n_days = (
-        pd.Timestamp("2026-01-02") - pd.Timestamp("2020-01-01")
-    ).days + 1
+    n_days = (pd.Timestamp("2026-01-02") - pd.Timestamp("2020-01-01")).days + 1
     for offset, site_id in enumerate(("site_a", "site_b", "site_sentinel")):
         values = [10.0 + offset + (index % 100) / 100.0 for index in range(n_days)]
         gate.cache_stream("huc8_test", site_id, [_response(site_id, values)])
@@ -194,7 +193,6 @@ def test_failure_closure_is_fixed_at_six_reparses_raw_and_preserves_primary(
         json.dumps(
             {
                 "role": "development",
-                "split_sha256": LOCKED_SPLIT_SHA256,
                 "sealed_temperature_records_read": False,
                 "qualification_mode": PRIMARY_MODE,
                 "relaxation_applied": False,

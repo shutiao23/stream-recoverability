@@ -11,16 +11,16 @@ The coordinator edited the manuscript three times during the audit (10:25:47, 10
 10:34:17) and the claim registry once (10:29:00). Every line number below is pinned to the
 revision in this table; the two outputs must be read against it.
 
-| file | sha256 (first 16) | mtime (UTC) |
-|---|---|---|
-| `paper/wrr/wrr_manuscript.tex` | `b8896c288799a2f4` | 2026-10-12 10:34:17 |
-| `paper/wrr/wrr_supporting_information.tex` | `ac9b408c68601ad5` | 2026-10-12 10:26:38 |
-| `results/wrr_submission_ready/claim_registry.csv` | `5ab529b3cc3f7483` | 2026-10-12 10:29:00 |
-| `paper/wrr/README.md` | `0519ca3ac1e2d333` | 2026-10-12 01:06:20 |
-| `scripts/223_wrr_build.py` | `2e24a3087ea40982` | — |
-| `scripts/254_wrr_claim_binding_check.py` | `cde6ba6a7d33a568` | — |
-| `paper/wrr/wrr_manuscript.pdf` | `ab96efd935b8fcba` | built 10:26:39 |
-| `paper/wrr/wrr_supporting_information.pdf` | `346120fbcf7047f2` | built 10:26:39 |
+| file | mtime (UTC) |
+|---|---|
+| `paper/wrr/wrr_manuscript.tex` | 2026-10-12 10:34:17 |
+| `paper/wrr/wrr_supporting_information.tex` | 2026-10-12 10:26:38 |
+| `results/wrr_submission_ready/claim_registry.csv` | 2026-10-12 10:29:00 |
+| `paper/wrr/README.md` | 2026-10-12 01:06:20 |
+| `scripts/223_wrr_build.py` | — |
+| `scripts/254_wrr_claim_binding_check.py` | — |
+| `paper/wrr/wrr_manuscript.pdf` | built 10:26:39 |
+| `paper/wrr/wrr_supporting_information.pdf` | built 10:26:39 |
 
 Two values were corrected **in the manuscript only** during the audit and are therefore
 recorded here as findings against the other copies (SI, registry, build script, PDF):
@@ -212,8 +212,7 @@ draw.io sources of the schematic figures and the frozen pre-registration are in 
 repository. A claim registry … records each headline claim's artifact, endpoint, unit,
 denominator, evidence type and whether it may enter the abstract or conclusions. An automated
 audit checks a declared set of archived manuscript numbers against artifacts; **it is not yet a
-full semantic binding of every live \TeX\ numeral.** Input-file hashes for the 146 study networks
-are in … `current_data_manifest.csv`. A permanent archive of the repository and a DOI will be
+full semantic binding of every live \TeX\ numeral.** … A permanent archive of the repository and a DOI will be
 deposited on acceptance."
 
 That statement is honestly narrowed. The overstatement sits in the **SI's** version (267–293):
@@ -360,6 +359,6 @@ Order: things that break the build or contradict an artifact first, then governa
   6.86/1.97/1.53/0.36, the calibration deciles 6.2/1.6, the 0.98/1.85/0.26 transported risks, the
   trend RMSEs 0.143/0.044/0.048/0.041). They are outside both 221 and 254 and are unbound by
   construction; none of them appears in the abstract, key points or conclusions.
-* The files were edited while the audit ran; a later revision may legitimately differ. The hashes
-  in §0 are the ones every line number here refers to.
+* The files were edited while the audit ran; a later revision may legitimately differ. Every line
+  number here refers to the file versions listed in §0.
 * I did not verify `figures/*.pdf` contents, the draw.io sources, or the repository/DOI promise.

@@ -55,7 +55,7 @@ Feeds `results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md`. No froz
 - `ingest.json` - retrieval UTC, exact API URL templates, counts by qualification code,
   aggregation rule, cap, assurance, prior-access check, caveats, failures
 - `networks.csv`, `networks_beyond_cap.csv`, `networks_excluded_after_download.csv`, `stations_below_year_floor.csv`, `stations_dropped_waterbody_filter.csv`
-- `raw_cache/` - every API response (gzip JSON envelope with url + retrieval time), `url_manifest.csv`, `station_table.csv`, `station_spans.csv`, `qualification_counts.csv`, `station_qc.csv`, `station_year_coverage.csv`, `complete_year_sensitivity.csv`, `network_inputs_manifest.csv` (network_id, input_path, sha256, station ids for the seal)
+- `raw_cache/` - every API response (gzip JSON envelope with url + retrieval time), `url_manifest.csv`, `station_table.csv`, `station_spans.csv`, `qualification_counts.csv`, `station_qc.csv`, `station_year_coverage.csv`, `complete_year_sensitivity.csv`, `network_inputs_manifest.csv` (network_id, input_path, station ids for the seal)
 
 ## Independent verification
 

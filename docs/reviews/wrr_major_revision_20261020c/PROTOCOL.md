@@ -50,8 +50,8 @@ original id, coordinates, source archive, river and observation dates. Connected
 catchments or shared source records cannot be split as independent units.
 
 All existing panels are development or retrospective diagnostics. New external
-records are partitioned by a fixed salted hash of their independent component,
-with 40% development, 30% calibration and 30% final test. Provider, coordinates,
+records are assigned to fixed roles by independent component, with 40%
+development, 30% calibration and 30% final test. Provider, coordinates,
 time coverage and file completeness may be inspected for eligibility. Final
 test outcomes are not inspected until the design, feature lists and thresholds
 have been frozen. A downloaded event-only series cannot become continuous H30

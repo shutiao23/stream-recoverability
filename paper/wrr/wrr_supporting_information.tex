@@ -17,7 +17,7 @@
 \input{r3_claims.tex}
 \begin{document}
 \journalname{Water Resources Research}
-\title{Supporting Information for When are incomplete river-temperature records fit for estimating thermal extremes?}
+\title{Supporting Information for Target-specific diagnostics improve screening of river-temperature extremes, but transfer remains uncertain}
 \authors{AUTHOR ONE\affil{1}}
 \affiliation{1}{AFFILIATION PENDING AUTHOR CONFIRMATION}
 \authoraddr{Corresponding author details pending author confirmation.}
@@ -25,14 +25,20 @@
 \titlerunninghead{Ignored.}
 \maketitle
 \section*{Contents}
-Text S1--S9; Figures S1--S2; generated Tables S1--S24. Full case-level and split-level results accompany the table-source CSV files; summary tables do not replace their denominators.
+Text S1--S11; Figures S1--S4; generated Tables S1--S50. Full case-level and split-level results accompany the table-source CSV files; summary tables do not replace their denominators. Tables S25--S50 contain supplementary development, planning and source-qualification evidence; they do not constitute a new joint confirmation.
 
 \section{Reference custody and exclusions}
 The opened-source reference and all old donor columns were inventoried before defining new eligibility. Identity normalization uses provider and original identifier; candidate aliases use coordinates and available polygon connections. Shared records connect network labels into overlap components. Old catchment polygons are incomplete, so European station disjointness is not universal hydrological disjointness. USGS-only transfer provides an additional river-flow-disjoint source restriction.
 
-The HydroShare resource contains extremes, meteorology, flow and catchment attributes, not continuous daily water-temperature truth. Continuous Swiss and French values were acquired separately, after the salted role assignment. Metadata and completeness can define eligibility but recovery error cannot. Ineligible components are excluded without redistributing their roles. Swiss source release states are filtered in the acquisition contract. French date and time fields are combined before local-day coverage is checked; qualification 4 is explicitly unqualified, not validated. Thus French values are project aggregates and are not promoted into the primary documented-mean scope.
+The HydroShare resource contains extremes, meteorology, flow and catchment attributes, not continuous daily water-temperature truth. Continuous Swiss and French values were acquired separately, after the random role assignment. Metadata and completeness can define eligibility but recovery error cannot. Ineligible components are excluded without redistributing their roles. Swiss source release states are filtered in the acquisition contract. French date and time fields are combined before local-day coverage is checked; qualification 4 is explicitly unqualified, not validated. Thus French values are project aggregates and are not promoted into the primary documented-mean scope.
 
-The audited Austrian route was monthly-only, and the Norwegian continuous route remained unresolved; neither supplies continuous truth. Unused USGS catalogs contain metadata only and were not converted into further acquisition after source outcomes. The final new sample has \RNewStations{} stations, with \RNewDevelopment{}, \RNewCalibration{} and \RNewTest{} development/calibration/test stations. The prospective evaluation actually requires complete 2019--2022 target years and is smaller, especially in France. Raw counts appear in every result rather than assigning all nineteen test stations to every assay.
+For the original new-station experiment, the audited Austrian route was monthly-only and the Norwegian continuous route remained unresolved; neither supplied continuous truth. The USGS catalogs screened in that recruitment did not add reference records to its cohort. The final new sample has \RNewStations{} stations, with \RNewDevelopment{}, \RNewCalibration{} and \RNewTest{} development/calibration/test stations. Prospective evaluation requires complete 2019--2022 target years and is smaller, especially in France. The separate backup-source investigation below retains its own eligibility and evidence status.
+
+\subsection{Additional public backup-source qualification}
+\input{r7_public_backup_notes.tex}
+
+\subsection{Prospective reference intake and conservative dependence screening}
+\input{r9_au_reference_scope.tex}
 
 \section{Distinct experimental populations}
 Controlled recovery crosses feasible climatological overlap and length within the same reference year. Four realizations average placement noise; they do not multiply the number of independent histories. Warm controls restrict total missing warm-season days, while fragmentation holds their total budget but need not hold true support exposure fixed. Missing cells and fewer-than-three permitted training-year exclusions remain in job manifests.
@@ -68,7 +74,7 @@ The empirical bootstrap rule is a separate descriptive operating policy. Constru
 \section{Freezing and time}
 Comparative source folds are 60/20/20 fitting/calibration/testing. Final source heads use an independent source calibration split, fitting on the other source components. F0 transfers the head and source threshold; F1 changes only target calibration; F2 trains on new development records and calibrates on the target calibration role. Provider-excluded and USGS-only restrictions remain distinct. Historical local reconstruction fitting is allowed by the stated deployment scenario.
 
-The method lock predates target calibration errors, and the deployment lock predates test errors. Every predictive source file, fitted object and raw new daily input is hashed. No score, threshold, outcome margin or salted role is changed after testing. The fully prospective global head/calibration use only years through 2018; test years are 2019--2022 and every upstream local input uses earlier years. Earlier-year local reconstruction with all-calendar source cross-fitting is labelled Past-local, not fully prospective.
+The method lock predates target calibration errors, and the deployment lock predates test errors. No score, threshold, outcome margin or assigned role is changed after testing. The fully prospective global head/calibration use only years through 2018; test years are 2019--2022 and every upstream local input uses earlier years. Earlier-year local reconstruction with all-calendar source cross-fitting is labelled Past-local, not fully prospective.
 
 Prospective in compact table labels denotes calendar-time forward hindcasting. Inputs are current-vintage finalized observations and reanalysis; their original publication/revision vintages were not archived. The experiment does not establish actual as-of-2018 data availability or real-time field deployment. Predictor and local training dates remain strictly earlier; no frozen prediction changes to make this qualification.
 
@@ -89,13 +95,44 @@ The largest fully observed window mean is a deterministic lower bound on the com
 \section{Power, stopping and a nonpredictive correction}
 Each protocol has 1,000 complete learner/calibration refits. Entire overlap components are resampled, preserving all station histories and masks. Deterministic local fits are cached because their inputs do not change under whole-component resampling; global heads and thresholds are refitted. Evaluation components are also resampled for whole-procedure intervals. Learning curves use twenty subsets per non-full size; full-pool seed repeats have one distinct subset.
 
-Power projections compare predeclared five-, eight- and ten-point alternatives with zero and five-point null margins. They assume source-like group distributions and do not establish common-risk feasibility. An effect exactly at a superiority boundary has only size-level rejection, not high power. Training/calibration uncertainty limits projections even with more test groups. No additional stations were acquired until a preferred method won.
+Power projections compare predeclared five-, eight- and ten-point alternatives with zero and five-point null margins. They assume source-like group distributions and do not establish common-risk feasibility. An effect exactly at a superiority boundary has only size-level rejection, not high power. Training/calibration uncertainty limits projections even with more test groups. Recruitment did not depend on whether a preferred method won.
 
 An initial descriptive label mistakenly treated snow percentages as fractions. Correcting majority snow to fifty percent, with glacier influence first and unknown attributes explicit, affects no feature, fitted model, calendar, eligibility, component or frozen role. Original locks and outputs remain unchanged. Script 373 supplies corrected descriptive subgroup tables; raw script-360 hydrological labels are superseded. A descriptive near-natural string in an earlier case manifest is not verified regulation information and supports no unregulated-catchment claim. The dated erratum records when this correction was made.
 
 \section{Generated evidence tables}
-Tables are generated by script 369 from result rows. Full case/seed outputs, unsupported head statuses, exclusions, fingerprints and table-source CSVs are authoritative when a compact table suppresses detail. Dashes mean unavailable or nonestimable, never demonstrated zero risk.
+Tables are generated by script 369 from result rows. Full case/seed outputs, unsupported head statuses, exclusions and table-source CSVs are authoritative when a compact table suppresses detail. Dashes mean unavailable or nonestimable, never demonstrated zero risk.
 \input{si_r3_tables.tex}
+
+\section{Supplementary objective and use comparisons}
+The four-cell supplement holds the H30 point and generic-plus-direct-uncertainty information fixed while crossing quantile/error-event learning with absence/presence of seven window summaries. Quantile regression and binary log-loss boosting share 350 iterations, depth four, learning rate 0.06 and leaf size forty. Identical group assignments, learner seeds, candidate construction and calibration resamples reduce extraneous differences. Original confirmed hypotheses and source/target locks are preserved. Five outer folds for three seeds give one held-out prediction per candidate per seed. Fixed-retention comparisons rank within each held-out fold with deterministic identity-based tie breaking; evaluation labels never select the rank.
+
+Direct hot-probability models add only the available point and threshold margin. Platt fitting uses calibration groups separate from learner fitting and testing. A one-class calibration set uses a smoothed constant rather than certainty. Source and local calibration are separate policies; calibration quality is measured and no guarantee of conditional probability is presumed. Every decision compares cool, hot and unknown conditional losses. Absolute loss, missed-hot, false-hot and unknown counts use the original candidate denominator. Uniform random rejection is an analytic expectation. Neither a favorable cost cell nor source cross-fitting is independent confirmation after review.
+
+The original Swiss F0 screen and the supplementary direct-probability baseline share the 669 retrospective or 173 forward candidates. Their probability source heads use the original independent 80/20 source group roles; forward fitting/calibration targets stop at 2018. Probability fitting has no access to target test labels. Current target outcomes were already opened before this supplementary design, so the resulting comparison remains development evidence even with group-disjoint fitting.
+
+Whole-procedure resampling preserves each station's local reconstruction, since resampling a complete component changes no local inputs, but refits all four global heads and thresholds. Evaluation components are resampled too. Source-like resampling does not manufacture a new failure type or validate exchangeability under regional climate dependence. The regional forward-event assay adds a stronger holdout on the score: target-provider components are excluded, global target years stop at 2014, and event evaluations use 2015, 2018 and 2022. Provider proxies do not equal measured process classes.
+
+\section{Mechanism, trajectories and the next independent study}
+The exact-hidden 30/90-day length subset has 396 distinct station-years represented by 400 network-target-year rows. The original documented-mean mechanism pool has 4,720 distinct station-years represented by 4,884 such rows. Shared rows remain clustered in their complete record components. Common-subset contrasts accompany the original population. In the added nested assay, the true maximizing thirty-day interval defines a hidden seed, extended left, right or symmetrically to sixty and ninety days. A thirty-day nonoverlapping control is displaced ninety days in the first feasible predetermined direction. All method contrasts use the same feasible years within direction, retaining boundary distances. These true-window designs identify sensitivity in an artificial mechanism assay and cannot be used as deployment rules.
+
+The experimental state trajectory model separates a sixty-day smoothed historical residual path from shorter residuals. Historical-year analogs are weighted by visible water residuals and available air/flow anomalies relative to permitted monthly training history; a ten-percent uniform mixture preserves some analog diversity. Fourteen-day short blocks are matched within thirty seasonal days and never cross years. Historical residuals exclude the target year and all future years prospectively. Observations remain fixed. Two usable residual years are required, with unsupported cases explicit. Original raw blocks, visible correction and this candidate are compared on their common support, including CRPS, band width/coverage, hot-probability Brier score and warm/low-flow conditions. Nested samples of 32, 128 and 512 quantify Monte Carlo sensitivity. More draws cannot correct an incorrect residual distribution.
+
+The reconstruction factorial refits each method's own numerical-error event on development groups and calibrates on the separate calibration role before evaluating the original test role. Fitting/calibration retain exact shared cases within information tiers. Both paired supported-subset results and full original-pool decisions are reported; unavailable reconstructions remain unknown in the latter, with their cost charged. Shared generic/window features are supplied to every method, without passing another model's direct uncertainty off as its own. The Air2stream-8 tier adds flow; fixed univariate eight-draw CSDI is a limited reference, not the best attainable probabilistic model. A future probability-model selection budget uses independent development groups and H30 CRPS, rather than selecting configurations on this opened test.
+
+History sensitivity retains only target years feasible for all three budgets, then uses three, five or ten permitted complete years. Retrospective histories are closest in calendar distance with fixed tie breaking; forward histories are latest strictly earlier years. Start/end-of-year thirty- and ninety-day gaps, a fixed interior gap and two fragments expose cases omitted by the original Swiss admission generator. The long-history subset does not replace short-history primary records or identify natural outage frequencies.
+
+The next-study specification fixes archival H30 magnitude as the primary use. Joint success requires risk evidence at or below the declared cap and lower paired retention-gain bounds above five points against both same-information direct references: native conditional-CDF failure probability and matched failure-probability boosting. It separates artificial mechanism masks, actual-calendar replay and natural gaps recoverable from independent backups. New stations, process labels, event relations and local calibration budgets must be established before outcome opening. Real backup truth and a feasible costly data action are not currently supplied by synthetic masking. The acquisition branch remains inactive until those actions and costs exist; free available inputs are incorporated directly. A failure of the joint endpoint stops the core superiority claim without redefining the population or cost grid. The prospective specification is in \texttt{configs/wrr\_next\_confirmation\_20261021.yaml}; it is not an executed new confirmation.
+
+\input{si_r4_tables.tex}
+\input{r5_supporting.tex}
+\subsection{Conditional target-risk laws and complete system attribution}
+\input{r10_state_risk.tex}
+\input{si_r5_tables.tex}
+\input{si_r6_tables.tex}
+\input{si_r8_tables.tex}
+\input{si_r10_tables.tex}
+
+
 
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/r3_s1_learning.pdf}
@@ -107,4 +144,14 @@ Tables are generated by script 369 from result rows. Full case/seed outputs, uns
 \caption{Nondegenerate opened-source event/cofailure stress with unchanged admission heads and thresholds. Values average three split sensitivities, not independent experiments. Timing is relative to the same thermal episode. The independent European station bundles lack donor variation, so this plot is not independent target confirmation.}
 \label{fig:cofailure}
 \end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{figures/r4_s3_risk_retention.pdf}
+\caption{Full risk--retention relations for the four matched learning cells, averaged over the three group-split seeds. These are opened-data sensitivity results; curves neither validate the nominal risk cap nor imply that seeds are independent replications.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{figures/r4_s4_failure_trajectory.pdf}
+\caption{Supplementary failure and scenario checks. (a) Gap-period air-proxy bias versus H30 error for all original admitted failures with available proxy values, highlighting CH\_2327. Hidden-day bias is an evaluation diagnostic. (b) H30 scenario coverage under nested sample counts on the common supported Swiss test subset. These model-development results do not establish general conditional coverage or a new independent improvement.}
+\end{figure}
+
 \end{document}

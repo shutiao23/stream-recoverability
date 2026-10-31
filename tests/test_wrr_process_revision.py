@@ -56,6 +56,15 @@ def test_article_states_exploratory_questions_and_use_case():
     assert "The new experiment completes the source-role step" in article
     keypoints = article.split(r"\keypoints", 1)[1].split(r"\maketitle", 1)[0]
     assert "extra paths still move those tails" in keypoints
+    for macro in (
+        r"\PTRTimeRandomChoiceRMSE", r"\PTRTimeBalancedChoiceRMSE",
+        r"\PTRTimeWarmSpan", r"\PTRTimeBalancedSpan",
+        r"\PTRTimeRandomLow", r"\PRTrajRevisionBavariaUpperExceed",
+        r"\PRTrajRevisionWidthTwenty", r"\PRTrajRevisionWidthIncrease",
+    ):
+        assert macro in article
+    assert r"\input{process_time_revision_supporting.tex}" in (PAPER / "process_revision_supporting.tex").read_text()
+    assert "remain archived" not in (PAPER / "process_revision_supporting.tex").read_text()
     assert "Trial composition is therefore not the explanation" not in article
     response = (ROOT / "docs/reviews/wrr_process_revision_20261029/RESPONSE_TO_REVIEW_ZH.md").read_text()
     assert "来源角色重校准没有执行" not in response
@@ -72,6 +81,10 @@ def test_article_states_exploratory_questions_and_use_case():
     assert r"fig:time-support" in article
     assert r"fig:trajectory-budget" in article
     assert "Retaining incomplete river-temperature records" in article
+    assert "finite-record heat slopes" in article
+    assert "sustained-heat trends" not in article
+    assert r"\PTRTimeMedianSlope" in article
+    assert r"\newcommand{\PTRTimeMedianSlope}{0.754}" in (PAPER / "process_time_revision_values.tex").read_text()
     assert "climate-process trend" in article
     assert "long-complete tail" in article
     assert r"tab:archive-comparison" in article
@@ -118,6 +131,11 @@ def test_gap_geometry_and_archive_comparison_are_saved():
     assert bavaria.loc["before_2010"].correlation < foen.loc["before_2010"].correlation
     article = (PAPER / "review_completion_article.tex").read_text()
     assert "annual longest contiguous missing run" in article
+    assert r"\input{process_gap_revision_table.tex}" in article
+    assert r"\input{process_water_revision_table.tex}" in article
+    assert r"\input{process_water_revision_correlation.tex}" in article
+    assert r"\input{external_qualification_table.tex}" not in article
+    assert "Observed 1981--2025" in (PAPER / "process_gap_revision_table.tex").read_text()
     assert "water--air H30" in article
     values = (PAPER / "process_revision_values.tex").read_text()
     assert r"\newcommand{\PRObsMedianRun}{3}" in values

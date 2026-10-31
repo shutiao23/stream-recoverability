@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -26,14 +25,6 @@ def _read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _candidate_inventory(repo_root: Path) -> pd.DataFrame:
     """Return the frozen HUC8 and prospective FOEN candidate universe."""
 
@@ -51,8 +42,7 @@ def _candidate_inventory(repo_root: Path) -> pd.DataFrame:
                 "locked_role": row["role"],
                 "climate_band": row.get("climate_band") or "not_available",
                 "size_tertile": row.get("size_tertile") or "not_available",
-                "regulation_stratum": row.get("regulation_stratum")
-                or "not_available",
+                "regulation_stratum": row.get("regulation_stratum") or "not_available",
                 "n_catalog_stations": row.get("n_stations"),
             }
         )
@@ -150,9 +140,7 @@ def _write_exclusions_and_balance(
                 "exclusion_reason": reason,
             }
         )
-    exclusions = pd.DataFrame(exclusion_rows).sort_values(
-        ["provider", "network_id"]
-    )
+    exclusions = pd.DataFrame(exclusion_rows).sort_values(["provider", "network_id"])
     exclusions_path = output / "network_catalog_v3_exclusions.csv"
     exclusions.to_csv(exclusions_path, index=False)
 
@@ -191,11 +179,11 @@ def _write_exclusions_and_balance(
         "candidate_inventory_count": len(candidates),
         "excluded_count": len(exclusions),
         "candidate_qualified_count": len(qualified_candidate),
-        "qualified_outside_huc8_candidates": len(qualified_ids - set(candidates["network_id"])),
+        "qualified_outside_huc8_candidates": len(
+            qualified_ids - set(candidates["network_id"])
+        ),
         "exclusions_path": str(exclusions_path.relative_to(repo_root)),
-        "exclusions_sha256": _sha256(exclusions_path),
         "balance_path": str(balance_path.relative_to(repo_root)),
-        "balance_sha256": _sha256(balance_path),
         "balance_dimensions": sorted(balance["dimension"].unique().tolist()),
     }
 
@@ -265,14 +253,13 @@ def build_qualified_catalog(repo_root: Path = ROOT) -> dict:
         sealed_eligible["qualification_mode"] = "sealed_evaluate_once"
 
     europe = _read_json(
-        repo_root / "results/framework/public_rivers_europe/uk_ea_spatial_daily_manifest.json"
+        repo_root
+        / "results/framework/public_rivers_europe/uk_ea_spatial_daily_manifest.json"
     )
     europe_count = int(europe.get("n_complete_enough", 0))
 
     frames = [f for f in (open_eligible, sealed_eligible) if not f.empty]
-    qualified = (
-        pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
-    )
+    qualified = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     if not qualified.empty and "network_id" in qualified.columns:
         qualified = qualified.drop_duplicates("network_id", keep="first")
 
@@ -332,7 +319,9 @@ def build_qualified_catalog(repo_root: Path = ROOT) -> dict:
 def main() -> None:
     report = build_qualified_catalog()
     meta_path = OUTPUT / "network_catalog_v3_qualified_manifest.json"
-    meta_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    meta_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     print(json.dumps(report, indent=2, sort_keys=True))
 
 

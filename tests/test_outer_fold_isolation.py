@@ -13,7 +13,6 @@ from stream_recoverability.experiments.v17_fitness.independence import (
     shared_station_years_across_folds,
     shared_stations_across_folds,
 )
-from stream_recoverability.experiments.v17_fitness.paths import stable_seed
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -81,37 +80,57 @@ def test_held_out_labels_do_not_change_that_folds_threshold_inputs():
     changed = module.crossfit_task(payload)
     # Fold 0 calibration scores and fold 0 model are fit without fold 0 labels.
     np.testing.assert_allclose(
-        original["cal_score_by_fold"][0], changed["cal_score_by_fold"][0], equal_nan=True
+        original["cal_score_by_fold"][0],
+        changed["cal_score_by_fold"][0],
+        equal_nan=True,
     )
     assert original["models"][0]["mean"] == changed["models"][0]["mean"]
     # The leakage the old shared array had: fold 0 labels move some other fold's
     # calibration scores, and therefore would move fold 0's threshold if those
     # scores were reused. They must move a fold that trains on fold 0.
     assert not np.allclose(
-        original["cal_score_by_fold"][1], changed["cal_score_by_fold"][1], equal_nan=True
+        original["cal_score_by_fold"][1],
+        changed["cal_score_by_fold"][1],
+        equal_nan=True,
     )
 
 
 def test_shared_stations_stay_in_one_fold():
     cases = pd.DataFrame(
         {
-            "network_id": ["usgs_wave2_2070", "usgs_wave2_2070", "usgs_wave2_huc6_020700", "usgs_wave2_huc6_020700", "other"],
+            "network_id": [
+                "usgs_wave2_2070",
+                "usgs_wave2_2070",
+                "usgs_wave2_huc6_020700",
+                "usgs_wave2_huc6_020700",
+                "other",
+            ],
             "station_id": ["01610400", "01649500", "01610400", "01649500", "99999999"],
             "year": [2020, 2020, 2020, 2020, 2020],
         }
     )
     table = independence_table(cases)
-    grouped = set(table.loc[table.network_id.isin(["usgs_wave2_2070", "usgs_wave2_huc6_020700"]), "independence_group"])
+    grouped = set(
+        table.loc[
+            table.network_id.isin(["usgs_wave2_2070", "usgs_wave2_huc6_020700"]),
+            "independence_group",
+        ]
+    )
     assert len(grouped) == 1
-    assert table.loc[table.network_id.eq("other"), "independence_group"].iloc[0] not in grouped
+    assert (
+        table.loc[table.network_id.eq("other"), "independence_group"].iloc[0]
+        not in grouped
+    )
 
     def assign(units, n_splits, seed):
         ordered = sorted(set(map(str, units)))
         return {name: index % n_splits for index, name in enumerate(ordered)}
 
-    from stream_recoverability.experiments.v17_fitness.independence import group_fold_map
+    from stream_recoverability.experiments.v17_fitness.independence import (
+        group_fold_map,
+    )
 
-    fold_of = group_fold_map(table, 5, stable_seed("t"), assign)
+    fold_of = group_fold_map(table, 5, 0, assign)
     assert fold_of["usgs_wave2_2070"] == fold_of["usgs_wave2_huc6_020700"]
     assert shared_stations_across_folds(cases, table, fold_of) == 0
     assert shared_station_years_across_folds(cases, fold_of) == 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Finalize second-confirmation point, fallback, triage, and hash audits."""
+"""Finalize second-confirmation point, fallback, triage, and artifact audits."""
 
 from __future__ import annotations
 
@@ -21,7 +21,6 @@ from stream_recoverability.experiments.route_a_confirmation import (
     point_prediction_metrics,
 )
 from stream_recoverability.experiments.second_confirmation_guard import (
-    sha256_file,
     validate_canonical_authorization,
     validate_scored_result_gate,
 )
@@ -251,16 +250,11 @@ def main() -> None:
         "heterogeneity_metrics": SCORING / "heterogeneity_metrics.csv",
     }
     summary["artifact_bindings"] = {
-        key: {
-            "path": str(path.relative_to(ROOT)),
-            "sha256": sha256_file(path),
-        }
-        for key, path in bound.items()
+        key: {"path": str(path.relative_to(ROOT))} for key, path in bound.items()
     }
     summary["large_regenerable_artifacts"] = {
         "placement_losses": {
             "path": "results/development_v11/second_confirmation/scoring/placement_losses.csv",
-            "sha256": sha256_file(SCORING / "placement_losses.csv"),
             "packaged": False,
             "regenerable": True,
         },

@@ -39,11 +39,14 @@ from stream_recoverability.experiments.v17_fitness.outages import (
     design_for_year,
     peak_overlap_fraction,
 )
-from stream_recoverability.experiments.v17_fitness.panel import air_series_for, load_network_panel
+from stream_recoverability.experiments.v17_fitness.panel import (
+    air_series_for,
+    load_network_panel,
+)
 from stream_recoverability.experiments.v17_fitness.paths import (
     REALIZATIONS_PER_STATION_YEAR,
     donor_regime,
-    stable_seed,
+    station_year_seed,
 )
 from stream_recoverability.experiments.v18_closure.deployment import policy_choice
 from stream_recoverability.experiments.v18_closure.paths import SUPPORT_WIDTHS
@@ -56,12 +59,18 @@ def hottest_k_mean(values: np.ndarray, width: int) -> float:
 
     series = pd.Series(values, dtype=float)
     if width <= 1:
-        return float(np.nanmax(series.to_numpy())) if np.isfinite(series.to_numpy()).any() else float("nan")
+        return (
+            float(np.nanmax(series.to_numpy()))
+            if np.isfinite(series.to_numpy()).any()
+            else float("nan")
+        )
     if width >= 365 or width >= len(series):
         # The right endpoint of the continuum is the annual mean itself, on a
         # leap year as well as an ordinary one.
         return float(np.nanmean(series.to_numpy()))
-    rolled = series.rolling(int(width), min_periods=int(width)).mean().to_numpy(dtype=float)
+    rolled = (
+        series.rolling(int(width), min_periods=int(width)).mean().to_numpy(dtype=float)
+    )
     if not np.isfinite(rolled).any():
         return float("nan")
     return float(np.nanmax(rolled))
@@ -105,7 +114,10 @@ def sine_parameters(values: np.ndarray) -> dict[str, float]:
     # peaks a quarter of a year after phi. The phase is reported as the day of
     # year of that maximum, which is the form Johnson et al. interpret.
     phi = float(np.arctan2(-b, a) % (2 * np.pi))
-    peak_day = float((phi * DAYS_IN_YEAR / (2 * np.pi) + DAYS_IN_YEAR / 4.0) % DAYS_IN_YEAR) + 1.0
+    peak_day = (
+        float((phi * DAYS_IN_YEAR / (2 * np.pi) + DAYS_IN_YEAR / 4.0) % DAYS_IN_YEAR)
+        + 1.0
+    )
     return {"sine_mean": intercept, "sine_amplitude": amplitude, "sine_phase": peak_day}
 
 
@@ -149,7 +161,9 @@ def transition_window(climatology: np.ndarray, half_width: int = 30) -> np.ndarr
 
     n = len(climatology)
     fitted = sine_parameters(climatology)
-    peak = int(fitted["sine_phase"]) - 1 if np.isfinite(fitted["sine_phase"]) else n // 2
+    peak = (
+        int(fitted["sine_phase"]) - 1 if np.isfinite(fitted["sine_phase"]) else n // 2
+    )
     quarter = int(round(n / 4))
     positions = []
     for centre in (peak - quarter, peak + quarter):
@@ -199,7 +213,12 @@ def realized_window_centres(job: dict) -> list[dict]:
             if width <= 1:
                 centre = float(np.nanargmax(values))
             else:
-                rolled = pd.Series(values).rolling(width, min_periods=width).mean().to_numpy()
+                rolled = (
+                    pd.Series(values)
+                    .rolling(width, min_periods=width)
+                    .mean()
+                    .to_numpy()
+                )
                 centre = float(np.nanargmax(rolled) - (width - 1) / 2.0)
             rows.append(
                 {
@@ -247,23 +266,37 @@ def endpoint_rows(job: dict) -> pd.DataFrame:
         if not np.isfinite(truth).all() or len(truth) < 360:
             continue
         train_mask = pd.Series(~year_mask, index=daily.index)
-        models = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
+        models = StationModels(
+            target=target, donors=donors, air=air, train_mask=train_mask
+        )
         peak_source = target.loc[target.index.year != int(year)]
         peak_doys = climatological_peak_window(peak_source, exclude_year=None)
         climatology = models.smooth_climatology(year_index)
         if not np.isfinite(climatology).all():
             continue
-        support_windows = {width: hottest_k_window(climatology, width) for width in SUPPORT_WIDTHS}
+        support_windows = {
+            width: hottest_k_window(climatology, width) for width in SUPPORT_WIDTHS
+        }
         weights = influence_weights(climatology)
         weight_totals = {name: float(w.sum()) for name, w in weights.items()}
         transition = transition_window(climatology)
 
-        truth_endpoints = {f"truth_hottest_{w}": hottest_k_mean(truth, w) for w in SUPPORT_WIDTHS}
+        truth_endpoints = {
+            f"truth_hottest_{w}": hottest_k_mean(truth, w) for w in SUPPORT_WIDTHS
+        }
         truth_sine = sine_parameters(truth)
 
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), "leave_one_year_out"))
+        rng = np.random.default_rng(
+            station_year_seed(
+                network_id, station_id, daily.columns, int(year), "leave_one_year_out"
+            )
+        )
         realizations = design_for_year(
-            year_index, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3)
+            year_index,
+            peak_doys,
+            pool,
+            rng=rng,
+            n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3),
         )
         months = year_index.month.to_numpy()
         warm = np.isin(months, WARM_MONTHS)
@@ -290,10 +323,14 @@ def endpoint_rows(job: dict) -> pd.DataFrame:
                 "missing_fraction": float(mask.mean()),
                 "n_runs": int(realization.n_runs),
                 "peak_overlap": peak_overlap_fraction(year_index, mask, peak_doys),
-                "warm_observed_fraction": float((~mask & warm).sum() / max(1, warm.sum())),
+                "warm_observed_fraction": float(
+                    (~mask & warm).sum() / max(1, warm.sum())
+                ),
                 "n_visible_donors": int(len(visible)),
                 "donor_regime": donor_regime(len(visible)),
-                "donor_coverage_mean": float(coverage.mean()) if len(coverage) else float("nan"),
+                "donor_coverage_mean": float(coverage.mean())
+                if len(coverage)
+                else float("nan"),
                 "left_flank": bool(not mask[0]),
                 "right_flank": bool(not mask[-1]),
                 "air_available": bool(air is not None),
@@ -325,7 +362,9 @@ def endpoint_rows(job: dict) -> pd.DataFrame:
                     if donor_fit is not None
                     else np.full(len(year_index), np.nan)
                 ),
-                "air_ridge": models.air_predict(year_index) if air is not None else np.full(len(year_index), np.nan),
+                "air_ridge": models.air_predict(year_index)
+                if air is not None
+                else np.full(len(year_index), np.nan),
             }
             completions: dict[str, np.ndarray] = {}
             available: dict[str, bool] = {}
@@ -373,7 +412,9 @@ def endpoint_rows(job: dict) -> pd.DataFrame:
                     if np.isfinite(observed_sine[name]) and np.isfinite(truth_value)
                     else float("nan")
                 )
-            row["abserr_sine_phase"] = phase_difference(fitted["sine_phase"], truth_sine["sine_phase"])
+            row["abserr_sine_phase"] = phase_difference(
+                fitted["sine_phase"], truth_sine["sine_phase"]
+            )
             row["abserr_observed_sine_phase"] = phase_difference(
                 observed_sine["sine_phase"], truth_sine["sine_phase"]
             )
@@ -382,4 +423,6 @@ def endpoint_rows(job: dict) -> pd.DataFrame:
     if not rows:
         return pd.DataFrame()
     frame = pd.DataFrame(rows)
-    return frame.sort_values(["network_id", "station_id", "year", "realization_id"]).reset_index(drop=True)
+    return frame.sort_values(
+        ["network_id", "station_id", "year", "realization_id"]
+    ).reset_index(drop=True)

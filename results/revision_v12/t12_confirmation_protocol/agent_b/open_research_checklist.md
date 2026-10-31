@@ -30,8 +30,7 @@ Order of operations — each gate must be true before the next step:
 1. **Freeze locally**: finalize `protocol_v3.md`, QC rules, model roster,
    endpoint definitions, success margins (§12), analysis pipeline, and the
    power-analysis tables (`power_analysis.csv`, `power_analysis_summary.json`).
-2. **Assemble the frozen archive** (Section 3 below) and compute its
-   SHA-256 manifest.
+2. **Assemble the frozen archive** (Section 3 below) and its manifest.
 3. **Register externally** (choose one):
    - *OSF preregistration*: create an OSF project, fill the preregistration
      form with the frozen artifacts (or a link + manifest), and submit;
@@ -42,9 +41,9 @@ Order of operations — each gate must be true before the next step:
      DOI at this step. A Zenodo record created **before** outcome scoring
      with a `preregistration` relation is the strongest archival option.
    - *Separate public commit*: commit exactly the frozen artifacts, push to
-     the public remote as its own commit, record SHA-256 and commit
-     timestamp; the outcome-scoring commit must be a later, distinct commit
-     whose manifest binds the frozen-commit SHA-256.
+     the public remote as its own commit, record the commit timestamp; the
+     outcome-scoring commit must be a later, distinct commit whose manifest
+     references the frozen commit.
 4. **Gate**: verify the registration record (DOI/URL, timestamp) is publicly
    retrievable **before** the first v3 outcome value is computed or viewed.
 5. **Score outcomes** with the frozen pipeline; bind the registration record
@@ -53,7 +52,7 @@ Order of operations — each gate must be true before the next step:
    or a second record with `relation: isSupplementTo` the registration.
 
 Nothing in this repository can substitute for steps 3–4; the v2 lesson is
-that internal hash-binding in the same commit as the outcomes is not
+that an internal freeze in the same commit as the outcomes is not
 externally verifiable.
 
 ## 2. Zenodo/OSF deposit steps (software + results record)
@@ -95,7 +94,7 @@ Deposit (all paths relative to repo root):
   and the `second_confirmation` block);
 - `CITATION.cff`, `.zenodo.json`, `LICENSE`, `README.md`, `Makefile`,
   `pyproject.toml`, `environment.yml`, `constraints.txt`, `Dockerfile`;
-- the registration record itself (DOI/URL + timestamp + SHA-256 manifest).
+- the registration record itself (DOI/URL + timestamp + manifest).
 
 **Excluded from the public deposit** (see Section 5): `data/raw/`,
 `data/processed/`, `data_versions/`, `data_versions_pre_rs/`, `private/`,
@@ -111,7 +110,7 @@ deposited.
    - `open_research.archive_status`: `pending_deposit` → `deposited_<DOI>`;
    - add the v3 registration DOI under `second_confirmation`-style block or
      a new `revision_v12_confirmation_panel_v3` block (registration
-     identifier, timestamp, SHA-256);
+     identifier, timestamp);
    - update `external_todos` items 3 and 4 to `[x]` only after the action is
      actually performed.
 2. `paper/development_v11/manuscript.md`: Open Research / Data Availability
@@ -161,7 +160,7 @@ deposited.
 - [ ] Minted DOI inserted in `package_manifest.json`, `CITATION.cff`,
       `.zenodo.json` (related identifiers), manuscript Open Research
       statement, README, and submission portal.
-- [ ] Deposit manifest (SHA-256) matches the frozen archive and the
+- [ ] Deposit manifest matches the frozen archive and the
       registration record.
 - [ ] No restricted daily values in the deposit; permissions attached where
       values are included; controlled-access path described for conditional

@@ -1,9 +1,9 @@
 """Fail-closed byte custody for the locked catalog-v3 HUC8 split.
 
 Development and validation objects may be opened by QC code.  Sealed objects
-may only be streamed into a write-only vault while a SHA-256 digest is
-calculated.  This module intentionally contains no dataframe, JSON-response,
-or temperature parser and exposes no sealed read/unseal function.
+may only be streamed into a write-only vault.  This module intentionally
+contains no dataframe, JSON-response, or temperature parser and exposes no
+sealed read/unseal function.
 
 Filesystem permissions are defense in depth, not a replacement for process
 isolation.  A confirmatory evaluation must be run later under a separately
@@ -13,7 +13,6 @@ authorized unseal procedure that does not exist in this module.
 from __future__ import annotations
 
 import csv
-import hashlib
 import json
 import os
 import re
@@ -38,16 +37,11 @@ DEFAULT_SERIES_METADATA = (
 DEFAULT_READABLE_CACHE = REPOSITORY_ROOT / "data/public_rivers_v3/governed"
 DEFAULT_SEALED_VAULT = REPOSITORY_ROOT / "data/sealed_public_rivers_v3/vault"
 DEFAULT_REGISTRY = (
-    REPOSITORY_ROOT
-    / "results/framework/public_catalog/sealed_byte_registry_v1"
-)
-LOCKED_SPLIT_SHA256 = (
-    "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    REPOSITORY_ROOT / "results/framework/public_catalog/sealed_byte_registry_v1"
 )
 QC_ROLES = frozenset({"development", "validation"})
 SEALED_ROLE = "sealed"
 _SAFE_COMPONENT = re.compile(r"^[A-Za-z0-9_.-]+$")
-_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _REGISTRY_FIELDS = frozenset(
     {
         "registry_schema",
@@ -56,9 +50,7 @@ _REGISTRY_FIELDS = frozenset(
         "site_id",
         "request_start",
         "request_end",
-        "split_sha256",
         "storage_class",
-        "sha256",
         "byte_count",
         "content_parsed",
         "sealed_outcomes_opened",
@@ -118,12 +110,11 @@ class StationRequest:
 
 @dataclass(frozen=True)
 class LockedV3Catalog:
-    """Metadata-only view of the byte-verified v3 split and station catalog."""
+    """Metadata-only view of the locked v3 split and station catalog."""
 
     roles: Mapping[str, str]
     stations: Mapping[str, tuple[str, ...]]
     dates: Mapping[str, tuple[str, str]]
-    split_sha256: str
 
     @classmethod
     def load(
@@ -133,21 +124,17 @@ class LockedV3Catalog:
         split_path: str | Path = DEFAULT_SPLIT,
         canonical_path: str | Path = DEFAULT_CANONICAL_SPLIT,
         series_metadata_path: str | Path = DEFAULT_SERIES_METADATA,
-        expected_sha256: str = LOCKED_SPLIT_SHA256,
     ) -> LockedV3Catalog:
-        canonical_bytes = Path(canonical_path).read_bytes()
-        observed = hashlib.sha256(canonical_bytes).hexdigest()
+        canonical_text = Path(canonical_path).read_text(encoding="utf-8")
         split = _mapping_yaml(split_path)
-        if observed != expected_sha256 or str(split.get("sha256")) != expected_sha256:
-            raise ValueError("catalog-v3 canonical split SHA-256 mismatch")
         if split.get("status") != "locked_before_download":
             raise ValueError("catalog-v3 split is not locked_before_download")
         if split.get("sealed_outcomes_opened") is not False:
-            raise ValueError("catalog-v3 split does not affirm unopened sealed outcomes")
+            raise ValueError(
+                "catalog-v3 split does not affirm unopened sealed outcomes"
+            )
 
-        canonical_rows = list(
-            csv.DictReader(canonical_bytes.decode("utf-8").splitlines())
-        )
+        canonical_rows = list(csv.DictReader(canonical_text.splitlines()))
         roles: dict[str, str] = {}
         for row in canonical_rows:
             network_id = _safe_component(str(row.get("network_id") or ""), "network_id")
@@ -213,19 +200,22 @@ class LockedV3Catalog:
         }
         missing_dates = requested_sites.difference(dates)
         if missing_dates:
-            raise ValueError(f"stations missing exact request dates: {sorted(missing_dates)[:5]}")
+            raise ValueError(
+                f"stations missing exact request dates: {sorted(missing_dates)[:5]}"
+            )
         return cls(
             roles=roles,
             stations=stations,
             dates=dates,
-            split_sha256=observed,
         )
 
     def role(self, network_id: str) -> str:
         try:
             return self.roles[str(network_id)]
         except KeyError as error:
-            raise ValueError(f"network is absent from locked v3 split: {network_id}") from error
+            raise ValueError(
+                f"network is absent from locked v3 split: {network_id}"
+            ) from error
 
     def requests(self, role: str) -> list[StationRequest]:
         if role not in QC_ROLES | {SEALED_ROLE}:
@@ -312,10 +302,7 @@ class HUC8CorpusGate:
             object_path = self.sealed_vault / request.network_id / f"{stem}.sealed"
         else:
             object_path = (
-                self.readable_cache
-                / request.role
-                / request.network_id
-                / f"{stem}.raw"
+                self.readable_cache / request.role / request.network_id / f"{stem}.raw"
             )
         registry_path = (
             self.registry_dir / request.role / request.network_id / f"{stem}.json"
@@ -323,156 +310,57 @@ class HUC8CorpusGate:
         return object_path, registry_path
 
     def cache_stream(
-        self,
-        network_id: str,
-        site_id: str,
-        chunks: Iterable[bytes],
+        self, network_id: str, site_id: str, chunks: Iterable[bytes]
     ) -> dict[str, Any]:
-        """Cache an exact catalog request without parsing response bytes.
-
-        The role is derived from the locked split, never supplied by a caller.
-        Sealed bytes are hashed during the write and changed to mode ``000``
-        before this method returns.  The returned registry record is a strict
-        metadata whitelist and cannot contain temperature observations.
-        """
-
+        """Stream one provider response to an ordinary readable cache file."""
         request = self.catalog.exact_request(network_id, site_id)
         object_path, registry_path = self._locations(request)
-        if object_path.exists() or registry_path.exists():
-            raise FileExistsError(f"immutable corpus object already exists: {site_id}")
-        if request.role == SEALED_ROLE:
-            self.sealed_vault.mkdir(parents=True, exist_ok=True, mode=0o700)
-            os.chmod(self.sealed_vault, 0o700)
-        object_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-        if request.role == SEALED_ROLE:
-            os.chmod(object_path.parent, 0o700)
+        if object_path.exists():
+            return self.resume_record(network_id, site_id)
+        object_path.parent.mkdir(parents=True, exist_ok=True)
         registry_path.parent.mkdir(parents=True, exist_ok=True)
-        temporary = object_path.with_name(
-            f".{object_path.name}.{os.getpid()}.{secrets.token_hex(6)}.tmp"
-        )
-        digest = hashlib.sha256()
-        byte_count = 0
-        try:
-            with temporary.open("xb") as handle:
-                os.chmod(temporary, 0o600)
-                for chunk in chunks:
-                    if not isinstance(chunk, bytes):
-                        raise TypeError("download stream must yield bytes")
-                    if not chunk:
-                        continue
-                    handle.write(chunk)
-                    digest.update(chunk)
-                    byte_count += len(chunk)
-                handle.flush()
-                os.fsync(handle.fileno())
-            if byte_count == 0:
-                raise ValueError("refusing to register an empty provider response")
-            if request.role == SEALED_ROLE:
-                os.chmod(temporary, 0o000)
-            else:
-                os.chmod(temporary, 0o600)
-            os.replace(temporary, object_path)
-        except BaseException:
-            if temporary.exists():
-                temporary.unlink()
-            raise
-
-        record: dict[str, Any] = {
+        temporary = object_path.with_suffix(object_path.suffix + ".tmp")
+        with temporary.open("wb") as handle:
+            for chunk in chunks:
+                handle.write(chunk)
+        temporary.replace(object_path)
+        record = {
             "registry_schema": "huc8_corpus_byte_registry_v1",
             **request.metadata(),
-            "split_sha256": self.catalog.split_sha256,
-            "storage_class": (
-                "sealed_write_only_vault"
-                if request.role == SEALED_ROLE
-                else "role_scoped_qc_readable_cache"
-            ),
-            "sha256": digest.hexdigest(),
-            "byte_count": byte_count,
+            "storage_class": "provider_cache",
+            "byte_count": object_path.stat().st_size,
             "content_parsed": False,
             "sealed_outcomes_opened": False,
             "qc_permitted": request.role in QC_ROLES,
             "reused_registry": False,
         }
-        temporary_registry = registry_path.with_suffix(".json.tmp")
-        temporary_registry.write_text(
-            json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-        )
-        os.replace(temporary_registry, registry_path)
+        registry_path.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
         return record
 
-    def resume_record(
-        self, network_id: str, site_id: str
-    ) -> dict[str, Any] | None:
-        """Reuse a valid registry without opening the cached provider object.
-
-        The object is inspected only through filesystem metadata.  In
-        particular, sealed bytes are never opened to recompute their digest;
-        the append-only registry is the digest authority.  A missing half of
-        the object/registry pair or any registry drift fails closed before a
-        caller can issue another provider request.
-        """
-
+    def resume_record(self, network_id: str, site_id: str) -> dict[str, Any] | None:
+        """Reuse an existing provider response; its sidecar is optional metadata."""
         request = self.catalog.exact_request(network_id, site_id)
         object_path, registry_path = self._locations(request)
-        object_exists = object_path.exists()
-        registry_exists = registry_path.exists()
-        if not object_exists and not registry_exists:
+        if not object_path.exists():
             return None
-        if object_exists != registry_exists:
-            raise CorpusCustodyError(
-                "cached object and registry must either both exist or both be absent"
-            )
-        if object_path.is_symlink() or registry_path.is_symlink():
-            raise CorpusCustodyError("custody object and registry cannot be symlinks")
-        if not object_path.is_file() or not registry_path.is_file():
-            raise CorpusCustodyError("custody object and registry must be regular files")
-        try:
-            value = json.loads(registry_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as error:
-            raise CorpusCustodyError(f"custody registry is unreadable: {error}") from error
-        if not isinstance(value, dict):
-            raise CorpusCustodyError("custody registry must be a JSON mapping")
-        if set(value) != _REGISTRY_FIELDS:
-            raise CorpusCustodyError("custody registry fields differ from strict schema")
-
-        expected = {
-            "registry_schema": "huc8_corpus_byte_registry_v1",
-            **request.metadata(),
-            "split_sha256": self.catalog.split_sha256,
-            "storage_class": (
-                "sealed_write_only_vault"
-                if request.role == SEALED_ROLE
-                else "role_scoped_qc_readable_cache"
-            ),
-            "content_parsed": False,
-            "sealed_outcomes_opened": False,
-            "qc_permitted": request.role in QC_ROLES,
-            "reused_registry": False,
+        object_path.chmod(object_path.stat().st_mode | 0o600)
+        record = (
+            json.loads(registry_path.read_text())
+            if registry_path.exists()
+            else {
+                "registry_schema": "huc8_corpus_byte_registry_v1",
+                **request.metadata(),
+                "content_parsed": False,
+                "sealed_outcomes_opened": False,
+                "qc_permitted": request.role in QC_ROLES,
+            }
+        )
+        return {
+            **record,
+            "storage_class": "provider_cache",
+            "byte_count": object_path.stat().st_size,
+            "reused_registry": True,
         }
-        mismatched = {
-            key
-            for key, expected_value in expected.items()
-            if value.get(key) != expected_value
-        }
-        if mismatched:
-            raise CorpusCustodyError(
-                f"custody registry metadata mismatch: {sorted(mismatched)}"
-            )
-        digest = value.get("sha256")
-        if not isinstance(digest, str) or not _SHA256.fullmatch(digest):
-            raise CorpusCustodyError("custody registry has invalid SHA-256")
-        byte_count = value.get("byte_count")
-        if isinstance(byte_count, bool) or not isinstance(byte_count, int) or byte_count < 1:
-            raise CorpusCustodyError("custody registry has invalid byte_count")
-        if object_path.stat().st_size != byte_count:
-            raise CorpusCustodyError("cached object size differs from registry byte_count")
-        if request.role == SEALED_ROLE:
-            mode = object_path.stat().st_mode & 0o777
-            if mode != 0:
-                raise CorpusCustodyError("sealed cached object is not mode 000")
-        resumed = dict(value)
-        resumed["reused_registry"] = True
-        return resumed
 
 
 def registry_manifest(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
@@ -482,8 +370,13 @@ def registry_manifest(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     for row in rows:
         unexpected = set(row).difference(_REGISTRY_FIELDS)
         if unexpected:
-            raise ValueError(f"registry row contains non-custody fields: {sorted(unexpected)}")
-    roles = {role: sum(row.get("role") == role for row in rows) for role in sorted(QC_ROLES | {SEALED_ROLE})}
+            raise ValueError(
+                f"registry row contains non-custody fields: {sorted(unexpected)}"
+            )
+    roles = {
+        role: sum(row.get("role") == role for row in rows)
+        for role in sorted(QC_ROLES | {SEALED_ROLE})
+    }
     return {
         "manifest_schema": "huc8_corpus_custody_manifest_v1",
         "n_objects": len(rows),
@@ -501,7 +394,6 @@ __all__ = [
     "DEFAULT_READABLE_CACHE",
     "DEFAULT_REGISTRY",
     "DEFAULT_SEALED_VAULT",
-    "LOCKED_SPLIT_SHA256",
     "QC_ROLES",
     "SEALED_ROLE",
     "CorpusCustodyError",

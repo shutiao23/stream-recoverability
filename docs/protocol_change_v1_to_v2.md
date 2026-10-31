@@ -2,7 +2,7 @@
 
 `configs/design_freeze_v1.yaml` remains the historical freeze. It is not silently rewritten. v2 was the executable default until `design_freeze_v3`; v4 is now current. Later amendments are recorded in `docs/protocol_change_v2_to_v3.md` and `docs/protocol_change_v3_to_v4.md`.
 
-This document records protocol repairs made before confirmatory performance is observed. It does not report confirmatory results, invented data hashes, or frontier numbers.
+This document records protocol repairs made before confirmatory performance is observed. It does not report confirmatory results or frontier numbers.
 
 ## Why v2 exists
 
@@ -33,7 +33,7 @@ Jinsha bright-sunshine duration `DH` (hours) is a Jinsha-only sensitivity channe
 
 Because Group D identity and units changed, the proposed architecture token is **`s0_abcd_rs_v1`**. The retired token `s0_abcd_v2` is invalid for a main model whose meteorology channel is `Rs`.
 
-Internal `published_v1` retains Jinsha `DH` sunshine hours as a sensitivity-only channel. NASA POWER `Rs` was added by `scripts/24_rebuild_internal_nasa_rs.py`; hydro and CMA/GSOD columns were not edited. Artifact SHA-256 values are recorded in `configs/design_freeze_v2.yaml` and `results/data_audit/internal_nasa_rs_rebuild.json` after the rebuild.
+Internal `published_v1` retains Jinsha `DH` sunshine hours as a sensitivity-only channel. NASA POWER `Rs` was added by `scripts/24_rebuild_internal_nasa_rs.py`; hydro and CMA/GSOD columns were not edited.
 
 ## C. Time standards
 
@@ -61,7 +61,6 @@ Ordinary `scripts/08_run_experiments.py` and `ExperimentRunner` cannot train or 
 ## What is not claimed
 
 - No confirmatory performance, MAE, RMSE, or skill.
-- No invented SHA-256 for unbuilt `external_upper_middle_chattahoochee_v1`. Internal NASA `Rs` hashes are named only after `scripts/24_rebuild_internal_nasa_rs.py` writes the files.
 - No silent mutation of `design_freeze_v1.yaml`.
 - Dual frontiers (climatology-relative and best-simple-baseline-relative) are **declared** in v2 statistics only. This wave does not invent frontier numbers.
 
@@ -69,7 +68,7 @@ Ordinary `scripts/08_run_experiments.py` and `ExperimentRunner` cannot train or 
 
 1. Point `DEFAULT_DESIGN_PATH` and script `--design` defaults at `configs/design_freeze_v2.yaml`.
 2. Rebuild confirmatory data as `external_upper_middle_chattahoochee_v1` against v2 after a finalized roster exists.
-3. Re-finalize the model roster against the v2 design hash before opening confirmatory values under the new name.
+3. Re-finalize the model roster against the v2 design before opening confirmatory values under the new name.
 4. Internal main panel NASA `Rs` is now in `published_v1` (additive). `DH` remains sensitivity-only.
 5. Run `--feasibility-only` before evaluate-once.
 6. Never tune meteorology lags on confirmatory performance.

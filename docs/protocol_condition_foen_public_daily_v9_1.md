@@ -50,10 +50,6 @@ Locked files:
 - `configs/foen_prospective_split_v1.yaml`
 - `results/framework/public_catalog/foen_prospective_split_v1.csv`
 - split seed: `20260826`
-- split SHA-256:
-  `4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59`
-- catalog SHA-256:
-  `2e348f571a6e19025d8f6d6aca2dfe55997927b94a608a78baedd89819a78727`
 
 `coverageFrom` and `coverageTo` were not requested by the lock builder and are
 not present in the locked metadata table. They cannot be used as a substitute
@@ -66,8 +62,6 @@ be audited after the sealed evaluation is authorized.
 The future value query template is locked but was not executed:
 
 - template: `configs/foen_daily_value_query_v1.graphql`
-- template SHA-256:
-  `978247efe815a79863e0383a3ae1e8c293642ec245d7205bd13a46b2ec3a446d`
 - aggregation/parameter: `data_1day_mean` / `WT`
 - provider-side release filter: state 2 or 3
 - fixed request interval: 1974-01-01 through 2026-01-01 exclusive
@@ -76,16 +70,16 @@ The future value query template is locked but was not executed:
 Before that template is ever executed, adapt the existing custody layer as
 follows:
 
-1. add a `LockedFoenCatalog` loader that verifies the catalog hash, canonical
-   split hash, query-template hash, exact station membership, and yearly request
-   grid;
+1. add a `LockedFoenCatalog` loader that reads the locked catalog, canonical
+   split and query template and verifies exact station membership and the yearly
+   request grid;
 2. derive role only from the locked split; callers may not supply or override
    `sealed`;
 3. stream each HTTP response body directly into a provider-specific write-only
-   vault while hashing—do not call `.json()`, inspect row counts, or parse error
+   vault—do not call `.json()`, inspect row counts, or parse error
    payloads for sealed roles;
 4. extend the strict registry whitelist with provider, aggregation,
-   query-template SHA, station, year window, byte count, response SHA, and
+   query template, station, year window, byte count, and
    `content_parsed: false`; do not permit outcome fields;
 5. make empty/HTTP-failed yearly objects explicit custody failures and resume
    only from a matching append-only registry without reopening sealed bytes;

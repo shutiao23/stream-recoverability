@@ -68,7 +68,7 @@ DEEP_CANDIDATES = ("brits_ref", "saits_ref", "csdi", "proposed")
 
 
 def canonical_validation_anchor_path(data_version: str) -> Path:
-    """Return the frozen catalog for a data version, not a later design hash."""
+    """Return the frozen catalog for a data version, not a later design edit."""
 
     version = str(data_version).strip()
     if version == "published_v2":

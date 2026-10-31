@@ -9,7 +9,6 @@ Aare-Rhine are not counted toward T8 or non-NA sealed.
 
 from __future__ import annotations
 
-import hashlib
 import io
 import json
 import re
@@ -47,10 +46,11 @@ V1_CATALOG = ROOT / "configs/network_catalog_v1.yaml"
 CANDIDATES = ROOT / "configs/network_catalog_v3_huc8.yaml"
 SPLIT_YAML = ROOT / "configs/network_catalog_v3_split.yaml"
 FEASIBILITY = ROOT / "docs/network_catalog_v3_feasibility.md"
-SHA_PATH = OUTPUT / "catalog_v3_split_sha256.txt"
 SPLIT_TABLE = OUTPUT / "catalog_v3_split_table.csv"
 NLDI_CACHE = OUTPUT / "nldi_cache"
-GAGES_ARCHIVE = ROOT / "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip"
+GAGES_ARCHIVE = (
+    ROOT / "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip"
+)
 
 SPLIT_SEED = 20260826
 HUC_CLIMATE = {
@@ -178,11 +178,16 @@ def _never_sealed_site_keys(v1: dict, never_ids: list[str]) -> set[str]:
     return keys
 
 
-def classify_lock_flags(row: pd.Series, burned_site_keys: set[str]) -> tuple[bool, bool]:
+def classify_lock_flags(
+    row: pd.Series, burned_site_keys: set[str]
+) -> tuple[bool, bool]:
     haystack = f"{row.get('river_names') or ''} {row.get('network_id') or ''}".lower()
     historical = any(token in haystack for token in HISTORICAL_TOKENS)
     name_hit = any(token in haystack for token in NEVER_SEALED_NAME_TOKENS)
-    site_hit = bool({nwis_match_key(item) for item in _site_list(row.get("site_ids"))} & burned_site_keys)
+    site_hit = bool(
+        {nwis_match_key(item) for item in _site_list(row.get("site_ids"))}
+        & burned_site_keys
+    )
     return bool(historical or name_hit or site_hit), bool(historical)
 
 
@@ -400,7 +405,6 @@ def write_feasibility(payload: dict) -> str:
         "## Split lock (before any new download)",
         "",
         f"- seed: {split['seed']}",
-        f"- SHA-256 of canonical split table: `{split['sha256']}`",
         f"- split pool (excluding never_sealed and historical): {split['n_pool']}",
         f"- development / validation / sealed: {split['n_development']} / {split['n_validation']} / {split['n_sealed']}",
         "- assignment: shuffle inside climate × size strata, then cut 50/20/30 on the concatenated order so small strata cannot dump remainders into sealed.",
@@ -442,7 +446,9 @@ def main() -> None:
     series = _read_catalog(SERIES)
     locations = _read_catalog(LOCATIONS)
     freeze = yaml.safe_load(FREEZE.read_text(encoding="utf-8"))
-    never_ids = list((freeze.get("split_rule") or {}).get("never_sealed_networks") or [])
+    never_ids = list(
+        (freeze.get("split_rule") or {}).get("never_sealed_networks") or []
+    )
     v1_doc = yaml.safe_load(V1_CATALOG.read_text(encoding="utf-8"))
     burned_keys = _never_sealed_site_keys(v1_doc, never_ids)
     gages = load_gages_major_dams(GAGES_ARCHIVE)
@@ -476,7 +482,11 @@ def main() -> None:
             chunk = chunk.copy()
             chunk["rule"] = f"name_huc2_v2_subset_{min_stations}st_8y"
             contrast_parts.append(chunk)
-    contrast = pd.concat(contrast_parts, ignore_index=True) if contrast_parts else pd.DataFrame()
+    contrast = (
+        pd.concat(contrast_parts, ignore_index=True)
+        if contrast_parts
+        else pd.DataFrame()
+    )
 
     def _huc_counts(width: int, min_stations: int, cap: float | None = None) -> int:
         frame = cluster_by_huc8(
@@ -489,7 +499,9 @@ def main() -> None:
         )
         return int(len(frame))
 
-    huc8_unfiltered = cluster_by_huc8(series, locations, min_stations=3, min_overlap_years=8)
+    huc8_unfiltered = cluster_by_huc8(
+        series, locations, min_stations=3, min_overlap_years=8
+    )
     huc8_100 = cluster_by_huc8(
         series, locations, min_stations=3, min_overlap_years=8, max_pair_km=100
     )
@@ -519,7 +531,9 @@ def main() -> None:
     print("querying NLDI UM/DM (cache-first; failures stay not_queried)", flush=True)
     stations = series.copy()
     if not locations.empty:
-        stations = series.merge(locations, on="site_id", how="left", suffixes=("", "_loc"))
+        stations = series.merge(
+            locations, on="site_id", how="left", suffixes=("", "_loc")
+        )
         for column in ("latitude", "longitude", "name", "huc", "site_type"):
             loc_column = f"{column}_loc"
             if column not in stations.columns and loc_column in stations.columns:
@@ -560,7 +574,9 @@ def main() -> None:
     )
     OUTPUT.mkdir(parents=True, exist_ok=True)
     huc8_export.to_csv(OUTPUT / "usgs_river_clusters_v3_huc8.csv", index=False)
-    contrast.to_csv(OUTPUT / "usgs_river_clusters_v1_name_huc2_contrast.csv", index=False)
+    contrast.to_csv(
+        OUTPUT / "usgs_river_clusters_v1_name_huc2_contrast.csv", index=False
+    )
 
     def _v2_name_count(min_stations: int) -> int:
         if contrast.empty:
@@ -602,7 +618,8 @@ def main() -> None:
     base["never_sealed"] = [item[0] for item in flags]
     base["historical"] = [item[1] for item in flags]
     base["regulation_stratum"] = [
-        regulation_stratum(_site_list(row.site_ids), gages) for row in base.itertuples(index=False)
+        regulation_stratum(_site_list(row.site_ids), gages)
+        for row in base.itertuples(index=False)
     ]
     base["climate_band"] = base["huc2"].map(climate_band)
 
@@ -630,7 +647,10 @@ def main() -> None:
     }
     if any(item.get("sealed_outcomes_opened") for item in document["networks"]):
         raise SystemExit("refusing to write opened sealed flags")
-    if any(item.get("temperature_record_unverified") is not True for item in document["networks"]):
+    if any(
+        item.get("temperature_record_unverified") is not True
+        for item in document["networks"]
+    ):
         raise SystemExit("every new network must stay temperature-unverified")
     if any(item.get("split_role") == "sealed" for item in document["networks"]):
         raise SystemExit("refusing to assign sealed roles in v3 candidates yaml")
@@ -640,7 +660,9 @@ def main() -> None:
     ):
         raise SystemExit("never_sealed network assigned sealed")
     CANDIDATES.write_text(
-        yaml.dump(document, Dumper=_CandidateDumper, sort_keys=False, allow_unicode=True),
+        yaml.dump(
+            document, Dumper=_CandidateDumper, sort_keys=False, allow_unicode=True
+        ),
         encoding="utf-8",
     )
 
@@ -668,24 +690,23 @@ def main() -> None:
         if "climate_band" not in piece.columns:
             piece["climate_band"] = piece["huc2"].map(climate_band)
         split_rows.append(piece)
-    split_frame = pd.concat(split_rows, ignore_index=True) if split_rows else pd.DataFrame()
+    split_frame = (
+        pd.concat(split_rows, ignore_index=True) if split_rows else pd.DataFrame()
+    )
     if split_frame.empty:
         raise SystemExit("no HUC8 candidates to lock")
     if (
-        split_frame["never_sealed"].fillna(False)
-        & split_frame["role"].eq("sealed")
+        split_frame["never_sealed"].fillna(False) & split_frame["role"].eq("sealed")
     ).any():
         raise SystemExit("never_sealed network appeared as sealed in the split lock")
-    sealed_forbidden = split_frame["role"].eq("sealed") & split_frame["network_id"].astype(
-        str
-    ).str.contains("loire|swiss|aar", case=False, regex=True)
+    sealed_forbidden = split_frame["role"].eq("sealed") & split_frame[
+        "network_id"
+    ].astype(str).str.contains("loire|swiss|aar", case=False, regex=True)
     if sealed_forbidden.any():
         raise SystemExit("refusing to put Loire/Swiss into sealed")
 
     canonical = canonical_split_text(split_frame, SPLIT_SEED)
-    digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     SPLIT_TABLE.write_text(canonical, encoding="utf-8")
-    SHA_PATH.write_text(digest + "\n", encoding="utf-8")
 
     n_dev = int(split_frame["role"].eq("development").sum())
     n_val = int(split_frame["role"].eq("validation").sum())
@@ -711,7 +732,6 @@ def main() -> None:
         "status": "locked_before_download",
         "frozen_on": "2026-08-26",
         "seed": SPLIT_SEED,
-        "sha256": digest,
         "canonical_columns": list(CANONICAL_SPLIT_COLUMNS),
         "fractions_target": {"development": 0.50, "validation": 0.20, "sealed": 0.30},
         "sealed_target_after_europe": 40,
@@ -750,7 +770,9 @@ def main() -> None:
 
     nldi_counts = {"true": 0, "partial": 0, "false": 0, "not_queried": 0}
     if "flow_connected" in base.columns:
-        for key, value in base["flow_connected"].fillna("not_queried").value_counts().items():
+        for key, value in (
+            base["flow_connected"].fillna("not_queried").value_counts().items()
+        ):
             nldi_counts[str(key)] = int(value)
     n_cache = len(list(NLDI_CACHE.glob("*.json"))) if NLDI_CACHE.is_dir() else 0
     nldi_note = (
@@ -774,12 +796,11 @@ def main() -> None:
 
     print(json.dumps(counts, indent=2))
     print("nldi", nldi_counts, "cache_files", n_cache)
-    print("split", n_dev, n_val, n_seal, "sha256", digest)
+    print("split", n_dev, n_val, n_seal)
     print("wrote", OUTPUT / "usgs_river_clusters_v3_huc8.csv")
     print("wrote", OUTPUT / "usgs_river_clusters_v1_name_huc2_contrast.csv")
     print("wrote", CANDIDATES, "n", len(document["networks"]))
     print("wrote", SPLIT_YAML)
-    print("wrote", SHA_PATH)
     print("wrote", FEASIBILITY)
 
 

@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 import urllib.parse
@@ -36,24 +35,30 @@ from stream_recoverability.experiments.development_recovery import (
 )
 
 POWER_ENDPOINT = "https://power.larc.nasa.gov/api/temporal/daily/point"
-FROZEN = ROOT / "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv"
+FROZEN = (
+    ROOT / "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv"
+)
 CANDIDATES = ROOT / "results/development_v11/second_confirmation/candidates.csv"
-TEMPERATURE_ROOT = ROOT / "results/development_v11/second_confirmation/daily_qc/networks"
-PLACEMENTS = ROOT / "results/development_v11/second_confirmation/scoring/placement_losses.csv"
-ATTRITION = ROOT / "results/development_v11/second_confirmation/scoring/scoring_attrition.csv"
-SIMPLE = ROOT / "results/development_v11/second_confirmation/scoring/simple_predictions.csv"
-EMPIRICAL = ROOT / "results/development_v11/second_confirmation/scoring/empirical_predictions.csv"
-LOCATIONS = ROOT / "results/framework/public_catalog/usgs_long_temperature_locations.csv"
+TEMPERATURE_ROOT = (
+    ROOT / "results/development_v11/second_confirmation/daily_qc/networks"
+)
+PLACEMENTS = (
+    ROOT / "results/development_v11/second_confirmation/scoring/placement_losses.csv"
+)
+ATTRITION = (
+    ROOT / "results/development_v11/second_confirmation/scoring/scoring_attrition.csv"
+)
+SIMPLE = (
+    ROOT / "results/development_v11/second_confirmation/scoring/simple_predictions.csv"
+)
+EMPIRICAL = (
+    ROOT
+    / "results/development_v11/second_confirmation/scoring/empirical_predictions.csv"
+)
+LOCATIONS = (
+    ROOT / "results/framework/public_catalog/usgs_long_temperature_locations.csv"
+)
 DEFAULT_OUTPUT = ROOT / "results/development_v11/independent_air2stream_equivalent"
-UPSTREAM_COMMIT = "d4834bccf01657c03ab60efb4c18f8a256132c53"
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def site_id(value: object) -> str:
@@ -132,7 +137,9 @@ def metrics(station_gap: pd.DataFrame) -> dict[str, object]:
         ),
     }
     supported = station_gap.loc[station_gap["gap_length"].isin([7, 30, 90, 180])]
-    supported_network = supported.groupby("network_id", as_index=False).mean(numeric_only=True)
+    supported_network = supported.groupby("network_id", as_index=False).mean(
+        numeric_only=True
+    )
     result.update(
         {
             "supported_horizon_station_gaps": len(supported),
@@ -151,7 +158,9 @@ def metrics(station_gap: pd.DataFrame) -> dict[str, object]:
 
 def selected_networks() -> list[str]:
     frozen = pd.read_csv(FROZEN, dtype=str)
-    attrited = set(pd.read_csv(ATTRITION, usecols=["network_id"], dtype=str)["network_id"])
+    attrited = set(
+        pd.read_csv(ATTRITION, usecols=["network_id"], dtype=str)["network_id"]
+    )
     eligible = frozen.loc[
         frozen["provider"].eq("usgs") & ~frozen["network_id"].isin(attrited),
         "network_id",
@@ -159,7 +168,9 @@ def selected_networks() -> list[str]:
     return sorted(eligible.astype(str).unique())[:12]
 
 
-def acquire_inputs(output: Path, *, refresh: bool, workers: int) -> tuple[pd.DataFrame, pd.DataFrame]:
+def acquire_inputs(
+    output: Path, *, refresh: bool, workers: int
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     input_path = output / "daily_forcing.parquet"
     coverage_path = output / "input_coverage.csv"
     if input_path.exists() and coverage_path.exists() and not refresh:
@@ -192,7 +203,9 @@ def acquire_inputs(output: Path, *, refresh: bool, workers: int) -> tuple[pd.Dat
             )
         network = Network(network_id, "second_confirmation", tuple(sites))
         url = nwis_url(network)
-        request_rows.append({"network_id": network_id, "station_id": None, "source": "usgs", "url": url})
+        request_rows.append(
+            {"network_id": network_id, "station_id": None, "source": "usgs", "url": url}
+        )
         flow = parse_nwis(download(url)).loc[lambda x: x["variable"].eq("F")].copy()
         flow_frames.append(flow.assign(network_id=network_id))
         for station in panel.columns:
@@ -232,21 +245,31 @@ def acquire_inputs(output: Path, *, refresh: bool, workers: int) -> tuple[pd.Dat
             network_id, site, index = pending[future]
             url = power_url(site)
             request_rows.append(
-                {"network_id": network_id, "station_id": site.site_id, "source": "nasa_power", "url": url}
+                {
+                    "network_id": network_id,
+                    "station_id": site.site_id,
+                    "source": "nasa_power",
+                    "url": url,
+                }
             )
             frame = read_power_t2m(future.result(), site.site_id)
             frame["network_id"] = network_id
             air_frames.append(frame)
             aligned = frame.set_index("date")["air_temperature_c"].reindex(index)
             for row in coverage_rows:
-                if row["network_id"] == network_id and site_id(row["station_id"]) == site.site_id:
+                if (
+                    row["network_id"] == network_id
+                    and site_id(row["station_id"]) == site.site_id
+                ):
                     row["n_air_days"] = int(aligned.notna().sum())
                     row["complete_air_temperature"] = bool(aligned.notna().all())
                     row["input_eligible"] = bool(aligned.notna().all())
 
     coverage = pd.DataFrame(coverage_rows)
     flow = pd.concat(flow_frames, ignore_index=True)
-    flow = flow.loc[flow["quality_approved"], ["network_id", "site_id", "date", "value"]]
+    flow = flow.loc[
+        flow["quality_approved"], ["network_id", "site_id", "date", "value"]
+    ]
     flow = flow.rename(columns={"site_id": "station_id", "value": "discharge_m3s"})
     air = pd.concat(air_frames, ignore_index=True)
     forcing = air.merge(flow, on=["network_id", "station_id", "date"], how="inner")
@@ -257,7 +280,9 @@ def acquire_inputs(output: Path, *, refresh: bool, workers: int) -> tuple[pd.Dat
     return forcing, coverage
 
 
-def score(output: Path, forcing: pd.DataFrame, *, max_nfev: int) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def score(
+    output: Path, forcing: pd.DataFrame, *, max_nfev: int
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     placements = pd.read_csv(PLACEMENTS, dtype={"network_id": str, "station_id": str})
     placements["gap_start"] = pd.to_datetime(placements["gap_start"])
     simple = pd.read_csv(SIMPLE, dtype={"network_id": str, "station_id": str})
@@ -266,13 +291,23 @@ def score(output: Path, forcing: pd.DataFrame, *, max_nfev: int) -> tuple[pd.Dat
     parameters: list[dict[str, object]] = []
     failures: list[dict[str, object]] = []
 
-    for (network_id, station), inputs in forcing.groupby(["network_id", "station_id"], sort=True):
+    for (network_id, station), inputs in forcing.groupby(
+        ["network_id", "station_id"], sort=True
+    ):
         panel_path = TEMPERATURE_ROOT / network_id / "daily_wide_temperature.csv"
         panel = pd.read_csv(panel_path, index_col=0, parse_dates=True).asfreq("D")
         panel.columns = panel.columns.astype(str)
-        station_column = next((value for value in panel.columns if site_id(value) == station), None)
+        station_column = next(
+            (value for value in panel.columns if site_id(value) == station), None
+        )
         if station_column is None:
-            failures.append({"network_id": network_id, "station_id": station, "reason": "station_absent"})
+            failures.append(
+                {
+                    "network_id": network_id,
+                    "station_id": station,
+                    "reason": "station_absent",
+                }
+            )
             continue
         aligned = inputs.set_index("date").reindex(panel.index)
         target = pd.to_numeric(panel[station_column], errors="coerce")
@@ -293,14 +328,20 @@ def score(output: Path, forcing: pd.DataFrame, *, max_nfev: int) -> tuple[pd.Dat
             first = int(finite[0])
             predicted = simulate_air2stream8(
                 evaluation_index[first:],
-                aligned.loc[evaluation_index[first:], "air_temperature_c"].to_numpy(dtype=float),
-                aligned.loc[evaluation_index[first:], "discharge_m3s"].to_numpy(dtype=float),
+                aligned.loc[evaluation_index[first:], "air_temperature_c"].to_numpy(
+                    dtype=float
+                ),
+                aligned.loc[evaluation_index[first:], "discharge_m3s"].to_numpy(
+                    dtype=float
+                ),
                 fit.parameters,
                 initial_water_temperature_c=float(evaluation_target.iloc[first]),
                 discharge_reference=fit.discharge_reference,
             )
         except ValueError as error:
-            failures.append({"network_id": network_id, "station_id": station, "reason": str(error)})
+            failures.append(
+                {"network_id": network_id, "station_id": station, "reason": str(error)}
+            )
             continue
         prediction = pd.Series(predicted, index=evaluation_index[first:])
         selected = placements.loc[
@@ -309,7 +350,9 @@ def score(output: Path, forcing: pd.DataFrame, *, max_nfev: int) -> tuple[pd.Dat
             & placements["information_condition"].eq("B_union_D")
         ]
         for item in selected.itertuples(index=False):
-            dates = pd.date_range(item.gap_start, periods=int(item.gap_length), freq="D")
+            dates = pd.date_range(
+                item.gap_start, periods=int(item.gap_length), freq="D"
+            )
             truth = target.reindex(dates)
             estimate = prediction.reindex(dates)
             if truth.isna().any() or estimate.isna().any():
@@ -329,7 +372,10 @@ def score(output: Path, forcing: pd.DataFrame, *, max_nfev: int) -> tuple[pd.Dat
             {
                 "network_id": network_id,
                 "station_id": station,
-                **{f"a{number}": float(value) for number, value in enumerate(fit.parameters, 1)},
+                **{
+                    f"a{number}": float(value)
+                    for number, value in enumerate(fit.parameters, 1)
+                },
                 "discharge_reference_m3s": fit.discharge_reference,
                 "training_rmse_deg_c": fit.training_rmse,
                 "n_training_observations": fit.n_training_observations,
@@ -405,10 +451,9 @@ def main() -> None:
         if not parameters.empty
         else np.empty((0, 8))
     )
-    bound_hits = (
-        np.isclose(parameter_values, AIR2STREAM8_LOWER, atol=1e-4)
-        | np.isclose(parameter_values, AIR2STREAM8_UPPER, atol=1e-4)
-    )
+    bound_hits = np.isclose(
+        parameter_values, AIR2STREAM8_LOWER, atol=1e-4
+    ) | np.isclose(parameter_values, AIR2STREAM8_UPPER, atol=1e-4)
     manifest = {
         "analysis_id": "second_confirmation_air2stream8_equivalent_v1",
         "evidence_role": "independent_input_availability_subset_no_outcome_selection",
@@ -420,7 +465,6 @@ def main() -> None:
             "original_executable_used": False,
             "published_doi": "10.1088/1748-9326/10/11/114011",
             "upstream_repository": "https://github.com/spiccolroaz/air2stream",
-            "upstream_commit_reviewed": UPSTREAM_COMMIT,
             "upstream_license": "CC-BY-SA-3.0",
             "parameter_bounds": {
                 "lower": AIR2STREAM8_LOWER.tolist(),
@@ -444,7 +488,10 @@ def main() -> None:
             "candidate_networks": 12,
             "candidate_stations": len(coverage),
             "input_eligible_networks": int(
-                coverage.loc[coverage["input_eligible"].astype(str).str.lower().eq("true"), "network_id"].nunique()
+                coverage.loc[
+                    coverage["input_eligible"].astype(str).str.lower().eq("true"),
+                    "network_id",
+                ].nunique()
             ),
             "input_eligible_stations": int(
                 coverage["input_eligible"].astype(str).str.lower().eq("true").sum()
@@ -456,15 +503,23 @@ def main() -> None:
             "parameter_bound_hits": int(bound_hits.sum()),
         },
         "results": metrics(station_gap) if not station_gap.empty else {},
-        "input_sha256": {
-            str(path.relative_to(ROOT)): sha256(path)
-            for path in [FROZEN, CANDIDATES, ATTRITION, PLACEMENTS, SIMPLE, EMPIRICAL, LOCATIONS]
-        },
-        "output_sha256": {
-            path.name: sha256(path)
+        "inputs": [
+            str(path.relative_to(ROOT))
+            for path in [
+                FROZEN,
+                CANDIDATES,
+                ATTRITION,
+                PLACEMENTS,
+                SIMPLE,
+                EMPIRICAL,
+                LOCATIONS,
+            ]
+        ],
+        "outputs": [
+            path.name
             for path in sorted(args.output.iterdir())
             if path.is_file() and path.suffix in {".csv", ".parquet"}
-        },
+        ],
     }
     (args.output / "manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"

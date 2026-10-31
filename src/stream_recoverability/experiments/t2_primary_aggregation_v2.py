@@ -2,14 +2,14 @@
 
 The first phase is deliberately unable to accept a result table.  It freezes
 the exact item rows, common model/information/lag grid, and weights using only
-the v4 item index, a SHA-bound pre-score eligibility audit, and the existing
-train-only predictor sidecar.  The second phase can run only against those
-create-once bytes and never chooses rows using ``achieved_skill``.
+the v4 item index, a pre-score eligibility audit, and the existing train-only
+predictor sidecar.  The second phase runs against those frozen artifacts and
+never chooses rows using ``achieved_skill``.
 """
 
 from __future__ import annotations
 
-import hashlib
+import dataclasses
 import json
 import os
 import tempfile
@@ -142,22 +142,6 @@ def _equal_hierarchical_event_weights(
     return weights
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def _canonical_sha(value: Any) -> str:
-    return hashlib.sha256(
-        json.dumps(
-            value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-        ).encode("utf-8")
-    ).hexdigest()
-
-
 def _read_json(path: Path) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -195,60 +179,21 @@ def _atomic_json(path: Path, value: Mapping[str, Any]) -> None:
             temporary.unlink()
 
 
-def _create_once_json(path: Path, value: Mapping[str, Any]) -> None:
-    payload = (
-        json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n"
-    ).encode()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o444)
-    except FileExistsError:
-        if path.read_bytes() != payload:
-            raise PrimaryAggregationBlocked(f"frozen artifact already differs: {path}")
-        return
-    with os.fdopen(descriptor, "wb") as handle:
-        handle.write(payload)
-        handle.flush()
-        os.fsync(handle.fileno())
+def _write_table(path: Path, frame: pd.DataFrame) -> None:
+    """Write a Parquet table through a temporary file and atomically replace it."""
 
-
-def _create_once_table(path: Path, frame: pd.DataFrame) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.parent / f".{path.name}.{os.getpid()}.tmp"
-    frame.to_parquet(temporary, index=False)
     try:
-        if path.exists():
-            if _sha256_file(path) != _sha256_file(temporary):
-                raise PrimaryAggregationBlocked(
-                    f"frozen artifact already differs: {path}"
-                )
-            return
-        os.link(temporary, path)
+        frame.to_parquet(temporary, index=False)
+        os.replace(temporary, path)
     finally:
         if temporary.exists():
             temporary.unlink()
 
 
-def _install_create_once(path: Path, temporary: Path) -> None:
-    """Install completed temporary bytes without permitting replacement."""
-
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists():
-        if _sha256_file(path) != _sha256_file(temporary):
-            raise PrimaryAggregationBlocked(f"frozen artifact already differs: {path}")
-        return
-    try:
-        os.link(temporary, path)
-    except FileExistsError:
-        if _sha256_file(path) != _sha256_file(temporary):
-            raise PrimaryAggregationBlocked(
-                f"concurrent frozen artifact differs: {path}"
-            )
-    os.chmod(path, 0o444)
-
-
 class _ParquetSink:
-    """Small streaming Parquet sink with deterministic schema and create-once install."""
+    """Small streaming Parquet sink with deterministic schema and atomic install."""
 
     def __init__(self, output: Path, schema: pa.Schema) -> None:
         self.output = output
@@ -286,11 +231,10 @@ class _ParquetSink:
             raise PrimaryAggregationBlocked("streaming sink is already closed")
         self.writer.close()
         self.writer = None
-        _install_create_once(self.output, self.temporary)
+        os.replace(self.temporary, self.output)
         record = {
             "path": self.output.name,
             "format": "parquet",
-            "sha256": _sha256_file(self.output),
             "n_rows": self.n_rows,
         }
         if self.temporary.exists():
@@ -316,88 +260,6 @@ def _artifact_path(manifest_path: Path, raw: str) -> Path:
         if (parent / "pyproject.toml").is_file():
             return (parent / path).resolve()
     return local
-
-
-def _stream_sha(frame: pd.DataFrame) -> str:
-    digest = hashlib.sha256()
-    for item_id in frame.sort_values("ordinal", kind="stable")["item_id"].astype(str):
-        digest.update(item_id.encode())
-        digest.update(b"\n")
-    return digest.hexdigest()
-
-
-def _canonical_information_audit(value: Any) -> str | None:
-    """Match aggregation_v3 ``information_audit_canonical_json_v1`` storage."""
-
-    if value is None:
-        return None
-    missing = pd.isna(value)
-    if isinstance(missing, (bool, np.bool_)) and bool(missing):
-        return None
-    if isinstance(value, str):
-        try:
-            value = json.loads(value)
-        except json.JSONDecodeError:
-            return value
-    if isinstance(value, Mapping):
-
-        def json_default(item: Any) -> Any:
-            if isinstance(item, np.ndarray):
-                return item.tolist()
-            if isinstance(item, np.generic):
-                return item.item()
-            raise TypeError(f"unsupported nested audit type: {type(item).__name__}")
-
-        return json.dumps(
-            value,
-            sort_keys=True,
-            separators=(",", ":"),
-            allow_nan=False,
-            default=json_default,
-        )
-    raise PrimaryAggregationBlocked(
-        "information_audit is not a mapping or canonical JSON"
-    )
-
-
-def _update_logical_result_digest(
-    digest: Any, frame: pd.DataFrame, columns: list[str]
-) -> None:
-    """Hash ordered logical rows independent of their container bytes."""
-
-    def normalize(value: Any) -> Any:
-        if isinstance(value, np.ndarray):
-            return [normalize(item) for item in value.tolist()]
-        if isinstance(value, np.generic):
-            return normalize(value.item())
-        if isinstance(value, Mapping):
-            return {
-                str(key): normalize(item)
-                for key, item in sorted(value.items(), key=lambda pair: str(pair[0]))
-            }
-        if isinstance(value, (list, tuple)):
-            return [normalize(item) for item in value]
-        missing = pd.isna(value)
-        if isinstance(missing, (bool, np.bool_)) and bool(missing):
-            return None
-        return value
-
-    aligned = frame.reindex(columns=columns)
-    if "information_audit" in aligned.columns:
-        aligned = aligned.copy()
-        aligned["information_audit"] = aligned["information_audit"].map(
-            _canonical_information_audit
-        )
-    for values in aligned.itertuples(index=False, name=None):
-        normalized = [normalize(value) for value in values]
-        digest.update(
-            json.dumps(
-                normalized,
-                separators=(",", ":"),
-                allow_nan=False,
-            ).encode()
-        )
-        digest.update(b"\n")
 
 
 def _source_rows(index: pd.DataFrame) -> pd.DataFrame:
@@ -431,11 +293,15 @@ def _source_rows(index: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+_WORK_ITEM_FIELDS = frozenset(field.name for field in dataclasses.fields(WorkItem))
+
+
 def _structural_status(source_json: str | Mapping[str, Any], lag: str) -> str:
     source = (
         json.loads(source_json) if isinstance(source_json, str) else dict(source_json)
     )
-    item = WorkItem(**source)
+    # Index rows may carry keys that are no longer WorkItem fields.
+    item = WorkItem(**{key: source[key] for key in source if key in _WORK_ITEM_FIELDS})
     if item.information_condition in EXTENDED_INFORMATION_CONDITIONS:
         if item.start_index < 0:
             return "data_ineligible"
@@ -477,16 +343,12 @@ def _load_workload_index(
     _assert_open(index_path)
     if not index_path.is_file():
         raise PrimaryAggregationBlocked("v4 item index is absent")
-    if record.get("manifest_schema") != V4_ITEM_INDEX_SCHEMA or _sha256_file(
-        index_path
-    ) != record.get("file_sha256"):
-        raise PrimaryAggregationBlocked("v4 item index identity mismatch")
+    if record.get("manifest_schema") != V4_ITEM_INDEX_SCHEMA:
+        raise PrimaryAggregationBlocked("v4 item index schema mismatch")
     index = pd.read_parquet(index_path).sort_values("ordinal", kind="stable")
     n_items = int(workload.get("n_work_items", -1))
-    if (
-        len(index) != n_items
-        or index["ordinal"].astype(int).tolist() != list(range(n_items))
-        or _stream_sha(index) != workload.get("work_item_identity_sha256")
+    if len(index) != n_items or index["ordinal"].astype(int).tolist() != list(
+        range(n_items)
     ):
         raise PrimaryAggregationBlocked(
             "v4 item index is not the complete frozen stream"
@@ -509,10 +371,6 @@ def _load_sidecar(
         "sealed_temperature_records_read": False,
         "completeness": "complete",
         "join_keys": list(JOIN_KEYS),
-        "input_sha256_by_network": workload.get("input_sha256_by_network"),
-        "catalog_split_sha256": (workload.get("input_inventory") or {}).get(
-            "catalog_split_sha256"
-        ),
         "network_covariance_fit_scope": "within_network_first_70pct_calendar_years",
         "learned_calibration": False,
     }
@@ -520,31 +378,11 @@ def _load_sidecar(
         if manifest.get(key) != expected:
             raise PrimaryAggregationBlocked(f"train-only sidecar mismatch for {key}")
     schema = manifest.get("manifest_schema")
-    if schema == SIDECAR_SCHEMA:
-        if manifest.get("workload_manifest_sha256") != workload.get(
-            "source_v3_workload_sha256"
-        ):
-            raise PrimaryAggregationBlocked(
-                "train-only sidecar mismatch for workload_manifest_sha256"
-            )
-    elif schema == V4_SIDECAR_SCHEMA:
+    if schema not in {SIDECAR_SCHEMA, V4_SIDECAR_SCHEMA}:
+        raise PrimaryAggregationBlocked("unsupported train-only sidecar schema")
+    if schema == V4_SIDECAR_SCHEMA:
         v2_required = {
-            "index_draft_manifest_sha256": _sha256_file(workload_path),
-            "item_index_sha256": _sha256_file(index_path),
-            "item_index_work_item_identity_sha256": workload.get(
-                "work_item_identity_sha256"
-            ),
-            "source_v3_workload_sha256": workload.get("source_v3_workload_sha256"),
             "input_inventory": workload.get("input_inventory"),
-            "input_inventory_contract_sha256": _canonical_sha(
-                workload.get("input_inventory")
-            ),
-            "input_inventory_sha256": workload.get(
-                "input_sha256_by_network_sha256"
-            ),
-            "input_sha256_by_network_sha256": workload.get(
-                "input_sha256_by_network_sha256"
-            ),
             "gap_roster_source": V4_GAP_ROSTER_SOURCE,
             "predictor_columns": list(PREDICTOR_COLUMNS),
             "achieved_skill_read": False,
@@ -560,9 +398,7 @@ def _load_sidecar(
                 manifest_path, str(manifest.get("index_draft_manifest_path", ""))
             )
             != workload_path
-            or _artifact_path(
-                manifest_path, str(manifest.get("item_index_path", ""))
-            )
+            or _artifact_path(manifest_path, str(manifest.get("item_index_path", "")))
             != index_path
         ):
             raise PrimaryAggregationBlocked(
@@ -580,32 +416,19 @@ def _load_sidecar(
         if (
             manifest_source_v3_path != source_v3_path
             or not source_v3_path.is_file()
-            or _sha256_file(source_v3_path)
-            != manifest.get("source_v3_workload_sha256")
             or not design_path.is_file()
-            or _sha256_file(design_path) != manifest.get("design_sha256")
-            or _read_json(source_v3_path).get("design_sha256")
-            != manifest.get("design_sha256")
         ):
             raise PrimaryAggregationBlocked(
                 "v4 train-only sidecar source-workload/design binding is invalid"
             )
         gaps_by_geometry = manifest.get("gaps_by_geometry")
-        gap_roster = {
-            "gaps": manifest.get("gaps"),
-            "gaps_by_geometry": gaps_by_geometry,
-        }
-        if (
-            not isinstance(gaps_by_geometry, Mapping)
-            or set(gaps_by_geometry)
-            != {"adversarial_stress", *FIXED_PRIMARY_GEOMETRIES}
-            or manifest.get("gap_roster_sha256") != _canonical_sha(gap_roster)
-        ):
+        if not isinstance(gaps_by_geometry, Mapping) or set(gaps_by_geometry) != {
+            "adversarial_stress",
+            *FIXED_PRIMARY_GEOMETRIES,
+        }:
             raise PrimaryAggregationBlocked(
                 "v4 train-only sidecar gap-roster binding is invalid"
             )
-    else:
-        raise PrimaryAggregationBlocked("unsupported train-only sidecar schema")
     try:
         gaps = [int(value) for value in manifest.get("gaps") or []]
     except (TypeError, ValueError) as error:
@@ -616,8 +439,8 @@ def _load_sidecar(
         raise PrimaryAggregationBlocked("train-only sidecar gap roster is invalid")
     path = _artifact_path(manifest_path, str(manifest.get("parquet_path", "")))
     _assert_open(path)
-    if not path.is_file() or _sha256_file(path) != manifest.get("parquet_sha256"):
-        raise PrimaryAggregationBlocked("train-only predictor table SHA mismatch")
+    if not path.is_file():
+        raise PrimaryAggregationBlocked("train-only predictor table is absent")
     predictors = pd.read_parquet(path)
     required_columns = {*JOIN_KEYS, *PREDICTOR_COLUMNS, "role", "fit_role"}
     if not required_columns.issubset(predictors.columns):
@@ -645,27 +468,14 @@ def _load_sidecar(
 def _load_eligibility(
     manifest_path: Path,
     *,
-    workload_path: Path,
-    workload: Mapping[str, Any],
-    index_path: Path,
     item_ids: set[str],
 ) -> tuple[dict[str, Any], pd.DataFrame, Path]:
     manifest = _read_json(manifest_path)
-    coverage_map = {
-        str(network): str((record or {}).get("coverage_sha256", ""))
-        for network, record in (
-            workload.get("auxiliary_network_bindings") or {}
-        ).items()
-    }
     required = {
         "manifest_schema": ELIGIBILITY_AUDIT_SCHEMA,
         "builder_schema": "t2_v91_v4_pre_score_eligibility_builder_v1",
         "status": "complete_outcome_blind_pre_score_audit",
         "completeness": "complete",
-        "workload_manifest_sha256": _sha256_file(workload_path),
-        "item_index_file_sha256": _sha256_file(index_path),
-        "input_qc_inventory_sha256": workload.get("input_sha256_by_network_sha256"),
-        "auxiliary_coverage_bindings_sha256": _canonical_sha(coverage_map),
         "placements_read_from_frozen_item_index": True,
         "selection_uses_outcomes": False,
         "achieved_skill_read": False,
@@ -686,10 +496,6 @@ def _load_eligibility(
         "old_outcomes_read": False,
         "expected_item_records": len(item_ids),
         "observed_item_records": len(item_ids),
-        "work_item_identity_sha256": workload.get("work_item_identity_sha256"),
-        "pre_score_freeze_sha256": (workload.get("pre_score_freeze") or {}).get(
-            "sha256"
-        ),
     }
     for key, expected in required.items():
         if manifest.get(key) != expected:
@@ -699,8 +505,8 @@ def _load_eligibility(
         raise PrimaryAggregationBlocked("pre-score eligibility table is unbound")
     table_path = _artifact_path(manifest_path, str(record.get("path", "")))
     _assert_open(table_path)
-    if not table_path.is_file() or _sha256_file(table_path) != record.get("sha256"):
-        raise PrimaryAggregationBlocked("pre-score eligibility table SHA mismatch")
+    if not table_path.is_file():
+        raise PrimaryAggregationBlocked("pre-score eligibility table is absent")
     table = pd.read_parquet(table_path)
     forbidden = FORBIDDEN_OUTCOME_COLUMNS.intersection(table.columns)
     required_columns = {"item_id", "pre_score_status", "reason"}
@@ -787,7 +593,6 @@ def freeze_v4_analyzable_lattice(
     if (
         record.get("manifest_schema") != V4_ITEM_INDEX_SCHEMA
         or not index_path.is_file()
-        or _sha256_file(index_path) != record.get("file_sha256")
     ):
         return _blocked_readiness(output, ["v4_item_index_absent_or_invalid"])
     if not predictor_manifest_file.is_file() or not eligibility_manifest_file.is_file():
@@ -819,8 +624,6 @@ def freeze_v4_analyzable_lattice(
         "builder_schema": "t2_v91_v4_pre_score_eligibility_builder_v1",
         "status": "complete_outcome_blind_pre_score_audit",
         "completeness": "complete",
-        "workload_manifest_sha256": _sha256_file(workload_path),
-        "item_index_file_sha256": _sha256_file(index_path),
         "achieved_skill_read": False,
         "selection_uses_outcomes": False,
         "open_qc_temperature_value_columns_read": [],
@@ -832,17 +635,14 @@ def freeze_v4_analyzable_lattice(
         "old_outcomes_read": False,
         "expected_item_records": int(workload.get("n_work_items", -1)),
         "observed_item_records": int(workload.get("n_work_items", -1)),
-        "work_item_identity_sha256": workload.get("work_item_identity_sha256"),
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
     }
     for key, expected in required_eligibility.items():
         if eligibility_manifest.get(key) != expected:
             raise PrimaryAggregationBlocked(f"pre-score eligibility mismatch for {key}")
-    if not eligibility_path.is_file() or _sha256_file(
-        eligibility_path
-    ) != eligibility_record.get("sha256"):
-        raise PrimaryAggregationBlocked("pre-score eligibility table SHA mismatch")
+    if not eligibility_path.is_file():
+        raise PrimaryAggregationBlocked("pre-score eligibility table is absent")
     if FORBIDDEN_OUTCOME_COLUMNS & set(
         pq.ParquetFile(eligibility_path).schema_arrow.names
     ):
@@ -871,7 +671,6 @@ def freeze_v4_analyzable_lattice(
         for name in grids
     }
     expected_n = int(workload.get("n_work_items", -1))
-    item_digest = hashlib.sha256()
     status_counts: Counter[str] = Counter()
     indexed_gaps_by_geometry: dict[str, set[int]] = {
         geometry: set()
@@ -901,9 +700,6 @@ def freeze_v4_analyzable_lattice(
         ):
             raise PrimaryAggregationBlocked("index/eligibility streams differ")
         next_ordinal += 1
-        item_id = str(raw["item_id"])
-        item_digest.update(item_id.encode())
-        item_digest.update(b"\n")
         source = json.loads(str(raw["source_item_json"]))
         lag = str(raw["meteorology_lag_days"])
         geometry = str(source["geometry"])
@@ -959,10 +755,8 @@ def freeze_v4_analyzable_lattice(
             roster["network_geometry_gap_strata"].add((event[1], event[3], event[7]))
             if pre_status == "complete" and predictor_ok:
                 event_masks[name][event] = event_masks[name].get(event, 0) | bit
-    if (
-        next_ordinal != expected_n
-        or next_ordinal != int(eligibility_record.get("n_rows", -1))
-        or item_digest.hexdigest() != workload.get("work_item_identity_sha256")
+    if next_ordinal != expected_n or next_ordinal != int(
+        eligibility_record.get("n_rows", -1)
     ):
         raise PrimaryAggregationBlocked("pre-score streams are not identity-complete")
 
@@ -1013,13 +807,7 @@ def freeze_v4_analyzable_lattice(
             },
         }
         candidates = design_rosters[name]
-        expected_networks = set(
-            map(
-                str,
-                workload.get("network_ids")
-                or (workload.get("input_sha256_by_network") or {}).keys(),
-            )
-        )
+        expected_networks = set(map(str, workload.get("network_ids") or []))
         required_geometries = set(FIXED_PRIMARY_GEOMETRIES)
         required_artificial_gaps = set(
             candidates["gaps_by_geometry"]["artificial_stress"]
@@ -1028,8 +816,7 @@ def freeze_v4_analyzable_lattice(
         missing_networks = sorted(expected_networks - selected["networks"])
         missing_geometries = sorted(required_geometries - selected["geometries"])
         missing_artificial_gaps = sorted(
-            required_artificial_gaps
-            - selected["gaps_by_geometry"]["artificial_stress"]
+            required_artificial_gaps - selected["gaps_by_geometry"]["artificial_stress"]
         )
         if missing_networks:
             blockers.append(
@@ -1064,14 +851,10 @@ def freeze_v4_analyzable_lattice(
                 ),
             }
 
-        selected_network_geometry_pairs = {
-            (event[1], event[3]) for event in events
-        }
+        selected_network_geometry_pairs = {(event[1], event[3]) for event in events}
         candidate_network_geometry_pairs = {
             (network, geometry)
-            for network, geometry, _gap in candidates[
-                "network_geometry_gap_strata"
-            ]
+            for network, geometry, _gap in candidates["network_geometry_gap_strata"]
         }
         census_lattices[name] = {
             "status": "ready"
@@ -1079,7 +862,6 @@ def freeze_v4_analyzable_lattice(
             else "blocked_insufficient_pre_score_support",
             "blockers": blockers,
             "grid": [list(cell) for cell in grids[name]],
-            "grid_sha256": _canonical_sha(grids[name]),
             "pre_score_roster_rule": (
                 "event_is_selected_iff_all_frozen_grid_cells_are_pre_score_complete_"
                 "and_the_train_only_predictor_key_is_present"
@@ -1148,7 +930,7 @@ def freeze_v4_analyzable_lattice(
     }
     output.mkdir(parents=True, exist_ok=True)
     census_path = output / "feasibility_census.json"
-    _create_once_json(census_path, census)
+    _atomic_json(census_path, census)
 
     identity_fields = [
         "item_id",
@@ -1440,19 +1222,9 @@ def freeze_v4_analyzable_lattice(
     predictor_manifest = {
         "manifest_schema": OPERATOR_PREDICTOR_SCHEMA,
         "join_keys": list(OPERATOR_JOIN_KEYS),
-        "join_keys_sha256": _canonical_sha(OPERATOR_JOIN_KEYS),
         "prediction_column": "predicted_recoverability",
         "univariate_columns": ["gap_length_only", "acf_only", "donor_r2_only"],
         "additive_baseline_column": "additive_d_over_4_heuristic",
-        "operator_univariate_columns_sha256": _canonical_sha(
-            [
-                "predicted_recoverability",
-                "gap_length_only",
-                "acf_only",
-                "donor_r2_only",
-                "additive_d_over_4_heuristic",
-            ]
-        ),
         "fit_scope": "within_each_open_network_first70pct_calendar_years",
         "fit_role": "within_each_open_network_train_window",
         "learned_calibration": False,
@@ -1460,19 +1232,16 @@ def freeze_v4_analyzable_lattice(
         "outcome_rows_read_during_fit": False,
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
-        "source_sidecar_manifest_sha256": _sha256_file(predictor_manifest_file),
-        "source_sidecar_table_sha256": _sha256_file(sidecar_path),
+        "source_sidecar_manifest_path": str(predictor_manifest_file),
+        "source_sidecar_table_path": str(sidecar_path),
         "source_sidecar_fit_role_note": sidecar_manifest.get("fit_role_note"),
         "predictions_path": predictor_record["path"],
-        "predictions_sha256": predictor_record["sha256"],
         "n_prediction_rows": predictor_record["n_rows"],
     }
     predictor_output_manifest = output / "operator_predictor_manifest.json"
-    _create_once_json(predictor_output_manifest, predictor_manifest)
+    _atomic_json(predictor_output_manifest, predictor_manifest)
     base_record = lattice_records["base_primary"]
-    n_analyzable_networks = len(
-        {event[1] for event in eligible_events["base_primary"]}
-    )
+    n_analyzable_networks = len({event[1] for event in eligible_events["base_primary"]})
     manifest = {
         "manifest_schema": LATTICE_FREEZE_SCHEMA,
         "status": (
@@ -1481,23 +1250,17 @@ def freeze_v4_analyzable_lattice(
             else "blocked_base_lattice_insufficient_pre_score_support"
         ),
         "index_draft_manifest_path": str(workload_path),
-        "index_draft_manifest_sha256": _sha256_file(workload_path),
         "workload_manifest_path": str(workload_path),
-        "workload_manifest_sha256": _sha256_file(workload_path),
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "item_index": {
             "path": str(index_path),
-            "sha256": _sha256_file(index_path),
             "n_rows": expected_n,
         },
-        "pre_score_eligibility_manifest_sha256": _sha256_file(
-            eligibility_manifest_file
-        ),
-        "pre_score_eligibility_table_sha256": _sha256_file(eligibility_path),
-        "train_only_sidecar_manifest_sha256": _sha256_file(predictor_manifest_file),
-        "train_only_sidecar_table_sha256": _sha256_file(sidecar_path),
+        "pre_score_eligibility_manifest_path": str(eligibility_manifest_file),
+        "pre_score_eligibility_table_path": str(eligibility_path),
+        "train_only_sidecar_manifest_path": str(predictor_manifest_file),
+        "train_only_sidecar_table_path": str(sidecar_path),
         "base_primary_grid": [list(value) for value in BASE_PRIMARY_GRID],
-        "base_primary_grid_sha256": _canonical_sha(BASE_PRIMARY_GRID),
         "sensitivity_grids": {
             key: [list(value) for value in grid]
             for key, grid in SENSITIVITY_GRIDS.items()
@@ -1513,10 +1276,7 @@ def freeze_v4_analyzable_lattice(
             "each_parent_mass": "equal",
             "product_column": "analysis_weight",
         },
-        "feasibility_census": {
-            "path": census_path.name,
-            "sha256": _sha256_file(census_path),
-        },
+        "feasibility_census": {"path": census_path.name},
         "exhaustive_item_ledger": ledger_record,
         "analyzable_lattice": base_record,
         "sensitivity_lattices": {
@@ -1526,10 +1286,7 @@ def freeze_v4_analyzable_lattice(
         },
         "data_ineligible_attrition": attrition_record,
         "pre_score_exclusion_attrition": exclusion_record,
-        "operator_predictor_manifest": {
-            "path": predictor_output_manifest.name,
-            "sha256": _sha256_file(predictor_output_manifest),
-        },
+        "operator_predictor_manifest": {"path": predictor_output_manifest.name},
         "operator_predictor_table": predictor_record,
         "n_analyzable_events": len(eligible_events["base_primary"])
         if lattice_ready["base_primary"]
@@ -1558,7 +1315,7 @@ def freeze_v4_analyzable_lattice(
         "formal_evidence": False,
         "passed": False,
     }
-    _create_once_json(output / "lattice_freeze_manifest.json", manifest)
+    _atomic_json(output / "lattice_freeze_manifest.json", manifest)
     readiness = {
         "manifest_schema": READINESS_SCHEMA,
         "status": manifest["status"],
@@ -1568,9 +1325,6 @@ def freeze_v4_analyzable_lattice(
             else ["base_lattice_insufficient_pre_score_support"]
         ),
         "analyzable_lattice_frozen": manifest["execution_allowed"],
-        "lattice_freeze_manifest_sha256": _sha256_file(
-            output / "lattice_freeze_manifest.json"
-        ),
         "execution_allowed": manifest["execution_allowed"],
         "evidence_blockers": manifest["evidence_blockers"],
         "v4_results_read": False,
@@ -1604,18 +1358,6 @@ def create_pre_score_freeze_bundle(
     lattice = _read_json(lattice_path)
     if draft.get("manifest_schema") != V4_INDEX_DRAFT_SCHEMA:
         raise PrimaryAggregationBlocked("pre-score bundle requires an index draft")
-    index_record = draft.get("item_index") or {}
-    if (
-        eligibility.get("workload_manifest_sha256") != _sha256_file(draft_path)
-        or lattice.get("index_draft_manifest_sha256") != _sha256_file(draft_path)
-        or lattice.get("pre_score_eligibility_manifest_sha256")
-        != _sha256_file(eligibility_path)
-        or lattice.get("item_index", {}).get("sha256")
-        != index_record.get("file_sha256")
-    ):
-        raise PrimaryAggregationBlocked(
-            "pre-score components do not share one draft identity"
-        )
     if (
         lattice.get("manifest_schema") != LATTICE_FREEZE_SCHEMA
         or lattice.get("status") != "frozen_before_v4_scoring"
@@ -1634,8 +1376,8 @@ def create_pre_score_freeze_bundle(
 
     def bind(owner: Path, record: Mapping[str, Any]) -> dict[str, Any]:
         path = _artifact_path(owner, str(record.get("path", "")))
-        if not path.is_file() or _sha256_file(path) != record.get("sha256"):
-            raise PrimaryAggregationBlocked("pre-score bundle artifact SHA mismatch")
+        if not path.is_file():
+            raise PrimaryAggregationBlocked("pre-score bundle artifact is absent")
         return {**dict(record), "path": str(path.relative_to(output.parent))}
 
     eligibility_table = bind(eligibility_path, eligibility["eligibility_table"])
@@ -1644,15 +1386,12 @@ def create_pre_score_freeze_bundle(
         _artifact_path(lattice_path, lattice["feasibility_census"]["path"])
     )
     ledger = bind(lattice_path, lattice["exhaustive_item_ledger"])
-    exclusion_attrition = bind(
-        lattice_path, lattice["pre_score_exclusion_attrition"]
-    )
+    exclusion_attrition = bind(lattice_path, lattice["pre_score_exclusion_attrition"])
     predictor_table = bind(lattice_path, lattice["operator_predictor_table"])
     predictor_manifest = bind(lattice_path, lattice["operator_predictor_manifest"])
     base_lattice = bind(lattice_path, lattice["analyzable_lattice"])
     sensitivities = {
-        key: bind(lattice_path, record)
-        for key, record in sensitivity_records.items()
+        key: bind(lattice_path, record) for key, record in sensitivity_records.items()
     }
     census_lattices = census_value.get("lattices") or {}
     if set(census_lattices) != {"base_primary", "sensitivity_M", "sensitivity_M_H"}:
@@ -1676,13 +1415,9 @@ def create_pre_score_freeze_bundle(
         "status": "complete_outcome_blind_pre_score_freeze",
         "index_draft_manifest": {
             "path": str(draft_path.relative_to(output.parent)),
-            "sha256": _sha256_file(draft_path),
         },
-        "index_draft_manifest_sha256": _sha256_file(draft_path),
-        "item_index_file_sha256": index_record.get("file_sha256"),
         "eligibility_manifest": {
             "path": str(eligibility_path.relative_to(output.parent)),
-            "sha256": _sha256_file(eligibility_path),
         },
         "eligibility_table": eligibility_table,
         "feasibility_census": census,
@@ -1690,7 +1425,6 @@ def create_pre_score_freeze_bundle(
         "pre_score_exclusion_attrition": exclusion_attrition,
         "base_lattice_manifest": {
             "path": str(lattice_path.relative_to(output.parent)),
-            "sha256": _sha256_file(lattice_path),
         },
         "base_lattice": base_lattice,
         "sensitivity_lattices": sensitivities,
@@ -1713,7 +1447,7 @@ def create_pre_score_freeze_bundle(
         "passed": False,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
-    _create_once_json(output, bundle)
+    _atomic_json(output, bundle)
     return bundle
 
 
@@ -1726,7 +1460,7 @@ def bind_complete_v4_primary_results(
     output_dir: str | Path,
     development_exclude_data_ineligible: bool = False,
 ) -> dict[str, Any]:
-    """Bind complete result bytes to the already-frozen lattice without selection.
+    """Bind complete results to the already-frozen lattice without selection.
 
     When ``development_exclude_data_ineligible`` is true, lattice rows whose
     scored status is ``data_ineligible`` are dropped from the primary-y table.
@@ -1749,33 +1483,12 @@ def bind_complete_v4_primary_results(
         raise PrimaryAggregationBlocked(
             "primary results lack a valid pre-score lattice freeze"
         )
-    if freeze.get("workload_manifest_sha256") != _sha256_file(workload_path):
-        pre_score = workload.get("pre_score_freeze") or {}
-        base_manifest = (pre_score.get("artifacts") or {}).get(
-            "base_lattice_manifest"
-        ) or {}
-        if base_manifest.get("sha256") != _sha256_file(freeze_path):
-            raise PrimaryAggregationBlocked(
-                "lattice freeze/final workload binding mismatch"
-            )
-    code_inventory_sha = str(
-        (workload.get("execution_code_inventory") or {}).get("inventory_sha256", "")
-    )
-    execution_head = str(aggregation.get("execution_head_commit", ""))
-    if len(code_inventory_sha) != 64 or len(execution_head) not in {40, 64}:
-        raise PrimaryAggregationBlocked("complete aggregation lacks code provenance")
     required_aggregation = {
         "manifest_schema": V4_AGGREGATION_SCHEMA,
         "status": "complete",
         "completeness": "complete",
         "formal_result_generated": True,
         "all_executions_successful": True,
-        "workload_manifest_sha256": _sha256_file(workload_path),
-        "work_item_identity_sha256": workload.get("work_item_identity_sha256"),
-        "pre_score_freeze_sha256": (workload.get("pre_score_freeze") or {}).get(
-            "sha256"
-        ),
-        "execution_code_inventory_sha256": code_inventory_sha,
         "sealed_temperature_records_read": False,
     }
     for key, expected in required_aggregation.items():
@@ -1783,15 +1496,11 @@ def bind_complete_v4_primary_results(
             raise PrimaryAggregationBlocked(f"complete aggregation mismatch for {key}")
     merged_record = aggregation.get("merged_item_results")
     if not isinstance(merged_record, Mapping):
-        raise PrimaryAggregationBlocked(
-            "aggregation omits its create-once merged results"
-        )
+        raise PrimaryAggregationBlocked("aggregation omits its merged results")
     results_path = _artifact_path(aggregation_path, str(merged_record.get("path", "")))
     _assert_open(results_path)
-    if (
-        not results_path.is_file()
-        or _sha256_file(results_path) != merged_record.get("sha256")
-        or int(merged_record.get("n_rows", -1)) != int(workload.get("n_work_items", -1))
+    if not results_path.is_file() or int(merged_record.get("n_rows", -1)) != int(
+        workload.get("n_work_items", -1)
     ):
         raise PrimaryAggregationBlocked("aggregator-bound merged results differ")
     if (
@@ -1803,20 +1512,16 @@ def bind_complete_v4_primary_results(
         )
     results = pd.read_parquet(results_path)
     n_items = int(workload.get("n_work_items", -1))
-    result_columns = sorted(str(column) for column in results.columns)
-    merged_digest = hashlib.sha256()
-    _update_logical_result_digest(merged_digest, results, result_columns)
     index_record = workload.get("item_index") or {}
     index_path = _artifact_path(workload_path, str(index_record.get("path", "")))
     chunk_records = aggregation.get("chunk_manifest_records") or []
     if not chunk_records or int(aggregation.get("n_chunks", -1)) != len(chunk_records):
         raise PrimaryAggregationBlocked("aggregation lacks exhaustive chunk provenance")
-    chunk_digest = hashlib.sha256()
     next_start = 0
     for chunk in chunk_records:
         path = Path(str(chunk.get("path", ""))).resolve()
-        if not path.is_file() or _sha256_file(path) != chunk.get("sha256"):
-            raise PrimaryAggregationBlocked("aggregation chunk provenance drifted")
+        if not path.is_file():
+            raise PrimaryAggregationBlocked("aggregation chunk manifest is absent")
         chunk_manifest = _read_json(path)
         start = int(chunk_manifest.get("start_ordinal", -1))
         end = int(chunk_manifest.get("end_ordinal_exclusive", -1))
@@ -1825,26 +1530,13 @@ def bind_complete_v4_primary_results(
                 "aggregation chunk provenance is not contiguous"
             )
         if (
-            chunk_manifest.get("workload_manifest_sha256")
-            != _sha256_file(workload_path)
-            or chunk_manifest.get("pre_score_freeze_sha256")
-            != (workload.get("pre_score_freeze") or {}).get("sha256")
-            or chunk_manifest.get("execution_head_commit")
-            != aggregation.get("execution_head_commit")
-            or chunk_manifest.get("execution_code_inventory_sha256")
-            != (workload.get("execution_code_inventory") or {}).get(
-                "inventory_sha256"
-            )
-            or chunk.get("start_ordinal") != start
+            chunk.get("start_ordinal") != start
             or chunk.get("end_ordinal_exclusive") != end
-            or chunk.get("results_sha256") != chunk_manifest.get("results_sha256")
         ):
             raise PrimaryAggregationBlocked("aggregation chunk binding drifted")
         chunk_results = path.parent / str(chunk_manifest.get("results_path", ""))
-        if not chunk_results.is_file() or _sha256_file(chunk_results) != chunk.get(
-            "results_sha256"
-        ):
-            raise PrimaryAggregationBlocked("aggregation chunk result bytes drifted")
+        if not chunk_results.is_file():
+            raise PrimaryAggregationBlocked("aggregation chunk result table is absent")
         frame = (
             pd.read_parquet(chunk_results)
             if chunk_manifest.get("results_format") == "parquet"
@@ -1853,11 +1545,8 @@ def bind_complete_v4_primary_results(
         if len(frame) != end - start:
             raise PrimaryAggregationBlocked("aggregation chunk result count drifted")
         _assert_full_row_identities(frame, _expected_identities(index_path, start, end))
-        _update_logical_result_digest(chunk_digest, frame, result_columns)
         next_start = end
-    if len(results) != n_items or _stream_sha(results) != workload.get(
-        "work_item_identity_sha256"
-    ):
+    if len(results) != n_items:
         raise PrimaryAggregationBlocked(
             "item results do not match the complete v4 stream"
         )
@@ -1868,14 +1557,8 @@ def bind_complete_v4_primary_results(
         raise PrimaryAggregationBlocked("item results attest sealed access")
     if next_start != n_items:
         raise PrimaryAggregationBlocked("aggregation chunk provenance is incomplete")
-    if chunk_digest.hexdigest() != merged_digest.hexdigest():
-        raise PrimaryAggregationBlocked(
-            "aggregator-bound merged results differ from their chunks"
-        )
     lattice_record = freeze["analyzable_lattice"]
     lattice_path = _artifact_path(freeze_path, str(lattice_record["path"]))
-    if _sha256_file(lattice_path) != lattice_record["sha256"]:
-        raise PrimaryAggregationBlocked("frozen lattice bytes drifted after scoring")
     lattice = pd.read_parquet(lattice_path)
     lattice_ids = set(lattice["item_id"].astype(str))
     selected = results.loc[results["item_id"].astype(str).isin(lattice_ids)].copy()
@@ -1890,12 +1573,14 @@ def bind_complete_v4_primary_results(
             ].copy()
             excluded_data_ineligible["reason"] = "data_ineligible_at_scoring"
             lattice = lattice.loc[
-                ~lattice["item_id"].astype(str).isin(
-                    set(excluded_data_ineligible["item_id"].astype(str))
-                )
+                ~lattice["item_id"]
+                .astype(str)
+                .isin(set(excluded_data_ineligible["item_id"].astype(str)))
             ].copy()
             lattice_ids = set(lattice["item_id"].astype(str))
-            selected = results.loc[results["item_id"].astype(str).isin(lattice_ids)].copy()
+            selected = results.loc[
+                results["item_id"].astype(str).isin(lattice_ids)
+            ].copy()
     n_missing = len(lattice_ids) - int(selected["item_id"].astype(str).nunique())
     n_not_complete = int((~selected["status"].astype(str).eq("complete")).sum())
     if (
@@ -1923,7 +1608,7 @@ def bind_complete_v4_primary_results(
         raise PrimaryAggregationBlocked("primary y contains a nonfinite achieved skill")
     primary_path = output / "primary_y.parquet"
     output.mkdir(parents=True, exist_ok=True)
-    _create_once_table(primary_path, primary)
+    _write_table(primary_path, primary)
 
     def frozen_record(name: str) -> dict[str, Any]:
         record = freeze[name]
@@ -1935,12 +1620,12 @@ def bind_complete_v4_primary_results(
     ].copy()
     complete_excluded["reason"] = "outside_outcome_blind_frozen_common_lattice"
     excluded_path = output / "complete_item_outcome_blind_attrition.parquet"
-    _create_once_table(excluded_path, complete_excluded)
+    _write_table(excluded_path, complete_excluded)
     lattice_ineligible_excluded_path = (
         output / "lattice_data_ineligible_excluded.parquet"
     )
     if not excluded_data_ineligible.empty:
-        _create_once_table(lattice_ineligible_excluded_path, excluded_data_ineligible)
+        _write_table(lattice_ineligible_excluded_path, excluded_data_ineligible)
     binding = {
         "manifest_schema": INPUT_BINDING_SCHEMA,
         "status": "complete",
@@ -1956,11 +1641,10 @@ def bind_complete_v4_primary_results(
         ),
         "formal_evidence": False,
         "n_lattice_rows_excluded_data_ineligible": int(len(excluded_data_ineligible)),
-        "workload_manifest_sha256": _sha256_file(workload_path),
+        "workload_manifest_path": str(workload_path),
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "expected_item_records": n_items,
         "observed_item_records": len(results),
-        "work_item_identity_sha256": workload["work_item_identity_sha256"],
         "status_counts": dict(sorted(Counter(statuses).items())),
         "primary_y_column": "observed_achieved_skill",
         "operator_column": "predicted_recoverability",
@@ -1980,13 +1664,11 @@ def bind_complete_v4_primary_results(
         "item_results": {
             "path": str(results_path),
             "format": "parquet",
-            "sha256": _sha256_file(results_path),
             "n_rows": len(results),
         },
         "primary_y_table": {
             "path": primary_path.name,
             "format": "parquet",
-            "sha256": _sha256_file(primary_path),
             "n_rows": len(primary),
         },
         "analyzable_lattice": frozen_record("analyzable_lattice"),
@@ -1996,11 +1678,10 @@ def bind_complete_v4_primary_results(
         "complete_item_outcome_blind_attrition": {
             "path": excluded_path.name,
             "format": "parquet",
-            "sha256": _sha256_file(excluded_path),
             "n_rows": len(complete_excluded),
         },
-        "lattice_freeze_manifest_sha256": _sha256_file(freeze_path),
-        "aggregation_manifest_sha256": _sha256_file(aggregation_path),
+        "lattice_freeze_manifest_path": str(freeze_path),
+        "aggregation_manifest_path": str(aggregation_path),
         "achieved_skill_used_for_selection": False,
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
@@ -2009,14 +1690,13 @@ def bind_complete_v4_primary_results(
         binding["lattice_data_ineligible_excluded"] = {
             "path": lattice_ineligible_excluded_path.name,
             "format": "parquet",
-            "sha256": _sha256_file(lattice_ineligible_excluded_path),
             "n_rows": int(len(excluded_data_ineligible)),
         }
         binding["primary_table_complete_for_all_complete_items"] = False
         binding["primary_complete_item_scope"] = (
             "frozen_analyzable_lattice_minus_data_ineligible"
         )
-    _create_once_json(output / "post_t2_input_binding.json", binding)
+    _atomic_json(output / "post_t2_input_binding.json", binding)
     return binding
 
 

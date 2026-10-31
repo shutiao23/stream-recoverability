@@ -40,7 +40,7 @@
 - [x] Open Research text distinguishes releasable artifacts from restricted provider values.
 - [x] Package manifest lists manuscript, SI, captions, figures, result tables, and external dependencies.
 - [x] Compact metrics and audits are primary artifacts; large placement-level empirical predictions are marked regenerable rather than required for a fresh clone.
-- [x] The second-confirmation amendment is described as internally hash-bound, same-commit evidence rather than externally preregistered.
+- [x] The second-confirmation amendment is described as internally frozen, same-commit evidence rather than externally preregistered.
 
 ## External items that cannot be fabricated in-repository
 

@@ -7,7 +7,6 @@ network,arso_bistrica,split_role,development,text,,sample_fact,results/wrr_submi
 network,arso_bistrica,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_bistrica,n_station_years,36,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_bistrica,input_bytes,103123,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_bistrica,input_sha256,245968ded2d8e053d98d37efc5bf2a72d4823bffa0643d14b5344bead9e0b64d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_bistrica,input_path,results/development_v11/confirmation_daily_qc/networks/arso_bistrica/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_bistrica,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_dravinja,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -15,7 +14,6 @@ network,arso_dravinja,split_role,development,text,,sample_fact,results/wrr_submi
 network,arso_dravinja,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_dravinja,n_station_years,37,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_dravinja,input_bytes,102783,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_dravinja,input_sha256,36bc805a18775a4435dfeadfbe73c7030932739b3001f62c9941d4b6d2a80159,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_dravinja,input_path,results/development_v11/confirmation_daily_qc/networks/arso_dravinja/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_dravinja,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_krka,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -23,7 +21,6 @@ network,arso_krka,split_role,reserved,text,,sample_fact,results/wrr_submission_r
 network,arso_krka,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_krka,n_station_years,37,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_krka,input_bytes,105032,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_krka,input_sha256,6d3fc8fd5c7a9065061957d2caaf996f6da69437316b6aa40e9ae8a2dd28ec70,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_krka,input_path,results/development_v11/confirmation_daily_qc/networks/arso_krka/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_krka,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_sava,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -31,7 +28,6 @@ network,arso_sava,split_role,development,text,,sample_fact,results/wrr_submissio
 network,arso_sava,n_stations,8,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_sava,n_station_years,72,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_sava,input_bytes,169075,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_sava,input_sha256,71603c00123136e15acda94f9cac2bba355cb49d0a8d129f43aad788339491f7,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_sava,input_path,results/development_v11/confirmation_daily_qc/networks/arso_sava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_sava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_savinja,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -39,7 +35,6 @@ network,arso_savinja,split_role,development,text,,sample_fact,results/wrr_submis
 network,arso_savinja,n_stations,5,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_savinja,n_station_years,44,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_savinja,input_bytes,118750,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_savinja,input_sha256,4510466366fdc026187d0f946b04698e77ad72eecc6b47b53b65d720d3e58c98,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_savinja,input_path,results/development_v11/confirmation_daily_qc/networks/arso_savinja/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_savinja,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_vipava,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -47,7 +42,6 @@ network,arso_vipava,split_role,development,text,,sample_fact,results/wrr_submiss
 network,arso_vipava,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_vipava,n_station_years,35,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_vipava,input_bytes,102634,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_vipava,input_sha256,3b1fb7a6bbfea1f46d93a4d249e91a90f6d0158c32620f87a344dee9595ec117,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_vipava,input_path,results/development_v11/confirmation_daily_qc/networks/arso_vipava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_vipava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_drava,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -55,7 +49,6 @@ network,arso_drava,split_role,development,text,,sample_fact,results/wrr_submissi
 network,arso_drava,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_drava,n_station_years,26,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_drava,input_bytes,87548,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_drava,input_sha256,ee60b9d56a38069e33dc201bf777e69ea72c8c66c06f83d25aa0d370353018d2,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_drava,input_path,results/development_v11/confirmation_daily_qc/networks/arso_drava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_drava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kamniska_bistrica,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -63,7 +56,6 @@ network,arso_kamniska_bistrica,split_role,development,text,,sample_fact,results/
 network,arso_kamniska_bistrica,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kamniska_bistrica,n_station_years,28,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kamniska_bistrica,input_bytes,86248,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_kamniska_bistrica,input_sha256,e8c2a1a40bfabea930ea466554a67ad850fb44e555dca3bb9b5cf5d0f0707bc9,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_kamniska_bistrica,input_path,results/development_v11/confirmation_daily_qc/networks/arso_kamniska_bistrica/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kamniska_bistrica,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kolpa,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -71,7 +63,6 @@ network,arso_kolpa,split_role,development,text,,sample_fact,results/wrr_submissi
 network,arso_kolpa,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kolpa,n_station_years,25,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kolpa,input_bytes,85856,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_kolpa,input_sha256,27d9e62bc4942411fdd5b95dfeb8b893fcf2d1ec73ae889bc6c365d7d660815c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_kolpa,input_path,results/development_v11/confirmation_daily_qc/networks/arso_kolpa/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_kolpa,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_ljubljanica,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -79,7 +70,6 @@ network,arso_ljubljanica,split_role,reserved,text,,sample_fact,results/wrr_submi
 network,arso_ljubljanica,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_ljubljanica,n_station_years,28,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_ljubljanica,input_bytes,89950,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_ljubljanica,input_sha256,e8a6d24a018f28d0445c03889d77ebe5939d0282b0a2ddf2533205b1ece72b71,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_ljubljanica,input_path,results/development_v11/confirmation_daily_qc/networks/arso_ljubljanica/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_ljubljanica,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_paka,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -87,7 +77,6 @@ network,arso_paka,split_role,development,text,,sample_fact,results/wrr_submissio
 network,arso_paka,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_paka,n_station_years,27,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_paka,input_bytes,89725,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_paka,input_sha256,c316f9cd198631a195a7732f75d58f797852351a4f7bbdf9cfb6369ed81dc3fc,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_paka,input_path,results/development_v11/confirmation_daily_qc/networks/arso_paka/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_paka,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_soca,provider,arso,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -95,7 +84,6 @@ network,arso_soca,split_role,development,text,,sample_fact,results/wrr_submissio
 network,arso_soca,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_soca,n_station_years,27,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_soca,input_bytes,85216,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,arso_soca,input_sha256,5cd97a1503e5e9ff69a3f93d08fa34aa00f01a922a2974c11faebe1182378b25,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,arso_soca,input_path,results/development_v11/confirmation_daily_qc/networks/arso_soca/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,arso_soca,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_berounka,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -103,7 +91,6 @@ network,chmi_berounka,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,chmi_berounka,n_stations,5,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_berounka,n_station_years,39,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_berounka,input_bytes,283074,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_berounka,input_sha256,824d5d31882edcce49bf60cdf1a8986b7b0be75d41b2753490aa9e8585d3ca1c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_berounka,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_berounka/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_berounka,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_blanice,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -111,7 +98,6 @@ network,chmi_blanice,split_role,reserved,text,,sample_fact,results/wrr_submissio
 network,chmi_blanice,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_blanice,n_station_years,38,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_blanice,input_bytes,295538,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_blanice,input_sha256,c716b1acec6789a50f8ac87a395d6267a46709b0604125fbc838744d7fea084c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_blanice,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_blanice/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_blanice,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_botic,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -119,7 +105,6 @@ network,chmi_botic,split_role,development,text,,sample_fact,results/wrr_submissi
 network,chmi_botic,n_stations,5,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_botic,n_station_years,44,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_botic,input_bytes,329113,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_botic,input_sha256,d3e6d34ca752ba06dfed1400076dd6208adaa00f2052316c0a0afd670a19d82e,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_botic,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_botic/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_botic,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_dyje,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -127,7 +112,6 @@ network,chmi_dyje,split_role,development,text,,sample_fact,results/wrr_submissio
 network,chmi_dyje,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_dyje,n_station_years,62,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_dyje,input_bytes,526684,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_dyje,input_sha256,37f7a6b050093aa0ce479edd8a6610f5f2558a2e2bdd91171a24bf959d12ce1e,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_dyje,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_dyje/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_dyje,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_jizera,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -135,7 +119,6 @@ network,chmi_jizera,split_role,development,text,,sample_fact,results/wrr_submiss
 network,chmi_jizera,n_stations,5,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_jizera,n_station_years,60,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_jizera,input_bytes,438991,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_jizera,input_sha256,c682906ce842eb7d97e195e43f4c80a6b8be424ea981d37f1fd80da04feaebb7,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_jizera,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_jizera/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_jizera,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_labe,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -143,7 +126,6 @@ network,chmi_labe,split_role,reserved,text,,sample_fact,results/wrr_submission_r
 network,chmi_labe,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_labe,n_station_years,82,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_labe,input_bytes,584108,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_labe,input_sha256,ec88420c9e211c691b5b3c139fd68cd3fcf96d70086c28395e319ba783a88ad1,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_labe,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_labe/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_labe,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_morava,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -151,7 +133,6 @@ network,chmi_morava,split_role,development,text,,sample_fact,results/wrr_submiss
 network,chmi_morava,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_morava,n_station_years,71,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_morava,input_bytes,545216,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_morava,input_sha256,3c2b63405a7bbdcc93aa0d27f35e0d552cc09f00b89ea67bbbbda16d16247fdb,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_morava,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_morava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_morava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_sazava,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -159,7 +140,6 @@ network,chmi_sazava,split_role,development,text,,sample_fact,results/wrr_submiss
 network,chmi_sazava,n_stations,8,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_sazava,n_station_years,94,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_sazava,input_bytes,665827,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_sazava,input_sha256,6c705a2f66ae53a9d45e1bcb0af6f3bb0c3920065ce607fbc33755f12b172fea,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_sazava,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_sazava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_sazava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_vltava,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -167,7 +147,6 @@ network,chmi_vltava,split_role,development,text,,sample_fact,results/wrr_submiss
 network,chmi_vltava,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_vltava,n_station_years,56,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_vltava,input_bytes,379020,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_vltava,input_sha256,d203ac67d8595c4e02dbe7e011958dc389ae77fde222145ba5956f72d52ecb80,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_vltava,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_vltava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_vltava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_zelivka,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -175,7 +154,6 @@ network,chmi_zelivka,split_role,development,text,,sample_fact,results/wrr_submis
 network,chmi_zelivka,n_stations,5,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_zelivka,n_station_years,46,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_zelivka,input_bytes,362467,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_zelivka,input_sha256,c5140aa7611a3bad9e66a6ff6316e52e7f4d576b66f4b5757bcc01667e833a6c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_zelivka,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_zelivka/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_zelivka,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_bela,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -183,7 +161,6 @@ network,chmi_bela,split_role,development,text,,sample_fact,results/wrr_submissio
 network,chmi_bela,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_bela,n_station_years,16,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_bela,input_bytes,135147,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_bela,input_sha256,c98b46c6724f06621aff1368fc69f872bcb1ceb658a28c5a24ed3a417bc54f13,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_bela,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_bela/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_bela,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_kamenice,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -191,7 +168,6 @@ network,chmi_kamenice,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,chmi_kamenice,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_kamenice,n_station_years,32,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_kamenice,input_bytes,251949,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_kamenice,input_sha256,a4bf6556c2d80773356f15769d8a5fe62aaa0941232671248f2bca9f910de83d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_kamenice,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_kamenice/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_kamenice,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_luznice,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -199,7 +175,6 @@ network,chmi_luznice,split_role,development,text,,sample_fact,results/wrr_submis
 network,chmi_luznice,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_luznice,n_station_years,54,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_luznice,input_bytes,426425,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_luznice,input_sha256,24f3957e258157d9827cb1cc7f9bb18cac3adead89935bd48f0ab696f59fa3a4,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_luznice,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_luznice/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_luznice,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_odra,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -207,7 +182,6 @@ network,chmi_odra,split_role,development,text,,sample_fact,results/wrr_submissio
 network,chmi_odra,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_odra,n_station_years,55,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_odra,input_bytes,439413,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_odra,input_sha256,c90c325d391bcb8db6b33d93dec60654867dc8e1fad2cbe65f99d3418ebc4d24,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_odra,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_odra/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_odra,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_ohre,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -215,7 +189,6 @@ network,chmi_ohre,split_role,development,text,,sample_fact,results/wrr_submissio
 network,chmi_ohre,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_ohre,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_ohre,input_bytes,132552,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_ohre,input_sha256,432d394135d6fb8ed22912022e095af2006af62a67b07be2552586dbe740fb4d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_ohre,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_ohre/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_ohre,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_otava,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -223,7 +196,6 @@ network,chmi_otava,split_role,development,text,,sample_fact,results/wrr_submissi
 network,chmi_otava,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_otava,n_station_years,56,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_otava,input_bytes,465492,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_otava,input_sha256,597d580b50cb8d03bb8c8f54194da4c8fda2ecb2015922562e185fd6676f89a1,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_otava,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_otava/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_otava,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_smeda,provider,chmi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -231,7 +203,6 @@ network,chmi_smeda,split_role,reserved,text,,sample_fact,results/wrr_submission_
 network,chmi_smeda,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_smeda,n_station_years,32,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_smeda,input_bytes,263971,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,chmi_smeda,input_sha256,4bb4bf9504621296d80bc17fded1274596c431ef8c94312ffd20cd93d93b092c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,chmi_smeda,input_path,results/development_v11/confirmation_daily_qc/networks/chmi_smeda/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,chmi_smeda,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_aare_aaregebiet,provider,foen,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -239,7 +210,6 @@ network,foen_aare_aaregebiet,split_role,development,text,,sample_fact,results/wr
 network,foen_aare_aaregebiet,n_stations,9,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_aare_aaregebiet,n_station_years,233,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_aare_aaregebiet,input_bytes,556537,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,foen_aare_aaregebiet,input_sha256,58f81761ea2a50d78a27faff5d289bd3b8ae15f8b1ca66a84743993eb6aef52b,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,foen_aare_aaregebiet,input_path,results/development_v11/confirmation_daily_qc/networks/foen_aare_aaregebiet/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_aare_aaregebiet,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_murg_multi,provider,foen,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -247,7 +217,6 @@ network,foen_murg_multi,split_role,development,text,,sample_fact,results/wrr_sub
 network,foen_murg_multi,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_murg_multi,n_station_years,43,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_murg_multi,input_bytes,185721,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,foen_murg_multi,input_sha256,082b418b6f25e77492c3aec94815c5232c18f66690464d5ba92836f77e8f601b,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,foen_murg_multi,input_path,results/development_v11/confirmation_daily_qc/networks/foen_murg_multi/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,foen_murg_multi,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_donau,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -255,7 +224,6 @@ network,gkd_bayern_donau,split_role,development,text,,sample_fact,results/wrr_su
 network,gkd_bayern_donau,n_stations,12,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_donau,n_station_years,353,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_donau,input_bytes,1035720,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_donau,input_sha256,acced5335a5a6db47fed8b1a97d5d369d5b1bb41f8d45182d86be9eacbbaddc4,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_donau,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_donau/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_donau,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_main,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -263,7 +231,6 @@ network,gkd_bayern_main,split_role,development,text,,sample_fact,results/wrr_sub
 network,gkd_bayern_main,n_stations,15,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_main,n_station_years,317,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_main,input_bytes,952237,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_main,input_sha256,e7ad6178f371ef0061fad9437c73ff9d85c86134eaae1dfab92e4da16927cd12,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_main,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_main/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_main,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_alz,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -271,7 +238,6 @@ network,gkd_bayern_alz,split_role,development,text,,sample_fact,results/wrr_subm
 network,gkd_bayern_alz,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_alz,n_station_years,59,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_alz,input_bytes,324089,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_alz,input_sha256,116c12c25c84fcc7908dab902d5d8663b63586bab83884d339db2608ed154a83,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_alz,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_alz/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_alz,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_fraenkische_saale,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -279,7 +245,6 @@ network,gkd_bayern_fraenkische_saale,split_role,reserved,text,,sample_fact,resul
 network,gkd_bayern_fraenkische_saale,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_fraenkische_saale,n_station_years,52,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_fraenkische_saale,input_bytes,329270,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_fraenkische_saale,input_sha256,6c626774bfdaa9691e63b6f24330f5d80e5c6b4218c628b9d260632fb5e11fd2,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_fraenkische_saale,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_fraenkische_saale/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_fraenkische_saale,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_iller,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -287,7 +252,6 @@ network,gkd_bayern_iller,split_role,development,text,,sample_fact,results/wrr_su
 network,gkd_bayern_iller,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_iller,n_station_years,89,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_iller,input_bytes,377482,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_iller,input_sha256,13dc01b072f1fdafee9bed0cc87155952f9e15485bbda5228e50772a86c273a0,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_iller,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_iller/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_iller,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_inn,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -295,7 +259,6 @@ network,gkd_bayern_inn,split_role,development,text,,sample_fact,results/wrr_subm
 network,gkd_bayern_inn,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_inn,n_station_years,86,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_inn,input_bytes,387104,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_inn,input_sha256,dc25c45615c397f4c69e372fd394558a3f8aebf61f88b2cb57ea1a6066860e93,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_inn,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_inn/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_inn,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_isar,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -303,7 +266,6 @@ network,gkd_bayern_isar,split_role,reserved,text,,sample_fact,results/wrr_submis
 network,gkd_bayern_isar,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_isar,n_station_years,157,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_isar,input_bytes,507391,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_isar,input_sha256,739954d1315da55ce344c5d484c23e1be5c9d8461aec66ddf145e533d1bb847f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_isar,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_isar/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_isar,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_mangfall,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -311,7 +273,6 @@ network,gkd_bayern_mangfall,split_role,development,text,,sample_fact,results/wrr
 network,gkd_bayern_mangfall,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_mangfall,n_station_years,28,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_mangfall,input_bytes,128637,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_mangfall,input_sha256,2c97a86b794bdba1135ed10890517c56841d6525e79df15ed4fca792adb3c283,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_mangfall,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_mangfall/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_mangfall,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_vils,provider,gkd_bayern,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -319,7 +280,6 @@ network,gkd_bayern_vils,split_role,development,text,,sample_fact,results/wrr_sub
 network,gkd_bayern_vils,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_vils,n_station_years,79,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_vils,input_bytes,370610,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,gkd_bayern_vils,input_sha256,ca1adce1331af4af013b1f55a0de47c0722c931edb956e5411ee8231120701fb,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,gkd_bayern_vils,input_path,results/development_v11/confirmation_daily_qc/networks/gkd_bayern_vils/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,gkd_bayern_vils,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_donau,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -327,7 +287,6 @@ network,lubw_donau,split_role,development,text,,sample_fact,results/wrr_submissi
 network,lubw_donau,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_donau,n_station_years,14,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_donau,input_bytes,278120,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_donau,input_sha256,cc7b32ce74a047ccc4cd94e56410c6b800d83fa926f426747904033759a8be48,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_donau,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_donau/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_donau,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_enz,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -335,7 +294,6 @@ network,lubw_enz,split_role,development,text,,sample_fact,results/wrr_submission
 network,lubw_enz,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_enz,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_enz,input_bytes,121995,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_enz,input_sha256,822f6d6cbed8ff4ac835d2636656b85667cf5180ba954b8a7e884b3a073e2822,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_enz,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_enz/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_enz,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_fils,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -343,7 +301,6 @@ network,lubw_fils,split_role,development,text,,sample_fact,results/wrr_submissio
 network,lubw_fils,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_fils,n_station_years,13,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_fils,input_bytes,211487,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_fils,input_sha256,efcab488af94f98a6608a2be820f5ad851d3158079d1d3e9994d3b45a189b693,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_fils,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_fils/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_fils,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_jagst,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -351,7 +308,6 @@ network,lubw_jagst,split_role,reserved,text,,sample_fact,results/wrr_submission_
 network,lubw_jagst,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_jagst,n_station_years,17,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_jagst,input_bytes,254315,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_jagst,input_sha256,b4cd3c75126094a212b4def6f80a50746c7f8dac0726e115904f4de1d8d76ec7,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_jagst,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_jagst/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_jagst,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_kocher,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -359,7 +315,6 @@ network,lubw_kocher,split_role,development,text,,sample_fact,results/wrr_submiss
 network,lubw_kocher,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_kocher,n_station_years,12,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_kocher,input_bytes,249113,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_kocher,input_sha256,0dd750b3d28ab0b356507ac12a16fac40ebb02625504e2fc5662329bda96d88d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_kocher,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_kocher/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_kocher,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_neckar,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -367,7 +322,6 @@ network,lubw_neckar,split_role,development,text,,sample_fact,results/wrr_submiss
 network,lubw_neckar,n_stations,12,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_neckar,n_station_years,114,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_neckar,input_bytes,1001375,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_neckar,input_sha256,0f60852cdb9b5371b84cf013b9b6ca5da73b0a3306dec3f3dd81f195cbb423cc,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_neckar,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_neckar/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_neckar,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_rhein,provider,lubw,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -375,7 +329,6 @@ network,lubw_rhein,split_role,development,text,,sample_fact,results/wrr_submissi
 network,lubw_rhein,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_rhein,n_station_years,19,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_rhein,input_bytes,369974,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,lubw_rhein,input_sha256,e337a17723533f32aed3523f01e98806880506c9f220c6a6f257f54c8547ba9f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,lubw_rhein,input_path,results/development_v11/confirmation_daily_qc/networks/lubw_rhein/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,lubw_rhein,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_151,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -383,7 +336,6 @@ network,nve_basin_151,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,nve_basin_151,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_151,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_151,input_bytes,62194,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_151,input_sha256,9eb036a330f8a00f70138e1f9b998ae161c7f59b2f0920a322e9e303ae6d68fc,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_151,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_151/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_151,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_2,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -391,7 +343,6 @@ network,nve_basin_2,split_role,development,text,,sample_fact,results/wrr_submiss
 network,nve_basin_2,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_2,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_2,input_bytes,189068,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_2,input_sha256,6ed182085b253dec58ec3adea3a6e79b7db97c863419a7b04ade51c193fc26ce,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_2,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_2/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_2,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_234,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -399,7 +350,6 @@ network,nve_basin_234,split_role,development,text,,sample_fact,results/wrr_submi
 network,nve_basin_234,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_234,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_234,input_bytes,69876,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_234,input_sha256,f68bb773e0710fd59d66fe1bc8c97a9031d5ee55bd0c4e7c01c13d679c1dbe8e,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_234,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_234/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_234,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_79,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -407,7 +357,6 @@ network,nve_basin_79,split_role,development,text,,sample_fact,results/wrr_submis
 network,nve_basin_79,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_79,n_station_years,12,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_79,input_bytes,106662,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_79,input_sha256,274104013ca73884bde675dbffa0f7707115234c30e09ee00c3d0233d2c20a6a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_79,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_79/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_79,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_16,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -415,7 +364,6 @@ network,nve_basin_16,split_role,development,text,,sample_fact,results/wrr_submis
 network,nve_basin_16,n_stations,8,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_16,n_station_years,61,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_16,input_bytes,306037,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_16,input_sha256,286f440a00893ce898c580c2bf13ced17fc76e31d8d3a4a43703b13a8655d975,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_16,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_16/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_16,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_103,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -423,7 +371,6 @@ network,nve_basin_103,split_role,development,text,,sample_fact,results/wrr_submi
 network,nve_basin_103,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_103,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_103,input_bytes,164916,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_103,input_sha256,8cabea7652697ad5a44bc355f13db732f4b6bf9eb0a210ef1498a96ab28e5aa4,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_103,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_103/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_103,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_112,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -431,7 +378,6 @@ network,nve_basin_112,split_role,development,text,,sample_fact,results/wrr_submi
 network,nve_basin_112,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_112,n_station_years,12,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_112,input_bytes,107554,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_112,input_sha256,819fbd3dcdd2c63a0c468e45587de17f2472fde9e8db305e809fbc6ad9a70a68,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_112,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_112/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_112,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_121,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -439,7 +385,6 @@ network,nve_basin_121,split_role,development,text,,sample_fact,results/wrr_submi
 network,nve_basin_121,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_121,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_121,input_bytes,105156,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_121,input_sha256,c99623a9272d9529a005a41b3f4b325552f22820e49b4126ad3eb675b9b02bbc,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_121,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_121/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_121,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_124,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -447,7 +392,6 @@ network,nve_basin_124,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,nve_basin_124,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_124,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_124,input_bytes,183169,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_124,input_sha256,bb579c22a35f10b0b5ca096efedff9e0bf61a767fe129188db21c5e5d78b87f0,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_124,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_124/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_124,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_212,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -455,7 +399,6 @@ network,nve_basin_212,split_role,development,text,,sample_fact,results/wrr_submi
 network,nve_basin_212,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_212,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_212,input_bytes,121031,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_212,input_sha256,1c07943f3af6952963f0b8e2dae6edab52e4f4e72e5491086d212c165baf3873,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_212,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_212/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_212,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_26,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -463,7 +406,6 @@ network,nve_basin_26,split_role,development,text,,sample_fact,results/wrr_submis
 network,nve_basin_26,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_26,n_station_years,26,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_26,input_bytes,197800,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_26,input_sha256,96176bee0133153859dcf76982e7775dfdceceef434661722625f91ba403b71e,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_26,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_26/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_26,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_27,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -471,7 +413,6 @@ network,nve_basin_27,split_role,development,text,,sample_fact,results/wrr_submis
 network,nve_basin_27,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_27,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_27,input_bytes,104218,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_27,input_sha256,fbde4c017008d365f7da823754fc2a57062620d9728de2383db497b5cb97a088,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_27,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_27/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_27,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_311,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -479,7 +420,6 @@ network,nve_basin_311,split_role,development,text,,sample_fact,results/wrr_submi
 network,nve_basin_311,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_311,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_311,input_bytes,135337,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_311,input_sha256,3d6311f4d4045d387cc1e8f0fdc0440a04fe19edc6d1a095bc14327e2979b073,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_311,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_311/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_311,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_74,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -487,7 +427,6 @@ network,nve_basin_74,split_role,development,text,,sample_fact,results/wrr_submis
 network,nve_basin_74,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_74,n_station_years,14,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_74,input_bytes,98205,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_74,input_sha256,b1818d96fe67af283e3a1a8bcd5d915d9a03d9fefdfe183e91f495fb8bdad38b,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_74,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_74/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_74,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_78,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -495,7 +434,6 @@ network,nve_basin_78,split_role,reserved,text,,sample_fact,results/wrr_submissio
 network,nve_basin_78,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_78,n_station_years,27,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_78,input_bytes,196749,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_78,input_sha256,2c4644ee47cdce695b3994a26603e67226438db902cf085591e2f417351e2572,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_78,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_78/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_78,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_84,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -503,7 +441,6 @@ network,nve_basin_84,split_role,reserved,text,,sample_fact,results/wrr_submissio
 network,nve_basin_84,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_84,n_station_years,14,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_84,input_bytes,106563,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_84,input_sha256,e1f0cebe954601f7a05348c2d2ee1a0efe6f20e1efd5b3b9cb7f01b39add176c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_84,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_84/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_84,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_88,provider,nve_hydapi,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -511,7 +448,6 @@ network,nve_basin_88,split_role,development,text,,sample_fact,results/wrr_submis
 network,nve_basin_88,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_88,n_station_years,25,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_88,input_bytes,193311,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,nve_basin_88,input_sha256,240e5ef7ebe4a3455ab0dcb61cdc975653ae4edce804fd60d67e846acf415081,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,nve_basin_88,input_path,results/development_v11/second_confirmation/daily_qc/networks/nve_basin_88/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,nve_basin_88,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_maas,provider,rws_waterwebservices,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -519,7 +455,6 @@ network,rws_maas,split_role,development,text,,sample_fact,results/wrr_submission
 network,rws_maas,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_maas,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_maas,input_bytes,136892,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,rws_maas,input_sha256,3b43d8b7e5ad1667e73b4f9f3f1772bdc57c207f5ecaa5ae64e1e62fde25171f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,rws_maas,input_path,results/development_v11/confirmation_daily_qc/networks/rws_maas/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_maas,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_rijn_lek_nederrijn,provider,rws_waterwebservices,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -527,7 +462,6 @@ network,rws_rijn_lek_nederrijn,split_role,development,text,,sample_fact,results/
 network,rws_rijn_lek_nederrijn,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_rijn_lek_nederrijn,n_station_years,17,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_rijn_lek_nederrijn,input_bytes,187785,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,rws_rijn_lek_nederrijn,input_sha256,d86e9050ee088d2c81c7f5b502886b5206d5a63113904e68d4921f6163955d35,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,rws_rijn_lek_nederrijn,input_path,results/development_v11/confirmation_daily_qc/networks/rws_rijn_lek_nederrijn/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,rws_rijn_lek_nederrijn,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kokemaeenjoki,provider,syke,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -535,7 +469,6 @@ network,syke_basin_kokemaeenjoki,split_role,development,text,,sample_fact,result
 network,syke_basin_kokemaeenjoki,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kokemaeenjoki,n_station_years,19,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kokemaeenjoki,input_bytes,153496,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,syke_basin_kokemaeenjoki,input_sha256,504275568ab2a7707df479c47adce8a77d76e6b33250db9ea3b12bd7dd370156,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,syke_basin_kokemaeenjoki,input_path,results/development_v11/confirmation_daily_qc/networks/syke_basin_kokemaeenjoki/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kokemaeenjoki,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kymijoki,provider,syke,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -543,7 +476,6 @@ network,syke_basin_kymijoki,split_role,development,text,,sample_fact,results/wrr
 network,syke_basin_kymijoki,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kymijoki,n_station_years,52,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kymijoki,input_bytes,382357,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,syke_basin_kymijoki,input_sha256,028c9bb702b3c81696527fda5eb4f0938de3b4288bb38f4853d9319ae4c1a9df,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,syke_basin_kymijoki,input_path,results/development_v11/confirmation_daily_qc/networks/syke_basin_kymijoki/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,syke_basin_kymijoki,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040202,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -551,7 +483,6 @@ network,huc8_02040202,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_02040202,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040202,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040202,input_bytes,152803,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_02040202,input_sha256,426ec204e6c2d1f10e7600f0b6e950558daa4f860e1608396dd4f251351cfc60,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_02040202,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_02040202/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040202,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110205,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -559,7 +490,6 @@ network,huc8_03110205,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_03110205,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110205,n_station_years,8,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110205,input_bytes,138271,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_03110205,input_sha256,02b69397d089cc5a4ead025ce7fcf48510aaaa13b2586afe483420b4c5b109b1,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_03110205,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_03110205/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110205,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_14,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -567,7 +497,6 @@ network,usgs2_huc2_14,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,usgs2_huc2_14,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_14,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_14,input_bytes,100853,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_14,input_sha256,3bfc596f7a4ab27ff884d943f5f1f945e98c44856d56220b65addab3b264002f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_14,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_14/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_14,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_19,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -575,7 +504,6 @@ network,usgs2_huc2_19,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,usgs2_huc2_19,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_19,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_19,input_bytes,49353,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_19,input_sha256,32a24cd414da0eb9258eb4d9850cd25c5744f726dd13b2d752f0d9de42c0be9a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_19,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_19/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_19,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_90,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -583,7 +511,6 @@ network,usgs2_huc2_90,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,usgs2_huc2_90,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_90,n_station_years,6,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_90,input_bytes,62989,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_90,input_sha256,0eea985c66d6e89c0fa51e9a25d9d99e8a9d92efcc1498a524b021b9426aa199,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_90,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_90/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_90,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0306,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -591,7 +518,6 @@ network,usgs2_huc4_0306,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_0306,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0306,n_station_years,13,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0306,input_bytes,105127,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_0306,input_sha256,34fcbf7c98b7f7d593c90ccc0461398fd8b667b0a024f6b79c45350ec83dfd22,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_0306,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0306/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0306,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0401,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -599,7 +525,6 @@ network,usgs2_huc4_0401,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_0401,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0401,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0401,input_bytes,104424,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_0401,input_sha256,493c3b9fdfd185c6db8b0b45398dd410fa3654e5d720debf5b6fbace2e26fed0,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_0401,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0401/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0401,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0410,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -607,7 +532,6 @@ network,usgs2_huc4_0410,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_0410,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0410,n_station_years,4,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0410,input_bytes,77548,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_0410,input_sha256,127b10ea4dc6ce66ac46cce49db0e0e14a77bfb855c3ec9368da956a2824641d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_0410,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0410/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0410,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1802,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -615,7 +539,6 @@ network,usgs2_huc4_1802,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1802,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1802,n_station_years,9,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1802,input_bytes,71265,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1802,input_sha256,c748c9cea17c302ac5b4a0e98a6b86fbfb8df45bd7109b065619548023efe28c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1802,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1802/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1802,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1901,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -623,7 +546,6 @@ network,usgs2_huc4_1901,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1901,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1901,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1901,input_bytes,76242,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1901,input_sha256,3ec8142fd7ba1b2917fa89048bc16271235d103cefa04c60d3cb014b55370b0d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1901,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1901/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1901,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_010802,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -631,7 +553,6 @@ network,usgs2_huc6_010802,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_010802,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_010802,n_station_years,9,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_010802,input_bytes,82162,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_010802,input_sha256,f40cadaf6cdba2d487ca31c75b9c8eea66b2c9468ccc1eed6ed00d5c84a83bdf,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_010802,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_010802/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_010802,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_020502,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -639,7 +560,6 @@ network,usgs2_huc6_020502,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_020502,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_020502,n_station_years,12,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_020502,input_bytes,117843,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_020502,input_sha256,e24e9ec94af6893df5d5714108589b47a0489ab7907f536f050a5846bdfee2bc,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_020502,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_020502/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_020502,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040301,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -647,7 +567,6 @@ network,usgs2_huc6_040301,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_040301,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040301,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040301,input_bytes,94031,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_040301,input_sha256,37ceaa0406765493d7bee5abe92e62277522b178ef6de07c7c2820f188de1cdc,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_040301,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_040301/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040301,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040500,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -655,7 +574,6 @@ network,usgs2_huc6_040500,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_040500,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040500,n_station_years,9,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040500,input_bytes,117561,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_040500,input_sha256,f77eb100f23323bf5c8d2d5008bcbe0318251275fb320a973bb354b9361c239d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_040500,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_040500/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_040500,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_050500,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -663,7 +581,6 @@ network,usgs2_huc6_050500,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_050500,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_050500,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_050500,input_bytes,93547,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_050500,input_sha256,0a58d4566dab7dba3dfb898bb2448dfe8ba8cd801678e2be67026b7385e432de,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_050500,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_050500/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_050500,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070900,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -671,7 +588,6 @@ network,usgs2_huc6_070900,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_070900,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070900,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070900,input_bytes,120610,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_070900,input_sha256,3160708fc92f6075e2309d22c4d989bcebae97b242f8978c286523b474f11164,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_070900,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_070900/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070900,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071300,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -679,7 +595,6 @@ network,usgs2_huc6_071300,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_071300,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071300,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071300,input_bytes,97455,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_071300,input_sha256,71e08a70ec38e2ec5359b5c5305599e4844882329733fd136b9745806edf9914,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_071300,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_071300/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071300,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071401,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -687,7 +602,6 @@ network,usgs2_huc6_071401,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_071401,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071401,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071401,input_bytes,92169,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_071401,input_sha256,0ef6551a93ad5dc84997ba37dac8a6caecff96b2d04c9a54556d0480d31755f9,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_071401,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_071401/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_071401,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_080302,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -695,7 +609,6 @@ network,usgs2_huc6_080302,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_080302,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_080302,n_station_years,4,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_080302,input_bytes,47875,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_080302,input_sha256,533956c861114712242d92923c38ccbf6a57e9913c2b5d5f064e41301927162a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_080302,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_080302/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_080302,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100301,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -703,7 +616,6 @@ network,usgs2_huc6_100301,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_100301,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100301,n_station_years,6,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100301,input_bytes,51920,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_100301,input_sha256,b6c3045cc72edcf2aa06ad268f2b7dc68fb8f3322b66bb5cb1ecf2c2392720da,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_100301,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_100301/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100301,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100700,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -711,7 +623,6 @@ network,usgs2_huc6_100700,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_100700,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100700,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100700,input_bytes,84765,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_100700,input_sha256,c5c0367c8eeadf092e5cc65c88a12e3e2f469bd9656b72d274f4343ce34de842,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_100700,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_100700/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_100700,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_110702,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -719,7 +630,6 @@ network,usgs2_huc6_110702,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_110702,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_110702,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_110702,input_bytes,64835,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_110702,input_sha256,5b62e0a4d0e2c9ed7ef3c6f9b4d99db5e52881b802cc2f04dc86e67cb4bbad30,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_110702,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_110702/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_110702,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120301,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -727,7 +637,6 @@ network,usgs2_huc6_120301,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_120301,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120301,n_station_years,4,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120301,input_bytes,155565,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_120301,input_sha256,5965dd9c8750c2555f3b7bcc200adc978f1ff0c1ec0536c597284d9e551b087f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_120301,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_120301/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120301,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120800,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -735,7 +644,6 @@ network,usgs2_huc6_120800,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_120800,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120800,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120800,input_bytes,158505,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_120800,input_sha256,7d90103702dd1ea5b0a4f68ff5cbb539395e25f6315e7c32a3ffa78e2245ff9f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_120800,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_120800/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_120800,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_121003,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -743,7 +651,6 @@ network,usgs2_huc6_121003,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_121003,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_121003,n_station_years,4,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_121003,input_bytes,121621,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_121003,input_sha256,0aef743ed7f4b860e5fd4f9b510c5af161385233cd3583ee41ee3b673a230681,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_121003,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_121003/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_121003,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140600,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -751,7 +658,6 @@ network,usgs2_huc6_140600,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_140600,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140600,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140600,input_bytes,59172,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_140600,input_sha256,5efc110258c52ffb0d12a70dd93d0e747945c146abf8ae215155f139f51c4572,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_140600,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_140600/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140600,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170102,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -759,7 +665,6 @@ network,usgs2_huc6_170102,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_170102,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170102,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170102,input_bytes,194621,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_170102,input_sha256,eb7dbdeea8c15eecf1be0cc5f50ce1c6f1811c7395e038a649461c8b23cda62a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_170102,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_170102/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170102,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170602,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -767,7 +672,6 @@ network,usgs2_huc6_170602,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_170602,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170602,n_station_years,8,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170602,input_bytes,70373,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_170602,input_sha256,64d4c4f06dc083c3eb7523d7c70903e82c66a88145f50bd77e3d57d40bc70863,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_170602,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_170602/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170602,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171100,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -775,7 +679,6 @@ network,usgs2_huc6_171100,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_171100,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171100,n_station_years,6,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171100,input_bytes,56399,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_171100,input_sha256,3c35900aca467f5f6b660d6e4ff4a1cb387b19f934b3c1be28509441a20b916c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_171100,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_171100/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171100,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180400,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -783,7 +686,6 @@ network,usgs2_huc6_180400,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_180400,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180400,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180400,input_bytes,70424,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_180400,input_sha256,7dae444b8c2f2e19febebe2f89bd4d4cfc9820e590fcc87e02fdc99c4251552c,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_180400,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_180400/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180400,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190101,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -791,7 +693,6 @@ network,usgs2_huc6_190101,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_190101,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190101,n_station_years,8,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190101,input_bytes,48890,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_190101,input_sha256,1494c47a59f12122f30d5f18cea5b1e95ef3c02a8b6b72e804d0d469829369df,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_190101,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190101/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190101,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190205,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -799,7 +700,6 @@ network,usgs2_huc6_190205,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_190205,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190205,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190205,input_bytes,80534,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_190205,input_sha256,348f73c532e630f7f8a3d47f10f3d06c47035c4603981d1154da40be207c6679,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_190205,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190205/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190205,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_arkansas_river_huc11,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -807,7 +707,6 @@ network,usgs_arkansas_river_huc11,split_role,development,text,,sample_fact,resul
 network,usgs_arkansas_river_huc11,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_arkansas_river_huc11,n_station_years,10,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_arkansas_river_huc11,input_bytes,204884,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_arkansas_river_huc11,input_sha256,38a363c284c158dd18bb8f402d00fe5f4a4f1ad6ba4a577a07fdd1f1e4d5667f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_arkansas_river_huc11,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_arkansas_river_huc11/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_arkansas_river_huc11,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_flathead_river_huc4_1701,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -815,7 +714,6 @@ network,usgs_flathead_river_huc4_1701,split_role,development,text,,sample_fact,r
 network,usgs_flathead_river_huc4_1701,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_flathead_river_huc4_1701,n_station_years,14,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_flathead_river_huc4_1701,input_bytes,143983,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_flathead_river_huc4_1701,input_sha256,b3473da561fc7a173bd6b897ecac91ed17ddb7657772af74e6d15836078ec690,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_flathead_river_huc4_1701,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_flathead_river_huc4_1701/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_flathead_river_huc4_1701,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_platte_river_huc4_1020,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -823,7 +721,6 @@ network,usgs_platte_river_huc4_1020,split_role,reserved,text,,sample_fact,result
 network,usgs_platte_river_huc4_1020,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_platte_river_huc4_1020,n_station_years,4,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_platte_river_huc4_1020,input_bytes,109674,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_platte_river_huc4_1020,input_sha256,16bbb31edf45f45bb068189cf4027abffbc8b306f5d51f57e70e085572447ba5,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_platte_river_huc4_1020,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_platte_river_huc4_1020/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_platte_river_huc4_1020,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_red_river_of_the_north_huc4_0902,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -831,7 +728,6 @@ network,usgs_red_river_of_the_north_huc4_0902,split_role,reserved,text,,sample_f
 network,usgs_red_river_of_the_north_huc4_0902,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_red_river_of_the_north_huc4_0902,n_station_years,4,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_red_river_of_the_north_huc4_0902,input_bytes,201073,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_red_river_of_the_north_huc4_0902,input_sha256,4bff2a84349fb9ec95b8dff147be5bfc4c32657e8c62558ba48d913d8f7977c7,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_red_river_of_the_north_huc4_0902,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_red_river_of_the_north_huc4_0902/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_red_river_of_the_north_huc4_0902,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_san_juan_river_huc4_1408,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -839,7 +735,6 @@ network,usgs_san_juan_river_huc4_1408,split_role,reserved,text,,sample_fact,resu
 network,usgs_san_juan_river_huc4_1408,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_san_juan_river_huc4_1408,n_station_years,5,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_san_juan_river_huc4_1408,input_bytes,162885,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_san_juan_river_huc4_1408,input_sha256,3e933e5b89d6e881c3a9f7d7b3b5fac4bfa26f07449835330fb05a4530a815d1,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_san_juan_river_huc4_1408,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_san_juan_river_huc4_1408/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_san_juan_river_huc4_1408,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_walker_rv_huc4_1605,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -847,7 +742,6 @@ network,usgs_walker_rv_huc4_1605,split_role,development,text,,sample_fact,result
 network,usgs_walker_rv_huc4_1605,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_walker_rv_huc4_1605,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_walker_rv_huc4_1605,input_bytes,177534,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_walker_rv_huc4_1605,input_sha256,5dd7a03800241c96f028d55e63b014c9c069978f5a31afe1f05cba520fea8e53,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_walker_rv_huc4_1605,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_walker_rv_huc4_1605/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_walker_rv_huc4_1605,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040101,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -855,7 +749,6 @@ network,huc8_02040101,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_02040101,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040101,n_station_years,86,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040101,input_bytes,352366,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_02040101,input_sha256,d43a8e89fb98f2699f2a8b92788e9c851aaf470df9ca04650029e99ebd704896,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_02040101,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_02040101/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040101,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_05030103,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -863,7 +756,6 @@ network,huc8_05030103,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,huc8_05030103,n_stations,9,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_05030103,n_station_years,100,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_05030103,input_bytes,348138,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_05030103,input_sha256,5ffdc0ebb004250ffcbcbac3b8bfce6782595244a5db5771ab96abc8934c9174,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_05030103,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_05030103/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_05030103,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_10020007,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -871,7 +763,6 @@ network,huc8_10020007,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,huc8_10020007,n_stations,8,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_10020007,n_station_years,97,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_10020007,input_bytes,380330,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_10020007,input_sha256,b4751286ef39b1ea955b81634ec52f39e2e7e2b400a0533f230962c7d9194a35,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_10020007,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_10020007/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_10020007,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090001,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -879,7 +770,6 @@ network,huc8_17090001,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_17090001,n_stations,10,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090001,n_station_years,125,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090001,input_bytes,428862,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_17090001,input_sha256,0e043b0040003af5e0a4cd3dacb4d59a255d71b40b1a204b89e21e23f71b7265,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_17090001,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_17090001/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090001,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090004,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -887,7 +777,6 @@ network,huc8_17090004,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_17090004,n_stations,14,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090004,n_station_years,142,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090004,input_bytes,530050,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_17090004,input_sha256,fb88305022251083601e4fa0ea5c306401196922b900fd7d0ad505548e33de39,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_17090004,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_17090004/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090004,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090012,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -895,7 +784,6 @@ network,huc8_17090012,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_17090012,n_stations,7,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090012,n_station_years,82,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090012,input_bytes,369619,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_17090012,input_sha256,95764b38ab6c2db7de47f14d7b15a67cce8d0c9d8897cef8e14a5c6a0b890010,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_17090012,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_17090012/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090012,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180102,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -903,7 +791,6 @@ network,usgs2_huc6_180102,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_180102,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180102,n_station_years,38,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180102,input_bytes,129902,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_180102,input_sha256,be5c6f5fc97b28ab927c80b4c5e7bd5b2e2d256e255a5e4c86233f0bcd7db999,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_180102,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_180102/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180102,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040102,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -911,7 +798,6 @@ network,huc8_02040102,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_02040102,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040102,n_station_years,45,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040102,input_bytes,222484,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_02040102,input_sha256,d870794fd200039cb35c5ff7e040800dc23c48afa74a9092547313adc7c93b6d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_02040102,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_02040102/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040102,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040104,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -919,7 +805,6 @@ network,huc8_02040104,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_02040104,n_stations,6,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040104,n_station_years,65,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040104,input_bytes,336353,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_02040104,input_sha256,669d6c5b9f3465bb483d84a854130a56d6ae95eeae4393266482858d0866ce8e,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_02040104,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_02040104/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_02040104,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03010107,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -927,7 +812,6 @@ network,huc8_03010107,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_03010107,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03010107,n_station_years,37,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03010107,input_bytes,263875,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_03010107,input_sha256,f5a7ca93804b87ea6dd6a4b1b54f8a3ea1309e265c00a005d3feb287f5087c2b,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_03010107,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_03010107/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03010107,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110206,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -935,7 +819,6 @@ network,huc8_03110206,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_03110206,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110206,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110206,input_bytes,134935,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_03110206,input_sha256,dc0d57d75e59fbd243dc1d1201b7bcb5b5abb651b7efcf9053778b27a7a9d247,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_03110206,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_03110206/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03110206,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03150202,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -943,7 +826,6 @@ network,huc8_03150202,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_03150202,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03150202,n_station_years,34,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03150202,input_bytes,263312,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_03150202,input_sha256,02a1460688b876db4b28313caa0be36d74d4d21981c9c8127ae387909434c599,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_03150202,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_03150202/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_03150202,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17060306,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -951,7 +833,6 @@ network,huc8_17060306,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,huc8_17060306,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17060306,n_station_years,48,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17060306,input_bytes,226972,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_17060306,input_sha256,cad1c222f90d23f69f4714094d02ed664390794cd97f8d67157fdfa467e8d166,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_17060306,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_17060306/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17060306,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090002,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -959,7 +840,6 @@ network,huc8_17090002,split_role,development,text,,sample_fact,results/wrr_submi
 network,huc8_17090002,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090002,n_station_years,38,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090002,input_bytes,209776,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_17090002,input_sha256,8c2a1bcfa7249cc580a6c83bab07327367ae6d1660a407193f57da4bd7007c8a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_17090002,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_17090002/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090002,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090003,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -967,7 +847,6 @@ network,huc8_17090003,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,huc8_17090003,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090003,n_station_years,55,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090003,input_bytes,256434,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,huc8_17090003,input_sha256,cae69029a848a82aebe4739153497e8346174bcd992013b1a4fb6ccd62dc384e,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,huc8_17090003,input_path,results/development_v11/confirmation_daily_qc/networks/huc8_17090003/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,huc8_17090003,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_08,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -975,7 +854,6 @@ network,usgs2_huc2_08,split_role,development,text,,sample_fact,results/wrr_submi
 network,usgs2_huc2_08,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_08,n_station_years,8,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_08,input_bytes,163852,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_08,input_sha256,77bf4ae6257e0e07055de6d1ba8e4e76538dab95494ab03cb90ca44a0533b1bd,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_08,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_08/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_08,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_12,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -983,7 +861,6 @@ network,usgs2_huc2_12,split_role,development,text,,sample_fact,results/wrr_submi
 network,usgs2_huc2_12,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_12,n_station_years,7,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_12,input_bytes,130883,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_12,input_sha256,81a0ed7f8d47bea791b145a1b29592fbb81c8737a49060c94b1e454c036ae1be,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_12,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_12/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_12,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_15,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -991,7 +868,6 @@ network,usgs2_huc2_15,split_role,development,text,,sample_fact,results/wrr_submi
 network,usgs2_huc2_15,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_15,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_15,input_bytes,109881,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_15,input_sha256,f891680aa2dc9400c1bff49e1e83e9a1ae2c3d7b4d5915f2252ef57dd6a396c2,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_15,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_15/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_15,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_18,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -999,7 +875,6 @@ network,usgs2_huc2_18,split_role,reserved,text,,sample_fact,results/wrr_submissi
 network,usgs2_huc2_18,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_18,n_station_years,9,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_18,input_bytes,76940,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc2_18,input_sha256,e2e674354824a78270b11e926f08989f33d9e42b166f553a41a5587d71eac232,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc2_18,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_18/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc2_18,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0601,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1007,7 +882,6 @@ network,usgs2_huc4_0601,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_0601,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0601,n_station_years,18,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0601,input_bytes,104914,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_0601,input_sha256,0cfb2001047206d336a3514b32aaf966afde331d0fea2a93435139ada93e7df5,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_0601,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0601/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_0601,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1704,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1015,7 +889,6 @@ network,usgs2_huc4_1704,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1704,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1704,n_station_years,12,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1704,input_bytes,84657,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1704,input_sha256,b947f3317afe3a1677bad331a5a875a1221a493bde45e4c87a9f24801ead7999,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1704,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1704/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1704,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1705,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1023,7 +896,6 @@ network,usgs2_huc4_1705,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1705,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1705,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1705,input_bytes,94777,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1705,input_sha256,2263c6084031b93f8cd576160f639d26eaafb77cbe479f3fd953631cb1c2054a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1705,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1705/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1705,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1707,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1031,7 +903,6 @@ network,usgs2_huc4_1707,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1707,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1707,n_station_years,24,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1707,input_bytes,132944,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1707,input_sha256,4da034fcd007156b5fd4f3ca3f1f0dbb8df33edeea1a5086e1286c6fb1e5db7b,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1707,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1707/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1707,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1902,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1039,7 +910,6 @@ network,usgs2_huc4_1902,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1902,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1902,n_station_years,15,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1902,input_bytes,58734,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1902,input_sha256,907013fc230cdf16797a24f75b836fa3442b040c0b0934d53957f1c3de9f9ac5,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1902,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1902/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1902,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1903,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1047,7 +917,6 @@ network,usgs2_huc4_1903,split_role,development,text,,sample_fact,results/wrr_sub
 network,usgs2_huc4_1903,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1903,n_station_years,23,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1903,input_bytes,88314,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc4_1903,input_sha256,a768317ffc26ee0666d80feade49993b775a7274f8bada154cb6b6a1ceaedbee,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc4_1903,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1903/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc4_1903,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_030502,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1055,7 +924,6 @@ network,usgs2_huc6_030502,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_030502,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_030502,n_station_years,6,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_030502,input_bytes,85634,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_030502,input_sha256,2ecf39d6ff272f7985cf44ceeb0e4eaf08912fd906c344e70fd41f3396a418af,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_030502,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_030502/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_030502,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_031300,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1063,7 +931,6 @@ network,usgs2_huc6_031300,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_031300,n_stations,1,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_031300,n_station_years,6,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_031300,input_bytes,134268,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_031300,input_sha256,1052026ded5de7cb1132b47b01fa00a8927b9f73b568fe425a279054b30e8a97,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_031300,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_031300/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_031300,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_060102,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1071,7 +938,6 @@ network,usgs2_huc6_060102,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_060102,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_060102,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_060102,input_bytes,89823,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_060102,input_sha256,ede197ba8345c868abbf98ed392a53a877982ed9ed3900f9ea55e81da7292791,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_060102,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_060102/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_060102,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070300,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1079,7 +945,6 @@ network,usgs2_huc6_070300,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_070300,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070300,n_station_years,20,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070300,input_bytes,143374,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_070300,input_sha256,c49a031cf506d5b8ab6007579688bd9e399571dedd66739537c8cad99633c535,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_070300,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_070300/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_070300,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140300,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1087,7 +952,6 @@ network,usgs2_huc6_140300,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_140300,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140300,n_station_years,21,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140300,input_bytes,126872,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_140300,input_sha256,0b346dbc2245a6557915cfcc59cb1ff235d3b41a9dd15256b064ca10f0b498c3,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_140300,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_140300/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_140300,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170703,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1095,7 +959,6 @@ network,usgs2_huc6_170703,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_170703,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170703,n_station_years,31,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170703,input_bytes,129975,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_170703,input_sha256,c0dc85aad58fb1320536df83baff92aa46aa5b45d358051002212ca1b267fcb9,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_170703,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_170703/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_170703,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171003,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1103,7 +966,6 @@ network,usgs2_huc6_171003,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_171003,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171003,n_station_years,35,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171003,input_bytes,165586,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_171003,input_sha256,6bd0cc3df9a3cc3413bf00c312283ae00ba0405b6d4265cc97f2a435227cf114,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_171003,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_171003/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_171003,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180201,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1111,7 +973,6 @@ network,usgs2_huc6_180201,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_180201,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180201,n_station_years,20,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180201,input_bytes,83087,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_180201,input_sha256,0869ee7533f7641ec21f6aa29adf802a6dc8f1ab6c3053d6a2b635a284017142,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_180201,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_180201/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_180201,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190204,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1119,7 +980,6 @@ network,usgs2_huc6_190204,split_role,reserved,text,,sample_fact,results/wrr_subm
 network,usgs2_huc6_190204,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190204,n_station_years,16,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190204,input_bytes,74806,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_190204,input_sha256,41fb230ac05a8a974e852478884ab08c70d06c3899ab03241eca0bef12e7e7ea,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_190204,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190204/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190204,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190803,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1127,7 +987,6 @@ network,usgs2_huc6_190803,split_role,development,text,,sample_fact,results/wrr_s
 network,usgs2_huc6_190803,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190803,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190803,input_bytes,73400,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs2_huc6_190803,input_sha256,dd1b8619f7478ef149aecb4fcc57c25e6c0b005b77405dde1d8292f4e2b5ca4f,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs2_huc6_190803,input_path,results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190803/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs2_huc6_190803,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_fox_river_huc4_0403,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1135,7 +994,6 @@ network,usgs_fox_river_huc4_0403,split_role,reserved,text,,sample_fact,results/w
 network,usgs_fox_river_huc4_0403,n_stations,2,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_fox_river_huc4_0403,n_station_years,11,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_fox_river_huc4_0403,input_bytes,102759,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_fox_river_huc4_0403,input_sha256,ecb767d6c4830edc840488c0e664420ddd475c8126b5501ee5295828d7659aa2,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_fox_river_huc4_0403,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_fox_river_huc4_0403/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_fox_river_huc4_0403,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_missouri_river_huc10,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1143,7 +1001,6 @@ network,usgs_missouri_river_huc10,split_role,development,text,,sample_fact,resul
 network,usgs_missouri_river_huc10,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_missouri_river_huc10,n_station_years,47,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_missouri_river_huc10,input_bytes,282626,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_missouri_river_huc10,input_sha256,573b30fe3aadd85ead10684c1502ae99a20d244a15ffdd5335fad91bb8e3ea61,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_missouri_river_huc10,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_missouri_river_huc10/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_missouri_river_huc10,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1704,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1151,7 +1008,6 @@ network,usgs_snake_river_huc4_1704,split_role,reserved,text,,sample_fact,results
 network,usgs_snake_river_huc4_1704,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1704,n_station_years,20,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1704,input_bytes,104316,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_snake_river_huc4_1704,input_sha256,e6a0f8212bfc9fd3aa5da18d4307fa649e115af175ce9b011dbe547b79c5b417,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_snake_river_huc4_1704,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_snake_river_huc4_1704/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1704,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1705,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1159,7 +1015,6 @@ network,usgs_snake_river_huc4_1705,split_role,reserved,text,,sample_fact,results
 network,usgs_snake_river_huc4_1705,n_stations,3,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1705,n_station_years,27,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1705,input_bytes,182454,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_snake_river_huc4_1705,input_sha256,75d502288e0ef228fc59f0ead933da6115a7cf8ea081603833311612ad82a46d,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_snake_river_huc4_1705,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_snake_river_huc4_1705/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1705,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1706,provider,usgs,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
@@ -1167,7 +1022,6 @@ network,usgs_snake_river_huc4_1706,split_role,development,text,,sample_fact,resu
 network,usgs_snake_river_huc4_1706,n_stations,4,stations,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1706,n_station_years,41,station_years,network,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1706,input_bytes,235956,bytes,input file,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,size of the hashed wide input table
-network,usgs_snake_river_huc4_1706,input_sha256,3ad3af1f833311c8c9350d188b7308a30adbf2b6d8a2938e35224b7c0070d72a,sha256,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,content identity of the wide input table
 network,usgs_snake_river_huc4_1706,input_path,results/development_v11/confirmation_daily_qc/networks/usgs_snake_river_huc4_1706/daily_wide_temperature.csv,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,usgs_snake_river_huc4_1706,status,present,text,,sample_fact,results/wrr_submission_ready/current_data_manifest.csv,
 network,panel,n_outage_cases,51524,cases,eligible complete-year panel,sample_fact,results/v17_fitness/step3_cases/summary.json,"repeated outage realizations, not independent observations"

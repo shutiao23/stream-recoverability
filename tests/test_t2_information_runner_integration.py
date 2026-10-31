@@ -93,21 +93,20 @@ def test_m_consumer_uses_exact_aligned_train_standardized_features() -> None:
     assert prepared.boundary_feature in prepared.model_frame
     assert len(prepared.auxiliary_features) == 15
     assert all("__M__" in name for name in prepared.auxiliary_features)
-    assert prepared.model_frame.loc[
-        panel.index[800:807], "01000001"
-    ].isna().all()
+    assert prepared.model_frame.loc[panel.index[800:807], "01000001"].isna().all()
     first_feature = prepared.auxiliary_features[0]
-    assert abs(
-        prepared.model_frame.loc[prepared.train_mask, first_feature].mean()
-    ) < 1e-12
+    assert (
+        abs(prepared.model_frame.loc[prepared.train_mask, first_feature].mean()) < 1e-12
+    )
     assert prepared.audit["meteorology_alignment"] == (
         "source_date_equals_target_date_plus_lag_days"
     )
     assert prepared.audit["meteorology_lag_roster"] == list(METEOROLOGY_LAG_ROSTER)
     assert prepared.audit["heldout_skill_used_to_select_meteorology_lag"] is False
-    assert prepared.audit["adapter_manifest"]["leakage_boundary"][
-        "fit_statistics"
-    ] == "train_days_only"
+    assert (
+        prepared.audit["adapter_manifest"]["leakage_boundary"]["fit_statistics"]
+        == "train_days_only"
+    )
 
 
 def test_m_plus_h_missing_level_is_fail_closed_not_silently_dropped() -> None:
@@ -179,7 +178,7 @@ def test_adapter_cache_reuses_identical_network_train_condition_lag() -> None:
         daily,
         _item("B_union_D_union_M"),
         adapter_cache=cache,
-        auxiliary_cache_identity="fixture-auxiliary-sha",
+        auxiliary_cache_identity="fixture-auxiliary",
     )
     second_item = WorkItem(
         **{
@@ -193,11 +192,14 @@ def test_adapter_cache_reuses_identical_network_train_condition_lag() -> None:
         daily,
         second_item,
         adapter_cache=cache,
-        auxiliary_cache_identity="fixture-auxiliary-sha",
+        auxiliary_cache_identity="fixture-auxiliary",
     )
     assert first.audit["adapter_cache_hit"] is False
     assert second.audit["adapter_cache_hit"] is True
     assert first.audit["adapter_cache_key"] == second.audit["adapter_cache_key"]
+    assert first.audit["adapter_cache_key"].startswith(
+        "t2_v91_information_adapter_v1|fixture-auxiliary|B_union_D_union_M|lag=0|"
+    )
     assert len(cache) == 1
 
 
@@ -227,7 +229,6 @@ def test_candidate_executor_passes_all_m_features_to_model(
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path="unused_with_preloaded_panel.csv",
-        wide_sha256="0" * 64,
         manifest_path="unused_with_preloaded_panel.json",
         n_days=len(panel),
         n_stations=3,
@@ -236,7 +237,7 @@ def test_candidate_executor_passes_all_m_features_to_model(
         daily_long=daily,
         coverage=pd.DataFrame(),
         audit={
-            "daily_long_sha256": "1" * 64,
+            "daily_long_path": "fixture/daily_long_auxiliary.parquet",
             "sealed_temperature_records_read": False,
         },
     )
@@ -265,7 +266,6 @@ def test_mh_model_fit_cache_is_semantically_equivalent_across_heldout_gaps() -> 
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path="unused_with_preloaded_panel.csv",
-        wide_sha256="0" * 64,
         manifest_path="unused_with_preloaded_panel.json",
         n_days=len(panel),
         n_stations=3,
@@ -274,7 +274,7 @@ def test_mh_model_fit_cache_is_semantically_equivalent_across_heldout_gaps() -> 
         daily_long=daily,
         coverage=pd.DataFrame(),
         audit={
-            "daily_long_sha256": "1" * 64,
+            "daily_long_path": "fixture/daily_long_auxiliary.parquet",
             "sealed_temperature_records_read": False,
         },
     )
@@ -320,16 +320,12 @@ def test_mh_model_fit_cache_is_semantically_equivalent_across_heldout_gaps() -> 
         "mae_deg_c",
         "climatology_mae_deg_c",
         "achieved_skill",
-        "prediction_sha256",
         "source_v3_runner_contract_version",
         "formal_evidence",
         "sealed_temperature_records_read",
     )
-    assert [
-        {field: row.get(field) for field in fields} for row in optimized
-    ] == [{field: row.get(field) for field in fields} for row in legacy]
-    assert [row["prediction_sha256"] for row in optimized] == [
-        row["prediction_sha256"] for row in legacy
+    assert [{field: row.get(field) for field in fields} for row in optimized] == [
+        {field: row.get(field) for field in fields} for row in legacy
     ]
     assert cache.stats()["fit_cache_misses_by_model"] == {
         "climatology": 1,
@@ -352,7 +348,6 @@ def test_extended_consumer_attrits_missing_climatology_training_target() -> None
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path="unused_with_preloaded_panel.csv",
-        wide_sha256="0" * 64,
         manifest_path="unused_with_preloaded_panel.json",
         n_days=len(panel),
         n_stations=3,
@@ -361,7 +356,7 @@ def test_extended_consumer_attrits_missing_climatology_training_target() -> None
         daily_long=_auxiliary(panel.index, include_level=False),
         coverage=pd.DataFrame(),
         audit={
-            "daily_long_sha256": "1" * 64,
+            "daily_long_path": "fixture/daily_long_auxiliary.parquet",
             "sealed_temperature_records_read": False,
         },
     )

@@ -44,14 +44,20 @@ DRAWS = 2000
 def support_class(hidden: pd.Series) -> pd.Series:
     h = pd.to_numeric(hidden, errors="coerce")
     return pd.Series(
-        np.select([h <= 0.0, h >= 0.999], ["none", "all"], default="partial"), index=h.index
+        np.select([h <= 0.0, h >= 0.999], ["none", "all"], default="partial"),
+        index=h.index,
     ).where(h.notna())
 
 
 def corr_with_ci(frame: pd.DataFrame, x: str, y: str, cluster: str, seed: int) -> dict:
     block = frame[[x, y, cluster]].dropna()
     if len(block) < 5 or block[x].nunique() < 2 or block[y].nunique() < 2:
-        return {"n": len(block), "pearson": float("nan"), "lo": float("nan"), "hi": float("nan")}
+        return {
+            "n": len(block),
+            "pearson": float("nan"),
+            "lo": float("nan"),
+            "hi": float("nan"),
+        }
     parts = [g[[x, y]].to_numpy() for _, g in block.groupby(cluster)]
 
     def stat(chosen):
@@ -61,7 +67,13 @@ def corr_with_ci(frame: pd.DataFrame, x: str, y: str, cluster: str, seed: int) -
         return float(np.corrcoef(data[:, 0], data[:, 1])[0, 1])
 
     point, lo, hi = C.cluster_bootstrap(parts, stat, draws=DRAWS, seed=seed)
-    return {"n": int(len(block)), "pearson": point, "lo": lo, "hi": hi, "n_clusters": len(parts)}
+    return {
+        "n": int(len(block)),
+        "pearson": point,
+        "lo": lo,
+        "hi": hi,
+        "n_clusters": len(parts),
+    }
 
 
 def station_year_key(frame: pd.DataFrame) -> pd.Series:
@@ -101,7 +113,9 @@ def main() -> int:
                     "median_longest_run": float(block["longest_run"].median()),
                     "mean_n_runs": float(block["n_runs"].mean()),
                     "share_single_run": float((block["n_runs"] == 1).mean()),
-                    "median_missing_fraction": float(block["missing_fraction"].median()),
+                    "median_missing_fraction": float(
+                        block["missing_fraction"].median()
+                    ),
                     "share_of_panel": len(block) / len(frame),
                 }
             )
@@ -111,7 +125,9 @@ def main() -> int:
     cell_rows = []
     for name, frame in panels.items():
         stratified = frame.loc[frame["arm"].eq("stratified")]
-        for (length, klass), block in stratified.groupby(["longest_run", "overlap_class"]):
+        for (length, klass), block in stratified.groupby(
+            ["longest_run", "overlap_class"]
+        ):
             cell_rows.append(
                 {
                     "panel": name,
@@ -120,9 +136,15 @@ def main() -> int:
                     "n_cases": len(block),
                     "n_station_years": block["sy"].nunique(),
                     "n_networks": block["network_id"].nunique(),
-                    "mean_true_hidden_fraction": float(block["true_peak_hidden_fraction"].mean()),
-                    "share_true_hidden_none": float((block["support_true"] == "none").mean()),
-                    "share_true_hidden_all": float((block["support_true"] == "all").mean()),
+                    "mean_true_hidden_fraction": float(
+                        block["true_peak_hidden_fraction"].mean()
+                    ),
+                    "share_true_hidden_none": float(
+                        (block["support_true"] == "none").mean()
+                    ),
+                    "share_true_hidden_all": float(
+                        (block["support_true"] == "all").mean()
+                    ),
                     "mean_n_runs": float(block["n_runs"].mean()),
                 }
             )
@@ -153,7 +175,11 @@ def main() -> int:
         for arm, block in views:
             block = block.copy()
             for x, y, label in (
-                ("longest_run", "true_peak_hidden_fraction", "length_vs_true_hidden_share"),
+                (
+                    "longest_run",
+                    "true_peak_hidden_fraction",
+                    "length_vs_true_hidden_share",
+                ),
                 ("longest_run", "peak_overlap", "length_vs_climatological_overlap"),
                 ("longest_run", "missing_fraction", "length_vs_missing_fraction"),
             ):
@@ -168,7 +194,11 @@ def main() -> int:
         station_id=raw["station_id"].astype(str),
     )
     raw["sy"] = (
-        raw["network_id"] + "|" + raw["station_id"] + "|" + raw["source_incomplete_year"].astype(str)
+        raw["network_id"]
+        + "|"
+        + raw["station_id"]
+        + "|"
+        + raw["source_incomplete_year"].astype(str)
     )
     real_info = {
         "n_groups": len(raw),
@@ -184,17 +214,28 @@ def main() -> int:
     ):
         seed += 1
         corr_rows.append(
-            {"panel": "real_calendar_replay", "arm": "all", "pair": label, **corr_with_ci(raw, x, y, "network_id", seed)}
+            {
+                "panel": "real_calendar_replay",
+                "arm": "all",
+                "pair": label,
+                **corr_with_ci(raw, x, y, "network_id", seed),
+            }
         )
     corr = pd.DataFrame(corr_rows)
     corr.to_csv(OUT / "length_support_correlation.csv", index=False)
-    pd.Series(real_info).to_csv(OUT / "real_calendar_independence.csv", header=["value"])
+    pd.Series(real_info).to_csv(
+        OUT / "real_calendar_independence.csv", header=["value"]
+    )
 
     # ---- Fig. 1 classes by length bin, external panel ----------------------
     ext = panels["external"]
     tab = (
         ext.groupby(["arm", "length_bin", "support_true"])
-        .agg(n_cases=("year", "size"), n_station_years=("sy", "nunique"), n_networks=("network_id", "nunique"))
+        .agg(
+            n_cases=("year", "size"),
+            n_station_years=("sy", "nunique"),
+            n_networks=("network_id", "nunique"),
+        )
         .reset_index()
     )
     tab.to_csv(OUT / "fig1_cells_by_arm.csv", index=False)
@@ -220,7 +261,8 @@ def main() -> int:
                 "figure_panel": "Fig. 1d",
                 "source_panel": "external + real_calendar_replay",
                 "n_cases": len(ext) + len(raw),
-                "n_station_years": ext["sy"].nunique() + real_info["n_target_station_years"],
+                "n_station_years": ext["sy"].nunique()
+                + real_info["n_target_station_years"],
                 "n_networks": ext["network_id"].nunique(),
                 "arms": "stratified + empirical; real replay",
                 "support_variable": "climatological overlap",
@@ -278,20 +320,32 @@ def main() -> int:
     # ---- is the crossed panel a subset of the development panel? -----------
     key = ["network_id", "station_id", "year", "realization_id"]
     dev = panels["development"]
-    cross_s = panels["crossed_mechanism"].loc[panels["crossed_mechanism"]["arm"].eq("stratified")]
+    cross_s = panels["crossed_mechanism"].loc[
+        panels["crossed_mechanism"]["arm"].eq("stratified")
+    ]
     merged = cross_s.merge(
-        dev[key + ["peak_overlap", "true_peak_hidden_fraction"]], on=key, how="left",
-        suffixes=("", "_dev"), indicator=True,
+        dev[key + ["peak_overlap", "true_peak_hidden_fraction"]],
+        on=key,
+        how="left",
+        suffixes=("", "_dev"),
+        indicator=True,
     )
     both = merged[merged["_merge"].eq("both")]
     pd.Series(
         {
             "crossed_stratified_outages": int(len(cross_s)),
-            "share_realization_key_present_in_development_panel": float(len(both) / len(cross_s)),
+            "share_realization_key_present_in_development_panel": float(
+                len(both) / len(cross_s)
+            ),
             "n_with_matching_key": int(len(both)),
-            "of_those_identical_climatological_overlap": float((both["peak_overlap"] == both["peak_overlap_dev"]).mean()),
+            "of_those_identical_climatological_overlap": float(
+                (both["peak_overlap"] == both["peak_overlap_dev"]).mean()
+            ),
             "of_those_identical_true_hidden_fraction": float(
-                (both["true_peak_hidden_fraction"] == both["true_peak_hidden_fraction_dev"]).mean()
+                (
+                    both["true_peak_hidden_fraction"]
+                    == both["true_peak_hidden_fraction_dev"]
+                ).mean()
             ),
             "conclusion": "the crossed panel is a separate generation, not a subset of the 53,721",
         }
@@ -299,7 +353,9 @@ def main() -> int:
 
     # ---- summary -----------------------------------------------------------
     def pick(panel, arm, pair):
-        row = corr[(corr.panel == panel) & (corr.arm == arm) & (corr.pair == pair)].iloc[0]
+        row = corr[
+            (corr.panel == panel) & (corr.arm == arm) & (corr.pair == pair)
+        ].iloc[0]
         return row
 
     lines = ["# R2-01 design audit", ""]
@@ -307,32 +363,40 @@ def main() -> int:
     inv = pd.read_csv(OUT / "arm_inventory.csv")
     lines.append(inv.to_string(index=False))
     lines.append("")
-    lines.append("## Correlation of gap length with hidden support (network-clustered 95% interval)")
-    show = corr[corr.pair.isin(["length_vs_true_hidden_share", "length_vs_climatological_overlap"])]
+    lines.append(
+        "## Correlation of gap length with hidden support (network-clustered 95% interval)"
+    )
+    show = corr[
+        corr.pair.isin(
+            ["length_vs_true_hidden_share", "length_vs_climatological_overlap"]
+        )
+    ]
     lines.append(show.to_string(index=False))
     lines.append("")
-    lines.append("## Real calendars: how many independent units stand behind the 418 groups")
+    lines.append(
+        "## Real calendars: how many independent units stand behind the 418 groups"
+    )
     lines.append(pd.Series(real_info).to_string())
     lines.append("")
-    lines.append("## Target-length x climatological-overlap cells that are empty or sparse")
     lines.append(
-        full.loc[full.cell_status != "populated", ["panel", "target_length", "climatological_overlap_class", "n_cases", "cell_status"]].to_string(index=False)
+        "## Target-length x climatological-overlap cells that are empty or sparse"
+    )
+    lines.append(
+        full.loc[
+            full.cell_status != "populated",
+            [
+                "panel",
+                "target_length",
+                "climatological_overlap_class",
+                "n_cases",
+                "cell_status",
+            ],
+        ].to_string(index=False)
     )
     lines.append("")
     lines.append("## Figure provenance")
     lines.append(prov.to_string(index=False))
     (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
-
-    C.write_fingerprint(
-        OUT,
-        "scripts/340_wrr_design_audit.py",
-        {
-            "development": C.development_parquet(),
-            "external": C.EXTERNAL_PARQUET,
-            "crossed": C.CROSSED_PARQUET,
-            "replay_raw": C.REPLAY_RAW,
-        },
-    )
     print("\n".join(lines))
     return 0
 

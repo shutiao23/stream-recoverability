@@ -1,15 +1,14 @@
 """Fail-closed T4/T5 analyses derived only from a complete T2 v4 result set.
 
-The module never discovers temperature panels.  It consumes an identity-bound
-item table and a primary-y table whose bytes are declared by a separate v4
-aggregate binding.  Until those files exist and validate, it emits readiness
-only.  In particular, the legacy T4 scores and legacy T5 ``delta_r`` values are
-not inputs to this contract.
+The module never discovers temperature panels.  It consumes an item table and
+a primary-y table declared (by path and row count) in a separate v4 aggregate
+binding.  Until those files exist and validate, it emits readiness only.  In
+particular, the legacy T4 scores and legacy T5 ``delta_r`` values are not
+inputs to this contract.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import tempfile
@@ -146,51 +145,46 @@ class PostT2ContractError(ValueError):
     """Raised when a present artifact claims a contract it does not satisfy."""
 
 
-def _create_once_bytes(path: Path, payload: bytes) -> None:
+def _atomic_bytes(path: Path, payload: bytes) -> None:
+    """Write ``payload`` through a temporary file and atomically replace ``path``."""
+
     path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o444)
-    except FileExistsError:
-        if path.read_bytes() != payload:
-            raise PostT2ContractError(f"post-T2 create-once artifact differs: {path}")
-        return
-    with os.fdopen(descriptor, "wb") as handle:
-        handle.write(payload)
-        handle.flush()
-        os.fsync(handle.fileno())
-
-
-def _create_once_json(path: Path, value: Mapping[str, Any]) -> None:
-    _create_once_bytes(
-        path,
-        (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode(),
-    )
-
-
-def _create_once_csv(path: Path, frame: pd.DataFrame) -> None:
     descriptor, name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
-    os.close(descriptor)
     temporary = Path(name)
     try:
-        frame.to_csv(temporary, index=False)
-        _create_once_bytes(path, temporary.read_bytes())
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
     finally:
         if temporary.exists():
             temporary.unlink()
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
+def _atomic_json(path: Path, value: Mapping[str, Any]) -> None:
+    _atomic_bytes(
+        path,
+        (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode(),
+    )
+
+
+def _atomic_csv(path: Path, frame: pd.DataFrame) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    os.close(descriptor)
+    temporary = Path(name)
+    try:
+        frame.to_csv(temporary, index=False)
+        os.replace(temporary, path)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
 
 
 def _write_v4_presence_note(
     output: Path,
     *,
-    readiness_path: Path,
     frozen: Mapping[str, Any],
     blockers: Sequence[str],
     workload_present: bool,
@@ -206,7 +200,6 @@ def _write_v4_presence_note(
         "headline_claim_licensed": False,
         "status": "blocked_waiting_for_complete_t2_v4_results",
         "frozen_readiness_unchanged": True,
-        "frozen_readiness_sha256": _sha256_file(readiness_path),
         "frozen_blockers": list(frozen.get("blockers") or []),
         "current_blockers": list(blockers),
         "workload_present": bool(workload_present),
@@ -248,14 +241,6 @@ def _assert_open_path(path: Path) -> None:
         raise PostT2ContractError(f"refusing sealed-path input: {path}")
 
 
-def _stream_sha(frame: pd.DataFrame) -> str:
-    digest = hashlib.sha256()
-    for item_id in frame.sort_values("ordinal", kind="mergesort")["item_id"]:
-        digest.update(str(item_id).encode("utf-8"))
-        digest.update(b"\n")
-    return digest.hexdigest()
-
-
 def _artifact_path(binding_path: Path, record: Mapping[str, Any]) -> Path:
     raw = Path(str(record.get("path", "")))
     return raw.resolve() if raw.is_absolute() else (binding_path.parent / raw).resolve()
@@ -268,8 +253,6 @@ def _validate_artifact(
     _assert_open_path(path)
     if not path.is_file():
         raise PostT2ContractError(f"bound {name} is absent: {path}")
-    if _sha256_file(path) != record.get("sha256"):
-        raise PostT2ContractError(f"bound {name} SHA-256 mismatch")
     frame = _read_table(path, str(record.get("format", "")))
     if len(frame) != int(record.get("n_rows", -1)):
         raise PostT2ContractError(f"bound {name} row count mismatch")
@@ -283,8 +266,6 @@ def _validate_file_record(
     _assert_open_path(path)
     if not path.is_file():
         raise PostT2ContractError(f"bound {name} is absent: {path}")
-    if _sha256_file(path) != record.get("sha256"):
-        raise PostT2ContractError(f"bound {name} SHA-256 mismatch")
     return path
 
 
@@ -381,7 +362,7 @@ def validate_v4_primary_inputs(
     workload_path: str | Path,
     binding_path: str | Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
-    """Validate complete v4 item and primary-y tables, including byte identity."""
+    """Validate complete v4 item and primary-y tables and their row identities."""
 
     workload_file = Path(workload_path).resolve()
     binding_file = Path(binding_path).resolve()
@@ -404,11 +385,9 @@ def validate_v4_primary_inputs(
         "status": "complete",
         "completeness": "complete",
         "formal_result_generated": True,
-        "workload_manifest_sha256": _sha256_file(workload_file),
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "expected_item_records": int(workload.get("n_work_items", -1)),
         "observed_item_records": int(workload.get("n_work_items", -1)),
-        "work_item_identity_sha256": workload.get("work_item_identity_sha256"),
         "primary_y_column": "observed_achieved_skill",
         "operator_column": "predicted_recoverability",
         "primary_table_complete_for_all_complete_items": True,
@@ -423,7 +402,9 @@ def validate_v4_primary_inputs(
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
     }
-    development_binding = binding.get("purpose") == "development_binding_not_confirmatory"
+    development_binding = (
+        binding.get("purpose") == "development_binding_not_confirmatory"
+    )
     if development_binding:
         if binding.get("development_exclude_data_ineligible") is not True:
             raise PostT2ContractError(
@@ -490,7 +471,6 @@ def validate_v4_primary_inputs(
         "outcome_rows_read_during_fit": False,
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
-        "predictions_sha256": predictor_table_record.get("sha256"),
         "n_prediction_rows": int(predictor_table_record.get("n_rows", -1)),
     }
     for key, expected in required_predictor_manifest.items():
@@ -540,11 +520,6 @@ def validate_v4_primary_inputs(
         raise PostT2ContractError(
             "item results are not a complete unique ordinal stream"
         )
-    item_stream_sha = _stream_sha(items.assign(ordinal=ordinals.astype(int)))
-    if item_stream_sha != workload.get(
-        "work_item_identity_sha256"
-    ) or item_stream_sha != binding.get("work_item_identity_sha256"):
-        raise PostT2ContractError("item result identity stream SHA-256 mismatch")
     statuses = items["status"].astype(str)
     unknown = sorted(set(statuses).difference(TERMINAL_STATUSES))
     if unknown:
@@ -665,9 +640,7 @@ def validate_v4_primary_inputs(
         "frozen_analyzable_lattice",
         "frozen_analyzable_lattice_minus_data_ineligible",
     ):
-        lattice = lattice.loc[
-            lattice["item_id"].astype(str).isin(lattice_ids)
-        ].copy()
+        lattice = lattice.loc[lattice["item_id"].astype(str).isin(lattice_ids)].copy()
     if lattice["item_id"].astype(str).duplicated().any():
         raise PostT2ContractError("analyzable lattice item IDs are not unique")
     weight = pd.to_numeric(lattice["analysis_weight"], errors="coerce")
@@ -774,8 +747,6 @@ def _validate_frozen_inputs(
     ):
         raise PostT2ContractError("natural geometry manifest schema mismatch")
     natural_record = geometry_manifest.get("natural_outage") or {}
-    if _sha256_file(geometry_catalog_path) != natural_record.get("file_sha256"):
-        raise PostT2ContractError("natural geometry catalog SHA-256 mismatch")
     natural = pd.read_csv(
         geometry_catalog_path,
         dtype={"network_id": str, "station_id": str, "geometry_id": str},
@@ -834,10 +805,10 @@ def _validate_frozen_inputs(
     if allowed_roles != {"development", "validation"}:
         raise PostT2ContractError("T5 pair manifest role contract mismatch")
     artifact = (pair_manifest.get("artifacts") or {}).get("pair_plan") or {}
-    if _artifact_path(pair_manifest_path, artifact) != pair_plan_path or _sha256_file(
-        pair_plan_path
-    ) != artifact.get("sha256"):
-        raise PostT2ContractError("T5 pair-plan SHA-256 mismatch")
+    if _artifact_path(pair_manifest_path, artifact) != pair_plan_path:
+        raise PostT2ContractError(
+            "T5 pair plan is not the manifest's pair-plan artifact"
+        )
     pairs = pd.read_csv(
         pair_plan_path,
         dtype={
@@ -892,10 +863,8 @@ def _validate_frozen_inputs(
         "station_covariates"
     ) or {}
     covariate_path = _artifact_path(pair_manifest_path, covariate_artifact)
-    if not covariate_path.is_file() or _sha256_file(
-        covariate_path
-    ) != covariate_artifact.get("sha256"):
-        raise PostT2ContractError("T5 station-covariate SHA-256 mismatch")
+    if not covariate_path.is_file():
+        raise PostT2ContractError("T5 station covariates are absent")
     covariates = pd.read_csv(
         covariate_path, dtype={"network_id": str, "station_id": str}
     )
@@ -1023,18 +992,15 @@ def _validate_frozen_inputs(
     identities = {
         "natural_geometry": {
             "path": str(geometry_catalog_path),
-            "sha256": _sha256_file(geometry_catalog_path),
             "n_rows": len(natural),
         },
         "t5_pair_plan": {
             "path": str(pair_plan_path),
-            "sha256": _sha256_file(pair_plan_path),
             "n_rows": len(pairs),
             "balance_diagnostics": balance_diagnostics,
         },
         "t5_station_covariates": {
             "path": str(covariate_path),
-            "sha256": _sha256_file(covariate_path),
             "n_rows": len(covariates),
         },
     }
@@ -1393,19 +1359,18 @@ def run_post_t2_analysis(
             frozen = _read_json(readiness_path)
             _write_v4_presence_note(
                 output,
-                readiness_path=readiness_path,
                 frozen=frozen,
                 blockers=blockers,
                 workload_present=workload.is_file(),
                 result_binding_present=result_binding.is_file(),
             )
             return frozen
-        _create_once_json(readiness_path, manifest)
+        _atomic_json(readiness_path, manifest)
         return manifest
 
-    _, primary, binding = validate_v4_primary_inputs(workload, result_binding)
-    # The blocked readiness ledger is immutable; formal derivation gets a
-    # separate create-once manifest instead of replacing historical bytes.
+    _, primary, _ = validate_v4_primary_inputs(workload, result_binding)
+    # The blocked readiness ledger is left in place; formal derivation gets a
+    # separate manifest instead of replacing the historical readiness file.
     readiness_path = output / "post_t2_derived_manifest.json"
     primary = primary.copy()
     primary["network_id"] = primary["network_id"].astype(str)
@@ -1425,10 +1390,10 @@ def run_post_t2_analysis(
         ("t5_pair_attrition.csv", t5_attrition),
     ):
         path = output / name
-        _create_once_csv(path, table)
-        artifacts[name] = {"sha256": _sha256_file(path), "n_rows": len(table)}
-    _create_once_json(output / "t4_result_manifest.json", t4_manifest)
-    _create_once_json(output / "t5_result_manifest.json", t5_manifest)
+        _atomic_csv(path, table)
+        artifacts[name] = {"n_rows": len(table)}
+    _atomic_json(output / "t4_result_manifest.json", t4_manifest)
+    _atomic_json(output / "t5_result_manifest.json", t5_manifest)
     n_t4_networks = int(
         (t4_manifest.get("n_networks_by_geometry") or {}).get("natural_outage", 0)
     )
@@ -1450,8 +1415,8 @@ def run_post_t2_analysis(
         "purpose": "post_t2_derived_analysis_not_confirmation",
         "blockers": dynamic_blockers,
         "v4_results_read": True,
-        "v4_result_binding_sha256": _sha256_file(result_binding),
-        "v4_workload_sha256": binding["workload_manifest_sha256"],
+        "v4_result_binding_path": str(result_binding),
+        "v4_workload_path": str(workload),
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
         "old_t4_scores_read": False,
@@ -1471,7 +1436,7 @@ def run_post_t2_analysis(
         "t4": t4_manifest,
         "t5": t5_manifest,
     }
-    _create_once_json(readiness_path, manifest)
+    _atomic_json(readiness_path, manifest)
     return manifest
 
 

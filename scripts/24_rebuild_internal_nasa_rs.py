@@ -2,8 +2,8 @@
 """Add NASA POWER Rs to the internal panel and rebuild data versions.
 
 Does not edit T/F/L/Ta/P/W/RH/DH values. Existing version directories are
-replaced only after hydro invariants pass. Hashes are computed from the new
-files; they are not invented beforehand.
+replaced only after hydro invariants pass. File sizes and row counts are read
+from the new files; they are not invented beforehand.
 """
 
 from __future__ import annotations
@@ -24,7 +24,6 @@ from stream_recoverability.data.prepare import (
     write_prepared_outputs,
 )
 from stream_recoverability.data.versions import DATA_VERSION_NAMES, build_data_versions
-from stream_recoverability.experiments.contracts import file_sha256
 
 
 def parse_args() -> argparse.Namespace:
@@ -52,7 +51,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--report",
         type=Path,
-        default=PROJECT_ROOT / "results" / "data_audit" / "internal_nasa_rs_rebuild.json",
+        default=PROJECT_ROOT
+        / "results"
+        / "data_audit"
+        / "internal_nasa_rs_rebuild.json",
     )
     return parser.parse_args()
 
@@ -61,7 +63,9 @@ def main() -> None:
     args = parse_args()
     source = __import__("pandas").read_parquet(args.input_long)
     if "data_version" in source.columns:
-        source = source.drop(columns=["data_version", "data_version_action"], errors="ignore")
+        source = source.drop(
+            columns=["data_version", "data_version_action"], errors="ignore"
+        )
     merged, report = rebuild_internal_rs_panel(
         source,
         args.station_metadata,
@@ -70,7 +74,9 @@ def main() -> None:
     scaler = fit_train_scaler(wide, measurement_columns)
     write_prepared_outputs(merged, wide, scaler, args.processed_dir)
 
-    staging = args.data_versions_root.parent / f"{args.data_versions_root.name}_rs_staging"
+    staging = (
+        args.data_versions_root.parent / f"{args.data_versions_root.name}_rs_staging"
+    )
     if staging.exists():
         shutil.rmtree(staging)
     manifests = build_data_versions(
@@ -84,19 +90,22 @@ def main() -> None:
     args.data_versions_root.rename(backup)
     staging.rename(args.data_versions_root)
 
-    report["processed_daily_long_sha256"] = file_sha256(
-        args.processed_dir / "daily_long.parquet"
-    )
-    report["processed_daily_wide_sha256"] = file_sha256(
-        args.processed_dir / "daily_wide.parquet"
-    )
+    report["processed_outputs"] = {
+        name: {
+            "path": str(args.processed_dir / name),
+            "bytes": (args.processed_dir / name).stat().st_size,
+        }
+        for name in ("daily_long.parquet", "daily_wide.parquet")
+    }
     report["data_version_artifacts"] = {
         name: {
-            "daily_long_sha256": manifest["artifacts"]["daily_long.parquet"]["sha256"],
-            "daily_wide_sha256": manifest["artifacts"]["daily_wide.parquet"]["sha256"],
-            "version_manifest_sha256": file_sha256(
+            "daily_long": manifest["artifacts"]["daily_long.parquet"],
+            "daily_wide": manifest["artifacts"]["daily_wide.parquet"],
+            "version_manifest_bytes": (
                 args.data_versions_root / name / "version_manifest.json"
-            ),
+            )
+            .stat()
+            .st_size,
         }
         for name, manifest in manifests.items()
     }

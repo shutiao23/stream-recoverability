@@ -7,7 +7,6 @@ Commands:
   PYTHONPATH=src python3 scratch/smhi_verify_smhi_ingest.py                # independent raw-byte re-parse + stratum check
   PYTHONPATH=src python3 scratch/smhi_verify_emitted_panels.py             # independent panel/grid/value re-derivation
   PYTHONPATH=src python3 scratch/smhi_prior_use_scan.py                    # repo-wide station_id prior-use scan
-  PYTHONPATH=src python3 scratch/smhi_seal_dryrun_preview.py               # read-only preview of scripts/249 build_manifest
 Output root: `results/wrr_submission_ready/multi_agency_ingest/smhi/`
 
 ## Amendment 2 strata
@@ -30,7 +29,6 @@ Output root: `results/wrr_submission_ready/multi_agency_ingest/smhi/`
 | complete station-years, the 118 eligible stations | 1549 |
 | complete station-years inside emitted networks | 1372 |
 | complete station-years stranded in <2-station catchments (17 stations) | 177 |
-| stations.csv sha256 | 7ee0e9ad8ecf62e2b1dc6c2bea643ae0a5839bd112efb82613f4368bac8595f9 |
 
 Per-network: `networks_summary.csv` (2-16 eligible stations each, 13-236 complete station-years).
 Panels: `networks/<network_id>/daily_wide_temperature.csv`, first column `date`, one column per
@@ -39,17 +37,16 @@ station id, one row per calendar day min->max, blank where missing (verified aga
 ## Verification evidence
 
 - `scratch/smhi_verify_report.json` — separate parser over the 176 raw files: 1,063,746 rows,
-  codes {O: 1063746}, 0 G/Y rows, 0 cross-check mismatches, 0 bad sha256, 0 decimal commas;
+  codes {O: 1063746}, 0 G/Y rows, 0 cross-check mismatches, 0 decimal commas;
   stratum check matches ingest.json (rows and stations).
 - `scratch/smhi_verify_emitted_report.json` — re-derived networks, eligible sets, grids and cell
   values: `ok: true`, 0 problems, 0 claim-vs-recomputed mismatches; 16 networks; stations.csv
-  143 rows / 101 eligible / sha256 above.
+  143 rows / 101 eligible.
 - `scratch/smhi_prior_use_scan.json` — 413 CSVs with a station_id column scanned repo-wide:
   0 overlaps with the 176 SMHI ids.
-- `scratch/smhi_seal_dryrun_preview.json` — read-only `scripts/249.build_manifest()` view:
-  18 network rows, 2 providers, 2 contexts, 1405 station-years (smhi 16/101/1372,
-  uk_ea 2/4/33). SMHI adds `boreal_nordic`; the >=3-context design floor still depends on
-  another provider.
+- Transport manifest view (`scripts/249.build_manifest()`): 18 network rows, 2 providers,
+  2 contexts, 1405 station-years (smhi 16/101/1372, uk_ea 2/4/33). SMHI adds `boreal_nordic`;
+  the >=3-context design floor still depends on another provider.
 
 ## Audited record
 

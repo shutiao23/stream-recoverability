@@ -389,12 +389,15 @@ def write_gap_tex(comparison: pd.DataFrame, archive: pd.DataFrame):
         "\n".join("\\newcommand{\\" + name + "}{" + str(value) + "}" for name, value in macros.items()) + "\n")
     names = {"observed": "Observed archive", "calendar": "Empirical calendar", "crossed": "Controlled gaps"}
     lines = [r"\begin{table}[t]\centering\small",
-             r"\caption{Common annual-longest-gap comparison in 2010--2025. Each number describes the longest contiguous missing run within an incomplete year. Observations weight incomplete station-years equally; trial rows weight incomplete station-year--replicates equally, retaining all 20 mask replicates. Repetition and station composition differ, so this is descriptive rather than a same-distribution test.}",
+             r"\caption{Annual longest contiguous missing run. The first three rows are the 2010--2025 comparison. Observations weight incomplete station-years equally; trial rows weight incomplete station-year--replicates equally. The 1981--2025 row is the longer observed archive on the same statistic. Sampling and repeat weights differ, so this is not a same-distribution test.}",
              r"\label{tab:observed-gaps}",
              r"\begin{tabular}{lrrrrr}\toprule Source & Rows & Stations & Median (d) & 90th percentile (d) & $\geq30$ d \\\midrule"]
     for source in ("observed", "calendar", "crossed"):
         row = primary.loc[source]
         lines.append(f"{names[source]} & {int(row.n):,} & {int(row.stations)} & {row.median_annual_longest:.0f} & {row.p90_annual_longest:.1f} & {100*row.share_annual_ge30:.2f}\\% " + r"\\")
+    lines.append(
+        f"Observed 1981--2025 & {int(historic.n):,} & {int(historic.stations)} & {historic.median_annual_longest:.0f} & {historic.p90_annual_longest:.1f} & {100*historic.share_annual_ge30:.2f}\\% " + r"\\"
+    )
     lines += [r"\bottomrule\end{tabular}\end{table}"]
     (PAPER / "process_gap_revision_table.tex").write_text("\n".join(lines) + "\n")
     lines = [r"\subsection{Common gap metric and archive count audit}",

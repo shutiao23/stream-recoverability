@@ -37,7 +37,7 @@ the allowed language, not to the importance of the finding.
 - Conditional covariance as a variance/SD estimator or a general lower bound
   on realized error.
 - External preregistration of anything before protocol v3 is registered:
-  v2 remains internally hash-bound, same-commit; v3 is drafted, not yet
+  v2 remains internally frozen, same-commit; v3 is drafted, not yet
   registered, and no v3 outcomes exist.
 - Station removal or automatic filling.
 

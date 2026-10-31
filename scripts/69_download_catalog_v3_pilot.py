@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run the locked 20-network HUC8 development download/QC pilot.
 
-The split lock is verified before even a dry run.  Only rows whose locked role
+The locked split is checked before even a dry run.  Only rows whose locked role
 is ``development`` can enter the plan.  Validation/sealed temperatures are
 neither requested nor inspected.  Each network has an atomic, resumable JSON
 manifest and each station has its own exact-date cache entry.
@@ -26,7 +26,10 @@ if str(SRC) not in sys.path:
 
 from stream_recoverability.data.ingest_qc import clean_long_frame, qc_long_frame
 from stream_recoverability.data.nwis_temperature import nwis_daily_temperature
-from stream_recoverability.data.public_temperature import overlap_report, river_wide_panel
+from stream_recoverability.data.public_temperature import (
+    overlap_report,
+    river_wide_panel,
+)
 from stream_recoverability.data.v3_download_policy import plan_v3_development_pilot
 
 
@@ -106,19 +109,20 @@ def _plan_rows(plan: dict[str, Any]) -> pd.DataFrame:
 
 def _dry_manifest(plan: dict[str, Any]) -> dict[str, Any]:
     return {
-        **{key: plan[key] for key in (
-            "policy",
-            "split_sha256",
-            "pilot_seed",
-            "pilot_size",
-            "sample_network_ids_sha256",
-            "stratification_columns",
-            "n_development_available",
-            "n_validation_selected",
-            "n_sealed_selected",
-            "sealed_temperature_records_read",
-            "retired_name_huc2_plan_used",
-        )},
+        **{
+            key: plan[key]
+            for key in (
+                "policy",
+                "pilot_seed",
+                "pilot_size",
+                "stratification_columns",
+                "n_development_available",
+                "n_validation_selected",
+                "n_sealed_selected",
+                "sealed_temperature_records_read",
+                "retired_name_huc2_plan_used",
+            )
+        },
         "dry_run": True,
         "temperatures_downloaded": False,
         "n_networks_planned": len(plan["networks"]),
@@ -165,13 +169,14 @@ def run_pilot(
                 qc_path = network_dir / "ingest_qc_report.csv"
                 if qc_path.is_file():
                     all_qc.append(pd.read_csv(qc_path, dtype={"site_id": str}))
-                overlap_rows.append(dict(previous.get("overlap") or {}, network_id=network_id))
+                overlap_rows.append(
+                    dict(previous.get("overlap") or {}, network_id=network_id)
+                )
                 continue
 
         network_manifest: dict[str, Any] = {
             "network_id": network_id,
             "role": "development",
-            "split_sha256": plan["split_sha256"],
             "status": "in_progress",
             "sealed_temperature_records_read": False,
             "stations": {},
@@ -198,7 +203,9 @@ def run_pilot(
                 **station,
                 "cached_before": cached_before,
                 "errors": errors,
-                "status": "failed" if frame is None else ("empty" if frame.empty else "fetched"),
+                "status": "failed"
+                if frame is None
+                else ("empty" if frame.empty else "fetched"),
                 "n_rows": 0 if frame is None else int(len(frame)),
             }
             network_manifest["stations"][site_id] = station_record
@@ -216,11 +223,10 @@ def run_pilot(
             )
         report = qc_long_frame(raw_long)
         report["network_id"] = network_id
-        report["eligible_for_network"] = (
-            report["verdict"].astype(str).str.startswith("accepted")
-            & pd.to_numeric(report["qualified_years"], errors="coerce").ge(
-                MIN_QUALIFIED_YEARS
-            )
+        report["eligible_for_network"] = report["verdict"].astype(str).str.startswith(
+            "accepted"
+        ) & pd.to_numeric(report["qualified_years"], errors="coerce").ge(
+            MIN_QUALIFIED_YEARS
         )
         report["exclusion_reason"] = ""
         rejected = ~report["verdict"].astype(str).str.startswith("accepted")
@@ -279,7 +285,12 @@ def run_pilot(
     )
     station_records: list[dict[str, Any]] = []
     for network in networks:
-        path = output_dir / "networks" / str(network["network_id"]) / "network_manifest.json"
+        path = (
+            output_dir
+            / "networks"
+            / str(network["network_id"])
+            / "network_manifest.json"
+        )
         if not path.is_file():
             continue
         document = json.loads(path.read_text(encoding="utf-8"))
@@ -339,25 +350,28 @@ def run_pilot(
     )
     attrition.to_csv(output_dir / "attrition_summary.csv", index=False)
     manifest = {
-        **{key: plan[key] for key in (
-            "policy",
-            "split_sha256",
-            "pilot_seed",
-            "pilot_size",
-            "sample_network_ids_sha256",
-            "stratification_columns",
-            "n_development_available",
-            "n_validation_selected",
-            "n_sealed_selected",
-            "sealed_temperature_records_read",
-            "retired_name_huc2_plan_used",
-        )},
+        **{
+            key: plan[key]
+            for key in (
+                "policy",
+                "pilot_seed",
+                "pilot_size",
+                "stratification_columns",
+                "n_development_available",
+                "n_validation_selected",
+                "n_sealed_selected",
+                "sealed_temperature_records_read",
+                "retired_name_huc2_plan_used",
+            )
+        },
         "dry_run": False,
         "n_networks_planned": len(plan["networks"]),
         "n_networks_attempted_this_invocation": len(networks),
         "n_networks_in_attrition": int(len(overlap_frame)),
         "n_networks_complete_enough": complete,
-        "pilot_survival_fraction": complete / len(overlap_frame) if len(overlap_frame) else 0.0,
+        "pilot_survival_fraction": complete / len(overlap_frame)
+        if len(overlap_frame)
+        else 0.0,
         "catalog_units_for_point_extrapolation": 166,
         "projected_complete_enough_at_catalog_scale": projected,
         "projected_below_network_ci_floor_100": projected < 100.0,

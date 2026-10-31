@@ -78,10 +78,7 @@ def test_nested_mh_adapter_is_train_fit_and_target_blind() -> None:
     assert fitted.centers["a__M__Ta"] == pytest.approx(3.5)
     assert original.features.loc[index[:8], "a__M__Ta"].mean() == pytest.approx(0.0)
     assert original.audit["temperature_columns_consumed"] == 0
-    assert (
-        fitted.manifest()["leakage_boundary"]["fit_statistics"]
-        == "train_days_only"
-    )
+    assert fitted.manifest()["leakage_boundary"]["fit_statistics"] == "train_days_only"
 
     changed = daily.copy()
     changed.loc[changed["variable"].eq("T"), "value"] += 1_000_000
@@ -173,7 +170,7 @@ def test_post_train_auxiliary_does_not_change_fitted_scaling() -> None:
     )
     assert first.centers == second.centers
     assert first.scales == second.scales
-    assert first.train_day_sha256 == second.train_day_sha256
+    assert first.train_counts == second.train_counts
 
 
 def test_attach_requires_identical_daily_axis() -> None:

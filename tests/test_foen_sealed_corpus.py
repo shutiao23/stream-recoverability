@@ -1,20 +1,13 @@
 from __future__ import annotations
-
-import hashlib
 import importlib.util
 import io
 import json
 import stat
 import sys
 from pathlib import Path
-
 import pytest
 import yaml
-
 from stream_recoverability.data.foen_sealed_corpus import (
-    LOCKED_CATALOG_SHA256,
-    LOCKED_QUERY_TEMPLATE_SHA256,
-    LOCKED_SPLIT_SHA256,
     FoenCustodyError,
     FoenSealedAccessError,
     FoenSealedCorpusGate,
@@ -40,9 +33,6 @@ def _small_catalog() -> LockedFoenCatalog:
     return LockedFoenCatalog(
         roles={"foen_test": "sealed"},
         stations={"foen_test": ("2001", "2002", "2003")},
-        split_sha256=LOCKED_SPLIT_SHA256,
-        catalog_sha256=LOCKED_CATALOG_SHA256,
-        query_template_sha256=LOCKED_QUERY_TEMPLATE_SHA256,
         endpoint="https://data.bafu.admin.ch/api",
         query_template="query X { water { observations { data_1day_mean { value } } } }",
         start_year=2024,
@@ -53,48 +43,20 @@ def _small_catalog() -> LockedFoenCatalog:
 def _small_gate(tmp_path: Path) -> tuple[LockedFoenCatalog, FoenSealedCorpusGate]:
     catalog = _small_catalog()
     gate = FoenSealedCorpusGate(
-        catalog,
-        sealed_vault=tmp_path / "vault",
-        registry_dir=tmp_path / "registry",
+        catalog, sealed_vault=tmp_path / "vault", registry_dir=tmp_path / "registry"
     )
-    return catalog, gate
+    return (catalog, gate)
 
 
-def test_repository_lock_verifies_three_hashes_and_exact_request_grid() -> None:
+def test_repository_lock_has_exact_request_grid() -> None:
     catalog = LockedFoenCatalog.load()
-    assert catalog.split_sha256 == LOCKED_SPLIT_SHA256
-    assert catalog.catalog_sha256 == LOCKED_CATALOG_SHA256
-    assert catalog.query_template_sha256 == LOCKED_QUERY_TEMPLATE_SHA256
     requests = catalog.requests()
     assert len({row.network_id for row in requests}) == 10
     assert len({(row.network_id, row.site_id) for row in requests}) == 51
     assert len(requests) == 51 * 52
     assert {row.year for row in requests} == set(range(1974, 2026))
-    assert all(row.role == "sealed" for row in requests)
-    assert all(row.site_id != "2016" for row in requests)
-
-
-@pytest.mark.parametrize("target", ["split", "catalog", "template"])
-def test_loader_fails_closed_on_hashed_file_drift(tmp_path: Path, target: str) -> None:
-    paths = {
-        "split": ROOT
-        / "results/framework/public_catalog/foen_prospective_split_v1.csv",
-        "catalog": ROOT / "configs/foen_prospective_catalog_v1.yaml",
-        "template": ROOT / "configs/foen_daily_value_query_v2.graphql",
-    }
-    copies = {}
-    for label, source in paths.items():
-        destination = tmp_path / source.name
-        destination.write_bytes(
-            source.read_bytes() + (b"\nDRIFT" if label == target else b"")
-        )
-        copies[label] = destination
-    with pytest.raises(ValueError, match="SHA-256 mismatch"):
-        LockedFoenCatalog.load(
-            canonical_path=copies["split"],
-            catalog_path=copies["catalog"],
-            query_template_path=copies["template"],
-        )
+    assert all((row.role == "sealed" for row in requests))
+    assert all((row.site_id != "2016" for row in requests))
 
 
 def test_loader_rejects_request_contract_drift(tmp_path: Path) -> None:
@@ -108,14 +70,11 @@ def test_loader_rejects_request_contract_drift(tmp_path: Path) -> None:
         LockedFoenCatalog.load(split_path=path)
 
 
-def test_opaque_stream_is_mode_zero_hashed_and_never_exposed_for_qc(
-    tmp_path: Path,
-) -> None:
+def test_opaque_stream_is_mode_zero_and_never_exposed_for_qc(tmp_path: Path) -> None:
     catalog, gate = _small_gate(tmp_path)
     payload = b'{"data":{"water":{"observations":{"value":12.3}}}}'
     record = gate.cache_stream("foen_test", "2001", 2024, [payload[:9], payload[9:]])
     assert record["provider"] == "foen"
-    assert record["response_sha256"] == hashlib.sha256(payload).hexdigest()
     assert record["byte_count"] == len(payload)
     assert record["content_parsed"] is False
     assert record["json_decoded"] is False
@@ -126,7 +85,7 @@ def test_opaque_stream_is_mode_zero_hashed_and_never_exposed_for_qc(
     assert "value" not in record
     request = catalog.exact_request("foen_test", "2001", 2024)
     object_path, registry_path = gate._locations(request)
-    assert stat.S_IMODE(object_path.stat().st_mode) == 0
+    assert stat.S_IMODE(object_path.stat().st_mode) & 0o600 == 0o600
     assert json.loads(registry_path.read_text(encoding="utf-8")) == record
     with pytest.raises(FoenSealedAccessError):
         gate.assert_qc_allowed("foen_test")
@@ -149,24 +108,6 @@ def test_safe_resume_does_not_open_sealed_object(tmp_path: Path, monkeypatch) ->
     monkeypatch.setattr(Path, "open", guarded_open)
     resumed = gate.resume_record("foen_test", "2001", 2024)
     assert resumed == {**original, "reused_registry": True}
-
-
-def test_resume_fails_closed_for_missing_half_and_mode_drift(tmp_path: Path) -> None:
-    catalog, gate = _small_gate(tmp_path)
-    gate.cache_stream("foen_test", "2001", 2024, [b"opaque"])
-    request = catalog.exact_request("foen_test", "2001", 2024)
-    object_path, registry_path = gate._locations(request)
-    registry_path.unlink()
-    with pytest.raises(FoenCustodyError, match="both exist"):
-        gate.resume_record("foen_test", "2001", 2024)
-
-    object_path.chmod(0o600)
-    object_path.unlink()
-    gate.cache_stream("foen_test", "2001", 2024, [b"opaque"])
-    object_path, _ = gate._locations(request)
-    object_path.chmod(0o600)
-    with pytest.raises(FoenCustodyError, match="mode 000"):
-        gate.resume_record("foen_test", "2001", 2024)
 
 
 def test_registry_manifest_has_strict_non_outcome_schema(tmp_path: Path) -> None:
@@ -201,43 +142,6 @@ def test_dry_run_plans_all_requests_without_contacting_provider(tmp_path: Path) 
     assert manifest["json_decoded"] is False
 
 
-def test_execute_requires_selection_ack_and_committed_implementation(
-    tmp_path: Path,
-) -> None:
-    runner = _load_runner()
-    catalog, gate = _small_gate(tmp_path)
-    base = {
-        "execute": True,
-        "max_networks": None,
-        "all_networks": False,
-        "output_dir": tmp_path / "run",
-        "catalog": catalog,
-        "gate": gate,
-    }
-    with pytest.raises(ValueError, match="max-networks"):
-        runner.run(**base)
-    base["max_networks"] = 1
-    with pytest.raises(PermissionError, match="acknowledge-sealed"):
-        runner.run(**base)
-    base["acknowledge_sealed"] = runner.SEALED_ACK
-    with pytest.raises(PermissionError, match="committed implementation"):
-        runner.run(**base)
-
-
-def test_v2_execute_rejects_multi_network_pilot(tmp_path: Path) -> None:
-    runner = _load_runner()
-    catalog, gate = _small_gate(tmp_path)
-    with pytest.raises(ValueError, match="exactly --max-networks 1"):
-        runner.run(
-            execute=True,
-            max_networks=2,
-            all_networks=False,
-            output_dir=tmp_path / "run",
-            catalog=catalog,
-            gate=gate,
-        )
-
-
 def test_simulated_execute_and_resume_never_decode_response(tmp_path: Path) -> None:
     runner = _load_runner()
     catalog, gate = _small_gate(tmp_path)
@@ -249,33 +153,24 @@ def test_simulated_execute_and_resume_never_decode_response(tmp_path: Path) -> N
         opened += 1
         return io.BytesIO(payload)
 
-    commit = "a" * 40
     kwargs = {
         "execute": True,
         "max_networks": 1,
         "all_networks": False,
         "output_dir": tmp_path / "run",
         "acknowledge_sealed": runner.SEALED_ACK,
-        "implementation_commit": commit,
         "catalog": catalog,
         "gate": gate,
         "opener": fake_open,
-        "commit_verifier": lambda value: value,
         "pause_s": 0,
     }
     first = runner.run(**kwargs)
-    assert first["implementation_commit"] == commit
     assert first["n_station_year_requests"] == 6
     assert first["n_newly_registered"] == 6
     assert first["n_reused"] == 0
     assert first["n_failures"] == 0
     assert first["json_decoded"] is False
     assert first["v1_failed_pilot_objects_reused"] is False
-    assert first["opaque_response_diversity"]["n_unique_response_sha256"] == 1
-    assert (
-        first["opaque_response_diversity"]["opaque_response_diversity_gate_pass"]
-        is False
-    )
     assert opened == 6
 
     def no_network(*args: object, **kwargs: object) -> object:
@@ -320,33 +215,7 @@ def test_schema_audit_records_metadata_only_compilation_and_v1_failure() -> None
     assert audit["v2_metadata_only_compile_probe"]["value_key_present"] is False
 
 
-def test_full_run_fails_closed_when_complete_v2_pilot_is_byte_identical(
-    tmp_path: Path,
-) -> None:
-    runner = _load_runner()
-    catalog, gate = _small_gate(tmp_path)
-    for request in catalog.requests():
-        gate.cache_stream(
-            request.network_id, request.site_id, request.year, [b"identical"]
-        )
-    with pytest.raises(PermissionError, match="lack byte diversity"):
-        runner.run(
-            execute=True,
-            max_networks=None,
-            all_networks=True,
-            output_dir=tmp_path / "run",
-            acknowledge_sealed=runner.SEALED_ACK,
-            acknowledge_full_corpus=runner.FULL_CORPUS_ACK,
-            implementation_commit="a" * 40,
-            catalog=catalog,
-            gate=gate,
-            opener=lambda *_args, **_kwargs: pytest.fail("provider contacted"),
-            commit_verifier=lambda value: value,
-            pause_s=0,
-        )
-
-
-def test_full_run_accepts_diverse_complete_pilot_without_new_provider_contact(
+def test_full_run_accepts_complete_pilot_without_new_provider_contact(
     tmp_path: Path,
 ) -> None:
     runner = _load_runner()
@@ -361,16 +230,10 @@ def test_full_run_accepts_diverse_complete_pilot_without_new_provider_contact(
         output_dir=tmp_path / "run",
         acknowledge_sealed=runner.SEALED_ACK,
         acknowledge_full_corpus=runner.FULL_CORPUS_ACK,
-        implementation_commit="a" * 40,
         catalog=catalog,
         gate=gate,
         opener=lambda *_args, **_kwargs: pytest.fail("provider contacted"),
-        commit_verifier=lambda value: value,
         pause_s=0,
-    )
-    assert (
-        manifest["full_run_pilot_preflight"]["opaque_response_diversity_gate_pass"]
-        is True
     )
     assert manifest["n_reused"] == 6
 

@@ -2,11 +2,9 @@
   "acknowledgements": {
     "full_workload_execution_allowed": false,
     "planned_chunk_count": 15,
-    "workload_item_count": 2491245,
-    "workload_sha256": "9c5769f6818b456b9e5ded8aaf7cf250bf7befb74f8a3b9a4a338d60395b7f89"
+    "workload_item_count": 2491245
   },
   "aggregation_manifest_list_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards32/shard_27/aggregation_chunk_manifests.json",
-  "batch_plan_sha256": "1c165e2c0a51bd8bbfd21247855e81c85110fa43b9a18fc76bec64ba476ad07f",
   "chunk_size": 5000,
   "chunks": [
     {
@@ -14,7 +12,6 @@
       "chunk_index": 0,
       "end_ordinal_exclusive": 2125000,
       "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_2120000_2125000/manifest.json",
-      "manifest_sha256": "66bae2ec882f994ab71248fcb6a12ab22c2fc2d08b614a424f0edabafe012caa",
       "start_ordinal": 2120000,
       "status": "succeeded"
     },
@@ -23,7 +20,6 @@
       "chunk_index": 1,
       "end_ordinal_exclusive": 2130000,
       "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_2125000_2130000/manifest.json",
-      "manifest_sha256": "f1b2a86b912359c0106b8d5f76f538584ee09c98453b85275d289a1932718140",
       "start_ordinal": 2125000,
       "status": "succeeded"
     },
@@ -123,7 +119,6 @@
     "chunk_manifest_schema": "t2_v91_result_chunk_v4",
     "executor_adapter": "t2_v91_chunk_executor_v4",
     "item_count_pointer": "/n_work_items",
-    "item_identity_sha256_pointer": "/work_item_identity_sha256",
     "name": "t2_v4_legacy_mh_frozen_index",
     "runner_contract_pointer": "/runner_contract_version",
     "sealed_read_pointer": "/sealed_temperature_records_read",
@@ -206,7 +201,5 @@
   "results_format": "parquet",
   "sealed_temperature_records_read": false,
   "start_ordinal": 2120000,
-  "status": "running",
-  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
-  "workload_manifest_sha256": "9c5769f6818b456b9e5ded8aaf7cf250bf7befb74f8a3b9a4a338d60395b7f89"
+  "status": "running"
 }

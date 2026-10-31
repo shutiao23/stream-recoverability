@@ -1,8 +1,8 @@
 """Additive NASA POWER Rs rebuild for the internal Jinsha panel.
 
 Hydro and CMA/GSOD columns are not edited. Sunshine ``DH`` remains in the
-table as a sensitivity-only channel. The rebuild names hashes after the
-files are written; it does not invent SHA-256 values.
+table as a sensitivity-only channel. File provenance (paths, sizes and row
+counts) is recorded only after the files are written.
 """
 
 from __future__ import annotations
@@ -96,7 +96,10 @@ def parse_power_rs_response(
     parameters = payload.get("parameters")
     properties = payload.get("properties")
     geometry = payload.get("geometry")
-    if not all(isinstance(value, Mapping) for value in (header, parameters, properties, geometry)):
+    if not all(
+        isinstance(value, Mapping)
+        for value in (header, parameters, properties, geometry)
+    ):
         raise TypeError("NASA POWER response metadata fields must be mappings")
     expected_header = {
         "time_standard": time_standard,

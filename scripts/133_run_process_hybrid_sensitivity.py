@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -29,14 +28,6 @@ SECOND = ROOT / "results/development_v11/second_confirmation/readiness_roster.cs
 DEFAULT_OUTPUT = ROOT / "results/development_v11/reviewer_completion"
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def correlation(frame: pd.DataFrame, left: str, right: str) -> float | None:
     usable = frame[[left, right]].dropna()
     if len(usable) < 3 or usable[left].nunique() < 2 or usable[right].nunique() < 2:
@@ -51,9 +42,7 @@ def main() -> None:
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     inventory = pd.read_csv(INVENTORY, dtype={"network_id": str})
-    placements = pd.read_csv(
-        PLACEMENTS, dtype={"network_id": str, "station_id": str}
-    )
+    placements = pd.read_csv(PLACEMENTS, dtype={"network_id": str, "station_id": str})
     scored_ids = set(placements["network_id"].astype(str))
     candidates = inventory.loc[
         inventory["qualified_open_role"]
@@ -94,7 +83,9 @@ def main() -> None:
             station_gaps.append(scored)
         failures.extend(station_failures)
         print(f"development process-hybrid: {network}", flush=True)
-    result = pd.concat(station_gaps, ignore_index=True) if station_gaps else pd.DataFrame()
+    result = (
+        pd.concat(station_gaps, ignore_index=True) if station_gaps else pd.DataFrame()
+    )
     failures_frame = pd.DataFrame(
         failures, columns=["network_id", "station_id", "reason"]
     )
@@ -112,7 +103,9 @@ def main() -> None:
                 "phase": "open_development",
                 "networks_in_scope": len(candidates),
                 "networks_with_materialized_ta_f": candidates["network_id"].nunique(),
-                "networks_scored": result["network_id"].nunique() if not result.empty else 0,
+                "networks_scored": result["network_id"].nunique()
+                if not result.empty
+                else 0,
                 "status": "development_proxy_executable",
             },
             {
@@ -173,17 +166,13 @@ def main() -> None:
             if not network.empty
             else None,
         },
-        "input_sha256": {
-            str(INVENTORY.relative_to(ROOT)): sha256(INVENTORY),
-            str(PLACEMENTS.relative_to(ROOT)): sha256(PLACEMENTS),
-            str(FIRST.relative_to(ROOT)): sha256(FIRST),
-            str(SECOND.relative_to(ROOT)): sha256(SECOND),
-        },
-        "output_sha256": {
-            station_path.name: sha256(station_path),
-            failure_path.name: sha256(failure_path),
-            readiness_path.name: sha256(readiness_path),
-        },
+        "inputs": [
+            str(INVENTORY.relative_to(ROOT)),
+            str(PLACEMENTS.relative_to(ROOT)),
+            str(FIRST.relative_to(ROOT)),
+            str(SECOND.relative_to(ROOT)),
+        ],
+        "outputs": [station_path.name, failure_path.name, readiness_path.name],
     }
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(manifest, indent=2))

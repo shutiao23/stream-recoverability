@@ -143,7 +143,6 @@ data_versions:
     validation: metadata/validation_anchors_v2.csv
     development_frontier: metadata/frontier_anchors_v2.csv
     equivalence_bridge: metadata/anchor_bridge_published_v1_to_v2.json
-    identity_rule: structural_columns_and_truth_equivalence_without_digest_pinning
   event_catalogs:
     development: metadata/event_episode_catalog_v2.csv
     historical_reference: metadata/event_episode_catalog.csv
@@ -151,8 +150,6 @@ data_versions:
     status: built
     builder: scripts/14_build_data_versions.py
     source: data_versions/published_v1/daily_long.parquet
-    note: do_not_name_artifact_hashes_in_this_freeze
-  note: v2_directories_exist_hashes_are_not_pinned_here
 
 required_protocol_sensitivities:
   meteorology_alignment_v1:

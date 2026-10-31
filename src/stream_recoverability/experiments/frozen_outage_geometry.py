@@ -9,7 +9,6 @@ out as its truth-bearing counterpart.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import Mapping, Sequence
 from itertools import pairwise
@@ -18,6 +17,8 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+
+from stream_recoverability.seeds import plain_seed, position_index
 
 ALLOWED_ROLES = ("development", "validation")
 QUALIFICATION_MODE = "failure_closure6"
@@ -44,7 +45,7 @@ ADVERSARIAL_RULES: tuple[dict[str, Any], ...] = (
     },
     {
         "stress_id": "donor_thin",
-        "placement_rule": "minimum_mean_donor_availability_then_sha256_tie_break",
+        "placement_rule": "minimum_mean_donor_availability_then_seeded_random_tie_break",
         "target_mask_scope": "target_station_gap",
         "donor_mask_rule": "preserve_observed_donors",
         "left_boundary_required": True,
@@ -52,7 +53,7 @@ ADVERSARIAL_RULES: tuple[dict[str, Any], ...] = (
     },
     {
         "stress_id": "synchronous_network_outage",
-        "placement_rule": "sha256_ranked_fully_observed_target_window",
+        "placement_rule": "seeded_random_fully_observed_target_window",
         "target_mask_scope": "target_station_gap",
         "donor_mask_rule": "mask_all_network_stations_during_gap",
         "left_boundary_required": True,
@@ -65,19 +66,24 @@ def _season(stamp: pd.Timestamp) -> str:
     return ("DJF", "MAM", "JJA", "SON")[(int(stamp.month) % 12) // 3]
 
 
-def _sha256_text(value: str) -> str:
-    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+STRESS_CODES = {
+    str(rule["stress_id"]): index for index, rule in enumerate(ADVERSARIAL_RULES)
+}
 
 
-def canonical_csv_sha256(frame: pd.DataFrame) -> str:
-    """Hash a table after stable row and column ordering."""
+def _roster_positions(
+    availability: pd.DataFrame,
+) -> tuple[dict[str, int], dict[str, dict[str, int]]]:
+    """Positions of networks and of stations within each network in sorted order."""
 
-    ordered = frame.reindex(sorted(frame.columns), axis=1)
-    if not ordered.empty:
-        ordered = ordered.sort_values(list(ordered.columns), kind="stable").reset_index(
-            drop=True
-        )
-    return hashlib.sha256(ordered.to_csv(index=False).encode("utf-8")).hexdigest()
+    networks = availability["network_id"].astype(str)
+    stations = availability["station_id"].astype(str)
+    network_positions = position_index(networks)
+    station_positions = {
+        str(network_id): position_index(group)
+        for network_id, group in stations.groupby(networks, sort=True)
+    }
+    return network_positions, station_positions
 
 
 def _observed_runs(dates: pd.DatetimeIndex) -> list[tuple[pd.Timestamp, pd.Timestamp]]:
@@ -87,7 +93,9 @@ def _observed_runs(dates: pd.DatetimeIndex) -> list[tuple[pd.Timestamp, pd.Times
     breaks = np.flatnonzero(np.diff(unique.asi8) != pd.Timedelta(days=1).value)
     starts = np.r_[0, breaks + 1]
     ends = np.r_[breaks, len(unique) - 1]
-    return [(pd.Timestamp(unique[a]), pd.Timestamp(unique[b])) for a, b in zip(starts, ends)]
+    return [
+        (pd.Timestamp(unique[a]), pd.Timestamp(unique[b])) for a, b in zip(starts, ends)
+    ]
 
 
 def _internal_missing_runs(
@@ -124,14 +132,15 @@ def _window_starts(
     return candidates
 
 
-def _hash_choice(candidates: Sequence[pd.Timestamp], key: str) -> pd.Timestamp | None:
+def _seeded_choice(
+    candidates: Sequence[pd.Timestamp], *seed_parts: int
+) -> pd.Timestamp | None:
     if not candidates:
         return None
-    # A single digest selects a stable rank in the already sorted candidate
-    # roster.  This is equivalent to a preregistered hash draw but avoids
-    # hashing every day in multi-decade station records.
-    index = int(_sha256_text(key), 16) % len(candidates)
-    return candidates[index]
+    # One seeded draw selects a stable rank in the already sorted candidate
+    # roster; the seed is built from roster positions, dates and lengths.
+    rng = np.random.default_rng(plain_seed(*seed_parts))
+    return candidates[int(rng.integers(len(candidates)))]
 
 
 def _mean_donor_availability(
@@ -164,6 +173,7 @@ def build_natural_outage_catalog(
         raise ValueError(f"availability missing columns: {sorted(missing)}")
     rows: list[dict[str, Any]] = []
     grouped = availability.assign(date=pd.to_datetime(availability["date"]))
+    network_positions, station_positions = _roster_positions(grouped)
     for keys, group in grouped.groupby(["role", "network_id", "station_id"], sort=True):
         role, network_id, station_id = map(str, keys)
         if role not in ALLOWED_ROLES:
@@ -184,8 +194,13 @@ def build_natural_outage_catalog(
                     require_left_boundary=True,
                     require_right_boundary=True,
                 )
-            identity = f"{role}|{network_id}|{station_id}|{start.date()}|{length}|{season}"
-            counterpart = _hash_choice(candidate_cache[cache_key], identity)
+            counterpart = _seeded_choice(
+                candidate_cache[cache_key],
+                network_positions[network_id],
+                station_positions[network_id][station_id],
+                start.toordinal(),
+                length,
+            )
             eligible = counterpart is not None
             counterpart_end = (
                 counterpart + pd.Timedelta(days=length - 1)
@@ -195,10 +210,15 @@ def build_natural_outage_catalog(
             if counterpart is not None and not (
                 counterpart_end < start or counterpart > end
             ):
-                raise AssertionError("observed counterpart overlaps the real missing interval")
+                raise AssertionError(
+                    "observed counterpart overlaps the real missing interval"
+                )
             rows.append(
                 {
-                    "geometry_id": f"natural_{_sha256_text(identity)[:20]}",
+                    "geometry_id": (
+                        f"natural_{role}_{network_id}_{station_id}_"
+                        f"{start.date().isoformat()}_{length}d"
+                    ),
                     "suite": "natural_outage",
                     "role": role,
                     "network_id": network_id,
@@ -209,7 +229,9 @@ def build_natural_outage_catalog(
                     "season": season,
                     "actual_missing_truth_available": False,
                     "benchmark_start_date": (
-                        counterpart.date().isoformat() if counterpart is not None else None
+                        counterpart.date().isoformat()
+                        if counterpart is not None
+                        else None
                     ),
                     "benchmark_end_date": (
                         counterpart_end.date().isoformat()
@@ -231,7 +253,9 @@ def build_natural_outage_catalog(
     result["benchmark_weight"] = 0.0
     if eligible.any():
         result.loc[eligible, "benchmark_weight"] = 1.0 / float(eligible.sum())
-    return result.sort_values(["role", "network_id", "station_id", "start_date"]).reset_index(drop=True)
+    return result.sort_values(
+        ["role", "network_id", "station_id", "start_date"]
+    ).reset_index(drop=True)
 
 
 def build_adversarial_catalog(
@@ -246,16 +270,25 @@ def build_adversarial_catalog(
     missing = required.difference(availability.columns)
     if missing:
         raise ValueError(f"availability missing columns: {sorted(missing)}")
-    parsed = availability.assign(date=pd.to_datetime(availability["date"]).dt.normalize())
+    parsed = availability.assign(
+        date=pd.to_datetime(availability["date"]).dt.normalize()
+    )
+    network_positions, station_positions = _roster_positions(parsed)
     rows: list[dict[str, Any]] = []
-    for (role, network_id), network in parsed.groupby(["role", "network_id"], sort=True):
+    for (role, network_id), network in parsed.groupby(
+        ["role", "network_id"], sort=True
+    ):
         role, network_id = str(role), str(network_id)
         if role not in ALLOWED_ROLES:
             raise ValueError(f"non-open role is forbidden: {role}")
         station_count = int(network["station_id"].nunique())
         count_by_day = network.groupby("date")["station_id"].nunique().sort_index()
-        full_index = pd.date_range(count_by_day.index.min(), count_by_day.index.max(), freq="D")
-        count_array = count_by_day.reindex(full_index, fill_value=0).to_numpy(dtype=float)
+        full_index = pd.date_range(
+            count_by_day.index.min(), count_by_day.index.max(), freq="D"
+        )
+        count_array = count_by_day.reindex(full_index, fill_value=0).to_numpy(
+            dtype=float
+        )
         count_cumsum = np.r_[0.0, np.cumsum(count_array)]
         origin = pd.Timestamp(full_index[0])
 
@@ -295,19 +328,29 @@ def build_adversarial_catalog(
                             for stamp, score in zip(candidates, scores, strict=True)
                             if score == float(np.min(scores))
                         ]
-                        chosen = _hash_choice(
-                            thin, f"{role}|{network_id}|{station_id}|{length}|{stress_id}"
+                        chosen = _seeded_choice(
+                            thin,
+                            network_positions[network_id],
+                            station_positions[network_id][station_id],
+                            int(length),
+                            STRESS_CODES.get(stress_id, len(STRESS_CODES)),
                         )
                     else:
-                        chosen = _hash_choice(
-                            candidates, f"{role}|{network_id}|{station_id}|{length}|{stress_id}"
+                        chosen = _seeded_choice(
+                            candidates,
+                            network_positions[network_id],
+                            station_positions[network_id][station_id],
+                            int(length),
+                            STRESS_CODES.get(stress_id, len(STRESS_CODES)),
                         )
                     if chosen is None:
                         continue
-                    identity = f"{role}|{network_id}|{station_id}|{chosen.date()}|{length}|{stress_id}"
                     rows.append(
                         {
-                            "geometry_id": f"adversarial_{_sha256_text(identity)[:20]}",
+                            "geometry_id": (
+                                f"adversarial_{role}_{network_id}_{station_id}_"
+                                f"{stress_id}_{int(length)}d_{chosen.date().isoformat()}"
+                            ),
                             "suite": "adversarial_stress",
                             "role": role,
                             "network_id": network_id,
@@ -319,8 +362,12 @@ def build_adversarial_catalog(
                             "placement_rule": str(rule["placement_rule"]),
                             "target_mask_scope": str(rule["target_mask_scope"]),
                             "donor_mask_rule": str(rule["donor_mask_rule"]),
-                            "left_boundary_required": bool(rule["left_boundary_required"]),
-                            "right_boundary_required": bool(rule["right_boundary_required"]),
+                            "left_boundary_required": bool(
+                                rule["left_boundary_required"]
+                            ),
+                            "right_boundary_required": bool(
+                                rule["right_boundary_required"]
+                            ),
                             "truth_source": "held_out_observed_days",
                             "benchmark_eligible": True,
                             "selection_uses_outcome_values": False,
@@ -335,44 +382,55 @@ def build_adversarial_catalog(
     return result
 
 
-def load_open_role_availability(open_role_root: str | Path) -> tuple[pd.DataFrame, dict[str, Any]]:
+def load_open_role_availability(
+    open_role_root: str | Path,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
     """Read only ``site_id,date`` from development/validation clean tables."""
 
     root = Path(open_role_root)
     frames: list[pd.DataFrame] = []
     sources: list[dict[str, Any]] = []
     role_sources: list[dict[str, Any]] = []
-    split_hashes: set[str] = set()
     for role in ALLOWED_ROLES:
         role_root = root / role
-        role_manifest = json.loads((role_root / "qc_manifest.json").read_text(encoding="utf-8"))
-        if role_manifest.get("role") != role or role_manifest.get("sealed_temperature_records_read") is not False:
-            raise ValueError(f"unsafe open-role manifest: {role_root / 'qc_manifest.json'}")
+        role_manifest = json.loads(
+            (role_root / "qc_manifest.json").read_text(encoding="utf-8")
+        )
+        if (
+            role_manifest.get("role") != role
+            or role_manifest.get("sealed_temperature_records_read") is not False
+        ):
+            raise ValueError(
+                f"unsafe open-role manifest: {role_root / 'qc_manifest.json'}"
+            )
         if (
             role_manifest.get("qualification_mode") != QUALIFICATION_MODE
             or role_manifest.get("qualified_years_min") != 6
             or role_manifest.get("relaxation_applied") is not True
             or role_manifest.get("relaxation_trigger") != RELAXATION_TRIGGER
         ):
-            raise ValueError(f"role manifest is not the locked failure-closure-6 corpus: {role_root}")
-        split_hashes.add(str(role_manifest.get("split_sha256", "")))
+            raise ValueError(
+                f"role manifest is not the locked failure-closure-6 corpus: {role_root}"
+            )
         role_sources.append(
             {
                 "role": role,
                 "qc_manifest": str((role_root / "qc_manifest.json").relative_to(root)),
-                "qc_manifest_sha256": hashlib.sha256(
-                    (role_root / "qc_manifest.json").read_bytes()
-                ).hexdigest(),
             }
         )
         for network_root in sorted((role_root / "networks").glob("*")):
             manifest_path = network_root / "network_qc_manifest.json"
             dates_path = network_root / "daily_long_qc.csv"
             qc_path = network_root / "ingest_qc_report.csv"
-            if not (manifest_path.is_file() and dates_path.is_file() and qc_path.is_file()):
+            if not (
+                manifest_path.is_file() and dates_path.is_file() and qc_path.is_file()
+            ):
                 continue
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            if manifest.get("role") != role or manifest.get("sealed_temperature_records_read") is not False:
+            if (
+                manifest.get("role") != role
+                or manifest.get("sealed_temperature_records_read") is not False
+            ):
                 raise ValueError(f"unsafe network manifest: {manifest_path}")
             if (
                 manifest.get("qualification_mode") != QUALIFICATION_MODE
@@ -380,41 +438,49 @@ def load_open_role_availability(open_role_root: str | Path) -> tuple[pd.DataFram
                 or manifest.get("relaxation_applied") is not True
                 or manifest.get("relaxation_trigger") != RELAXATION_TRIGGER
             ):
-                raise ValueError(f"network is not governed by failure-closure-6: {manifest_path}")
+                raise ValueError(
+                    f"network is not governed by failure-closure-6: {manifest_path}"
+                )
             if manifest.get("overlap", {}).get("complete_enough") is not True:
                 continue
             qc = pd.read_csv(qc_path, dtype={"site_id": str})
             eligible = set(
-                qc.loc[qc["eligible_for_network"].astype(str).str.lower().eq("true"), "site_id"]
+                qc.loc[
+                    qc["eligible_for_network"].astype(str).str.lower().eq("true"),
+                    "site_id",
+                ]
                 .dropna()
                 .astype(str)
             )
             # Security boundary: temperature_c and qualifier are never loaded.
-            dates = pd.read_csv(dates_path, usecols=["site_id", "date"], dtype={"site_id": str})
+            dates = pd.read_csv(
+                dates_path, usecols=["site_id", "date"], dtype={"site_id": str}
+            )
             dates = dates.loc[dates["site_id"].isin(eligible)].drop_duplicates()
             dates["role"] = role
             dates["network_id"] = str(manifest["network_id"])
-            frames.append(dates[["role", "network_id", "site_id", "date"]].rename(columns={"site_id": "station_id"}))
+            frames.append(
+                dates[["role", "network_id", "site_id", "date"]].rename(
+                    columns={"site_id": "station_id"}
+                )
+            )
             sources.append(
                 {
                     "role": role,
                     "network_id": str(manifest["network_id"]),
                     "network_manifest": str(manifest_path.relative_to(root)),
                     "availability_rows": len(dates),
-                    "availability_sha256": canonical_csv_sha256(dates[["site_id", "date"]]),
                 }
             )
-    availability = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(
-        columns=["role", "network_id", "station_id", "date"]
+    availability = (
+        pd.concat(frames, ignore_index=True)
+        if frames
+        else pd.DataFrame(columns=["role", "network_id", "station_id", "date"])
     )
-    split_hashes.discard("")
-    if len(split_hashes) != 1:
-        raise ValueError(f"open roles do not share one split SHA: {sorted(split_hashes)}")
     return availability, {
         "sources": sources,
         "n_sources": len(sources),
         "role_manifests": role_sources,
-        "split_sha256": next(iter(split_hashes)),
     }
 
 
@@ -438,14 +504,14 @@ def build_binding_manifest(
         "qualified_years_min": 6,
         "relaxation_applied": True,
         "relaxation_trigger": RELAXATION_TRIGGER,
-        "split_sha256": source_audit.get("split_sha256"),
         "sealed_temperature_records_read": False,
         "outcome_columns_loaded": [],
         "availability_columns_loaded": ["site_id", "date"],
         "n_availability_rows": len(availability),
-        "n_networks": int(availability["network_id"].nunique()) if not availability.empty else 0,
+        "n_networks": int(availability["network_id"].nunique())
+        if not availability.empty
+        else 0,
         "natural_outage": {
-            "canonical_table_sha256": canonical_csv_sha256(natural),
             "n_geometry_rows": len(natural),
             "n_benchmark_eligible": int(eligible.sum()),
             "n_blocked_no_observed_counterpart": len(blocked),
@@ -455,7 +521,6 @@ def build_binding_manifest(
             "max_length_days": NATURAL_MAX_DAYS,
         },
         "adversarial": {
-            "canonical_table_sha256": canonical_csv_sha256(adversarial),
             "n_rows": len(adversarial),
             "lengths_days": list(ADVERSARIAL_LENGTHS),
             "stress_rules": [dict(rule) for rule in ADVERSARIAL_RULES],
@@ -464,13 +529,25 @@ def build_binding_manifest(
         "source_audit": dict(source_audit),
         "runner_interface": {
             "natural_outage": {
-                "geometry_fields": ["network_id", "station_id", "start_date", "length_days", "season"],
+                "geometry_fields": [
+                    "network_id",
+                    "station_id",
+                    "start_date",
+                    "length_days",
+                    "season",
+                ],
                 "plant_at": "benchmark_start_date",
                 "filter": "benchmark_eligible == true",
                 "truth_source": "held_out_observed_counterpart",
             },
             "adversarial": {
-                "geometry_fields": ["network_id", "station_id", "start_date", "length_days", "season"],
+                "geometry_fields": [
+                    "network_id",
+                    "station_id",
+                    "start_date",
+                    "length_days",
+                    "season",
+                ],
                 "apply": ["target_mask_scope", "donor_mask_rule"],
                 "truth_source": "held_out_observed_days",
             },
@@ -500,17 +577,8 @@ def write_frozen_geometry_artifacts(
     natural.to_csv(natural_path, index=False)
     adversarial.to_csv(adversarial_path, index=False)
     frozen = json.loads(json.dumps(dict(manifest)))
-    natural_file_sha = hashlib.sha256(natural_path.read_bytes()).hexdigest()
-    adversarial_file_sha = hashlib.sha256(adversarial_path.read_bytes()).hexdigest()
-    frozen["natural_outage"]["file_sha256"] = natural_file_sha
-    frozen["adversarial"]["file_sha256"] = adversarial_file_sha
     (root / "geometry_binding_manifest.json").write_text(
         json.dumps(frozen, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
-    (root / "catalog_sha256.txt").write_text(
-        f"{natural_file_sha}  natural_outage_catalog.csv\n"
-        f"{adversarial_file_sha}  adversarial_stress_catalog.csv\n",
-        encoding="utf-8",
     )
     return frozen
 
@@ -521,23 +589,19 @@ def load_frozen_geometry_bindings(
     """Validated loader for a future T2 work-item expander.
 
     This function loads geometry catalogs, not river observations.  It rejects
-    byte drift, non-open roles, natural rows without frozen counterpart truth,
-    and adversarial rows without held-out observed truth.
+    non-open roles, natural rows without frozen counterpart truth, and
+    adversarial rows without held-out observed truth.
     """
 
     root = Path(directory)
-    manifest = json.loads((root / "geometry_binding_manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads(
+        (root / "geometry_binding_manifest.json").read_text(encoding="utf-8")
+    )
     if manifest.get("manifest_schema") != "t2_v91_frozen_outage_geometry_binding_v1":
         raise ValueError("unsupported outage geometry manifest")
     natural_path = root / "natural_outage_catalog.csv"
     adversarial_path = root / "adversarial_stress_catalog.csv"
-    for path, key in ((natural_path, "natural_outage"), (adversarial_path, "adversarial")):
-        observed = hashlib.sha256(path.read_bytes()).hexdigest()
-        if observed != manifest[key].get("file_sha256"):
-            raise ValueError(f"frozen geometry byte drift: {path.name}")
-    natural = pd.read_csv(
-        natural_path, dtype={"network_id": str, "station_id": str}
-    )
+    natural = pd.read_csv(natural_path, dtype={"network_id": str, "station_id": str})
     adversarial = pd.read_csv(
         adversarial_path, dtype={"network_id": str, "station_id": str}
     )
@@ -547,15 +611,20 @@ def load_frozen_geometry_bindings(
     if not roles.issubset(ALLOWED_ROLES):
         raise ValueError(f"frozen geometry contains forbidden roles: {sorted(roles)}")
     natural_ready = natural.loc[natural["benchmark_eligible"].astype(bool)]
-    if not natural_ready["benchmark_start_date"].notna().all() or not natural_ready[
-        "benchmark_truth_source"
-    ].eq("held_out_observed_counterpart").all():
+    if (
+        not natural_ready["benchmark_start_date"].notna().all()
+        or not natural_ready["benchmark_truth_source"]
+        .eq("held_out_observed_counterpart")
+        .all()
+    ):
         raise ValueError("natural benchmark row lacks frozen observed counterpart")
     counterpart_start = pd.to_datetime(natural_ready["benchmark_start_date"])
     counterpart_end = pd.to_datetime(natural_ready["benchmark_end_date"])
     missing_start = pd.to_datetime(natural_ready["start_date"])
     missing_end = pd.to_datetime(natural_ready["end_date"])
-    if not ((counterpart_end < missing_start) | (counterpart_start > missing_end)).all():
+    if not (
+        (counterpart_end < missing_start) | (counterpart_start > missing_end)
+    ).all():
         raise ValueError("natural observed counterpart overlaps real missing geometry")
     if not adversarial["truth_source"].eq("held_out_observed_days").all():
         raise ValueError("adversarial benchmark row lacks held-out observed truth")
@@ -569,7 +638,6 @@ __all__ = [
     "build_adversarial_catalog",
     "build_binding_manifest",
     "build_natural_outage_catalog",
-    "canonical_csv_sha256",
     "load_frozen_geometry_bindings",
     "load_open_role_availability",
     "write_frozen_geometry_artifacts",

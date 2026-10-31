@@ -1,25 +1,16 @@
 from __future__ import annotations
-
-import hashlib
 import json
-import subprocess
 from dataclasses import replace
 from pathlib import Path
-
 import pandas as pd
 import pytest
-
 import stream_recoverability.experiments.t2_chunk_executor_v4 as chunk_v4
 import stream_recoverability.experiments.t2_workload_v4 as v4
 from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     NETWORK_SCHEMA_VERSION as V2_NETWORK_SCHEMA_VERSION,
 )
-from stream_recoverability.experiments.t2_batch_orchestrator import (
-    load_contract_spec,
-)
-from stream_recoverability.experiments.t2_cached_executor import (
-    StrictFitExecutionCache,
-)
+from stream_recoverability.experiments.t2_batch_orchestrator import load_contract_spec
+from stream_recoverability.experiments.t2_cached_executor import StrictFitExecutionCache
 from stream_recoverability.experiments.t2_information_runner_integration import (
     load_materialized_auxiliary_v2,
 )
@@ -36,13 +27,9 @@ ROOT = Path(__file__).resolve().parents[1]
 V3 = ROOT / "results/framework/t2_recovery_benchmark_v1/workload_manifest.json"
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def _network(network_id: str = "huc8_02040103") -> OpenNetwork:
     networks, _ = discover_failure_closure_networks(ROOT)
-    return next(network for network in networks if network.network_id == network_id)
+    return next((network for network in networks if network.network_id == network_id))
 
 
 def _binding() -> v4.V2NetworkBinding:
@@ -50,12 +37,10 @@ def _binding() -> v4.V2NetworkBinding:
         network_id="huc8_02040103",
         role="development",
         network_manifest_schema="t2_v91_open_role_mh_network_acquisition_v2_1",
-        network_plan_sha256="1" * 64,
         network_manifest_path="open/network_manifest.json",
-        network_manifest_sha256="2" * 64,
-        daily_long_sha256="3" * 64,
-        coverage_sha256="4" * 64,
-        adapter_schema_sha256="5" * 64,
+        daily_long_path="open/daily_long_auxiliary.csv",
+        coverage_path="open/coverage.csv",
+        adapter_schema_path="open/adapter_schema.json",
         materialization_status="materialized_partial",
     )
 
@@ -65,9 +50,6 @@ def _prerequisites(*, ready: bool = False) -> v4.V4Prerequisites:
     return v4.V4Prerequisites(
         ready=ready,
         corpus_plan_path="open/corpus_request_plan.json",
-        corpus_plan_file_sha256="6" * 64,
-        corpus_plan_sha256="7" * 64,
-        split_sha256="8" * 64,
         n_networks_expected=67,
         n_networks_terminal=67 if ready else 1,
         missing_network_ids=() if ready else ("huc8_missing",),
@@ -93,7 +75,7 @@ def _item(condition: str, *, model: str = "donor_regression") -> WorkItem:
 
 
 def test_current_formal_freeze_is_fail_closed_and_v3_bytes_unchanged() -> None:
-    before = _sha(V3)
+    before = V3.read_bytes()
     networks, _ = discover_failure_closure_networks(ROOT)
     readiness = v4.build_v4_readiness_manifest(
         ROOT, networks, source_v3_workload_path=V3
@@ -105,58 +87,41 @@ def test_current_formal_freeze_is_fail_closed_and_v3_bytes_unchanged() -> None:
         assert readiness["status"] == "blocked_fail_closed"
     else:
         assert readiness["status"] == "ready_for_formal_v4_freeze"
-    assert _sha(V3) == before
+    assert V3.read_bytes() == before
     with pytest.raises(v4.V4FreezeBlocked, match="67 terminal"):
         list(v4.iter_v4_work_items([_item("B")], _prerequisites()))
 
 
-def test_extended_items_expand_all_lags_and_bind_every_identity_component() -> None:
+def test_extended_items_expand_all_lags_with_readable_distinct_ids() -> None:
     prerequisites = _prerequisites(ready=True)
     base = list(
         v4.iter_v4_work_items([_item("B")], prerequisites, require_full_corpus=False)
     )
     extended = list(
         v4.iter_v4_work_items(
-            [_item("B_union_D_union_M")],
-            prerequisites,
-            require_full_corpus=False,
+            [_item("B_union_D_union_M")], prerequisites, require_full_corpus=False
         )
     )
     assert len(base) == 1
     assert base[0].meteorology_lag_days is None
     assert [item.meteorology_lag_days for item in extended] == [-1, 0, 1]
-    assert len({item.item_id for item in extended}) == 3
-
-    changed_binding = replace(_binding(), coverage_sha256="9" * 64)
-    changed = replace(
-        prerequisites, bindings={changed_binding.network_id: changed_binding}
-    )
-    changed_items = list(
-        v4.iter_v4_work_items(
-            [_item("B_union_D_union_M")], changed, require_full_corpus=False
-        )
-    )
-    assert [item.item_id for item in changed_items] != [
-        item.item_id for item in extended
+    assert base[0].item_id == "v3-B-donor_regression.lagnone"
+    assert [item.item_id for item in extended] == [
+        "v3-B_union_D_union_M-donor_regression.lag-1",
+        "v3-B_union_D_union_M-donor_regression.lag0",
+        "v3-B_union_D_union_M-donor_regression.lag1",
     ]
-    assert extended[0].coverage_semantics_sha256 == v4.COVERAGE_SEMANTICS_SHA256
-    assert extended[0].auxiliary_corpus_plan_sha256 == "7" * 64
+    assert all((item.auxiliary_binding == _binding() for item in extended))
 
 
 def test_item_index_rejects_a_truncated_v3_stream(tmp_path: Path, monkeypatch) -> None:
     source = replace(_item("B"), ordinal=0)
-    digest = hashlib.sha256((source.item_id + "\n").encode()).hexdigest()
     monkeypatch.setattr(v4, "EXPECTED_V3_WORK_ITEMS", 2)
     monkeypatch.setattr(v4, "EXPECTED_V3_EXTENDED_WORK_ITEMS", 0)
     monkeypatch.setattr(v4, "EXPECTED_V4_WORK_ITEMS", 2)
     output = tmp_path / "truncated.parquet"
-    with pytest.raises(v4.V4FreezeBlocked, match="count/identity"):
-        v4._write_v4_item_index(
-            output,
-            [source],
-            _prerequisites(ready=True),
-            expected_v3_identity_sha256=digest,
-        )
+    with pytest.raises(v4.V4FreezeBlocked, match="count verification"):
+        v4._write_v4_item_index(output, [source], _prerequisites(ready=True))
     assert not output.exists()
 
 
@@ -192,26 +157,13 @@ def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
 
     monkeypatch.setattr(v4, "execute_materialized_information_item", fake_execute)
     auxiliary = type(
-        "Auxiliary",
-        (),
-        {
-            "audit": {
-                "source_contract": "legacy_nwis_v2",
-                "manifest_sha256": "2" * 64,
-                "network_plan_sha256": "1" * 64,
-                "daily_long_sha256": "3" * 64,
-                "coverage_sha256": "4" * 64,
-                "adapter_schema_sha256": "5" * 64,
-            }
-        },
+        "Auxiliary", (), {"audit": {"source_contract": "legacy_nwis_v2"}}
     )()
     prerequisites = _prerequisites(ready=True)
     donor_item = next(
         iter(
             v4.iter_v4_work_items(
-                [_item("B_union_D_union_M")],
-                prerequisites,
-                require_full_corpus=False,
+                [_item("B_union_D_union_M")], prerequisites, require_full_corpus=False
             )
         )
     )
@@ -220,7 +172,6 @@ def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
     )
     assert donor_result["status"] == "complete"
     assert calls == [("donor_regression", donor_item.source_v3_item.item_id)]
-
     reference_network = _network()
     reference_panel = read_panel(ROOT, reference_network)
     reference_target = str(reference_panel.columns[0])
@@ -235,9 +186,7 @@ def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
     unsupported = next(
         iter(
             v4.iter_v4_work_items(
-                [reference_source],
-                prerequisites,
-                require_full_corpus=False,
+                [reference_source], prerequisites, require_full_corpus=False
             )
         )
     )
@@ -312,13 +261,7 @@ def test_real_open_extended_climatology_is_three_explicit_v4_references(
     )
     cache = StrictFitExecutionCache(ROOT)
     results = [
-        v4.execute_v4_item(
-            ROOT,
-            network,
-            item,
-            panel=panel,
-            base_execution_cache=cache,
-        )
+        v4.execute_v4_item(ROOT, network, item, panel=panel, base_execution_cache=cache)
         for item in items
     ]
     legacy = [
@@ -326,19 +269,21 @@ def test_real_open_extended_climatology_is_three_explicit_v4_references(
     ]
     assert len({row["item_id"] for row in results}) == 3
     assert [row["meteorology_lag_days"] for row in results] == [-1, 0, 1]
-    assert all(row["status"] == "reference_complete" for row in results)
-    assert all(row["workload_category"] == "reference" for row in results)
+    assert all((row["status"] == "reference_complete" for row in results))
+    assert all((row["workload_category"] == "reference" for row in results))
     assert all(
-        row["available_information_condition"] == source.information_condition
-        for row in results
+        (
+            row["available_information_condition"] == source.information_condition
+            for row in results
+        )
     )
-    assert all(row["consumed_information"] == [] for row in results)
-    assert all(row["information_condition_result"] is False for row in results)
-    assert all(row["achieved_skill"] == 0.0 for row in results)
+    assert all((row["consumed_information"] == [] for row in results))
+    assert all((row["information_condition_result"] is False for row in results))
+    assert all((row["achieved_skill"] == 0.0 for row in results))
     assert all(
-        row["reference_ignores_available_information"] is True for row in results
+        (row["reference_ignores_available_information"] is True for row in results)
     )
-    assert all(row["sealed_temperature_records_read"] is False for row in results)
+    assert all((row["sealed_temperature_records_read"] is False for row in results))
     for result, expected in zip(results, legacy, strict=True):
         for field in (
             "status",
@@ -347,7 +292,6 @@ def test_real_open_extended_climatology_is_three_explicit_v4_references(
             "mae_deg_c",
             "climatology_mae_deg_c",
             "achieved_skill",
-            "prediction_sha256",
         ):
             assert result[field] == expected[field]
     assert cache.stats()["fit_cache_misses_by_model"] == {"climatology": 3}
@@ -372,19 +316,11 @@ def test_zero_climatology_denominator_is_terminal_data_attrition() -> None:
         geometry="artificial_stress",
         boundary_mode="both",
     )
-
     result = execute_item(ROOT, network, item)
-
     assert result["status"] == "data_ineligible"
     assert result["workload_category"] == "data_ineligible"
     assert result["reason"] == "undefined_skill_nonpositive_climatology_mae"
-    for column in (
-        "mae_deg_c",
-        "climatology_mae_deg_c",
-        "achieved_skill",
-        "n_scored",
-        "prediction_sha256",
-    ):
+    for column in ("mae_deg_c", "climatology_mae_deg_c", "achieved_skill", "n_scored"):
         assert column not in result
 
 
@@ -406,14 +342,10 @@ def test_missing_climatology_training_target_is_terminal_data_attrition() -> Non
         geometry="natural_outage",
         boundary_mode="both",
     )
-
     result = execute_item(ROOT, network, item)
-
     assert result["status"] == "data_ineligible"
     assert result["workload_category"] == "data_ineligible"
-    assert result["reason"] == (
-        "undefined_skill_no_finite_climatology_training_targets"
-    )
+    assert result["reason"] == "undefined_skill_no_finite_climatology_training_targets"
     assert "achieved_skill" not in result
 
 
@@ -431,7 +363,6 @@ def test_v4_chunk_refuses_incomplete_auxiliary_before_creating_output(
                 "n_work_items": v4.EXPECTED_V4_WORK_ITEMS,
                 "execution_allowed": True,
                 "source_v3_workload_path": str(V3.relative_to(ROOT)),
-                "source_v3_workload_sha256": _sha(V3),
             }
         ),
         encoding="utf-8",
@@ -451,7 +382,7 @@ def test_v4_chunk_refuses_incomplete_auxiliary_before_creating_output(
     assert not output.exists()
 
 
-def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
+def test_v4_chunk_safe_resume_validates_table_identity_and_bindings(
     tmp_path: Path,
 ) -> None:
     chunk_dir = tmp_path / "chunk_0000000_0000002"
@@ -465,17 +396,11 @@ def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
                 "network_id": "network",
                 "runner_contract_version": v4.V4_RUNNER_CONTRACT_VERSION,
                 "status": "complete",
-                "auxiliary_corpus_plan_sha256": "3" * 64,
-                "auxiliary_corpus_plan_file_sha256": "9" * 64,
-                "auxiliary_network_manifest_sha256": "5" * 64,
-                "coverage_semantics_sha256": "a" * 64,
-                "pre_score_freeze_sha256": "f" * 64,
                 "sealed_temperature_records_read": False,
                 "mae_deg_c": 1.0,
                 "climatology_mae_deg_c": 2.0,
                 "achieved_skill": 0.5,
                 "n_scored": 7,
-                "prediction_sha256": "a" * 64,
             },
             {
                 "ordinal": 1,
@@ -484,34 +409,18 @@ def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
                 "network_id": "network",
                 "runner_contract_version": v4.V4_RUNNER_CONTRACT_VERSION,
                 "status": "structural_not_applicable",
-                "auxiliary_corpus_plan_sha256": "3" * 64,
-                "auxiliary_corpus_plan_file_sha256": "9" * 64,
-                "auxiliary_network_manifest_sha256": "5" * 64,
-                "coverage_semantics_sha256": "a" * 64,
-                "pre_score_freeze_sha256": "f" * 64,
                 "sealed_temperature_records_read": False,
             },
         ]
     )
     results = chunk_dir / "results.csv"
     frame.to_csv(results, index=False)
-    identities = frame[["ordinal", "item_id"]].to_dict(orient="records")
     expected = {
         "manifest_schema": chunk_v4.V4_CHUNK_SCHEMA,
         "runner_contract_version": v4.V4_RUNNER_CONTRACT_VERSION,
-        "workload_manifest_sha256": "1" * 64,
-        "workload_item_identity_sha256": "2" * 64,
-        "auxiliary_corpus_plan_sha256": "3" * 64,
-        "auxiliary_corpus_plan_file_sha256": "9" * 64,
-        "coverage_semantics_sha256": "a" * 64,
-        "pre_score_freeze_sha256": "f" * 64,
-        "auxiliary_network_bindings_sha256": "4" * 64,
         "auxiliary_network_bindings": {
-            "network": {"network_manifest_sha256": "5" * 64}
+            "network": {"network_manifest_path": "open/network_manifest.json"}
         },
-        "input_sha256_by_network_sha256": "6" * 64,
-        "input_sha256_by_network": {"network": "7" * 64},
-        "chunk_identity_sha256": "8" * 64,
         "start_ordinal": 0,
         "end_ordinal_exclusive": 2,
         "n_records": 2,
@@ -522,26 +431,17 @@ def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
         "formal_evidence": False,
         "passed": False,
     }
-    manifest = {
-        **expected,
-        "ordinal_item_identity_sha256": chunk_v4._canonical_sha(identities),
-        "item_id_stream_sha256": chunk_v4._item_stream_sha(identities),
-        "first_item_id": "item-a",
-        "last_item_id": "item-b",
-        "results_sha256": _sha(results),
-    }
+    manifest = {**expected, "first_item_id": "item-a", "last_item_id": "item-b"}
     manifest_path = chunk_dir / "manifest.json"
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     resumed = chunk_v4._resume_existing(
         chunk_dir, expected_binding=expected, start=0, end=2
     )
     assert resumed["completeness"] == "complete"
-
-    results.write_text(results.read_text(encoding="utf-8") + "\n", encoding="utf-8")
-    with pytest.raises(v4.V4FreezeBlocked, match="result-table SHA"):
+    frame.iloc[:1].to_csv(results, index=False)
+    with pytest.raises(v4.V4FreezeBlocked, match="row count mismatch"):
         chunk_v4._resume_existing(chunk_dir, expected_binding=expected, start=0, end=2)
     frame.to_csv(results, index=False)
-    manifest["results_sha256"] = _sha(results)
     manifest["auxiliary_network_bindings"] = {"drifted": {}}
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     with pytest.raises(v4.V4FreezeBlocked, match="auxiliary_network_bindings"):
@@ -560,7 +460,6 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
         role=binding.role,
         source_key="open_role_qc/failure_closure6/development",
         wide_path="open/panel.csv",
-        wide_sha256="a" * 64,
         manifest_path="open/network.json",
         n_days=1000,
         n_stations=3,
@@ -570,17 +469,12 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
         replace(_item("B"), ordinal=0),
         replace(_item("B_union_D_union_M"), ordinal=1),
     ]
-    source_digest = hashlib.sha256()
-    for item in source_items:
-        source_digest.update(item.item_id.encode())
-        source_digest.update(b"\n")
     v3_path.write_text(
         json.dumps(
             {
                 "input_inventory": {"sealed_input_roots_allowed": []},
                 "tier_1": {
                     "n_work_items": 2,
-                    "work_item_identity_sha256": source_digest.hexdigest(),
                     "counts_by_role_model_information": {
                         "development|donor_regression|B": 1,
                         "development|donor_regression|B_union_D_union_M": 1,
@@ -596,10 +490,7 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
     monkeypatch.setattr(
         v4,
         "build_v4_readiness_manifest",
-        lambda *args, **kwargs: {
-            "source_v3_workload_sha256": "b" * 64,
-            "source_v3_work_item_identity_sha256": "c" * 64,
-        },
+        lambda *args, **kwargs: {"status": "ready_for_formal_v4_freeze"},
     )
     manifest = v4.build_v4_workload_manifest(
         tmp_path,
@@ -617,75 +508,17 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
         "donor_regression|B_union_D_union_M|0": 1,
         "donor_regression|B_union_D_union_M|1": 1,
     }
-    assert manifest["auxiliary_network_bindings_sha256"] == chunk_v4._canonical_sha(
-        manifest["auxiliary_network_bindings"]
-    )
+    assert manifest["auxiliary_network_bindings"] == {
+        binding.network_id: binding.identity()
+    }
     indexed = v4.load_v4_index_slice(tmp_path, manifest, prerequisites, start=1, end=4)
     assert [item.ordinal for item in indexed] == [1, 2, 3]
     assert [item.meteorology_lag_days for item in indexed] == [-1, 0, 1]
-
-
-def test_formal_workload_json_is_create_once(tmp_path: Path) -> None:
-    path = tmp_path / "workload.json"
-    v4._create_once_json(path, {"identity": "a"})
-    v4._create_once_json(path, {"identity": "a"})
-    with pytest.raises(v4.V4FreezeBlocked, match="create-once"):
-        v4._create_once_json(path, {"identity": "b"})
-
-
-def test_pre_score_freeze_must_be_committed_and_head_clean(tmp_path: Path) -> None:
-    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
-    frozen = tmp_path / "freeze.json"
-    frozen.write_text('{"identity":"a"}\n', encoding="utf-8")
-    subprocess.run(["git", "add", "freeze.json"], cwd=tmp_path, check=True)
-    subprocess.run(
-        [
-            "git",
-            "-c",
-            "user.name=Test",
-            "-c",
-            "user.email=test@example.invalid",
-            "commit",
-            "-qm",
-            "freeze",
-        ],
-        cwd=tmp_path,
-        check=True,
-    )
-    chunk_v4._require_committed_head(tmp_path, [frozen])
-    frozen.write_text('{"identity":"changed"}\n', encoding="utf-8")
-    with pytest.raises(v4.V4FreezeBlocked, match="HEAD-clean"):
-        chunk_v4._require_committed_head(tmp_path, [frozen])
-
-
-def test_execution_inventory_binds_committed_code_and_rejects_dirty_bytes(
-    tmp_path: Path, monkeypatch
-) -> None:
-    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
-    code = tmp_path / "runner.py"
-    code.write_text("frozen = True\n", encoding="utf-8")
-    subprocess.run(["git", "add", "runner.py"], cwd=tmp_path, check=True)
-    subprocess.run(
-        [
-            "git",
-            "-c",
-            "user.name=Test",
-            "-c",
-            "user.email=test@example.invalid",
-            "commit",
-            "-qm",
-            "freeze runner",
-        ],
-        cwd=tmp_path,
-        check=True,
-    )
-    monkeypatch.setattr(v4, "EXECUTION_CODE_PATHS", ("runner.py",))
-    inventory = v4.build_committed_execution_inventory(tmp_path)
-    assert inventory["path_roster"] == ["runner.py"]
-    assert inventory["all_paths_committed_unchanged"] is True
-    code.write_text("frozen = False\n", encoding="utf-8")
-    with pytest.raises(v4.V4FreezeBlocked, match="HEAD-clean"):
-        v4.build_committed_execution_inventory(tmp_path)
+    assert [item.item_id for item in indexed] == [
+        "v3-B_union_D_union_M-donor_regression.lag-1",
+        "v3-B_union_D_union_M-donor_regression.lag0",
+        "v3-B_union_D_union_M-donor_regression.lag1",
+    ]
 
 
 def test_final_workload_binds_complete_pre_score_bundle(
@@ -698,7 +531,7 @@ def test_final_workload_binds_complete_pre_score_bundle(
         "manifest_schema": v4.V4_INDEX_DRAFT_SCHEMA,
         "execution_allowed": False,
         "n_work_items": 1,
-        "item_index": {"file_sha256": _sha(index), "path": index.name},
+        "item_index": {"path": index.name},
     }
     draft_path = tmp_path / "index_draft_manifest.json"
     draft_path.write_text(json.dumps(draft), encoding="utf-8")
@@ -718,18 +551,21 @@ def test_final_workload_binds_complete_pre_score_bundle(
     for name in artifact_names:
         path = tmp_path / f"{name}.bin"
         path.write_bytes(name.encode())
-        records[name] = {"path": path.name, "sha256": _sha(path)}
+        records[name] = {"path": path.name}
     freeze = {
         "manifest_schema": v4.V4_PRE_SCORE_FREEZE_SCHEMA,
         "status": "complete_outcome_blind_pre_score_freeze",
-        "index_draft_manifest_sha256": _sha(draft_path),
-        "item_index_file_sha256": _sha(index),
+        "index_draft_manifest": {"path": draft_path.name},
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
         "v4_results_read": False,
         "selection_uses_outcomes": False,
         "achieved_skill_read": False,
-        **{key: value for key, value in records.items() if not key.startswith("sensitivity_")},
+        **{
+            key: value
+            for key, value in records.items()
+            if not key.startswith("sensitivity_")
+        },
         "base_lattice_status": "frozen_before_v4_scoring",
         "sensitivity_lattice_statuses": {
             "M": "blocked_insufficient_pre_score_support",
@@ -742,18 +578,6 @@ def test_final_workload_binds_complete_pre_score_bundle(
     }
     freeze_path = tmp_path / "pre_score_freeze_manifest.json"
     freeze_path.write_text(json.dumps(freeze), encoding="utf-8")
-    monkeypatch.setattr(
-        v4,
-        "build_committed_execution_inventory",
-        lambda _: {
-            "manifest_schema": v4.EXECUTION_CODE_INVENTORY_SCHEMA,
-            "source_head_commit": "a" * 40,
-            "paths": [],
-            "path_roster": list(v4.EXECUTION_CODE_PATHS),
-            "inventory_sha256": hashlib.sha256(b"[]").hexdigest(),
-            "all_paths_committed_unchanged": True,
-        },
-    )
     final = v4.finalize_v4_workload(
         tmp_path,
         index_draft_manifest_path=draft_path,
@@ -762,8 +586,12 @@ def test_final_workload_binds_complete_pre_score_bundle(
     )
     assert final["manifest_schema"] == v4.V4_WORKLOAD_SCHEMA
     assert final["execution_allowed"] is True
-    assert final["pre_score_freeze"]["sha256"] == _sha(freeze_path)
-    assert final["execution_code_inventory"]["source_head_commit"] == "a" * 40
+    assert final["pre_score_freeze"]["path"] == freeze_path.name
+    assert final["index_draft_manifest"]["path"] == draft_path.name
+    assert set(final["pre_score_freeze"]["artifacts"]) == {
+        name for name in artifact_names if not name.startswith("sensitivity_")
+    }
+    assert set(final["pre_score_freeze"]["sensitivity_lattices"]) == {"M", "M_H"}
 
 
 def test_v4_batch_contract_has_approved_executor() -> None:

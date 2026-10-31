@@ -12,7 +12,7 @@ The primary five-point gain is not consistently supported on opened sources;
 direct H30 uncertainty explains essentially all of the uncertain-window gain.
 The fully prospective source planning interval also includes no gain. Therefore
 we do not expand the acquisition until a preferred design wins. Retain the
-pre-value salted 53-station cohort, including seven documented-daily-mean Swiss
+53-station cohort with roles fixed before any value was read, including seven documented-daily-mean Swiss
 test components and twelve separately reported French test components. The
 seven metadata-only USGS catalogs are not promoted into temperature acquisition
 after observing these source results. No new target test error informed this

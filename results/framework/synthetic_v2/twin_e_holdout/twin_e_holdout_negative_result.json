@@ -23,7 +23,6 @@
       "twin_e_holdout_009"
     ],
     "holdout_family_locked_before_scoring": true,
-    "lock_commit": "d27bb4571ea9dbeffd600350b2d17fed18d633d7",
     "n_rows": 54,
     "numeric_thresholds_met": false,
     "operator_calibration_intercept": 0.03084014902544273,
@@ -46,7 +45,6 @@
   "headline_claim_licensed": false,
   "holdout_manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/synthetic_v2/twin_e_holdout/twin_e_holdout_manifest.json",
   "interpretation": "Locked Twin E hold-out failed without generator retuning. This is a design falsification record, not confirmatory T2 or T5.",
-  "lock_commit": "d27bb4571ea9dbeffd600350b2d17fed18d633d7",
   "lock_path": "configs/twin_e_holdout_freeze_v1.yaml",
   "manifest_schema": "twin_e_holdout_negative_result_v1",
   "negative_result_locked": true,

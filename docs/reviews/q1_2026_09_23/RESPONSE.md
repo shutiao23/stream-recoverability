@@ -114,7 +114,7 @@ regime, and the reproduction path.
 - **Five supporting documents** were written to the framework the review
   applied: a problem memo, a claim–evidence matrix, a design rationale table,
   an experiment registry, and a machine-generated evidence ledger mapping each
-  claim to its script, artifact and digest.
+  claim to its script and artifact.
 - **The audit was extended** from 101 to **141 checks**, now covering every
   table cell and 27 inline claims. It caught four errors while this revision
   was being written: three AUC values in Table 1 quoted without a source, a

@@ -94,10 +94,9 @@ seen.
 
 The default cache is `data/cache/regulation_panel_v1/`, which is independent of every
 external-confirmation path. Every downloaded response is accompanied by its request
-URL or manifest and a SHA-256 digest. The GAGES-II archive must additionally match the
-USGS-published MD5 in the freeze. Daily observations are stored as an immutable raw
-Parquet cache after complete pagination; analysis outputs contain file identities and
-software/freeze identities. `--offline` permits exact reproduction only when all
+URL or manifest. Daily observations are stored as an immutable raw Parquet cache after
+complete pagination; analysis outputs record their input files and the software and
+freeze versions. `--offline` permits exact reproduction only when all
 required cached sources are present and valid.
 
 Authoritative documentation and releases:

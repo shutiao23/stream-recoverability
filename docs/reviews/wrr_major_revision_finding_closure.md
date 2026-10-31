@@ -1,6 +1,6 @@
 # Finding closure after the major-revision round
 
-Base: `8eade30bbf` plus the round of 2026-10-15 (`046c3e9234` and after).
+Base: the repository state of 2026-10-14 plus the round of 2026-10-15.
 This table supersedes the earlier closure audit for the findings the review of
 2026-10-14 raised; the earlier F01-F22 audit for the 2026-10-12 review remains in
 `F_FINDINGS_CLOSURE_AUDIT.csv`.
@@ -18,7 +18,7 @@ This table supersedes the earlier closure audit for the findings the review of
 | F09 | Major | stop presenting the fixed-window approximation as an MNAR bound | the manuscript quotes the day-level specified-shift sensitivity (240 cases, six networks), states that it is not an identification bound, and withdraws the approximation | manuscript §4.4.6, `amendments/mnar_day_level/` |
 | F10 | Major | scope the process attributions to the design that supports them | the baseflow comparison is flagged as indicative rather than a replication; the reference/non-reference flag is described as a coarse proxy | manuscript §4.4.5 |
 | F11 | Major | repeated draws for the learning curve; multiplicity and paired intervals | P1 repeated the learning curves (20 draws per size, 333 fits) and found the sample-efficiency claim unsupported; the paper's main contrasts are pre-declared, the rest reported as exploratory | `p1_learning_curve_repeats/` |
-| F12 | Major | one version of the claims across text, SI, figures and PDF | dominance wording removed everywhere, abstract 249 words, key points <= 140 characters, PDFs rebuilt from the current source, and a style/claim audit written | commit `046c3e9234`, `docs/reviews/wrr_yang_style_compliance.md` |
+| F12 | Major | one version of the claims across text, SI, figures and PDF | dominance wording removed everywhere, abstract 249 words, key points <= 140 characters, PDFs rebuilt from the current source, and a style/claim audit written | `docs/reviews/wrr_yang_style_compliance.md` |
 | F13 | Minor, submission | parameter roles, units, archiving and author metadata | units annotated in four tables; the deployment recipe states the three thresholds and their roles; author metadata remains a human gate and the build still refuses to mark the manuscript submission-ready | manuscript tables, `metadata/submission_author_metadata.json` |
 
 ## Evidence that the round verifies

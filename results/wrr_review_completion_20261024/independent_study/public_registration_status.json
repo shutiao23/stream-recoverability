@@ -1,7 +1,8 @@
 {
   "author_and_platform_fields": "user will fill these fields",
+  "first_temperature_request_utc": "2026-10-25T17:29:00.508765+00:00",
   "local_file_is_registration": false,
   "next_requirement": "user-managed public OSF registration and matching protocol/model attachments before any new observation access",
   "status": "not_publicly_registered",
-  "water_temperature_values_requested": false
+  "water_temperature_values_requested": true
 }

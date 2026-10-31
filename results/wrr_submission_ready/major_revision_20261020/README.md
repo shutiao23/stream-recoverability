@@ -1,6 +1,6 @@
 # Aligned-policy round, 2026-10-20
 
-This round answers the review of 2026-10-19 (commit `bfc797ef43`) by repairing the
+This round answers the review of 2026-10-19 by repairing the
 object mismatch it identified and re-deriving every downstream number. The
 point-by-point response is `paper/wrr/RESPONSE_TO_REVIEW.md`.
 

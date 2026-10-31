@@ -42,10 +42,8 @@ confirmation: these are conditional, descriptive mechanism contrasts.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
-import subprocess
 import sys
 import time
 from pathlib import Path
@@ -89,9 +87,11 @@ from stream_recoverability.experiments.v17_fitness.panel import (  # noqa: E402
 )
 from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     REALIZATIONS_PER_STATION_YEAR,
-    stable_seed,
+    network_position,
+    station_year_seed,
 )
 from stream_recoverability.experiments.v18_closure.endpoints import sine_parameters  # noqa: E402
+from stream_recoverability.seeds import plain_seed, position_index  # noqa: E402
 
 STEP1_PANEL = ROOT / "results" / "v17_fitness" / "step1_panel"
 CROSSED_PARQUET = (
@@ -137,6 +137,9 @@ HIDDEN_SHARE_FULL = 0.999
 HIDDEN_SHARE_LEVELS = (0.999, 0.90)
 PHASE_BOOTSTRAP_DRAWS = 200
 PHASE_BOOTSTRAP_BLOCK_DAYS = 30
+# Seed of the phase bootstrap: plain_seed(network position, station position,
+# year, PHASE_SEED_CODE, realization position).
+PHASE_SEED_CODE = 10
 BOOT_DRAWS = 2000
 SEED = 23
 # Bins, declared here rather than chosen after looking.
@@ -149,7 +152,9 @@ MISALIGNMENT_BINS = (0, 7, 14, 29, 10**9)
 # --------------------------------------------------------------------------
 # small numerical helpers
 # --------------------------------------------------------------------------
-def lag1_autocorrelation(values: np.ndarray, available: np.ndarray) -> tuple[float, int]:
+def lag1_autocorrelation(
+    values: np.ndarray, available: np.ndarray
+) -> tuple[float, int]:
     """Lag-1 autocorrelation over consecutive available days (pairwise)."""
 
     values = np.asarray(values, dtype=float)
@@ -167,7 +172,9 @@ def lag1_autocorrelation(values: np.ndarray, available: np.ndarray) -> tuple[flo
     return float(np.corrcoef(left, right)[0, 1]), n_pairs
 
 
-def rolling_window_argmax(values: np.ndarray, window: int = WINDOW) -> tuple[float, int, np.ndarray]:
+def rolling_window_argmax(
+    values: np.ndarray, window: int = WINDOW
+) -> tuple[float, int, np.ndarray]:
     """Maximum ``window``-day mean, the (right-aligned) end index, and the roll."""
 
     rolled = (
@@ -211,7 +218,9 @@ def truth_competition(truth: np.ndarray, window: int = WINDOW) -> dict[str, floa
     if peak_end < 0:
         return out
     finite = np.isfinite(rolled)
-    out["truth_peak_tie_days"] = float(np.sum(np.abs(rolled[finite] - peak_value) <= 1e-9))
+    out["truth_peak_tie_days"] = float(
+        np.sum(np.abs(rolled[finite] - peak_value) <= 1e-9)
+    )
     out["truth_peak_ties"] = float(out["truth_peak_tie_days"] > 1)
     ends = np.flatnonzero(finite)
     disjoint = ends[(ends <= peak_end - window) | (ends >= peak_end + window)]
@@ -324,7 +333,9 @@ def phase_standard_error_days(
         se_ar1 = se_days(cov_ar1)
 
     # Newey-West / Bartlett sandwich on the observed days.
-    weight = np.where(distance <= HAC_LAG_DAYS, 1.0 - distance / (HAC_LAG_DAYS + 1.0), 0.0)
+    weight = np.where(
+        distance <= HAC_LAG_DAYS, 1.0 - distance / (HAC_LAG_DAYS + 1.0), 0.0
+    )
     meat = design.T @ ((weight * np.outer(resid, resid)) @ design)
     cov_hac = gram_inv @ meat @ gram_inv
     se_hac = se_days(cov_hac)
@@ -400,7 +411,9 @@ def phase_bootstrap_sd(
         beta_star, *_ = np.linalg.lstsq(design_obs, y, rcond=None)
         _, a_star, b_star = (float(v) for v in beta_star)
         phi = float(np.arctan2(-b_star, a_star) % (2 * np.pi))
-        phases[draw] = (phi * DAYS_IN_YEAR / (2 * np.pi) + DAYS_IN_YEAR / 4.0) % DAYS_IN_YEAR
+        phases[draw] = (
+            phi * DAYS_IN_YEAR / (2 * np.pi) + DAYS_IN_YEAR / 4.0
+        ) % DAYS_IN_YEAR
     finite_phases = phases[np.isfinite(phases)]
     if finite_phases.size < 20:
         return float("nan")
@@ -436,7 +449,12 @@ def cluster_stat(
 
     block = frame.loc[np.isfinite(pd.to_numeric(frame[columns[0]], errors="coerce"))]
     if block.empty:
-        return {"point": float("nan"), "low": float("nan"), "high": float("nan"), "n_clusters": 0}
+        return {
+            "point": float("nan"),
+            "low": float("nan"),
+            "high": float("nan"),
+            "n_clusters": 0,
+        }
     codes, keys = pd.factorize(block[cluster].to_numpy(), sort=True)
     n_clusters = len(keys)
     arrays = {name: block[name].to_numpy() for name in columns}
@@ -530,7 +548,9 @@ def add_ci(row: dict, ci: dict, prefix: str = "") -> dict:
     row[f"{prefix}ci_high_C"] = ci["high"]
     row[f"{prefix}n_networks"] = ci["n_clusters"]
     row[f"{prefix}ci_excludes_zero"] = bool(
-        np.isfinite(ci["low"]) and np.isfinite(ci["high"]) and not (ci["low"] <= 0 <= ci["high"])
+        np.isfinite(ci["low"])
+        and np.isfinite(ci["high"])
+        and not (ci["low"] <= 0 <= ci["high"])
     )
     return row
 
@@ -541,8 +561,9 @@ def add_ci(row: dict, ci: dict, prefix: str = "") -> dict:
 def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Cases plus the series-level conditions for one station.
 
-    The outage realizations are regenerated from the same deterministic seeds
-    that built the archived crossed panel, with ``cross_overlap=True`` and
+    The outage realizations are regenerated from the same deterministic
+    station-year seeds (``station_year_seed``) as the case builder that built
+    the crossed panel, with ``cross_overlap=True`` and
     ``n_empirical=REALIZATIONS_PER_STATION_YEAR // 3``, so the stratified
     length x overlap cases are identical. Diagnostic columns are added from the
     daily series, which the archived case table does not store.
@@ -558,6 +579,8 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     daily.columns = [str(c) for c in daily.columns]
     if station_id not in daily.columns:
         return pd.DataFrame(), pd.DataFrame()
+    network_code = network_position(network_id)
+    station_code = position_index(daily.columns)[station_id]
 
     target = pd.to_numeric(daily[station_id], errors="coerce")
     donors = daily.drop(columns=[station_id])
@@ -581,12 +604,18 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
             continue
         train_mask = pd.Series(~year_mask, index=daily.index)
         peak_source = target.loc[target.index.year != int(year)]
-        models = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
+        models = StationModels(
+            target=target, donors=donors, air=air, train_mask=train_mask
+        )
         peak_doys = climatological_peak_window(peak_source, exclude_year=None)
         train_values = target.loc[train_mask].dropna()
         if len(train_values) < 365:
             continue
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), protocol))
+        rng = np.random.default_rng(
+            station_year_seed(
+                network_id, station_id, daily.columns, int(year), protocol
+            )
+        )
         realizations = design_for_year(
             year_index,
             peak_doys,
@@ -599,7 +628,7 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
         competition = truth_competition(truth, WINDOW)
         n_days = len(truth)
 
-        for realization in realizations:
+        for realization_index, realization in enumerate(realizations):
             mask = realization.mask(n_days)
             if not mask.any() or mask.all():
                 continue
@@ -617,13 +646,17 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
                 else np.full(n_days, np.nan)
             )
             fits["air_ridge"] = (
-                models.air_predict(year_index) if air is not None else np.full(n_days, np.nan)
+                models.air_predict(year_index)
+                if air is not None
+                else np.full(n_days, np.nan)
             )
 
             rolled_truth = competition_window_roll(truth)
             longest = max(realization.runs, key=lambda item: item[1])
             true_peak_end = int(competition["truth_window_end"])
-            true_peak_slice = slice(max(0, true_peak_end - WINDOW + 1), true_peak_end + 1)
+            true_peak_slice = slice(
+                max(0, true_peak_end - WINDOW + 1), true_peak_end + 1
+            )
             base = {
                 "network_id": network_id,
                 "station_id": station_id,
@@ -640,10 +673,14 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
                 "total_missing": int(realization.total_missing),
                 "missing_fraction": float(mask.sum() / n_days),
                 "longest_run_month": int(year_index.month.to_numpy()[int(longest[0])]),
-                "peak_overlap": float(peak_overlap_fraction(year_index, mask, peak_doys)),
+                "peak_overlap": float(
+                    peak_overlap_fraction(year_index, mask, peak_doys)
+                ),
                 "true_peak_hidden_fraction": float(mask[true_peak_slice].mean()),
                 "truth_hottest30": float(truth_metric),
-                "air_available": bool(air is not None and np.isfinite(fits["air_ridge"]).any()),
+                "air_available": bool(
+                    air is not None and np.isfinite(fits["air_ridge"]).any()
+                ),
                 "n_visible_donors": int(len(visible)),
                 "n_complete_years": int(len(complete_years)),
                 "truth_window_value_roll": float(rolled_truth[true_peak_end])
@@ -664,7 +701,9 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
                     "overlap_class": realization.overlap_class,
                     "longest_run": int(realization.longest_run),
                     "missing_fraction": float(mask.sum() / n_days),
-                    "peak_overlap": float(peak_overlap_fraction(year_index, mask, peak_doys)),
+                    "peak_overlap": float(
+                        peak_overlap_fraction(year_index, mask, peak_doys)
+                    ),
                     "truth_peak_hidden_fraction": float(mask[true_peak_slice].mean()),
                     "truth_sine_phase": float(truth_fit["sine_phase"]),
                     "truth_sine_amplitude": float(truth_fit["sine_amplitude"]),
@@ -685,14 +724,22 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
                     mask,
                     draws=PHASE_BOOTSTRAP_DRAWS,
                     block_days=PHASE_BOOTSTRAP_BLOCK_DAYS,
-                    seed=stable_seed(network_id, station_id, int(year), realization.realization_id, "phase"),
+                    seed=plain_seed(
+                        network_code,
+                        station_code,
+                        int(year),
+                        PHASE_SEED_CODE,
+                        realization_index,
+                    ),
                 )
 
             air_missing_days = (
                 int(
                     np.sum(
                         ~np.isfinite(
-                            pd.to_numeric(air.reindex(year_index), errors="coerce").to_numpy(dtype=float)
+                            pd.to_numeric(
+                                air.reindex(year_index), errors="coerce"
+                            ).to_numpy(dtype=float)
                         )
                     )
                 )
@@ -715,7 +762,9 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
                 completed[mask] = fill[mask]
                 case = dict(base)
                 case["reconstructor"] = name
-                case["masked_days_with_nan_fill"] = int(np.sum(~np.isfinite(fill[mask])))
+                case["masked_days_with_nan_fill"] = int(
+                    np.sum(~np.isfinite(fill[mask]))
+                )
                 case["air_forcing_missing_days_in_year"] = air_missing_days
                 case["air_design_missing_days_in_year"] = air_design_missing_days
                 if not np.isfinite(completed).all():
@@ -738,9 +787,15 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
 
                 recon_value, recon_end, _ = rolling_window_argmax(completed, WINDOW)
                 error = float(recon_value - truth_metric)
-                misalignment = float(recon_end - true_peak_end) if true_peak_end >= 0 else float("nan")
+                misalignment = (
+                    float(recon_end - true_peak_end)
+                    if true_peak_end >= 0
+                    else float("nan")
+                )
                 overlap_days = (
-                    float(max(0.0, WINDOW - abs(misalignment))) if np.isfinite(misalignment) else float("nan")
+                    float(max(0.0, WINDOW - abs(misalignment)))
+                    if np.isfinite(misalignment)
+                    else float("nan")
                 )
 
                 resid_repaired = completed - truth  # identically 0 outside the gap
@@ -749,11 +804,15 @@ def build_station_diagnostics(job: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
                 outside_values = np.where(np.isfinite(model_resid), model_resid, np.nan)
                 outside, n_outside = lag1_autocorrelation(outside_values, ~mask)
                 inside_sd = (
-                    float(np.nanstd(resid_repaired[mask])) if mask.any() else float("nan")
+                    float(np.nanstd(resid_repaired[mask]))
+                    if mask.any()
+                    else float("nan")
                 )
                 outside_finite = ~mask & np.isfinite(model_resid)
                 outside_sd = (
-                    float(np.nanstd(model_resid[outside_finite])) if outside_finite.any() else float("nan")
+                    float(np.nanstd(model_resid[outside_finite]))
+                    if outside_finite.any()
+                    else float("nan")
                 )
 
                 case.update(
@@ -813,7 +872,9 @@ def sine_fit_residual_sd(values: np.ndarray) -> float:
 def crossed_panel_jobs(limit: int | None = None) -> list[dict]:
     roster = pd.read_csv(STEP1_PANEL / "station_roster.csv")
     split = pd.read_csv(STEP1_PANEL / "network_split.csv")
-    dev_nets = set(split.loc[split["split_role"].eq("development"), "network_id"].astype(str))
+    dev_nets = set(
+        split.loc[split["split_role"].eq("development"), "network_id"].astype(str)
+    )
     roster = roster.loc[roster["network_id"].astype(str).isin(dev_nets)].copy()
     counts = roster.groupby("network_id")["station_id"].nunique()
     multi = set(counts.loc[counts >= 2].index.astype(str))
@@ -838,7 +899,11 @@ def crossed_panel_jobs(limit: int | None = None) -> list[dict]:
             continue
         series = pd.to_numeric(panel[station_id], errors="coerce")
         for year, block in series.groupby(series.index.year):
-            need = 366 if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)) else 365
+            need = (
+                366
+                if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0))
+                else 365
+            )
             if int(np.isfinite(block.to_numpy(dtype=float)).sum()) >= need:
                 years.append(int(year))
         if len(years) < 4:
@@ -864,9 +929,7 @@ def crossed_panel_jobs(limit: int | None = None) -> list[dict]:
 # --------------------------------------------------------------------------
 def station_year_mean(frame: pd.DataFrame, value: str, keys: list[str]) -> pd.DataFrame:
     return (
-        frame.groupby(keys, as_index=False)[value]
-        .mean()
-        .rename(columns={value: "v"})
+        frame.groupby(keys, as_index=False)[value].mean().rename(columns={value: "v"})
     )
 
 
@@ -949,13 +1012,15 @@ def error_contrast(
         if block.empty or block["_flag"].nunique() < 2:
             continue
         # Paired within station-year where both levels exist; else unpaired.
-        station_year = (
-            block.groupby(["network_id", "station_id", "year", "_flag"], as_index=False)["v"].mean()
-        )
+        station_year = block.groupby(
+            ["network_id", "station_id", "year", "_flag"], as_index=False
+        )["v"].mean()
         wide = station_year.pivot_table(
             index=["network_id", "station_id", "year"], columns="_flag", values="v"
         )
-        paired = wide.dropna() if {0.0, 1.0}.issubset(set(wide.columns)) else pd.DataFrame()
+        paired = (
+            wide.dropna() if {0.0, 1.0}.issubset(set(wide.columns)) else pd.DataFrame()
+        )
         row = {
             "block": "condition_contrast",
             "contrast": label,
@@ -974,11 +1039,18 @@ def error_contrast(
             )
             ci = cluster_stat(delta, network_equal_mean_stat, columns=("v",), seed=seed)
         else:
-            ci = {"point": float("nan"), "low": float("nan"), "high": float("nan"), "n_clusters": 0}
+            ci = {
+                "point": float("nan"),
+                "low": float("nan"),
+                "high": float("nan"),
+                "n_clusters": 0,
+            }
         add_ci(row, ci)
         for level, tag in ((1.0, "high"), (0.0, "low")):
             sub = block.loc[block["_flag"].eq(level)]
-            ci_level = cluster_stat(sub, network_equal_mean_stat, columns=("v",), seed=seed)
+            ci_level = cluster_stat(
+                sub, network_equal_mean_stat, columns=("v",), seed=seed
+            )
             row[f"mean_abserr_{tag}_C"] = ci_level["point"]
             row[f"n_networks_{tag}"] = ci_level["n_clusters"]
         rows.append(row)
@@ -1003,7 +1075,8 @@ def share_table(
             subsets = [("all", block_all)]
         else:
             subsets = [("all", block_all)] + [
-                (str(key), group) for key, group in block_all.groupby(subset_col, sort=True)
+                (str(key), group)
+                for key, group in block_all.groupby(subset_col, sort=True)
             ]
         for subset, sub in subsets:
             flag = pd.to_numeric(sub[flag_col], errors="coerce")
@@ -1024,10 +1097,14 @@ def share_table(
             row["share_ci_high"] = ci["high"]
             misaligned = sub.loc[sub["v"].eq(1.0)]
             row["median_abs_misalignment_days"] = (
-                float(misaligned["abs_misalignment_days"].median()) if len(misaligned) else float("nan")
+                float(misaligned["abs_misalignment_days"].median())
+                if len(misaligned)
+                else float("nan")
             )
             row["max_abs_misalignment_days"] = (
-                float(misaligned["abs_misalignment_days"].max()) if len(misaligned) else float("nan")
+                float(misaligned["abs_misalignment_days"].max())
+                if len(misaligned)
+                else float("nan")
             )
             rows.append(row)
     return pd.DataFrame(rows)
@@ -1036,36 +1113,19 @@ def share_table(
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
-def sha256(path: Path) -> str:
-    if not path.exists():
-        return "missing"
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def git_head() -> str:
-    try:
-        return subprocess.run(
-            ["git", "rev-parse", "HEAD"],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=True,
-        ).stdout.strip()
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return "unknown"
-
-
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stations", type=int, default=0, help="limit stations (debug)")
-    parser.add_argument("--workers", type=int, default=0, help="joblib workers (0=auto)")
+    parser.add_argument(
+        "--stations", type=int, default=0, help="limit stations (debug)"
+    )
+    parser.add_argument(
+        "--workers", type=int, default=0, help="joblib workers (0=auto)"
+    )
     parser.add_argument("--draws", type=int, default=BOOT_DRAWS)
     parser.add_argument("--seed", type=int, default=SEED)
-    parser.add_argument("--tag", type=str, default="", help="suffix for scratch outputs")
+    parser.add_argument(
+        "--tag", type=str, default="", help="suffix for scratch outputs"
+    )
     return parser.parse_args(argv)
 
 
@@ -1080,7 +1140,10 @@ def main(argv: list[str] | None = None) -> int:
 
     jobs = crossed_panel_jobs(limit=args.stations or None)
     workers = int(args.workers) if args.workers else min(len(jobs), 24)
-    print(f"[317] {len(jobs)} stations, {workers} workers, {draws} bootstrap draws", flush=True)
+    print(
+        f"[317] {len(jobs)} stations, {workers} workers, {draws} bootstrap draws",
+        flush=True,
+    )
     results = Parallel(n_jobs=workers, verbose=5)(
         delayed(build_station_diagnostics)(job) for job in jobs
     )
@@ -1090,21 +1153,34 @@ def main(argv: list[str] | None = None) -> int:
         raise RuntimeError("no cases built")
     cases = pd.concat(case_frames, ignore_index=True)
     phases = pd.concat(phase_frames, ignore_index=True)
-    print(f"[317] built {len(cases)} cases / {len(phases)} phase rows in {time.time() - started:.0f}s", flush=True)
+    print(
+        f"[317] built {len(cases)} cases / {len(phases)} phase rows in {time.time() - started:.0f}s",
+        flush=True,
+    )
     cases.to_parquet(SCRATCH / f"cases_with_conditions{suffix}.parquet", index=False)
     phases.to_parquet(SCRATCH / f"phase_cases{suffix}.parquet", index=False)
 
-    validation: dict[str, object] = {"n_cases": int(len(cases)), "n_phase_rows": int(len(phases))}
+    validation: dict[str, object] = {
+        "n_cases": int(len(cases)),
+        "n_phase_rows": int(len(phases)),
+    }
 
     # ---- air availability, recorded not assumed -------------------------
     air_rows = []
-    for name, path in (("v17_daily_forcing", AIR_TABLE_V17), ("v18_nasa_power", AIR_TABLE_V18)):
+    for name, path in (
+        ("v17_daily_forcing", AIR_TABLE_V17),
+        ("v18_nasa_power", AIR_TABLE_V18),
+    ):
         table = pd.read_parquet(path, columns=["station_id", "network_id"])
         station_hits = int(
-            pd.Series(sorted(cases["station_id"].unique())).isin(table["station_id"].astype(str)).sum()
+            pd.Series(sorted(cases["station_id"].unique()))
+            .isin(table["station_id"].astype(str))
+            .sum()
         )
         network_hits = int(
-            pd.Series(sorted(cases["network_id"].unique())).isin(table["network_id"].astype(str)).sum()
+            pd.Series(sorted(cases["network_id"].unique()))
+            .isin(table["network_id"].astype(str))
+            .sum()
         )
         air_rows.append(
             {
@@ -1125,7 +1201,9 @@ def main(argv: list[str] | None = None) -> int:
     validation["air_reconstructor_missing_cases"] = int(
         pd.to_numeric(air_cases["abserr_hottest30"], errors="coerce").isna().sum()
     )
-    unique_cases = cases.drop_duplicates(["network_id", "station_id", "year", "realization_id"])
+    unique_cases = cases.drop_duplicates(
+        ["network_id", "station_id", "year", "realization_id"]
+    )
     validation["truth_peak_tie_share"] = float(
         pd.to_numeric(unique_cases["truth_peak_ties"], errors="coerce").mean()
     )
@@ -1143,13 +1221,32 @@ def main(argv: list[str] | None = None) -> int:
     crossed = pd.read_parquet(CROSSED_PARQUET)
     check_keys = ["network_id", "station_id", "year", "realization_id"]
     designed = cases.loc[
-        cases["longest_run"].isin(LENGTHS) & cases["overlap_class"].isin(OVERLAP_CLASSES)
+        cases["longest_run"].isin(LENGTHS)
+        & cases["overlap_class"].isin(OVERLAP_CLASSES)
     ]
-    mine = designed.loc[designed["reconstructor"].eq("doy_climatology"), check_keys + ["peak_overlap", "true_peak_hidden_fraction"]]
+    mine = designed.loc[
+        designed["reconstructor"].eq("doy_climatology"),
+        check_keys + ["peak_overlap", "true_peak_hidden_fraction"],
+    ]
     mine = mine.rename(
-        columns={"peak_overlap": "peak_overlap_mine", "true_peak_hidden_fraction": "hidden_mine"}
+        columns={
+            "peak_overlap": "peak_overlap_mine",
+            "true_peak_hidden_fraction": "hidden_mine",
+        }
     )
-    reference = crossed[check_keys + ["peak_overlap", "true_peak_hidden_fraction", "abserr_doy_climatology", "abserr_smooth_climatology", "abserr_linear_interp", "abserr_donor_ridge", "overlap_class", "longest_run"]]
+    reference = crossed[
+        check_keys
+        + [
+            "peak_overlap",
+            "true_peak_hidden_fraction",
+            "abserr_doy_climatology",
+            "abserr_smooth_climatology",
+            "abserr_linear_interp",
+            "abserr_donor_ridge",
+            "overlap_class",
+            "longest_run",
+        ]
+    ]
     merged = reference.merge(mine, on=check_keys, how="outer", indicator=True)
     both = merged.loc[merged["_merge"].eq("both")]
     validation["reproduction"] = {
@@ -1169,11 +1266,18 @@ def main(argv: list[str] | None = None) -> int:
         if len(both)
         else None,
     }
-    for recon in ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge"):
-        pair = designed.loc[designed["reconstructor"].eq(recon), check_keys + ["abserr_hottest30"]].rename(
-            columns={"abserr_hottest30": "abserr_mine"}
+    for recon in (
+        "doy_climatology",
+        "smooth_climatology",
+        "linear_interp",
+        "donor_ridge",
+    ):
+        pair = designed.loc[
+            designed["reconstructor"].eq(recon), check_keys + ["abserr_hottest30"]
+        ].rename(columns={"abserr_hottest30": "abserr_mine"})
+        comp = reference[check_keys + [f"abserr_{recon}"]].merge(
+            pair, on=check_keys, how="inner"
         )
-        comp = reference[check_keys + [f"abserr_{recon}"]].merge(pair, on=check_keys, how="inner")
         deviation = (comp[f"abserr_{recon}"] - comp["abserr_mine"]).abs()
         validation["reproduction"][f"max_abs_dev_abserr_{recon}"] = (
             float(deviation.max()) if len(deviation) else None
@@ -1182,15 +1286,24 @@ def main(argv: list[str] | None = None) -> int:
 
     # ---- crossed design: position x length, per reconstructor ------------
     analysis = cases.loc[
-        cases["longest_run"].isin(LENGTHS) & cases["overlap_class"].isin(OVERLAP_CLASSES)
+        cases["longest_run"].isin(LENGTHS)
+        & cases["overlap_class"].isin(OVERLAP_CLASSES)
     ].copy()
     crossed_rows: list[dict] = []
     for recon in RECONSTRUCTORS:
         block = analysis.loc[analysis["reconstructor"].eq(recon)].copy()
-        block = block.loc[pd.to_numeric(block["abserr_hottest30"], errors="coerce").notna()]
+        block = block.loc[
+            pd.to_numeric(block["abserr_hottest30"], errors="coerce").notna()
+        ]
         block = block.rename(columns={"abserr_hottest30": "abserr"})
         if block.empty:
-            crossed_rows.append({"reconstructor": recon, "contrast": "unavailable", "note": "no finite cases"})
+            crossed_rows.append(
+                {
+                    "reconstructor": recon,
+                    "contrast": "unavailable",
+                    "note": "no finite cases",
+                }
+            )
             continue
         station_year = station_year_mean(
             block,
@@ -1201,7 +1314,9 @@ def main(argv: list[str] | None = None) -> int:
         for length in LENGTHS:
             sub = station_year.loc[station_year["longest_run"].eq(length)]
             wide = sub.pivot_table(
-                index=["network_id", "station_id", "year"], columns="overlap_class", values="v"
+                index=["network_id", "station_id", "year"],
+                columns="overlap_class",
+                values="v",
             )
             if not {"full", "none"}.issubset(set(map(str, wide.columns))):
                 continue
@@ -1211,7 +1326,9 @@ def main(argv: list[str] | None = None) -> int:
             both["v"] = pd.to_numeric(both["full"], errors="coerce") - pd.to_numeric(
                 both["none"], errors="coerce"
             )
-            ci = cluster_stat(both, network_equal_mean_stat, columns=("v",), draws=draws, seed=seed)
+            ci = cluster_stat(
+                both, network_equal_mean_stat, columns=("v",), draws=draws, seed=seed
+            )
             row = {
                 "design": "position_x_length",
                 "contrast": "full_minus_none_at_fixed_length",
@@ -1224,9 +1341,13 @@ def main(argv: list[str] | None = None) -> int:
             crossed_rows.append(row)
         # (2) length at fixed overlap class: long - short
         for overlap in OVERLAP_CLASSES:
-            sub = station_year.loc[station_year["overlap_class"].astype(str).eq(overlap)]
+            sub = station_year.loc[
+                station_year["overlap_class"].astype(str).eq(overlap)
+            ]
             wide = sub.pivot_table(
-                index=["network_id", "station_id", "year"], columns="longest_run", values="v"
+                index=["network_id", "station_id", "year"],
+                columns="longest_run",
+                values="v",
             )
             available = [c for c in LENGTHS if c in wide.columns]
             if len(available) < 2:
@@ -1238,7 +1359,13 @@ def main(argv: list[str] | None = None) -> int:
             both["v"] = pd.to_numeric(both[high], errors="coerce") - pd.to_numeric(
                 both[low], errors="coerce"
             )
-            ci = cluster_stat(both, network_equal_mean_stat, columns=("v",), draws=draws, seed=seed + 7)
+            ci = cluster_stat(
+                both,
+                network_equal_mean_stat,
+                columns=("v",),
+                draws=draws,
+                seed=seed + 7,
+            )
             row = {
                 "design": "position_x_length",
                 "contrast": "long_minus_short_at_fixed_overlap_class",
@@ -1255,7 +1382,8 @@ def main(argv: list[str] | None = None) -> int:
     # ---- 3. length effect at a fixed hidden share, every reconstructor ---
     for hidden_cut in HIDDEN_SHARE_LEVELS:
         hidden = analysis.loc[
-            pd.to_numeric(analysis["true_peak_hidden_fraction"], errors="coerce") >= hidden_cut
+            pd.to_numeric(analysis["true_peak_hidden_fraction"], errors="coerce")
+            >= hidden_cut
         ].copy()
         hidden = hidden.rename(columns={"abserr_hottest30": "abserr"})
         for recon in RECONSTRUCTORS:
@@ -1280,12 +1408,16 @@ def main(argv: list[str] | None = None) -> int:
                 ["network_id", "station_id", "year", "longest_run", "overlap_class"],
             )
             wide = station_year.pivot_table(
-                index=["network_id", "station_id", "year"], columns="longest_run", values="v"
+                index=["network_id", "station_id", "year"],
+                columns="longest_run",
+                values="v",
             )
             available = [c for c in LENGTHS if c in wide.columns]
             row["lengths_available"] = ",".join(str(int(c)) for c in available)
             if len(available) < 2:
-                row["note"] = "not enough lengths with both members at this hidden-share cut"
+                row["note"] = (
+                    "not enough lengths with both members at this hidden-share cut"
+                )
                 crossed_rows.append(row)
                 continue
             low, high = available[0], available[-1]
@@ -1293,13 +1425,21 @@ def main(argv: list[str] | None = None) -> int:
             row["short_length"] = float(low)
             row["long_length"] = float(high)
             if both.empty:
-                row["note"] = "no station-year carries both lengths at this hidden-share cut"
+                row["note"] = (
+                    "no station-year carries both lengths at this hidden-share cut"
+                )
                 crossed_rows.append(row)
                 continue
             both["v"] = pd.to_numeric(both[high], errors="coerce") - pd.to_numeric(
                 both[low], errors="coerce"
             )
-            ci = cluster_stat(both, network_equal_mean_stat, columns=("v",), draws=draws, seed=seed + 11)
+            ci = cluster_stat(
+                both,
+                network_equal_mean_stat,
+                columns=("v",),
+                draws=draws,
+                seed=seed + 11,
+            )
             row.update(
                 {
                     "n_station_years": int(len(both)),
@@ -1312,7 +1452,9 @@ def main(argv: list[str] | None = None) -> int:
                 }
             )
             add_ci(row, ci)
-            row["length_effect_distinguishable_from_zero"] = bool(row["ci_excludes_zero"])
+            row["length_effect_distinguishable_from_zero"] = bool(
+                row["ci_excludes_zero"]
+            )
             crossed_rows.append(row)
 
             # Same contrast, network-paired rather than station-year-paired: uses
@@ -1347,7 +1489,9 @@ def main(argv: list[str] | None = None) -> int:
                     net_row["ci_excludes_zero"]
                 )
             else:
-                net_row["note"] = "no network carries both lengths at this hidden-share cut"
+                net_row["note"] = (
+                    "no network carries both lengths at this hidden-share cut"
+                )
             crossed_rows.append(net_row)
     crossed_effects = pd.DataFrame(crossed_rows)
     crossed_effects.to_csv(OUT / "crossed_effects.csv", index=False)
@@ -1386,7 +1530,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     mis_rows.append(
         share_table(
-            analysis.loc[pd.to_numeric(analysis["truth_peak_ties"], errors="coerce").eq(0)],
+            analysis.loc[
+                pd.to_numeric(analysis["truth_peak_ties"], errors="coerce").eq(0)
+            ],
             flag_col="window_misaligned",
             subset_col=None,
             reconstructors=RECONSTRUCTORS,
@@ -1424,7 +1570,9 @@ def main(argv: list[str] | None = None) -> int:
             label="disjoint_minus_overlapping_window",
         )
     )
-    misalignment_table = pd.concat([frame for frame in mis_rows if len(frame)], ignore_index=True)
+    misalignment_table = pd.concat(
+        [frame for frame in mis_rows if len(frame)], ignore_index=True
+    )
     misalignment_table.to_csv(OUT / "misalignment_table.csv", index=False)
 
     # ---- competing peak --------------------------------------------------
@@ -1479,7 +1627,9 @@ def main(argv: list[str] | None = None) -> int:
     corr_rows = []
     for recon in RECONSTRUCTORS:
         block = analysis.loc[analysis["reconstructor"].eq(recon)].copy()
-        pair = block[["network_id", "competing_peak_gap_C", "window_misaligned"]].dropna()
+        pair = block[
+            ["network_id", "competing_peak_gap_C", "window_misaligned"]
+        ].dropna()
         if len(pair) < 100:
             continue
 
@@ -1492,7 +1642,9 @@ def main(argv: list[str] | None = None) -> int:
                 return float("nan")
             return float(np.corrcoef(rank_x, rank_y)[0, 1])
 
-        frame = pair.rename(columns={"competing_peak_gap_C": "x", "window_misaligned": "y"})
+        frame = pair.rename(
+            columns={"competing_peak_gap_C": "x", "window_misaligned": "y"}
+        )
         ci = cluster_stat(
             frame, spearman, columns=("x", "y"), draws=min(draws, 1000), seed=seed + 41
         )
@@ -1506,12 +1658,16 @@ def main(argv: list[str] | None = None) -> int:
                 "ci_high": ci["high"],
                 "n_networks": ci["n_clusters"],
                 "ci_excludes_zero": bool(
-                    np.isfinite(ci["low"]) and np.isfinite(ci["high"]) and not (ci["low"] <= 0 <= ci["high"])
+                    np.isfinite(ci["low"])
+                    and np.isfinite(ci["high"])
+                    and not (ci["low"] <= 0 <= ci["high"])
                 ),
             }
         )
     competing_rows.append(pd.DataFrame(corr_rows))
-    competing_peak_table = pd.concat([f for f in competing_rows if len(f)], ignore_index=True)
+    competing_peak_table = pd.concat(
+        [f for f in competing_rows if len(f)], ignore_index=True
+    )
     competing_peak_table.to_csv(OUT / "competing_peak.csv", index=False)
 
     # ---- residual correlation -------------------------------------------
@@ -1519,7 +1675,10 @@ def main(argv: list[str] | None = None) -> int:
     distribution_rows = []
     for recon in RECONSTRUCTORS:
         block = analysis.loc[analysis["reconstructor"].eq(recon)]
-        for tag, col in (("inside_gap", "resid_ac_inside_gap"), ("outside_gap_model", "resid_ac_outside_gap")):
+        for tag, col in (
+            ("inside_gap", "resid_ac_inside_gap"),
+            ("outside_gap_model", "resid_ac_outside_gap"),
+        ):
             values = pd.to_numeric(block[col], errors="coerce").dropna()
             distribution_rows.append(
                 {
@@ -1528,11 +1687,21 @@ def main(argv: list[str] | None = None) -> int:
                     "where": tag,
                     "n_cases": int(len(values)),
                     "n_cases_missing": int(len(block) - len(values)),
-                    "mean_lag1_ac": float(values.mean()) if len(values) else float("nan"),
-                    "median_lag1_ac": float(values.median()) if len(values) else float("nan"),
-                    "q25_lag1_ac": float(values.quantile(0.25)) if len(values) else float("nan"),
-                    "q75_lag1_ac": float(values.quantile(0.75)) if len(values) else float("nan"),
-                    "share_above_0p5": float((values > 0.5).mean()) if len(values) else float("nan"),
+                    "mean_lag1_ac": float(values.mean())
+                    if len(values)
+                    else float("nan"),
+                    "median_lag1_ac": float(values.median())
+                    if len(values)
+                    else float("nan"),
+                    "q25_lag1_ac": float(values.quantile(0.25))
+                    if len(values)
+                    else float("nan"),
+                    "q75_lag1_ac": float(values.quantile(0.75))
+                    if len(values)
+                    else float("nan"),
+                    "share_above_0p5": float((values > 0.5).mean())
+                    if len(values)
+                    else float("nan"),
                 }
             )
     residual_rows.append(pd.DataFrame(distribution_rows))
@@ -1551,14 +1720,20 @@ def main(argv: list[str] | None = None) -> int:
         station_year = long.groupby(
             ["network_id", "station_id", "year", "where"], as_index=False
         )["ac"].mean()
-        wide = station_year.pivot_table(index=["network_id", "station_id", "year"], columns="where", values="ac")
-        if not {"resid_ac_inside_gap", "resid_ac_outside_gap"}.issubset(set(wide.columns)):
+        wide = station_year.pivot_table(
+            index=["network_id", "station_id", "year"], columns="where", values="ac"
+        )
+        if not {"resid_ac_inside_gap", "resid_ac_outside_gap"}.issubset(
+            set(wide.columns)
+        ):
             continue
         both = wide.dropna().reset_index()
         if both.empty:
             continue
         both["v"] = both["resid_ac_inside_gap"] - both["resid_ac_outside_gap"]
-        ci = cluster_stat(both, network_equal_mean_stat, columns=("v",), draws=draws, seed=seed + 43)
+        ci = cluster_stat(
+            both, network_equal_mean_stat, columns=("v",), draws=draws, seed=seed + 43
+        )
         paired_rows.append(
             {
                 "block": "paired_inside_minus_outside",
@@ -1571,7 +1746,9 @@ def main(argv: list[str] | None = None) -> int:
                 "ci_high_C": ci["high"],
                 "n_networks": ci["n_clusters"],
                 "ci_excludes_zero": bool(
-                    np.isfinite(ci["low"]) and np.isfinite(ci["high"]) and not (ci["low"] <= 0 <= ci["high"])
+                    np.isfinite(ci["low"])
+                    and np.isfinite(ci["high"])
+                    and not (ci["low"] <= 0 <= ci["high"])
                 ),
             }
         )
@@ -1620,7 +1797,9 @@ def main(argv: list[str] | None = None) -> int:
         if ac.notna().sum() < 50:
             continue
         cut = float(ac.median())
-        block["resid_ac_inside_above_median"] = (ac > cut).astype(float).where(ac.notna())
+        block["resid_ac_inside_above_median"] = (
+            (ac > cut).astype(float).where(ac.notna())
+        )
         block["resid_ac_median_cut"] = cut
         median_split_frames.append(block)
     if median_split_frames:
@@ -1635,29 +1814,45 @@ def main(argv: list[str] | None = None) -> int:
         )
         if len(split_rows):
             split_rows["median_cut_used"] = [
-                float(median_split.loc[median_split["reconstructor"].eq(name), "resid_ac_median_cut"].iloc[0])
+                float(
+                    median_split.loc[
+                        median_split["reconstructor"].eq(name), "resid_ac_median_cut"
+                    ].iloc[0]
+                )
                 if (median_split["reconstructor"].eq(name)).any()
                 else float("nan")
                 for name in split_rows["reconstructor"]
             ]
             residual_rows.append(split_rows)
-    residual_correlation = pd.concat([f for f in residual_rows if len(f)], ignore_index=True)
+    residual_correlation = pd.concat(
+        [f for f in residual_rows if len(f)], ignore_index=True
+    )
     residual_correlation.to_csv(OUT / "residual_correlation.csv", index=False)
 
     # ---- phase identifiability -------------------------------------------
     phase = phases.copy()
-    phase = phase.loc[pd.to_numeric(phase["phase_se_iid_days"], errors="coerce").notna()].copy()
+    phase = phase.loc[
+        pd.to_numeric(phase["phase_se_iid_days"], errors="coerce").notna()
+    ].copy()
     # Tolerance: 0.4717 of the interannual sd of the true phase, panel-local.
     truth_phase = (
-        phase.groupby(["network_id", "station_id", "year"])["truth_sine_phase"].first().reset_index()
+        phase.groupby(["network_id", "station_id", "year"])["truth_sine_phase"]
+        .first()
+        .reset_index()
     )
-    per_station = truth_phase.groupby(["network_id", "station_id"])["truth_sine_phase"].agg(["std", "size"])
+    per_station = truth_phase.groupby(["network_id", "station_id"])[
+        "truth_sine_phase"
+    ].agg(["std", "size"])
     per_station = per_station.loc[per_station["size"] >= 4, "std"].dropna()
     phase_scale_panel = float(per_station.mean()) if len(per_station) else float("nan")
     tolerance_panel = TOLERANCE_FRACTION * phase_scale_panel
-    median_n_observed = float(pd.to_numeric(phase["phase_n_observed"], errors="coerce").median())
+    median_n_observed = float(
+        pd.to_numeric(phase["phase_n_observed"], errors="coerce").median()
+    )
     closed_form_k_panel = (
-        2 * np.sqrt(2.0 / median_n_observed) / (2 * np.pi * tolerance_panel / DAYS_IN_YEAR)
+        2
+        * np.sqrt(2.0 / median_n_observed)
+        / (2 * np.pi * tolerance_panel / DAYS_IN_YEAR)
         if np.isfinite(tolerance_panel) and tolerance_panel > 0
         else float("nan")
     )
@@ -1665,9 +1860,15 @@ def main(argv: list[str] | None = None) -> int:
     if WINTER_SINE_SUMMARY.exists():
         published = json.loads(WINTER_SINE_SUMMARY.read_text())
         manuscript = {
-            "phase_tolerance_days": float(published["phase_tolerance"]["tolerance_days"]),
-            "phase_interannual_sd_days": float(published["phase_tolerance"]["interannual_sd_days"]),
-            "n_observed_days_median": float(published["reporting_rule"]["n_observed_days_median"]),
+            "phase_tolerance_days": float(
+                published["phase_tolerance"]["tolerance_days"]
+            ),
+            "phase_interannual_sd_days": float(
+                published["phase_tolerance"]["interannual_sd_days"]
+            ),
+            "n_observed_days_median": float(
+                published["reporting_rule"]["n_observed_days_median"]
+            ),
             "k_theory": float(published["reporting_rule"]["k_theory"]),
             "k_used": float(published["reporting_rule"]["k_used"]),
             "n_cases": float(published["n_cases"]),
@@ -1676,16 +1877,26 @@ def main(argv: list[str] | None = None) -> int:
     scenario_specs = (
         ("design_iid", "iid_half_width_2se_days", "iid_k_crit"),
         ("design_ar1", "ar1_half_width_2se_days", "ar1_k_crit"),
-        ("design_hac_bartlett_30d", "hac_bartlett_30d_half_width_2se_days", "hac_bartlett_30d_k_crit"),
+        (
+            "design_hac_bartlett_30d",
+            "hac_bartlett_30d_half_width_2se_days",
+            "hac_bartlett_30d_k_crit",
+        ),
         ("closed_form_uniform_sampling", None, "closed_form_k_crit"),
     )
     phase = phase.assign(
-        iid_half_width_2se_days=2 * pd.to_numeric(phase["phase_se_iid_days"], errors="coerce"),
-        ar1_half_width_2se_days=2 * pd.to_numeric(phase["phase_se_ar1_days"], errors="coerce"),
+        iid_half_width_2se_days=2
+        * pd.to_numeric(phase["phase_se_iid_days"], errors="coerce"),
+        ar1_half_width_2se_days=2
+        * pd.to_numeric(phase["phase_se_ar1_days"], errors="coerce"),
         hac_bartlett_30d_half_width_2se_days=2
         * pd.to_numeric(phase["phase_se_hac_days"], errors="coerce"),
-        iid_k_crit=2 * pd.to_numeric(phase["phase_se_iid_at_unit_snr_days"], errors="coerce") / tolerance_panel,
-        ar1_k_crit=2 * pd.to_numeric(phase["phase_se_ar1_at_unit_snr_days"], errors="coerce") / tolerance_panel,
+        iid_k_crit=2
+        * pd.to_numeric(phase["phase_se_iid_at_unit_snr_days"], errors="coerce")
+        / tolerance_panel,
+        ar1_k_crit=2
+        * pd.to_numeric(phase["phase_se_ar1_at_unit_snr_days"], errors="coerce")
+        / tolerance_panel,
         hac_bartlett_30d_k_crit=2
         * pd.to_numeric(phase["phase_se_hac_at_unit_snr_days"], errors="coerce")
         / tolerance_panel,
@@ -1695,7 +1906,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     visibility = 1.0 - pd.to_numeric(phase["missing_fraction"], errors="coerce")
     phase = phase.assign(
-        visibility_bin=pd.cut(visibility, bins=list(VISIBILITY_BINS), right=False).astype(str)
+        visibility_bin=pd.cut(
+            visibility, bins=list(VISIBILITY_BINS), right=False
+        ).astype(str)
     )
 
     def phase_block(panel_frame: pd.DataFrame, panel_label: str) -> pd.DataFrame:
@@ -1704,12 +1917,17 @@ def main(argv: list[str] | None = None) -> int:
         rows: list[dict] = []
         for label, se_col, k_col in scenario_specs:
             if se_col is None:
-                half = 2 * pd.to_numeric(
+                half = (
+                    2
+                    * pd.to_numeric(
+                        panel_frame["phase_closed_form_at_unit_snr_days"],
+                        errors="coerce",
+                    )
+                    * pd.to_numeric(panel_frame["phase_sigma"], errors="coerce")
+                )
+                se_days = pd.to_numeric(
                     panel_frame["phase_closed_form_at_unit_snr_days"], errors="coerce"
                 ) * pd.to_numeric(panel_frame["phase_sigma"], errors="coerce")
-                se_days = pd.to_numeric(panel_frame["phase_closed_form_at_unit_snr_days"], errors="coerce") * pd.to_numeric(
-                    panel_frame["phase_sigma"], errors="coerce"
-                )
             else:
                 half = pd.to_numeric(panel_frame[se_col], errors="coerce")
                 se_days = half / 2.0
@@ -1718,7 +1936,8 @@ def main(argv: list[str] | None = None) -> int:
             if block.empty:
                 continue
             retained = block.loc[
-                pd.to_numeric(block["phase_amplitude_over_sigma"], errors="coerce") >= k_manuscript
+                pd.to_numeric(block["phase_amplitude_over_sigma"], errors="coerce")
+                >= k_manuscript
             ]
             median_k_crit = float(pd.to_numeric(block[k_col], errors="coerce").median())
             rows.append(
@@ -1728,38 +1947,57 @@ def main(argv: list[str] | None = None) -> int:
                     "scenario": label,
                     "manuscript_k_theory": manuscript.get("k_theory", float("nan")),
                     "manuscript_k_used": k_manuscript,
-                    "manuscript_tolerance_days": manuscript.get("phase_tolerance_days", float("nan")),
+                    "manuscript_tolerance_days": manuscript.get(
+                        "phase_tolerance_days", float("nan")
+                    ),
                     "design_interval_wider_than_manuscript_threshold": bool(
                         np.isfinite(median_k_crit) and median_k_crit > k_manuscript
                     ),
-                    "design_k_crit_over_manuscript_k": float(median_k_crit / k_manuscript)
+                    "design_k_crit_over_manuscript_k": float(
+                        median_k_crit / k_manuscript
+                    )
                     if np.isfinite(median_k_crit)
                     else float("nan"),
                     "n_cases": int(len(block)),
                     "n_stations": int(block["station_id"].nunique()),
                     "n_networks": int(block["network_id"].nunique()),
                     "median_n_observed_days": float(
-                        pd.to_numeric(block["phase_n_observed"], errors="coerce").median()
+                        pd.to_numeric(
+                            block["phase_n_observed"], errors="coerce"
+                        ).median()
                     ),
                     "median_amplitude_over_sigma": float(
-                        pd.to_numeric(block["phase_amplitude_over_sigma"], errors="coerce").median()
+                        pd.to_numeric(
+                            block["phase_amplitude_over_sigma"], errors="coerce"
+                        ).median()
                     ),
                     "median_rho_lag1": float(
                         pd.to_numeric(block["phase_rho_lag1"], errors="coerce").median()
                     ),
-                    "median_se_days": float(pd.to_numeric(se_days[keep], errors="coerce").median()),
+                    "median_se_days": float(
+                        pd.to_numeric(se_days[keep], errors="coerce").median()
+                    ),
                     "median_95pct_half_width_days": float(half.median()),
                     "q90_95pct_half_width_days": float(half.quantile(0.90)),
                     "tolerance_days_panel": tolerance_panel,
-                    "share_half_width_within_tolerance": float((half <= tolerance_panel).mean()),
+                    "share_half_width_within_tolerance": float(
+                        (half <= tolerance_panel).mean()
+                    ),
                     "median_design_k_crit": median_k_crit,
                     "share_design_k_crit_above_manuscript_k": float(
-                        (pd.to_numeric(block[k_col], errors="coerce") > k_manuscript).mean()
+                        (
+                            pd.to_numeric(block[k_col], errors="coerce") > k_manuscript
+                        ).mean()
                     ),
                     "n_retained_by_manuscript_rule": int(len(retained)),
-                    "share_retained_by_manuscript_rule": float(len(retained) / len(block)),
+                    "share_retained_by_manuscript_rule": float(
+                        len(retained) / len(block)
+                    ),
                     "share_of_retained_with_half_width_above_tolerance": float(
-                        (pd.to_numeric(retained[se_col], errors="coerce") > tolerance_panel).mean()
+                        (
+                            pd.to_numeric(retained[se_col], errors="coerce")
+                            > tolerance_panel
+                        ).mean()
                     )
                     if len(retained) and se_col
                     else float("nan"),
@@ -1767,9 +2005,9 @@ def main(argv: list[str] | None = None) -> int:
             )
 
         def ratio(numerator: str, denominator: str) -> float:
-            values = pd.to_numeric(panel_frame[numerator], errors="coerce") / pd.to_numeric(
-                panel_frame[denominator], errors="coerce"
-            )
+            values = pd.to_numeric(
+                panel_frame[numerator], errors="coerce"
+            ) / pd.to_numeric(panel_frame[denominator], errors="coerce")
             return float(values.median())
 
         rows.append(
@@ -1781,21 +2019,33 @@ def main(argv: list[str] | None = None) -> int:
                 "closed_form_k_theory_panel": closed_form_k_panel,
                 "manuscript_k_theory": manuscript.get("k_theory", float("nan")),
                 "manuscript_k_used": k_manuscript,
-                "manuscript_tolerance_days": manuscript.get("phase_tolerance_days", float("nan")),
+                "manuscript_tolerance_days": manuscript.get(
+                    "phase_tolerance_days", float("nan")
+                ),
                 "median_closed_form_at_unit_snr_days": float(
-                    pd.to_numeric(panel_frame["phase_closed_form_at_unit_snr_days"], errors="coerce").median()
+                    pd.to_numeric(
+                        panel_frame["phase_closed_form_at_unit_snr_days"],
+                        errors="coerce",
+                    ).median()
                 ),
                 "median_design_iid_at_unit_snr_days": float(
-                    pd.to_numeric(panel_frame["phase_se_iid_at_unit_snr_days"], errors="coerce").median()
+                    pd.to_numeric(
+                        panel_frame["phase_se_iid_at_unit_snr_days"], errors="coerce"
+                    ).median()
                 ),
                 "median_design_ar1_at_unit_snr_days": float(
-                    pd.to_numeric(panel_frame["phase_se_ar1_at_unit_snr_days"], errors="coerce").median()
+                    pd.to_numeric(
+                        panel_frame["phase_se_ar1_at_unit_snr_days"], errors="coerce"
+                    ).median()
                 ),
                 "median_design_hac_at_unit_snr_days": float(
-                    pd.to_numeric(panel_frame["phase_se_hac_at_unit_snr_days"], errors="coerce").median()
+                    pd.to_numeric(
+                        panel_frame["phase_se_hac_at_unit_snr_days"], errors="coerce"
+                    ).median()
                 ),
                 "median_ratio_design_iid_over_closed_form": ratio(
-                    "phase_se_iid_at_unit_snr_days", "phase_closed_form_at_unit_snr_days"
+                    "phase_se_iid_at_unit_snr_days",
+                    "phase_closed_form_at_unit_snr_days",
                 ),
                 "median_ratio_ar1_over_design_iid": ratio(
                     "phase_se_ar1_at_unit_snr_days", "phase_se_iid_at_unit_snr_days"
@@ -1805,9 +2055,15 @@ def main(argv: list[str] | None = None) -> int:
                 ),
             }
         )
-        bootstrap = panel_frame.loc[
-            pd.to_numeric(panel_frame.get("bootstrap_sd_days"), errors="coerce").notna()
-        ] if "bootstrap_sd_days" in panel_frame.columns else panel_frame.iloc[0:0]
+        bootstrap = (
+            panel_frame.loc[
+                pd.to_numeric(
+                    panel_frame.get("bootstrap_sd_days"), errors="coerce"
+                ).notna()
+            ]
+            if "bootstrap_sd_days" in panel_frame.columns
+            else panel_frame.iloc[0:0]
+        )
         if len(bootstrap):
             simulated = pd.to_numeric(bootstrap["bootstrap_sd_days"], errors="coerce")
             ar1 = pd.to_numeric(bootstrap["phase_se_ar1_days"], errors="coerce")
@@ -1821,8 +2077,12 @@ def main(argv: list[str] | None = None) -> int:
                     "median_simulated_sd_days": float(simulated.median()),
                     "median_analytic_ar1_se_days": float(ar1.median()),
                     "median_analytic_iid_se_days": float(iid.median()),
-                    "median_ratio_simulated_over_ar1": float((simulated / ar1).median()),
-                    "median_ratio_simulated_over_iid": float((simulated / iid).median()),
+                    "median_ratio_simulated_over_ar1": float(
+                        (simulated / ar1).median()
+                    ),
+                    "median_ratio_simulated_over_iid": float(
+                        (simulated / iid).median()
+                    ),
                     "share_simulated_within_factor_2_of_ar1": float(
                         ((simulated / ar1).between(0.5, 2.0)).mean()
                     ),
@@ -1840,16 +2100,24 @@ def main(argv: list[str] | None = None) -> int:
                     "visibility_bin": label,
                     "n_cases": int(len(block)),
                     "median_n_observed_days": float(
-                        pd.to_numeric(block["phase_n_observed"], errors="coerce").median()
+                        pd.to_numeric(
+                            block["phase_n_observed"], errors="coerce"
+                        ).median()
                     ),
                     "median_amplitude_over_sigma": float(
-                        pd.to_numeric(block["phase_amplitude_over_sigma"], errors="coerce").median()
+                        pd.to_numeric(
+                            block["phase_amplitude_over_sigma"], errors="coerce"
+                        ).median()
                     ),
                     "median_95pct_half_width_days": float(half_ar1.median()),
-                    "share_half_width_within_tolerance": float((half_ar1 <= tolerance_panel).mean()),
+                    "share_half_width_within_tolerance": float(
+                        (half_ar1 <= tolerance_panel).mean()
+                    ),
                     "share_retained_by_manuscript_rule": float(
                         (
-                            pd.to_numeric(block["phase_amplitude_over_sigma"], errors="coerce")
+                            pd.to_numeric(
+                                block["phase_amplitude_over_sigma"], errors="coerce"
+                            )
                             >= k_manuscript
                         ).mean()
                     ),
@@ -1858,10 +2126,14 @@ def main(argv: list[str] | None = None) -> int:
         return pd.DataFrame(rows)
 
     phase_crossed = phase.loc[
-        phase["longest_run"].isin(LENGTHS) & phase["overlap_class"].isin(OVERLAP_CLASSES)
+        phase["longest_run"].isin(LENGTHS)
+        & phase["overlap_class"].isin(OVERLAP_CLASSES)
     ]
     phase_out = pd.concat(
-        [phase_block(phase, "all_realizations"), phase_block(phase_crossed, "crossed_design")],
+        [
+            phase_block(phase, "all_realizations"),
+            phase_block(phase_crossed, "crossed_design"),
+        ],
         ignore_index=True,
     )
     phase_out.to_csv(OUT / "phase_identifiability.csv", index=False)
@@ -1882,19 +2154,19 @@ def main(argv: list[str] | None = None) -> int:
         if len(bootstrap_block)
         else []
     )
-    validation["phase_design_vs_manuscript"] = (
-        phase_out.loc[phase_out["block"].eq("scenario_summary")][
-            [
-                "panel",
-                "scenario",
-                "n_cases",
-                "median_95pct_half_width_days",
-                "median_design_k_crit",
-                "design_k_crit_over_manuscript_k",
-                "share_of_retained_with_half_width_above_tolerance",
-            ]
-        ].to_dict(orient="records")
-    )
+    validation["phase_design_vs_manuscript"] = phase_out.loc[
+        phase_out["block"].eq("scenario_summary")
+    ][
+        [
+            "panel",
+            "scenario",
+            "n_cases",
+            "median_95pct_half_width_days",
+            "median_design_k_crit",
+            "design_k_crit_over_manuscript_k",
+            "share_of_retained_with_half_width_above_tolerance",
+        ]
+    ].to_dict(orient="records")
     phase.to_parquet(SCRATCH / f"phase_cases_scored{suffix}.parquet", index=False)
 
     # ---- explicit accounting of the gaps in this design ------------------
@@ -1909,20 +2181,34 @@ def main(argv: list[str] | None = None) -> int:
                 "n_completed_year_not_finite": int(missing.sum()),
                 "share_not_finite": float(missing.mean()),
                 "median_masked_days_with_nan_fill": float(
-                    pd.to_numeric(block["masked_days_with_nan_fill"], errors="coerce").median()
+                    pd.to_numeric(
+                        block["masked_days_with_nan_fill"], errors="coerce"
+                    ).median()
                 ),
                 "max_masked_days_with_nan_fill": float(
-                    pd.to_numeric(block["masked_days_with_nan_fill"], errors="coerce").max()
+                    pd.to_numeric(
+                        block["masked_days_with_nan_fill"], errors="coerce"
+                    ).max()
                 ),
                 "n_cases_inside_gap_AC_not_estimable": int(
-                    pd.to_numeric(block["resid_ac_inside_gap"], errors="coerce").isna().sum()
+                    pd.to_numeric(block["resid_ac_inside_gap"], errors="coerce")
+                    .isna()
+                    .sum()
                 ),
                 "n_cases_outside_gap_AC_not_estimable": int(
-                    pd.to_numeric(block["resid_ac_outside_gap"], errors="coerce").isna().sum()
+                    pd.to_numeric(block["resid_ac_outside_gap"], errors="coerce")
+                    .isna()
+                    .sum()
                 ),
-                "n_cases_with_no_visible_donor": int(block["n_visible_donors"].eq(0).sum()),
+                "n_cases_with_no_visible_donor": int(
+                    block["n_visible_donors"].eq(0).sum()
+                ),
                 "max_air_design_missing_days_in_year": float(
-                    pd.to_numeric(block["air_design_missing_days_in_year"], errors="coerce").clip(lower=0).max()
+                    pd.to_numeric(
+                        block["air_design_missing_days_in_year"], errors="coerce"
+                    )
+                    .clip(lower=0)
+                    .max()
                 ),
             }
         )
@@ -1933,7 +2219,9 @@ def main(argv: list[str] | None = None) -> int:
     validation["air_forcing_missing_days_total"] = int(
         cases.drop_duplicates(["network_id", "station_id", "year", "realization_id"])[
             "air_forcing_missing_days_in_year"
-        ].clip(lower=0).sum()
+        ]
+        .clip(lower=0)
+        .sum()
     )
     validation["air_design_missing_days_total_across_cases"] = int(
         pd.to_numeric(air_only["air_design_missing_days_in_year"], errors="coerce")
@@ -1941,47 +2229,44 @@ def main(argv: list[str] | None = None) -> int:
         .sum()
     )
     validation["air_excluded_cases_with_missing_air_design"] = int(
-        (air_not_finite & pd.to_numeric(air_only["air_design_missing_days_in_year"], errors="coerce").gt(0)).sum()
+        (
+            air_not_finite
+            & pd.to_numeric(
+                air_only["air_design_missing_days_in_year"], errors="coerce"
+            ).gt(0)
+        ).sum()
     )
     validation["air_excluded_cases_other_reason"] = int(
-        (air_not_finite & ~pd.to_numeric(air_only["air_design_missing_days_in_year"], errors="coerce").gt(0)).sum()
+        (
+            air_not_finite
+            & ~pd.to_numeric(
+                air_only["air_design_missing_days_in_year"], errors="coerce"
+            ).gt(0)
+        ).sum()
     )
     validation["phase_rows_with_too_few_observed_days"] = int(
-        len(phases) - int(pd.to_numeric(phases["phase_se_iid_days"], errors="coerce").notna().sum())
+        len(phases)
+        - int(pd.to_numeric(phases["phase_se_iid_days"], errors="coerce").notna().sum())
     )
 
-    # ---- fingerprint -----------------------------------------------------
+    # ---- protocol record -------------------------------------------------
     elapsed = time.time() - started
-    fingerprint = {
+    record = {
         "script": str(Path(__file__).relative_to(ROOT)),
-        "script_sha256": sha256(Path(__file__)),
-        "git_head": git_head(),
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "wall_seconds": round(elapsed, 1),
         "inputs": {
             "station_roster": {
-                "path": str((STEP1_PANEL / "station_roster.csv").relative_to(ROOT)),
-                "sha256": sha256(STEP1_PANEL / "station_roster.csv"),
+                "path": str((STEP1_PANEL / "station_roster.csv").relative_to(ROOT))
             },
             "network_split": {
-                "path": str((STEP1_PANEL / "network_split.csv").relative_to(ROOT)),
-                "sha256": sha256(STEP1_PANEL / "network_split.csv"),
+                "path": str((STEP1_PANEL / "network_split.csv").relative_to(ROOT))
             },
-            "archived_crossed_cases": {
-                "path": str(CROSSED_PARQUET.relative_to(ROOT)),
-                "sha256": sha256(CROSSED_PARQUET),
-            },
-            "air_forcing_primary_v18": {
-                "path": str(AIR_TABLE_V18.relative_to(ROOT)),
-                "sha256": sha256(AIR_TABLE_V18),
-            },
-            "air_forcing_v17_shipped": {
-                "path": str(AIR_TABLE_V17.relative_to(ROOT)),
-                "sha256": sha256(AIR_TABLE_V17),
-            },
+            "archived_crossed_cases": {"path": str(CROSSED_PARQUET.relative_to(ROOT))},
+            "air_forcing_primary_v18": {"path": str(AIR_TABLE_V18.relative_to(ROOT))},
+            "air_forcing_v17_shipped": {"path": str(AIR_TABLE_V17.relative_to(ROOT))},
             "manuscript_sine_summary": {
-                "path": str(WINTER_SINE_SUMMARY.relative_to(ROOT)),
-                "sha256": sha256(WINTER_SINE_SUMMARY),
+                "path": str(WINTER_SINE_SUMMARY.relative_to(ROOT))
             },
         },
         "air_forcing_env": os.environ.get("STREAM_AIR_FORCING", ""),
@@ -2014,7 +2299,7 @@ def main(argv: list[str] | None = None) -> int:
             "a reconstruction-independent geometry law"
         ),
     }
-    (OUT / "protocol_fingerprint.json").write_text(json.dumps(fingerprint, indent=2) + "\n")
+    (OUT / "protocol.json").write_text(json.dumps(record, indent=2) + "\n")
 
     # ---- SUMMARY.md ------------------------------------------------------
     def fmt(value: object, digits: int = 3) -> str:
@@ -2036,20 +2321,31 @@ def main(argv: list[str] | None = None) -> int:
         for column in view.columns:
             if pd.api.types.is_float_dtype(view[column]):
                 view[column] = view[column].map(
-                    lambda value: "" if value is None or not np.isfinite(value) else f"{value:.3f}"
+                    lambda value: (
+                        ""
+                        if value is None or not np.isfinite(value)
+                        else f"{value:.3f}"
+                    )
                 )
         # Drop columns that are empty for every row of this block; the CSV keeps them.
-        empty = [column for column in view.columns if bool((view[column].astype(str) == "").all())]
+        empty = [
+            column
+            for column in view.columns
+            if bool((view[column].astype(str) == "").all())
+        ]
         if len(empty) < len(view.columns):
             view = view.drop(columns=empty)
         return view.to_string(index=False)
 
     lines: list[str] = []
-    lines.append("# P1 mechanism boundary — misalignment, competing peaks, residual correlation, air reconstructor, design-based phase interval")
+    lines.append(
+        "# P1 mechanism boundary — misalignment, competing peaks, residual correlation, air reconstructor, design-based phase interval"
+    )
     lines.append("")
-    lines.append(f"Generated {fingerprint['generated_utc']} from `{fingerprint['script']}` "
-                 f"(sha256 `{fingerprint['script_sha256'][:12]}`) at git HEAD `{fingerprint['git_head']}`. "
-                 f"Wall time {elapsed / 60:.1f} min.")
+    lines.append(
+        f"Generated {record['generated_utc']} from `{record['script']}`. "
+        f"Wall time {elapsed / 60:.1f} min."
+    )
     lines.append("")
     lines.append("## Protocol")
     lines.append("")
@@ -2057,8 +2353,8 @@ def main(argv: list[str] | None = None) -> int:
         f"- Cases: the Step-3 paired position x length crossed development panel "
         f"(`{CROSSED_PARQUET.relative_to(ROOT)}`), reconstructed here from the same "
         f"deterministic seeds so the daily series are available: "
-        f"{fingerprint['config']['stations_built']} stations / {fingerprint['config']['networks_built']} networks, "
-        f"{fingerprint['config']['n_cases_all']} cases, {len(analysis)} of them in the "
+        f"{record['config']['stations_built']} stations / {record['config']['networks_built']} networks, "
+        f"{record['config']['n_cases_all']} cases, {len(analysis)} of them in the "
         f"crossed design (lengths {list(LENGTHS)} x overlap classes {list(OVERLAP_CLASSES)})."
     )
     lines.append(
@@ -2077,7 +2373,7 @@ def main(argv: list[str] | None = None) -> int:
         + f"`), which covers "
         + f"{int(air_availability.loc[air_availability['forcing_table'].eq('v18_nasa_power'), 'stations_covered'].iloc[0])}"
         + f"/{int(cases['station_id'].nunique())}. Air rows are labelled by their forcing table in "
-        "`protocol_fingerprint.json`; `air_available` case share is "
+        "`protocol.json`; `air_available` case share is "
         + f"{fmt(validation['air_available_share_cases'])} and finite `air_ridge` error share is "
         + f"{fmt(validation['air_reconstructor_finite_share'])}."
     )
@@ -2104,7 +2400,12 @@ def main(argv: list[str] | None = None) -> int:
         f"- max |Δ peak_overlap| {fmt(repro['max_abs_dev_peak_overlap'], 6)}, max |Δ true_peak_hidden_fraction| "
         f"{fmt(repro['max_abs_dev_hidden_fraction'], 6)}."
     )
-    for recon in ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge"):
+    for recon in (
+        "doy_climatology",
+        "smooth_climatology",
+        "linear_interp",
+        "donor_ridge",
+    ):
         lines.append(
             f"- max |Δ abserr_hottest30| for `{recon}`: "
             f"{fmt(repro.get(f'max_abs_dev_abserr_{recon}'), 6)} °C "
@@ -2137,7 +2438,9 @@ def main(argv: list[str] | None = None) -> int:
         )
     )
     lines.append("")
-    lines.append("Length effect at the fixed hidden share (whether the interval excludes zero):")
+    lines.append(
+        "Length effect at the fixed hidden share (whether the interval excludes zero):"
+    )
     lines.append("")
     fixed = crossed_effects.loc[
         crossed_effects["contrast"].eq("long_minus_short_at_fixed_hidden_share")
@@ -2266,13 +2569,17 @@ def main(argv: list[str] | None = None) -> int:
         "outside the gap and is reported missing, never zero)."
     )
     lines.append("")
-    distribution = residual_correlation.loc[residual_correlation["block"].eq("distribution")]
+    distribution = residual_correlation.loc[
+        residual_correlation["block"].eq("distribution")
+    ]
     for recon in RECONSTRUCTORS:
         inside = distribution.loc[
-            distribution["reconstructor"].eq(recon) & distribution["where"].eq("inside_gap")
+            distribution["reconstructor"].eq(recon)
+            & distribution["where"].eq("inside_gap")
         ]
         outside = distribution.loc[
-            distribution["reconstructor"].eq(recon) & distribution["where"].eq("outside_gap_model")
+            distribution["reconstructor"].eq(recon)
+            & distribution["where"].eq("outside_gap_model")
         ]
         pieces = []
         if len(inside):
@@ -2282,7 +2589,9 @@ def main(argv: list[str] | None = None) -> int:
                 "with too few adjacent hidden-day pairs to estimate)"
             )
         if len(outside) and outside["n_cases"].iloc[0]:
-            pieces.append(f"outside mean lag-1 AC {fmt(outside['mean_lag1_ac'].iloc[0])}")
+            pieces.append(
+                f"outside mean lag-1 AC {fmt(outside['mean_lag1_ac'].iloc[0])}"
+            )
         elif len(outside):
             pieces.append("outside not defined by this reconstructor")
         lines.append(f"- `{recon}`: " + "; ".join(pieces) + ".")
@@ -2369,7 +2678,9 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             verdict = (
                 "WIDER than the assumed threshold"
-                if getattr(row, "design_interval_wider_than_manuscript_threshold", False)
+                if getattr(
+                    row, "design_interval_wider_than_manuscript_threshold", False
+                )
                 else "not wider than the assumed threshold"
             )
             lines.append(

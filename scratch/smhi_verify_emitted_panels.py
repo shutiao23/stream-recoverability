@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import collections
 import csv
-import hashlib
 import io
 import json
 import re
@@ -154,7 +153,6 @@ report["stations_csv"] = {
     "n_complete_station_years_eligible": int(
         stations.loc[stations["n_complete_years"] >= 4, "n_complete_years"].sum()
     ),
-    "sha256": hashlib.sha256((OUT / "stations.csv").read_bytes()).hexdigest(),
     "measurement_statistic_unique": sorted(stations["measurement_statistic"].unique()),
 }
 

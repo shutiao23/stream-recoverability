@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import io
 import json
 import math
@@ -23,6 +22,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 import yaml
 
@@ -32,19 +32,22 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from stream_recoverability.data.http_json import USER_AGENT
+from stream_recoverability.seeds import plain_seed
 
 FOEN_GRAPHQL = "https://data.bafu.admin.ch/api"
 SOURCE_INVENTORY = ROOT / "results/framework/public_catalog/foen_existenz_locations.csv"
 OUTPUT = ROOT / "results/framework/public_catalog"
 METADATA_CSV = OUTPUT / "foen_temperature_station_metadata_20260826.csv"
 SPLIT_CSV = OUTPUT / "foen_prospective_split_v1.csv"
-SHA_PATH = OUTPUT / "foen_prospective_split_v1.sha256"
 MANIFEST = OUTPUT / "foen_prospective_lock_manifest.json"
 CATALOG_YAML = ROOT / "configs/foen_prospective_catalog_v1.yaml"
 SPLIT_YAML = ROOT / "configs/foen_prospective_split_v1.yaml"
 FUTURE_QUERY_TEMPLATE = ROOT / "configs/foen_daily_value_query_v1.graphql"
 
 SPLIT_SEED = 20260826
+ROLE_DRAW_CODES = {"sealed": 1, "remainder": 2}
+# Share of the unsealed, unburned candidates assigned to validation.
+REMAINDER_VALIDATION_SHARE = 73 / 256
 REQUIRED_NON_NA_SEALED = 10
 PROBED_STATION_IDS = frozenset({"2016"})
 MIN_STATIONS = 3
@@ -206,16 +209,31 @@ def assign_roles(
     seed: int = SPLIT_SEED,
     required_sealed: int = REQUIRED_NON_NA_SEALED,
 ) -> list[dict[str, Any]]:
-    pool = [item for item in candidates if not item["never_sealed"]]
+    pool = sorted(
+        (item for item in candidates if not item["never_sealed"]),
+        key=lambda item: str(item["network_id"]),
+    )
     if len(pool) < int(required_sealed):
         raise ValueError("fewer than ten unburned FOEN metadata candidates")
-    ranked = sorted(
-        pool,
-        key=lambda item: hashlib.sha256(
-            f"{seed}:{item['network_id']}".encode()
-        ).hexdigest(),
-    )
-    sealed_ids = {str(item["network_id"]) for item in ranked[: int(required_sealed)]}
+    order = np.random.default_rng(
+        plain_seed(seed, ROLE_DRAW_CODES["sealed"])
+    ).permutation(len(pool))
+    sealed_ids = {
+        str(pool[int(index)]["network_id"]) for index in order[: int(required_sealed)]
+    }
+    remainder = [
+        str(item["network_id"])
+        for item in pool
+        if str(item["network_id"]) not in sealed_ids
+    ]
+    draws = np.random.default_rng(
+        plain_seed(seed, ROLE_DRAW_CODES["remainder"])
+    ).random(len(remainder))
+    validation_ids = {
+        network_id
+        for network_id, draw in zip(remainder, draws)
+        if draw < REMAINDER_VALIDATION_SHARE
+    }
     rows: list[dict[str, Any]] = []
     for item in candidates:
         network_id = str(item["network_id"])
@@ -223,9 +241,10 @@ def assign_roles(
             role = "never_sealed"
         elif network_id in sealed_ids:
             role = "sealed"
+        elif network_id in validation_ids:
+            role = "validation"
         else:
-            digest = hashlib.sha256(f"remainder:{seed}:{network_id}".encode()).digest()
-            role = "validation" if digest[0] < 73 else "development"
+            role = "development"
         rows.append({**item, "role": role, "seed": int(seed)})
     return sorted(rows, key=lambda item: str(item["network_id"]))
 
@@ -274,11 +293,7 @@ def write_lock(stations: pd.DataFrame, rows: list[dict[str, Any]]) -> dict[str, 
     ]
     stations[metadata_columns].to_csv(METADATA_CSV, index=False)
 
-    canonical = canonical_split_bytes(rows)
-    split_sha = hashlib.sha256(canonical).hexdigest()
-    query_template_sha = hashlib.sha256(FUTURE_QUERY_TEMPLATE.read_bytes()).hexdigest()
-    SPLIT_CSV.write_bytes(canonical)
-    SHA_PATH.write_text(split_sha + "\n", encoding="utf-8")
+    SPLIT_CSV.write_bytes(canonical_split_bytes(rows))
 
     catalog = {
         "catalog_id": "foen_prospective_catalog_v1",
@@ -303,15 +318,12 @@ def write_lock(stations: pd.DataFrame, rows: list[dict[str, Any]]) -> dict[str, 
     CATALOG_YAML.write_text(
         yaml.safe_dump(catalog, sort_keys=False, allow_unicode=True), encoding="utf-8"
     )
-    catalog_sha = hashlib.sha256(CATALOG_YAML.read_bytes()).hexdigest()
 
     split = {
         "split_id": "foen_prospective_split_v1",
         "status": "locked_before_temperature_value_query",
         "frozen_on": "2026-08-26",
         "seed": SPLIT_SEED,
-        "sha256": split_sha,
-        "catalog_sha256": catalog_sha,
         "canonical_split_table": str(SPLIT_CSV.relative_to(ROOT)),
         "catalog": str(CATALOG_YAML.relative_to(ROOT)),
         "required_non_north_america_sealed": REQUIRED_NON_NA_SEALED,
@@ -326,7 +338,6 @@ def write_lock(stations: pd.DataFrame, rows: list[dict[str, Any]]) -> dict[str, 
         "future_request_contract": {
             "status": "template_locked_not_executed",
             "query_template": str(FUTURE_QUERY_TEMPLATE.relative_to(ROOT)),
-            "query_template_sha256": query_template_sha,
             "endpoint": FOEN_GRAPHQL,
             "aggregation": "data_1day_mean",
             "parameter": "WT",
@@ -363,9 +374,6 @@ def write_lock(stations: pd.DataFrame, rows: list[dict[str, Any]]) -> dict[str, 
             "Not a qualified-network count, not T8 evidence, and not a temperature download."
         ),
         "split_seed": SPLIT_SEED,
-        "split_sha256": split_sha,
-        "catalog_sha256": catalog_sha,
-        "future_query_template_sha256": query_template_sha,
         "n_temperature_station_metadata_rows": len(stations),
         "n_candidate_networks": len(rows),
         "n_prospective_non_na_sealed": len(sealed),

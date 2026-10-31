@@ -46,7 +46,6 @@
   "identity": "admission__generic_direct_h30_uncertainty__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_direct_h30_uncertainty__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers.joblib",
-  "model_sha256": "d2dfc8f22975bbd1311c3312a54cd327d2057e352820337547e50b8e82aa45bf",
   "n_training_cases": 8768,
   "n_training_groups": 54,
   "name": "generic_direct_h30_uncertainty",
@@ -56,8 +55,7 @@
   "scope": "documented_daily_mean",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
-      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": {

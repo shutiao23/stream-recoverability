@@ -36,12 +36,11 @@ def _read_rdb(text: str) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=header)
 
 
-def _fetch_text(url: str, cache_path: Path, *, refresh: bool = False, pause: float = 0.35) -> tuple[str, str]:
-    """Download once, cache on disk, and return (text, sha256)."""
+def _fetch_text(url: str, cache_path: Path, *, refresh: bool = False, pause: float = 0.35) -> str:
+    """Download once, cache on disk, and return the text."""
 
     if cache_path.exists() and not refresh:
-        text = cache_path.read_text(encoding="utf-8", errors="replace")
-        return text, _sha256(cache_path)
+        return cache_path.read_text(encoding="utf-8", errors="replace")
     request = urllib.request.Request(url, headers={"User-Agent": NWIS_USER_AGENT, "Accept": "text/plain"})
     last_error: Exception | None = None
     for attempt in range(4):
@@ -57,7 +56,7 @@ def _fetch_text(url: str, cache_path: Path, *, refresh: bool = False, pause: flo
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(text, encoding="utf-8")
     time.sleep(pause)
-    return text, _sha256(cache_path)
+    return text
 
 
 def confirmation_station_ids() -> list[str]:
@@ -87,11 +86,10 @@ def verify_daily_max_availability(stations: list[str], cache_dir: Path) -> pd.Da
                 }
             )
         )
-        text, digest = _fetch_text(url, cache_dir / f"series_catalog_{start:03d}.rdb", pause=0.4)
+        text = _fetch_text(url, cache_dir / f"series_catalog_{start:03d}.rdb", pause=0.4)
         table = _read_rdb(text)
         if table.empty:
             continue
-        table["_catalog_sha256"] = digest
         rows.append(table)
     if not rows:
         return pd.DataFrame()
@@ -107,7 +105,6 @@ def verify_daily_max_availability(stations: list[str], cache_dir: Path) -> pd.Da
             "end_date",
             "count_nu",
             "access_cd",
-            "_catalog_sha256",
         )
         if column in catalog.columns
     ]
@@ -136,7 +133,7 @@ def download_daily_values(
             )
         )
         cache_path = cache_dir / f"{station}_{stat_cd}.rdb"
-        text, digest = _fetch_text(url, cache_path, refresh=refresh)
+        text = _fetch_text(url, cache_path, refresh=refresh)
         table = _read_rdb(text)
         value_columns = [column for column in table.columns if column.endswith(f"_{stat_cd}")] if not table.empty else []
         n_values = 0
@@ -162,7 +159,6 @@ def download_daily_values(
                 "url": url,
                 "cache_path": str(cache_path.relative_to(ROOT)),
                 "bytes": int(cache_path.stat().st_size),
-                "sha256": digest,
                 "n_rows": int(len(table)),
                 "n_numeric_values": n_values,
             }
@@ -257,9 +253,6 @@ def run_dadmax(workers: int) -> int:
             "n_stations_with_max_but_no_mean": sorted(set(max_rows["site_no"]) - set(mean_rows["site_no"])),
             "n_stations_with_mean_but_no_max": sorted(set(mean_rows["site_no"]) - set(max_rows["site_no"])),
             "stations_missing_from_catalog": sorted(set(stations) - set(catalog["site_no"])),
-            "catalog_sha256": sorted(
-                {str(value) for value in catalog.get("_catalog_sha256", []) if isinstance(value, str)}
-            ),
         }
     else:  # pragma: no cover
         availability = {"n_stations_requested": int(len(stations)), "catalog_empty": True}
@@ -471,7 +464,7 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
     lines.append("")
     lines.append(
         "Artifacts: `dadmax_comparison.csv`, `threshold_class_change.csv`, `summary.json`, "
-        "`daily_max_availability.csv`, `raw_cache/` (hashes in `raw_cache_manifest.csv`). "
+        "`daily_max_availability.csv`, `raw_cache/` (listed in `raw_cache_manifest.csv`). "
         "Script: `scripts/251_wrr_winter_regulatory_endpoints.py dadmax`."
     )
     lines.append("")
@@ -512,7 +505,7 @@ def write_dadmax_report(threshold_table: pd.DataFrame, pooled: dict, summary: di
         )
     )
     lines.append(
-        "* raw responses and hashes: {files} files, {bytes:,} bytes, in `raw_cache/`.".format(
+        "* raw responses: {files} files, {bytes:,} bytes, in `raw_cache/`.".format(
             **summary["raw_cache"]
         )
     )

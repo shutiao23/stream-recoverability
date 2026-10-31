@@ -86,7 +86,7 @@ across 14 networks with complete five-or-more-station replay matrices.
 
 ## Second-confirmation result
 
-The internally hash-bound v2 roster attempted 60 networks and scored 57 after
+The internally frozen v2 roster attempted 60 networks and scored 57 after
 three networks had no eligible evaluation gap. At directly supported horizons,
 the empirical predictor covered 874 units and reached station-gap Spearman
 0.945, network-level Spearman 0.805, and calibration slope 0.938. Across all

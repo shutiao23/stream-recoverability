@@ -1,14 +1,10 @@
 {
   "schema_version": "public_history_validation_scrub_v1",
   "status": "verified",
-  "pre_scrub_tip": "e170b10a872d64a34c00c841463c63aa1ceebf40",
-  "post_filter_tip": "6575ec972930a7027ae37a31606b3bea7f4a65e9",
   "backup": {
     "filename": "stream-recoverability-pre-validation-scrub-20260824.bundle",
     "storage": "private local workspace outside the public repository",
     "bytes": 12255750,
-    "sha256": "79c2e12ddb717d89fe4b49ccabeffc589cc6fe4bc536fa3ff658b8cd185fb871",
-    "git_bundle_verify": "complete history; 2 refs; verified okay",
     "public_release_allowed": false
   },
   "removed_classes": [

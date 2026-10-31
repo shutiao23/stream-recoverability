@@ -34,7 +34,6 @@
   "identity": "small_logit_plus_support__strictly_prior_years__all__local_fit__foen",
   "kind": "logit",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/small_logit_plus_support__strictly_prior_years__all__local_fit__foen.joblib",
-  "model_sha256": "941ba0ce371c8c4f725b0aa01d8aec990e5dbcb3e5e0785ec8ad567e4e44e696",
   "n_training_cases": 5783,
   "n_training_groups": 11,
   "name": "small_logit_plus_support",
@@ -44,8 +43,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
-      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

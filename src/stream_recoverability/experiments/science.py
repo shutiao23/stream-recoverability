@@ -43,7 +43,7 @@ from stream_recoverability.models.proposed_training import (
     validate_proposed_checkpoint_contract,
 )
 
-from .contracts import canonical_evaluation_split, file_sha256
+from .contracts import canonical_evaluation_split
 from .formal_authorization import authorize_proposed_estimand
 from .grid import (
     DEFAULT_FRONTIER_ANCHOR_PATH,
@@ -185,11 +185,6 @@ def _science_grid(
         external_validation_status=external_status,
         frontier_anchor_catalog_path=(
             str(Path(frontier_anchor_path))
-            if frontier_anchor_path is not None
-            else None
-        ),
-        frontier_anchor_catalog_sha256=(
-            file_sha256(frontier_anchor_path)
             if frontier_anchor_path is not None
             else None
         ),
@@ -857,7 +852,6 @@ def _checkpoint_artifact_identity(checkpoint_file: Path) -> dict[str, Any] | Non
     return {
         "size": int(stat.st_size),
         "mtime_ns": int(stat.st_mtime_ns),
-        "sha256": file_sha256(checkpoint_file),
     }
 
 
@@ -1362,7 +1356,6 @@ def run_information_compensation(
             "expected_formal_models": [],
             "finalized_model_roster": {
                 "path": roster.manifest_path,
-                "sha256": roster.manifest_sha256,
                 "selected_models": list(roster.selected_models),
                 "proposed_decision": roster.proposed_decision,
             },
@@ -1689,9 +1682,7 @@ def run_information_compensation(
                 "checkpoint": {
                     "path": str(checkpoint_file.resolve()),
                     "size": artifact["size"],
-                    "sha256": artifact["sha256"],
                 },
-                "checkpoint_sidecar": None,
                 "checkpoint_contract_valid": True,
             }
         )
@@ -1789,7 +1780,6 @@ def run_information_compensation(
             "data_version": runner.data.data_version,
             "data_version_input_identity": runner.data_version_input_identity,
             "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
-            "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
             "frontier_anchor_count": grid.frontier_anchor_count,
             "formal_grid_contract_complete": runner.formal_grid_contract is not None,
             "formal_grid_contract": runner.formal_grid_contract,
@@ -1815,7 +1805,6 @@ def run_information_compensation(
             "formal_execution_authorization": runner.formal_authorization,
             "finalized_model_roster": {
                 "path": roster.manifest_path,
-                "sha256": roster.manifest_sha256,
                 "selected_models": list(roster.selected_models),
                 "proposed_decision": roster.proposed_decision,
             },

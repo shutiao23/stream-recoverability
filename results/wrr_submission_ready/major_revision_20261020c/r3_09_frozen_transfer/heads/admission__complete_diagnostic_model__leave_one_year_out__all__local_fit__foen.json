@@ -61,7 +61,6 @@
   "identity": "admission__complete_diagnostic_model__leave_one_year_out__all__local_fit__foen",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__complete_diagnostic_model__leave_one_year_out__all__local_fit__foen.joblib",
-  "model_sha256": "0c99c54a8aa810ec4bb5536f030233e2cd31fa46c1d375c6364e7c447c9da667",
   "n_training_cases": 1040,
   "n_training_groups": 11,
   "name": "complete_diagnostic_model",
@@ -71,8 +70,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
-      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

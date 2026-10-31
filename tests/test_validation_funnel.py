@@ -73,9 +73,7 @@ def test_validation_funnel_has_frozen_counts_labels_and_mask_units() -> None:
         and unit.anchor_data_version == "published_v1"
         and unit.anchor_evaluation_split == "validation"
         and unit.anchor_status == "bound_centered_anchor_v1"
-        and unit.scenario_id.endswith(
-            f"-R{unit.mask_seed_placeholder:04d}"
-        )
+        and unit.scenario_id.endswith(f"-R{unit.mask_seed_placeholder:04d}")
         for unit in funnel.mask_units
     )
     assert all(
@@ -101,23 +99,17 @@ def test_published_v2_funnel_uses_v2_anchor_catalog() -> None:
     assert Path(funnel.grid.validation_anchor_catalog_path).name == (
         "validation_anchors_v2.csv"
     )
-    assert all(
-        unit.anchor_data_version == "published_v2" for unit in funnel.mask_units
-    )
+    assert all(unit.anchor_data_version == "published_v2" for unit in funnel.mask_units)
 
 
 def test_validation_stages_freeze_candidates_seeds_and_finalist_gate() -> None:
     funnel = build_validation_funnel(MANIFEST, CONFIG)
 
-    traditional, traditional_models = select_validation_stage(
-        funnel, "traditional"
-    )
+    traditional, traditional_models = select_validation_stage(funnel, "traditional")
     assert traditional.training_seeds == ()
     assert traditional_models == TRADITIONAL_CANDIDATES
 
-    deep_single, deep_models = select_validation_stage(
-        funnel, "deep_single_seed"
-    )
+    deep_single, deep_models = select_validation_stage(funnel, "deep_single_seed")
     assert deep_single.training_seeds == (11,)
     assert deep_models == DEEP_CANDIDATES
 
@@ -132,9 +124,7 @@ def test_validation_stages_freeze_candidates_seeds_and_finalist_gate() -> None:
     assert finalists == ("proposed", "csdi")
 
     with pytest.raises(ValueError, match="not candidates"):
-        select_validation_stage(
-            funnel, "deep_single_seed", models=("brits",)
-        )
+        select_validation_stage(funnel, "deep_single_seed", models=("brits",))
 
 
 def _ranking_events() -> pd.DataFrame:
@@ -159,7 +149,6 @@ def _ranking_events() -> pd.DataFrame:
                 "skill": linear_skill,
                 "evaluation_split": "validation",
                 "data_version": "published_v1",
-                "design_hash": "frozen-design-hash",
             }
         )
         for training_seed in VALIDATION_DEEP_SEEDS:
@@ -189,7 +178,6 @@ def _ranking_events() -> pd.DataFrame:
                     "skill": proposed_skill,
                     "evaluation_split": "validation",
                     "data_version": "published_v1",
-                    "design_hash": "frozen-design-hash",
                 }
             )
     return pd.DataFrame(rows)
@@ -221,10 +209,7 @@ def test_validation_ranking_is_complete_equal_stratum_weighted_and_deterministic
     assert linear["training_seed_count"] == 0
     assert linear["negative_skill_count"] == 15
     assert linear["station_outage_mean_skill"] == pytest.approx(-0.20)
-    assert (
-        proposed["mean_skill_across_strata"]
-        > linear["mean_skill_across_strata"]
-    )
+    assert proposed["mean_skill_across_strata"] > linear["mean_skill_across_strata"]
 
     output = tmp_path / "validation_model_ranking.csv"
     written = write_validation_model_ranking(

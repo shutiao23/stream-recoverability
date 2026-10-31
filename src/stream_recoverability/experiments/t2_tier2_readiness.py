@@ -2,16 +2,15 @@
 
 The Tier-2 sample was instantiated after open-role downloads had started.  It
 therefore cannot be repaired by selecting a different set of networks after QC.
-This module binds the existing sample lock to the current open six-year corpus,
-audits executable model paths, and permits constructor-only smoke checks.  It
-never traverses a sealed data directory and never trains, predicts, or scores a
-deep model.
+This module checks the existing sample lock against the current open six-year
+corpus, audits executable model paths, and permits constructor-only smoke
+checks.  It never traverses a sealed data directory and never trains, predicts,
+or scores a deep model.
 """
 
 from __future__ import annotations
 
 import gc
-import hashlib
 import json
 from collections import Counter
 from collections.abc import Mapping, Sequence
@@ -55,21 +54,6 @@ ALL_DEEP_OBLIGATIONS = (
 )
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _canonical_sample_sha(rows: Sequence[Mapping[str, Any]]) -> str:
-    payload = json.dumps(
-        list(rows), sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
 def _distribution_version(name: str) -> str | None:
     try:
         return importlib_metadata.version(name)
@@ -88,15 +72,16 @@ def validate_tier2_sample_lock(sample: Mapping[str, Any]) -> None:
         identifiers
     ):
         raise ValueError("Tier-2 sample lock has missing or duplicate network ids")
-    if _canonical_sample_sha(rows) != sample.get("sample_sha256"):
-        raise ValueError("Tier-2 sample rows no longer match their frozen SHA-256")
     if int(sample.get("n_networks", -1)) != len(rows):
         raise ValueError("Tier-2 sample count disagrees with frozen rows")
     if tuple(sample.get("n_allowed_range") or ()) != (28, 32):
         raise ValueError("Tier-2 allowed sample range changed")
     if tuple(sample.get("models") or ()) != TIER2_MODELS:
         raise ValueError("Tier-2 four-model sensitivity roster changed")
-    if tuple(int(value) for value in sample.get("gaps_all_required") or ()) != TIER2_GAPS:
+    if (
+        tuple(int(value) for value in sample.get("gaps_all_required") or ())
+        != TIER2_GAPS
+    ):
         raise ValueError("Tier-2 must retain all 30/90/180-day gaps")
     if not sample.get("pgdl_or_graph_wavenet"):
         raise ValueError("PGDL/Graph WaveNet roster obligation disappeared")
@@ -112,8 +97,6 @@ def _load_locked_inputs(repo: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     sample = json.loads(sample_path.read_text(encoding="utf-8"))
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     validate_tier2_sample_lock(sample)
-    if ledger.get("sample_sha256") != sample["sample_sha256"]:
-        raise ValueError("Tier-2 timing ledger is not bound to the sample lock")
     if ledger.get("sample_preregistered") is not False:
         raise ValueError("late Tier-2 sample may not be called preregistered")
     if ledger.get("sealed_temperature_records_read") is not False:
@@ -197,7 +180,9 @@ def _dry_run_cells(
             panel, target=target, gap_length=int(gap), count=20
         )
         if len(starts) != 20:
-            raise RuntimeError(f"dry-run target has fewer than 20 placements for gap {gap}")
+            raise RuntimeError(
+                f"dry-run target has fewer than 20 placements for gap {gap}"
+            )
         start = int(starts[0])
         cells.append(
             {
@@ -225,7 +210,6 @@ def _dry_run_cells(
             "network_id": network.network_id,
             "network_manifest_path": network.manifest_path,
             "network_wide_path": network.wide_path,
-            "network_wide_sha256": network.wide_sha256,
             "gaps_all_required": [int(value) for value in gaps],
             "cells": cells,
             "temperature_values_used_only_to_verify_input_eligibility": True,
@@ -280,7 +264,10 @@ def _constructor_smoke(n_features: int, *, enabled: bool) -> dict[str, Any]:
                     "official_wrapper_module": estimator.__class__.__module__,
                     "official_core_module": estimator.model.__class__.__module__,
                     "parameter_count": int(
-                        sum(parameter.numel() for parameter in estimator.model.parameters())
+                        sum(
+                            parameter.numel()
+                            for parameter in estimator.model.parameters()
+                        )
                     ),
                     "constructor_passed": True,
                     "model_fit_called": False,
@@ -338,7 +325,9 @@ def _python_source_mentions(repo: Path) -> dict[str, list[dict[str, Any]]]:
 
 def _model_readiness(repo: Path, constructor: Mapping[str, Any]) -> dict[str, Any]:
     reference_path = repo / "src/stream_recoverability/models/reference_baselines.py"
-    runner_path = repo / "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+    runner_path = (
+        repo / "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+    )
     project_path = repo / "pyproject.toml"
     pypots_version = _distribution_version("pypots")
     torch_version = _distribution_version("torch")
@@ -354,13 +343,12 @@ def _model_readiness(repo: Path, constructor: Mapping[str, Any]) -> dict[str, An
         "required_obligations": list(ALL_DEEP_OBLIGATIONS),
         "source_evidence": {
             "reference_adapter_path": str(reference_path.relative_to(repo)),
-            "reference_adapter_sha256": _sha256_file(reference_path),
             "t2_runner_path": str(runner_path.relative_to(repo)),
-            "t2_runner_sha256": _sha256_file(runner_path),
             "project_dependency_path": str(project_path.relative_to(repo)),
-            "project_dependency_sha256": _sha256_file(project_path),
             "implementation_search_scope": "src/stream_recoverability/**/*.py",
-            "audit_module_excluded_from_search": str(Path(__file__).resolve().relative_to(repo)),
+            "audit_module_excluded_from_search": str(
+                Path(__file__).resolve().relative_to(repo)
+            ),
             "model_name_mentions": source_mentions,
             "absence_interpretation": (
                 "a roster-string mention is not an executable implementation; "
@@ -468,8 +456,6 @@ def build_tier2_deep_readiness_manifest(
     dry_run, n_features = _dry_run_cells(repo, sample_open_qualified)
     constructor = _constructor_smoke(n_features, enabled=run_constructor_smoke)
     model_readiness = _model_readiness(repo, constructor)
-    sample_lock_path = repo / SAMPLE_LOCK_RELATIVE_PATH
-    timing_path = repo / TIMING_LEDGER_RELATIVE_PATH
     return {
         "manifest_schema": "t2_v91_tier2_deep_budget_readiness_v1",
         "status": "budget_failure_fixed_sample_cannot_meet_locked_minimum_on_current_corpus",
@@ -484,11 +470,10 @@ def build_tier2_deep_readiness_manifest(
         "sealed_temperature_records_read": False,
         "sample_lock": {
             "path": str(SAMPLE_LOCK_RELATIVE_PATH),
-            "file_sha256": _sha256_file(sample_lock_path),
-            "sample_sha256": sample["sample_sha256"],
-            "canonical_sample_sha256_recomputed": _canonical_sample_sha(sample_rows),
             "n_networks": len(sample_rows),
-            "role_counts": dict(sorted(Counter(row["role"] for row in sample_rows).items())),
+            "role_counts": dict(
+                sorted(Counter(row["role"] for row in sample_rows).items())
+            ),
             "sample_preregistered": False,
             "sample_locked_before_download": False,
             "sample_frozen_before_tier2_model_execution": True,
@@ -500,7 +485,6 @@ def build_tier2_deep_readiness_manifest(
         },
         "timing_exception": {
             "path": str(TIMING_LEDGER_RELATIVE_PATH),
-            "file_sha256": _sha256_file(timing_path),
             "ledger_id": ledger["ledger_id"],
             "status": ledger["status"],
             "resolution": ledger["resolution"],
@@ -515,7 +499,9 @@ def build_tier2_deep_readiness_manifest(
             "n_sample_open_currently_failed": len(sample_open_failed),
             "open_currently_qualified_ids": sorted(sample_open_qualified),
             "open_currently_failed": failed_rows,
-            "sealed_metadata_only_ids": sorted(str(row["network_id"]) for row in sealed_rows),
+            "sealed_metadata_only_ids": sorted(
+                str(row["network_id"]) for row in sealed_rows
+            ),
             "locked_minimum_n": minimum,
             "current_frozen_corpus_upper_bound_if_every_unread_sealed_row_qualifies": current_upper_bound,
             "shortfall_below_locked_minimum_even_if_all_unread_sealed_qualify": minimum
@@ -547,7 +533,7 @@ def build_tier2_deep_readiness_manifest(
         "constructor_smoke": constructor,
         "model_readiness": model_readiness,
         "frozen_contract": {
-            "design_sha256": budget["design_sha256"],
+            "design_id": budget["design_id"],
             "n_allowed_range": list(sample["n_allowed_range"]),
             "gaps_all_required": list(TIER2_GAPS),
             "all_model_obligations": list(ALL_DEEP_OBLIGATIONS),

@@ -17,7 +17,6 @@ Source: results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_t
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -31,7 +30,13 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261019" / "p0_02_isolated_risk_thresholds"
+SRC = (
+    ROOT
+    / "results"
+    / "wrr_submission_ready"
+    / "major_revision_20261019"
+    / "p0_02_isolated_risk_thresholds"
+)
 OUT_DIRS = [ROOT / "figures" / "wrr", ROOT / "paper" / "wrr" / "figures"]
 NAME = "f1_decision"
 
@@ -40,17 +45,19 @@ BLUE, ORANGE, GREY, RED = "#2a78d6", "#eb6834", "#8a8a86", "#b03030"
 
 # Type 42 outlines: AGU does not accept Type 3 fonts, and this figure is included
 # at the printed column width, so the type must be legible at 5.5 in.
-plt.rcParams.update({
-    "pdf.fonttype": 42,
-    "ps.fonttype": 42,
-    "font.size": 7.0,
-    "axes.labelsize": 7.0,
-    "axes.titlesize": 7.6,
-    "xtick.labelsize": 6.4,
-    "ytick.labelsize": 6.4,
-    "legend.fontsize": 6.2,
-    "savefig.facecolor": SURFACE,
-})
+plt.rcParams.update(
+    {
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+        "font.size": 7.0,
+        "axes.labelsize": 7.0,
+        "axes.titlesize": 7.6,
+        "xtick.labelsize": 6.4,
+        "ytick.labelsize": 6.4,
+        "legend.fontsize": 6.2,
+        "savefig.facecolor": SURFACE,
+    }
+)
 
 LABELS = {
     "calibrated_bound": "calibrated certificate bound",
@@ -59,10 +66,6 @@ LABELS = {
     "length_rule": "gap-length rule",
 }
 ORDER = ["calibrated_bound", "fitted_risk", "peak_overlap_rule", "length_rule"]
-
-
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def load() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -99,14 +102,24 @@ def main() -> int:
         value = float(rows.test_retention.mean()) * 100
         low = float(rows.test_retention.quantile(0.0)) * 100
         high = float(rows.test_retention.quantile(1.0)) * 100
-        colour = BLUE if score == "calibrated_bound" else (ORANGE if score != "length_rule" else GREY)
+        colour = (
+            BLUE
+            if score == "calibrated_bound"
+            else (ORANGE if score != "length_rule" else GREY)
+        )
         ax.barh(y, value, height=0.6, color=colour, alpha=0.9)
         ax.plot([low, high], [y, y], color=INK, linewidth=1.4)
         for spine in ("top", "bottom", "left", "right"):
             pass
         ax.text(value + 1.5, y, f"{value:.0f}%", va="center", fontsize=6.8, color=INK)
         n_adm = int(rows.test_n_admitted.mean())
-        ax.text(1.0, y - 0.34, f"n={n_adm:,} of {int(rows.test_n_cases.iloc[0]):,}", fontsize=6.0, color=INK_2)
+        ax.text(
+            1.0,
+            y - 0.34,
+            f"n={n_adm:,} of {int(rows.test_n_cases.iloc[0]):,}",
+            fontsize=6.0,
+            color=INK_2,
+        )
     ax.set_yticks(ys, [LABELS[s] for s in ORDER], fontsize=6.8)
     ax.set_xlim(0, 100)
     ax.set_xlabel("retention at an honest 5% false-admit cap (%)", fontsize=7)
@@ -120,22 +133,47 @@ def main() -> int:
             continue
         x = float(rows.test_retention.mean()) * 100
         y = float(rows.test_false_admit_rate.mean()) * 100
-        colour = BLUE if score == "calibrated_bound" else (ORANGE if score != "length_rule" else GREY)
+        colour = (
+            BLUE
+            if score == "calibrated_bound"
+            else (ORANGE if score != "length_rule" else GREY)
+        )
         ax.scatter([x], [y], s=42, color=colour, zorder=3, label=LABELS[score])
-        ax.annotate(LABELS[score].split()[0], (x, y), textcoords="offset points", xytext=(5, 5),
-                    fontsize=6.0, color=INK_2)
-        ph = post[(post.panel == "wave2_confirmation") & (post.score == score) &
-                  (post.method.str.contains("posthoc", na=False))]
+        ax.annotate(
+            LABELS[score].split()[0],
+            (x, y),
+            textcoords="offset points",
+            xytext=(5, 5),
+            fontsize=6.0,
+            color=INK_2,
+        )
+        ph = post[
+            (post.panel == "wave2_confirmation")
+            & (post.score == score)
+            & (post.method.str.contains("posthoc", na=False))
+        ]
         if not ph.empty:
-            ax.scatter([float(ph.retention.iloc[0]) * 100], [float(ph.false_admit_rate.iloc[0]) * 100],
-                       s=42, facecolors="none", edgecolors=RED, linewidths=1.2, zorder=2)
+            ax.scatter(
+                [float(ph.retention.iloc[0]) * 100],
+                [float(ph.false_admit_rate.iloc[0]) * 100],
+                s=42,
+                facecolors="none",
+                edgecolors=RED,
+                linewidths=1.2,
+                zorder=2,
+            )
     ax.axhline(5.0, color=RED, linewidth=1.0, linestyle=(0, (4, 3)))
     ax.text(1, 5.25, "5% cap", fontsize=6.2, color=RED)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 12)
     ax.set_xlabel("retention (%)", fontsize=7)
     ax.set_ylabel("realised false-admit rate (%)", fontsize=7)
-    ax.set_title("b  Honest (filled) vs label-chosen (open red)", loc="left", fontsize=7.6, color=INK)
+    ax.set_title(
+        "b  Honest (filled) vs label-chosen (open red)",
+        loc="left",
+        fontsize=7.6,
+        color=INK,
+    )
 
     # ---- panel c: false-admit at matched retention -------------------------
     ax = axes[2]
@@ -146,7 +184,11 @@ def main() -> int:
         value = float(rows.test_false_admit_rate.iloc[0]) * 100
         low = float(rows.test_false_admit_ci95_low.iloc[0]) * 100
         high = float(rows.test_false_admit_ci95_high.iloc[0]) * 100
-        colour = BLUE if score == "calibrated_bound" else (ORANGE if score != "length_rule" else GREY)
+        colour = (
+            BLUE
+            if score == "calibrated_bound"
+            else (ORANGE if score != "length_rule" else GREY)
+        )
         ax.barh(y, value, height=0.6, color=colour, alpha=0.9)
         ax.plot([low, high], [y, y], color=INK, linewidth=1.4)
         ax.text(value + 0.15, y, f"{value:.1f}%", va="center", fontsize=6.8, color=INK)
@@ -158,34 +200,47 @@ def main() -> int:
     fig.tight_layout()
     for directory in OUT_DIRS:
         directory.mkdir(parents=True, exist_ok=True)
-        fig.savefig(directory / f"{NAME}.pdf", dpi=400, bbox_inches="tight", pad_inches=0.05)
-        fig.savefig(directory / f"{NAME}.png", dpi=300, bbox_inches="tight", pad_inches=0.05)
+        fig.savefig(
+            directory / f"{NAME}.pdf", dpi=400, bbox_inches="tight", pad_inches=0.05
+        )
+        fig.savefig(
+            directory / f"{NAME}.png", dpi=300, bbox_inches="tight", pad_inches=0.05
+        )
     plt.close(fig)
 
     payload = {
         "schema_version": 1,
         "figure": NAME,
-        "script_sha256": sha256(Path(__file__)),
-        "inputs": {
-            str((SRC / "crossfit_risk_cap_table.csv").relative_to(ROOT)):
-                sha256(SRC / "crossfit_risk_cap_table.csv"),
-            str((SRC / "posthoc_vs_honest.csv").relative_to(ROOT)):
-                sha256(SRC / "posthoc_vs_honest.csv"),
-        },
+        "inputs": [
+            str((SRC / "crossfit_risk_cap_table.csv").relative_to(ROOT)),
+            str((SRC / "posthoc_vs_honest.csv").relative_to(ROOT)),
+        ],
         "panel_a_retention_at_risk_cap_pct": {
             s: {
-                "mean": round(float(honest[honest.score == s].test_retention.mean()) * 100, 3),
-                "min": round(float(honest[honest.score == s].test_retention.min()) * 100, 3),
-                "max": round(float(honest[honest.score == s].test_retention.max()) * 100, 3),
+                "mean": round(
+                    float(honest[honest.score == s].test_retention.mean()) * 100, 3
+                ),
+                "min": round(
+                    float(honest[honest.score == s].test_retention.min()) * 100, 3
+                ),
+                "max": round(
+                    float(honest[honest.score == s].test_retention.max()) * 100, 3
+                ),
             }
-            for s in ORDER if not honest[honest.score == s].empty
+            for s in ORDER
+            if not honest[honest.score == s].empty
         },
         "panel_c_false_admit_at_70_pct": {
-            s: round(float(at70[at70.score == s].test_false_admit_rate.iloc[0]) * 100, 3)
-            for s in ORDER if not at70[at70.score == s].empty
+            s: round(
+                float(at70[at70.score == s].test_false_admit_rate.iloc[0]) * 100, 3
+            )
+            for s in ORDER
+            if not at70[at70.score == s].empty
         },
     }
-    (ROOT / "figures" / "wrr" / f"{NAME}_data.json").write_text(json.dumps(payload, indent=2) + "\n")
+    (ROOT / "figures" / "wrr" / f"{NAME}_data.json").write_text(
+        json.dumps(payload, indent=2) + "\n"
+    )
     print(json.dumps(payload["panel_a_retention_at_risk_cap_pct"], indent=1))
     print(json.dumps(payload["panel_c_false_admit_at_70_pct"], indent=1))
     return 0

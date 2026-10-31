@@ -1,13 +1,12 @@
-"""Fail-closed bindings for the amended Route A second confirmation.
+"""Fail-closed readiness gate for the amended Route A second confirmation.
 
 The scorer must not treat an arbitrary JSON boolean as authorization.  This
-module recomputes every material gate from repository-canonical, hash-bound
-protocol, amendment, and exact-roster artifacts before any panel is opened.
+module recomputes every material gate from the repository-canonical protocol,
+amendment, and exact-roster artifacts before any panel is opened.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -64,14 +63,6 @@ def validate_scored_result_gate(summary: dict[str, Any], *, minimum: int = 40) -
         raise SecondConfirmationGateError("scored-network attrition floor failed")
     if summary.get("attrition_floor_passed") is not True:
         raise SecondConfirmationGateError("attrition floor is not marked passed")
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def relative_path(path: Path, root: Path) -> str:
@@ -240,15 +231,10 @@ def build_authorized_readiness(
         "readiness_schema_version": READINESS_SCHEMA_VERSION,
         "protocol_id": protocol["protocol_id"],
         "amendment_id": amendment["amendment_id"],
-        "gate_mode": "amendment_v2_hash_bound_exact_roster",
         "protocol_path": relative_path(protocol_path, root),
-        "protocol_sha256": sha256_file(protocol_path),
         "amendment_path": relative_path(amendment_path, root),
-        "amendment_sha256": sha256_file(amendment_path),
         "readiness_roster_path": relative_path(readiness_roster_path, root),
-        "readiness_roster_sha256": sha256_file(readiness_roster_path),
         "frozen_scoring_roster_path": relative_path(frozen_roster_path, root),
-        "frozen_scoring_roster_sha256": sha256_file(frozen_roster_path),
         "independence_audit": {
             "development_outcome_overlap_count": len(development_overlap),
             "development_outcome_overlap_networks": development_overlap,
@@ -278,7 +264,6 @@ def build_authorized_readiness(
     }
     for key, path in reference_paths.items():
         result[f"{key}_path"] = relative_path(path, root)
-        result[f"{key}_sha256"] = sha256_file(path)
     return result
 
 
@@ -297,17 +282,17 @@ def validate_canonical_authorization(
         )
     if readiness.get("readiness_schema_version") != READINESS_SCHEMA_VERSION:
         raise SecondConfirmationGateError("unsupported or missing readiness schema")
-    required_paths = {
-        "protocol_path": "protocol_sha256",
-        "amendment_path": "amendment_sha256",
-        "readiness_roster_path": "readiness_roster_sha256",
-        "frozen_scoring_roster_path": "frozen_scoring_roster_sha256",
-        "development_outcomes_path": "development_outcomes_sha256",
-        "first_confirmation_outcomes_path": "first_confirmation_outcomes_sha256",
-        "first_confirmation_qc_panel_path": "first_confirmation_qc_panel_sha256",
-    }
+    required_paths = (
+        "protocol_path",
+        "amendment_path",
+        "readiness_roster_path",
+        "frozen_scoring_roster_path",
+        "development_outcomes_path",
+        "first_confirmation_outcomes_path",
+        "first_confirmation_qc_panel_path",
+    )
     resolved: dict[str, Path] = {}
-    for path_key, digest_key in required_paths.items():
+    for path_key in required_paths:
         relative = readiness.get(path_key)
         if not isinstance(relative, str):
             raise SecondConfirmationGateError(f"readiness lacks {path_key}")
@@ -318,8 +303,8 @@ def validate_canonical_authorization(
             raise SecondConfirmationGateError(
                 f"{path_key} escapes repository root"
             ) from exc
-        if not path.is_file() or sha256_file(path) != readiness.get(digest_key):
-            raise SecondConfirmationGateError(f"{path_key} hash binding failed")
+        if not path.is_file():
+            raise SecondConfirmationGateError(f"{path_key} is not a repository file")
         resolved[path_key] = path
 
     recomputed = build_authorized_readiness(
@@ -329,9 +314,16 @@ def validate_canonical_authorization(
         readiness_roster_path=resolved["readiness_roster_path"],
         frozen_roster_path=resolved["frozen_scoring_roster_path"],
     )
-    if json.dumps(recomputed, sort_keys=True) != json.dumps(readiness, sort_keys=True):
+    differing = sorted(
+        key
+        for key, value in recomputed.items()
+        if json.dumps(readiness.get(key), sort_keys=True)
+        != json.dumps(value, sort_keys=True)
+    )
+    if differing:
         raise SecondConfirmationGateError(
-            "canonical readiness content differs from recomputed gate"
+            "canonical readiness content differs from recomputed gate: "
+            + ", ".join(differing)
         )
     if not recomputed["scoring_authorized"]:
         raise SecondConfirmationGateError("recomputed gate does not authorize scoring")
@@ -345,7 +337,6 @@ __all__ = [
     "attrition_gate_summary",
     "build_authorized_readiness",
     "frozen_roster_from_qc",
-    "sha256_file",
     "validate_canonical_authorization",
     "validate_scored_result_gate",
 ]

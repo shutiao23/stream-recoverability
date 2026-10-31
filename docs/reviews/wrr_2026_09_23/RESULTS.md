@@ -67,8 +67,8 @@ outage arms.
 
 ## What each round found in the previous round's work
 
-**Round 2, on the first v17 draft.** The case table was seeded from Python's
-salted `hash()` and could not be regenerated; a shared summary filename let one
+**Round 2, on the first v17 draft.** The case table was seeded from a value that
+Python randomises per interpreter process and could not be regenerated; a shared summary filename let one
 run overwrite another's counts; the methods promised a strictly-prior-years
 sensitivity that did not exist; the framing led with the model when the
 ablations showed the axis was the contribution; the intervals were described as

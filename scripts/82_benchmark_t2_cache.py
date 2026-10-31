@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from itertools import islice
@@ -46,18 +45,9 @@ EQUIVALENCE_FIELDS = (
     "mae_deg_c",
     "climatology_mae_deg_c",
     "achieved_skill",
-    "prediction_sha256",
-    "input_sha256",
     "runner_contract_version",
     "sealed_temperature_records_read",
 )
-
-
-def _canonical_sha(value: Any) -> str:
-    payload = json.dumps(
-        json_safe(value), sort_keys=True, separators=(",", ":"), allow_nan=False
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
 
 
 def _view(row: dict[str, Any]) -> dict[str, Any]:
@@ -66,9 +56,7 @@ def _view(row: dict[str, Any]) -> dict[str, Any]:
 
 def _fit_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
     computed = [
-        row
-        for row in rows
-        if row.get("status") in {"complete", "reference_complete"}
+        row for row in rows if row.get("status") in {"complete", "reference_complete"}
     ]
     return {
         "climatology": len(computed),
@@ -95,7 +83,9 @@ def run_smoke(count: int, *, items, lookup) -> dict[str, Any]:
     optimized_views = [_view(row) for row in optimized]
     mismatches = [
         int(item.ordinal)
-        for item, left, right in zip(selected, legacy_views, optimized_views, strict=True)
+        for item, left, right in zip(
+            selected, legacy_views, optimized_views, strict=True
+        )
         if left != right
     ]
     fit_counts = _fit_counts(legacy)
@@ -106,8 +96,6 @@ def run_smoke(count: int, *, items, lookup) -> dict[str, Any]:
         "legacy_wall_seconds": legacy_seconds,
         "optimized_wall_seconds": optimized_seconds,
         "wall_speedup": legacy_seconds / optimized_seconds,
-        "legacy_semantic_sha256": _canonical_sha(legacy_views),
-        "optimized_semantic_sha256": _canonical_sha(optimized_views),
         "semantic_equivalence_fields": list(EQUIVALENCE_FIELDS),
         "semantic_mismatch_ordinals": mismatches,
         "semantic_equivalent": not mismatches,
@@ -116,9 +104,8 @@ def run_smoke(count: int, *, items, lookup) -> dict[str, Any]:
             **fit_counts,
             "climatology": int(cache_stats["climatology_cache_misses_fits"]),
         },
-        "legacy_panel_reads_and_hashes_during_execution": sum(
-            row.get("status") in {"complete", "reference_complete"}
-            for row in legacy
+        "legacy_panel_reads_during_execution": sum(
+            row.get("status") in {"complete", "reference_complete"} for row in legacy
         ),
         "optimized_cache": cache_stats,
         "status_counts": {
@@ -157,7 +144,7 @@ def analyze_fit_reuse(items, *, lookup) -> dict[str, Any]:
         chunk_panel_signatures.add((chunk, item.network_id))
         network = lookup[item.network_id]
         common = (
-            network.wide_sha256,
+            network.network_id,
             item.target_station,
             int(item.start_index),
             int(item.start_index) + int(item.gap_length),
@@ -185,15 +172,14 @@ def analyze_fit_reuse(items, *, lookup) -> dict[str, Any]:
     return {
         "n_work_items_scanned": n_items,
         "n_supported_execution_calls": supported,
-        "legacy_panel_reads_and_hashes_during_execution": supported,
+        "legacy_panel_reads_during_execution": supported,
         "global_network_cache_custody_read_lower_bound": len(networks_used),
         "production_chunk_size": MAX_CHUNK_ITEMS,
         "chunk_scoped_network_cache_custody_reads": len(chunk_panel_signatures),
         "legacy_fit_counts": legacy_fits,
         "exact_unique_fit_signature_counts": unique_counts,
         "exact_duplicate_fit_counts": {
-            model: legacy_fits[model] - unique_counts[model]
-            for model in legacy_fits
+            model: legacy_fits[model] - unique_counts[model] for model in legacy_fits
         },
         "chunk_scoped_climatology_fit_count": len(chunk_climatology_signatures),
         "chunk_scoped_climatology_duplicate_fits_removed": (
@@ -257,7 +243,8 @@ def main() -> None:
         )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
-        json.dumps(json_safe(manifest), indent=2, sort_keys=True, allow_nan=False) + "\n",
+        json.dumps(json_safe(manifest), indent=2, sort_keys=True, allow_nan=False)
+        + "\n",
         encoding="utf-8",
     )
     print(json.dumps(manifest, indent=2, sort_keys=True))

@@ -74,7 +74,7 @@ and materialization; it is not T2 evidence and cannot enter the HUC8 corpus.
 The current open-role HUC8 corpus contains 74 development and 29 validation
 network directories with temperature/QC panels. Production remains blocked
 until station-specific POWER and USGS 00060/00065 records are materialized
-corpus-wide with raw-response hashes, passed through this QC contract, and
+corpus-wide with their raw responses, passed through this QC contract, and
 connected to model consumers before any performance metric is computed.
 
 ## Bounded open-role acquisition pilot
@@ -83,7 +83,7 @@ connected to model consumers before any performance metric is computed.
 deterministic first complete development network, `huc8_01070004`. Its dry run
 plans exactly three stations and does not open provider responses. `--execute`
 requests station-coordinate POWER `Ta/P/W/RH/Rs` and station/date USGS daily
-mean `00060/00065`, stores each raw request/response with SHA-256, applies the
+mean `00060/00065`, stores each raw request/response, applies the
 provider QC above, and writes adapter-long Parquet, coverage, schema, failure,
 request-log, and manifest artifacts. It reads only `site_id/date` from the open
 temperature panel, never a temperature value, and cannot select another

@@ -84,7 +84,6 @@ def main() -> None:
                 "status": manifest["status"],
                 "evaluation_split": manifest["evaluation_split"],
                 "confirmatory_outcomes_read": manifest["confirmatory_outcomes_read"],
-                "once_lock_modified": manifest["once_lock_modified"],
                 "mask_seed_count": len(manifest["grid"]["mask_seeds"]),
                 "scenario_count": manifest["grid"]["scenario_count"],
                 "output_dir": str(args.output_dir),

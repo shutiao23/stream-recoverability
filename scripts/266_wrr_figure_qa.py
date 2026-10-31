@@ -80,7 +80,6 @@ Usage
 from __future__ import annotations
 
 import argparse
-import hashlib
 import html
 import json
 import re
@@ -169,14 +168,24 @@ CORE_FONT_BASES = (
     "TimesNewRoman",
 )
 
-TOOL_NAMES = ("pdffonts", "pdfinfo", "pdftotext", "pdfimages", "pdftoppm", "rsvg-convert", "drawio")
+TOOL_NAMES = (
+    "pdffonts",
+    "pdfinfo",
+    "pdftotext",
+    "pdfimages",
+    "pdftoppm",
+    "rsvg-convert",
+    "drawio",
+)
 
 WORD_RE = re.compile(
     r'<word xMin="([-\d.eE]+)" yMin="([-\d.eE]+)" xMax="([-\d.eE]+)" yMax="([-\d.eE]+)">(.*?)</word>',
     re.DOTALL,
 )
 PAGE_RE = re.compile(r'<page\s+width="([-\d.eE]+)"\s+height="([-\d.eE]+)"')
-PAGE_SIZE_RE = re.compile(r"^Page\s+(\d+)\s+size:\s+([\d.]+)\s+x\s+([\d.]+)\s+pts", re.MULTILINE)
+PAGE_SIZE_RE = re.compile(
+    r"^Page\s+(\d+)\s+size:\s+([\d.]+)\s+x\s+([\d.]+)\s+pts", re.MULTILINE
+)
 INCLUDE_RE = re.compile(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}")
 REPEATED_TEXT_RE = re.compile(r"(.{4,24}?)\1")
 #: A running page number, e.g. "16" or "–16–".
@@ -205,7 +214,11 @@ def probe_version(name: str) -> str | None:
     for flag in ("-v", "--version"):
         try:
             proc = subprocess.run(
-                [name, flag], capture_output=True, text=True, errors="replace", timeout=30
+                [name, flag],
+                capture_output=True,
+                text=True,
+                errors="replace",
+                timeout=30,
             )
         except (OSError, subprocess.SubprocessError):
             continue
@@ -215,7 +228,9 @@ def probe_version(name: str) -> str | None:
     return "unknown"
 
 
-def run_tool(argv: Sequence[str], timeout: int = 600) -> subprocess.CompletedProcess[str]:
+def run_tool(
+    argv: Sequence[str], timeout: int = 600
+) -> subprocess.CompletedProcess[str]:
     """Run a tool without a shell and return the completed process."""
     return subprocess.run(
         list(argv), capture_output=True, text=True, errors="replace", timeout=timeout
@@ -320,7 +335,9 @@ def parse_pdfinfo(text: str) -> dict[str, Any]:
     info["pages"] = int(pages) if pages and pages.isdigit() else None
     size = info["raw_fields"].get("Page size", "")
     match = re.match(r"([\d.]+)\s+x\s+([\d.]+)\s+pts", size)
-    info["page_size_pt"] = [float(match.group(1)), float(match.group(2))] if match else None
+    info["page_size_pt"] = (
+        [float(match.group(1)), float(match.group(2))] if match else None
+    )
     info["page_rot"] = info["raw_fields"].get("Page rot")
     info["encrypted"] = info["raw_fields"].get("Encrypted")
     info["producer"] = info["raw_fields"].get("Producer")
@@ -478,14 +495,6 @@ def fmt(value: float | None, digits: int = 2) -> str:
     return "-" if value is None else f"{value:.{digits}f}"
 
 
-def sha256_of(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def rel_path(path: Path) -> str:
     """Path relative to the repository root when possible, else absolute."""
     try:
@@ -530,8 +539,12 @@ def check_overlaps(
                     break
                 if second["height_pt"] <= 0 or second["width_pt"] <= 0:
                     continue
-                overlap_x = min(first["x1"], second["x1"]) - max(first["x0"], second["x0"])
-                overlap_y = min(first["y1"], second["y1"]) - max(first["y0"], second["y0"])
+                overlap_x = min(first["x1"], second["x1"]) - max(
+                    first["x0"], second["x0"]
+                )
+                overlap_y = min(first["y1"], second["y1"]) - max(
+                    first["y0"], second["y0"]
+                )
                 if overlap_x <= 0 or overlap_y <= 0:
                     continue
                 area = overlap_x * overlap_y
@@ -658,11 +671,24 @@ def ink_bbox(
     for stale in render_dir.glob(f"{prefix.name}-*.png"):
         stale.unlink()
     proc = run_tool(
-        ["pdftoppm", "-r", str(dpi), "-png", "-f", str(page), "-l", str(page), str(pdf_path), str(prefix)]
+        [
+            "pdftoppm",
+            "-r",
+            str(dpi),
+            "-png",
+            "-f",
+            str(page),
+            "-l",
+            str(page),
+            str(pdf_path),
+            str(prefix),
+        ]
     )
     produced = sorted(render_dir.glob(f"{prefix.name}-*.png"))
     if not produced:
-        out["reason"] = f"pdftoppm produced no image (rc={proc.returncode}): {proc.stderr.strip()[:200]}"
+        out["reason"] = (
+            f"pdftoppm produced no image (rc={proc.returncode}): {proc.stderr.strip()[:200]}"
+        )
         return out
     scale = dpi / 72.0
     with Image.open(produced[0]) as image:
@@ -697,7 +723,9 @@ def ink_bbox(
     out.update(
         {
             "available": True,
-            "render_png": str(produced[0].relative_to(ROOT)) if produced[0].is_relative_to(ROOT) else str(produced[0]),
+            "render_png": str(produced[0].relative_to(ROOT))
+            if produced[0].is_relative_to(ROOT)
+            else str(produced[0]),
             "page_width_pt": width_px / scale,
             "page_height_pt": height_px / scale,
         }
@@ -721,9 +749,7 @@ def ink_bbox(
             "right": round(page_w - ink["right"], 3),
             "bottom": round(page_h - ink["bottom"], 3),
         }
-        out["ink_flush_to_edge"] = (
-            min(out["margin_pt"].values()) <= INK_EDGE_FLUSH_PT
-        )
+        out["ink_flush_to_edge"] = min(out["margin_pt"].values()) <= INK_EDGE_FLUSH_PT
     return out
 
 
@@ -825,13 +851,20 @@ def detect_merged_label_runs(
             extract_text_runs(
                 pdf_path,
                 page_height,
-                {"x0": word["x0"], "x1": word["x1"], "y0": word["y0"], "y1": word["y1"]},
+                {
+                    "x0": word["x0"],
+                    "x1": word["x1"],
+                    "y0": word["y0"],
+                    "y1": word["y1"],
+                },
             )
             if page_height
             else []
         )
         pitches = [
-            run["pitch_from_previous_pt"] for run in runs if "pitch_from_previous_pt" in run
+            run["pitch_from_previous_pt"]
+            for run in runs
+            if "pitch_from_previous_pt" in run
         ]
         findings.append(
             {
@@ -958,7 +991,9 @@ def detect_footer_collisions(
     return findings
 
 
-def find_python_generators(figure_name: str, scripts_dir: Path, exclude: Iterable[Path] = ()) -> list[dict[str, Any]]:
+def find_python_generators(
+    figure_name: str, scripts_dir: Path, exclude: Iterable[Path] = ()
+) -> list[dict[str, Any]]:
     """Scripts under ``scripts/`` whose text mentions the figure name."""
     excluded = {Path(p).resolve() for p in exclude}
     hits: list[dict[str, Any]] = []
@@ -984,7 +1019,8 @@ def find_python_generators(figure_name: str, scripts_dir: Path, exclude: Iterabl
                 "n_mentions": len(lines),
                 "first_lines": lines[:5],
                 "sample": next(
-                    (line.strip() for line in text.splitlines() if figure_name in line), ""
+                    (line.strip() for line in text.splitlines() if figure_name in line),
+                    "",
                 )[:200],
             }
         )
@@ -1006,13 +1042,18 @@ def measure_print_scale(
     yields a distance ratio, and the largest tight cluster of ratios is the
     scale estimate.  ``scale x figure width`` is the printed width.
     """
-    result: dict[str, Any] = {"measured": False, "method": "unique-word pairwise distance ratio"}
+    result: dict[str, Any] = {
+        "measured": False,
+        "method": "unique-word pairwise distance ratio",
+    }
     candidates: list[dict[str, Any]] = []
     counts: dict[str, int] = {}
     for word in figure_words:
         counts[word["text"]] = counts.get(word["text"], 0) + 1
     distinctive = [
-        word for word in figure_words if len(word["text"]) >= 5 and counts[word["text"]] == 1
+        word
+        for word in figure_words
+        if len(word["text"]) >= 5 and counts[word["text"]] == 1
     ]
     if len(distinctive) < min_words:
         result["reason"] = f"only {len(distinctive)} distinctive words in the figure"
@@ -1055,14 +1096,18 @@ def measure_print_scale(
             best_count, best_lo = 0, 0
             for i, value in enumerate(values):
                 j = i
-                while j + 1 < len(values) and values[j + 1] <= value * (1 + cluster_tolerance):
+                while j + 1 < len(values) and values[j + 1] <= value * (
+                    1 + cluster_tolerance
+                ):
                     j += 1
                 if j - i + 1 > best_count:
                     best_count, best_lo = j - i + 1, i
             window = values[best_lo : best_lo + best_count]
             scale = statistics.median(window)
             cluster = [
-                estimate for estimate in estimates if abs(estimate[0] - scale) <= scale * cluster_tolerance
+                estimate
+                for estimate in estimates
+                if abs(estimate[0] - scale) <= scale * cluster_tolerance
             ]
             xs = [estimate[1] for estimate in cluster if estimate[1] == estimate[1]]
             ys = [estimate[2] for estimate in cluster if estimate[2] == estimate[2]]
@@ -1086,7 +1131,11 @@ def measure_print_scale(
         result["reason"] = "no built-PDF page carried enough unique figure words"
         return result
     candidates.sort(
-        key=lambda c: (-c["cluster_fraction"], -c["n_pairs_in_cluster"], c["document"] != "manuscript")
+        key=lambda c: (
+            -c["cluster_fraction"],
+            -c["n_pairs_in_cluster"],
+            c["document"] != "manuscript",
+        )
     )
     best = candidates[0]
     confident = (
@@ -1127,7 +1176,6 @@ def analyse_file(
         "kind": target.kind,
         "name": target.stem,
         "size_bytes": path.stat().st_size,
-        "sha256": sha256_of(path),
         "hard_failures": [],
         "warnings": [],
     }
@@ -1138,17 +1186,32 @@ def analyse_file(
     fonts: list[FontRecord] = []
     if tool_state["pdffonts"]["available"]:
         proc = run_tool(["pdffonts", str(path)])
-        commands.append({"tool": "pdffonts", "argv": ["pdffonts", rel_path(path)], "returncode": proc.returncode})
+        commands.append(
+            {
+                "tool": "pdffonts",
+                "argv": ["pdffonts", rel_path(path)],
+                "returncode": proc.returncode,
+            }
+        )
         fonts = parse_pdffonts(proc.stdout)
     else:
-        warn.append(Item("TOOL_MISSING", "pdffonts is not installed; fonts were not checked"))
+        warn.append(
+            Item("TOOL_MISSING", "pdffonts is not installed; fonts were not checked")
+        )
     non_embedded = [font for font in fonts if not font.embedded]
     unnamed = [font for font in fonts if font.name.strip() in {"[none]", "none", ""}]
     type3 = [font for font in fonts if font.type.lower().startswith("type 3")]
     record["fonts"] = {
         "n_fonts": len(fonts),
         "records": [font.as_dict() for font in fonts],
-        "types": dict(sorted({font.type: sum(1 for f in fonts if f.type == font.type) for font in fonts}.items())),
+        "types": dict(
+            sorted(
+                {
+                    font.type: sum(1 for f in fonts if f.type == font.type)
+                    for font in fonts
+                }.items()
+            )
+        ),
         "non_embedded": [font.as_dict() for font in non_embedded],
         "non_embedded_core_fonts": [
             font.as_dict() for font in non_embedded if font.is_core_font_name
@@ -1184,7 +1247,13 @@ def analyse_file(
     page_size: list[float] | None = None
     if tool_state["pdfinfo"]["available"]:
         proc = run_tool(["pdfinfo", str(path)])
-        commands.append({"tool": "pdfinfo", "argv": ["pdfinfo", rel_path(path)], "returncode": proc.returncode})
+        commands.append(
+            {
+                "tool": "pdfinfo",
+                "argv": ["pdfinfo", rel_path(path)],
+                "returncode": proc.returncode,
+            }
+        )
         info = parse_pdfinfo(proc.stdout)
         pages_count = info["pages"]
         page_size = info["page_size_pt"]
@@ -1194,7 +1263,14 @@ def analyse_file(
             commands.append(
                 {
                     "tool": "pdfinfo",
-                    "argv": ["pdfinfo", "-f", "1", "-l", str(pages_count), rel_path(path)],
+                    "argv": [
+                        "pdfinfo",
+                        "-f",
+                        "1",
+                        "-l",
+                        str(pages_count),
+                        rel_path(path),
+                    ],
                     "returncode": proc2.returncode,
                 }
             )
@@ -1204,7 +1280,9 @@ def analyse_file(
             "info_available": True,
             "pages": pages_count,
             "page_size_pt": page_size,
-            "page_size_in": [round(v / 72.0, 4) for v in page_size] if page_size else None,
+            "page_size_in": [round(v / 72.0, 4) for v in page_size]
+            if page_size
+            else None,
             "page_rot": info["page_rot"],
             "encrypted": info["encrypted"],
             "producer": info["producer"],
@@ -1234,7 +1312,12 @@ def analyse_file(
                 )
             )
     else:
-        warn.append(Item("TOOL_MISSING", "pdfinfo is not installed; page geometry was not checked"))
+        warn.append(
+            Item(
+                "TOOL_MISSING",
+                "pdfinfo is not installed; page geometry was not checked",
+            )
+        )
     record["geometry"] = geometry
 
     # ---- pdftotext -bbox ------------------------------------------------
@@ -1251,7 +1334,9 @@ def analyse_file(
         )
         bbox_pages, words = parse_bbox_pages(proc.stdout)
     else:
-        warn.append(Item("TOOL_MISSING", "pdftotext is not installed; text was not checked"))
+        warn.append(
+            Item("TOOL_MISSING", "pdftotext is not installed; text was not checked")
+        )
     page_boxes = {page["page"]: page for page in bbox_pages}
     if pages_count is not None and bbox_pages and len(bbox_pages) != pages_count:
         warn.append(
@@ -1357,7 +1442,10 @@ def analyse_file(
                     f"{min(check.get('margin_pt', {'?': 0}).values()):.2f} pt inside: "
                     "Poppler font-box padding, no clipped glyph",
                     page=page,
-                    locator={"ink_bbox_pt": check.get("ink_bbox_pt"), "margin_pt": check.get("margin_pt")},
+                    locator={
+                        "ink_bbox_pt": check.get("ink_bbox_pt"),
+                        "margin_pt": check.get("margin_pt"),
+                    },
                 )
             )
     record["text_bounds"]["ink_verdict_by_page"] = {
@@ -1366,7 +1454,8 @@ def analyse_file(
     record["text_bounds"]["n_hard_violations"] = sum(
         1
         for violation in violations
-        if ink_verdict.get(violation["page"], "unavailable") in {"clipped", "unavailable", "not_run"}
+        if ink_verdict.get(violation["page"], "unavailable")
+        in {"clipped", "unavailable", "not_run"}
     )
     for violation in violations:
         verdict = ink_verdict.get(violation["page"], "unavailable")
@@ -1387,7 +1476,15 @@ def analyse_file(
             locator={
                 **{
                     k: violation[k]
-                    for k in ("x0", "y0", "x1", "y1", "page_width_pt", "page_height_pt", "overflow_pt")
+                    for k in (
+                        "x0",
+                        "y0",
+                        "x1",
+                        "y1",
+                        "page_width_pt",
+                        "page_height_pt",
+                        "overflow_pt",
+                    )
                 },
                 "ink_verdict": verdict,
             },
@@ -1435,7 +1532,9 @@ def analyse_file(
                     continue
                 if words[ib]["y0"] > words[ia]["y1"]:
                     break
-                overlap = min(words[ia]["y1"], words[ib]["y1"]) - max(words[ia]["y0"], words[ib]["y0"])
+                overlap = min(words[ia]["y1"], words[ib]["y1"]) - max(
+                    words[ia]["y0"], words[ib]["y0"]
+                )
                 if overlap > 0.5 * min(ha, hb):
                     union(ia, ib)
     line_size: dict[int, float] = {}
@@ -1501,7 +1600,9 @@ def analyse_file(
             "page": word["page"],
             "text": word["text"],
             "height_pt": round(word["height_pt"], 3),
-            "line_estimated_height_pt": round(line_size.get(find(index), word["height_pt"]), 3),
+            "line_estimated_height_pt": round(
+                line_size.get(find(index), word["height_pt"]), 3
+            ),
             "x0": round(word["x0"], 2),
             "y0": round(word["y0"], 2),
             "x1": round(word["x1"], 2),
@@ -1696,7 +1797,12 @@ def analyse_file(
                 )
             )
     else:
-        warn.append(Item("TOOL_MISSING", "pdfimages is not installed; raster resolution was not checked"))
+        warn.append(
+            Item(
+                "TOOL_MISSING",
+                "pdfimages is not installed; raster resolution was not checked",
+            )
+        )
     record["raster"] = raster
 
     # (f) provenance ------------------------------------------------------
@@ -1705,9 +1811,12 @@ def analyse_file(
             ROOT / "figures" / "v17" / "drawio" / f"{target.stem}.drawio",
             ROOT / "figures" / "wrr" / "drawio" / f"{target.stem}.drawio",
         ]
-        drawio_expected = next((c for c in drawio_candidates if c.exists()), drawio_candidates[0])
+        drawio_expected = next(
+            (c for c in drawio_candidates if c.exists()), drawio_candidates[0]
+        )
         drawio_repo = sorted(
-            str(p.relative_to(ROOT)) for p in (ROOT / "figures").rglob(f"{target.stem}.drawio")
+            str(p.relative_to(ROOT))
+            for p in (ROOT / "figures").rglob(f"{target.stem}.drawio")
         )
         generators = find_python_generators(
             target.stem, ROOT / "scripts", exclude=[Path(__file__).resolve()]
@@ -1722,8 +1831,6 @@ def analyse_file(
                 {
                     "path": str(candidate.relative_to(ROOT)),
                     "size_bytes": candidate.stat().st_size,
-                    "identical_to_paper_copy": candidate.stat().st_size == path.stat().st_size
-                    and sha256_of(candidate) == record["sha256"],
                 }
             )
         record["provenance"] = {
@@ -1754,7 +1861,9 @@ def analyse_file(
                 )
             )
         if drawio_repo:
-            record["provenance"]["kind"] = "drawio" if not generators else "drawio+python"
+            record["provenance"]["kind"] = (
+                "drawio" if not generators else "drawio+python"
+            )
         elif generators:
             record["provenance"]["kind"] = "python"
         else:
@@ -1770,7 +1879,9 @@ def analyse_file(
 # ---------------------------------------------------------------------------
 
 
-def per_figure_row(record: dict[str, Any], scale_row: dict[str, Any] | None) -> list[str]:
+def per_figure_row(
+    record: dict[str, Any], scale_row: dict[str, Any] | None
+) -> list[str]:
     geometry = record.get("geometry", {})
     fonts = record.get("fonts", {})
     bounds = record.get("text_bounds", {})
@@ -1816,15 +1927,28 @@ def build_markdown(
     add = lines.append
     add("# WRR figure and PDF quality assurance")
     add("")
-    add(f"Generated {payload['generated_utc']} by `python3 scripts/266_wrr_figure_qa.py`.")
+    add(
+        f"Generated {payload['generated_utc']} by `python3 scripts/266_wrr_figure_qa.py`."
+    )
     add("")
     add(f"* JSON: `{rel_path(json_path)}`")
     add(f"* Markdown: `{rel_path(md_path)}`")
-    add(f"* tools: " + ", ".join(f"`{k}` {v or 'MISSING'}" for k, v in payload["tool_versions"].items()))
+    add(
+        f"* tools: "
+        + ", ".join(
+            f"`{k}` {v or 'MISSING'}" for k, v in payload["tool_versions"].items()
+        )
+    )
     add("")
     add("## Verdict")
     add("")
-    verdict = "FAIL" if summary["n_hard_failures"] else "PASS (with warnings)" if summary["n_warnings"] else "PASS"
+    verdict = (
+        "FAIL"
+        if summary["n_hard_failures"]
+        else "PASS (with warnings)"
+        if summary["n_warnings"]
+        else "PASS"
+    )
     add(
         f"**{verdict}** — {summary['n_hard_failures']} hard failure(s) in "
         f"{summary['n_hard_failure_groups']} file/check/page group(s), "
@@ -1845,9 +1969,11 @@ def build_markdown(
             f"{summary['warnings_by_check'].get(check['id'], 0)} |"
         )
     add("")
-    add("Thresholds: "
+    add(
+        "Thresholds: "
         f"text outside page > {OUT_PAGE_TOLERANCE_PT} pt, line-estimated type size < {MIN_TEXT_HEIGHT_PT} pt, "
-        f"overlap > {OVERLAP_FRACTION:.0%} of the smaller box, raster < {MIN_RASTER_DPI:.0f} dpi.")
+        f"overlap > {OVERLAP_FRACTION:.0%} of the smaller box, raster < {MIN_RASTER_DPI:.0f} dpi."
+    )
     add("")
     add("### Real defects versus box-model artifacts")
     add("")
@@ -1890,7 +2016,9 @@ def build_markdown(
         )
     add("")
     real_warnings = [
-        warning for warning in payload["warnings"] if warning["check"] in REAL_DEFECT_WARNINGS
+        warning
+        for warning in payload["warnings"]
+        if warning["check"] in REAL_DEFECT_WARNINGS
     ]
     if real_warnings:
         add(
@@ -1905,11 +2033,11 @@ def build_markdown(
             page = warning.get("page", "-")
             details = md_escape(warning["detail"])
             locator = warning.get("locator") or {}
-            if warning["check"] == "FOOTER_TEXT_COLLISION" and locator.get("collisions"):
+            if warning["check"] == "FOOTER_TEXT_COLLISION" and locator.get(
+                "collisions"
+            ):
                 worst = locator["collisions"][0]
-                details += (
-                    f"; word box ({worst['x0']}, {worst['y0']}, {worst['x1']}, {worst['y1']})"
-                )
+                details += f"; word box ({worst['x0']}, {worst['y0']}, {worst['x1']}, {worst['y1']})"
             add(f"| `{path}` | {warning['check']} | {page} | {details} |")
         add("")
     else:
@@ -1937,17 +2065,23 @@ def build_markdown(
     )
     add("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for record in figure_records:
-        add("| " + " | ".join(per_figure_row(record, scale_rows.get(record["name"]))) + " |")
+        add(
+            "| "
+            + " | ".join(per_figure_row(record, scale_rows.get(record["name"])))
+            + " |"
+        )
     add("")
     add(
-        "\"effective print p05\" is the 5th-percentile word-box height multiplied by the measured "
+        '"effective print p05" is the 5th-percentile word-box height multiplied by the measured '
         "placement scale in the built PDFs (derived, see the print-size section)."
     )
     add("")
 
     add("## Built documents")
     add("")
-    add("| document | pages | page size (pt) | page size (in) | fonts | non-embedded | text outside page | min word height (pt) | overlap pairs | same baseline | min raster ppi |")
+    add(
+        "| document | pages | page size (pt) | page size (in) | fonts | non-embedded | text outside page | min word height (pt) | overlap pairs | same baseline | min raster ppi |"
+    )
     add("|---|---|---|---|---|---|---|---|---|---|---|")
     for record in built_records:
         geometry = record.get("geometry", {})
@@ -1978,8 +2112,13 @@ def build_markdown(
     for record in figure_records + built_records:
         fonts = record.get("fonts", {})
         types = ", ".join(f"{k} x{v}" for k, v in fonts.get("types", {}).items()) or "-"
-        bad = ", ".join(f"`{f['name']}`" for f in fonts.get("non_embedded", [])) or "none"
-        unnamed = ", ".join(f"`{f['name']}`" for f in fonts.get("unnamed_or_type3", [])) or "none"
+        bad = (
+            ", ".join(f"`{f['name']}`" for f in fonts.get("non_embedded", [])) or "none"
+        )
+        unnamed = (
+            ", ".join(f"`{f['name']}`" for f in fonts.get("unnamed_or_type3", []))
+            or "none"
+        )
         add(
             f"| `{record['path']}` | {fonts.get('n_fonts', '-')} | {md_escape(types)} | "
             f"{fonts.get('n_non_embedded', '-')} | {md_escape(bad)} | {md_escape(unnamed)} | "
@@ -1996,7 +2135,9 @@ def build_markdown(
     # ---- geometry -------------------------------------------------------
     add("## 2. Page geometry (check b)")
     add("")
-    add("| file | pages | page size (pt) | page size (in) | distinct page sizes | single page | text outside page | max overflow (pt) |")
+    add(
+        "| file | pages | page size (pt) | page size (in) | distinct page sizes | single page | text outside page | max overflow (pt) |"
+    )
     add("|---|---|---|---|---|---|---|---|")
     for record in figure_records + built_records:
         geometry = record.get("geometry", {})
@@ -2026,7 +2167,9 @@ def build_markdown(
         )
         add("")
     else:
-        add(f"{len(off_page)} word box(es) cross a page edge by more than {OUT_PAGE_TOLERANCE_PT} pt.")
+        add(
+            f"{len(off_page)} word box(es) cross a page edge by more than {OUT_PAGE_TOLERANCE_PT} pt."
+        )
         add("")
         add("| file | page | word | box (x0, y0, x1, y1) | page box | overflow (pt) |")
         add("|---|---|---|---|---|---|")
@@ -2038,7 +2181,9 @@ def build_markdown(
                 f"{md_escape(json.dumps(violation['overflow_pt']))} |"
             )
         if len(off_page) > max_small_in_table:
-            add(f"| ... | | {len(off_page) - max_small_in_table} more in the JSON | | | |")
+            add(
+                f"| ... | | {len(off_page) - max_small_in_table} more in the JSON | | | |"
+            )
         add("")
         add("### Ink verification of the flagged pages")
         add("")
@@ -2065,7 +2210,10 @@ def build_markdown(
                 f"**{len(flush_pages)} flagged page(s) have rendered ink flush with the page edge "
                 f"(within {INK_EDGE_FLUSH_PT} pt): the glyphs are clipped by the page box, so the "
                 "box violation is a real defect (`INK_CLIPPED_AT_PAGE_EDGE`):** "
-                + ", ".join(f"`{record['path']}` p{check['page']}" for record, check in flush_pages)
+                + ", ".join(
+                    f"`{record['path']}` p{check['page']}"
+                    for record, check in flush_pages
+                )
                 + "."
             )
             add("")
@@ -2074,7 +2222,10 @@ def build_markdown(
                 f"**{len(padded_pages)} flagged page(s) have ink that stays inside the page: the "
                 "box crosses the edge only through Poppler's font-box padding, so the words are "
                 "reported as `TEXT_BOX_PADDING_ONLY` warnings rather than hard failures:** "
-                + ", ".join(f"`{record['path']}` p{check['page']}" for record, check in padded_pages)
+                + ", ".join(
+                    f"`{record['path']}` p{check['page']}"
+                    for record, check in padded_pages
+                )
                 + "."
             )
             add("")
@@ -2090,7 +2241,9 @@ def build_markdown(
                 "violations stay hard failures because they are unverified.**"
             )
             add("")
-        add("| file | page | ink box (l, t, r, b) | margins (l, t, r, b) | verdict | render |")
+        add(
+            "| file | page | ink box (l, t, r, b) | margins (l, t, r, b) | verdict | render |"
+        )
         add("|---|---|---|---|---|---|")
         for record in figure_records + built_records:
             for check in record.get("ink_checks", []):
@@ -2143,7 +2296,9 @@ def build_markdown(
             "threshold, so the cause is stated once here):"
         )
         add("")
-        add("| file | page | words below threshold | min height (pt) | median height (pt) | example words | attributed figure |")
+        add(
+            "| file | page | words below threshold | min height (pt) | median height (pt) | example words | attributed figure |"
+        )
         add("|---|---|---|---|---|---|---|")
         for group in payload["summary"]["tiny_text_by_page"]:
             add(
@@ -2155,11 +2310,16 @@ def build_markdown(
         add("")
         add(f"Smallest boxes overall (up to {max_small_in_table} rows):")
         add("")
-        add("| file | page | word | box (x0, y0, x1, y1) | height (pt) | line estimate (pt) | height / line | width (pt) | neighbour words (text: height) |")
+        add(
+            "| file | page | word | box (x0, y0, x1, y1) | height (pt) | line estimate (pt) | height / line | width (pt) | neighbour words (text: height) |"
+        )
         add("|---|---|---|---|---|---|---|---|---|")
-        for record, violation in sorted(tiny_rows, key=lambda row: row[1]["height_pt"])[:max_small_in_table]:
+        for record, violation in sorted(tiny_rows, key=lambda row: row[1]["height_pt"])[
+            :max_small_in_table
+        ]:
             neighbours = ", ".join(
-                f"{md_escape(n['text'])}: {fmt(n['height_pt'])}" for n in violation["neighbour_words"]
+                f"{md_escape(n['text'])}: {fmt(n['height_pt'])}"
+                for n in violation["neighbour_words"]
             )
             add(
                 f"| `{record['path']}` | {violation['page']} | `{md_escape(violation['text'])}` | "
@@ -2168,7 +2328,9 @@ def build_markdown(
                 f"{fmt(violation.get('ratio_to_line'), 2)} | {fmt(violation['width_pt'], 3)} | {neighbours} |"
             )
         if len(tiny_rows) > max_small_in_table:
-            add(f"| ... | | {len(tiny_rows) - max_small_in_table} more in the JSON | | | | |")
+            add(
+                f"| ... | | {len(tiny_rows) - max_small_in_table} more in the JSON | | | | |"
+            )
         add("")
         add(
             "Typeset size is estimated per text line: the tallest Poppler word box on the line "
@@ -2195,7 +2357,9 @@ def build_markdown(
         "see text drawn over graphics."
     )
     add("")
-    add("| file | word boxes | candidate pairs | same baseline (real) | adjacent-line padding | atypical box geometry | duplicates ignored (exact/shadow) |")
+    add(
+        "| file | word boxes | candidate pairs | same baseline (real) | adjacent-line padding | atypical box geometry | duplicates ignored (exact/shadow) |"
+    )
     add("|---|---|---|---|---|---|---|")
     for record in figure_records + built_records:
         overlaps = record.get("overlaps", {})
@@ -2215,7 +2379,9 @@ def build_markdown(
             continue
         add(f"#### `{record['path']}` — {len(pairs)} pair(s)")
         add("")
-        add("| page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |")
+        add(
+            "| page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |"
+        )
         add("|---|---|---|---|---|---|---|---|---|")
         for pair in pairs[:max_pairs_in_table]:
             a, b = pair["word_a"], pair["word_b"]
@@ -2226,9 +2392,17 @@ def build_markdown(
                 f"{fmt(pair['baseline_delta_pt'])} | {fmt(pair['page_median_word_height_pt'])} |"
             )
         if len(pairs) > max_pairs_in_table:
-            add(f"| ... | | | {len(pairs) - max_pairs_in_table} more pairs in the JSON | | | | | |")
+            add(
+                f"| ... | | | {len(pairs) - max_pairs_in_table} more pairs in the JSON | | | | | |"
+            )
         add("")
-        add("Pair classification: " + "; ".join(f"`{k}` x{v}" for k, v in record["overlaps"]["counts_by_kind"].items()) + ".")
+        add(
+            "Pair classification: "
+            + "; ".join(
+                f"`{k}` x{v}" for k, v in record["overlaps"]["counts_by_kind"].items()
+            )
+            + "."
+        )
         add("")
 
     # ---- merged label runs (the blind spot of the pairwise rule) --------
@@ -2259,7 +2433,9 @@ def build_markdown(
             f"{FOOTER_BAND_MIN_OVERLAP_PT} pt."
         )
         add("")
-        add("| file | page | page number | number band (x0, y0, x1, y1) | colliding words | worst word | worst box | vertical overlap (pt) |")
+        add(
+            "| file | page | page number | number band (x0, y0, x1, y1) | colliding words | worst word | worst box | vertical overlap (pt) |"
+        )
         add("|---|---|---|---|---|---|---|---|")
         for record in footer_records:
             for finding in record["footer_collisions"]["findings"]:
@@ -2293,7 +2469,9 @@ def build_markdown(
             "cannot see it (there is no pair) and on paper the row reads as one continuous string."
         )
         add("")
-        add("| file | page | extracted word | box (x0, y0, x1, y1) | width (pt) | repeated unit | runs recovered | run pitches (pt) |")
+        add(
+            "| file | page | extracted word | box (x0, y0, x1, y1) | width (pt) | repeated unit | runs recovered | run pitches (pt) |"
+        )
         add("|---|---|---|---|---|---|---|---|")
         for record in merged_records:
             for finding in record["merged_label_runs"]["findings"]:
@@ -2313,9 +2491,13 @@ def build_markdown(
             for finding in record["merged_label_runs"]["findings"]:
                 if not finding["text_runs"]:
                     continue
-                add(f"`{record['path']}` page {finding['page']} runs inside the merged box:")
+                add(
+                    f"`{record['path']}` page {finding['page']} runs inside the merged box:"
+                )
                 add("")
-                add("| run text | x (pt) | baseline y from top (pt) | font resource | size (pt) | pitch from previous (pt) |")
+                add(
+                    "| run text | x (pt) | baseline y from top (pt) | font resource | size (pt) | pitch from previous (pt) |"
+                )
                 add("|---|---|---|---|---|---|")
                 for run in finding["text_runs"]:
                     add(
@@ -2334,11 +2516,18 @@ def build_markdown(
     # ---- provenance -----------------------------------------------------
     add("## 6. Source provenance (check f)")
     add("")
-    add("| figure | draw.io source at figures/v17/drawio | schematic | python generator(s) under scripts/ | classification | verdict |")
+    add(
+        "| figure | draw.io source at figures/v17/drawio | schematic | python generator(s) under scripts/ | classification | verdict |"
+    )
     add("|---|---|---|---|---|---|")
     for record in figure_records:
         provenance = record.get("provenance", {})
-        generators = ", ".join(f"`{g['script']}`" for g in provenance.get("python_generators", [])) or "none"
+        generators = (
+            ", ".join(
+                f"`{g['script']}`" for g in provenance.get("python_generators", [])
+            )
+            or "none"
+        )
         add(
             f"| `{record['name']}` | {'yes' if provenance.get('drawio_source_exists') else 'NO'} | "
             f"{'yes — ' + str(provenance.get('schematic_reason')) if provenance.get('schematic') else 'no'} | "
@@ -2352,14 +2541,11 @@ def build_markdown(
         "there, otherwise a missing draw.io source cannot be detected."
     )
     add("")
-    add("| figure | figure built elsewhere in `figures/` | identical to the paper copy |")
-    add("|---|---|---|")
+    add("| figure | figure built elsewhere in `figures/` |")
+    add("|---|---|")
     for record in figure_records:
         for upstream in record.get("provenance", {}).get("upstream_pdf_candidates", []):
-            add(
-                f"| `{record['name']}` | `{upstream['path']}` | "
-                f"{'yes' if upstream['identical_to_paper_copy'] else 'no'} |"
-            )
+            add(f"| `{record['name']}` | `{upstream['path']}` | ")
     add("")
 
     # ---- raster ---------------------------------------------------------
@@ -2380,7 +2566,10 @@ def build_markdown(
     if not any_image:
         add("| - | - | - | no raster images in any target PDF | - | - | - |")
     add("")
-    if not any(record.get("raster", {}).get("tool_available") for record in figure_records + built_records):
+    if not any(
+        record.get("raster", {}).get("tool_available")
+        for record in figure_records + built_records
+    ):
         add("`pdfimages` is not installed: raster resolution could not be checked.")
         add("")
 
@@ -2395,7 +2584,9 @@ def build_markdown(
         "the size the reader sees on paper. These values are derived, never hard failures."
     )
     add("")
-    add("| figure | width (pt) | measured scale | printed width (pt) | printed width (in) | raw min (pt) | raw p05 (pt) | effective min (pt) | effective p05 (pt) | confidence |")
+    add(
+        "| figure | width (pt) | measured scale | printed width (pt) | printed width (in) | raw min (pt) | raw p05 (pt) | effective min (pt) | effective p05 (pt) | confidence |"
+    )
     add("|---|---|---|---|---|---|---|---|---|---|")
     for record in figure_records:
         scale_row = scale_rows.get(record["name"], {})
@@ -2414,7 +2605,8 @@ def build_markdown(
         )
     add("")
     widths = [
-        scale_rows[record["name"]]["scale"] * (record.get("geometry", {}).get("page_size_pt") or [0])[0]
+        scale_rows[record["name"]]["scale"]
+        * (record.get("geometry", {}).get("page_size_pt") or [0])[0]
         for record in figure_records
         if scale_rows.get(record["name"], {}).get("scale")
     ]
@@ -2443,7 +2635,10 @@ def build_markdown(
         add(
             "Advisory (not a failure): the following figures pass the 4.5 pt rule but their 5th "
             "percentile word box prints below 6 pt, which is small even for a journal figure: "
-            + ", ".join(f"`{name}` {value:.2f} pt" for name, value in sorted(small_print, key=lambda r: r[1]))
+            + ", ".join(
+                f"`{name}` {value:.2f} pt"
+                for name, value in sorted(small_print, key=lambda r: r[1])
+            )
             + "."
         )
         add("")
@@ -2480,11 +2675,20 @@ def build_markdown(
         count_note = f" x{group['n']}" if group["n"] > 1 else ""
         priority = priority_of.get(check, "P2")
         suffix = ""
-        if check == "TEXT_OUTSIDE_PAGE" and (group["file"], group["page"]) in padding_only:
+        if (
+            check == "TEXT_OUTSIDE_PAGE"
+            and (group["file"], group["page"]) in padding_only
+        ):
             priority = "P1"
-            suffix = " [ink verified inside the page: box padding only, nothing clipped]"
+            suffix = (
+                " [ink verified inside the page: box padding only, nothing clipped]"
+            )
         fix_items.append(
-            (priority, group["file"], f"{check}{page_note}: {group['examples'][0]}{count_note}{suffix}")
+            (
+                priority,
+                group["file"],
+                f"{check}{page_note}: {group['examples'][0]}{count_note}{suffix}",
+            )
         )
     for record in figure_records:
         scale_row = scale_rows.get(record["name"], {})
@@ -2517,11 +2721,17 @@ def build_markdown(
                 priority = "P3"
             page_note = f" page {item['page']}" if item.get("page") is not None else ""
             fix_items.append(
-                (priority, record["path"], f"{item['check']}{page_note}: {item['detail']}")
+                (
+                    priority,
+                    record["path"],
+                    f"{item['check']}{page_note}: {item['detail']}",
+                )
             )
     for item in payload["warnings"]:
         if item["file"] == "-":
-            fix_items.append(("P3", "(environment)", f"{item['check']}: {item['detail']}"))
+            fix_items.append(
+                ("P3", "(environment)", f"{item['check']}: {item['detail']}")
+            )
     if fix_items:
         order = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
         fix_items.sort(key=lambda row: (order[row[0]], row[1], row[2]))
@@ -2571,9 +2781,8 @@ def build_markdown(
         "Poppler sees them; a Type 3 subset with no BaseFont name appears as `[none]`."
     )
     add(
-        "6. **The artifacts can move under the run.** Every inspected file is pinned by SHA-256 in "
-        "the JSON, so a mismatch with a later build is visible rather than silent; re-run the "
-        "harness after any rebuild."
+        "6. **The artifacts can move under the run.** The report describes the files as they "
+        "were when the harness ran; re-run the harness after any rebuild."
     )
     add("")
     return "\n".join(lines) + "\n"
@@ -2588,10 +2797,24 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Quality-assure the WRR figures and built PDFs (fonts, geometry, text)."
     )
-    parser.add_argument("--paper-dir", type=Path, default=DEFAULT_PAPER_DIR, help="directory holding the figures and built PDFs")
-    parser.add_argument("--json", type=Path, default=DEFAULT_JSON, help="JSON output path")
-    parser.add_argument("--md", type=Path, default=DEFAULT_MD, help="Markdown report output path")
-    parser.add_argument("--render-dir", type=Path, default=DEFAULT_RENDER_DIR, help="where ink-verification renders are written")
+    parser.add_argument(
+        "--paper-dir",
+        type=Path,
+        default=DEFAULT_PAPER_DIR,
+        help="directory holding the figures and built PDFs",
+    )
+    parser.add_argument(
+        "--json", type=Path, default=DEFAULT_JSON, help="JSON output path"
+    )
+    parser.add_argument(
+        "--md", type=Path, default=DEFAULT_MD, help="Markdown report output path"
+    )
+    parser.add_argument(
+        "--render-dir",
+        type=Path,
+        default=DEFAULT_RENDER_DIR,
+        help="where ink-verification renders are written",
+    )
     parser.add_argument(
         "--extra-pdf",
         type=Path,
@@ -2603,25 +2826,34 @@ def build_parser() -> argparse.ArgumentParser:
             "Use this to QA a recovered build without touching paper/**."
         ),
     )
-    parser.add_argument("--no-ink-verify", action="store_true", help="skip the pdftoppm ink check")
+    parser.add_argument(
+        "--no-ink-verify", action="store_true", help="skip the pdftoppm ink check"
+    )
     parser.add_argument(
         "--report-only",
         action="store_true",
         help="record hard failures but exit 0 (used by the regression test)",
     )
-    parser.add_argument("--quiet", action="store_true", help="suppress the summary on stdout")
+    parser.add_argument(
+        "--quiet", action="store_true", help="suppress the summary on stdout"
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    paper_dir: Path = args.paper_dir if args.paper_dir.is_absolute() else ROOT / args.paper_dir
+    paper_dir: Path = (
+        args.paper_dir if args.paper_dir.is_absolute() else ROOT / args.paper_dir
+    )
     json_path: Path = args.json if args.json.is_absolute() else ROOT / args.json
     md_path: Path = args.md if args.md.is_absolute() else ROOT / args.md
-    render_dir: Path = args.render_dir if args.render_dir.is_absolute() else ROOT / args.render_dir
+    render_dir: Path = (
+        args.render_dir if args.render_dir.is_absolute() else ROOT / args.render_dir
+    )
 
     tool_state = {
-        name: {"available": tool_available(name), "version": probe_version(name)} for name in TOOL_NAMES
+        name: {"available": tool_available(name), "version": probe_version(name)}
+        for name in TOOL_NAMES
     }
     commands: list[dict[str, Any]] = []
 
@@ -2655,7 +2887,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     # LaTeX references, so an orphan figure can be reported.
     referenced: set[str] = set()
     for tex in sorted(paper_dir.glob("*.tex")):
-        for match in INCLUDE_RE.findall(tex.read_text(encoding="utf-8", errors="replace")):
+        for match in INCLUDE_RE.findall(
+            tex.read_text(encoding="utf-8", errors="replace")
+        ):
             referenced.add(Path(match).name)
 
     records: list[dict[str, Any]] = []
@@ -2671,7 +2905,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
 
     figure_records = [r for r in records if r["kind"] == "figure"]
-    built_records = [r for r in records if r["kind"] in {"manuscript", "supporting_information"}]
+    built_records = [
+        r for r in records if r["kind"] in {"manuscript", "supporting_information"}
+    ]
 
     for record in figure_records:
         referenced_here = f"{record['name']}.pdf" in referenced
@@ -2710,17 +2946,27 @@ def main(argv: Sequence[str] | None = None) -> int:
         row = measure_print_scale(words, built_word_docs)
         geometry = record.get("geometry", {})
         if row.get("scale") and geometry.get("page_size_pt"):
-            row["printed_width_pt"] = round(row["scale"] * geometry["page_size_pt"][0], 3)
+            row["printed_width_pt"] = round(
+                row["scale"] * geometry["page_size_pt"][0], 3
+            )
             row["printed_width_in"] = round(row["printed_width_pt"] / 72.0, 4)
             small = record.get("min_text_height", {})
             if small.get("min_height_pt"):
-                row["effective_min_height_pt"] = round(small["min_height_pt"] * row["scale"], 3)
+                row["effective_min_height_pt"] = round(
+                    small["min_height_pt"] * row["scale"], 3
+                )
             if small.get("p05_height_pt"):
-                row["effective_p05_height_pt"] = round(small["p05_height_pt"] * row["scale"], 3)
+                row["effective_p05_height_pt"] = round(
+                    small["p05_height_pt"] * row["scale"], 3
+                )
         scale_rows[record["name"]] = row
         record["print_placement"] = row
         effective = row.get("effective_p05_height_pt")
-        if row.get("confident") and effective is not None and effective < MIN_TEXT_HEIGHT_PT:
+        if (
+            row.get("confident")
+            and effective is not None
+            and effective < MIN_TEXT_HEIGHT_PT
+        ):
             record["warnings"].append(
                 Item(
                     "EFFECTIVE_PRINT_TEXT_TOO_SMALL",
@@ -2764,7 +3010,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             counts[item["check"]] = counts.get(item["check"], 0) + 1
         return dict(sorted(counts.items()))
 
-    def group_by_file_check_page(items: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
+    def group_by_file_check_page(
+        items: Sequence[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
         groups: dict[tuple[str, str, Any], dict[str, Any]] = {}
         for item in items:
             key = (item["file"], item["check"], item.get("page"))
@@ -2781,7 +3029,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             group["n"] += 1
             if len(group["examples"]) < 3:
                 group["examples"].append(item["detail"])
-        return sorted(groups.values(), key=lambda g: (g["file"], g["check"], str(g["page"])))
+        return sorted(
+            groups.values(), key=lambda g: (g["file"], g["check"], str(g["page"]))
+        )
 
     # Tiny text is the one check that can fire hundreds of times on a single
     # placed figure; group it by page and attribute the page to its figure so
@@ -2791,13 +3041,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         if record["kind"] == "figure":
             continue  # a figure PDF is its own source; only placed words need attribution
         for violation in record.get("min_text_height", {}).get("violations", []):
-            flagged_page_words.setdefault(f"{record['kind']}:{violation['page']}", set()).add(
-                violation["text"]
-            )
+            flagged_page_words.setdefault(
+                f"{record['kind']}:{violation['page']}", set()
+            ).add(violation["text"])
         for violation in record.get("text_bounds", {}).get("violations", []):
-            flagged_page_words.setdefault(f"{record['kind']}:{violation['page']}", set()).add(
-                violation["text"]
-            )
+            flagged_page_words.setdefault(
+                f"{record['kind']}:{violation['page']}", set()
+            ).add(violation["text"])
     page_attribution = attribute_pages_to_figures(flagged_page_words, figure_word_sets)
     # A measured placement is stronger evidence than a word match: if a figure
     # is placed on that page at a confident scale, that figure is the source of
@@ -2806,7 +3056,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         placement = record.get("print_placement", {})
         if placement.get("confident") and placement.get("page"):
             document = placement.get("document")
-            kind = "manuscript" if document == "manuscript" else "supporting_information"
+            kind = (
+                "manuscript" if document == "manuscript" else "supporting_information"
+            )
             key = f"{kind}:{placement['page']}"
             if key in flagged_page_words:
                 page_attribution[key] = {
@@ -2821,7 +3073,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             per_page.setdefault(int(violation["page"]), []).append(violation)
         for page, violations in sorted(per_page.items()):
             key = f"{record['kind']}:{page}"
-            attribution = page_attribution.get(key) if record["kind"] != "figure" else None
+            attribution = (
+                page_attribution.get(key) if record["kind"] != "figure" else None
+            )
             tiny_by_page.append(
                 {
                     "file": record["path"],
@@ -2833,13 +3087,17 @@ def main(argv: Sequence[str] | None = None) -> int:
                     ),
                     "distinct_words": sorted({v["text"] for v in violations})[:8],
                     "attributed_figure": attribution["figure"] if attribution else None,
-                    "attributed_matching_words": attribution["n_matching_words"] if attribution else None,
+                    "attributed_matching_words": attribution["n_matching_words"]
+                    if attribution
+                    else None,
                 }
             )
 
     exit_code = 0 if not hard_failures else 1
     implied_widths = [
-        row["printed_width_pt"] for row in scale_rows.values() if row.get("printed_width_pt")
+        row["printed_width_pt"]
+        for row in scale_rows.values()
+        if row.get("printed_width_pt")
     ]
     payload: dict[str, Any] = {
         "schema_version": "1.0",
@@ -2883,31 +3141,93 @@ def main(argv: Sequence[str] | None = None) -> int:
         ],
         "check_catalogue": [
             {"id": "FONT_NOT_EMBEDDED", "description": "font not embedded (check a)"},
-            {"id": "FIGURE_NOT_SINGLE_PAGE", "description": "figure page count != 1 (check b)"},
-            {"id": "TEXT_OUTSIDE_PAGE", "description": "text > 1 pt outside the page and ink clipped or unverified (check c)"},
-            {"id": "TEXT_HEIGHT_BELOW_MINIMUM", "description": f"line-estimated type size < {MIN_TEXT_HEIGHT_PT} pt (check d)"},
-            {"id": "OVERLAPPING_TEXT_SAME_BASELINE", "description": "overlapping boxes, same baseline (check e)"},
-            {"id": "OVERLAPPING_WORD_BOXES", "description": "overlapping boxes, other geometry (check e)"},
-            {"id": "MERGED_LABEL_RUN_SUSPECT", "description": "labels drawn with no word gap (check e)"},
-            {"id": "FOOTER_TEXT_COLLISION", "description": "page number overprinted by body text (check e)"},
-            {"id": "SCHEMATIC_WITHOUT_DRAWIO_SOURCE", "description": "schematic with no draw.io source (check f)"},
-            {"id": "PROVENANCE_UNKNOWN", "description": "neither draw.io nor python source (check f)"},
-            {"id": "RASTER_BELOW_300_DPI", "description": "raster below 300 dpi effective (check g)"},
-            {"id": "EFFECTIVE_PRINT_TEXT_TOO_SMALL", "description": "derived: printed text below 4.5 pt"},
-            {"id": "INK_CLIPPED_AT_PAGE_EDGE", "description": "derived: rendered ink clipped/flush at the page edge"},
-            {"id": "TEXT_BOX_PADDING_ONLY", "description": "derived: box crosses the edge, ink does not"},
-            {"id": "INK_CHECK_UNAVAILABLE", "description": "derived: the flagged page could not be rendered"},
-            {"id": "SMALL_RELATIVE_WORD_BOXES", "description": "word far smaller than its own line (check d)"},
-            {"id": "FONT_UNNAMED", "description": "embedded font with no BaseFont name"},
-            {"id": "DEGENERATE_WORD_BOXES", "description": "word boxes with non-positive height"},
-            {"id": "FIGURE_NOT_REFERENCED", "description": "figure PDF not referenced by any .tex"},
-            {"id": "PAGE_SIZE_VARIES", "description": "page sizes differ within one PDF"},
-            {"id": "BBOX_PAGE_COUNT_MISMATCH", "description": "pdftotext -bbox page count differs from pdfinfo"},
+            {
+                "id": "FIGURE_NOT_SINGLE_PAGE",
+                "description": "figure page count != 1 (check b)",
+            },
+            {
+                "id": "TEXT_OUTSIDE_PAGE",
+                "description": "text > 1 pt outside the page and ink clipped or unverified (check c)",
+            },
+            {
+                "id": "TEXT_HEIGHT_BELOW_MINIMUM",
+                "description": f"line-estimated type size < {MIN_TEXT_HEIGHT_PT} pt (check d)",
+            },
+            {
+                "id": "OVERLAPPING_TEXT_SAME_BASELINE",
+                "description": "overlapping boxes, same baseline (check e)",
+            },
+            {
+                "id": "OVERLAPPING_WORD_BOXES",
+                "description": "overlapping boxes, other geometry (check e)",
+            },
+            {
+                "id": "MERGED_LABEL_RUN_SUSPECT",
+                "description": "labels drawn with no word gap (check e)",
+            },
+            {
+                "id": "FOOTER_TEXT_COLLISION",
+                "description": "page number overprinted by body text (check e)",
+            },
+            {
+                "id": "SCHEMATIC_WITHOUT_DRAWIO_SOURCE",
+                "description": "schematic with no draw.io source (check f)",
+            },
+            {
+                "id": "PROVENANCE_UNKNOWN",
+                "description": "neither draw.io nor python source (check f)",
+            },
+            {
+                "id": "RASTER_BELOW_300_DPI",
+                "description": "raster below 300 dpi effective (check g)",
+            },
+            {
+                "id": "EFFECTIVE_PRINT_TEXT_TOO_SMALL",
+                "description": "derived: printed text below 4.5 pt",
+            },
+            {
+                "id": "INK_CLIPPED_AT_PAGE_EDGE",
+                "description": "derived: rendered ink clipped/flush at the page edge",
+            },
+            {
+                "id": "TEXT_BOX_PADDING_ONLY",
+                "description": "derived: box crosses the edge, ink does not",
+            },
+            {
+                "id": "INK_CHECK_UNAVAILABLE",
+                "description": "derived: the flagged page could not be rendered",
+            },
+            {
+                "id": "SMALL_RELATIVE_WORD_BOXES",
+                "description": "word far smaller than its own line (check d)",
+            },
+            {
+                "id": "FONT_UNNAMED",
+                "description": "embedded font with no BaseFont name",
+            },
+            {
+                "id": "DEGENERATE_WORD_BOXES",
+                "description": "word boxes with non-positive height",
+            },
+            {
+                "id": "FIGURE_NOT_REFERENCED",
+                "description": "figure PDF not referenced by any .tex",
+            },
+            {
+                "id": "PAGE_SIZE_VARIES",
+                "description": "page sizes differ within one PDF",
+            },
+            {
+                "id": "BBOX_PAGE_COUNT_MISMATCH",
+                "description": "pdftotext -bbox page count differs from pdfinfo",
+            },
             {"id": "BUILT_PDF_MISSING", "description": "a built PDF was not found"},
             {"id": "TOOL_MISSING", "description": "a required tool is not installed"},
         ],
         "tool_versions": {name: state["version"] for name, state in tool_state.items()},
-        "tool_availability": {name: state["available"] for name, state in tool_state.items()},
+        "tool_availability": {
+            name: state["available"] for name, state in tool_state.items()
+        },
         "environment": {
             "python": sys.version.split()[0],
             "root": str(ROOT),
@@ -2925,7 +3245,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             "hard_failure_groups": group_by_file_check_page(hard_failures),
             "tiny_text_by_page": tiny_by_page,
             "page_to_figure": page_attribution,
-            "files_with_hard_failures": sorted({item["file"] for item in hard_failures}),
+            "files_with_hard_failures": sorted(
+                {item["file"] for item in hard_failures}
+            ),
             "schematic_figures": sorted(SCHEMATIC_FIGURES),
             "schematic_figures_without_drawio": sorted(
                 record["name"]
@@ -2937,7 +3259,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             ),
             "provenance": {
                 "drawio": sorted(
-                    record["name"] for record in figure_records if record.get("provenance", {}).get("drawio_source_exists")
+                    record["name"]
+                    for record in figure_records
+                    if record.get("provenance", {}).get("drawio_source_exists")
                 ),
                 "python_only": sorted(
                     record["name"]
@@ -2953,16 +3277,22 @@ def main(argv: Sequence[str] | None = None) -> int:
                 ),
             },
             "figures_not_referenced_in_tex": sorted(
-                record["name"] for record in figure_records if not record["provenance"].get("referenced_in_tex")
+                record["name"]
+                for record in figure_records
+                if not record["provenance"].get("referenced_in_tex")
             ),
             "implied_printed_width_pt": {
-                "median": round(statistics.median(implied_widths), 3) if implied_widths else None,
+                "median": round(statistics.median(implied_widths), 3)
+                if implied_widths
+                else None,
                 "min": round(min(implied_widths), 3) if implied_widths else None,
                 "max": round(max(implied_widths), 3) if implied_widths else None,
                 "n_figures": len(implied_widths),
                 "corroboration": "AGU class file sets \\textwidth 5.5in = 396 pt (paper/wrr/template/agujournal2025.cls:958)",
             },
-            "ink_verification_pages": sum(len(record.get("ink_checks", [])) for record in records),
+            "ink_verification_pages": sum(
+                len(record.get("ink_checks", [])) for record in records
+            ),
             "ink_verified_padding_only_pages": [
                 {"file": record["path"], "page": check["page"]}
                 for record in records
@@ -2982,7 +3312,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     }
     payload["exit_code"] = exit_code
     payload["exit_policy"] = (
-        "report-only: hard failures recorded, exit 0" if args.report_only else "strict: exit 1 on any hard failure"
+        "report-only: hard failures recorded, exit 0"
+        if args.report_only
+        else "strict: exit 1 on any hard failure"
     )
     payload["command_summary"] = [
         "pdffonts <file>                      # check a: embedded fonts",
@@ -3003,7 +3335,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     json_path.parent.mkdir(parents=True, exist_ok=True)
     md_path.parent.mkdir(parents=True, exist_ok=True)
-    json_path.write_text(json.dumps(payload, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+    json_path.write_text(
+        json.dumps(payload, indent=2, sort_keys=False) + "\n", encoding="utf-8"
+    )
     md_path.write_text(markdown, encoding="utf-8")
 
     if not args.quiet:
@@ -3015,7 +3349,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             "hard_failures_by_check": payload["summary"]["hard_failures_by_check"],
             "warnings": len(warnings),
             "warnings_by_check": payload["summary"]["warnings_by_check"],
-            "schematic_figures_without_drawio": payload["summary"]["schematic_figures_without_drawio"],
+            "schematic_figures_without_drawio": payload["summary"][
+                "schematic_figures_without_drawio"
+            ],
             "exit_code": 0 if args.report_only else exit_code,
             "json": rel_path(json_path),
             "markdown": rel_path(md_path),

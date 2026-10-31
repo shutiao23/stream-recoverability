@@ -200,7 +200,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--finalized-model-roster",
         type=Path,
         required=True,
-        help="hash-verified validation-only finalized_model_roster_v1 JSON",
+        help="validation-only finalized_model_roster_v1 JSON",
     )
     retrained.add_argument(
         "--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"

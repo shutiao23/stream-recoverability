@@ -42,16 +42,13 @@ def _roster(tmp_path: Path, *, decision: str = "include_proposed_formally"):
     selected = ("linear", "proposed") if decision != "framework_only" else ("linear",)
     return SimpleNamespace(
         manifest_path=str(path),
-        manifest_sha256="a" * 64,
         selected_models=selected,
         best_traditional_model="linear",
         proposed_decision=decision,
         selection_data_version="published_v1",
-        selection_design_hash="b" * 64,
         selection_contract={"evaluation_split": "validation"},
         selection_data_version_manifest={
             "path": "data_versions/published_v1/version_manifest.json",
-            "sha256": "c" * 64,
             "bytes": 1,
         },
         validation_anchor_catalog=validation_anchor_catalog_identity(),
@@ -67,12 +64,9 @@ def test_core_formal_grid_is_bound_to_canonical_frontier_catalog() -> None:
     assert contract["frontier_anchor_required"] is True
     assert contract["frontier_anchor_count"] == 180
     assert contract["frontier_anchor_scenario_count"] > 0
-    assert len(contract["frontier_anchor_bindings_sha256"]) == 64
 
     with pytest.raises(ValueError, match="frontier anchor catalog path"):
-        validate_formal_grid_contract(
-            replace(grid, frontier_anchor_catalog_path=None)
-        )
+        validate_formal_grid_contract(replace(grid, frontier_anchor_catalog_path=None))
 
     position, first = next(
         (position, scenario)
@@ -98,9 +92,9 @@ def test_full_formal_grid_closes_exact_event_inventory() -> None:
 
     assert contract["event_uncertainty_required"] is True
     assert contract["m7a_scenario_count"] == 12
-    assert contract["m7b_scenario_count"] == 2 * contract[
-        "event_catalog_analysis_count"
-    ]
+    assert (
+        contract["m7b_scenario_count"] == 2 * contract["event_catalog_analysis_count"]
+    )
     assert contract["event_catalog_analysis_count"] > 0
 
     with pytest.raises(ValueError, match="event catalog path"):
@@ -111,9 +105,7 @@ def test_authorization_reopens_roster_and_rejects_stale_anchor_metadata(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     roster = _roster(tmp_path)
-    document = proposed_estimand_authorization(
-        roster, suite="science_compensation"
-    )
+    document = proposed_estimand_authorization(roster, suite="science_compensation")
     assert document is not None
     monkeypatch.setattr(
         authorization_module,
@@ -132,9 +124,7 @@ def test_authorization_reopens_roster_and_rejects_stale_anchor_metadata(
     assert validated == document
 
     stale = json.loads(json.dumps(document))
-    stale["finalized_model_roster"]["validation_anchor_catalog"]["sha256"] = (
-        "0" * 64
-    )
+    stale["finalized_model_roster"]["validation_anchor_catalog"]["row_count"] = 14
     with pytest.raises(ValueError, match="roster metadata mismatch"):
         validate_formal_authorization(
             stale,
@@ -151,9 +141,4 @@ def test_framework_only_roster_cannot_authorize_proposed_estimand(
 ) -> None:
     roster = _roster(tmp_path, decision="framework_only")
 
-    assert (
-        proposed_estimand_authorization(
-            roster, suite="science_compensation"
-        )
-        is None
-    )
+    assert proposed_estimand_authorization(roster, suite="science_compensation") is None

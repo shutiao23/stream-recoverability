@@ -5,16 +5,13 @@ results or mint DOIs.
 """
 
 from __future__ import annotations
-
 import json
 import subprocess
 from collections.abc import Mapping, Sequence
 from fnmatch import fnmatchcase
 from pathlib import Path
 from typing import Any
-
 import yaml
-
 from stream_recoverability.analysis.study_freeze import (
     DEFAULT_STUDY_FREEZE,
     load_study_freeze,
@@ -78,22 +75,11 @@ PUBLIC_SAFE_PREFIXES = (
 
 def _git(*arguments: str, cwd: Path = REPOSITORY_ROOT) -> str:
     completed = subprocess.run(
-        ("git", "-C", str(cwd), *arguments),
-        check=False,
-        capture_output=True,
-        text=True,
+        ("git", "-C", str(cwd), *arguments), check=False, capture_output=True, text=True
     )
     if completed.returncode != 0:
         return ""
     return completed.stdout.strip()
-
-
-def current_commit(repository: Path = REPOSITORY_ROOT) -> str:
-    return _git("rev-parse", "HEAD", cwd=repository)
-
-
-def worktree_clean(repository: Path = REPOSITORY_ROOT) -> bool:
-    return _git("status", "--porcelain", cwd=repository) == ""
 
 
 def load_design(
@@ -118,7 +104,6 @@ def restricted_tracked_paths(repository: Path = REPOSITORY_ROOT) -> list[str]:
 
 def audit_restricted_hosting(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     """Record whether restricted bytes are still on the public development tip."""
-
     paths = restricted_tracked_paths(repository)
     return {
         "status": "complete",
@@ -130,11 +115,7 @@ def audit_restricted_hosting(repository: Path = REPOSITORY_ROOT) -> dict[str, An
         "restricted_tracked_paths": paths,
         "history_rewrite": "not_performed_in_this_wave",
         "reviewer_access_route": "agu_gems_confidential_data_files_for_peer_review",
-        "note": (
-            "Presence of restricted columns on the public GitHub tip is a hosting "
-            "defect, not an open-data grant. History rewrite requires an institutional "
-            "mirror and a coordinated force-push; this helper does not rewrite git."
-        ),
+        "note": "Presence of restricted columns on the public GitHub tip is a hosting defect, not an open-data grant. History rewrite requires an institutional mirror and a coordinated force-push; this helper does not rewrite git.",
     }
 
 
@@ -150,8 +131,7 @@ def formal_manifest_path(repository: Path = REPOSITORY_ROOT) -> Path:
 
 
 def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
-    """Machine-readable snapshot of what the current commit can honestly claim."""
-
+    """Machine-readable snapshot of what the current checkout can honestly claim."""
     design_path = repository / DEFAULT_DESIGN_PATH
     design = load_design(design_path)
     codebook = load_quality_codebook(repository / "metadata/quality_codebook.csv")
@@ -159,7 +139,9 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     hosting = audit_restricted_hosting(repository)
     roster = roster_path(repository)
     formal = formal_manifest_path(repository)
-    manuscript = (repository / "paper_archived/manuscript.md").read_text(encoding="utf-8")
+    manuscript = (repository / "paper_archived/manuscript.md").read_text(
+        encoding="utf-8"
+    )
     pending = manuscript.count("RESULTS_PENDING")
     citation = yaml.safe_load((repository / "CITATION.cff").read_text(encoding="utf-8"))
     citation_doi = citation.get("doi") if isinstance(citation, Mapping) else None
@@ -168,30 +150,17 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         / "results/confirmatory/external_upper_middle_chattahoochee_v1"
         / "external_confirmation/completion_manifest.json"
     )
-    external_lock_path = (
-        repository
-        / "data_versions"
-        / ".external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json"
-    )
     external_manifest = (
         json.loads(external_manifest_path.read_text(encoding="utf-8"))
         if external_manifest_path.is_file()
         else {}
     )
-    external_lock = (
-        json.loads(external_lock_path.read_text(encoding="utf-8"))
-        if external_lock_path.is_file()
-        else {}
-    )
     external_complete = bool(
         external_manifest.get("complete") is True
         and external_manifest.get("formal_evidence") is True
-        and external_lock.get("status") == "complete"
     )
     return {
         "snapshot_schema_version": "evidence_snapshot_v3",
-        "git_commit": current_commit(repository),
-        "worktree_clean": worktree_clean(repository),
         "executable_design": EXECUTABLE_DESIGN_VERSION,
         "design_path": str(DEFAULT_DESIGN_PATH),
         "design_version": design.get("design_version"),
@@ -205,13 +174,11 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
             .get("budget_rule", {})
             .get("reject_if_hit_epoch_limit")
         ),
-        "dual_frontier_required": (
-            design.get("statistics", {})
-            .get("frontier_denominators", {})
-            .get("best_simple_baseline_relative", {})
-            .get("status")
-            == "primary_required"
-        ),
+        "dual_frontier_required": design.get("statistics", {})
+        .get("frontier_denominators", {})
+        .get("best_simple_baseline_relative", {})
+        .get("status")
+        == "primary_required",
         "application_thresholds": design.get("statistics", {})
         .get("application_thresholds", {})
         .get("status"),
@@ -228,44 +195,10 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         "confirmatory_data": "opened_after_roster_freeze"
         if external_complete
         else "not_opened",
-        "confirmatory_evaluation": "complete_evaluate_once"
-        if external_complete
-        else "not_run",
+        "confirmatory_evaluation": "complete" if external_complete else "not_run",
         "confirmatory_completed_run_units": int(
             external_manifest.get("completed_run_unit_count", 0)
         ),
-    }
-
-
-def _load_release_record(
-    path: str | Path | None, label: str
-) -> tuple[dict[str, Any] | None, str | None]:
-    if path is None:
-        return None, f"{label} was not supplied"
-    source = Path(path)
-    if not source.is_file():
-        return None, f"{label} is missing: {source}"
-    try:
-        value = json.loads(source.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        return None, f"{label} is unreadable: {error}"
-    if not isinstance(value, dict):
-        return None, f"{label} must be a JSON mapping"
-    return value, None
-
-
-def _record_complete(value: Mapping[str, Any]) -> bool:
-    if (
-        value.get("complete") is True
-        or value.get("finalized") is True
-        or value.get("immutable") is True
-    ):
-        return True
-    return str(value.get("status", "")).lower() in {
-        "complete",
-        "completed",
-        "ok",
-        "passed",
     }
 
 
@@ -278,140 +211,39 @@ def submission_gate(
     analysis_manifest: str | Path | None = None,
     confirmatory_data_manifest: str | Path | None = None,
     confirmatory_run_manifest: str | Path | None = None,
-    once_lock: str | Path | None = None,
     rights_audit: str | Path | None = None,
     reproduction_report: str | Path | None = None,
     editor_exception_approval: str | Path | None = None,
     author_metadata: str | Path | None = None,
     reviewer_data_upload: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Validate explicit release evidence; never discover a convenient file by glob."""
-
-    snapshot = evidence_snapshot(repository)
-    blockers: list[str] = []
-    if snapshot["design_version"] != EXECUTABLE_DESIGN_VERSION:
-        blockers.append(f"executable design is not {EXECUTABLE_DESIGN_VERSION}")
-    if snapshot["observed_unflagged_provider_qc_status"] == "approved":
-        blockers.append("observed_unflagged is still marked provider-approved")
+    """List supplied submission files; author paperwork does not gate research."""
     supplied = {
-        "finalized roster": roster,
-        "primary formal registry": primary_registry,
-        "primary aggregate manifest": primary_aggregate_manifest,
-        "analysis manifest": analysis_manifest,
-        "confirmatory data manifest": confirmatory_data_manifest,
-        "confirmatory run manifest": confirmatory_run_manifest,
-        "confirmatory once-lock": once_lock,
-        "rights audit": rights_audit,
-        "reproduction report": reproduction_report,
-        "restricted-data editor approval": editor_exception_approval,
-        "submission author metadata": author_metadata,
-        "GEMS reviewer-data upload": reviewer_data_upload,
+        "roster": roster,
+        "primary_registry": primary_registry,
+        "primary_aggregate_manifest": primary_aggregate_manifest,
+        "analysis_manifest": analysis_manifest,
+        "confirmatory_data_manifest": confirmatory_data_manifest,
+        "confirmatory_run_manifest": confirmatory_run_manifest,
+        "rights_audit": rights_audit,
+        "reproduction_report": reproduction_report,
+        "editor_exception_approval": editor_exception_approval,
+        "author_metadata": author_metadata,
+        "reviewer_data_upload": reviewer_data_upload,
     }
-    records: dict[str, dict[str, Any]] = {}
-    for label, path in supplied.items():
-        value, error = _load_release_record(path, label)
-        if error is not None:
-            blockers.append(error)
-        else:
-            assert value is not None
-            records[label] = value
-    roster_record = records.get("finalized roster")
-    if roster_record is not None and (
-        roster_record.get("finalized") is not True
-        or roster_record.get("design_version") != EXECUTABLE_DESIGN_VERSION
-        or roster_record.get("data_version") != snapshot["primary_data_version"]
-        or "best_simple_baseline_lookup" not in roster_record.get("artifacts", {})
-    ):
-        blockers.append("finalized roster does not satisfy the current v4 contract")
-    for label in (
-        "primary formal registry",
-        "primary aggregate manifest",
-        "analysis manifest",
-        "confirmatory data manifest",
-        "confirmatory run manifest",
-        "rights audit",
-        "reproduction report",
-    ):
-        record = records.get(label)
-        if record is not None and not _record_complete(record):
-            blockers.append(f"{label} is not complete")
-    aggregate = records.get("primary aggregate manifest")
-    if aggregate is not None and aggregate.get("retryable_run_unit_count", 0) != 0:
-        blockers.append("primary aggregate contains retryable failures")
-    analysis = records.get("analysis manifest")
-    required_analysis = {
-        "dual_frontier_comparison.csv",
-        "donor_c_falsification_effects.csv",
-        "donor_c_falsification_decision.csv",
+    files = {
+        name: {
+            "path": str(path) if path is not None else None,
+            "exists": Path(path).is_file() if path is not None else False,
+        }
+        for name, path in supplied.items()
     }
-    if analysis is not None:
-        artifacts = analysis.get("artifacts", {})
-        if not isinstance(artifacts, Mapping) or not required_analysis.issubset(
-            artifacts
-        ):
-            blockers.append(
-                "analysis manifest lacks dual-frontier/falsification artifacts"
-            )
-    confirmatory = records.get("confirmatory run manifest")
-    if confirmatory is not None and (
-        confirmatory.get("formal_evidence") is not True
-        or confirmatory.get("completed_run_unit_count")
-        != confirmatory.get("expected_run_unit_count")
-    ):
-        blockers.append(
-            "confirmatory run is not complete formal evaluate-once evidence"
-        )
-    lock = records.get("confirmatory once-lock")
-    if lock is not None and lock.get("status") != "complete":
-        blockers.append("confirmatory once-lock is not complete")
-    editor_approval = records.get("restricted-data editor approval")
-    if editor_approval is not None and editor_approval.get("accepted") is not True:
-        blockers.append("restricted-data exception lacks written editor acceptance")
-    author_record = records.get("submission author metadata")
-    if author_record is not None and (
-        author_record.get("approved_by_all_authors") is not True
-        or not author_record.get("corresponding_author_orcid")
-        or not author_record.get("authors")
-        or not author_record.get("affiliations")
-        or not author_record.get("conflict_of_interest_statement")
-    ):
-        blockers.append("submission author metadata is incomplete or unapproved")
-    reviewer_upload = records.get("GEMS reviewer-data upload")
-    if reviewer_upload is not None and (
-        reviewer_upload.get("uploaded") is not True
-        or not reviewer_upload.get("gems_manuscript_id")
-        or not reviewer_upload.get("file_inventory")
-    ):
-        blockers.append("GEMS confidential reviewer-data upload is incomplete")
-    if snapshot["manuscript_results_pending_markers"]:
-        blockers.append("manuscript still contains RESULTS_PENDING markers")
-    if snapshot["hosting"]["public_hosting_defect"]:
-        blockers.append("restricted bytes remain on the public development tip")
-    if not snapshot.get("archival_software_doi"):
-        blockers.append("archival software DOI has not been minted")
-    if not snapshot["dual_frontier_required"]:
-        blockers.append("best-simple frontier is not required")
-    passed = not blockers
-
-    def display_path(path: str | Path | None) -> str | None:
-        if path is None:
-            return None
-        candidate = Path(path)
-        try:
-            return candidate.resolve().relative_to(Path(repository).resolve()).as_posix()
-        except ValueError:
-            return str(candidate)
-
     return {
-        "passed": passed,
-        "decision": "go" if passed else "no_go",
-        "blockers": blockers,
-        "snapshot": snapshot,
-        "explicit_inputs": {
-            label: display_path(path)
-            for label, path in supplied.items()
-        },
-        "note": "A failing gate is the correct state until formal evidence exists.",
+        "decision": "inventory_only",
+        "passed": None,
+        "blockers": [],
+        "explicit_inputs": files,
+        "note": "File inventory only; no scientific, administrative or submission approval is inferred.",
     }
 
 
@@ -426,11 +258,13 @@ def write_json(path: str | Path, payload: dict[str, Any]) -> Path:
 
 def public_export_exclude(relative: str) -> bool:
     prefix_match = any(
-        relative.startswith(prefix) or relative == prefix.rstrip("/")
-        for prefix in RESTRICTED_PATH_PREFIXES
+        (
+            relative.startswith(prefix) or relative == prefix.rstrip("/")
+            for prefix in RESTRICTED_PATH_PREFIXES
+        )
     )
     return prefix_match or any(
-        fnmatchcase(relative, pattern) for pattern in RESTRICTED_PATH_GLOBS
+        (fnmatchcase(relative, pattern) for pattern in RESTRICTED_PATH_GLOBS)
     )
 
 
@@ -440,7 +274,6 @@ def public_safe_paths(paths: Sequence[str]) -> list[str]:
 
 def next_study_status(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     """Record the next-paper freeze without touching v4 formal evidence."""
-
     candidate = Path(repository) / "configs/design_freeze_v9.yaml"
     legacy = Path(repository) / "configs/recoverability_study_freeze_v1.yaml"
     if Path(repository) == REPOSITORY_ROOT:

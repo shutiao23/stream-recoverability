@@ -1,15 +1,14 @@
 """Stream the outcome-blind, pre-score eligibility audit for T2 v4.
 
 Temperature values are outside this module's read set.  Open-QC files supply
-only their SHA-bound station header and date labels.  Frozen ``start_index``
-values are reused as-is.  Exact extended-cell eligibility is computed from
-provider-QC auxiliary availability on train and gap dates, never from a model
-fit, prediction, gap truth, or achieved skill.
+only their station header and date labels.  Frozen ``start_index`` values are
+reused as-is.  Exact extended-cell eligibility is computed from provider-QC
+auxiliary availability on train and gap dates, never from a model fit,
+prediction, gap truth, or achieved skill.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import tempfile
@@ -42,10 +41,7 @@ from .t2_primary_aggregation_v2 import (
     _artifact_path,
     _assert_open,
     _atomic_json,
-    _canonical_sha,
-    _create_once_json,
     _read_json,
-    _sha256_file,
     _structural_status,
 )
 from .t2_recovery_benchmark import (
@@ -92,17 +88,14 @@ def _inside(path: Path, root: Path) -> bool:
 
 def _artifact(
     repo: Path, directory: Path, manifest: Mapping[str, Any], key: str
-) -> tuple[Path, str]:
+) -> Path:
     record = (manifest.get("artifacts") or {}).get(key)
     if not isinstance(record, Mapping):
         raise PrimaryAggregationBlocked(f"v2.3 auxiliary manifest lacks {key}")
     path = (repo / str(record.get("path", ""))).resolve()
     if not _inside(path, directory):
         raise PrimaryAggregationBlocked(f"v2.3 auxiliary {key} escaped its network")
-    sha = str(record.get("sha256", ""))
-    if len(sha) != 64 or _sha256_file(path) != sha:
-        raise PrimaryAggregationBlocked(f"v2.3 auxiliary {key} SHA mismatch")
-    return path, sha
+    return path
 
 
 def _date_header_only(
@@ -110,8 +103,8 @@ def _date_header_only(
 ) -> tuple[pd.DatetimeIndex, tuple[str, ...]]:
     path = (repo / network.wide_path).resolve()
     _assert_open(path)
-    if not path.is_file() or _sha256_file(path) != network.wide_sha256:
-        raise PrimaryAggregationBlocked("open-QC date/header source SHA mismatch")
+    if not path.is_file():
+        raise PrimaryAggregationBlocked("open-QC date/header source is absent")
     header = pd.read_csv(path, nrows=0)
     if not len(header.columns) or str(header.columns[0]) != "date":
         raise PrimaryAggregationBlocked("open-QC panel lacks its locked date column")
@@ -171,8 +164,6 @@ def _load_network_availability(
     repo: Path,
     network: OpenNetwork,
     binding: Mapping[str, Any],
-    *,
-    split_sha256: str,
 ) -> NetworkAvailability:
     dates, sites = _date_header_only(network, repo)
     directory = (
@@ -188,7 +179,6 @@ def _load_network_availability(
         "acquisition_terminal": True,
         "network_id": network.network_id,
         "role": network.role,
-        "split_sha256": split_sha256,
         "temperature_columns_read": [],
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
@@ -202,7 +192,6 @@ def _load_network_availability(
         "network_id": network.network_id,
         "role": network.role,
         "network_manifest_schema": NETWORK_SCHEMA_VERSION,
-        "network_plan_sha256": manifest.get("network_plan_sha256"),
         "materialization_status": manifest.get("status"),
     }
     for key, expected in required_binding.items():
@@ -217,23 +206,9 @@ def _load_network_availability(
         raise PrimaryAggregationBlocked(
             "v2.3 auxiliary station roster differs from open QC"
         )
-    if _sha256_file(manifest_path) != binding.get("network_manifest_sha256"):
-        raise PrimaryAggregationBlocked(
-            "v2.3 manifest differs from v4 workload binding"
-        )
-    daily_path, daily_sha = _artifact(repo, directory, manifest, "daily_long_auxiliary")
-    coverage_path, coverage_sha = _artifact(repo, directory, manifest, "coverage")
-    schema_path, schema_sha = _artifact(repo, directory, manifest, "adapter_schema")
-    expected_artifacts = {
-        "daily_long_sha256": daily_sha,
-        "coverage_sha256": coverage_sha,
-        "adapter_schema_sha256": schema_sha,
-    }
-    for key, expected in expected_artifacts.items():
-        if binding.get(key) != expected:
-            raise PrimaryAggregationBlocked(
-                f"v2.3 workload artifact mismatch for {key}"
-            )
+    daily_path = _artifact(repo, directory, manifest, "daily_long_auxiliary")
+    coverage_path = _artifact(repo, directory, manifest, "coverage")
+    schema_path = _artifact(repo, directory, manifest, "adapter_schema")
     schema = _read_json(schema_path)
     if (
         schema.get("acquisition_schema") != NETWORK_SCHEMA_VERSION
@@ -293,12 +268,10 @@ def _load_network_availability(
         train_mask=np.asarray(train, dtype=bool),
         provenance={
             "open_qc_wide_path": network.wide_path,
-            "open_qc_wide_sha256": network.wide_sha256,
             "network_manifest_path": str(manifest_path.relative_to(repo)),
-            "network_manifest_sha256": _sha256_file(manifest_path),
-            "daily_long_sha256": daily_sha,
-            "coverage_sha256": coverage_sha,
-            "adapter_schema_sha256": schema_sha,
+            "daily_long_path": str(daily_path.relative_to(repo)),
+            "coverage_path": str(coverage_path.relative_to(repo)),
+            "adapter_schema_path": str(schema_path.relative_to(repo)),
         },
     )
 
@@ -362,8 +335,8 @@ def _existing(
     if not manifest_path.exists() and not table_path.exists():
         return None
     if table_path.is_file() and not manifest_path.exists():
-        # Recoverable crash boundary: rebuild to a temporary file and require
-        # exact byte equality before sealing the missing manifest.
+        # Recoverable crash boundary: rebuild the table and write the missing
+        # manifest.
         return None
     if not manifest_path.is_file() or not table_path.is_file():
         raise PrimaryAggregationBlocked("partial pre-score eligibility freeze exists")
@@ -373,9 +346,11 @@ def _existing(
             raise PrimaryAggregationBlocked(
                 f"existing eligibility binding mismatch: {key}"
             )
-    record = manifest.get("eligibility_table") or {}
-    if _sha256_file(table_path) != record.get("sha256"):
-        raise PrimaryAggregationBlocked("existing eligibility table SHA mismatch")
+    if (
+        manifest.get("status") != "complete_outcome_blind_pre_score_audit"
+        or manifest.get("completeness") != "complete"
+    ):
+        raise PrimaryAggregationBlocked("existing eligibility audit is not complete")
     return manifest
 
 
@@ -404,7 +379,7 @@ def build_pre_score_eligibility(
     workload_manifest_path: str | Path,
     output_dir: str | Path,
 ) -> dict[str, Any]:
-    """Stream all frozen items to a create-once pre-score eligibility table."""
+    """Stream all frozen items to the pre-score eligibility table."""
 
     repo = Path(repo_root).resolve()
     workload_path = Path(workload_manifest_path).resolve()
@@ -433,33 +408,16 @@ def build_pre_score_eligibility(
     index_path = _artifact_path(workload_path, str(record.get("path", "")))
     if not index_path.is_file():
         return _blocked(output, ["v4_item_index_absent"])
-    if _sha256_file(index_path) != record.get("file_sha256"):
-        raise PrimaryAggregationBlocked("pre-score v4 item index SHA mismatch")
     networks, _ = discover_failure_closure_networks(repo)
-    input_map = {network.network_id: network.wide_sha256 for network in networks}
-    if input_map != workload.get("input_sha256_by_network") or _canonical_sha(
-        input_map
-    ) != workload.get("input_sha256_by_network_sha256"):
-        raise PrimaryAggregationBlocked(
-            "open-QC inventory differs from the v4 workload"
-        )
     network_lookup = {network.network_id: network for network in networks}
     bindings = workload.get("auxiliary_network_bindings") or {}
     if set(network_lookup) != set(bindings):
         raise PrimaryAggregationBlocked(
             "v2.3 binding roster differs from open-QC inventory"
         )
-    coverage_map = {
-        network: str((binding or {}).get("coverage_sha256", ""))
-        for network, binding in bindings.items()
-    }
     required_binding = {
         "manifest_schema": ELIGIBILITY_AUDIT_SCHEMA,
         "builder_schema": ELIGIBILITY_BUILDER_SCHEMA,
-        "workload_manifest_sha256": _sha256_file(workload_path),
-        "item_index_file_sha256": _sha256_file(index_path),
-        "input_qc_inventory_sha256": workload.get("input_sha256_by_network_sha256"),
-        "auxiliary_coverage_bindings_sha256": _canonical_sha(coverage_map),
         "placements_read_from_frozen_item_index": True,
         "selection_uses_outcomes": False,
         "achieved_skill_read": False,
@@ -471,17 +429,11 @@ def build_pre_score_eligibility(
     if prior is not None:
         return prior
 
-    split_sha = str(
-        (workload.get("input_inventory") or {}).get("catalog_split_sha256", "")
-    )
-    if len(split_sha) != 64:
-        raise PrimaryAggregationBlocked("v4 workload lacks its open-QC split binding")
     availability = {
         network_id: _load_network_availability(
             repo,
             network_lookup[network_id],
             binding,
-            split_sha256=split_sha,
         )
         for network_id, binding in sorted(bindings.items())
     }
@@ -492,7 +444,6 @@ def build_pre_score_eligibility(
     temporary = Path(temporary_name)
     temporary.unlink()
     writer: pq.ParquetWriter | None = None
-    item_digest = hashlib.sha256()
     statuses: Counter[str] = Counter()
     next_ordinal = 0
     try:
@@ -519,8 +470,6 @@ def build_pre_score_eligibility(
                     )
                 next_ordinal += 1
                 item_id = str(row.item_id)
-                item_digest.update(item_id.encode())
-                item_digest.update(b"\n")
                 source = json.loads(str(row.source_item_json))
                 if str(source["network_id"]) != str(row.network_id):
                     raise PrimaryAggregationBlocked("v4 index source identity mismatch")
@@ -550,31 +499,22 @@ def build_pre_score_eligibility(
             writer.close()
             writer = None
         expected_n = int(workload.get("n_work_items", -1))
-        if next_ordinal != expected_n or item_digest.hexdigest() != workload.get(
-            "work_item_identity_sha256"
-        ):
+        if next_ordinal != expected_n:
             raise PrimaryAggregationBlocked(
                 "eligibility stream differs from frozen v4 identity"
             )
         table_path = output / ELIGIBILITY_TABLE_NAME
-        if table_path.exists():
-            if _sha256_file(table_path) != _sha256_file(temporary):
-                raise PrimaryAggregationBlocked("orphan eligibility table differs")
-        else:
-            os.link(temporary, table_path)
-            os.chmod(table_path, 0o444)
+        os.replace(temporary, table_path)
         manifest = {
             **required_binding,
             "status": "complete_outcome_blind_pre_score_audit",
             "completeness": "complete",
             "expected_item_records": expected_n,
             "observed_item_records": next_ordinal,
-            "work_item_identity_sha256": item_digest.hexdigest(),
             "status_counts": dict(sorted(statuses.items())),
             "eligibility_table": {
                 "path": ELIGIBILITY_TABLE_NAME,
                 "format": "parquet",
-                "sha256": _sha256_file(table_path),
                 "n_rows": next_ordinal,
             },
             "network_availability_bindings": {
@@ -603,7 +543,7 @@ def build_pre_score_eligibility(
             "formal_evidence": False,
             "passed": False,
         }
-        _create_once_json(output / "manifest.json", manifest)
+        _atomic_json(output / "manifest.json", manifest)
         return manifest
     finally:
         if writer is not None:

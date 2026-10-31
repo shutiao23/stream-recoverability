@@ -27,11 +27,7 @@ def checkpoint_files(output_dir: Path) -> list[Path]:
     directory = output_dir / "checkpoints"
     if not directory.is_dir():
         return []
-    return sorted(
-        path
-        for path in directory.glob("*.pt")
-        if path.is_file() and not path.name.endswith(".sha256")
-    )
+    return sorted(path for path in directory.glob("*.pt") if path.is_file())
 
 
 def command_env() -> dict[str, str]:
@@ -163,8 +159,7 @@ def main() -> int:
         log(f"started shard {index}/{args.shard_count} pid={processes[index].pid}")
 
     codes = {
-        index: wait_process(proc, f"shard_{index}")
-        for index, proc in processes.items()
+        index: wait_process(proc, f"shard_{index}") for index, proc in processes.items()
     }
     failed = {index: code for index, code in codes.items() if code != 0}
     if failed:

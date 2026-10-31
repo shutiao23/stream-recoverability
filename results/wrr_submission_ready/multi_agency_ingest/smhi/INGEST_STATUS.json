@@ -47,8 +47,7 @@
     "emitted_panel_report": "scratch/smhi_verify_emitted_report.json",
     "emitted_panels_ok": true,
     "problems": [],
-    "claim_vs_recomputed_mismatches": {},
-    "stations_csv_sha256": "7ee0e9ad8ecf62e2b1dc6c2bea643ae0a5839bd112efb82613f4368bac8595f9"
+    "claim_vs_recomputed_mismatches": {}
   },
   "prior_use_scan": {
     "scope": "repo-wide scan of CSVs with a station_id column under results/ and metadata/ (excluding multi_agency_ingest and run dirs); scripts/245 remains authoritative",

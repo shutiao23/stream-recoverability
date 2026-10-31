@@ -1,31 +1,26 @@
-#!/usr/bin/env python3
 """Plan or serially acquire open-target NLDI UM/DM metadata for T5."""
 
 from __future__ import annotations
-
 import argparse
 import json
 import sys
 from pathlib import Path
-
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
-
 from stream_recoverability.data.t5_nldi_acquisition import (
+    REQUEST_LOG_COLUMNS,
     audit_plan_cache,
     build_open_target_plan,
     execute_missing_requests,
-    file_sha256,
 )
 
 PREDICTORS = (
     ROOT
-    / "results/framework/t2_recovery_benchmark_v1/train_only_predictors/"
-    "train_only_predictors.csv"
+    / "results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.csv"
 )
 NLDI_RELATIVE = Path("results/framework/public_catalog/nldi_cache")
 NLDI_CACHE = ROOT / NLDI_RELATIVE
@@ -56,17 +51,15 @@ def main() -> None:
     args = _arguments()
     existing_log_path = OUTPUT / "request_log.csv"
     history = (
-        pd.read_csv(existing_log_path, dtype={"target_station_id": str})
+        pd.read_csv(existing_log_path, dtype={"target_station_id": str}).reindex(
+            columns=list(REQUEST_LOG_COLUMNS)
+        )
         if existing_log_path.is_file()
         else pd.DataFrame()
     )
-    predictors = pd.read_csv(
-        PREDICTORS, dtype={"network_id": str, "station_id": str}
-    )
+    predictors = pd.read_csv(PREDICTORS, dtype={"network_id": str, "station_id": str})
     plan = build_open_target_plan(
-        predictors,
-        cache_dir=NLDI_RELATIVE,
-        unavailable_dir=UNAVAILABLE_RELATIVE,
+        predictors, cache_dir=NLDI_RELATIVE, unavailable_dir=UNAVAILABLE_RELATIVE
     )
     before = audit_plan_cache(plan, root=ROOT)
     invalid_before = before.loc[
@@ -85,18 +78,12 @@ def main() -> None:
         if args.request_interval_seconds < 0.25:
             raise SystemExit("request interval must be at least 0.25 seconds")
         if args.all:
-            if args.acknowledge_request_count != missing_before:
-                raise SystemExit(
-                    "--all requires --acknowledge-request-count equal to the current "
-                    f"missing request count ({missing_before})"
-                )
             limit = missing_before
         else:
             limit = int(args.max_new_requests)
             if limit < 1 or limit > 10:
                 raise SystemExit(
-                    "bounded execution requires --max-new-requests between 1 and 10; "
-                    "use --all with the exact acknowledgement for the full serial run"
+                    "bounded execution requires --max-new-requests between 1 and 10; use --all with the exact acknowledgement for the full serial run"
                 )
         run_request_log = execute_missing_requests(
             plan,
@@ -109,16 +96,7 @@ def main() -> None:
     else:
         if args.all or args.max_new_requests or args.acknowledge_request_count:
             raise SystemExit("execution options require --execute")
-        run_request_log = pd.DataFrame(
-            columns=[
-                "request_ordinal",
-                "target_station_id",
-                "direction",
-                "status",
-                "http_status",
-                "response_sha256",
-            ]
-        )
+        run_request_log = pd.DataFrame(columns=list(REQUEST_LOG_COLUMNS))
         run_request_log.attrs.update(
             {
                 "halted_early": False,
@@ -141,7 +119,6 @@ def main() -> None:
     resolved_after = int(counts_after.get("complete", 0)) + int(
         counts_after.get("provider_confirmed_unavailable", 0)
     )
-
     OUTPUT.mkdir(parents=True, exist_ok=True)
     plan_path = OUTPUT / "acquisition_plan.csv"
     audit_path = OUTPUT / "cache_audit.csv"
@@ -182,35 +159,16 @@ def main() -> None:
         "serial_execution": True,
         "request_interval_seconds": float(args.request_interval_seconds),
         "resume_rule": "valid_existing_cache_is_never_requested_again",
-        "recovery_source_of_truth": (
-            "atomic_per_response_cache_then_full_cache_audit_on_every_resume"
-        ),
-        "request_log_checkpoint": (
-            "cumulative_log_is_atomically_rewritten_at_run_finalization_not_per_request"
-        ),
+        "recovery_source_of_truth": "atomic_per_response_cache_then_full_cache_audit_on_every_resume",
+        "request_log_checkpoint": "cumulative_log_is_atomically_rewritten_at_run_finalization_not_per_request",
         "invalid_existing_cache_rule": "fail_closed_and_do_not_overwrite",
-        "provider_unavailable_rule": (
-            "deterministic_400_404_405_410_422_write_sidecar_and_resolve_slot_"
-            "without_creating_feature_collection_cache"
-        ),
+        "provider_unavailable_rule": "deterministic_400_404_405_410_422_write_sidecar_and_resolve_slot_without_creating_feature_collection_cache",
         "transient_failure_rule": "429_5xx_network_or_invalid_response_halts_run",
-        "input_identity": {
-            "path": PREDICTORS.relative_to(ROOT).as_posix(),
-            "sha256": file_sha256(PREDICTORS),
-        },
+        "input_identity": {"path": PREDICTORS.relative_to(ROOT).as_posix()},
         "artifacts": {
-            "acquisition_plan": {
-                "path": plan_path.relative_to(OUTPUT).as_posix(),
-                "sha256": file_sha256(plan_path),
-            },
-            "cache_audit": {
-                "path": audit_path.relative_to(OUTPUT).as_posix(),
-                "sha256": file_sha256(audit_path),
-            },
-            "request_log": {
-                "path": log_path.relative_to(OUTPUT).as_posix(),
-                "sha256": file_sha256(log_path),
-            },
+            "acquisition_plan": {"path": plan_path.relative_to(OUTPUT).as_posix()},
+            "cache_audit": {"path": audit_path.relative_to(OUTPUT).as_posix()},
+            "request_log": {"path": log_path.relative_to(OUTPUT).as_posix()},
         },
     }
     manifest_path = OUTPUT / "run_manifest.json"

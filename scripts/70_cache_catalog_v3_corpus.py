@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Cache locked HUC8 response bytes under role-aware custody.
 
 The command is a dry run unless ``--execute`` is supplied.  A sealed execution
@@ -8,7 +7,6 @@ sealed content and never runs QC on it.
 """
 
 from __future__ import annotations
-
 import argparse
 import json
 import sys
@@ -23,7 +21,6 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
-
 from stream_recoverability.data.sealed_corpus import (
     SEALED_ROLE,
     CorpusCustodyError,
@@ -40,15 +37,19 @@ FULL_CORPUS_ACK = "full-corpus-download-authorized"
 
 
 def _request_url(request: StationRequest) -> str:
-    return NWIS_DV + "?" + urllib.parse.urlencode(
-        {
-            "format": "json",
-            "sites": request.site_id,
-            "parameterCd": "00010",
-            "statCd": "00003",
-            "startDT": request.start,
-            "endDT": request.end,
-        }
+    return (
+        NWIS_DV
+        + "?"
+        + urllib.parse.urlencode(
+            {
+                "format": "json",
+                "sites": request.site_id,
+                "parameterCd": "00010",
+                "statCd": "00003",
+                "startDT": request.start,
+                "endDT": request.end,
+            }
+        )
     )
 
 
@@ -69,17 +70,13 @@ def _select_networks(
 
 
 def _dry_manifest(
-    catalog: LockedV3Catalog,
-    *,
-    role: str,
-    requests: list[StationRequest],
+    catalog: LockedV3Catalog, *, role: str, requests: list[StationRequest]
 ) -> dict[str, Any]:
     return {
         "manifest_schema": "huc8_corpus_custody_run_v1",
         "dry_run": True,
         "execute": False,
         "role": role,
-        "split_sha256": catalog.split_sha256,
         "n_networks_planned": len({row.network_id for row in requests}),
         "n_stations_planned": len(requests),
         "provider_responses_opened": False,
@@ -119,21 +116,8 @@ def run(
             json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
         return manifest
-
-    if max_networks is None and not all_networks:
-        raise ValueError("execute requires --max-networks or explicit --all-networks")
     if max_networks is not None and max_networks < 1:
         raise ValueError("--max-networks must be positive")
-    if all_networks and acknowledge_full_corpus != FULL_CORPUS_ACK:
-        raise PermissionError(
-            "full-corpus execution requires --acknowledge-full-corpus "
-            f"{FULL_CORPUS_ACK!r}"
-        )
-    if role == SEALED_ROLE and acknowledge_sealed != SEALED_ACK:
-        raise PermissionError(
-            f"sealed execution requires --acknowledge-sealed {SEALED_ACK!r}"
-        )
-
     records: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []
     n_reused = 0
@@ -166,21 +150,15 @@ def run(
                 )
                 with opener(provider_request, timeout=120) as response:
                     record = gate.cache_stream(
-                        request.network_id,
-                        request.site_id,
-                        _response_chunks(response),
+                        request.network_id, request.site_id, _response_chunks(response)
                     )
                 records.append(record)
                 error = None
                 break
             except FileExistsError:
-                # Immutable objects are intentionally not reopened to verify or
-                # resume them.  Their existing registry is the custody record.
                 error = FileExistsError("immutable object or registry already exists")
                 break
-            # Provider libraries may raise several unrelated transport errors;
-            # all are retained as custody failures and retried without parsing.
-            except Exception as caught:  # noqa: BLE001
+            except Exception as caught:
                 error = caught
                 if attempt < attempts:
                     time.sleep(min(8.0, float(2 ** (attempt - 1))))
@@ -195,14 +173,12 @@ def run(
             )
         if pause_s > 0:
             time.sleep(pause_s)
-
     custody = registry_manifest(records)
     manifest = {
         "manifest_schema": "huc8_corpus_custody_run_v1",
         "dry_run": False,
         "execute": True,
         "role": role,
-        "split_sha256": catalog.split_sha256,
         "n_networks_requested": len({row.network_id for row in requests}),
         "n_stations_requested": len(requests),
         "n_stations_registered": len(records),

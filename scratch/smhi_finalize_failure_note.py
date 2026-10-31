@@ -40,7 +40,6 @@ notice = {
         "script": "scratch/smhi_verify_smhi_ingest.py",
         "report": "scratch/smhi_verify_report.json",
         "cross_check_mismatches": verify["cross_check_mismatches"],
-        "n_stations_with_bad_sha256": verify["n_stations_with_bad_sha256"],
         "rescan_quality_codes": verify["independent_rescan"]["quality_code_counts"],
         "rescan_rows": verify["independent_rescan"]["n_rows_total"],
         "rescan_earliest": verify["independent_rescan"]["earliest_date_seen"],

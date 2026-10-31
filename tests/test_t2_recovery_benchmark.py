@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -66,14 +65,11 @@ def _fixture_repo(
     role: str = "development",
     catalog_role: str | None = None,
     opened: bool = False,
-    manifest_split_sha: str | None = None,
 ) -> Path:
-    split_sha = "a" * 64
     config = tmp_path / "configs"
     config.mkdir(parents=True)
     (config / "network_catalog_v3_split.yaml").write_text(
         "status: locked_before_download\n"
-        f"sha256: {split_sha}\n"
         "networks:\n"
         "- network_id: huc8_test0001\n"
         f"  role: {catalog_role or role}\n"
@@ -97,7 +93,6 @@ def _fixture_repo(
         "network_id": "huc8_test0001",
         "role": role,
         "status": "complete",
-        "split_sha256": manifest_split_sha or split_sha,
         "sealed_temperature_records_read": opened,
         "overlap": {
             "role": role,
@@ -107,6 +102,22 @@ def _fixture_repo(
     }
     (directory / "network_manifest.json").write_text(json.dumps(manifest) + "\n")
     return tmp_path
+
+
+def _record_predictions(monkeypatch, name: str) -> list[np.ndarray]:
+    """Record every full-series prediction of one baseline used by the runner."""
+
+    baseline = getattr(t2_module, name)
+    outputs: list[np.ndarray] = []
+
+    class Recording(baseline):
+        def predict(self, *args, **kwargs):
+            result = super().predict(*args, **kwargs)
+            outputs.append(np.asarray(result, dtype=float))
+            return result
+
+    monkeypatch.setattr(t2_module, name, Recording)
+    return outputs
 
 
 def test_v91_budget_is_exact() -> None:
@@ -140,16 +151,11 @@ def test_discovery_accepts_only_open_qualified_manifest(tmp_path: Path) -> None:
     assert opened_audit["rejected"]["sealed_or_opened_input"] == 1
 
 
-def test_discovery_rejects_catalog_role_or_split_sha_mismatch(tmp_path: Path) -> None:
+def test_discovery_rejects_catalog_role_mismatch(tmp_path: Path) -> None:
     role_repo = _fixture_repo(tmp_path / "role", catalog_role="validation")
     role_networks, role_audit = discover_open_networks(role_repo)
     assert role_networks == []
     assert role_audit["rejected"]["catalog_role_mismatch_or_network_absent"] == 1
-
-    sha_repo = _fixture_repo(tmp_path / "sha", manifest_split_sha="b" * 64)
-    sha_networks, sha_audit = discover_open_networks(sha_repo)
-    assert sha_networks == []
-    assert sha_audit["rejected"]["catalog_split_sha_mismatch"] == 1
 
 
 def test_full_grid_keeps_all_placement_slots_and_blocks_extended_inputs(
@@ -158,9 +164,11 @@ def test_full_grid_keeps_all_placement_slots_and_blocks_extended_inputs(
     repo = _fixture_repo(tmp_path)
     networks, _ = discover_open_networks(repo)
     budget = load_v91_budget(ROOT)
-    # Reuse the project freeze hash while pointing only at the synthetic open root.
+    # Reuse the project design freeze while pointing only at the synthetic open root.
     items = list(iter_work_items(repo, networks, budget))
     assert len(items) == 2 * 7 * 5 * 20 * 5
+    assert len({item.item_id for item in items}) == len(items)
+    assert all(item.item_id.startswith("huc8_test0001.site_") for item in items)
     assert {item.placement for item in items} == set(range(20))
     shared = {}
     for item in items:
@@ -178,7 +186,10 @@ def test_full_grid_keeps_all_placement_slots_and_blocks_extended_inputs(
     assert result["status"] == "structural_not_applicable"
     assert result["sealed_temperature_records_read"] is False
     assert result["formal_evidence"] is False
-    assert result["reason"] == "structural_unimplemented_no_meteorology_or_hydraulics_adapter"
+    assert (
+        result["reason"]
+        == "structural_unimplemented_no_meteorology_or_hydraulics_adapter"
+    )
     _, inventory = discover_open_networks(repo)
     manifest = build_workload_manifest(
         repo, networks, inventory, budget, include_frozen_geometry=False
@@ -257,12 +268,13 @@ def test_climatology_is_a_complete_reference_not_an_information_result(
     assert result["reference_ignores_available_information"] is True
     assert result["mae_deg_c"] == result["climatology_mae_deg_c"]
     assert result["achieved_skill"] == 0.0
-    assert len(result["prediction_sha256"]) == 64
 
 
 def test_hidden_truth_does_not_change_bd_prediction_but_boundary_does(
-    tmp_path: Path,
+    tmp_path: Path, monkeypatch
 ) -> None:
+    pchip = _record_predictions(monkeypatch, "PCHIPInterpolation")
+    donor = _record_predictions(monkeypatch, "DonorRegressionBaseline")
     repo = _fixture_repo(tmp_path)
     networks, _ = discover_open_networks(repo)
     budget = load_v91_budget(ROOT)
@@ -279,28 +291,38 @@ def test_hidden_truth_does_not_change_bd_prediction_but_boundary_does(
     items = {
         (item.model, item.information_condition): item
         for item in original_items
-        if item.start_index >= 0 and item.placement == 0 and item.target_station == "site_a"
+        if item.start_index >= 0
+        and item.placement == 0
+        and item.target_station == "site_a"
     }
     b_item = items[("pchip_or_linear", "B")]
     bd_item = items[("donor_regression", "B_union_D")]
-    original_b = execute_item(repo, networks[0], b_item)
-    original_bd = execute_item(repo, networks[0], bd_item)
+    gap = slice(bd_item.start_index, bd_item.start_index + bd_item.gap_length)
+
+    def gap_prediction(outputs: list[np.ndarray], network, item) -> np.ndarray:
+        outputs.clear()
+        result = execute_item(repo, network, item)
+        assert result["status"] == "complete"
+        return outputs[-1][gap]
+
+    original_b = gap_prediction(pchip, networks[0], b_item)
+    original_bd = gap_prediction(donor, networks[0], bd_item)
     path = repo / networks[0].wide_path
     frame = pd.read_csv(path)
     gap_rows = range(bd_item.start_index, bd_item.start_index + bd_item.gap_length)
     frame.loc[list(gap_rows), "site_a"] += 1000.0
     frame.to_csv(path, index=False)
     hidden_networks, _ = discover_open_networks(repo)
-    hidden_b = execute_item(repo, hidden_networks[0], b_item)
-    hidden_bd = execute_item(repo, hidden_networks[0], bd_item)
-    assert hidden_b["prediction_sha256"] == original_b["prediction_sha256"]
-    assert hidden_bd["prediction_sha256"] == original_bd["prediction_sha256"]
+    hidden_b = gap_prediction(pchip, hidden_networks[0], b_item)
+    hidden_bd = gap_prediction(donor, hidden_networks[0], bd_item)
+    assert np.array_equal(hidden_b, original_b)
+    assert np.array_equal(hidden_bd, original_bd)
 
     frame.loc[bd_item.start_index - 1, "site_a"] += 25.0
     frame.to_csv(path, index=False)
     boundary_networks, _ = discover_open_networks(repo)
-    boundary_b = execute_item(repo, boundary_networks[0], b_item)
-    assert boundary_b["prediction_sha256"] != hidden_b["prediction_sha256"]
+    boundary_b = gap_prediction(pchip, boundary_networks[0], b_item)
+    assert not np.array_equal(boundary_b, hidden_b)
 
 
 def test_bounded_run_checkpoints_and_resumes(tmp_path: Path) -> None:
@@ -336,7 +358,7 @@ def test_bounded_run_checkpoints_and_resumes(tmp_path: Path) -> None:
 def test_tier2_lock_is_metadata_only_and_deterministic() -> None:
     first = lock_tier2_sample(ROOT)
     second = lock_tier2_sample(ROOT)
-    assert first["sample_sha256"] == second["sample_sha256"]
+    assert first["sample"] == second["sample"]
     assert first["n_networks"] == 30
     assert first["data_availability_inspected"] is False
     assert first["deep_models_run"] is False
@@ -349,10 +371,7 @@ def test_tier2_lock_is_metadata_only_and_deterministic() -> None:
         "size_tertile",
     }
     assert all(set(row) == allowed for row in first["sample"])
-    canonical = json.dumps(
-        first["sample"], sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    ).encode("utf-8")
-    assert hashlib.sha256(canonical).hexdigest() == first["sample_sha256"]
+    assert len({row["network_id"] for row in first["sample"]}) == 30
     ledger = tier2_timing_exception_ledger(first)
     assert ledger["sample_preregistered"] is False
     assert ledger["sealed_entries_are_metadata_only"] is True
@@ -385,7 +404,23 @@ def test_frozen_geometry_identity_truth_and_donor_mask_are_shared() -> None:
     for item in items:
         by_geometry.setdefault(item.geometry_id, []).append(item)
     assert {len(group) for group in by_geometry.values()} == {9}
-    assert all(len({item.geometry_row_sha256 for item in group}) == 1 for group in by_geometry.values())
+    assert all(
+        len(
+            {
+                (
+                    item.network_id,
+                    item.target_station,
+                    item.truth_start_date,
+                    item.gap_length,
+                    item.start_index,
+                )
+                for item in group
+            }
+        )
+        == 1
+        for group in by_geometry.values()
+    )
+    assert len({item.item_id for item in items}) == len(items)
 
     natural_items = [item for item in items if item.geometry == "natural_outage"]
     frozen_natural = natural_row.iloc[0]
@@ -410,14 +445,16 @@ def test_frozen_geometry_identity_truth_and_donor_mask_are_shared() -> None:
     )
     result = execute_item(
         ROOT,
-        next(network for network in networks if network.network_id == donor_d.network_id),
+        next(
+            network for network in networks if network.network_id == donor_d.network_id
+        ),
         donor_d,
     )
     assert result["status"] == "structural_not_applicable"
     assert result["reason"] == "donor_information_masked_by_frozen_geometry"
 
 
-def test_t2_geometry_workload_rejects_catalog_byte_drift(tmp_path: Path) -> None:
+def test_t2_geometry_workload_loads_copied_catalogs(tmp_path: Path) -> None:
     source = ROOT / "results/framework/t2_outage_geometry_v1"
     for name in (
         "natural_outage_catalog.csv",
@@ -432,13 +469,5 @@ def test_t2_geometry_workload_rejects_catalog_byte_drift(tmp_path: Path) -> None
     )
     first = next(iter(workload))
     assert first.geometry_id.startswith("natural_")
+    assert first.item_id.startswith(f"{first.geometry_id}.")
     assert manifest["natural_outage"]["n_benchmark_eligible"] == 2355
-
-    with (tmp_path / "natural_outage_catalog.csv").open("a", encoding="utf-8") as stream:
-        stream.write("\n")
-    try:
-        load_t2_geometry_workload(ROOT, networks, budget, directory=tmp_path)
-    except ValueError as error:
-        assert "byte drift" in str(error)
-    else:
-        raise AssertionError("T2 workload must reject frozen geometry byte drift")

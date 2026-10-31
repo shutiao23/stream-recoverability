@@ -21,8 +21,7 @@
   },
   "data_version_manifest": {
     "bytes": 2316,
-    "path": "data_versions/published_v2/version_manifest.json",
-    "sha256": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de"
+    "path": "data_versions/published_v2/version_manifest.json"
   },
   "evaluation_split": "development_test",
   "finalized": true,
@@ -39,8 +38,7 @@
       "donor_regression",
       "random_forest",
       "xgboost"
-    ],
-    "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c"
+    ]
   },
   "formal_root": "results",
   "frontier_anchor_catalog": {
@@ -48,8 +46,7 @@
     "count": 180,
     "data_version": "published_v2",
     "evaluation_split": "development_test",
-    "path": "metadata/frontier_anchors_v2.csv",
-    "sha256": "49b6e5f22ee9f94fe1fe4ca8d53eec794e040b934769d2fb95be7b0c2b07f8ba"
+    "path": "metadata/frontier_anchors_v2.csv"
   },
   "not_applicable_suites": [
     {
@@ -64,24 +61,18 @@
     }
   ],
   "registry_builder_identity": {
-    "identity_hash_scope": "canonical_json_excluding_identity_sha256",
-    "identity_sha256": "982deb39c48961b5e30aa992097bbe04a1fec2086b6d866b144deac4ccf0649d",
     "schema_version": "formal_registry_builder_identity_v1",
     "sources": [
       {
         "bytes": 3383,
-        "path": "scripts/21_build_formal_suite_registry.py",
-        "sha256": "281f71d17d48c348ae9547fc946ef03b0d1891a4ca62d87212a6c9c39a211d6e"
+        "path": "scripts/21_build_formal_suite_registry.py"
       },
       {
         "bytes": 79916,
-        "path": "src/stream_recoverability/analysis/formal_registry.py",
-        "sha256": "169da1082b7528184c783739460c16a4f3634129ba8c30ee3a62b8437408a210"
+        "path": "src/stream_recoverability/analysis/formal_registry.py"
       }
     ]
   },
-  "registry_hash_scope": "canonical_json_excluding_registry_sha256",
-  "registry_sha256": "22aa7f4b47f7c12ee6deea47cdb1cddd044ef265c079fdb8cfeef00c5058cc9e",
   "required_suite_roles": [
     "core_full",
     "dense_frontier",
@@ -96,18 +87,15 @@
     {
       "daily_predictions": {
         "bytes": 169652260,
-        "path": "results/experiments_v2/published_v2/development_test/full/daily_predictions.parquet",
-        "sha256": "9b3d62d54735474ed5afd480cb62fd0b1b1993f09f290a871903d7440e358ead"
+        "path": "results/experiments_v2/published_v2/development_test/full/daily_predictions.parquet"
       },
       "event_metrics": {
         "bytes": 12612952,
-        "path": "results/experiments_v2/published_v2/development_test/full/event_metrics.parquet",
-        "sha256": "365d734a2ad643fcd1128029cb30602c64b235badd64ca1270e481a1170fce29"
+        "path": "results/experiments_v2/published_v2/development_test/full/event_metrics.parquet"
       },
       "manifest": {
         "bytes": 48946512,
-        "path": "results/experiments_v2/published_v2/development_test/full/run_manifest.json",
-        "sha256": "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
+        "path": "results/experiments_v2/published_v2/development_test/full/run_manifest.json"
       },
       "models": [
         "climatology",
@@ -128,18 +116,15 @@
     {
       "daily_predictions": {
         "bytes": 9245142,
-        "path": "results/science_experiments/published_v2/development_test/dense/daily_predictions.parquet",
-        "sha256": "625c62fdb4bfb455e02ec1fda0e34110cccfd7f5a6d3a733410eca7fe849a9ad"
+        "path": "results/science_experiments/published_v2/development_test/dense/daily_predictions.parquet"
       },
       "event_metrics": {
         "bytes": 1004040,
-        "path": "results/science_experiments/published_v2/development_test/dense/event_metrics.parquet",
-        "sha256": "a0c54b3ca901b07f80ed020702e409eed78319f5555ca73aae5e04a41a060c6b"
+        "path": "results/science_experiments/published_v2/development_test/dense/event_metrics.parquet"
       },
       "manifest": {
         "bytes": 3995990,
-        "path": "results/science_experiments/published_v2/development_test/dense/run_manifest.json",
-        "sha256": "4a322dac18121043792b4ca3581ecaef7bca3e099419b9e5b924b4545c1b940b"
+        "path": "results/science_experiments/published_v2/development_test/dense/run_manifest.json"
       },
       "models": [
         "climatology",
@@ -158,18 +143,15 @@
     {
       "daily_predictions": {
         "bytes": 923996,
-        "path": "results/science_experiments/published_v2/development_test/donor_falsification/daily_predictions.parquet",
-        "sha256": "5c652f3b623039bcd5e3cf9209fbb0e679167c78b9de2d753df81a2a4d52a7f3"
+        "path": "results/science_experiments/published_v2/development_test/donor_falsification/daily_predictions.parquet"
       },
       "event_metrics": {
         "bytes": 605885,
-        "path": "results/science_experiments/published_v2/development_test/donor_falsification/event_metrics.parquet",
-        "sha256": "9df69ce51f5b0979b4e7013131044995699f450cb5090095747738b3a39d639c"
+        "path": "results/science_experiments/published_v2/development_test/donor_falsification/event_metrics.parquet"
       },
       "manifest": {
         "bytes": 4035015,
-        "path": "results/science_experiments/published_v2/development_test/donor_falsification/run_manifest.json",
-        "sha256": "8e44678abce34c82caa7fa19c56f5fa8e30f385d17f96f29117e77f4aa0b788c"
+        "path": "results/science_experiments/published_v2/development_test/donor_falsification/run_manifest.json"
       },
       "models": [
         "donor_regression"
@@ -180,18 +162,15 @@
     {
       "daily_predictions": {
         "bytes": 7395521,
-        "path": "results/science_experiments/published_v2/development_test/resilience/daily_predictions.parquet",
-        "sha256": "0b6670064689218f2499f403b36e4c2d75a71a82bfa3aaa55c66c580b9436536"
+        "path": "results/science_experiments/published_v2/development_test/resilience/daily_predictions.parquet"
       },
       "event_metrics": {
         "bytes": 1005429,
-        "path": "results/science_experiments/published_v2/development_test/resilience/event_metrics.parquet",
-        "sha256": "b49f36ddaa5de36f730968d16716b2ad19c1f12728719cf685fecbe65af6c2ea"
+        "path": "results/science_experiments/published_v2/development_test/resilience/event_metrics.parquet"
       },
       "manifest": {
         "bytes": 8668102,
-        "path": "results/science_experiments/published_v2/development_test/resilience/run_manifest.json",
-        "sha256": "d442c46b15a6567d35ff5cef987903e2797b4a7f398bbde6f42770a2f2f691db"
+        "path": "results/science_experiments/published_v2/development_test/resilience/run_manifest.json"
       },
       "models": [
         "climatology",
@@ -228,9 +207,6 @@
       ],
       "reason": null,
       "role": "core_full",
-      "source_manifest_sha256": [
-        "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
-      ],
       "status": "complete"
     },
     {
@@ -250,9 +226,6 @@
       ],
       "reason": null,
       "role": "dense_frontier",
-      "source_manifest_sha256": [
-        "4a322dac18121043792b4ca3581ecaef7bca3e099419b9e5b924b4545c1b940b"
-      ],
       "status": "complete"
     },
     {
@@ -272,9 +245,6 @@
       ],
       "reason": null,
       "role": "network_resilience",
-      "source_manifest_sha256": [
-        "d442c46b15a6567d35ff5cef987903e2797b4a7f398bbde6f42770a2f2f691db"
-      ],
       "status": "complete"
     },
     {
@@ -296,9 +266,6 @@
       ],
       "reason": null,
       "role": "event_uncertainty",
-      "source_manifest_sha256": [
-        "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
-      ],
       "status": "complete"
     },
     {
@@ -306,7 +273,6 @@
       "manifest_suites": [],
       "reason": "proposed_decision=framework_only",
       "role": "operational_dropout",
-      "source_manifest_sha256": [],
       "status": "not_applicable"
     },
     {
@@ -314,7 +280,6 @@
       "manifest_suites": [],
       "reason": "proposed_decision=framework_only",
       "role": "retrained_upper_bound",
-      "source_manifest_sha256": [],
       "status": "not_applicable"
     },
     {
@@ -326,9 +291,6 @@
       ],
       "reason": null,
       "role": "donor_c_falsification",
-      "source_manifest_sha256": [
-        "8e44678abce34c82caa7fa19c56f5fa8e30f385d17f96f29117e77f4aa0b788c"
-      ],
       "status": "complete"
     }
   ],

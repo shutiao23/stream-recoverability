@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import hashlib
-from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+import stream_recoverability.experiments.t2_online_causal as online_module
 from stream_recoverability.experiments.t2_online_causal import (
     NONNEGATIVE_DONOR_LAGS,
     bind_online_item,
@@ -26,8 +25,19 @@ from stream_recoverability.experiments.t2_recovery_benchmark import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _file_sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def _record_donor_predictions(monkeypatch) -> list[np.ndarray]:
+    """Record every full-series donor-regression prediction of the online runner."""
+
+    outputs: list[np.ndarray] = []
+
+    class Recording(online_module.DonorRegressionBaseline):
+        def predict(self, *args, **kwargs):
+            result = super().predict(*args, **kwargs)
+            outputs.append(np.asarray(result, dtype=float))
+            return result
+
+    monkeypatch.setattr(online_module, "DonorRegressionBaseline", Recording)
+    return outputs
 
 
 def _fixture(tmp_path: Path) -> tuple[Path, OpenNetwork, pd.DataFrame]:
@@ -54,7 +64,6 @@ def _fixture(tmp_path: Path) -> tuple[Path, OpenNetwork, pd.DataFrame]:
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path=str(path.relative_to(tmp_path)),
-        wide_sha256=_file_sha(path),
         manifest_path="unused.json",
         n_days=len(frame),
         n_stations=2,
@@ -62,7 +71,9 @@ def _fixture(tmp_path: Path) -> tuple[Path, OpenNetwork, pd.DataFrame]:
     return tmp_path, network, frame
 
 
-def _offline_item(*, model: str = "donor_regression", information: str = "B_union_D") -> WorkItem:
+def _offline_item(
+    *, model: str = "donor_regression", information: str = "B_union_D"
+) -> WorkItem:
     return WorkItem(
         ordinal=7,
         item_id="offline-item",
@@ -80,19 +91,16 @@ def _offline_item(*, model: str = "donor_regression", information: str = "B_unio
     )
 
 
-def _rewrite(
-    repo: Path, network: OpenNetwork, frame: pd.DataFrame
-) -> OpenNetwork:
-    path = repo / network.wide_path
-    frame.to_csv(path)
-    return replace(network, wide_sha256=_file_sha(path))
+def _rewrite(repo: Path, network: OpenNetwork, frame: pd.DataFrame) -> OpenNetwork:
+    frame.to_csv(repo / network.wide_path)
+    return network
 
 
 def test_online_binding_preserves_frozen_placement_and_identity() -> None:
     offline = _offline_item()
     online = bind_online_item(offline)
     assert online.task == "online_causal"
-    assert online.item_id != offline.item_id
+    assert online.item_id == "offline-item.online_causal"
     assert placement_signature(online) == placement_signature(offline)
     for field in (
         "start_index",
@@ -118,10 +126,15 @@ def test_online_exposure_hides_gap_and_all_later_target(tmp_path: Path) -> None:
     assert NONNEGATIVE_DONOR_LAGS == tuple(range(31))
 
 
-def test_future_target_and_right_boundary_cannot_change_prediction(tmp_path: Path) -> None:
+def test_future_target_and_right_boundary_cannot_change_prediction(
+    tmp_path: Path, monkeypatch
+) -> None:
+    predictions = _record_donor_predictions(monkeypatch)
     repo, network, frame = _fixture(tmp_path)
     item = bind_online_item(_offline_item())
+    gap = slice(item.start_index, item.start_index + item.gap_length)
     original = execute_online_item(repo, network, item)
+    original_prediction = predictions[-1][gap]
     assert original["status"] == "complete"
     assert original["right_boundary_exposed_to_model"] is False
     assert original["post_gap_target_exposed_to_model"] is False
@@ -135,23 +148,31 @@ def test_future_target_and_right_boundary_cannot_change_prediction(tmp_path: Pat
     changed_network = _rewrite(repo, network, changed)
     rerun = execute_online_item(repo, changed_network, item)
     assert rerun["status"] == "complete"
-    assert rerun["prediction_sha256"] == original["prediction_sha256"]
+    assert np.array_equal(predictions[-1][gap], original_prediction)
 
 
 def test_left_history_is_consumed_but_offline_model_identities_are_not_renamed(
-    tmp_path: Path,
+    tmp_path: Path, monkeypatch
 ) -> None:
+    predictions = _record_donor_predictions(monkeypatch)
     repo, network, frame = _fixture(tmp_path)
     donor = bind_online_item(_offline_item())
+    gap = slice(donor.start_index, donor.start_index + donor.gap_length)
     original = execute_online_item(repo, network, donor)
+    assert original["status"] == "complete"
+    original_prediction = predictions[-1][gap]
     changed = frame.copy()
     changed.iloc[donor.start_index - 1, changed.columns.get_loc("target")] += 100.0
     changed_network = _rewrite(repo, network, changed)
     rerun = execute_online_item(repo, changed_network, donor)
-    assert rerun["prediction_sha256"] != original["prediction_sha256"]
+    assert rerun["status"] == "complete"
+    assert not np.array_equal(predictions[-1][gap], original_prediction)
 
     for model, reason in (
-        ("pchip_or_linear", "registered_pchip_or_linear_identity_requires_future_boundary"),
+        (
+            "pchip_or_linear",
+            "registered_pchip_or_linear_identity_requires_future_boundary",
+        ),
         ("kalman", "registered_kalman_smoother_identity_uses_future_observations"),
     ):
         item = bind_online_item(_offline_item(model=model, information="B"))
@@ -173,16 +194,19 @@ def test_manifest_counts_partition_the_shared_artificial_grid(tmp_path: Path) ->
     )
     expected = 2 * 7 * 5 * 20 * 5
     assert manifest["n_work_items"] == expected
-    assert sum(
-        manifest["counts"][name]
-        for name in (
-            "executable",
-            "reference",
-            "structural_not_applicable",
-            "data_ineligible",
-            "external_dependency",
+    assert (
+        sum(
+            manifest["counts"][name]
+            for name in (
+                "executable",
+                "reference",
+                "structural_not_applicable",
+                "data_ineligible",
+                "external_dependency",
+            )
         )
-    ) == expected
+        == expected
+    )
     assert manifest["placement_binding"]["reselected_for_online"] is False
     assert manifest["formal_evidence"] is False
     items = iter_online_workload(

@@ -8,12 +8,13 @@ so their own start month can differ without changing anchor identity.
 
 from __future__ import annotations
 
-import hashlib
 from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+from stream_recoverability.seeds import plain_seed, position_index
 
 from ._common import centered_bounds, stable_scenario_id, valid_block_starts
 
@@ -48,6 +49,16 @@ _SOURCE_SPLIT_BY_EVALUATION = {
     "confirmatory": "confirmatory",
     "test": "test",
 }
+# Fixed integer codes that keep the anchor draws of the two catalog families
+# and of the evaluation-split labels apart.  An unlisted label uses code 0.
+_FRONTIER_ANCHOR_DRAW = 1
+_VALIDATION_ANCHOR_DRAW = 2
+_EVALUATION_SPLIT_CODES = {
+    "development_test": 1,
+    "test": 2,
+    "validation": 3,
+    "confirmatory": 4,
+}
 
 
 class AnchorAvailabilityError(ValueError):
@@ -74,10 +85,10 @@ def meteorological_season(month: int) -> str:
     raise ValueError("month must be in 1..12")
 
 
-def _stable_rng(*parts: object) -> np.random.Generator:
-    payload = "\x1f".join(str(part) for part in parts).encode("utf-8")
-    seed = int.from_bytes(hashlib.sha256(payload).digest()[:8], "little")
-    return np.random.default_rng(seed)
+def _anchor_rng(*parts: int) -> np.random.Generator:
+    """Return the draw stream for one anchor from non-negative integer parts."""
+
+    return np.random.default_rng(plain_seed(*parts))
 
 
 def _normalize_frame(
@@ -403,25 +414,26 @@ def generate_frontier_anchor_catalog(
         raise AnchorAvailabilityError(availability)
 
     flow_lookup, seasonal_thresholds, global_thresholds = _flow_reference(frame)
+    station_positions = position_index(stations)
+    target_positions = position_index(target_names)
+    split_code = _EVALUATION_SPLIT_CODES.get(evaluation_split, 0)
     anchor_rows: list[dict[str, object]] = []
     for station_id in stations:
         for target in target_names:
             for season_index, season in enumerate(FRONTIER_SEASONS):
                 remaining = list(centers_by_group[(station_id, target, season)])
                 season_seeds = seeds[
-                    season_index
-                    * anchors_per_season : (season_index + 1)
+                    season_index * anchors_per_season : (season_index + 1)
                     * anchors_per_season
                 ]
                 for mask_seed in season_seeds:
-                    rng = _stable_rng(
-                        "frontier_anchor_v1",
-                        data_version,
-                        evaluation_split,
-                        station_id,
-                        target,
-                        season,
-                        mask_seed,
+                    rng = _anchor_rng(
+                        _FRONTIER_ANCHOR_DRAW,
+                        split_code,
+                        station_positions[station_id],
+                        target_positions[target],
+                        season_index,
+                        int(mask_seed),
                     )
                     selected_position = int(rng.integers(0, len(remaining)))
                     center_index = int(remaining.pop(selected_position))
@@ -483,7 +495,10 @@ def _normalize_anchor_catalog(
         raise ValueError("anchor catalog is empty")
     frame = catalog.loc[:, list(expected_columns)].copy()
     for column in ("anchor_id", "station_id", "target", "season"):
-        if frame[column].isna().any() or not frame[column].astype(str).str.strip().all():
+        if (
+            frame[column].isna().any()
+            or not frame[column].astype(str).str.strip().all()
+        ):
             raise ValueError(f"anchor catalog has empty {column} values")
         frame[column] = frame[column].astype(str)
     for column in (
@@ -641,6 +656,7 @@ def generate_validation_anchor_catalog(
         raise ValueError(f"validation anchor stations are absent from data: {unknown}")
 
     flow_lookup, seasonal_thresholds, global_thresholds = _flow_reference(frame)
+    station_positions = position_index(stations)
     rows: list[dict[str, object]] = []
     availability_rows: list[dict[str, object]] = []
     for station_index, station_id in enumerate(stations):
@@ -691,12 +707,11 @@ def generate_validation_anchor_catalog(
             )
             if candidates.size == 0:
                 continue
-            rng = _stable_rng(
-                "validation_anchor_v1",
-                data_version,
-                station_id,
-                season,
-                mask_seed,
+            rng = _anchor_rng(
+                _VALIDATION_ANCHOR_DRAW,
+                station_positions[station_id],
+                FRONTIER_SEASONS.index(season),
+                int(mask_seed),
             )
             center_index = int(rng.choice(candidates))
             selected_centers.add(center_index)
@@ -777,7 +792,9 @@ def load_validation_anchor_catalog(
         raise ValueError("validation anchors must be jointly T/F/L complete")
     for station_id, group in frame.groupby("station_id", observed=True):
         if set(group["mask_seed"]) != set(VALIDATION_MASK_SEEDS) or len(group) != 5:
-            raise ValueError(f"validation station {station_id} must have seeds 101..105")
+            raise ValueError(
+                f"validation station {station_id} must have seeds 101..105"
+            )
         if set(group["season"]) != set(FRONTIER_SEASONS):
             raise ValueError(
                 f"validation station {station_id} must cover all four seasons"
@@ -811,13 +828,17 @@ def audit_anchor_availability(
     for anchor in anchors.itertuples(index=False):
         center_date = pd.Timestamp(anchor.center_date).normalize()
         matches = np.flatnonzero(dates == center_date)
-        index_matches = matches.size == 1 and int(matches[0]) == int(anchor.center_index)
+        index_matches = matches.size == 1 and int(matches[0]) == int(
+            anchor.center_index
+        )
         variables = tuple(
             map(
                 str,
                 (variables_by_anchor or {}).get(
                     str(anchor.anchor_id),
-                    str(getattr(anchor, "complete_variables", anchor.target)).split("_"),
+                    str(getattr(anchor, "complete_variables", anchor.target)).split(
+                        "_"
+                    ),
                 ),
             )
         )
@@ -831,10 +852,14 @@ def audit_anchor_availability(
                 int(anchor.center_index), int(anchor.max_supported_length), len(dates)
             )
             for variable in variables:
-                selected = frame.loc[
-                    frame["station_id"].astype(str).eq(str(anchor.station_id))
-                    & frame["variable"].astype(str).eq(variable)
-                ].set_index("date").reindex(dates[start:stop])
+                selected = (
+                    frame.loc[
+                        frame["station_id"].astype(str).eq(str(anchor.station_id))
+                        & frame["variable"].astype(str).eq(variable)
+                    ]
+                    .set_index("date")
+                    .reindex(dates[start:stop])
+                )
                 values = pd.to_numeric(selected["value"], errors="coerce")
                 eligible = (
                     selected["quality_approved"].fillna(False).astype(bool)

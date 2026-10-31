@@ -45,7 +45,6 @@
   "identity": "generic_target_disagreement__leave_one_year_out__all__source_only__all_providers",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_target_disagreement__leave_one_year_out__all__source_only__all_providers.joblib",
-  "model_sha256": "88472f0353099b42f9748e83f92d7d0aa950a12664788bb85a556c33dbac117b",
   "n_training_cases": 321826,
   "n_training_groups": 145,
   "name": "generic_target_disagreement",
@@ -55,8 +54,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
-      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet"
     }
   ],
   "source_thresholds": {

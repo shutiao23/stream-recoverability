@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Assemble wave-2 confirmation input manifest from ready provider panels.
 
-Does not score. Writes hashed manifest under p0_07_wave2_ingest/.
+Does not score. Writes the manifest of ready panels under p0_07_wave2_ingest/.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -23,24 +22,21 @@ MIN_YEARS = 4
 MIN_STATIONS = 2
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def complete_years(series: pd.Series) -> list[int]:
     values = pd.to_numeric(series, errors="coerce")
     arr = values.to_numpy(dtype=float)
-    arr = np.where(np.isfinite(arr) & ((arr < TEMP_MIN) | (arr > TEMP_MAX)), np.nan, arr)
+    arr = np.where(
+        np.isfinite(arr) & ((arr < TEMP_MIN) | (arr > TEMP_MAX)), np.nan, arr
+    )
     values = pd.Series(arr, index=values.index)
     years = []
     for year, block in values.groupby(values.index.year):
         expected = 366 if pd.Timestamp(int(year), 12, 31).is_leap_year else 365
         finite = block.dropna()
-        if len(finite) >= expected - 1 and np.isfinite(finite.to_numpy(dtype=float)).all():
+        if (
+            len(finite) >= expected - 1
+            and np.isfinite(finite.to_numpy(dtype=float)).all()
+        ):
             years.append(int(year))
     return years
 
@@ -125,13 +121,14 @@ def collect_usgs(used: set[str]) -> list[dict]:
                 "station_ids_ge4": ";".join(sorted(eligible)),
                 "input_path": str(panel_path.relative_to(ROOT)),
                 "bytes": panel_path.stat().st_size,
-                "sha256": sha256_file(panel_path),
             }
         )
     return rows
 
 
-def collect_provider(name: str, used: set[str], *, panel_role: str = "primary_new_agency") -> list[dict]:
+def collect_provider(
+    name: str, used: set[str], *, panel_role: str = "primary_new_agency"
+) -> list[dict]:
     rows = []
     root = OUT / name / "networks"
     if not root.is_dir():
@@ -155,13 +152,14 @@ def collect_provider(name: str, used: set[str], *, panel_role: str = "primary_ne
             {
                 "network_id": net_dir.name,
                 "provider": name if name != "eccc" else "eccc_automated",
-                "context": context_for(name if name != "eccc" else "eccc_automated", net_dir.name),
+                "context": context_for(
+                    name if name != "eccc" else "eccc_automated", net_dir.name
+                ),
                 "panel_role": panel_role,
                 "n_stations_ge4": len(eligible),
                 "station_ids_ge4": ";".join(sorted(eligible)),
                 "input_path": str(panel_path.relative_to(ROOT)),
                 "bytes": panel_path.stat().st_size,
-                "sha256": sha256_file(panel_path),
             }
         )
     return rows
@@ -193,11 +191,12 @@ def main() -> int:
         "floors_met": bool(
             len(manifest) >= 30 and len(providers) >= 3 and len(contexts) >= 3
         ),
-        "manifest_sha256": sha256_file(path),
         "scored": False,
         "note": "Wave-2 assembled manifest only; not scored.",
     }
-    (OUT / "wave2_manifest_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    (OUT / "wave2_manifest_summary.json").write_text(
+        json.dumps(summary, indent=2) + "\n"
+    )
     print(json.dumps(summary, indent=2))
     return 0 if summary["floors_met"] else 2
 

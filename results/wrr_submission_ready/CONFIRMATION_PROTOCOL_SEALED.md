@@ -43,12 +43,11 @@ File: `P0_06_method_freeze.json`
 
 ```
 PYTHONPATH=src python3 scripts/230_wrr_sealed_confirmation.py --dry-run
-# after freeze hashes recorded:
+# after the freeze is recorded:
 PYTHONPATH=src python3 scripts/230_wrr_sealed_confirmation.py --unseal
 ```
 
-Dry-run writes the candidate list and input hashes without scoring.  
-Unseal refuses to run unless `P0_06_method_freeze.json` and input manifests match the recorded seal hashes.
+Dry-run writes the candidate list and the input manifest without scoring.
 
 ## Failure收口
 

@@ -118,7 +118,7 @@ same-horizon support.
 
 - Artifacts archived under the repository's versioned results namespaces (per-panel scoring,
   master ladder tables, paired bootstraps; see `paper/development_v13/evidence_ledger_v13.md`).
-- Evidence-role statement: second-panel outcomes are internally frozen and hash-bound but,
+- Evidence-role statement: second-panel outcomes are internally frozen but,
   because amendment and outcomes entered version control in the same commit, they are not
   externally verifiable preregistration; all revision analyses are post-hoc development on
   already-scored panels (\cite{pfister2017debates} labeling). No automatic filling or

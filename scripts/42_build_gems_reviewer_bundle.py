@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import csv
-import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -74,14 +73,6 @@ ANCHOR_FILES = (
 )
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def _load_rights() -> dict[str, str]:
     mapping: dict[str, str] = {}
     if not DATA_RIGHTS.is_file():
@@ -117,8 +108,7 @@ def _rights_class(relative: str, rights: dict[str, str]) -> str:
     if relative.startswith("masks/"):
         return "restricted:compact_bitmask_or_hidden_dates"
     if relative.startswith("metadata/") and any(
-        token in relative
-        for token in ("anchors", "event_episode_catalog")
+        token in relative for token in ("anchors", "event_episode_catalog")
     ):
         return "restricted:anchor_or_event_catalog"
     if relative.startswith(("DATA_RIGHTS.md", "metadata/", "paper/")):
@@ -127,7 +117,10 @@ def _rights_class(relative: str, rights: dict[str, str]) -> str:
 
 
 def _skip(path: Path) -> bool:
-    return any(part in IGNORED_NAMES for part in path.parts) or path.suffix in IGNORED_SUFFIXES
+    return (
+        any(part in IGNORED_NAMES for part in path.parts)
+        or path.suffix in IGNORED_SUFFIXES
+    )
 
 
 def _expected_entries() -> list[dict[str, str]]:
@@ -135,9 +128,13 @@ def _expected_entries() -> list[dict[str, str]]:
         {"path": "README.md", "category": "bundle_index"},
         {"path": "MANIFEST.json", "category": "bundle_index"},
     ]
-    entries.extend({"path": path, "category": "documentation"} for path in DOCUMENTATION)
+    entries.extend(
+        {"path": path, "category": "documentation"} for path in DOCUMENTATION
+    )
     entries.extend({"path": path, "category": "raw_observations"} for path in RAW_CSVS)
-    entries.extend({"path": path, "category": "processed_tables"} for path in PROCESSED_FILES)
+    entries.extend(
+        {"path": path, "category": "processed_tables"} for path in PROCESSED_FILES
+    )
     for tree in VERSION_TREES:
         for relative in VERSION_RELATIVE_FILES:
             entries.append(
@@ -148,7 +145,8 @@ def _expected_entries() -> list[dict[str, str]]:
             )
     entries.extend({"path": path, "category": "jinsha_masks"} for path in MASK_FILES)
     entries.extend(
-        {"path": path, "category": "restricted_metadata_anchors"} for path in ANCHOR_FILES
+        {"path": path, "category": "restricted_metadata_anchors"}
+        for path in ANCHOR_FILES
     )
     return entries
 
@@ -160,7 +158,6 @@ def _copy_file(source: Path, relative: str) -> dict[str, object]:
     return {
         "path": relative,
         "bytes": destination.stat().st_size,
-        "sha256": _sha256(destination),
     }
 
 
@@ -287,7 +284,6 @@ def main() -> None:
     copied[readme_relative] = {
         "path": readme_relative,
         "bytes": (BUNDLE / readme_relative).stat().st_size,
-        "sha256": _sha256(BUNDLE / readme_relative),
     }
 
     manifest_records = []
@@ -307,9 +303,9 @@ def main() -> None:
         "files": manifest_records,
         "note": (
             "Confidential local bundle only. MANIFEST.json indexes the copied "
-            "files and is omitted from this file list so its own hash stays "
-            "stable. Do not set metadata/gems_reviewer_data_upload.json "
-            "uploaded=true until the GEMS upload is finished."
+            "files and is omitted from its own file list. Do not set "
+            "metadata/gems_reviewer_data_upload.json uploaded=true until the "
+            "GEMS upload is finished."
         ),
     }
     manifest_path = BUNDLE / "MANIFEST.json"
@@ -333,9 +329,7 @@ def main() -> None:
             missing.append(item["path"])
 
     additional = sorted(
-        path
-        for path in copied
-        if path not in {item["path"] for item in expected}
+        path for path in copied if path not in {item["path"] for item in expected}
     )
     inventory = {
         "schema_version": "gems_reviewer_bundle_inventory_v1",

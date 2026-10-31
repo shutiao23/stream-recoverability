@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -70,7 +69,9 @@ def _row(
     }
 
 
-def _predictors(network_ids: list[str], *, donor: float = 0.4, operator: float = 0.5) -> pd.DataFrame:
+def _predictors(
+    network_ids: list[str], *, donor: float = 0.4, operator: float = 0.5
+) -> pd.DataFrame:
     return pd.DataFrame(
         [
             {
@@ -101,7 +102,9 @@ def _assert_locked(manifest: dict[str, object]) -> None:
     assert set(manifest["scored_network_ids"]).isdisjoint(FORBIDDEN_SCORED_NETWORK_IDS)
 
 
-def test_slice_writer_does_not_set_passed_true_even_with_100_networks(tmp_path: Path) -> None:
+def test_slice_writer_does_not_set_passed_true_even_with_100_networks(
+    tmp_path: Path,
+) -> None:
     networks = [f"huc8_{index:08d}" for index in range(100)]
     rng = np.random.default_rng(0)
     rows = []
@@ -137,7 +140,9 @@ def test_slice_writer_does_not_set_passed_true_even_with_100_networks(tmp_path: 
     twin.mkdir(parents=True)
     twin_file = twin / "twin_e_manifest.json"
     twin_file.write_text('{"keep": true}\n', encoding="utf-8")
-    output = tmp_path / "results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_slice"
+    output = (
+        tmp_path / "results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_slice"
+    )
     manifest = write_w7_open_role_bd_slice(
         output_dir=output,
         results=pd.DataFrame(rows),
@@ -162,7 +167,10 @@ def test_n_lt_100_cannot_emit_tested_ci(tmp_path: Path) -> None:
     manifest = write_w7_open_role_bd_slice(
         output_dir=tmp_path / "slice",
         results=pd.DataFrame(
-            [_row(network_id=network, ordinal=index) for index, network in enumerate(networks)]
+            [
+                _row(network_id=network, ordinal=index)
+                for index, network in enumerate(networks)
+            ]
         ),
         predictors=_predictors(networks),
     )
@@ -212,7 +220,12 @@ def test_suwannee_loire_swiss_not_in_scored_open_role_huc8_ids(tmp_path: Path) -
 
 def test_mh_cells_are_not_relabeled_executable(tmp_path: Path) -> None:
     rows = [
-        _row(network_id="huc8_01070004", ordinal=0, information="B_union_D", status="complete"),
+        _row(
+            network_id="huc8_01070004",
+            ordinal=0,
+            information="B_union_D",
+            status="complete",
+        ),
         _row(
             network_id="huc8_01070004",
             ordinal=1,
@@ -249,7 +262,9 @@ def test_w8_failure_closure_trigger_when_operator_increment_below_threshold(
     for index, network in enumerate(networks):
         donor = 0.1 + 0.8 * (index / 11.0)
         skill = donor + float(rng.normal(0, 0.01))
-        rows.append(_row(network_id=network, ordinal=index, skill=skill, mae=1.0 - skill))
+        rows.append(
+            _row(network_id=network, ordinal=index, skill=skill, mae=1.0 - skill)
+        )
         predictor_rows.append(
             {
                 "network_id": network,
@@ -289,19 +304,19 @@ def test_development_inference_status_never_tested() -> None:
     }
 
 
-def test_workload_sha_is_recorded_not_rehashed_into_a_pass(tmp_path: Path) -> None:
-    sha = hashlib.sha256(b"frozen-workload").hexdigest()
+def test_workload_qualification_is_recorded_not_turned_into_a_pass(
+    tmp_path: Path,
+) -> None:
     manifest = write_w7_open_role_bd_slice(
         output_dir=tmp_path / "slice",
         results=pd.DataFrame([_row(network_id="huc8_01070004")]),
         predictors=_predictors(["huc8_01070004"]),
-        workload_manifest_sha256=sha,
         workload={
             "network_ids": ["huc8_01070004"],
             "geometry_binding": {"qualification_mode": "failure_closure6"},
         },
     )
-    assert manifest["workload_manifest_sha256"] == sha
+    assert manifest["passed"] is False
     assert manifest["qualification_mode"] == "failure_closure6"
     assert manifest["aggregation_complete_workload"] is False
 

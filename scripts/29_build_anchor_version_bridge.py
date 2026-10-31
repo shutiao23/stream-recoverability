@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Relabel frozen v1 anchors for published_v2 after semantic equivalence checks.
 
-The bridge deliberately records structural evidence rather than content hashes.
+The bridge deliberately records structural evidence only.
 It never chooses or moves an anchor and never inspects model performance.
 """
 

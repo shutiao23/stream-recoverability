@@ -288,7 +288,6 @@
    "n_days": 3008,
    "max_pairwise_km": 18.23557511471684,
    "daily_wide_temperature_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_001/daily_wide_temperature.csv",
-   "daily_wide_temperature_sha256": "15bfe5746b3ce396df2c8980a173e1076aee5bfb163a09079178c04aadbed4f0",
    "stations_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_001/stations.csv",
    "measurement_statistic": "provider_daily_mean_86400s_degc"
   },
@@ -305,7 +304,6 @@
    "n_days": 7755,
    "max_pairwise_km": 32.69321342884238,
    "daily_wide_temperature_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_002/daily_wide_temperature.csv",
-   "daily_wide_temperature_sha256": "4d6de5ec25e63212f69f23bb26466e1f9fe913065b41d0e9a643bf61338fed07",
    "stations_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_002/stations.csv",
    "measurement_statistic": "provider_daily_mean_86400s_degc"
   }
@@ -326,15 +324,9 @@
  },
  "artifacts": {
   "readme": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/README.md",
-  "readme_sha256": "73c279f9cf0add5ef662b9ec215f09862fff823fb19c9e75554ffe48e8353b02",
   "networks_manifest": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv",
   "stations": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/stations.csv",
   "qc_ledger": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/qc_ledger.csv",
   "raw_cache": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache"
- },
- "inputs_sha256": {
-  "results/v17_fitness/step1_panel/station_roster.csv": "c96e8838b3cc06934c25208fc71a5b37d49b0d96671f2e679694419fb92aedc8",
-  "results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md": "79784834cbe91468d7d397dd31781cae9a34f17a3766137ad47b4fc04a57428d",
-  "scripts/244_multi_agency_uk_ea_ingest.py": "f380472d40f24c7936ae79e3fe2ddc98d04a033777464046355192bc99a5a8b8"
  }
 }

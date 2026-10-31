@@ -391,7 +391,7 @@ pseudo-observations。这是本领域实际门槛的校准点。
 **注册:** AGU/WRR **没有 Registered Report 通道**;WRR 属 TOP 框架签署方,
 可强制执行的是数据/代码可得性与分析透明度。因此:
 - OSF/Zenodo 外部注册在本领域属**超出常规的加分项**,继续做;
-- 但不得把内部 hash-bound 冻结描述为 "preregistered confirmation"
+- 但不得把内部冻结描述为 "preregistered confirmation"
   —— v13 现有措辞("frozen … not externally verifiable preregistration")正确,保持;
 - 事后分析继续按 Pfister & Kirchner (2017) 的要求明确标注为探索性,并**主动引用该文为自己辩护**。
 

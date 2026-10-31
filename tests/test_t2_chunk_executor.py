@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import importlib.util
 import json
 from dataclasses import asdict
@@ -25,59 +24,27 @@ from stream_recoverability.experiments.t2_result_aggregation import (
 )
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _canonical_sha(value: object) -> str:
-    return hashlib.sha256(
-        json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
-    ).hexdigest()
-
-
-def _stream_sha(items: list[WorkItem]) -> str:
-    digest = hashlib.sha256()
-    for item in items:
-        digest.update(item.item_id.encode())
-        digest.update(b"\n")
-    return digest.hexdigest()
-
-
 def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, object]:
     design = tmp_path / "design.yaml"
     design.write_text("design_id: design_freeze_v9\n", encoding="utf-8")
-    design_sha = _sha(design)
-    input_sha = "b" * 64
     network = OpenNetwork(
         network_id="huc8_test",
         role="development",
         source_key="open_role_qc/failure_closure6/development",
         wide_path="open/daily_wide_qc.csv",
-        wide_sha256=input_sha,
         manifest_path="open/network_manifest.json",
         n_days=2_000,
         n_stations=1,
     )
     items: list[WorkItem] = []
     for ordinal in range(3):
-        identity = {
-            "design_sha256": design_sha,
-            "input_sha256": input_sha,
-            "network_id": network.network_id,
-            "target_station": "station_a",
-            "model": "donor_regression",
-            "gap_length": 30,
-            "placement": ordinal,
-            "start_index": 900 + ordinal * 40,
-            "information_condition": "B_union_D",
-            "task": "offline_archival",
-            "geometry": "artificial_stress",
-            "runner_contract_version": RUNNER_CONTRACT_VERSION,
-        }
         items.append(
             WorkItem(
                 ordinal=ordinal,
-                item_id=_canonical_sha([identity])[:24],
+                item_id=(
+                    f"huc8_test.station_a.gap30.placement{ordinal}."
+                    f"start{900 + ordinal * 40}.B_union_D.donor_regression"
+                ),
                 network_id=network.network_id,
                 role=network.role,
                 source_key=network.source_key,
@@ -97,7 +64,6 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
     workload = {
         "manifest_schema": "t2_v91_open_role_workload_v3",
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
-        "design_sha256": design_sha,
         "sealed_temperature_records_read": False,
         "sealed_input_roots_allowed": [],
         "input_inventory": inventory,
@@ -105,7 +71,6 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
         "network_ids": [network.network_id],
         "tier_1": {
             "n_work_items": len(items),
-            "work_item_identity_sha256": _stream_sha(items),
             "online_causal_status": "ready",
         },
         "geometry_dependencies": {
@@ -120,7 +85,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
     monkeypatch.setattr(
         chunk_module,
         "load_v91_budget",
-        lambda _repo: {"design_sha256": design_sha},
+        lambda _repo: {"design_id": "design_freeze_v9"},
     )
     monkeypatch.setattr(
         chunk_module,
@@ -137,9 +102,9 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
 
     def fake_execute(_repo: Path, selected_network: OpenNetwork, item: WorkItem):
         calls.append(item.ordinal)
+        assert selected_network.network_id == item.network_id
         return {
             **asdict(item),
-            "input_sha256": selected_network.wide_sha256,
             "runner_contract_version": RUNNER_CONTRACT_VERSION,
             "status": "complete",
             "mae_deg_c": 0.5 + item.ordinal,
@@ -157,7 +122,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, objec
 
 
 @pytest.mark.parametrize("results_format", ["parquet", "csv"])
-def test_chunk_is_single_table_sha_bound_and_aggregation_reads_partial_as_blocked(
+def test_chunk_is_single_table_and_aggregation_reads_partial_as_blocked(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, results_format: str
 ) -> None:
     fixture = _fixture(tmp_path, monkeypatch)
@@ -178,10 +143,14 @@ def test_chunk_is_single_table_sha_bound_and_aggregation_reads_partial_as_blocke
     assert manifest["end_ordinal_exclusive"] == 2
     assert manifest["ordinal_contiguous"] is True
     assert manifest["n_records"] == 2
-    assert manifest["results_sha256"] == _sha(table)
+    assert manifest["results_path"] == table.name
+    assert manifest["first_item_id"] == fixture["items"][0].item_id
+    assert manifest["last_item_id"] == fixture["items"][1].item_id
     assert manifest["passed"] is False
     assert list(chunk.glob("*.json")) == [chunk / "manifest.json"]
-    frame = pd.read_parquet(table) if results_format == "parquet" else pd.read_csv(table)
+    frame = (
+        pd.read_parquet(table) if results_format == "parquet" else pd.read_csv(table)
+    )
     assert frame["ordinal"].tolist() == [0, 1]
 
     readiness = aggregate_t2_results(
@@ -197,7 +166,7 @@ def test_chunk_is_single_table_sha_bound_and_aggregation_reads_partial_as_blocke
     assert readiness["inference_tables_written"] is False
 
 
-def test_same_chunk_resumes_without_execution_and_changed_table_hash_is_rejected(
+def test_same_chunk_resumes_without_execution_and_missing_table_is_rejected(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     fixture = _fixture(tmp_path, monkeypatch)
@@ -218,8 +187,8 @@ def test_same_chunk_resumes_without_execution_and_changed_table_hash_is_rejected
     assert fixture["calls"] == []
 
     table = tmp_path / "chunks/chunk_0000000_0000002/results.parquet"
-    table.write_bytes(table.read_bytes() + b"drift")
-    with pytest.raises(ChunkExecutionError, match="result-table SHA-256 mismatch"):
+    table.unlink()
+    with pytest.raises(ChunkExecutionError, match="result table is missing"):
         execute_t2_chunk(**kwargs)
 
 
@@ -301,10 +270,7 @@ def test_network_cache_mode_is_separately_bound_and_records_stats(
         execution_mode="network_cache_v1",
     )
     assert manifest["execution_mode"] == "network_cache_v1"
-    assert (
-        manifest["cache_contract_version"]
-        == "t2_network_panel_climatology_cache_v1"
-    )
+    assert manifest["cache_contract_version"] == "t2_network_panel_climatology_cache_v1"
     assert manifest["execution_cache"]["panel_cache_misses_custody_reads"] == 1
 
     with pytest.raises(ChunkExecutionError, match="execution_mode"):

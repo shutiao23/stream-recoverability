@@ -1,6 +1,5 @@
 {
   "completed_at_utc": "2026-08-26T21:03:03.122763+00:00",
-  "corpus_plan_sha256": "9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783",
   "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_1",
   "n_networks_executed_now": 1,
   "n_networks_resumed": 0,
@@ -47,11 +46,9 @@
   },
   "run_manifest": {
     "bytes": 4914,
-    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json",
-    "sha256": "a6ca843a431d8d9a4c26554f4af588c3a49f9a2794717b2ae9648567c3184167"
+    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json"
   },
   "sealed_temperature_records_read": false,
-  "selected_plan_sha256": "dc35a77874a3b5893431548dd11dd8114326f2c8c519047a214ab9ada5f14182",
   "started_at_utc": "2026-08-26T21:01:03.318292+00:00",
   "status": "execution_stopped_fail_closed",
   "stop": {

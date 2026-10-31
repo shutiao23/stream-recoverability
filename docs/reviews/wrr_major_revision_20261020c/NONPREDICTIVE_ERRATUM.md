@@ -7,8 +7,8 @@ The archived metadata builder compared it with 0.5 when naming a
 majority-snow condition is 50 percent. `Glaciers % > 0` remains unchanged.
 
 No score feature, reconstruction fit, gap placement, empirical threshold,
-component membership, acquisition eligibility or salted development/calibration/
-test role uses this subgroup label. None is changed. Method and deployment
+component membership, acquisition eligibility or pre-assigned development/
+calibration/test role uses this subgroup label. None is changed. Method and deployment
 locks remain untouched, as do the original metadata and raw evaluation outputs.
 The final analysis supplies a separate corrected descriptive stratification:
 glacier influence first; otherwise snow share >= 50%; otherwise other mountain

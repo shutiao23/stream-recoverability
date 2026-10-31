@@ -54,7 +54,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import io
 import json
 import re
@@ -101,18 +100,19 @@ MIN_COMPLETE_YEARS = 4
 # in the working tree before any transport case was scored). `quality_checked`
 # is the strict gate the task originally fixed; `provider_published_unqualified`
 # is the amended stratum that admits series the provider itself labels
-# uncontrolled (`O = Okontrollerade värden`), carried through to the seal as a
-# per-station `quality_assurance` label so the two are never pooled silently.
+# uncontrolled (`O = Okontrollerade värden`), carried through to the transport
+# panel manifest (scripts/249) as a per-station `quality_assurance` label so the
+# two are never pooled silently.
 QC_STRATA: dict[str, dict[str, object]] = {
     "quality_checked": {
         "accepted_quality_codes": ("G", "Y"),
         "definition": "the provider documents the values as checked or coarsely checked "
-                      "(SMHI G = Kontrollerade och godkända värden, Y = Grovt kontrollerade värden)",
+        "(SMHI G = Kontrollerade och godkända värden, Y = Grovt kontrollerade värden)",
     },
     "provider_published_unqualified": {
         "accepted_quality_codes": ("O",),
         "definition": "the provider publishes the series but labels it uncontrolled/unqualified "
-                      "(SMHI O = Okontrollerade värden)",
+        "(SMHI O = Okontrollerade värden)",
     },
 }
 
@@ -137,11 +137,9 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def sha256_bytes(payload: bytes) -> str:
-    return hashlib.sha256(payload).hexdigest()
-
-
-def get_bytes(url: str, timeout: int = 180, sleep_seconds: float = SLEEP_SECONDS) -> bytes:
+def get_bytes(
+    url: str, timeout: int = 180, sleep_seconds: float = SLEEP_SECONDS
+) -> bytes:
     """Single GET with a descriptive UA and retries; never silently falls back."""
 
     last_error: Exception | None = None
@@ -152,10 +150,17 @@ def get_bytes(url: str, timeout: int = 180, sleep_seconds: float = SLEEP_SECONDS
                 payload = response.read()
             time.sleep(sleep_seconds)
             return payload
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, OSError) as exc:
+        except (
+            urllib.error.URLError,
+            urllib.error.HTTPError,
+            TimeoutError,
+            OSError,
+        ) as exc:
             last_error = exc
             time.sleep(min(2.0 * attempt, 8.0))
-    raise RuntimeError(f"GET failed after {MAX_ATTEMPTS} attempts: {url} ({last_error})")
+    raise RuntimeError(
+        f"GET failed after {MAX_ATTEMPTS} attempts: {url} ({last_error})"
+    )
 
 
 def cache_bytes(path: Path, url: str, payload: bytes) -> dict[str, object]:
@@ -165,7 +170,6 @@ def cache_bytes(path: Path, url: str, payload: bytes) -> dict[str, object]:
         "url": url,
         "path": str(path.relative_to(ROOT)),
         "bytes": len(payload),
-        "sha256": sha256_bytes(payload),
         "retrieved_utc": utc_now(),
     }
 
@@ -259,7 +263,9 @@ def parse_station_file(payload: bytes) -> dict[str, object]:
     # first data rows ("Kvalitetskoderna:" then "<Name> (<CODE>) = <meaning>."),
     # not as standalone header lines, so it is scanned out of every text field.
     legend: list[dict[str, str]] = []
-    legend_pattern = re.compile(r"^(?P<label>[^()=]+?)\s*\((?P<code>[A-Za-z]+)\)\s*=\s*(?P<text>.+?)\.?$")
+    legend_pattern = re.compile(
+        r"^(?P<label>[^()=]+?)\s*\((?P<code>[A-Za-z]+)\)\s*=\s*(?P<text>.+?)\.?$"
+    )
     header_block_lines: list[str] = []
     for line in lines[max(0, header_index - 2) : header_index + 1]:
         header_block_lines.append(line)
@@ -272,7 +278,9 @@ def parse_station_file(payload: bytes) -> dict[str, object]:
     for values in csv.reader(reader_source, delimiter=";"):
         if not values:
             continue
-        for extra in values[3:]:  # trailing free-text fields only (0=date,1=value,2=code)
+        for extra in values[
+            3:
+        ]:  # trailing free-text fields only (0=date,1=value,2=code)
             extra = _clean(extra)
             if not extra:
                 continue
@@ -301,7 +309,11 @@ def parse_station_file(payload: bytes) -> dict[str, object]:
         )
         if not is_data_row:
             continue
-        value, note = _normalise_number(values[1]) if len(values) > 1 else (None, "missing_column")
+        value, note = (
+            _normalise_number(values[1])
+            if len(values) > 1
+            else (None, "missing_column")
+        )
         value_notes[note] += 1
         rows.append(
             {
@@ -325,12 +337,16 @@ def parse_station_file(payload: bytes) -> dict[str, object]:
     }
 
 
-def deduplicate_daily(rows: list[dict[str, object]]) -> tuple[pd.DataFrame, dict[str, object]]:
+def deduplicate_daily(
+    rows: list[dict[str, object]],
+) -> tuple[pd.DataFrame, dict[str, object]]:
     """Deduplicate repeated dates: keep highest-quality, then last occurrence."""
 
     frame = pd.DataFrame(rows, columns=["date", "temperature_c_raw", "quality_code"])
     frame["date"] = pd.to_datetime(frame["date"], format="%Y-%m-%d", errors="raise")
-    frame["temperature_c_raw"] = pd.to_numeric(frame["temperature_c_raw"], errors="coerce")
+    frame["temperature_c_raw"] = pd.to_numeric(
+        frame["temperature_c_raw"], errors="coerce"
+    )
     frame["quality_code"] = frame["quality_code"].fillna("").astype(str)
 
     n_rows = len(frame)
@@ -341,7 +357,9 @@ def deduplicate_daily(rows: list[dict[str, object]]) -> tuple[pd.DataFrame, dict
         rank = {"G": 0, "Y": 1, "O": 2}
         frame["_rank"] = frame["quality_code"].map(lambda c: rank.get(c, 3))
         frame = frame.sort_values(["date", "_rank"], kind="stable")
-        deduped = frame.drop_duplicates(subset="date", keep="first").drop(columns="_rank")
+        deduped = frame.drop_duplicates(subset="date", keep="first").drop(
+            columns="_rank"
+        )
     else:
         deduped = frame.drop_duplicates(subset="date", keep="first")
     deduped = deduped.sort_values("date").reset_index(drop=True)
@@ -365,12 +383,21 @@ def complete_years(series: pd.Series) -> tuple[list[int], list[dict[str, object]
     ledger: list[dict[str, object]] = []
     values = pd.to_numeric(series, errors="coerce")
     for year, block in values.groupby(values.index.year, sort=True):
-        need = 366 if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)) else 365
+        need = (
+            366 if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)) else 365
+        )
         have = int(np.isfinite(block.to_numpy(dtype=float)).sum())
         complete = have >= need
         if complete:
             years.append(int(year))
-        ledger.append({"year": int(year), "n_finite_days": have, "days_required": need, "complete": complete})
+        ledger.append(
+            {
+                "year": int(year),
+                "n_finite_days": have,
+                "days_required": need,
+                "complete": complete,
+            }
+        )
     return years, ledger
 
 
@@ -394,15 +421,22 @@ def hydropower_evidence(name: str, catchment_name: str) -> tuple[bool, str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--sleep", type=float, default=SLEEP_SECONDS, help="seconds between HTTP requests")
-    parser.add_argument("--limit", type=int, default=None, help="debug: only fetch first N stations")
+    parser.add_argument(
+        "--sleep",
+        type=float,
+        default=SLEEP_SECONDS,
+        help="seconds between HTTP requests",
+    )
+    parser.add_argument(
+        "--limit", type=int, default=None, help="debug: only fetch first N stations"
+    )
     parser.add_argument(
         "--qc-stratum",
         choices=sorted(QC_STRATA),
         default="provider_published_unqualified",
         help="assurance stratum (protocol Amendment 2). 'quality_checked' is the strict "
-             "G/Y gate that yields no SMHI panel; 'provider_published_unqualified' "
-             "admits O-labelled values under the amended stratum label",
+        "G/Y gate that yields no SMHI panel; 'provider_published_unqualified' "
+        "admits O-labelled values under the amended stratum label",
     )
     args = parser.parse_args()
 
@@ -422,7 +456,9 @@ def main() -> int:
         log_lines.append(line)
 
     retrieval_utc = utc_now()
-    log(f"start retrieval_utc={retrieval_utc} qc_stratum={qc_stratum} accepted={ACCEPTED_QUALITY_CODES}")
+    log(
+        f"start retrieval_utc={retrieval_utc} qc_stratum={qc_stratum} accepted={ACCEPTED_QUALITY_CODES}"
+    )
 
     # --- catalog ---------------------------------------------------------- #
     _catalog_path = RAW_CACHE / "parameter_4_catalog.json"
@@ -432,7 +468,6 @@ def main() -> int:
             "url": CATALOG_URL,
             "path": str(_catalog_path.relative_to(ROOT)),
             "bytes": len(catalog_payload),
-            "sha256": sha256_bytes(catalog_payload),
             "retrieved_utc": retrieval_utc,
             "served_from_cache": True,
         }
@@ -452,10 +487,9 @@ def main() -> int:
         metadata_payload = get_bytes(METADATA_URL, sleep_seconds=args.sleep)
         metadata_urls.append(METADATA_URL)
         (RAW_CACHE / "parameter_4_metadata.json").write_bytes(metadata_payload)
-        metadata_abstract = (
-            json.loads(metadata_payload)["MD_Metadata"]["identificationInfo"]
-            ["MD_DataIdentification"]["abstract"]["CharacterString"]
-        )
+        metadata_abstract = json.loads(metadata_payload)["MD_Metadata"][
+            "identificationInfo"
+        ]["MD_DataIdentification"]["abstract"]["CharacterString"]
     except Exception as exc:  # pragma: no cover - network dependent
         metadata_abstract = f"<metadata fetch failed: {exc}>"
         log(f"WARNING metadata fetch failed: {exc}")
@@ -495,7 +529,9 @@ def main() -> int:
             try:
                 payload = get_bytes(url, sleep_seconds=args.sleep)
             except Exception as exc:
-                failures.append({"station_id": station_id, "url": url, "error": str(exc)})
+                failures.append(
+                    {"station_id": station_id, "url": url, "error": str(exc)}
+                )
                 log(f"[{index}/{len(station_ids)}] FAILED {station_id}: {exc}")
                 continue
             provenance = cache_bytes(cache_path, url, payload)
@@ -504,7 +540,9 @@ def main() -> int:
         try:
             parsed = parse_station_file(payload)
         except Exception as exc:
-            failures.append({"station_id": station_id, "url": url, "error": f"parse: {exc}"})
+            failures.append(
+                {"station_id": station_id, "url": url, "error": f"parse: {exc}"}
+            )
             log(f"[{index}/{len(station_ids)}] PARSE FAILED {station_id}: {exc}")
             continue
 
@@ -512,7 +550,11 @@ def main() -> int:
         file_station_network_classes[file_identity["station_network_class"]] += 1
         file_parameter_names[file_identity["parameter_name"]] += 1
         file_parameter_units[file_identity["parameter_unit"]] += 1
-        if str(file_identity["station_name"]).strip() and str(file_identity["station_name"]).strip() != str(entry.get("name", "")).strip():
+        if (
+            str(file_identity["station_name"]).strip()
+            and str(file_identity["station_name"]).strip()
+            != str(entry.get("name", "")).strip()
+        ):
             identity_mismatches.append(
                 {
                     "station_id": station_id,
@@ -537,14 +579,25 @@ def main() -> int:
         latitude = identity["latitude"]
         longitude = identity["longitude"]
         try:
-            latitude = float(latitude) if latitude not in (None, "") else float(entry.get("latitude"))
-            longitude = float(longitude) if longitude not in (None, "") else float(entry.get("longitude"))
+            latitude = (
+                float(latitude)
+                if latitude not in (None, "")
+                else float(entry.get("latitude"))
+            )
+            longitude = (
+                float(longitude)
+                if longitude not in (None, "")
+                else float(entry.get("longitude"))
+            )
         except (TypeError, ValueError):
             latitude = float(entry.get("latitude"))
             longitude = float(entry.get("longitude"))
 
         accepted_mask = raw_frame["quality_code"].isin(ACCEPTED_QUALITY_CODES)
-        accepted = raw_frame.loc[accepted_mask & raw_frame["temperature_c_raw"].notna(), ["date", "temperature_c_raw", "quality_code"]].copy()
+        accepted = raw_frame.loc[
+            accepted_mask & raw_frame["temperature_c_raw"].notna(),
+            ["date", "temperature_c_raw", "quality_code"],
+        ].copy()
         accepted = accepted.rename(columns={"temperature_c_raw": "temperature_c"})
         # F01: never guess unit rescales. Values outside a liquid-river °C band are
         # quarantined (station 80289 ships ~28 000 under a °C header).
@@ -566,16 +619,25 @@ def main() -> int:
         if n_accepted:
             series_out = accepted.rename("temperature_c").reset_index()
             # quality codes align to surviving dates only
-            qmap = raw_frame.loc[accepted_mask & raw_frame["temperature_c_raw"].notna(), ["date", "quality_code"]]
+            qmap = raw_frame.loc[
+                accepted_mask & raw_frame["temperature_c_raw"].notna(),
+                ["date", "quality_code"],
+            ]
             qmap["date"] = pd.to_datetime(qmap["date"])
             series_out = series_out.merge(qmap, on="date", how="left")
             series_out["station_id"] = station_id
             series_out.to_csv(STATION_DAILY_DIR / f"{station_id}.csv", index=False)
 
-        is_hydro, hydro_reason = hydropower_evidence(river_name, str(entry.get("catchmentName", "")))
+        is_hydro, hydro_reason = hydropower_evidence(
+            river_name, str(entry.get("catchmentName", ""))
+        )
 
         network_id_raw = entry.get("catchmentNumber")
-        network_id = f"smhi_catchment_{network_id_raw}" if network_id_raw not in (None, "") else "smhi_catchment_unknown"
+        network_id = (
+            f"smhi_catchment_{network_id_raw}"
+            if network_id_raw not in (None, "")
+            else "smhi_catchment_unknown"
+        )
 
         row = {
             "network_id": network_id,
@@ -591,8 +653,12 @@ def main() -> int:
             "catalog_active": entry.get("active"),
             "n_complete_years": len(years),
             "complete_years": ";".join(str(y) for y in years),
-            "first_date": accepted.index.min().strftime("%Y-%m-%d") if n_accepted else "",
-            "last_date": accepted.index.max().strftime("%Y-%m-%d") if n_accepted else "",
+            "first_date": accepted.index.min().strftime("%Y-%m-%d")
+            if n_accepted
+            else "",
+            "last_date": accepted.index.max().strftime("%Y-%m-%d")
+            if n_accepted
+            else "",
             "n_days": n_accepted,
             "n_dropped_qc": n_dropped_qc,
             "quality_assurance": QUALITY_ASSURANCE,
@@ -603,18 +669,28 @@ def main() -> int:
             "n_parsed_with_value": int(raw_frame["temperature_c_raw"].notna().sum()),
             "n_duplicate_dates": dedup_info["n_duplicate_dates"],
             "n_duplicate_rows_removed": dedup_info["n_duplicate_rows_removed"],
-            "first_date_any_quality": raw_frame["date"].min().strftime("%Y-%m-%d") if len(raw_frame) else "",
-            "last_date_any_quality": raw_frame["date"].max().strftime("%Y-%m-%d") if len(raw_frame) else "",
+            "first_date_any_quality": raw_frame["date"].min().strftime("%Y-%m-%d")
+            if len(raw_frame)
+            else "",
+            "last_date_any_quality": raw_frame["date"].max().strftime("%Y-%m-%d")
+            if len(raw_frame)
+            else "",
             "n_days_any_quality": int(len(raw_frame)),
-            "quality_code_counts": ";".join(f"{code or 'blank'}={count}" for code, count in sorted(raw_frame["quality_code"].value_counts().items())),
+            "quality_code_counts": ";".join(
+                f"{code or 'blank'}={count}"
+                for code, count in sorted(
+                    raw_frame["quality_code"].value_counts().items()
+                )
+            ),
             "hydropower_name_evidence": is_hydro,
             "hydropower_evidence": hydro_reason,
-            "raw_sha256": sha256_bytes(payload),
             "raw_bytes": len(payload),
             "served_from_cache": provenance.get("served_from_cache", False),
         }
         station_rows.append(row)
-        station_rows[-1]["_year_ledger"] = year_ledger  # internal, stripped before writing
+        station_rows[-1]["_year_ledger"] = (
+            year_ledger  # internal, stripped before writing
+        )
 
         if index % 20 == 0 or index == len(station_ids):
             log(
@@ -644,7 +720,9 @@ def main() -> int:
         "quality_assurance",
     ]
     extra_columns = [
-        c for c in station_frame.columns if c not in required_columns and not c.startswith("_")
+        c
+        for c in station_frame.columns
+        if c not in required_columns and not c.startswith("_")
     ]
     ordered = required_columns + extra_columns
 
@@ -697,7 +775,9 @@ def main() -> int:
             for station_id in members:
                 path = STATION_DAILY_DIR / f"{station_id}.csv"
                 if path.is_file():
-                    series = pd.read_csv(path, parse_dates=["date"]).set_index("date")["temperature_c"]
+                    series = pd.read_csv(path, parse_dates=["date"]).set_index("date")[
+                        "temperature_c"
+                    ]
                 else:
                     series = pd.Series(dtype=float)
                 frames.append(series.rename(station_id))
@@ -718,8 +798,12 @@ def main() -> int:
                     "catchment_name": group["catchment_name"].iloc[0],
                     "n_stations_in_network": int(len(group)),
                     "n_stations_ge_min_years": int(len(qualifying)),
-                    "station_ids_ge_min_years": ";".join(sorted(qualifying["station_id"].astype(str))),
-                    "n_complete_station_years": int(qualifying["n_complete_years"].sum()),
+                    "station_ids_ge_min_years": ";".join(
+                        sorted(qualifying["station_id"].astype(str))
+                    ),
+                    "n_complete_station_years": int(
+                        qualifying["n_complete_years"].sum()
+                    ),
                     "n_days_total": int(qualifying["n_days"].sum()),
                     "n_dropped_qc_total": int(qualifying["n_dropped_qc"].sum()),
                     "median_latitude": float(group["latitude"].median()),
@@ -728,23 +812,26 @@ def main() -> int:
                     "last_date": str(qualifying["last_date"].max()),
                 }
             )
-            log(f"network {network_id}: {len(qualifying)} eligible stations, wide rows={len(wide)}")
+            log(
+                f"network {network_id}: {len(qualifying)} eligible stations, wide rows={len(wide)}"
+            )
 
     # --- QC legend aggregation (verbatim) --------------------------------- #
     legend_by_code: dict[str, set[str]] = {}
     for station_id, legend in legends.items():
         for item in legend:
-            legend_by_code.setdefault(item["code"], set()).add(f"{item['label']} ({item['code']}) = {item['meaning_verbatim']}")
-    qc_legend = {
-        code: sorted(texts)
-        for code, texts in sorted(legend_by_code.items())
-    }
+            legend_by_code.setdefault(item["code"], set()).add(
+                f"{item['label']} ({item['code']}) = {item['meaning_verbatim']}"
+            )
+    qc_legend = {code: sorted(texts) for code, texts in sorted(legend_by_code.items())}
     undocumented_codes = sorted(c for c in quality_code_totals if c not in qc_legend)
 
     # --- write station tables -------------------------------------------- #
     if len(station_frame):
-        station_frame.to_csv(OUT_ROOT / "stations_all.csv", index=False, columns=ordered)
-        # stations.csv is the seal-facing table (scripts/245, scripts/249). It lists every
+        station_frame.to_csv(
+            OUT_ROOT / "stations_all.csv", index=False, columns=ordered
+        )
+        # stations.csv is the panel-facing table (scripts/245, scripts/249). It lists every
         # station that appears as a column of an emitted network panel (the uk_ea
         # convention); `n_complete_years` shows which of them meet the >= 4-year rule, and
         # a station with no accepted day still appears if its catchment was emitted. The
@@ -757,56 +844,98 @@ def main() -> int:
                 if str(network_id) in networks_written
                 for sid in group["station_id"].astype(str)
             }
-        stations_out = station_frame.loc[station_frame["station_id"].astype(str).isin(emitted_station_ids)]
+        stations_out = station_frame.loc[
+            station_frame["station_id"].astype(str).isin(emitted_station_ids)
+        ]
         stations_out.to_csv(OUT_ROOT / "stations.csv", index=False, columns=ordered)
         station_frame.loc[
-            :, ["network_id", "station_id", "river_name", "catchment_name", "latitude", "longitude",
-                "hydropower_name_evidence", "hydropower_evidence"]
+            :,
+            [
+                "network_id",
+                "station_id",
+                "river_name",
+                "catchment_name",
+                "latitude",
+                "longitude",
+                "hydropower_name_evidence",
+                "hydropower_evidence",
+            ],
         ].to_csv(OUT_ROOT / "hydropower_evidence.csv", index=False)
     else:
         pd.DataFrame(columns=ordered).to_csv(OUT_ROOT / "stations_all.csv", index=False)
         pd.DataFrame(columns=ordered).to_csv(OUT_ROOT / "stations.csv", index=False)
 
-    pd.DataFrame(ledger_records, columns=[
-        "network_id", "station_id", "provider", "year",
-        "n_finite_days_after_qc", "days_required", "complete",
-    ]).to_csv(OUT_ROOT / "station_years.csv", index=False)
+    pd.DataFrame(
+        ledger_records,
+        columns=[
+            "network_id",
+            "station_id",
+            "provider",
+            "year",
+            "n_finite_days_after_qc",
+            "days_required",
+            "complete",
+        ],
+    ).to_csv(OUT_ROOT / "station_years.csv", index=False)
 
     catalog_frame = pd.DataFrame(stations_catalog)
     catalog_frame.to_csv(OUT_ROOT / "station_catalog.csv", index=False)
 
     networks_frame = pd.DataFrame(eligible_rows)
     networks_frame.to_csv(OUT_ROOT / "networks_summary.csv", index=False)
-    pd.DataFrame(networks_skipped).to_csv(OUT_ROOT / "networks_not_eligible.csv", index=False)
+    pd.DataFrame(networks_skipped).to_csv(
+        OUT_ROOT / "networks_not_eligible.csv", index=False
+    )
     pd.DataFrame(failures, columns=["station_id", "url", "error"]).to_csv(
         OUT_ROOT / "download_failures.csv", index=False
     )
 
     manifest_rows = []
     for path in sorted(RAW_CACHE.glob("*")):
-        payload = path.read_bytes()
         manifest_rows.append(
             {
                 "file": str(path.relative_to(ROOT)),
-                "bytes": len(payload),
-                "sha256": sha256_bytes(payload),
+                "bytes": path.stat().st_size,
             }
         )
     pd.DataFrame(manifest_rows).to_csv(OUT_ROOT / "raw_cache_manifest.csv", index=False)
 
     # --- counters --------------------------------------------------------- #
     n_downloaded = len(station_frame)
-    n_stations_ge_years = int((station_frame["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()) if len(station_frame) else 0
-    n_complete_station_years_ge_years = (
-        int(station_frame.loc[station_frame["n_complete_years"] >= MIN_COMPLETE_YEARS, "n_complete_years"].sum())
-        if len(station_frame) else 0
+    n_stations_ge_years = (
+        int((station_frame["n_complete_years"] >= MIN_COMPLETE_YEARS).sum())
+        if len(station_frame)
+        else 0
     )
-    n_complete_station_years = int(station_frame["n_complete_years"].sum()) if len(station_frame) else 0
-    ingest_stations_with_accepted = int((station_frame["n_days"] > 0).sum()) if len(station_frame) else 0
-    n_dropped_qc_total = int(station_frame["n_dropped_qc"].sum()) if len(station_frame) else 0
-    n_accepted_days_total = int(station_frame["n_days"].sum()) if len(station_frame) else 0
-    n_days_any_quality = int(station_frame["n_days_any_quality"].sum()) if len(station_frame) else 0
-    quality_distribution = {code or "blank": int(count) for code, count in sorted(quality_code_totals.items())}
+    n_complete_station_years_ge_years = (
+        int(
+            station_frame.loc[
+                station_frame["n_complete_years"] >= MIN_COMPLETE_YEARS,
+                "n_complete_years",
+            ].sum()
+        )
+        if len(station_frame)
+        else 0
+    )
+    n_complete_station_years = (
+        int(station_frame["n_complete_years"].sum()) if len(station_frame) else 0
+    )
+    ingest_stations_with_accepted = (
+        int((station_frame["n_days"] > 0).sum()) if len(station_frame) else 0
+    )
+    n_dropped_qc_total = (
+        int(station_frame["n_dropped_qc"].sum()) if len(station_frame) else 0
+    )
+    n_accepted_days_total = (
+        int(station_frame["n_days"].sum()) if len(station_frame) else 0
+    )
+    n_days_any_quality = (
+        int(station_frame["n_days_any_quality"].sum()) if len(station_frame) else 0
+    )
+    quality_distribution = {
+        code or "blank": int(count)
+        for code, count in sorted(quality_code_totals.items())
+    }
 
     # emitted panel counters (stations appearing as columns of an emitted network)
     if len(station_frame) and networks_written:
@@ -816,15 +945,29 @@ def main() -> int:
         emitted_frame = station_frame.iloc[0:0]
     n_stations_emitted = int(len(emitted_frame))
     n_stations_emitted_ge_years = (
-        int((emitted_frame["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()) if len(emitted_frame) else 0
+        int((emitted_frame["n_complete_years"] >= MIN_COMPLETE_YEARS).sum())
+        if len(emitted_frame)
+        else 0
     )
     n_complete_station_years_emitted = (
-        int(emitted_frame.loc[emitted_frame["n_complete_years"] >= MIN_COMPLETE_YEARS, "n_complete_years"].sum())
-        if len(emitted_frame) else 0
+        int(
+            emitted_frame.loc[
+                emitted_frame["n_complete_years"] >= MIN_COMPLETE_YEARS,
+                "n_complete_years",
+            ].sum()
+        )
+        if len(emitted_frame)
+        else 0
     )
-    ge_years_frame = station_frame.loc[station_frame["n_complete_years"] >= MIN_COMPLETE_YEARS] if len(station_frame) else station_frame
+    ge_years_frame = (
+        station_frame.loc[station_frame["n_complete_years"] >= MIN_COMPLETE_YEARS]
+        if len(station_frame)
+        else station_frame
+    )
     if len(station_frame) and networks_written:
-        stranded_frame = ge_years_frame.loc[~ge_years_frame["network_id"].astype(str).isin(networks_written)]
+        stranded_frame = ge_years_frame.loc[
+            ~ge_years_frame["network_id"].astype(str).isin(networks_written)
+        ]
     else:
         stranded_frame = ge_years_frame.iloc[0:0]
     n_stations_ge_years_not_emitted = int(len(stranded_frame))
@@ -834,7 +977,9 @@ def main() -> int:
     # strict-gate audit: what the quality_checked stratum would yield on the same bytes
     strict_codes = tuple(QC_STRATA["quality_checked"]["accepted_quality_codes"])  # type: ignore[arg-type]
     strict_qc_rows = sum(
-        int(count) for code, count in quality_code_totals.items() if code in strict_codes
+        int(count)
+        for code, count in quality_code_totals.items()
+        if code in strict_codes
     )
 
     # Prior-use overlap check (read-only): SMHI station ids must not appear in the
@@ -842,8 +987,15 @@ def main() -> int:
     # fail-loud pre-check so the coordinator sees it in ingest.json.
     roster_files = [
         ROOT / "results" / "v17_fitness" / "step1_panel" / "station_roster.csv",
-        ROOT / "results" / "wrr_revision" / "step1_universe" / "trusted_river_complete_years.csv",
-        ROOT / "results" / "wrr_submission_ready" / "prior_access_ledger_reserved_station_years.csv",
+        ROOT
+        / "results"
+        / "wrr_revision"
+        / "step1_universe"
+        / "trusted_river_complete_years.csv",
+        ROOT
+        / "results"
+        / "wrr_submission_ready"
+        / "prior_access_ledger_reserved_station_years.csv",
         ROOT / "results" / "wrr_submission_ready" / "confirmation_inputs_manifest.csv",
     ]
     smhi_ids = {str(entry["id"]) for entry in stations_catalog}
@@ -853,7 +1005,12 @@ def main() -> int:
             continue
         with roster_path.open(newline="") as handle:
             for row in csv.DictReader(handle):
-                for column in ("station_id", "site_id", "station_ids_ge4", "eligible_station"):
+                for column in (
+                    "station_id",
+                    "site_id",
+                    "station_ids_ge4",
+                    "eligible_station",
+                ):
                     value = str(row.get(column) or "").strip()
                     if not value:
                         continue
@@ -863,8 +1020,14 @@ def main() -> int:
     SMHI_ROSTER_OVERLAP = {"n_overlaps": len(overlaps), "overlaps": sorted(overlaps)}
 
     active_values = sorted({str(entry.get("active")) for entry in stations_catalog})
-    station_class_values = sorted({str(entry.get("measuringStations")) for entry in stations_catalog})
-    lat_values = [float(entry["latitude"]) for entry in stations_catalog if entry.get("latitude") is not None]
+    station_class_values = sorted(
+        {str(entry.get("measuringStations")) for entry in stations_catalog}
+    )
+    lat_values = [
+        float(entry["latitude"])
+        for entry in stations_catalog
+        if entry.get("latitude") is not None
+    ]
 
     provider_docs = {
         "parameter_4_metadata_url": METADATA_URL,
@@ -895,7 +1058,7 @@ def main() -> int:
             "series": DATA_URL_PATTERN,
             "metadata": METADATA_URL,
             "series_period": "corrected-archive (only period served for parameter 4; "
-                             "latest-day/latest-months return HTTP 404 for these stations)",
+            "latest-day/latest-months return HTTP 404 for these stations)",
         },
         "user_agent": USER_AGENT,
         "request_throttle_seconds": args.sleep,
@@ -903,9 +1066,15 @@ def main() -> int:
         "n_downloaded": n_downloaded,
         "n_download_failures": len(failures),
         "n_networks": len(networks_written),
-        "n_networks_considered": int(station_frame["network_id"].nunique()) if len(station_frame) else 0,
+        "n_networks_considered": int(station_frame["network_id"].nunique())
+        if len(station_frame)
+        else 0,
         "n_stations": n_stations_ge_years,
-        "n_stations_downloaded_with_data": int((station_frame["n_days_any_quality"] > 0).sum()) if len(station_frame) else 0,
+        "n_stations_downloaded_with_data": int(
+            (station_frame["n_days_any_quality"] > 0).sum()
+        )
+        if len(station_frame)
+        else 0,
         "n_stations_with_accepted_days": ingest_stations_with_accepted,
         "n_station_years_complete": n_complete_station_years,
         "n_complete_station_years": n_complete_station_years,
@@ -922,7 +1091,8 @@ def main() -> int:
         "n_complete_station_years_not_in_emitted_networks": n_station_years_not_emitted,
         "stratum_provenance": {
             "amendment": "MULTI_AGENCY_TRANSPORT_PROTOCOL.md Amendment 2 (assurance strata), "
-                         "made after ingest attempts and before sealing or any transport scoring",
+            "made after ingest attempts and before the transport panel was fixed "
+            "or any transport scoring",
             "strata": {
                 name: {
                     "accepted_quality_codes": list(spec["accepted_quality_codes"]),  # type: ignore[arg-type]
@@ -948,7 +1118,7 @@ def main() -> int:
             "min_stations_per_network": MIN_STATIONS_PER_NETWORK,
             "min_complete_calendar_years_per_station": MIN_COMPLETE_YEARS,
             "complete_year_definition": "365 (366 in leap years) distinct calendar days with a finite "
-                                        "value that passed the quality-code gate",
+            "value that passed the quality-code gate",
         },
         "qc": {
             "accepted_quality_codes": list(ACCEPTED_QUALITY_CODES),
@@ -959,26 +1129,33 @@ def main() -> int:
             },
             "legend_verbatim_by_code": qc_legend,
             "legend_source": "SMHI embeds the legend as trailing free-text fields on the first data "
-                             "rows of every station CSV ('Kvalitetskoderna:' followed by "
-                             "'<Name> (<CODE>) = <meaning>.'); identical across all downloaded "
-                             "stations. Verbatim copy in QC_legend_verbatim.json and "
-                             "station_header_block.txt.",
+            "rows of every station CSV ('Kvalitetskoderna:' followed by "
+            "'<Name> (<CODE>) = <meaning>.'); identical across all downloaded "
+            "stations. Verbatim copy in QC_legend_verbatim.json and "
+            "station_header_block.txt.",
             "n_stations_with_legend_extracted": len(legends),
             "n_stations_with_expected_legend_codes": sum(
-                1 for legend in legends.values()
+                1
+                for legend in legends.values()
                 if {item["code"] for item in legend} >= set(ACCEPTED_QUALITY_CODES)
             ),
-            "header_block_verbatim_example": header_blocks.get(station_ids[0], []) if station_ids else [],
+            "header_block_verbatim_example": header_blocks.get(station_ids[0], [])
+            if station_ids
+            else [],
             "value_column_headers_seen": sorted(value_header_names),
             "quality_column_headers_seen": sorted(quality_header_names),
             "undocumented_codes_observed": undocumented_codes,
-            "dropped_codes": sorted(c for c in quality_distribution if c not in ACCEPTED_QUALITY_CODES),
+            "dropped_codes": sorted(
+                c for c in quality_distribution if c not in ACCEPTED_QUALITY_CODES
+            ),
             "quality_code_distribution_rows_parsed": quality_distribution,
             "n_value_rows_parsed": n_days_any_quality,
             "n_rows_dropped_by_quality_gate_or_missing_value": n_dropped_qc_total,
             "n_rows_accepted": n_accepted_days_total,
             "loss_fraction_of_parsed_rows": (
-                round(n_dropped_qc_total / n_days_any_quality, 6) if n_days_any_quality else None
+                round(n_dropped_qc_total / n_days_any_quality, 6)
+                if n_days_any_quality
+                else None
             ),
             "value_parse_notes": dict(value_notes_all),
         },
@@ -993,35 +1170,41 @@ def main() -> int:
             "n_duplicate_rows_removed_total": int(
                 sum(info["n_duplicate_rows_removed"] for info in dedup_rules.values())
             ),
-            "per_station": {k: v for k, v in sorted(dedup_rules.items()) if v["n_duplicate_dates"]},
+            "per_station": {
+                k: v for k, v in sorted(dedup_rules.items()) if v["n_duplicate_dates"]
+            },
         },
         "file_level_metadata": {
-            "station_network_class_values_in_series_files": dict(file_station_network_classes),
+            "station_network_class_values_in_series_files": dict(
+                file_station_network_classes
+            ),
             "parameter_name_values": dict(file_parameter_names),
             "parameter_unit_values": dict(file_parameter_units),
             "n_station_name_mismatches_vs_catalog": len(identity_mismatches),
             "station_name_mismatch_examples": identity_mismatches[:10],
             "note": "'Övriga stationer' in Stationsnät is SMHI's label for stations outside "
-                    "SMHI's own station network (data collected and stored by SMHI under "
-                    "agreement with a third party).",
+            "SMHI's own station network (data collected and stored by SMHI under "
+            "agreement with a third party).",
         },
         "panel_character": {
-            "latitude_range": [min(lat_values), max(lat_values)] if lat_values else None,
+            "latitude_range": [min(lat_values), max(lat_values)]
+            if lat_values
+            else None,
             "active_flag_values_in_catalog": active_values,
             "measuring_stations_values_in_catalog": station_class_values,
             "domain_note": "all catalogued parameter-4 stations carry measuringStations = ADDITIONAL "
-                           "('Övriga stationer' = stations outside SMHI's own station network; data "
-                           "collected and stored by SMHI through agreement with a third party) and are "
-                           "flagged active = false in the catalog",
+            "('Övriga stationer' = stations outside SMHI's own station network; data "
+            "collected and stored by SMHI through agreement with a third party) and are "
+            "flagged active = false in the catalog",
             "coverage_note": "the corrected-archive series are historical (see station_catalog.csv and "
-                             "stations_all.csv for the observed per-station spans)",
+            "stations_all.csv for the observed per-station spans)",
         },
         "provider_documentation": provider_docs,
         "artifacts": {
             "stations_csv": "stations.csv (one row per station appearing in an emitted panel, with "
-                            "provider, coordinates, complete years, n_days, n_dropped_qc, "
-                            "accepted_quality_codes, measurement_statistic, quality_assurance; the "
-                            "seal-facing table read by scripts/245 and scripts/249)",
+            "provider, coordinates, complete years, n_days, n_dropped_qc, "
+            "accepted_quality_codes, measurement_statistic, quality_assurance; the "
+            "panel-facing table read by scripts/245 and scripts/249)",
             "stations_all_csv": "stations_all.csv (every downloaded station, including zero accepted days)",
             "readme": "README.md (what was downloaded, the QC legend, why O was admitted, caveats)",
             "strict_gate_failure_note": "QC_AND_ELIGIBILITY_FAILURE.md (retained strict-gate record)",
@@ -1059,20 +1242,26 @@ def main() -> int:
             "regime of the frozen model's development panel.",
             "Rows outside the accepted quality-code set for this run's stratum are dropped even when "
             "their values look physical; no imputation, no gap filling beyond leaving cells blank.",
-            "Assurance stratum of this run: '" + qc_stratum + "'. Values accepted here are labelled at "
+            "Assurance stratum of this run: '"
+            + qc_stratum
+            + "'. Values accepted here are labelled at "
             "source as uncontrolled/unqualified; the per-station quality_assurance column carries the "
-            "stratum into the seal so the strata are never pooled silently.",
+            "stratum into the transport panel so the strata are never pooled silently.",
             "Complete-year counting is done on QC-accepted, deduplicated values only.",
         ],
         "counts": {
             "n_catalog_stations": len(stations_catalog),
             "n_downloaded": n_downloaded,
             "n_download_failures": len(failures),
-            "n_stations_with_data": int((station_frame["n_days_any_quality"] > 0).sum()) if len(station_frame) else 0,
+            "n_stations_with_data": int((station_frame["n_days_any_quality"] > 0).sum())
+            if len(station_frame)
+            else 0,
             "n_stations_with_accepted_days": ingest_stations_with_accepted,
             "n_stations_ge_4_complete_years": n_stations_ge_years,
             "n_networks_emitted": len(networks_written),
-            "n_networks_in_catalog_grouping": int(station_frame["network_id"].nunique()) if len(station_frame) else 0,
+            "n_networks_in_catalog_grouping": int(station_frame["network_id"].nunique())
+            if len(station_frame)
+            else 0,
             "n_station_years_complete": n_complete_station_years,
             "n_complete_station_years": n_complete_station_years,
             "n_complete_station_years_stations_ge_4_years": n_complete_station_years_ge_years,
@@ -1095,19 +1284,25 @@ def main() -> int:
             "n_overlapping_station_ids": SMHI_ROSTER_OVERLAP["n_overlaps"],
             "overlapping_station_ids": SMHI_ROSTER_OVERLAP["overlaps"],
             "numerator_note": "SMHI station ids are provider-native numeric ids; all overlaps are "
-                              "recomputed by scripts/245 as well",
+            "recomputed by scripts/245 as well",
         },
         "failure": None,
     }
 
     if len(networks_written) == 0 or n_stations_ge_years == 0:
-        worst = max(quality_distribution.items(), key=lambda kv: kv[1]) if quality_distribution else ("", 0)
+        worst = (
+            max(quality_distribution.items(), key=lambda kv: kv[1])
+            if quality_distribution
+            else ("", 0)
+        )
         ingest["failure"] = {
             "rule": f"networks require >= 2 stations each with >= 4 complete calendar years AFTER the "
-                    f"quality-code gate of stratum '{qc_stratum}' "
-                    f"(accepted codes: {', '.join(ACCEPTED_QUALITY_CODES) or 'none'})",
+            f"quality-code gate of stratum '{qc_stratum}' "
+            f"(accepted codes: {', '.join(ACCEPTED_QUALITY_CODES) or 'none'})",
             "observed": {
-                "n_stations_with_accepted_days": ingest["n_stations_with_accepted_days"],
+                "n_stations_with_accepted_days": ingest[
+                    "n_stations_with_accepted_days"
+                ],
                 "n_stations_with_ge_4_complete_years": n_stations_ge_years,
                 "n_networks": len(networks_written),
                 "dominant_quality_code": worst[0],
@@ -1115,12 +1310,12 @@ def main() -> int:
                 "share_rows_dropped": ingest["qc"]["loss_fraction_of_parsed_rows"],
             },
             "cause": "The entire SMHI parameter-4 corrected-archive is flagged with quality code "
-                     f"'{worst[0]}'. {qc_legend.get(worst[0], [''])[0]}",
+            f"'{worst[0]}'. {qc_legend.get(worst[0], [''])[0]}",
             "not_substituted": "No proxy rule was applied inside this run: the accepted set is exactly "
-                               f"the declared stratum '{qc_stratum}'. Reaching a panel from these bytes "
-                               "requires an explicit, separately recorded stratum decision.",
+            f"the declared stratum '{qc_stratum}'. Reaching a panel from these bytes "
+            "requires an explicit, separately recorded stratum decision.",
             "consequence": "This provider contributes 0 networks and 0 station-years to the transport "
-                           "panel at this stratum.",
+            "panel at this stratum.",
         }
         ingest["verdict"] = (
             f"infeasible under stratum '{qc_stratum}': 0 stations survive the quality-code gate and no "
@@ -1140,13 +1335,23 @@ def main() -> int:
         (OUT_ROOT / "station_header_block.txt").write_text(
             "Verbatim header block of the first downloaded station CSV "
             f"(station {first_id}, from raw_cache/station_{first_id}.csv):\n\n"
-            + "\n".join(header_blocks[first_id]) + "\n"
+            + "\n".join(header_blocks[first_id])
+            + "\n"
         )
 
-    (OUT_ROOT / "ingest.json").write_text(json.dumps(ingest, indent=2, ensure_ascii=False) + "\n")
+    (OUT_ROOT / "ingest.json").write_text(
+        json.dumps(ingest, indent=2, ensure_ascii=False) + "\n"
+    )
     (OUT_ROOT / "QC_legend_verbatim.json").write_text(
-        json.dumps({"qc_legend_verbatim_by_code": qc_legend, "undocumented_codes_observed": undocumented_codes},
-                   indent=2, ensure_ascii=False) + "\n"
+        json.dumps(
+            {
+                "qc_legend_verbatim_by_code": qc_legend,
+                "undocumented_codes_observed": undocumented_codes,
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n"
     )
     (OUT_ROOT / "run.log").write_text("\n".join(log_lines) + "\n")
 
@@ -1158,7 +1363,7 @@ def main() -> int:
             f"({', '.join(overlap['overlaps'][:10])})."
             if overlap["n_overlaps"]
             else f"PRIOR-USE CHECK: 0 of {len(stations_catalog)} SMHI station ids appear in the "
-                 "v17/v18 rosters."
+            "v17/v18 rosters."
         )
         failure_note.write_text(
             "# SMHI multi-agency ingest: QC/eligibility failure\n\n"
@@ -1169,7 +1374,9 @@ def main() -> int:
             f"{n_accepted_days_total}. Dropped: {n_dropped_qc_total} "
             f"({ingest['qc']['loss_fraction_of_parsed_rows']:.4f} of parsed rows).\n\n"
             "## Observed quality-code distribution (parsed rows)\n\n"
-            + "\n".join(f"- `{code}`: {count}" for code, count in quality_distribution.items())
+            + "\n".join(
+                f"- `{code}`: {count}" for code, count in quality_distribution.items()
+            )
             + "\n\n## Why there is no panel\n\n"
             f"- Stations with >= 1 accepted day: {ingest['n_stations_with_accepted_days']} of {n_downloaded}\n"
             f"- Stations with >= {MIN_COMPLETE_YEARS} complete calendar years after QC: {n_stations_ge_years}\n"
@@ -1181,16 +1388,23 @@ def main() -> int:
             "checked/coarsely-checked values accepts none of them.\n\n"
             "No proxy rule was substituted inside this run: the accepted set is exactly the declared "
             "stratum. Reaching a panel from these bytes requires an explicit stratum decision recorded "
-            "in the protocol and the seal chain.\n\n"
-            + prior_use_line + "\n\n"
+            "in the protocol.\n\n" + prior_use_line + "\n\n"
             f"Verbatim legend and full counts: `ingest.json` (retrieval {retrieval_utc}).\n"
         )
     # NOTE: a passing run never deletes an existing failure note. It is the audit
     # record of the strict-gate attempt and is referenced by README.md/ingest.json.
 
     # --- README (reviewer-facing record of what was admitted) -------------- #
-    _fd = pd.to_datetime(station_frame["first_date_any_quality"]) if len(station_frame) else pd.Series(dtype="datetime64[ns]")
-    _ld = pd.to_datetime(station_frame["last_date_any_quality"]) if len(station_frame) else pd.Series(dtype="datetime64[ns]")
+    _fd = (
+        pd.to_datetime(station_frame["first_date_any_quality"])
+        if len(station_frame)
+        else pd.Series(dtype="datetime64[ns]")
+    )
+    _ld = (
+        pd.to_datetime(station_frame["last_date_any_quality"])
+        if len(station_frame)
+        else pd.Series(dtype="datetime64[ns]")
+    )
     readme_stats = {
         "median_first": _fd.median().strftime("%Y-%m") if len(_fd) else "n/a",
         "median_last": _ld.median().strftime("%Y-%m") if len(_ld) else "n/a",
@@ -1198,27 +1412,31 @@ def main() -> int:
         "max_last": _ld.max().strftime("%Y-%m-%d") if len(_ld) else "n/a",
         "n_ending_before_1990": int((_ld < "1990-01-01").sum()) if len(_ld) else 0,
         "n_ending_2000_or_later": int((_ld >= "2000-01-01").sum()) if len(_ld) else 0,
-        "min_rows": int(station_frame["n_days_any_quality"].min()) if len(station_frame) else 0,
-        "median_rows": int(station_frame["n_days_any_quality"].median()) if len(station_frame) else 0,
+        "min_rows": int(station_frame["n_days_any_quality"].min())
+        if len(station_frame)
+        else 0,
+        "median_rows": int(station_frame["n_days_any_quality"].median())
+        if len(station_frame)
+        else 0,
     }
     readme = OUT_ROOT / "README.md"
     readme.write_text(
         f"""# SMHI multi-agency ingest (provider: smhi, parameter 4 "Vattendragstemperatur")
 
 Written {retrieval_utc} by `scripts/240_multi_agency_smhi_ingest.py`
-(`{ingest['command']}`).
+(`{ingest["command"]}`).
 
 ## What was downloaded
 
-- Catalogue: `{CATALOG_URL}` — {len(stations_catalog)} stations, unit {catalog.get('unit')!r}.
+- Catalogue: `{CATALOG_URL}` — {len(stations_catalog)} stations, unit {catalog.get("unit")!r}.
 - Series: `{DATA_URL_PATTERN}` (`corrected-archive`, the only period served for parameter 4).
 - {n_downloaded} of {len(stations_catalog)} stations downloaded, {len(failures)} failures;
-  {n_days_any_quality} parsed rows over {quality_distribution.get('O', 0)} quality-code-`O` rows.
-- Raw bytes are cached in `raw_cache/` (gitignored) with sha256 per file in
+  {n_days_any_quality} parsed rows over {quality_distribution.get("O", 0)} quality-code-`O` rows.
+- Raw bytes are cached in `raw_cache/` (gitignored) with the byte size per file in
   `raw_cache_manifest.csv`; `stations_all.csv` carries per-station QC for all 176 stations.
-- Coverage: {readme_stats['min_first']} .. {readme_stats['max_last']}; median station span
-  {readme_stats['median_first']} .. {readme_stats['median_last']} ({readme_stats['n_ending_before_1990']} stations end before
-  1990, {readme_stats['n_ending_2000_or_later']} reach 2000). Every station is
+- Coverage: {readme_stats["min_first"]} .. {readme_stats["max_last"]}; median station span
+  {readme_stats["median_first"]} .. {readme_stats["median_last"]} ({readme_stats["n_ending_before_1990"]} stations end before
+  1990, {readme_stats["n_ending_2000_or_later"]} reach 2000). Every station is
   catalogued `measuringStations = ADDITIONAL` ("Övriga stationer" = outside SMHI's own network)
   and `active = false`, and every series row carries quality code `O`.
 
@@ -1245,7 +1463,7 @@ This run therefore uses `--qc-stratum provider_published_unqualified`. The admit
 | item | value |
 |---|---|
 | stratum | `{qc_stratum}` |
-| accepted quality codes | `{', '.join(ACCEPTED_QUALITY_CODES)}` |
+| accepted quality codes | `{", ".join(ACCEPTED_QUALITY_CODES)}` |
 | stations with >= {MIN_COMPLETE_YEARS} complete calendar years | {n_stations_ge_years} |
 | networks (>= {MIN_STATIONS_PER_NETWORK} such stations per `catchmentNumber`) | {len(networks_written)} |
 | complete station-years of those stations | {n_complete_station_years_ge_years} |
@@ -1266,7 +1484,7 @@ that was on the table with no extra filtering. That diagnostic's headline
 eligible-station total here is {n_complete_station_years_ge_years}.
 
 Values are labelled uncontrolled **by the provider**; no re-checking was performed here.
-The stratum travels into the seal as the per-station `quality_assurance` column of
+The stratum travels into the transport panel as the per-station `quality_assurance` column of
 `stations.csv`, and the pooled transport verdict must be reported with the per-stratum
 breakdown and the sensitivity that excludes this stratum (Amendment 2, rules 2-3).
 
@@ -1286,8 +1504,8 @@ breakdown and the sensitivity that excludes this stratum (Amendment 2, rules 2-3
    does not overlap the recent-period regime of the frozen model's development panel.
 5. **No scoring here.** Ingest and QC only; no frozen-screen performance was computed on
    this data by this script.
-6. **Some stations are short.** Rows per station run {readme_stats['min_rows']} to
-   {int(station_frame['n_days_any_quality'].max())} (median {readme_stats['median_rows']}); complete-year counting decides who
+6. **Some stations are short.** Rows per station run {readme_stats["min_rows"]} to
+   {int(station_frame["n_days_any_quality"].max())} (median {readme_stats["median_rows"]}); complete-year counting decides who
    enters a network.
 
 ## Artifacts
@@ -1300,43 +1518,53 @@ station id, one row per calendar day from min to max date, blank where missing),
 `QC_AND_ELIGIBILITY_FAILURE.md` (strict-gate record), `QC_legend_verbatim.json`,
 `ingest.json`, `run.log`, `raw_cache_manifest.csv`, `raw_cache/`.
 
-Textual only: {int(station_frame['river_name'].astype(str).str.contains('KRV').sum())} of {len(station_frame)}
+Textual only: {int(station_frame["river_name"].astype(str).str.contains("KRV").sum())} of {len(station_frame)}
 station names contain "KRV" (kraftverk) and
-{int(station_frame['river_name'].astype(str).str.contains('FORS').sum())} contain "FORS"/"FORSEN";
+{int(station_frame["river_name"].astype(str).str.contains("FORS").sum())} contain "FORS"/"FORSEN";
 see `hydropower_evidence.csv`. This is name evidence, not a regulation classification.
 
 Latitudes {min(lat_values):.2f}-{max(lat_values):.2f} N
-({int((station_frame['latitude'] >= 60).sum())} of {len(station_frame)} north of 60 N), consistent with the
+({int((station_frame["latitude"] >= 60).sum())} of {len(station_frame)} north of 60 N), consistent with the
 `boreal_nordic` context used for this provider in `scripts/249`.
 """
     )
 
     log(
         "DONE downloaded={} accepted_days={} stations_ge4y={} networks={} complete_station_years={} failures={}".format(
-            n_downloaded, n_accepted_days_total, n_stations_ge_years, len(networks_written), n_complete_station_years, len(failures)
+            n_downloaded,
+            n_accepted_days_total,
+            n_stations_ge_years,
+            len(networks_written),
+            n_complete_station_years,
+            len(failures),
         )
     )
-    print(json.dumps({
-        "qc_stratum": qc_stratum,
-        "n_downloaded": n_downloaded,
-        "n_stations_ge_4_complete_years": n_stations_ge_years,
-        "n_networks": len(networks_written),
-        "n_stations_emitted": n_stations_emitted,
-        "n_stations_emitted_ge_4_complete_years": n_stations_emitted_ge_years,
-        "n_complete_station_years": n_complete_station_years,
-        "complete_station_year_definitions": {
-            "n_complete_station_years": "sum of complete calendar years over ALL downloaded stations "
-                                        "(includes stations below the 4-year bar)",
-            "n_complete_station_years_stations_ge_4_years": "sum over the stations that individually "
-                                                            "meet the 4-complete-year rule",
-            "n_complete_station_years_in_emitted_networks": "sum over eligible stations of emitted "
-                                                            "networks only",
-        },
-        "n_complete_station_years_emitted": n_complete_station_years_emitted,
-        "quality_code_rows": quality_distribution,
-        "n_rows_accepted": n_accepted_days_total,
-        "n_rows_dropped": n_dropped_qc_total,
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "qc_stratum": qc_stratum,
+                "n_downloaded": n_downloaded,
+                "n_stations_ge_4_complete_years": n_stations_ge_years,
+                "n_networks": len(networks_written),
+                "n_stations_emitted": n_stations_emitted,
+                "n_stations_emitted_ge_4_complete_years": n_stations_emitted_ge_years,
+                "n_complete_station_years": n_complete_station_years,
+                "complete_station_year_definitions": {
+                    "n_complete_station_years": "sum of complete calendar years over ALL downloaded stations "
+                    "(includes stations below the 4-year bar)",
+                    "n_complete_station_years_stations_ge_4_years": "sum over the stations that individually "
+                    "meet the 4-complete-year rule",
+                    "n_complete_station_years_in_emitted_networks": "sum over eligible stations of emitted "
+                    "networks only",
+                },
+                "n_complete_station_years_emitted": n_complete_station_years_emitted,
+                "quality_code_rows": quality_distribution,
+                "n_rows_accepted": n_accepted_days_total,
+                "n_rows_dropped": n_dropped_qc_total,
+            },
+            indent=2,
+        )
+    )
     (OUT_ROOT / "run.log").write_text("\n".join(log_lines) + "\n")
     return 0 if not ingest["failure"] else 3
 

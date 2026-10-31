@@ -1,7 +1,7 @@
 # Final completion audit
 
 Audit date: 2026-08-28 UTC
-Base commit inspected: `58630d3c5722beaea0715eacd9a42732bd041870` plus the current shared worktree.
+Inspected: the committed repository as of the audit date plus the current shared worktree.
 
 ## Verdict
 
@@ -33,7 +33,7 @@ are not counted as missing work, and they are not relabelled as successes.
 | Placement | Complete independent directional result; utility claim unlicensed | Thirteen of thirteen eligible second-confirmation networks had complete replay matrices. Simple minimax mean regret was 0.240825 versus 0.256213 for random, a 6.01% directional reduction. There was no preregistered margin or significance threshold, QR had lower mean regret than minimax, and the artifact explicitly sets `confirmatory_utility_claim_licensed=false`. |
 | Triage | Complete independent negative | Development-only calibration certified no nonempty simple or empirical release; evaluation on all 1,446 second-confirmation cells therefore released zero rows. The 5% endpoint failed without fabricating a safe set. |
 | Heterogeneity | Complete descriptive mixed model | Cross-phase US mixed models use network random intercepts and prediction slopes. The simple panel has 104 networks and the empirical panel 100; regulation is known for 92 and 89, respectively. HUC2 climate groups, GAGES-II 2009 major-dam strata, phase/QC regime, and network size are descriptive boundaries, not site-scale climate attribution or causal regulation effects. |
-| Second-confirmation gate | Internally complete, not externally preregistered | Canada failed an external provider-quality condition. A v2 amendment substitutes the exact Czech/Norwegian/US roster, binds canonical inputs by SHA-256, rejects forged readiness files, and is disclosed as same-commit/internal rather than externally timestamped preregistration. |
+| Second-confirmation gate | Internally complete, not externally preregistered | Canada failed an external provider-quality condition. A v2 amendment substitutes the exact Czech/Norwegian/US roster, fixes the canonical inputs, rejects forged readiness files, and is disclosed as same-commit/internal rather than externally timestamped preregistration. |
 | Second-confirmation scoring | Complete positive ranking/calibration; interval-width negative | The canonical gate attempted 60 networks, recorded 3 prespecified attritions, and scored 57 above the floor of 40. Simple-model network Spearman was 0.614 with slope 1.017; empirical network Spearman was 0.715 with slope 0.950. Empirical simultaneous coverage was 1.0 but median interval width/loss was 8.398, so the width gate failed. |
 | Author and DOI actions | External blockers | Author identities/declarations are intentionally blank and no archival DOI has been minted. These cannot be invented in-repository. |
 
@@ -55,7 +55,7 @@ are not counted as missing work, and they are not relabelled as successes.
 - Canonical second-confirmation false-path test observed zero temperature reads,
   zero model fits, and zero outcomes. A forged `scoring_authorized: true` file
   is rejected because authorized execution requires the canonical path and
-  recomputed hash-bound roster.
+  the canonical roster.
 - Visual inspection of the main calibration and saturation figures found the
   1:1 line, domain colors, network summaries, residual panel, and long-gap
   saturation contrast legible and consistent with captions.

@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -16,10 +15,16 @@ R2 = C.READY / "major_revision_20261020b"
 ALIGNED = C.READY / "major_revision_20261020"
 INPUTS = {
     "windows": R2 / "r2_03_three_windows" / "cases_three_windows.parquet",
-    "admissions": ALIGNED / "p0_01_aligned_policy_admission" / "case_level_admissions_wave2_confirmation.parquet",
-    "replay": ALIGNED / "p0_03_real_calendar_adoption" / "replay_case_decisions.parquet",
-    "development": C.ROOT / "results/v17_fitness/step4_ceiling/development_cases.parquet",
-    "crossed": C.READY / "amendments/position_length_paired/crossed_development_cases.parquet",
+    "admissions": ALIGNED
+    / "p0_01_aligned_policy_admission"
+    / "case_level_admissions_wave2_confirmation.parquet",
+    "replay": ALIGNED
+    / "p0_03_real_calendar_adoption"
+    / "replay_case_decisions.parquet",
+    "development": C.ROOT
+    / "results/v17_fitness/step4_ceiling/development_cases.parquet",
+    "crossed": C.READY
+    / "amendments/position_length_paired/crossed_development_cases.parquet",
     "ablation": R2 / "r2_02_same_capacity_ablation/ablation_contrasts.csv",
 }
 
@@ -51,7 +56,12 @@ def switch_summary(frame: pd.DataFrame) -> pd.DataFrame:
 def group_risk(frame: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for seed, block in frame.groupby("fold_seed"):
-        for arm in ("fitted_risk", "peak_overlap_rule", "calibrated_bound", "reconstruct_all"):
+        for arm in (
+            "fitted_risk",
+            "peak_overlap_rule",
+            "calibrated_bound",
+            "reconstruct_all",
+        ):
             accepted = block.loc[block[f"admit_riskcap_{arm}"].astype(bool)]
             for group, part in accepted.groupby("independence_group"):
                 rows.append(
@@ -59,18 +69,24 @@ def group_risk(frame: pd.DataFrame) -> pd.DataFrame:
                         "fold_seed": int(seed),
                         "arm": arm,
                         "group": group,
-                        "providers": ";".join(sorted(part.provider.astype(str).unique())),
+                        "providers": ";".join(
+                            sorted(part.provider.astype(str).unique())
+                        ),
                         "n_admitted": len(part),
                         "n_failed": int(part.policy_bad.sum()),
                         "risk": float(part.policy_bad.mean()),
-                        "n_unique_station_years": len(part[["station_id", "year"]].drop_duplicates()),
+                        "n_unique_station_years": len(
+                            part[["station_id", "year"]].drop_duplicates()
+                        ),
                     }
                 )
     return pd.DataFrame(rows)
 
 
 def calibration_counterexample() -> dict:
-    selector = C.load_script("review349_selector", C.ROOT / "scripts/330_wrr_aligned_policy_admission.py")
+    selector = C.load_script(
+        "review349_selector", C.ROOT / "scripts/330_wrr_aligned_policy_admission.py"
+    )
     result = selector.select_threshold(
         np.zeros(240), np.zeros(240), np.repeat(np.arange(12), 20), seed=42
     )
@@ -105,7 +121,9 @@ def main() -> int:
                 "pooled_risk": float(block.n_failed.sum() / block.n_admitted.sum()),
                 "equal_group_risk": float(block.risk.mean()),
                 "n_groups": len(block),
-                "n_groups_sample_risk_exceeds_cap": int((block.risk > settings["risk_cap"]).sum()),
+                "n_groups_sample_risk_exceeds_cap": int(
+                    (block.risk > settings["risk_cap"]).sum()
+                ),
                 "maximum_sample_group_risk": float(block.risk.max()),
                 "population_group_violation_claim": False,
             }
@@ -114,15 +132,21 @@ def main() -> int:
     crossed = pd.read_parquet(INPUTS["crossed"])
     crossed = crossed.loc[crossed.arm == "stratified"]
     counts = crossed.groupby("provider").agg(
-        cases=("year", "size"), networks=("network_id", "nunique"), stations=("station_id", "nunique")
+        cases=("year", "size"),
+        networks=("network_id", "nunique"),
+        stations=("station_id", "nunique"),
     )
     counts.to_csv(OUT / "controlled_panel_providers.csv")
     replay = pd.read_parquet(INPUTS["replay"])
     replay = replay.loc[(replay.seed == 101) & (replay.level == "target_only")]
-    replay_keys = replay.rename(columns={"eval_year": "year"})[["network_id", "station_id", "year"]]
+    replay_keys = replay.rename(columns={"eval_year": "year"})[
+        ["network_id", "station_id", "year"]
+    ]
     replay_keys = replay_keys.astype(str).drop_duplicates()
     development = pd.read_parquet(INPUTS["development"])
-    keys = development[["network_id", "station_id", "year"]].astype(str).drop_duplicates()
+    keys = (
+        development[["network_id", "station_id", "year"]].astype(str).drop_duplicates()
+    )
     overlap = replay_keys.merge(keys, on=["network_id", "station_id", "year"])
     overlap.to_csv(OUT / "replay_target_overlap.csv", index=False)
     ablation = pd.read_csv(INPUTS["ablation"])
@@ -133,10 +157,12 @@ def main() -> int:
     ].copy()
     margin = settings["equivalence_margin_retention"]
     comparison["equivalence_margin"] = margin
-    comparison["interval_within_declared_margin"] = (
-        (comparison.ci_low > -margin) & (comparison.ci_high < margin)
+    comparison["interval_within_declared_margin"] = (comparison.ci_low > -margin) & (
+        comparison.ci_high < margin
     )
-    comparison["evidence_role"] = "retrospective margin chosen after these outcomes were opened"
+    comparison["evidence_role"] = (
+        "retrospective margin chosen after these outcomes were opened"
+    )
     comparison.to_csv(OUT / "retrospective_equivalence_diagnostic.csv", index=False)
     inventory = []
     for relative in [
@@ -146,7 +172,7 @@ def main() -> int:
         "major_revision_20261020/p0_03_real_calendar_adoption/SUMMARY.md",
     ]:
         path = C.READY / relative
-        inventory.append({"path": relative, "exists": path.exists(), "sha256": C.digest(path) if path.exists() else None})
+        inventory.append({"path": relative, "exists": path.exists()})
     summary = {
         "status": "retrospective_review_findings_recomputed",
         "counterexample": calibration_counterexample(),
@@ -155,12 +181,14 @@ def main() -> int:
         "controlled_panel_providers": counts.reset_index().to_dict("records"),
         "available_old_evidence": inventory,
         "warm_2018_2022_unique_station_years": len(
-            development.loc[development.year.isin([2018, 2022]), ["network_id", "station_id", "year"]].drop_duplicates()
+            development.loc[
+                development.year.isin([2018, 2022]),
+                ["network_id", "station_id", "year"],
+            ].drop_duplicates()
         ),
         "new_independent_validation": False,
     }
     C.write_json(OUT / "summary.json", summary)
-    C.write_json(OUT / "protocol_fingerprint.json", C.fingerprint(Path(__file__), INPUTS))
     print(json.dumps(summary, indent=2))
     return 0
 

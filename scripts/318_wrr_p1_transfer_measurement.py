@@ -47,7 +47,7 @@ Honest limits, stated up front and repeated in SUMMARY.md:
 
 Outputs (results/wrr_submission_ready/major_revision_20261014/p1_transfer_measurement/):
   measurement_strata.csv, time_transfer.csv, thermal_strata.csv,
-  measurement_contract_crosscheck.csv, protocol_fingerprint.json, SUMMARY.md
+  measurement_contract_crosscheck.csv, protocol.json, SUMMARY.md
 
 Run: PYTHONPATH=src python3 scripts/318_wrr_p1_transfer_measurement.py
 """
@@ -59,15 +59,17 @@ from __future__ import annotations
 # allowed to open 128 threads; the fan-out below is process-level instead.
 import os
 
-for _var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMEXPR_NUM_THREADS"):
+for _var in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+):
     os.environ[_var] = "1"
 
-import hashlib  # noqa: E402
 import importlib.util  # noqa: E402
-import io  # noqa: E402
 import json  # noqa: E402
 import math  # noqa: E402
-import subprocess  # noqa: E402
 import sys  # noqa: E402
 import time  # noqa: E402
 from concurrent.futures import ProcessPoolExecutor  # noqa: E402
@@ -88,7 +90,13 @@ from stream_recoverability.experiments.v17_fitness.stats import cluster_bootstra
 # --------------------------------------------------------------------------
 # Paths and constants
 # --------------------------------------------------------------------------
-OUT = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261014" / "p1_transfer_measurement"
+OUT = (
+    ROOT
+    / "results"
+    / "wrr_submission_ready"
+    / "major_revision_20261014"
+    / "p1_transfer_measurement"
+)
 SCRATCH = ROOT / "scratch" / "p1_transfer"
 
 SCRIPT_301 = ROOT / "scripts" / "301_wrr_mr_step2_same_info_ablation.py"
@@ -101,7 +109,9 @@ WAVE2_CASES = (
     / "p0_07_wave2_confirmation"
     / "wave2_cases.parquet"
 )
-DICTIONARY = ROOT / "results" / "wrr_submission_ready" / "measurement_provenance_dictionary.csv"
+DICTIONARY = (
+    ROOT / "results" / "wrr_submission_ready" / "measurement_provenance_dictionary.csv"
+)
 COVERAGE_TABLE = (
     ROOT
     / "results"
@@ -111,20 +121,31 @@ COVERAGE_TABLE = (
     / "final_coverage_table.csv"
 )
 GEMS_EVENT_LABELS = (
-    ROOT / "private" / "gems_reviewer_bundle" / "data" / "processed" / "event_labels.parquet"
+    ROOT
+    / "private"
+    / "gems_reviewer_bundle"
+    / "data"
+    / "processed"
+    / "event_labels.parquet"
 )
-WRR_FAULT_SCORES = ROOT / "results" / "wrr_revision" / "step5_failures" / "fault_scores.csv"
-STEP13_PROTOCOL = ROOT / "results" / "v17_fitness" / "step13_prior_years" / "protocol_comparison.csv"
+WRR_FAULT_SCORES = (
+    ROOT / "results" / "wrr_revision" / "step5_failures" / "fault_scores.csv"
+)
+STEP13_PROTOCOL = (
+    ROOT / "results" / "v17_fitness" / "step13_prior_years" / "protocol_comparison.csv"
+)
 
-RETENTION = 0.70          # same headline operating point as Step 2 / Step 7
-RISK_CAP = 0.05           # same 5 % false-admit target as Step 6 / P0-01
-BOOT_DRAWS = int(os.environ.get("P1_BOOT_DRAWS", "1200"))          # strata rows
-BOOT_DRAWS_MAIN = int(os.environ.get("P1_BOOT_DRAWS_MAIN", "2000"))  # pooled / primary rows
-MIN_NETWORKS_FOR_CI = 5   # below this a bootstrap interval is not reported
-MIN_CASES_FOR_ROW = 50    # below this a stratum is listed but not scored
-SEED = 17                 # Step-2 seed
+RETENTION = 0.70  # same headline operating point as Step 2 / Step 7
+RISK_CAP = 0.05  # same 5 % false-admit target as Step 6 / P0-01
+BOOT_DRAWS = int(os.environ.get("P1_BOOT_DRAWS", "1200"))  # strata rows
+BOOT_DRAWS_MAIN = int(
+    os.environ.get("P1_BOOT_DRAWS_MAIN", "2000")
+)  # pooled / primary rows
+MIN_NETWORKS_FOR_CI = 5  # below this a bootstrap interval is not reported
+MIN_CASES_FOR_ROW = 50  # below this a stratum is listed but not scored
+SEED = 17  # Step-2 seed
 MAX_WORKERS = min(int(os.environ.get("P1_MAX_WORKERS", "48")), os.cpu_count() or 1)
-EARLY_FRACTION = 0.60     # per station: first 60 % of years are trained on
+EARLY_FRACTION = 0.60  # per station: first 60 % of years are trained on
 
 # --------------------------------------------------------------------------
 # Measurement-contract classification
@@ -192,21 +213,6 @@ MEASUREMENT_MAP: dict[str, tuple[str, str]] = {
 }
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def git_head() -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=False
-    )
-    return result.stdout.strip() or "unavailable"
-
-
 def load_step2_module():
     """Load script 301 as a module so its rule construction is reused verbatim."""
 
@@ -247,7 +253,9 @@ def threshold_at_retention(scores: pd.Series, retention: float) -> float:
     return float(np.partition(values, k - 1)[k - 1])
 
 
-def threshold_at_risk_cap(scores: pd.Series, errors, risk_cap: float = RISK_CAP) -> dict:
+def threshold_at_risk_cap(
+    scores: pd.Series, errors, risk_cap: float = RISK_CAP
+) -> dict:
     """Score cut at the *largest* retention whose false-admit rate stays <= risk_cap.
 
     Exact over every k and vectorised; validated against Step 2's grid search in
@@ -257,7 +265,12 @@ def threshold_at_risk_cap(scores: pd.Series, errors, risk_cap: float = RISK_CAP)
     values = pd.to_numeric(scores, errors="coerce").fillna(np.inf).to_numpy(dtype=float)
     err = np.asarray(errors, dtype=float)
     if values.size == 0 or values.size != err.size:
-        return {"threshold": float("inf"), "retention": 0.0, "rate": float("nan"), "n_retained": 0}
+        return {
+            "threshold": float("inf"),
+            "retention": 0.0,
+            "rate": float("nan"),
+            "n_retained": 0,
+        }
     order = np.argsort(values, kind="mergesort")
     ordered_scores = values[order]
     ordered_err = err[order]
@@ -266,7 +279,12 @@ def threshold_at_risk_cap(scores: pd.Series, errors, risk_cap: float = RISK_CAP)
     k = np.arange(1, ordered_err.size + 1)
     ok = (cumulative / k) <= float(risk_cap)
     if not ok.any():
-        return {"threshold": -float("inf"), "retention": 0.0, "rate": float("nan"), "n_retained": 0}
+        return {
+            "threshold": -float("inf"),
+            "retention": 0.0,
+            "rate": float("nan"),
+            "n_retained": 0,
+        }
     kbest = int(np.max(k[ok]))
     return {
         "threshold": float(ordered_scores[kbest - 1]),
@@ -276,7 +294,9 @@ def threshold_at_risk_cap(scores: pd.Series, errors, risk_cap: float = RISK_CAP)
     }
 
 
-def validate_retention_helper(step2, cases: pd.DataFrame, scores: pd.Series, errors: pd.Series) -> dict:
+def validate_retention_helper(
+    step2, cases: pd.DataFrame, scores: pd.Series, errors: pd.Series
+) -> dict:
     grid = step2.retention_at_risk_cap(scores, errors)
     exact = threshold_at_risk_cap(scores, errors)
     return {
@@ -358,22 +378,36 @@ def _dispatch(job: dict) -> dict:
             if spec["mode"] == "retention":
                 threshold = {
                     "risk": threshold_at_retention(train["risk"], spec["retention"]),
-                    "length": threshold_at_retention(train["length"], spec["retention"]),
+                    "length": threshold_at_retention(
+                        train["length"], spec["retention"]
+                    ),
                 }
             elif spec["mode"] == "risk_cap":
                 threshold = {
-                    "risk": threshold_at_risk_cap(train["risk"], train[error_col])["threshold"],
-                    "length": threshold_at_risk_cap(train["length"], train[error_col])["threshold"],
+                    "risk": threshold_at_risk_cap(train["risk"], train[error_col])[
+                        "threshold"
+                    ],
+                    "length": threshold_at_risk_cap(train["length"], train[error_col])[
+                        "threshold"
+                    ],
                 }
             elif spec["mode"] == "risk_cap_retention_delta":
-                cut_risk = threshold_at_risk_cap(train["risk"], train[error_col])["threshold"]
-                cut_length = threshold_at_risk_cap(train["length"], train[error_col])["threshold"]
+                cut_risk = threshold_at_risk_cap(train["risk"], train[error_col])[
+                    "threshold"
+                ]
+                cut_length = threshold_at_risk_cap(train["length"], train[error_col])[
+                    "threshold"
+                ]
                 risk_kept = int(evaluate["risk"].le(cut_risk).sum())
                 length_kept = int(evaluate["length"].le(cut_length).sum())
-                return float(risk_kept / len(evaluate)) - float(length_kept / len(evaluate))
+                return float(risk_kept / len(evaluate)) - float(
+                    length_kept / len(evaluate)
+                )
             else:  # pragma: no cover - defensive
                 raise ValueError(spec["mode"])
-            kept_risk = evaluate.loc[evaluate["risk"].le(threshold["risk"]), error_col].to_numpy(dtype=float)
+            kept_risk = evaluate.loc[
+                evaluate["risk"].le(threshold["risk"]), error_col
+            ].to_numpy(dtype=float)
             kept_length = evaluate.loc[
                 evaluate["length"].le(threshold["length"]), error_col
             ].to_numpy(dtype=float)
@@ -396,7 +430,9 @@ class JobQueue:
         self.pool = pool
         self.jobs: list[tuple[dict, str, dict]] = []
 
-    def add_contrast(self, row: dict, frame: pd.DataFrame, *, draws: int, seed: int) -> None:
+    def add_contrast(
+        self, row: dict, frame: pd.DataFrame, *, draws: int, seed: int
+    ) -> None:
         self.jobs.append(
             (
                 row,
@@ -413,7 +449,9 @@ class JobQueue:
             )
         )
 
-    def add_retention_delta(self, row: dict, frame: pd.DataFrame, *, draws: int, seed: int) -> None:
+    def add_retention_delta(
+        self, row: dict, frame: pd.DataFrame, *, draws: int, seed: int
+    ) -> None:
         self.jobs.append(
             (
                 row,
@@ -437,7 +475,10 @@ class JobQueue:
             return 0
         jobs = [{"kind": kind, "payload": payload} for _, kind, payload in self.jobs]
         if verbose:
-            print(f"  running {len(jobs)} clustered bootstraps on {MAX_WORKERS} workers...", flush=True)
+            print(
+                f"  running {len(jobs)} clustered bootstraps on {MAX_WORKERS} workers...",
+                flush=True,
+            )
         results = list(self.pool.map(_dispatch, jobs))
         for (row, kind, _), stat in zip(self.jobs, results):
             low, high = float(stat["low"]), float(stat["high"])
@@ -464,7 +505,9 @@ class JobQueue:
 _FIT_CONTEXT: dict = {}
 
 
-def _init_fit_worker(frame: pd.DataFrame, features: tuple[str, ...], target_col: str) -> None:
+def _init_fit_worker(
+    frame: pd.DataFrame, features: tuple[str, ...], target_col: str
+) -> None:
     _FIT_CONTEXT["frame"] = frame
     _FIT_CONTEXT["features"] = features
     _FIT_CONTEXT["target"] = target_col
@@ -530,20 +573,26 @@ def _fit_year_fold(year: int) -> tuple[int, np.ndarray, np.ndarray]:
     return int(year), np.flatnonzero(test_mask), model.predict(x_test)
 
 
-def oof_risk_scores_by_year(cases: pd.DataFrame, features: tuple[str, ...]) -> pd.Series:
+def oof_risk_scores_by_year(
+    cases: pd.DataFrame, features: tuple[str, ...]
+) -> pd.Series:
     """Leave-one-year-out risk score: every case is scored by a model that never saw
     its own calendar year, but may have seen *later* years.  This is the project's
     current within-panel protocol expressed at the risk-score level."""
 
     columns = ["year", "longest_run_month", "abserr_policy"] + [
-        c for c in features if c in cases.columns and c not in ("month_sin", "month_cos")
+        c
+        for c in features
+        if c in cases.columns and c not in ("month_sin", "month_cos")
     ]
     slim = cases[columns].copy()
     years = sorted(int(y) for y in pd.unique(cases["year"]))
     out = pd.Series(np.nan, index=cases.index, dtype=float)
     workers = max(1, min(MAX_WORKERS, len(years)))
     with ProcessPoolExecutor(
-        max_workers=workers, initializer=_init_fit_worker, initargs=(slim, features, "abserr_policy")
+        max_workers=workers,
+        initializer=_init_fit_worker,
+        initargs=(slim, features, "abserr_policy"),
     ) as pool:
         for year, positions, predictions in pool.map(_fit_year_fold, years):
             if positions.size:
@@ -554,7 +603,9 @@ def oof_risk_scores_by_year(cases: pd.DataFrame, features: tuple[str, ...]) -> p
 # --------------------------------------------------------------------------
 # Panel preparation and splits
 # --------------------------------------------------------------------------
-def measurement_class_frame(cases: pd.DataFrame, dictionary: pd.DataFrame) -> pd.DataFrame:
+def measurement_class_frame(
+    cases: pd.DataFrame, dictionary: pd.DataFrame
+) -> pd.DataFrame:
     providers = sorted(set(cases["provider"].astype(str)))
     missing = [p for p in providers if p not in MEASUREMENT_MAP]
     if missing:
@@ -580,7 +631,9 @@ def measurement_class_frame(cases: pd.DataFrame, dictionary: pd.DataFrame) -> pd
             }
         )
     mapping = pd.DataFrame(rows)
-    frame = cases.merge(mapping[["provider", "measurement_class"]], on="provider", how="left")
+    frame = cases.merge(
+        mapping[["provider", "measurement_class"]], on="provider", how="left"
+    )
     if frame["measurement_class"].isna().any():  # pragma: no cover - guarded above
         raise ValueError("unclassified providers after merge")
     return frame
@@ -603,20 +656,21 @@ COVERAGE_TO_LOCAL_CLASS = {
 }
 
 
-def read_coverage_table() -> tuple[pd.DataFrame | None, str | None]:
-    """Read the parallel P0-06 coverage table once and hash the bytes read.
+def read_coverage_table() -> pd.DataFrame | None:
+    """Read the parallel P0-06 coverage table once.
 
-    The table is being rebuilt by a parallel workstream, so the hash is taken
-    from the same bytes that are parsed here rather than re-read later.
+    The table is being rebuilt by a parallel workstream, so it is read a single
+    time and every later step uses this copy rather than re-reading the file.
     """
 
     if not COVERAGE_TABLE.exists():
-        return None, None
-    raw = COVERAGE_TABLE.read_bytes()
-    return pd.read_csv(io.BytesIO(raw)), hashlib.sha256(raw).hexdigest()
+        return None
+    return pd.read_csv(COVERAGE_TABLE)
 
 
-def load_coverage_classes(panel: str, table: pd.DataFrame | None = None) -> pd.DataFrame:
+def load_coverage_classes(
+    panel: str, table: pd.DataFrame | None = None
+) -> pd.DataFrame:
     """Provider-level view of the parallel P0-06 coverage table, if it exists."""
 
     empty = pd.DataFrame(
@@ -686,11 +740,16 @@ def measurement_contract_crosscheck(
                     None
                     if keyword_class is None
                     else bool(
-                        COVERAGE_TO_LOCAL_CLASS.get(str(keyword_class), str(keyword_class)) == klass
+                        COVERAGE_TO_LOCAL_CLASS.get(
+                            str(keyword_class), str(keyword_class)
+                        )
+                        == klass
                     )
                 ),
                 "agrees_with_coverage_station_class": (
-                    None if station_normalised is None else bool(station_normalised == klass)
+                    None
+                    if station_normalised is None
+                    else bool(station_normalised == klass)
                 ),
                 "coverage_include_in_unified_daily_mean_main": include_main,
             }
@@ -700,13 +759,24 @@ def measurement_contract_crosscheck(
 
 def station_year_table(cases: pd.DataFrame) -> pd.DataFrame:
     return (
-        cases[["station_id", "year", "truth_exceed_18", "truth_exceed_20", "truth_hottest30", "clim_peak"]]
+        cases[
+            [
+                "station_id",
+                "year",
+                "truth_exceed_18",
+                "truth_exceed_20",
+                "truth_hottest30",
+                "clim_peak",
+            ]
+        ]
         .drop_duplicates(subset=["station_id", "year"])
         .reset_index(drop=True)
     )
 
 
-def per_station_year_split(cases: pd.DataFrame, early_fraction: float = EARLY_FRACTION) -> pd.Series:
+def per_station_year_split(
+    cases: pd.DataFrame, early_fraction: float = EARLY_FRACTION
+) -> pd.Series:
     """First ``early_fraction`` of each station's complete years vs the rest.
 
     Minimum two years on each side.  Returns an 'early'/'late' label per *case*
@@ -730,13 +800,25 @@ def per_station_year_split(cases: pd.DataFrame, early_fraction: float = EARLY_FR
     return block
 
 
-def global_calendar_split(cases: pd.DataFrame, early_fraction: float = EARLY_FRACTION) -> tuple[pd.Series, int]:
+def global_calendar_split(
+    cases: pd.DataFrame, early_fraction: float = EARLY_FRACTION
+) -> tuple[pd.Series, int]:
     """Common-deploy-date split on the pooled station-year distribution."""
 
     table = station_year_table(cases)
     years = np.sort(table["year"].to_numpy(dtype=int))
-    cut = int(years[min(len(years) - 1, max(0, int(math.floor(early_fraction * len(years))) - 1))])
-    block = pd.Series(np.where(cases["year"].le(cut), "early", "late"), index=cases.index, dtype=object)
+    cut = int(
+        years[
+            min(
+                len(years) - 1, max(0, int(math.floor(early_fraction * len(years))) - 1)
+            )
+        ]
+    )
+    block = pd.Series(
+        np.where(cases["year"].le(cut), "early", "late"),
+        index=cases.index,
+        dtype=object,
+    )
     return block, cut
 
 
@@ -766,14 +848,20 @@ def contrast_row(
         "n_cases": int(len(block)),
         "n_networks": n_networks,
         "n_stations": int(block["station_id"].nunique()),
-        "n_station_years": int(block[["station_id", "year"]].drop_duplicates().shape[0]),
+        "n_station_years": int(
+            block[["station_id", "year"]].drop_duplicates().shape[0]
+        ),
         "risk_rate_above_0.5_at_70": risk["rate_above_0.5"],
         "length_rate_above_0.5_at_70": length["rate_above_0.5"],
         "contrast_pp": (risk["rate_above_0.5"] - length["rate_above_0.5"]) * 100.0,
         "risk_mean_abs_error_c_at_70": risk["mean_abs_error_c"],
         "length_mean_abs_error_c_at_70": length["mean_abs_error_c"],
-        "risk_retention_at_risk5": threshold_at_risk_cap(block["risk"], errors)["retention"],
-        "length_retention_at_risk5": threshold_at_risk_cap(block["length_rule"], errors)["retention"],
+        "risk_retention_at_risk5": threshold_at_risk_cap(block["risk"], errors)[
+            "retention"
+        ],
+        "length_retention_at_risk5": threshold_at_risk_cap(
+            block["length_rule"], errors
+        )["retention"],
         "retention_delta_pp": float("nan"),
         "retention_ci_low_pp": float("nan"),
         "retention_ci_high_pp": float("nan"),
@@ -790,7 +878,9 @@ def contrast_row(
         row["ci_note"] = f"below {MIN_CASES_FOR_ROW} cases; not scored"
         return row
     if n_networks < MIN_NETWORKS_FOR_CI:
-        row["ci_note"] = f"too few networks for an interval (n={n_networks} < {MIN_NETWORKS_FOR_CI})"
+        row["ci_note"] = (
+            f"too few networks for an interval (n={n_networks} < {MIN_NETWORKS_FOR_CI})"
+        )
         return row
     queue.add_contrast(row, frame, draws=draws, seed=seed)
     queue.add_retention_delta(row, frame, draws=draws, seed=seed + 7)
@@ -909,7 +999,8 @@ def transfer_rows(
                 "length_retention": RETENTION,
                 "risk_rate_above_0.5": risk["rate_above_0.5"],
                 "length_rate_above_0.5": length["rate_above_0.5"],
-                "contrast_pp": (risk["rate_above_0.5"] - length["rate_above_0.5"]) * 100.0,
+                "contrast_pp": (risk["rate_above_0.5"] - length["rate_above_0.5"])
+                * 100.0,
                 "note": "retention held fixed at 70 % within the evaluation block",
             }
         )
@@ -937,7 +1028,9 @@ def transfer_rows(
         )
         tau_risk = threshold_at_retention(train_block["risk"], RETENTION)
         tau_length = threshold_at_retention(train_block["length_rule"], RETENTION)
-        kept_risk = eval_block.loc[eval_block["risk"].le(tau_risk), "abserr_policy"].to_numpy(dtype=float)
+        kept_risk = eval_block.loc[
+            eval_block["risk"].le(tau_risk), "abserr_policy"
+        ].to_numpy(dtype=float)
         kept_length = eval_block.loc[
             eval_block["length_rule"].le(tau_length), "abserr_policy"
         ].to_numpy(dtype=float)
@@ -947,7 +1040,8 @@ def transfer_rows(
                 "length_retention": float(len(kept_length) / len(eval_block)),
                 "risk_rate_above_0.5": failure_rate(kept_risk),
                 "length_rate_above_0.5": failure_rate(kept_length),
-                "contrast_pp": (failure_rate(kept_risk) - failure_rate(kept_length)) * 100.0,
+                "contrast_pp": (failure_rate(kept_risk) - failure_rate(kept_length))
+                * 100.0,
                 "note": (
                     "cut chosen on the calibration block only, so the achieved retention on the "
                     "evaluation block is not controlled; the interval resamples networks, so the "
@@ -982,8 +1076,12 @@ def transfer_rows(
             ],
             ignore_index=True,
         )
-        cal_risk = threshold_at_risk_cap(train_block["risk"], train_block["abserr_policy"])
-        cal_length = threshold_at_risk_cap(train_block["length_rule"], train_block["abserr_policy"])
+        cal_risk = threshold_at_risk_cap(
+            train_block["risk"], train_block["abserr_policy"]
+        )
+        cal_length = threshold_at_risk_cap(
+            train_block["length_rule"], train_block["abserr_policy"]
+        )
         kept_risk = eval_block.loc[
             eval_block["risk"].le(cal_risk["threshold"]), "abserr_policy"
         ].to_numpy(dtype=float)
@@ -996,7 +1094,8 @@ def transfer_rows(
                 "length_retention": float(len(kept_length) / len(eval_block)),
                 "risk_rate_above_0.5": failure_rate(kept_risk),
                 "length_rate_above_0.5": failure_rate(kept_length),
-                "contrast_pp": (failure_rate(kept_risk) - failure_rate(kept_length)) * 100.0,
+                "contrast_pp": (failure_rate(kept_risk) - failure_rate(kept_length))
+                * 100.0,
                 "note": (
                     f"calibration-block retention at the target: risk={cal_risk['retention']:.3f} "
                     f"(rate {cal_risk['rate']:.4f}), length={cal_length['retention']:.3f} "
@@ -1034,8 +1133,12 @@ def transfer_rows(
             ],
             ignore_index=True,
         )
-        cal_risk = threshold_at_risk_cap(train_block["risk"], train_block["abserr_policy"])
-        cal_length = threshold_at_risk_cap(train_block["length_rule"], train_block["abserr_policy"])
+        cal_risk = threshold_at_risk_cap(
+            train_block["risk"], train_block["abserr_policy"]
+        )
+        cal_length = threshold_at_risk_cap(
+            train_block["length_rule"], train_block["abserr_policy"]
+        )
         risk_kept = eval_block["risk"].le(cal_risk["threshold"])
         length_kept = eval_block["length_rule"].le(cal_length["threshold"])
         row.update(
@@ -1086,7 +1189,9 @@ def paired_protocol_delta(
     frame["risk"] = pd.to_numeric(score_left, errors="coerce").fillna(np.inf)
     frame["length_rule"] = pd.to_numeric(score_right, errors="coerce").fillna(np.inf)
     frame["abserr_policy"] = pd.to_numeric(eval_block["abserr_policy"], errors="coerce")
-    point = _stat_contrast_at_retention(frame, "risk", "length_rule", "abserr_policy", RETENTION)
+    point = _stat_contrast_at_retention(
+        frame, "risk", "length_rule", "abserr_policy", RETENTION
+    )
     row = {
         "protocol": label,
         "calibration": "paired on identical evaluation cases",
@@ -1127,7 +1232,8 @@ def thermal_definitions(cases: pd.DataFrame) -> dict[str, pd.Series]:
     )
     key = table.set_index(["station_id", "year"])
     index = pd.MultiIndex.from_arrays(
-        [cases["station_id"].to_numpy(), cases["year"].to_numpy()], names=["station_id", "year"]
+        [cases["station_id"].to_numpy(), cases["year"].to_numpy()],
+        names=["station_id", "year"],
     )
 
     def flag(column: str) -> pd.Series:
@@ -1165,7 +1271,8 @@ def thermal_strata(cases: pd.DataFrame, *, queue: JobQueue, seed: int) -> list[d
             row["thermal_stratum"] = label
             row["share_of_cases"] = float(len(block) / len(cases))
             row["share_of_station_years"] = float(
-                block[["station_id", "year"]].drop_duplicates().shape[0] / total_station_years
+                block[["station_id", "year"]].drop_duplicates().shape[0]
+                / total_station_years
             )
             rows.append(row)
     return rows
@@ -1225,7 +1332,10 @@ def check_event_labels() -> dict:
 def step13_reference() -> dict:
     if not STEP13_PROTOCOL.exists():
         return {"available": False}
-    return {"available": True, "rows": pd.read_csv(STEP13_PROTOCOL).to_dict(orient="records")}
+    return {
+        "available": True,
+        "rows": pd.read_csv(STEP13_PROTOCOL).to_dict(orient="records"),
+    }
 
 
 # --------------------------------------------------------------------------
@@ -1252,7 +1362,9 @@ def _pick(table: pd.DataFrame, **conditions):
 
 
 def verdict_lines(
-    measurement_table: pd.DataFrame, transfer_table: pd.DataFrame, thermal_table: pd.DataFrame
+    measurement_table: pd.DataFrame,
+    transfer_table: pd.DataFrame,
+    thermal_table: pd.DataFrame,
 ) -> list[str]:
     """Plain-language verdict, generated from the tables rather than hand-written."""
 
@@ -1352,7 +1464,9 @@ def verdict_lines(
             + "."
         )
         lines.append("")
-    thermal = thermal_table.loc[thermal_table["definition"].eq("anomalous_warm_hottest30_minus_clim_peak_ge_1C")]
+    thermal = thermal_table.loc[
+        thermal_table["definition"].eq("anomalous_warm_hottest30_minus_clim_peak_ge_1C")
+    ]
     if len(thermal):
         hot = _pick(thermal, thermal_stratum="hot")
         ordinary = _pick(thermal, thermal_stratum="ordinary")
@@ -1369,15 +1483,16 @@ def write_summary(
     measurement_table: pd.DataFrame,
     transfer_table: pd.DataFrame,
     thermal_table: pd.DataFrame,
-    fingerprint: dict,
+    record: dict,
     event_audit: dict,
 ) -> None:
     lines: list[str] = []
-    lines.append("# P1 group 3 — one rule, three transfers (measurement contract, time, thermal)")
+    lines.append(
+        "# P1 group 3 — one rule, three transfers (measurement contract, time, thermal)"
+    )
     lines.append("")
     lines.append(
-        f"Script `{fingerprint['script']}` (sha256 `{fingerprint['script_sha256'][:16]}`), git "
-        f"`{fingerprint['git_head'][:10]}`, wall time **{_fmt(fingerprint['wall_seconds'], 1)} s**."
+        f"Script `{record['script']}`, wall time **{_fmt(record['wall_seconds'], 1)} s**."
     )
     lines.append("")
     lines.append(
@@ -1390,9 +1505,9 @@ def write_summary(
     lines.append("")
     lines.append(
         "Step-2 protocol check on the development panel: "
-        f"{_fmt(fingerprint['protocol_checks']['step2_reproduction']['point_pp'])} pp "
-        f"[{_fmt(fingerprint['protocol_checks']['step2_reproduction']['ci_low_pp'])}, "
-        f"{_fmt(fingerprint['protocol_checks']['step2_reproduction']['ci_high_pp'])}] against the "
+        f"{_fmt(record['protocol_checks']['step2_reproduction']['point_pp'])} pp "
+        f"[{_fmt(record['protocol_checks']['step2_reproduction']['ci_low_pp'])}, "
+        f"{_fmt(record['protocol_checks']['step2_reproduction']['ci_high_pp'])}] against the "
         "published −6.20 pp."
     )
     lines.append("")
@@ -1401,7 +1516,7 @@ def write_summary(
 
     lines.append("## (a) Measurement-contract strata")
     lines.append("")
-    lines.append(f"Classification source: {fingerprint['measurement_contract_source']}.")
+    lines.append(f"Classification source: {record['measurement_contract_source']}.")
     lines.append("")
     lines.append(
         "| population | stratum | providers | cases | networks | risk fail @70 | length fail @70 | contrast (pp) | 95 % CI | risk ret @5 % | length ret @5 % |"
@@ -1412,8 +1527,8 @@ def write_summary(
             continue
         if not int(row.get("n_cases", 0) or 0):
             lines.append(
-                f"| {row.get('population','')} | {row.get('stratum','')} | — | 0 | 0 | — | — | — | "
-                f"{row.get('ci_note','no cases')} | — | — |"
+                f"| {row.get('population', '')} | {row.get('stratum', '')} | — | 0 | 0 | — | — | — | "
+                f"{row.get('ci_note', 'no cases')} | — | — |"
             )
             continue
         ci = (
@@ -1422,8 +1537,8 @@ def write_summary(
             else str(row.get("ci_note", "n/a"))
         )
         lines.append(
-            f"| {row['population']} | {row['stratum']} | {row.get('providers','')} | "
-            f"{int(row.get('n_cases',0) or 0)} | {int(row.get('n_networks',0) or 0)} | "
+            f"| {row['population']} | {row['stratum']} | {row.get('providers', '')} | "
+            f"{int(row.get('n_cases', 0) or 0)} | {int(row.get('n_networks', 0) or 0)} | "
             f"{_fmt(row.get('risk_rate_above_0.5_at_70'), 4)} | "
             f"{_fmt(row.get('length_rate_above_0.5_at_70'), 4)} | "
             f"{_fmt(row.get('contrast_pp'))} | {ci} | "
@@ -1431,7 +1546,9 @@ def write_summary(
             f"{_fmt(row.get('length_retention_at_risk5'), 3)} |"
         )
     lines.append("")
-    lines.append("Per-provider rows are in `measurement_strata.csv` (`group_type=provider`).")
+    lines.append(
+        "Per-provider rows are in `measurement_strata.csv` (`group_type=provider`)."
+    )
     lines.append("")
     lines.append("### Cross-check against the parallel P0-06 coverage table")
     lines.append("")
@@ -1441,22 +1558,26 @@ def write_summary(
         "class (`statistic_class_cross_check`)."
     )
     lines.append("")
-    coverage = fingerprint.get("coverage_table", {})
+    coverage = record.get("coverage_table", {})
     keyword = coverage.get("keyword_class_disagreements", [])
     station = coverage.get("station_class_disagreements", [])
     lines.append(
         f"- providers disagreeing with the P0-06 dictionary-derived class: "
-        f"**{len(keyword)}**" + (f" — {', '.join(keyword)}" if keyword else " (full agreement)")
+        f"**{len(keyword)}**"
+        + (f" — {', '.join(keyword)}" if keyword else " (full agreement)")
     )
     lines.append(
         f"- providers disagreeing with the P0-06 station-level cross-check column: "
-        f"**{len(station)}**" + (f" — {', '.join(station)}" if station else " (full agreement)")
+        f"**{len(station)}**"
+        + (f" — {', '.join(station)}" if station else " (full agreement)")
     )
     for item in coverage.get("notes", []):
         lines.append(f"- {item}")
     lines.append("")
 
-    lines.append("## (b) Time transfer: past-to-future vs the current leave-one-year-out protocol")
+    lines.append(
+        "## (b) Time transfer: past-to-future vs the current leave-one-year-out protocol"
+    )
     lines.append("")
     lines.append(
         "How to read the four estimands: `matched_retention_70` holds retention fixed at 70 % "
@@ -1479,10 +1600,15 @@ def write_summary(
             else "n/a"
         )
         train_cases = row.get("n_train_cases")
-        train_cases = "" if train_cases is None or (isinstance(train_cases, float) and not np.isfinite(train_cases)) else int(train_cases)
+        train_cases = (
+            ""
+            if train_cases is None
+            or (isinstance(train_cases, float) and not np.isfinite(train_cases))
+            else int(train_cases)
+        )
         lines.append(
-            f"| {row.get('protocol','')} | {row.get('evaluation','')} | {row.get('estimand','')} | "
-            f"{train_cases}/{row.get('n_eval_cases','')} | {_fmt(row.get('risk_retention'), 3)} | "
+            f"| {row.get('protocol', '')} | {row.get('evaluation', '')} | {row.get('estimand', '')} | "
+            f"{train_cases}/{row.get('n_eval_cases', '')} | {_fmt(row.get('risk_retention'), 3)} | "
             f"{_fmt(row.get('length_retention'), 3)} | {_fmt(row.get('risk_rate_above_0.5'), 4)} | "
             f"{_fmt(row.get('length_rate_above_0.5'), 4)} | {_fmt(row.get('contrast_pp'))} | {ci} |"
         )
@@ -1510,9 +1636,9 @@ def write_summary(
             else str(row.get("ci_note", "n/a"))
         )
         lines.append(
-            f"| {row.get('definition','')} | {row.get('thermal_stratum','')} | "
+            f"| {row.get('definition', '')} | {row.get('thermal_stratum', '')} | "
             f"{_fmt(row.get('share_of_cases'), 3)} | {_fmt(row.get('share_of_station_years'), 3)} | "
-            f"{int(row.get('n_cases',0) or 0)} | {int(row.get('n_networks',0) or 0)} | "
+            f"{int(row.get('n_cases', 0) or 0)} | {int(row.get('n_networks', 0) or 0)} | "
             f"{_fmt(row.get('contrast_pp'))} | {ci} |"
         )
     lines.append("")
@@ -1520,22 +1646,24 @@ def write_summary(
     lines.append("## Event labels: what exists and what does not")
     lines.append("")
     for source in event_audit.get("sources_checked", []):
-        lines.append(f"- `{source['path']}` — {source['what_it_is']}. {source.get('why_not','')}")
+        lines.append(
+            f"- `{source['path']}` — {source['what_it_is']}. {source.get('why_not', '')}"
+        )
     lines.append("")
     lines.append(event_audit.get("conclusion", ""))
     lines.append("")
 
     lines.append("## What this does and does not license")
     lines.append("")
-    for item in fingerprint["known_limitations"]:
+    for item in record["known_limitations"]:
         lines.append(f"- {item}")
     lines.append("")
-    if fingerprint.get("existing_strictly_prior_years_sensitivity", {}).get("available"):
+    if record.get("existing_strictly_prior_years_sensitivity", {}).get("available"):
         lines.append(
             "The repository's existing strictly-prior-years sensitivity (certificate screen, "
             "`results/v17_fitness/step13_prior_years/protocol_comparison.csv`) is the closest prior "
             "art to the time-transfer design here; it is quoted verbatim in "
-            "`protocol_fingerprint.json` and was not re-run. Those rows score the frozen "
+            "`protocol.json` and was not re-run. Those rows score the frozen "
             "*certificate* screen, not the fitted risk score, so they are not directly comparable "
             "to the fitted-score contrasts above."
         )
@@ -1553,7 +1681,7 @@ def main() -> int:
 
     step2 = load_step2_module()
     dictionary = pd.read_csv(DICTIONARY)
-    coverage_raw, coverage_sha256 = read_coverage_table()
+    coverage_raw = read_coverage_table()
     coverage_dev = load_coverage_classes("v17", coverage_raw)
     coverage_wave2 = load_coverage_classes("wave2_confirmation", coverage_raw)
     coverage_source = (
@@ -1564,7 +1692,10 @@ def main() -> int:
     )
     print(f"measurement contract source: {coverage_source}", flush=True)
     if not len(coverage_dev):
-        print("  P0-06 coverage table absent or missing the v17 panel; own mapping only", flush=True)
+        print(
+            "  P0-06 coverage table absent or missing the v17 panel; own mapping only",
+            flush=True,
+        )
 
     print("loading development panel...", flush=True)
     development = step2._prepare(pd.read_parquet(DEV_CASES))
@@ -1576,9 +1707,9 @@ def main() -> int:
 
     crosscheck = pd.concat(
         [
-            measurement_contract_crosscheck(development, dictionary, coverage_dev).assign(
-                population="development_oof"
-            ),
+            measurement_contract_crosscheck(
+                development, dictionary, coverage_dev
+            ).assign(population="development_oof"),
             measurement_contract_crosscheck(wave2, dictionary, coverage_wave2).assign(
                 population="wave2_oof_secondary_exploratory"
             ),
@@ -1602,16 +1733,15 @@ def main() -> int:
         flush=True,
     )
     coverage_notes = []
-    if coverage_sha256 is None:
+    if coverage_raw is None:
         coverage_notes.append(
             "the P0-06 coverage table did not exist when this ran, so the four-class mapping is "
             "this script's own, taken from measurement_provenance_dictionary.csv"
         )
     else:
         coverage_notes.append(
-            "the P0-06 coverage table is being rebuilt by a parallel workstream; the sha256 above "
-            "is of the exact bytes read by this run, and the classes scored here come from the "
-            "explicit mapping, not from that table"
+            "the P0-06 coverage table is being rebuilt by a parallel workstream; the classes "
+            "scored here come from the explicit mapping, not from that table"
         )
         if not keyword_disagree:
             coverage_notes.append(
@@ -1634,25 +1764,40 @@ def main() -> int:
             )
 
     # ---- rule construction: identical to Step 2 -----------------------------
-    print(f"network-clustered OOF risk score, development ({len(development)} cases)...", flush=True)
-    development["risk"] = step2.oof_risk_scores(development, step2.SUPPORT, seed=step2.SEED)
-    development["length_rule"] = step2.rule_scores(development, seed=SEED)["length_rule"]
+    print(
+        f"network-clustered OOF risk score, development ({len(development)} cases)...",
+        flush=True,
+    )
+    development["risk"] = step2.oof_risk_scores(
+        development, step2.SUPPORT, seed=step2.SEED
+    )
+    development["length_rule"] = step2.rule_scores(development, seed=SEED)[
+        "length_rule"
+    ]
 
     print("leave-one-year-out OOF risk score, development...", flush=True)
     t0 = time.perf_counter()
     development["risk_loyo_year"] = oof_risk_scores_by_year(development, step2.SUPPORT)
     print(f"  year folds done in {time.perf_counter() - t0:.1f} s", flush=True)
 
-    print(f"network-clustered OOF risk score, wave-2 ({len(wave2)} cases)...", flush=True)
+    print(
+        f"network-clustered OOF risk score, wave-2 ({len(wave2)} cases)...", flush=True
+    )
     wave2["risk"] = step2.oof_risk_scores(wave2, step2.SUPPORT, seed=step2.SEED)
     wave2["length_rule"] = step2.rule_scores(wave2, seed=SEED)["length_rule"]
 
     # sanity: the reused Step-2 protocol must reproduce the published contrast
-    reproduction_frame = development[["network_id", "risk", "length_rule", "abserr_policy"]].rename(
-        columns={"abserr_policy": "error"}
-    )
+    reproduction_frame = development[
+        ["network_id", "risk", "length_rule", "abserr_policy"]
+    ].rename(columns={"abserr_policy": "error"})
     reproduction = step2.contrast_at_retention(
-        reproduction_frame, "risk", "length_rule", "error", retention=RETENTION, draws=400, seed=SEED
+        reproduction_frame,
+        "risk",
+        "length_rule",
+        "error",
+        retention=RETENTION,
+        draws=400,
+        seed=SEED,
     )
     print(
         f"  step-2 protocol check: {reproduction['point'] * 100:.2f} pp "
@@ -1695,12 +1840,16 @@ def main() -> int:
         initargs=(fit_context, step2.SUPPORT, "abserr_policy"),
     ) as fit_pool:
         futures = {
-            name: fit_pool.submit(_fit_block_score, train_idx, eval_idx, "abserr_policy")
+            name: fit_pool.submit(
+                _fit_block_score, train_idx, eval_idx, "abserr_policy"
+            )
             for name, (train_idx, eval_idx) in tasks.items()
         }
         block_scores = {name: future.result() for name, future in futures.items()}
     development["risk_past_to_future"] = np.nan
-    development.loc[eval_block.index, "risk_past_to_future"] = block_scores["past_to_future"]
+    development.loc[eval_block.index, "risk_past_to_future"] = block_scores[
+        "past_to_future"
+    ]
     development["risk_global_split"] = np.nan
     development.loc[g_eval.index, "risk_global_split"] = block_scores["global_split"]
     # Keep the network-clustered OOF score (`risk`) intact on every block: each
@@ -1710,7 +1859,9 @@ def main() -> int:
     train_calibrated = train_frame.assign(risk=block_scores["train_in_sample"])
     g_train_frame = development.loc[global_block.eq("early")]
     g_eval_frame = development.loc[global_block.eq("late")]
-    g_train_calibrated = g_train_frame.assign(risk=block_scores["global_train_in_sample"])
+    g_train_calibrated = g_train_frame.assign(
+        risk=block_scores["global_train_in_sample"]
+    )
     eval_past_to_future = eval_frame.assign(risk=eval_frame["risk_past_to_future"])
     g_eval_global_split = g_eval_frame.assign(risk=g_eval_frame["risk_global_split"])
     print(
@@ -1731,7 +1882,11 @@ def main() -> int:
 
         print("(a) measurement-contract strata...", flush=True)
         measurement_rows = measurement_strata(
-            development, population="development_oof", queue=queue, draws=BOOT_DRAWS, seed=SEED
+            development,
+            population="development_oof",
+            queue=queue,
+            draws=BOOT_DRAWS,
+            seed=SEED,
         )
         measurement_rows += measurement_strata(
             wave2,
@@ -1861,15 +2016,12 @@ def main() -> int:
     wave2.to_parquet(SCRATCH / "wave2_scored.parquet", index=False)
 
     wall_seconds = time.perf_counter() - started
-    fingerprint = {
+    record = {
         "script": str(Path(__file__).relative_to(ROOT)),
-        "script_sha256": sha256_file(Path(__file__)),
-        "git_head": git_head(),
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "wall_seconds": wall_seconds,
         "reused_module": {
             "path": str(SCRIPT_301.relative_to(ROOT)),
-            "sha256": sha256_file(SCRIPT_301),
             "what_was_reused": [
                 "FEATURE_SETS / GENERIC / SUPPORT feature tuples",
                 "_prepare (estimator_disagreement + month harmonics)",
@@ -1880,15 +2032,15 @@ def main() -> int:
                 "contrast_at_retention (validation reference only)",
             ],
         },
-        "inputs": {
-            str(DEV_CASES.relative_to(ROOT)): sha256_file(DEV_CASES),
-            str(WAVE2_CASES.relative_to(ROOT)): sha256_file(WAVE2_CASES),
-            str(DICTIONARY.relative_to(ROOT)): sha256_file(DICTIONARY),
-        },
+        "inputs": [
+            str(DEV_CASES.relative_to(ROOT)),
+            str(WAVE2_CASES.relative_to(ROOT)),
+            str(DICTIONARY.relative_to(ROOT)),
+        ],
         "measurement_contract_source": coverage_source,
         "coverage_table": {
             "path": str(COVERAGE_TABLE.relative_to(ROOT)),
-            "sha256_of_bytes_read_this_run": coverage_sha256,
+            "read_this_run": coverage_raw is not None,
             "file": "measurement_contract_crosscheck.csv",
             "keyword_class_disagreements": sorted(set(keyword_disagree)),
             "station_class_disagreements": sorted(set(station_disagree)),
@@ -1933,7 +2085,9 @@ def main() -> int:
                 "n_cases": int(len(development)),
                 "n_networks": int(development["network_id"].nunique()),
                 "n_stations": int(development["station_id"].nunique()),
-                "n_station_years": int(development[["station_id", "year"]].drop_duplicates().shape[0]),
+                "n_station_years": int(
+                    development[["station_id", "year"]].drop_duplicates().shape[0]
+                ),
                 "year_min": int(development["year"].min()),
                 "year_max": int(development["year"].max()),
                 "per_station_train_cases": int(len(train_frame)),
@@ -1961,14 +2115,14 @@ def main() -> int:
             "evaluation block, so they carry threshold uncertainty as well as evaluation uncertainty",
         ],
     }
-    (OUT / "protocol_fingerprint.json").write_text(json.dumps(fingerprint, indent=2, default=str) + "\n")
+    (OUT / "protocol.json").write_text(json.dumps(record, indent=2, default=str) + "\n")
 
     write_summary(
         measurement_table=measurement_table,
         transfer_table=transfer_table,
         thermal_table=thermal_table,
-        fingerprint=fingerprint,
-        event_audit=fingerprint["event_label_audit"],
+        record=record,
+        event_audit=record["event_label_audit"],
     )
     print(f"wall time {wall_seconds:.1f} s -> {OUT}", flush=True)
     return 0

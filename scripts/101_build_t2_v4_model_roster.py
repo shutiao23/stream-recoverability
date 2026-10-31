@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -25,14 +24,6 @@ DEFAULT_OUTPUT = (
 )
 
 
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def build_model_roster(
     *,
     binding_path: Path = DEFAULT_BINDING,
@@ -51,14 +42,15 @@ def build_model_roster(
         "formal_evidence": False,
         "purpose": "open_tier1_roster_frozen_to_post_t2_binding",
         "selected_models": list(TIER1_MODELS),
-        "post_t2_input_binding_sha256": _sha256_file(binding_path),
         "post_t2_input_binding_path": str(
             binding_path.resolve().relative_to(ROOT.resolve())
         ),
         "development_binding": bool(binding.get("development_exclude_data_ineligible")),
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(roster, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    output_path.write_text(
+        json.dumps(roster, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return roster
 
 

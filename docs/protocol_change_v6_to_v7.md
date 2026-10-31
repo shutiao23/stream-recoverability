@@ -19,4 +19,4 @@ Implementation tests passed, but four headline inferences were not scientificall
 
 ## What did not change
 
-The 540-unit once-lock, the frozen train-only heuristic, the national-panel freeze hash, and the 2018--2020 development-test visibility label are unchanged. No new independent network was opened.
+The 540-unit once-lock, the frozen train-only heuristic, the national-panel freeze, and the 2018--2020 development-test visibility label are unchanged. No new independent network was opened.

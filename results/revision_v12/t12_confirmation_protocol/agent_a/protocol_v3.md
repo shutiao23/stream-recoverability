@@ -13,7 +13,7 @@
 
 ## 0. Purpose and the v2 flaw this protocol fixes
 
-The v2 confirmation was internally hash-bound and frozen before recovery scoring, but the amendment and the outcomes entered version control **in the same commit**, so its timing is an internal provenance claim, not an externally verifiable preregistration (see `results/development_v11/second_confirmation/amendment_registration_record.json` and SI Text S17).
+The v2 confirmation was internally frozen before recovery scoring, but the amendment and the outcomes entered version control **in the same commit**, so its timing is an internal provenance claim, not an externally verifiable preregistration (see `results/development_v11/second_confirmation/amendment_registration_record.json` and SI Text S17).
 
 Protocol v3 fixes this by requiring, **before any third-panel recovery outcome is opened**:
 
@@ -71,7 +71,7 @@ No v3 analysis step may read, merge, or reference any outcome file before step 2
 1. **Source eligibility**: providers accessed through official public download surfaces only (USGS, NASA POWER, CHMI, NVE, ARSO, GKD, LUBW, RWS, FOEN, ECCC, eHYD, SYKE, etc. as audited in SI Text S17). A source that states its observations are not validated or checked is ineligible (v2 precedent).
 2. **Strict daily QC** (unchanged from v2): daily concurrency checked before outcome scoring; ≥ 3 stations per network; ≥ 8 common years; positive and complete same-site approved daily discharge where used; finite daily air temperature at station coordinates.
 3. **Scoreable-gap eligibility**: a network must have at least one scoreable evaluation gap (defined as in v2 readiness; a network with no scoreable B+D evaluation gap is a scoring attrition).
-4. **Roster freeze**: the complete strict-QC arrival roster with exact per-domain counts is frozen in a hash-bound CSV (`frozen_scoring_roster_v3.csv`) inside the **separate pre-outcome commit**; counts are the frozen roster, not post-hoc increases of the 80 minimum.
+4. **Roster freeze**: the complete strict-QC arrival roster with exact per-domain counts is frozen in a CSV (`frozen_scoring_roster_v3.csv`) inside the **separate pre-outcome commit**; counts are the frozen roster, not post-hoc increases of the 80 minimum.
 5. **Attrition classes** (each reported as a count in the flow table):
    - `source_qc_attrition` (provider coverage/QC; treated as MNAR at source level),
    - `scoreable_gap_attrition` (no B+D evaluation gap),
@@ -159,15 +159,15 @@ Pipeline (each stage gated):
 
 1. **Readiness**: candidate arrival, strict QC, domain quotas verified; `readiness.json` with `external_registration_verified: false`.
 2. **Freeze** (separate public commit #1, before any outcome scoring): this protocol, `frozen_scoring_roster_v3.csv`, endpoint definitions, margins table (Section 4), power analysis artifacts (this namespace), and `data_rights`/provider treatment notes. Commit message records the protocol id and UTC time. **No outcome file may be present in this commit.**
-3. **External registration**: deposit commit #1 content (or the OSF preregistration form built from it) at OSF or Zenodo; obtain handle/DOI. Record it in `registration_record_v3.json` (fields: registry, DOI, registration URL, registration UTC, commit hash of the registered tree, sha256 of the registered files).
-4. **Authorization**: `readiness.json` flips to `external_registration_verified: true` only when the registration record exists and its file hashes match commit #1.
+3. **External registration**: deposit commit #1 content (or the OSF preregistration form built from it) at OSF or Zenodo; obtain handle/DOI. Record it in `registration_record_v3.json` (fields: registry, DOI, registration URL, registration UTC, the registered commit).
+4. **Authorization**: `readiness.json` flips to `external_registration_verified: true` only when the registration record exists and its files match commit #1.
 5. **Outcome scoring** (separate public commit #2): scoring runs, summaries, flow table, and this protocol's outcome section, referencing the registration DOI.
 6. **Primary analysis**: per-endpoint one-sided network-level t-tests plus network-bootstrap 95% CIs against the frozen margins; sensitivity: T1-only vs full panel, per-domain, per-model; attrition flow table; no margin or endpoint changes.
 7. **Reporting**: success/failure per endpoint, power table for the achieved N, downgrade statements where applicable.
 
 **External timestamping requirements (fixes the v2 same-commit flaw):**
 
-- Commit #1 must be pushed to the public remote and its hash recorded in the registration before any third-panel outcome is scored; the outcome commit (#2) must reference the DOI.
+- Commit #1 must be pushed to the public remote and recorded in the registration before any third-panel outcome is scored; the outcome commit (#2) must reference the DOI.
 - The registration record must state `separate_pre_outcome_commit: true` and `externally_verifiable_preregistration: true` — the explicit opposite of the v2 record fields.
 - If the roster must change between commits #1 and #2, a new amendment + new registration is required (no partial registration).
 - The manuscript must describe the third panel as externally registered with a DOI, replacing the current SI Text S17 sentence that the v2 "amendment and results share one commit."

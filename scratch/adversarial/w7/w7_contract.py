@@ -30,7 +30,6 @@ NA_OPEN_6YR_FAILURE_CLOSURE = 67
 NA_OPEN_6YR_DEVELOPMENT = 47
 NA_OPEN_6YR_VALIDATION = 20
 
-WORKLOAD_SHA256 = "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
 GO_NO_GO = "NO_GO_T2_PRIMARY_EVIDENCE"
 INFERENCE_WITHHELD = "withheld_n_lt_100_network_interval"
 W7_PURPOSE = "development_slice_not_evidence"
@@ -451,7 +450,6 @@ __all__ = [
     "UK_EA_SPATIAL_CATALOG_CLUSTERS_50KM",
     "W7_FIRST_LAYER",
     "W7_PURPOSE",
-    "WORKLOAD_SHA256",
     "assert_w7_not_t2_contract",
     "europe_does_not_increment_t2",
     "executable_count_after_mh_relabel",

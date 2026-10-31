@@ -18,7 +18,6 @@ Reviewer holes encoded here, not just mentioned:
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 import re
@@ -43,6 +42,7 @@ if str(HERE) not in sys.path:
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from stream_recoverability.seeds import plain_seed  # noqa: E402
 from stream_recoverability.data.public_river_inventory import (  # noqa: E402
     cluster_rivers_from_catalog,
     cluster_rivers_from_catalog_v2,
@@ -789,33 +789,12 @@ def _size_tertile(values: Sequence[int]) -> list[str]:
         return ["mid"] * len(series)
 
 
-def assignment_digest(network_id: str, seed: int) -> str:
-    payload = f"{int(seed)}\t{network_id}".encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
-def canonical_split_bytes(frame: pd.DataFrame) -> bytes:
-    columns = [
-        "network_id",
-        "split_role",
-        "seed",
-        "climate_band",
-        "size_tertile",
-        "stratum",
-        "regulation_stratum",
-        "never_sealed",
-    ]
-    work = frame.loc[:, [column for column in columns if column in frame.columns]].copy()
-    work = work.sort_values("network_id").reset_index(drop=True)
-    return work.to_csv(index=False).encode("utf-8")
-
-
 def lock_stratified_split(
     clusters: pd.DataFrame,
     *,
     seed: int = SPLIT_SEED,
-) -> tuple[pd.DataFrame, str]:
-    """50/20/30 development/validation/sealed, SHA-256 within climate×size strata.
+) -> pd.DataFrame:
+    """50/20/30 development/validation/sealed, seeded permutation within climate×size strata.
 
     Regulation stratum is ``unknown_until_gages``. The 335-row regulation-panel
     extract is not a catalog-wide GAGES-II join; using it as a split factor
@@ -834,9 +813,6 @@ def lock_stratified_split(
     frame["stratum"] = frame["climate_band"].astype(str) + "|" + frame["size_tertile"].astype(str)
     frame["regulation_stratum"] = "unknown_until_gages"
     frame["seed"] = int(seed)
-    frame["assignment_sha256"] = [
-        assignment_digest(str(network_id), seed) for network_id in frame["network_id"]
-    ]
     frame["split_role"] = "catalog_candidate"
     eligible_mask = (
         ~frame["never_sealed"].astype(bool)
@@ -858,8 +834,10 @@ def lock_stratified_split(
     by_stratum: dict[str, list[int]] = {}
     for i in pending_idx:
         by_stratum.setdefault(str(frame.iloc[i]["stratum"]), []).append(i)
-    for _, members in by_stratum.items():
-        members.sort(key=lambda i: (frame.iloc[i]["assignment_sha256"], frame.iloc[i]["network_id"]))
+    for stratum_index, (_, members) in enumerate(sorted(by_stratum.items())):
+        members.sort(key=lambda i: str(frame.iloc[i]["network_id"]))
+        order = np.random.default_rng(plain_seed(int(seed), stratum_index)).permutation(len(members))
+        members = [members[j] for j in order]
         n = len(members)
         n_dev = n * 50 // 100
         n_val = n * 20 // 100
@@ -882,9 +860,7 @@ def lock_stratified_split(
     forbidden = set(LOIRE_SWISS_IDS)
     if any(str(item) in forbidden for item in frame["network_id"]):
         raise RuntimeError("Loire/Swiss cannot enter the USGS HUC8 split")
-    digest = hashlib.sha256(canonical_split_bytes(frame)).hexdigest()
-    frame["split_table_sha256"] = digest
-    return frame, digest
+    return frame
 
 
 def _count_ok(frame: pd.DataFrame) -> int:
@@ -968,8 +944,8 @@ def write_feasibility(path: Path, counts: dict[str, Any], missouri: dict[str, An
         "",
         "## Split (attack 8–9)",
         "",
-        "Stratified 50/20/30 by climate_band × size tertile. Assignment key is",
-        f"SHA-256(`seed\\\\tnetwork_id`) with seed **{SPLIT_SEED}**, locked **before**",
+        "Stratified 50/20/30 by climate_band × size tertile. Within each stratum the order is",
+        f"a seeded permutation of the sorted network ids (plain seed **{SPLIT_SEED}**), locked **before**",
         "any new download. never_sealed (12 burned rivers + jinsha +",
         "chattahoochee, matched by site overlap / name tokens) cannot be sealed.",
         "Loire and Swiss Aare-Rhine have no public dated daily values here and",
@@ -1098,7 +1074,7 @@ def build_catalog_v3(*, nldi_live_groups: int = 0) -> dict[str, Any]:
         except Exception as error:  # noqa: BLE001
             tagged["nldi_live_error"] = str(error)
 
-    split_frame, split_sha = lock_stratified_split(tagged, seed=SPLIT_SEED)
+    split_frame = lock_stratified_split(tagged, seed=SPLIT_SEED)
     n_sealed = int(split_frame["split_role"].eq("sealed").sum())
     n_non_na_sealed = 0  # USGS HUC8 catalog is North America only
     n_never = int(split_frame["never_sealed"].fillna(False).sum())
@@ -1142,7 +1118,6 @@ def build_catalog_v3(*, nldi_live_groups: int = 0) -> dict[str, Any]:
         "non_na_sealed_shortfall_vs_10": 10 - n_non_na_sealed,
         "sealed_shortfall_vs_40": max(0, 40 - n_sealed),
         "split_seed": SPLIT_SEED,
-        "split_table_sha256": split_sha,
         "temperatures_downloaded": False,
         "sealed_outcomes_opened": False,
         "network_catalog_v1_remapped": False,
@@ -1161,14 +1136,12 @@ def build_catalog_v3(*, nldi_live_groups: int = 0) -> dict[str, Any]:
     if not v1.empty:
         v1.to_csv(HERE / "usgs_river_clusters_v1_name_huc2_contrast.csv", index=False)
     split_frame.to_csv(HERE / "catalog_v3_split.csv", index=False)
-    (HERE / "catalog_v3_split_sha256.txt").write_text(split_sha + "\n", encoding="utf-8")
     (HERE / "network_catalog_v3_split.yaml").write_text(
         yaml.safe_dump(
             {
                 "catalog_id": "network_catalog_v3_huc8_split_adversarial",
                 "seed": SPLIT_SEED,
                 "fractions": {"development": 0.50, "validation": 0.20, "sealed": 0.30},
-                "split_table_sha256": split_sha,
                 "regulation_stratum": "unknown_until_gages",
                 "temperatures_downloaded": False,
                 "sealed_outcomes_opened": False,

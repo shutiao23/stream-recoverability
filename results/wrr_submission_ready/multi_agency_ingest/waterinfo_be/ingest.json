@@ -28,20 +28,17 @@
   "quality_assurance_note": "the KiWIS values payload carries no quality flag ('Timestamp,Value' only) and no provider statement that these series are checked/approved was found on https://www.waterinfo.vlaanderen.be/ (disclaimer read 2026-10-12); the umbrella disclaimer states the data are offered for informative, non-commercial use",
   "station_list": {
     "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getStationList&format=json&parametertype=noType",
-    "sha256": "bb2cdda8e6ffa1a4443e2c4b13ede4417e3669f284c67347e65b85024130aee7",
     "bytes": 185548,
     "served_from_cache": true
   },
   "timeseries_catalogue": {
     "all_WT": {
       "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesList&format=json&parametertype_name=WT",
-      "sha256": "7b3b67004b902b4515180d9d614c597b73dab52b28ff3e245e0d4ba49bfb9dff",
       "bytes": 318895,
       "rows": 3365
     },
     "WT_DagGem": {
       "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesList&format=json&station_name=%2A&ts_name=DagGem&parametertype_name=WT",
-      "sha256": "0d670e2cf7310c36c10ff9fab4a699ea52d58ac85719c7571357b2fcba678012",
       "bytes": 39071,
       "rows": 408
     },
@@ -80,7 +77,6 @@
     "retrieved_utc": "2026-10-12T10:42:58Z",
     "status": 429,
     "bytes": 198,
-    "sha256": "785a6f9fee98278354216e9554d55676f5281ba5c99cab9b060241725fc792c0",
     "content_type": "(via curl)",
     "sample": "<?xml version=\"1.0\" ?><ExceptionReport><Exception exceptionCode=\"AuthCreditLimit\"><ExceptionText>Credit limit exceeded for type IP and key 46.224.42.132</ExceptionText></Exception></ExceptionReport>",
     "transport": "curl",

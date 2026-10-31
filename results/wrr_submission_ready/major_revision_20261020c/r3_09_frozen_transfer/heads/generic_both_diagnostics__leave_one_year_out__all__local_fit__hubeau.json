@@ -50,7 +50,6 @@
   "identity": "generic_both_diagnostics__leave_one_year_out__all__local_fit__hubeau",
   "kind": "gbr",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_both_diagnostics__leave_one_year_out__all__local_fit__hubeau.joblib",
-  "model_sha256": "eab36cfd6eda987ffdf152bfc7cd5d7852a75dbde5c0e93c0a2b7505d255e0fd",
   "n_training_cases": 4928,
   "n_training_groups": 10,
   "name": "generic_both_diagnostics",
@@ -60,8 +59,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
-      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

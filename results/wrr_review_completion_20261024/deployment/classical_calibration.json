@@ -1,5 +1,4 @@
 {
-  "bridge_repair_sha256": "ace33d4a8e540c2b7ba68a046e984d507c7c31ecb513329e1f71a57c906449bf",
   "cell_minimum": 50,
   "levels": [
     0.05,
@@ -305,6 +304,5 @@
     }
   },
   "risk_classifier_scope": "the D2 classifier is not reused as a stochastic-regression failure classifier",
-  "source_case_sha256": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
   "source_role": "exactly the global candidate's interval-calibration role and bootstrap multiplicities"
 }

@@ -2,7 +2,6 @@ amendment_id: regulation_panel_transport_amendment_v1
 status: frozen_after_modern_API_rate_block_before_any_panel_metric
 frozen_at_utc: "2026-08-24T22:31:00Z"
 base_design: regulation_panel_freeze_v1
-base_design_sha256: 260bd313c879161dad2058fb7122ff11880965ec0a2cffd38aaa70d1f9feaf93
 blocker:
   endpoint: https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items
   response_code: 429

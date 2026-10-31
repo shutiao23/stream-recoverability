@@ -22,7 +22,9 @@ from sklearn.inspection import permutation_importance
 from sklearn.metrics import r2_score, roc_auc_score
 from sklearn.model_selection import GroupKFold
 
-from stream_recoverability.experiments.v17_fitness.cases import deseasonalized_correlations
+from stream_recoverability.experiments.v17_fitness.cases import (
+    deseasonalized_correlations,
+)
 from stream_recoverability.experiments.v17_fitness.estimators import (
     StationModels,
     hottest_window_mean,
@@ -32,9 +34,15 @@ from stream_recoverability.experiments.v17_fitness.outages import (
     climatological_peak_window,
     design_for_year,
 )
-from stream_recoverability.experiments.v17_fitness.panel import air_series_for, load_network_panel
+from stream_recoverability.experiments.v17_fitness.panel import (
+    air_series_for,
+    load_network_panel,
+)
 from stream_recoverability.experiments.v17_fitness.cases import station_geometry_pool
-from stream_recoverability.experiments.v17_fitness.paths import PRIMARY_TOLERANCE_C, stable_seed
+from stream_recoverability.experiments.v17_fitness.paths import (
+    PRIMARY_TOLERANCE_C,
+    station_year_seed,
+)
 
 MECHANISM_FEATURES = (
     "longest_run",
@@ -54,7 +62,9 @@ MECHANISM_FEATURES = (
 )
 
 
-def length_by_overlap_table(cases: pd.DataFrame, error_column: str = "abserr_policy") -> pd.DataFrame:
+def length_by_overlap_table(
+    cases: pd.DataFrame, error_column: str = "abserr_policy"
+) -> pd.DataFrame:
     """The central H1 table: length is weak once peak overlap is conditioned on."""
 
     frame = cases.copy()
@@ -73,17 +83,26 @@ def length_by_overlap_table(cases: pd.DataFrame, error_column: str = "abserr_pol
         .agg(
             n=(error_column, "size"),
             mean_abs_error=(error_column, "mean"),
-            rate_above_tolerance=(error_column, lambda s: float((pd.to_numeric(s, errors="coerce") > PRIMARY_TOLERANCE_C).mean())),
+            rate_above_tolerance=(
+                error_column,
+                lambda s: float(
+                    (pd.to_numeric(s, errors="coerce") > PRIMARY_TOLERANCE_C).mean()
+                ),
+            ),
         )
         .reset_index()
     )
     return grouped
 
 
-def marginal_separation(cases: pd.DataFrame, error_column: str = "abserr_policy") -> pd.DataFrame:
+def marginal_separation(
+    cases: pd.DataFrame, error_column: str = "abserr_policy"
+) -> pd.DataFrame:
     """Single-variable discrimination of a consequential error, out of the box."""
 
-    label = (pd.to_numeric(cases[error_column], errors="coerce") > PRIMARY_TOLERANCE_C).astype(int)
+    label = (
+        pd.to_numeric(cases[error_column], errors="coerce") > PRIMARY_TOLERANCE_C
+    ).astype(int)
     rows = []
     for name in MECHANISM_FEATURES:
         values = pd.to_numeric(cases[name], errors="coerce")
@@ -121,17 +140,28 @@ def grouped_importance(
     importances = np.zeros(len(MECHANISM_FEATURES))
     folds = 0
     for train_idx, test_idx in GroupKFold(n_splits=n_splits).split(X, y, groups):
-        model = HistGradientBoostingRegressor(random_state=seed, max_depth=4, max_iter=300, learning_rate=0.06)
+        model = HistGradientBoostingRegressor(
+            random_state=seed, max_depth=4, max_iter=300, learning_rate=0.06
+        )
         model.fit(X.iloc[train_idx], y.iloc[train_idx])
         oof[test_idx] = model.predict(X.iloc[test_idx])
         result = permutation_importance(
-            model, X.iloc[test_idx], y.iloc[test_idx], n_repeats=3, random_state=seed, scoring="r2"
+            model,
+            X.iloc[test_idx],
+            y.iloc[test_idx],
+            n_repeats=3,
+            random_state=seed,
+            scoring="r2",
         )
         importances += result.importances_mean
         folds += 1
     importances /= max(1, folds)
-    table = pd.DataFrame({"feature": list(MECHANISM_FEATURES), "permutation_r2_drop": importances})
-    table = table.sort_values("permutation_r2_drop", ascending=False).reset_index(drop=True)
+    table = pd.DataFrame(
+        {"feature": list(MECHANISM_FEATURES), "permutation_r2_drop": importances}
+    )
+    table = table.sort_values("permutation_r2_drop", ascending=False).reset_index(
+        drop=True
+    )
     summary = {
         "out_of_fold_r2": float(r2_score(y, oof)),
         "n": int(len(y)),
@@ -141,14 +171,23 @@ def grouped_importance(
     return table, summary
 
 
-def nested_model_gain(cases: pd.DataFrame, *, error_column: str = "abserr_policy", seed: int = 0) -> pd.DataFrame:
+def nested_model_gain(
+    cases: pd.DataFrame, *, error_column: str = "abserr_policy", seed: int = 0
+) -> pd.DataFrame:
     """Does each information layer add discrimination beyond the length axis?"""
 
-    label = (pd.to_numeric(cases[error_column], errors="coerce") > PRIMARY_TOLERANCE_C).astype(int)
+    label = (
+        pd.to_numeric(cases[error_column], errors="coerce") > PRIMARY_TOLERANCE_C
+    ).astype(int)
     groups = cases["network_id"].to_numpy()
     layers = {
         "length only": ["longest_run", "total_missing"],
-        "+ timing": ["longest_run", "total_missing", "peak_overlap", "warm_observed_fraction"],
+        "+ timing": [
+            "longest_run",
+            "total_missing",
+            "peak_overlap",
+            "warm_observed_fraction",
+        ],
         "+ observed-peak margin": [
             "longest_run",
             "total_missing",
@@ -163,10 +202,18 @@ def nested_model_gain(cases: pd.DataFrame, *, error_column: str = "abserr_policy
         X = cases[columns].apply(pd.to_numeric, errors="coerce")
         oof = np.full(len(label), np.nan)
         for train_idx, test_idx in GroupKFold(n_splits=5).split(X, label, groups):
-            model = HistGradientBoostingRegressor(random_state=seed, max_depth=4, max_iter=300, learning_rate=0.06)
+            model = HistGradientBoostingRegressor(
+                random_state=seed, max_depth=4, max_iter=300, learning_rate=0.06
+            )
             model.fit(X.iloc[train_idx], label.iloc[train_idx])
             oof[test_idx] = model.predict(X.iloc[test_idx])
-        rows.append({"feature_set": name, "n_features": len(columns), "grouped_cv_auc": float(roc_auc_score(label, oof))})
+        rows.append(
+            {
+                "feature_set": name,
+                "n_features": len(columns),
+                "grouped_cv_auc": float(roc_auc_score(label, oof)),
+            }
+        )
     return pd.DataFrame(rows)
 
 
@@ -175,7 +222,9 @@ def nested_model_gain(cases: pd.DataFrame, *, error_column: str = "abserr_policy
 # --------------------------------------------------------------------------
 
 
-def _phase_shuffled_donors(donors: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
+def _phase_shuffled_donors(
+    donors: pd.DataFrame, rng: np.random.Generator
+) -> pd.DataFrame:
     """Keep each donor's seasonal cycle, destroy its synchrony with the target."""
 
     out = {}
@@ -185,7 +234,9 @@ def _phase_shuffled_donors(donors: pd.DataFrame, rng: np.random.Generator) -> pd
         climatology = series.groupby(doy).transform("mean")
         anomaly = series - climatology
         shift = int(rng.integers(120, max(121, len(series) - 120)))
-        shuffled = pd.Series(np.roll(anomaly.to_numpy(dtype=float), shift), index=series.index)
+        shuffled = pd.Series(
+            np.roll(anomaly.to_numpy(dtype=float), shift), index=series.index
+        )
         out[name] = climatology + shuffled
     return pd.DataFrame(out, index=donors.index)
 
@@ -231,13 +282,21 @@ def donor_control_experiment(job: dict) -> pd.DataFrame:
         strong = tuple(ordered.index[:k])
         weak = tuple(ordered.index[-k:])
 
-        rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), "ctrl"))
+        rng = np.random.default_rng(
+            station_year_seed(network_id, station_id, daily.columns, int(year), "ctrl")
+        )
         shuffled_donors = _phase_shuffled_donors(donors, rng)
 
-        base_models = StationModels(target=target, donors=donors, air=air, train_mask=train_mask)
-        shuffled_models = StationModels(target=target, donors=shuffled_donors, air=air, train_mask=train_mask)
+        base_models = StationModels(
+            target=target, donors=donors, air=air, train_mask=train_mask
+        )
+        shuffled_models = StationModels(
+            target=target, donors=shuffled_donors, air=air, train_mask=train_mask
+        )
         peak_doys = climatological_peak_window(target, exclude_year=int(year))
-        realizations = design_for_year(year_index, peak_doys, pool, rng=rng, n_empirical=1)
+        realizations = design_for_year(
+            year_index, peak_doys, pool, rng=rng, n_empirical=1
+        )
 
         for realization in realizations:
             mask = realization.mask(len(year_index))
@@ -272,8 +331,12 @@ def donor_control_experiment(job: dict) -> pd.DataFrame:
                 "n_strong": len(strong_matched),
                 "n_weak": len(weak_matched),
                 "k_matched": int(k_matched),
-                "corr_strong_mean": float(correlations.reindex(list(strong_matched)).mean()),
-                "corr_weak_mean": float(correlations.reindex(list(weak_matched)).mean()),
+                "corr_strong_mean": float(
+                    correlations.reindex(list(strong_matched)).mean()
+                ),
+                "corr_weak_mean": float(
+                    correlations.reindex(list(weak_matched)).mean()
+                ),
                 "truth_metric": float(truth_metric),
             }
             for label, (models, subset) in arms.items():
@@ -290,7 +353,9 @@ def donor_control_experiment(job: dict) -> pd.DataFrame:
                 if not np.isfinite(completed).all():
                     row[f"abserr_{label}"] = float("nan")
                     continue
-                row[f"abserr_{label}"] = float(abs(hottest_window_mean(completed) - truth_metric))
+                row[f"abserr_{label}"] = float(
+                    abs(hottest_window_mean(completed) - truth_metric)
+                )
             if row["n_strong"] != row["n_weak"]:
                 raise AssertionError(
                     f"strong/weak donor counts differ after matching: {row['n_strong']} vs {row['n_weak']}"

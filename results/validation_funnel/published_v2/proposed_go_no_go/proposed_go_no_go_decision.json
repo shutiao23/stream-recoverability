@@ -5,21 +5,6 @@
     "bytes": 229174,
     "path": "results/validation_funnel/published_v2/branch_ablation/branch_ablation_metrics.parquet"
   },
-  "code_provenance": {
-    "dirty_tracked_paths": [
-      "src/stream_recoverability/experiments/runner.py",
-      "src/stream_recoverability/experiments/validation_finalization.py"
-    ],
-    "external_relevant_input_count": 0,
-    "git_commit": "98ee106acf37f2bfc70f6527c4398e8904ade9e6",
-    "relevant_source_clean": false,
-    "relevant_source_digest": "dd7e2bc83c13c7939f84df33b46e598956adfb03beac26a1f61a588bb8546ef7",
-    "relevant_source_file_count": 50,
-    "relevant_untracked_paths": [],
-    "schema_version": "code_provenance_v1",
-    "status": "dirty",
-    "tracked_worktree_clean": false
-  },
   "command": "go-no-go",
   "criteria": {
     "bytes": 933,

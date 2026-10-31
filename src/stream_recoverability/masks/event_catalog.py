@@ -7,7 +7,6 @@ split only; the evaluation split is used only to locate episodes and controls.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from collections.abc import Mapping, Sequence
@@ -242,11 +241,10 @@ def _token(value: object) -> str:
     return token or "NA"
 
 
-def _stable_id(prefix: str, *parts: object) -> str:
-    payload = "\x1f".join(str(part) for part in parts)
-    digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12].upper()
-    human = "-".join(_token(part) for part in parts[-3:])
-    return f"{_token(prefix)}-{human}-{digest}"
+def _readable_id(prefix: str, *parts: object) -> str:
+    """Join a prefix and its identifying parts into a readable, file-safe ID."""
+
+    return "-".join([_token(prefix), *(_token(part) for part in parts)])
 
 
 def event_stress_identity(
@@ -259,7 +257,7 @@ def event_stress_identity(
     """Return stable event and anchor IDs for one aggregate M7a stress case."""
 
     parts = (data_version, evaluation_split, station_id, event_type)
-    return _stable_id("M7A-STRESS", *parts), _stable_id("M7A-ANCHOR", *parts)
+    return _readable_id("M7A-STRESS", *parts), _readable_id("M7A-ANCHOR", *parts)
 
 
 def _source_split(evaluation_split: str, source_split: str | None) -> str:
@@ -1083,22 +1081,17 @@ def generate_event_episode_catalog(
                 window_end_date = _date_text(dates, window_end)
                 control_start_date = _date_text(dates, control_start)
                 control_end_date = _date_text(dates, control_end)
-                identity = (
-                    data_version,
-                    evaluation_split,
-                    station_id,
-                    event_type,
-                    raw_start_date,
-                    raw_end_date,
-                    window_start_date,
-                    window_end_date,
+                # Raw episodes of one station and event type are disjoint, and
+                # a control window is never reused within that station/event,
+                # so these dated parts identify every row uniquely.
+                catalog_parts = (data_version, evaluation_split, station_id, event_type)
+                event_parts = (*catalog_parts, raw_start_date, raw_end_date)
+                event_id = _readable_id("M7B-EVENT", *event_parts)
+                control_id = _readable_id(
+                    "M7B-CONTROL", *catalog_parts, control_start_date, control_end_date
                 )
-                event_id = _stable_id("M7B-EVENT", *identity)
-                control_id = _stable_id(
-                    "M7B-CONTROL", *identity, control_start_date, control_end_date
-                )
-                pair_id = _stable_id("M7B-PAIR", event_id, control_id)
-                anchor_id = _stable_id("M7B-ANCHOR", event_id, control_id)
+                pair_id = _readable_id("M7B-PAIR", *event_parts, control_start_date)
+                anchor_id = _readable_id("M7B-ANCHOR", *event_parts, control_start_date)
 
                 rising_start = window.rising_start_index
                 rising_end = window.rising_end_index
@@ -1553,17 +1546,6 @@ def load_event_episode_catalog(
     return catalog
 
 
-def event_catalog_sha256(catalog: pd.DataFrame) -> str:
-    """Return a row-order-independent digest of the canonical catalog."""
-
-    canonical = validate_event_episode_catalog(catalog)
-    records = canonical.to_dict(orient="records")
-    payload = json.dumps(
-        records, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
 def audit_event_episode_catalog(
     catalog: pd.DataFrame,
     long_data: pd.DataFrame,
@@ -1630,7 +1612,6 @@ def audit_event_episode_catalog(
     return {
         "status": "passed",
         "catalog_schema_version": EVENT_CATALOG_SCHEMA_VERSION,
-        "catalog_sha256": event_catalog_sha256(actual),
         "episode_pair_count": len(actual),
         "event_id_count": int(actual["event_id"].nunique()),
         "control_id_count": int(actual["control_id"].nunique()),
@@ -1660,7 +1641,6 @@ __all__ = [
     "EventWindow",
     "audit_event_episode_catalog",
     "derive_event_day_condition",
-    "event_catalog_sha256",
     "event_stress_identity",
     "extract_event_windows",
     "generate_event_episode_catalog",

@@ -43,7 +43,7 @@ _spec = importlib.util.spec_from_file_location(
 M330 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(M330)
 
-from stream_recoverability.experiments.v17_fitness.paths import stable_seed  # noqa: E402
+from stream_recoverability.seeds import plain_seed, position_index  # noqa: E402
 
 RUN = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261020"
 ALIGNED = RUN / "p0_01_aligned_policy_admission"
@@ -57,6 +57,12 @@ DOCUMENTED = {
 DRAWS_SELECT = 1000
 DRAWS_EVAL = 4000
 
+#: Bootstrap seeds are ``plain_seed(tag, panel, fold seed, ...)``: the tag code
+#: below, then panel and score as their positions in sorted order.
+SEED_TAGS = {"subset-select": 1, "subset-contrast": 2}
+PANEL_CODES = position_index(DOCUMENTED)
+SCORE_CODES = position_index(SCORES)
+
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
@@ -67,9 +73,9 @@ def main() -> None:
         cases = pd.read_parquet(ALIGNED / f"case_level_admissions_{panel}.parquet")
         for seed in SEEDS:
             block = cases[cases.fold_seed.eq(seed)].reset_index(drop=True)
-            cal_arrays = np.load(ALIGNED / f"calibration_scores_{panel}_seed{seed}.npz")[
-                "cal_score_by_fold"
-            ]
+            cal_arrays = np.load(
+                ALIGNED / f"calibration_scores_{panel}_seed{seed}.npz"
+            )["cal_score_by_fold"]
             documented = block["provider"].astype(str).isin(providers).to_numpy()
             groups = block["independence_group"].astype(str).to_numpy()
             group_index, n_groups = M330.M311.factorize_networks(groups)
@@ -98,14 +104,22 @@ def main() -> None:
                     if name == "fitted_risk":
                         cal_score = np.asarray(cal_arrays[fold])[cal_mask]
                     else:
-                        cal_score = block[f"score_{name}"].to_numpy(dtype=float)[cal_mask]
+                        cal_score = block[f"score_{name}"].to_numpy(dtype=float)[
+                            cal_mask
+                        ]
                     selection = M330.select_threshold(
                         cal_score,
                         bad[cal_mask],
                         groups[cal_mask],
                         risk_cap=0.05,
                         draws=DRAWS_SELECT,
-                        seed=stable_seed("subset-select", panel, seed, fold, name),
+                        seed=plain_seed(
+                            SEED_TAGS["subset-select"],
+                            PANEL_CODES[panel],
+                            seed,
+                            fold,
+                            SCORE_CODES[name],
+                        ),
                     )
                     flags[test_mask] = (
                         block[f"score_{name}"].to_numpy(dtype=float)[test_mask]
@@ -121,7 +135,9 @@ def main() -> None:
                         "n_documented": int(documented.sum()),
                         "n_admitted": int(evaluated.sum()),
                         "retention_documented": (
-                            float(evaluated.sum() / documented.sum()) if documented.sum() else np.nan
+                            float(evaluated.sum() / documented.sum())
+                            if documented.sum()
+                            else np.nan
                         ),
                         "false_admit_rate": (
                             float(bad[evaluated].mean()) if evaluated.any() else np.nan
@@ -146,7 +162,13 @@ def main() -> None:
                     metric="retention",
                     error=block["policy_error"].to_numpy(dtype=float)[mask],
                     draws=DRAWS_EVAL,
-                    seed=stable_seed("subset-contrast", panel, seed, left, right),
+                    seed=plain_seed(
+                        SEED_TAGS["subset-contrast"],
+                        PANEL_CODES[panel],
+                        seed,
+                        SCORE_CODES[left],
+                        SCORE_CODES[right],
+                    ),
                 )
                 contrasts.append(
                     {
@@ -210,7 +232,9 @@ def main() -> None:
     lines.append("")
     (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
     metadata = {
-        "documented_daily_mean_providers": {k: sorted(v) for k, v in DOCUMENTED.items()},
+        "documented_daily_mean_providers": {
+            k: sorted(v) for k, v in DOCUMENTED.items()
+        },
         "select_draws": DRAWS_SELECT,
         "eval_draws": DRAWS_EVAL,
         "note": (

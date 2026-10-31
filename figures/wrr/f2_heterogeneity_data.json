@@ -355,37 +355,30 @@
   "artifacts": [
     {
       "path": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
-      "sha256": "1f7fcacae0a86a946c8b73e7e9eeb21b7fbf2653d87ffe1e790875cad639640f",
       "bytes": 734
     },
     {
       "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
-      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8",
       "bytes": 17491833
     },
     {
       "path": "results/v17_fitness/step10_confirmation/verdict.json",
-      "sha256": "08bca0d4693c0bc0ff52f4e3160188d3ff743da524f80636f09d4e4222ff8a2c",
       "bytes": 1382
     },
     {
       "path": "results/v17_fitness/step11_arm_robustness/arm_contrasts.csv",
-      "sha256": "1c476ef636ddfe3a5bea39613c6c0b9835feacd88200e2967d72c5f7210ef304",
       "bytes": 2237
     },
     {
       "path": "results/v18_closure/e2_archive_deployment/summary.json",
-      "sha256": "0d8d1dca19c883ca03327adc8a4aa6f50865f5f38621dde3d3dfbee8b45c5717",
       "bytes": 1014
     },
     {
       "path": "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv",
-      "sha256": "40635b078a1a5131448fb0d8b359916a0e755bf8d977cbf053bcc650d023201b",
       "bytes": 421
     },
     {
       "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json",
-      "sha256": "f0d83c1abb9a24ac2b7c2aec491c99a63f97de612fb11b885eaeeac43e05a25b",
       "bytes": 1831
     }
   ],

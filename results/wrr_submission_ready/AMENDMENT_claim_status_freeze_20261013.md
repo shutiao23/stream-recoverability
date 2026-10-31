@@ -1,6 +1,6 @@
 # Claim-status freeze — 2026-10-13 audit
 
-Locked review commit: `1e0f24e32723e3b14dbacdba3dfa851ff60f58fe` (2026-10-13 00:00:01 UTC).
+Locked for review at 2026-10-13 00:00:01 UTC.
 
 This amendment does **not** overwrite sealed scores or historical verdict
 bytes. It reclassifies what those artifacts may enter in the abstract,

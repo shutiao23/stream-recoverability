@@ -342,7 +342,7 @@ operator is also demoted to supporting information (Section 3.7).
 
 Evidence-role labels are applied throughout. (1) Frozen: the second-panel
 outcomes, the empirical predictor as originally frozen, and the second-panel
-scoring are internal and hash-bound, but because their amendment and
+scoring are internally frozen, but because their amendment and
 outcomes entered version control in the same commit they are not externally
 verifiable preregistration. (2) Post-hoc v13 development: every analysis in
 this revision--the baseline ladder, paired comparisons, support hierarchy,
@@ -703,7 +703,7 @@ leg is unscored. Heterogeneity strata (HUC2 climate bands, GAGES-II
 major-dam presence) are broad and descriptive, and provider-specific QC and
 day definitions may contribute to domain shifts. Finally, every revision
 analysis reuses already-scored panels; none is independent confirmation,
-and the second panel itself is internally hash-bound but not externally
+and the second panel itself is internally frozen but not externally
 preregistered.
 
 ## 5. Conclusions
@@ -758,7 +758,7 @@ record.
 The third confirmation follows protocol v4 (drafted in this revision
 folder; to be consolidated at `paper/development_v13/protocol_v4.md`),
 which replaces protocol v3 after review. Protocol v4 fixes the provenance
-flaw of the internally hash-bound second panel (whose amendment and
+flaw of the internally frozen second panel (whose amendment and
 outcomes shared one version-control commit) by requiring, before any
 third-panel outcome is opened: (i) a separate public commit containing the
 protocol, the exact roster, endpoint definitions, margins, and the power

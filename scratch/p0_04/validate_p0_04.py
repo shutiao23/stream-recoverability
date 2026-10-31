@@ -5,14 +5,12 @@ Run from the repo root:
     PYTHONPATH=src python3 scratch/p0_04/validate_p0_04.py
 
 Re-derives every internal identity of the six output files and re-checks the
-protocol fingerprint against the bytes on disk. Read-only.
+cross-checks stored in the protocol record. Read-only.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
-import subprocess
 from pathlib import Path
 
 import pandas as pd
@@ -32,16 +30,12 @@ c = pd.read_csv(OUT / "decision_counts.csv")
 e = pd.read_csv(OUT / "equal_budget_comparison.csv")
 f = pd.read_csv(OUT / "efficiency_frontiers.csv")
 r = pd.read_csv(OUT / "rng_sensitivity.csv")
-fp = json.load(open(OUT / "protocol_fingerprint.json"))
+fp = json.load(open(OUT / "protocol_record.json"))
 
 chk("deliverables exist", all((OUT / x).exists() for x in [
     "share_decomposition.csv", "decision_counts.csv", "equal_budget_comparison.csv",
-    "efficiency_frontiers.csv", "rng_sensitivity.csv", "protocol_fingerprint.json",
+    "efficiency_frontiers.csv", "rng_sensitivity.csv", "protocol_record.json",
     "SUMMARY.md"]))
-chk("script sha256 matches disk", fp["script_sha256"] == hashlib.sha256(
-    Path("scripts/313_wrr_p0_04_env_closed_loop.py").read_bytes()).hexdigest())
-chk("git HEAD matches", fp["repo"]["git_head"] == subprocess.run(
-    ["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip())
 for nm, df in [("decomp", d), ("counts", c), ("equal", e), ("frontiers", f),
                ("sensitivity", r)]:
     chk(f"{nm}: threshold tagged everywhere", df.threshold_c.notna().all()

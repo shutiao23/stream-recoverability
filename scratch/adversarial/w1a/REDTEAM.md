@@ -29,7 +29,6 @@ The reviewer’s **161** is not an exact overlap search and is not T2. On this c
 - Exact − 161 = **+5**. `reviewer_161_equals_naive_zfill: true`.
 - Exact − truncated network count = **0**.
 - Groups with `n_stations_available > 12`: **9**. Truncation changes `n_stations` in **8** of them (caps at 12). Example: `huc8_03130001` keeps **28** under exact, 12 under truncation.
-- Split SHA-256 (seed 20260826): `b11cd3f25605d629709661633191781fcde306677ed9fbf2590845d4b60211a3`
 - Sealed in USGS-only draw: 56 (hits 40). Non-NA sealed: **0**. Shortfall vs 10: **10**. Loire/Swiss not used.
 - never_sealed HUC8 rows held out: 19. None assigned `split_role=sealed`.
 
@@ -137,7 +136,7 @@ Live probe (cached under `nldi_cache/`, not a 161-call hammer):
 
 ### 8. Split must not seal never_sealed. Loire/Swiss cannot fill 10 non-NA
 
-SHA-256 assignment `sha256(f"{seed}\\t{network_id}")` inside climate_band × size tertile, seed **20260826**, locked **before** download.
+Seeded deterministic assignment from `seed` and `network_id` inside climate_band × size tertile, seed **20260826**, locked **before** download.
 
 never_sealed matched by v1 site overlap (and conservatively by name tokens on mixed HUC8s): 19 HUC8 rows `never_sealed_held_out`, including `huc8_03130001` / `huc8_03130002` (Chattahoochee), Delaware HUC8s, Willamette/McKenzie HUC8s, Madison, Mahoning, Cahaba, Santa Fe, Roanoke, Yellowstone, Clearwater, Suwannee. Name-token over-flag of mixed basins (`huc8_17090001` with empty `never_sealed_v1_ids`) is the **safe** direction. Do not seal them.
 
@@ -145,8 +144,8 @@ Loire and Swiss are **absent** from the USGS HUC8 table and were **not** inserte
 
 Regulation stratum is `unknown_until_gages`. The 335-row regulation-panel extract is not catalog-wide GAGES-II. Do not invent `regulated` from the word “Missouri”.
 
-**Naive implementer:** 50/20/30 over the full 166 including Chattahoochee 03130001; put Loire/Swiss in sealed “for continents_min=2”; hash after download; stratify on river-name dams.
-**Merge:** site-overlap never_sealed, SHA-256 table before any NWIS pull, leave non-NA shortfall in writing.
+**Naive implementer:** 50/20/30 over the full 166 including Chattahoochee 03130001; put Loire/Swiss in sealed “for continents_min=2”; fix the split after download; stratify on river-name dams.
+**Merge:** site-overlap never_sealed, split table locked before any NWIS pull, leave non-NA shortfall in writing.
 
 ### 9. Do not remap `network_catalog_v1`. Do not download temperatures
 
@@ -174,7 +173,7 @@ Competing artifacts live only under `scratch/adversarial/w1a/`. `sealed_outcomes
 14. **Download daily temperatures** “to verify” HUC8 overlap.
 15. **Use the 335-row GAGES extract as a complete regulation stratum**, or label “Missouri” as regulated from the name.
 16. **Write `huc8` as int** in CSV/YAML so `03130001` becomes `3130001`.
-17. **Hash the split after** assigning roles by CSV sort order instead of SHA-256 within strata.
+17. **Lock the split after** assigning roles by CSV sort order instead of the seeded assignment within strata.
 18. **Keep `missouri_river_huc10`** as a v3 candidate.
 19. **Add HUC8 counts to name×HUC2 98** and call it 264 independent networks.
 20. **Skip `n_stations_available` and `overlap_start`/`overlap_end`**, so truncation and window honesty cannot be audited.
@@ -188,7 +187,7 @@ Take, as-is in spirit:
 - `cluster_by_huc8` signature, official HUC encoder, exact `largest_overlapping_subset`, `n_stations_available`, `overlap_start`/`end`, geodesic `max_pair_km`, missing-coord policy, `distance_mode=filter`
 - `nldi_connectivity.parse_nldi_feature_collection` + 404/429/empty-FC behavior + “do not drop”
 - Feasibility honesty: 166 exact, 161 = naive zfill, catalog ≠ qualified years, Missouri 12-way split, non-NA sealed shortfall = 10
-- Split lock: SHA-256 before download, never_sealed by **site overlap**, Loire/Swiss absent
+- Split lock: seeded split locked before download, never_sealed by **site overlap**, Loire/Swiss absent
 
 Do not merge:
 
@@ -217,7 +216,6 @@ scratch/adversarial/w1a/
   usgs_river_clusters_v3_huc8_maxpair100.csv
   usgs_river_clusters_v1_name_huc2_contrast.csv
   catalog_v3_split.csv
-  catalog_v3_split_sha256.txt
   network_catalog_v3_split.yaml
   nldi_cache/                      # 3 sites × UM+DM
 ```

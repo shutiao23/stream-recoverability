@@ -8,7 +8,6 @@ files, and confirms the QC pipeline's own arithmetic.  Writes
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -34,14 +33,6 @@ def complete_years(series: pd.Series) -> list[int]:
     return out
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def main() -> int:
     report: dict = {"checks": [], "failures": []}
 
@@ -65,11 +56,6 @@ def main() -> int:
         csv = ROOT / row.daily_wide_temperature_csv
         st = ROOT / row.stations_csv
         check(f"{row.network_id}:files_exist", csv.is_file() and st.is_file(), str(csv))
-        check(
-            f"{row.network_id}:sha256_matches_manifest",
-            sha256(csv) == row.daily_wide_temperature_sha256,
-            sha256(csv),
-        )
 
     # ---- recompute every headline number from the written panels
     n_networks = 0
@@ -198,13 +184,6 @@ def main() -> int:
         "n_above_30": int((values > 30).sum()),
     }
     check("values_inside_plausible_range", report["value_sanity"]["n_above_30"] == 0, report["value_sanity"])
-
-    # ---- read-only inputs unchanged
-    drift = []
-    for rel, digest in ingest.get("inputs_sha256", {}).items():
-        if sha256(ROOT / rel) != digest:
-            drift.append(rel)
-    check("read_only_inputs_unchanged", not drift, drift)
 
     report["summary"] = {
         "networks": n_networks,

@@ -465,15 +465,16 @@ Pooled annual associations mix station differences and within-station variation.
 \input{process_water_revision_uncertainty.tex}
 
 \subsection{Year-set comparisons and retained baselines}
-The original single random selection and incomplete-year-only spacing rule are retained as labeled legacy comparators in the table below. The exact subset expectation and the two selectors that incorporate fixed complete years are the current exploratory extensions. Paired intervals in this table use the common updated resampling specification; the previous resampling tables remain archived with the earlier revision.
+The original single random selection and incomplete-year-only spacing rule are retained as labeled legacy comparators in the table below. The exact subset expectation and the two selectors that incorporate fixed complete years are the current exploratory extensions. Paired intervals in this table use seed 2026102969. The following subsection reports the same one-draw contrasts under seed 20261029, including the 468-archive choice and the incomplete-year-only span. The two seeds agree on whether each legacy interval contains zero.
 \input{process_experiments_time_table.tex}
 \input{process_gap_revision_supporting.tex}
 \input{process_gap_revision_table.tex}
 \input{process_gap_revision_archive_table.tex}
 \input{process_gap_geometry_table.tex}
 \input{process_station_roster_table.tex}
+\input{process_time_revision_supporting.tex}
 \subsection{Earlier uncalibrated-only trajectory diagnostic}
-The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case sample. Its small pooled median does not establish stratified stability. The subsequent experiment section additionally regenerates the original source-calibration roles and re-estimates offsets at each budget; the table below is retained specifically as the uncalibrated reference.
+The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case sample. Its small pooled median does not establish stratified stability. On seed 0, six of nine Bavarian upper endpoints move by more than 0.05$^{\circ}$C, and the mean 90\% width increases from 0.3179 to 0.3686$^{\circ}$C. The subsequent experiment section additionally regenerates the original source-calibration roles and re-estimates offsets at each budget; the table below is retained specifically as the uncalibrated reference.
 \input{process_trajectory_revision_table.tex}
 """
     (PAPER / "process_revision_supporting.tex").write_text(text)

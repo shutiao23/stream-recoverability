@@ -98,89 +98,68 @@
   },
   "artifact_bindings": {
     "canonical_readiness": {
-      "path": "results/development_v11/second_confirmation/readiness.json",
-      "sha256": "41f20961349d732fb22a010a30cadc57a44c09872e0d3801356ef2bf7a5832d4"
+      "path": "results/development_v11/second_confirmation/readiness.json"
     },
     "authorization_amendment": {
-      "path": "configs/route_a_second_confirmation_amendment_v2.yaml",
-      "sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035"
+      "path": "configs/route_a_second_confirmation_amendment_v2.yaml"
     },
     "frozen_scoring_roster": {
-      "path": "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv",
-      "sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea"
+      "path": "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv"
     },
     "readiness_roster": {
-      "path": "results/development_v11/second_confirmation/readiness_roster.csv",
-      "sha256": "0d151f28b2527618b658d05f55e44f6b0371a1b885b71772f7c97a5e2b842d13"
+      "path": "results/development_v11/second_confirmation/readiness_roster.csv"
     },
     "development_outcomes": {
-      "path": "results/development_v11/station_gap_outcomes.csv",
-      "sha256": "cb58b8e7c90adfa1507574af9ed46b0d673b228788362c65e93b73732bf2d6a8"
+      "path": "results/development_v11/station_gap_outcomes.csv"
     },
     "development_empirical_predictions": {
-      "path": "results/development_v11/reviewer_completion/development_empirical_predictions.csv",
-      "sha256": "fda090dbf9b46a9a81e5e56f8543a91e021a7bc31027577b262013cc355e54e1"
+      "path": "results/development_v11/reviewer_completion/development_empirical_predictions.csv"
     },
     "registration_record_non_authorizing": {
-      "path": "results/development_v11/second_confirmation/amendment_registration_record.json",
-      "sha256": "236fb010cfe0d65612eb7c73ee6b9875d08fac1a92078d15e9d5fee7d1ae8872"
+      "path": "results/development_v11/second_confirmation/amendment_registration_record.json"
     },
     "simple_predictions": {
-      "path": "results/development_v11/second_confirmation/scoring/simple_predictions.csv",
-      "sha256": "121e341204cd6b5bbcb99e19a9fe53ebbaf1420cd63de6bdfe28d7ac4bd9897f"
+      "path": "results/development_v11/second_confirmation/scoring/simple_predictions.csv"
     },
     "empirical_predictions": {
-      "path": "results/development_v11/second_confirmation/scoring/empirical_predictions.csv",
-      "sha256": "1a896614526da5b955f15dbf24bd6961c56e1da6c1d7cb84e17c0db0d32710ba"
+      "path": "results/development_v11/second_confirmation/scoring/empirical_predictions.csv"
     },
     "empirical_intervals": {
-      "path": "results/development_v11/second_confirmation/scoring/empirical_intervals.csv",
-      "sha256": "06325b20e503321f49da1a8ebf19f1294fe6e238c4fd7d42c3d37744af3f3f80"
+      "path": "results/development_v11/second_confirmation/scoring/empirical_intervals.csv"
     },
     "scoring_attrition": {
-      "path": "results/development_v11/second_confirmation/scoring/scoring_attrition.csv",
-      "sha256": "b028ffe940ed3d8ae7c94258ca236ff316d09a66371c585ec640cee5b122063c"
+      "path": "results/development_v11/second_confirmation/scoring/scoring_attrition.csv"
     },
     "triage_endpoint": {
-      "path": "results/development_v11/second_confirmation/scoring/triage_endpoint.json",
-      "sha256": "19e4dd42cf3195c196395a0985d344a36c07aaf08fae58b0e4d59412125d8eb9"
+      "path": "results/development_v11/second_confirmation/scoring/triage_endpoint.json"
     },
     "placement_summary": {
-      "path": "results/development_v11/second_confirmation/scoring/placement_summary.json",
-      "sha256": "eb938fffe203711bd627c9d031ce9874cb27b82cb3fc9030f7fedea5b29acdab"
+      "path": "results/development_v11/second_confirmation/scoring/placement_summary.json"
     },
     "placement_attrition": {
-      "path": "results/development_v11/second_confirmation/scoring/placement_attrition.csv",
-      "sha256": "e838d0562dfab7f4dca75d57ec91dd2e993f1d3689bbb78f81010e433db0c1ed"
+      "path": "results/development_v11/second_confirmation/scoring/placement_attrition.csv"
     },
     "placement_pairwise_losses": {
-      "path": "results/development_v11/second_confirmation/scoring/placement_pairwise_losses.csv",
-      "sha256": "21f504c7d7893086e2252ed4da958e9ce07cdc813d1f168c4642a8a0fef4045c"
+      "path": "results/development_v11/second_confirmation/scoring/placement_pairwise_losses.csv"
     },
     "placement_policy_summary": {
-      "path": "results/development_v11/second_confirmation/scoring/placement_policy_summary.csv",
-      "sha256": "2ef3995c875c17ecc37d8c821aa91a8ee9c08b8b2a1c05789fb75b163038b9e3"
+      "path": "results/development_v11/second_confirmation/scoring/placement_policy_summary.csv"
     },
     "placement_replay_curve": {
-      "path": "results/development_v11/second_confirmation/scoring/placement_replay_curve.csv",
-      "sha256": "e3b57a8b0a9763115ea09567fa65f6b570be4e096b163fb63d19d9ec1a5edcff"
+      "path": "results/development_v11/second_confirmation/scoring/placement_replay_curve.csv"
     },
     "heterogeneity_metrics": {
-      "path": "results/development_v11/second_confirmation/scoring/heterogeneity_metrics.csv",
-      "sha256": "254c2805199a60382e91e9477f1b19b2166ff30cf2515ae3dbb5335f050e73c0"
+      "path": "results/development_v11/second_confirmation/scoring/heterogeneity_metrics.csv"
     }
   },
   "registration_boundary": {
     "record_type": "internal_checkpoint_registration_record",
     "amendment_id": "route_a_second_confirmation_v2_canada_quality_substitution",
-    "amendment_sha256_used_to_authorize_scoring": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035",
     "canonical_readiness_frozen_at_utc": "2026-08-28T17:40:04Z",
     "registration_record_created_at_utc": "2026-08-28T17:46:58Z",
-    "parent_git_commit": "72f002551abfd6681f047698db6aa8c75815d757",
     "registration_scope": "internally_hash_bound_pre_scoring_checkpoint",
     "externally_verifiable_preregistration": false,
-    "separate_pre_outcome_git_commit": false,
-    "auditability_boundary": "The amendment, exact roster, and canonical readiness were hash-bound before the scoring command opened recovery outcomes, but were not committed separately or externally timestamped. This is an internal pre-scoring checkpoint, not externally verifiable preregistration.",
+    "auditability_boundary": "The amendment, exact roster, and canonical readiness were recorded before the scoring command opened recovery outcomes, but were not committed separately or externally timestamped. This is an internal pre-scoring checkpoint, not externally verifiable preregistration.",
     "authorization_effect": "none; this record documents the authorization artifacts and is not itself read by the scoring gate"
   },
   "heterogeneity": {
@@ -428,11 +407,6 @@
     "simple_minimax_mean_regret": 0.24082499531267318,
     "random_mean_regret": 0.2562125454181433,
     "simple_minimax_improvement_over_random": 0.015387550105470132,
-    "input_bindings": {
-      "placement_losses_sha256": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
-      "frozen_roster_sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
-      "authorization_amendment_sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035"
-    },
     "simple_minimax_relative_regret_reduction_vs_random": 0.060057754316274345,
     "directional_improvement_observed": true,
     "preregistered_margin_or_significance_threshold": false,
@@ -442,7 +416,6 @@
   "large_regenerable_artifacts": {
     "placement_losses": {
       "path": "results/development_v11/second_confirmation/scoring/placement_losses.csv",
-      "sha256": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
       "packaged": false,
       "regenerable": true
     }

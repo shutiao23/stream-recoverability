@@ -1,16 +1,13 @@
 {
   "artifacts": {
     "t4_network_comparison.csv": {
-      "n_rows": 132,
-      "sha256": "55fe1abb3279c74c521dde96ff0009cfca9c0523a413cd5b896a055ec1099497"
+      "n_rows": 132
     },
     "t5_pair_attrition.csv": {
-      "n_rows": 0,
-      "sha256": "dcca4a51196802a03664f1e48655f7781e2e446e497598f93a222341f2b0aee9"
+      "n_rows": 0
     },
     "t5_pair_contrasts.csv": {
-      "n_rows": 3,
-      "sha256": "a6206b8f9b427f0bc28d86bb5fdd3bacff4a75ed026f52a6eecfb1e70744ff4d"
+      "n_rows": 3
     }
   },
   "blockers": [
@@ -29,8 +26,7 @@
   "frozen_inputs": {
     "natural_geometry": {
       "n_rows": 2355,
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv",
-      "sha256": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
     },
     "t5_pair_plan": {
       "balance_diagnostics": {
@@ -45,13 +41,11 @@
         "n_unique_network_pairs": 2
       },
       "n_rows": 3,
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/pair_plan.csv",
-      "sha256": "ce4081e87adf12b44f517ad2cb831f26600e0078f172ac7592f5125d85181aaa"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/pair_plan.csv"
     },
     "t5_station_covariates": {
       "n_rows": 330,
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/station_covariates.csv",
-      "sha256": "4d61283828de9bc0a69ad4d058b30fb2dcb94a468c8edbaa2b39f164e10ff828"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/station_covariates.csv"
     }
   },
   "headline_claim_licensed": false,
@@ -133,7 +127,5 @@
     "rematching_performed": false,
     "status": "descriptive_infeasible_confound_control"
   },
-  "v4_result_binding_sha256": "105cae2ed062617d5d0308094540e55393db991911269ccdc44a498b3e48d84f",
-  "v4_results_read": true,
-  "v4_workload_sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
+  "v4_results_read": true
 }

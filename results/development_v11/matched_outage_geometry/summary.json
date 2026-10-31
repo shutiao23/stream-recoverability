@@ -126,20 +126,6 @@
       "n_networks": 49
     }
   },
-  "input_bindings": {
-    "results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432",
-    "results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet": "a1becc5d246a54e67a1a19edc8460d727ccbe929fee0e8e2bec091d0058ef5e1",
-    "results/development_v11/recovery_scoring/station_gap_summary.csv": "55341d85978bcedecc598ac16513ba15faf65f94e29a9f9970ad8b07f1e0630d",
-    "results/development_v11/recovery_scoring/placement_losses.csv": "3ca333a1b0b437e542c4f69d63a06bf2938b78c9c8763a2871e54c544e1b77f3",
-    "results/development_v11/reviewer_completion/development_empirical_fit_losses.csv": "4e867346b798d8e772ae1a9335a830cea1f1a133f0546bfdac88bd38c2cba860",
-    "results/development_v11/reviewer_completion/development_empirical_predictions.csv": "fda090dbf9b46a9a81e5e56f8543a91e021a7bc31027577b262013cc355e54e1"
-  },
-  "output_bindings": {
-    "matched_item_predictions.csv": "7a1b26d9144ceb1d8a5ed1845e64aa1cab8bd33a9a30039a57e985b7704c7f2e",
-    "matched_network_comparison.csv": "8c4a0387e3144e32d5f765556825feeb31e92473ebc4b636d56593bba87abf4c",
-    "empirical_source_audit.csv": "565d328ada5294cc32c8500821d2f3aed8e48161d9b0701d90e5d7fdd078810d",
-    "simple_predictor_attrition.csv": "3dd5212c5c89b08d20f9a2d0b0ca16ed950b65dc0dd0909194f4fe75ac7f830a"
-  },
   "boundaries": [
     "actual_missing_days_have_no_truth",
     "counterpart_results_do_not_estimate_failure_process_selection_bias",

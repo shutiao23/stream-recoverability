@@ -159,8 +159,8 @@ registered under \texttt{major\_revision\_20261020/}: the aligned admission
 (\texttt{p0\_04\_hot\_year\_closure}), the repair attribution
 (\texttt{p0\_05\_repair\_attribution}) and the figure sources
 (\texttt{p0\_06\_figures}). Each holds a \texttt{SUMMARY.md}, a
-\texttt{protocol\_fingerprint.json} with script and input hashes and the git
-head, and the machine-readable tables the article cites.
+protocol record naming the script and its inputs, and the machine-readable
+tables the article cites.
 
 \section{The object mismatch, and what it changed}
 
@@ -327,9 +327,9 @@ repository; the study inputs are packaged for confidential review
 is deposited on acceptance. Restricted material is listed rather than shipped:
 LUBW raw values are read locally and not redistributed, and providers whose terms
 name no licence are used under attribution only
-(\texttt{metadata/data\_rights.csv}). Input-file hashes for every network are in
+(\texttt{metadata/data\_rights.csv}). The input files for every network are listed in
 \texttt{current\_data\_manifest.csv}, and each analysis writes a protocol
-fingerprint holding the script hash, the input hashes and the git head.
+record naming its script and inputs.
 
 \section{Retention and hot-year composition in one place}
 
@@ -447,8 +447,8 @@ both peak overlap and outage length.
 Five defects made specific artifacts unusable, and each was repaired before the
 numbers reported here:
 \begin{enumerate}
-\item outage realisations were once seeded from a process-salted hash, so the case
-  table could not be regenerated;
+\item outage realisations were once seeded from a value that Python randomises
+  per process, so the case table could not be regenerated;
 \item worker results were once concatenated in completion order, so row order was
   not reproducible;
 \item an additive per-estimator conformal scheme under-covered, because selecting
@@ -518,9 +518,9 @@ complete record of it.
   \item Every table cell and audited inline number in the article is re-derived
     from the artifacts by the build script, which fails when a listed number is
     missing from the text.
-  \item Every input the current study reads is listed with a byte count and a
-    SHA-256 in \texttt{current\_data\_manifest.csv}, and each analysis records
-    its own protocol fingerprint.
+  \item Every input the current study reads is listed with a byte count in
+    \texttt{current\_data\_manifest.csv}, and each analysis writes
+    its own protocol record.
 \end{itemize}
 
 \begin{table}

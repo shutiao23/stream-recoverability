@@ -35,7 +35,6 @@
   "identity": "admission__season_spline__leave_one_year_out__all__local_fit__hubeau",
   "kind": "spline",
   "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__season_spline__leave_one_year_out__all__local_fit__hubeau.joblib",
-  "model_sha256": "39f5742bfafd58ad9276fb6e0f07eba0e1cdfd13c24bba42e2939becec2c6e27",
   "n_training_cases": 497,
   "n_training_groups": 10,
   "name": "season_spline",
@@ -45,8 +44,7 @@
   "scope": "all",
   "source_inputs": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
-      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet"
     }
   ],
   "source_thresholds": null,

@@ -168,7 +168,6 @@
     "network_is_open_failure_closure6_qualified": true,
     "network_manifest_path": "data_versions/global_network_corpus_v1/open_role_qc/failure_closure6/development/networks/huc8_01070004/network_qc_manifest.json",
     "network_wide_path": "data_versions/global_network_corpus_v1/open_role_qc/failure_closure6/development/networks/huc8_01070004/daily_wide_qc.csv",
-    "network_wide_sha256": "126918bedcf68bc6804e811f2c011463effad62e2513fd7333aa29f45504fa4f",
     "open_inventory_roots": [
       "open_role_qc/failure_closure6/development",
       "open_role_qc/failure_closure6/validation"
@@ -189,7 +188,6 @@
       "grin",
       "pgdl_or_graph_wavenet"
     ],
-    "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
     "gaps_all_required": [
       30,
       90,
@@ -520,11 +518,8 @@
         ]
       },
       "project_dependency_path": "pyproject.toml",
-      "project_dependency_sha256": "7a8f9ca43b2c485260f8a0508177fe354d47596047361f2ff0e3b22376b372df",
       "reference_adapter_path": "src/stream_recoverability/models/reference_baselines.py",
-      "reference_adapter_sha256": "84418a174e967b4c75dae1c7671b9cdbd0b31d8905c46b1183c397630abaeed6",
-      "t2_runner_path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py",
-      "t2_runner_sha256": "e91ce5243b49ac812f760b37b13d17ac601eaedd01fe1c870590731bfba53bc2"
+      "t2_runner_path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
     }
   },
   "not_t2_primary_y": true,
@@ -653,8 +648,6 @@
     "shortfall_below_locked_minimum_even_if_all_unread_sealed_qualify": 6
   },
   "sample_lock": {
-    "canonical_sample_sha256_recomputed": "b3d92758503ad1a5d4607207abe4ad1600dd13f67702548490572bcfe9f1a7f6",
-    "file_sha256": "552febdaed653f2b27bdd1f767babbdac9d3379f4010140ff4bf37fc31e44e2e",
     "gaps_all_required": [
       30,
       90,
@@ -678,13 +671,11 @@
     "sample_locked_before_download": false,
     "sample_preregistered": false,
     "sample_reselection_allowed": false,
-    "sample_reselection_performed": false,
-    "sample_sha256": "b3d92758503ad1a5d4607207abe4ad1600dd13f67702548490572bcfe9f1a7f6"
+    "sample_reselection_performed": false
   },
   "sealed_temperature_records_read": false,
   "status": "budget_failure_fixed_sample_cannot_meet_locked_minimum_on_current_corpus",
   "timing_exception": {
-    "file_sha256": "0f269f874c9fdafe8f22851be6c87b18fec25820dab7fbb471f99c66b498bcf5",
     "ledger_id": "T2-TIER2-TIMING-001",
     "path": "results/framework/t2_recovery_benchmark_v1/tier2_timing_exception_ledger.json",
     "required_reporting": "Describe this as a post-download metadata-only fixed sensitivity sample, not as a sample locked before download or a preregistered Tier-2 sample.",

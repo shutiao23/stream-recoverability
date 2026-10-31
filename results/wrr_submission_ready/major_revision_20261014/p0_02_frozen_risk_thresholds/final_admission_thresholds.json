@@ -112,15 +112,15 @@
     "held_out_application": "once per fold, after the threshold is frozen",
     "risk_cap_compliance": "the rule bounds the *calibration* false-admit rate at the stated confidence; the held-out realised rate is reported, not guaranteed",
     "seed_derivation": {
-      "helper": "stream_recoverability.experiments.v17_fitness.paths.stable_seed = int.from_bytes(blake2b('|'.join(str(part) for part in parts), digest_size=4).digest(), 'big')  -> process-independent",
+      "helper": "draw_seed(tag, panel, *ints): a process-independent integer seed derived from the listed parts. The run that produced these results used an earlier derivation of that integer, since replaced by stream_recoverability.seeds.plain_seed; the seed values behind these numbers are not reproduced bit for bit by the current code",
       "outer_folds": "assign_folds(sorted(network_ids), 5, fold_seed) = np.random.default_rng(fold_seed).permutation(n_networks), fold = position % 5",
-      "inner_folds_for_fitted_risk": "stable_seed('inner', panel, fold_seed, outer_fold)",
-      "risk_model_seeds": "stable_seed('innerfit', panel, fold_seed, outer_fold, inner_fold) % 2**31 and stable_seed('outerfit', panel, fold_seed, outer_fold) % 2**31",
-      "tie_break_jitter": "stable_seed(panel, 'length'|'peak'|'rawbound'|'calbound', fold_seed)",
-      "selection_bootstrap_seed": "stable_seed('select', panel, fold_seed, outer_fold, score)",
-      "fold_evaluation_bootstrap_seed": "stable_seed('eval'|'eval70', panel, fold_seed, outer_fold, score)",
-      "pooled_evaluation_bootstrap_seed": "stable_seed('pooled'|'pooled70'|'pooled_bonferroni', panel, fold_seed)",
-      "contrast_bootstrap_seed": "stable_seed('contrast_ret'|'contrast_fpr'|'contrast_ret_bonferroni', panel, fold_seed) and stable_seed('contrast_fpr_panelwide', panel)"
+      "inner_folds_for_fitted_risk": "draw_seed('inner', panel, fold_seed, outer_fold)",
+      "risk_model_seeds": "draw_seed('innerfit', panel, fold_seed, outer_fold, inner_fold) % 2**31 and draw_seed('outerfit', panel, fold_seed, outer_fold) % 2**31",
+      "tie_break_jitter": "draw_seed(panel, 'length'|'peak'|'rawbound'|'calbound', fold_seed)",
+      "selection_bootstrap_seed": "draw_seed('select', panel, fold_seed, outer_fold, score)",
+      "fold_evaluation_bootstrap_seed": "draw_seed('eval'|'eval70', panel, fold_seed, outer_fold, score)",
+      "pooled_evaluation_bootstrap_seed": "draw_seed('pooled'|'pooled70'|'pooled_bonferroni', panel, fold_seed)",
+      "contrast_bootstrap_seed": "draw_seed('contrast_ret'|'contrast_fpr'|'contrast_ret_bonferroni', panel, fold_seed) and draw_seed('contrast_fpr_panelwide', panel)"
     },
     "tie_break_scales": {
       "length_rule": "longest_run + U[0,1) day (identical to scripts 301/305)",

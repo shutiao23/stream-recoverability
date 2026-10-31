@@ -28,7 +28,10 @@ from stream_recoverability.experiments.v17_fitness.outages import (
     stratified_realization,
 )
 from stream_recoverability.experiments.v17_fitness.panel import declare_split
-from stream_recoverability.experiments.v17_fitness.policies import gather, information_conditioned_choice
+from stream_recoverability.experiments.v17_fitness.policies import (
+    gather,
+    information_conditioned_choice,
+)
 from stream_recoverability.experiments.v17_fitness.screen import (
     SCREEN_FEATURES,
     _conformal_quantile,
@@ -45,7 +48,9 @@ def _year_index(year: int = 2015) -> pd.DatetimeIndex:
     return pd.date_range(f"{year}-01-01", f"{year}-12-31", freq="D")
 
 
-def _seasonal_series(years=(2012, 2013, 2014, 2015), amplitude: float = 8.0) -> pd.Series:
+def _seasonal_series(
+    years=(2012, 2013, 2014, 2015), amplitude: float = 8.0
+) -> pd.Series:
     index = pd.date_range(f"{min(years)}-01-01", f"{max(years)}-12-31", freq="D")
     doy = index.dayofyear.to_numpy()
     values = 12.0 + amplitude * np.sin(2 * np.pi * (doy - 110) / 365.25)
@@ -130,7 +135,12 @@ def test_stratified_realization_respects_its_overlap_class() -> None:
     rng = np.random.default_rng(0)
     for overlap_class, low, high in [("none", 0.0, 0.0), ("full", 0.999, 1.0)]:
         item = stratified_realization(
-            index, peak, length=60, overlap_class=overlap_class, rng=rng, realization_id="t"
+            index,
+            peak,
+            length=60,
+            overlap_class=overlap_class,
+            rng=rng,
+            realization_id="t",
         )
         assert item is not None
         fraction = peak_overlap_fraction(index, item.mask(len(index)), peak)
@@ -138,7 +148,14 @@ def test_stratified_realization_respects_its_overlap_class() -> None:
 
 
 def test_realization_mask_matches_its_runs() -> None:
-    item = Realization(realization_id="r", arm="test", runs=((10, 5), (100, 3)), n_runs=2, total_missing=8, longest_run=5)
+    item = Realization(
+        realization_id="r",
+        arm="test",
+        runs=((10, 5), (100, 3)),
+        n_runs=2,
+        total_missing=8,
+        longest_run=5,
+    )
     mask = item.mask(365)
     assert int(mask.sum()) == 8
     assert mask[10:15].all() and mask[100:103].all()
@@ -154,7 +171,9 @@ def test_observed_days_estimator_degrades_when_the_peak_is_hidden() -> None:
     values = series.to_numpy(dtype=float)
     truth = hottest_window_mean(values)
     hidden = values.copy()
-    peak_end = int(np.nanargmax(pd.Series(values).rolling(30, min_periods=30).mean().to_numpy()))
+    peak_end = int(
+        np.nanargmax(pd.Series(values).rolling(30, min_periods=30).mean().to_numpy())
+    )
     hidden[max(0, peak_end - 45) : peak_end + 15] = np.nan
     assert observed_days_metric(hidden) < truth - 1.0
 
@@ -168,7 +187,9 @@ def test_linear_interpolation_only_fills_interior_gaps() -> None:
 
 def test_usable_donors_requires_coverage_during_the_outage() -> None:
     index = _year_index()
-    donors = pd.DataFrame({"a": np.ones(len(index)), "b": np.ones(len(index))}, index=index)
+    donors = pd.DataFrame(
+        {"a": np.ones(len(index)), "b": np.ones(len(index))}, index=index
+    )
     donors.loc[donors.index[10:40], "b"] = np.nan
     mask = np.zeros(len(index), dtype=bool)
     mask[10:40] = True
@@ -180,7 +201,9 @@ def test_usable_donors_requires_coverage_during_the_outage() -> None:
 # --------------------------------------------------------------------------
 
 
-def test_information_conditioned_choice_prefers_donors_then_air_then_interpolation() -> None:
+def test_information_conditioned_choice_prefers_donors_then_air_then_interpolation() -> (
+    None
+):
     cases = pd.DataFrame(
         {
             "longest_run": [10, 10, 10, 200],
@@ -195,7 +218,12 @@ def test_information_conditioned_choice_prefers_donors_then_air_then_interpolati
         }
     )
     choice = information_conditioned_choice(cases)
-    assert list(choice) == ["donor_ridge", "air_ridge", "linear_interp", "smooth_climatology"]
+    assert list(choice) == [
+        "donor_ridge",
+        "air_ridge",
+        "linear_interp",
+        "smooth_climatology",
+    ]
 
 
 def test_gather_selects_the_named_column_per_row() -> None:
@@ -234,9 +262,14 @@ def test_conformal_quantile_reaches_nominal_coverage_on_exchangeable_scores() ->
 
 def test_cluster_bootstrap_resamples_whole_networks() -> None:
     frame = pd.DataFrame(
-        {"network_id": ["a"] * 50 + ["b"] * 50, "value": np.r_[np.zeros(50), np.ones(50)]}
+        {
+            "network_id": ["a"] * 50 + ["b"] * 50,
+            "value": np.r_[np.zeros(50), np.ones(50)],
+        }
     )
-    stat = cluster_bootstrap(frame, lambda f: float(f["value"].mean()), draws=500, seed=1)
+    stat = cluster_bootstrap(
+        frame, lambda f: float(f["value"].mean()), draws=500, seed=1
+    )
     assert stat["point"] == pytest.approx(0.5)
     # With two clusters the resampled mean can only be 0, 0.5 or 1.
     assert stat["low"] <= 0.0 and stat["high"] >= 1.0
@@ -260,7 +293,11 @@ def test_gate_rejects_an_action_space_smaller_than_its_own_resolution() -> None:
     retention_table = pd.DataFrame({"retention": [0.7], "headroom_rate_points": [20.0]})
     resolution = pd.DataFrame(
         {
-            "endpoint": ["mean benefit B_q", "absolute metric error", "indicator error > 0.5 C"],
+            "endpoint": [
+                "mean benefit B_q",
+                "absolute metric error",
+                "indicator error > 0.5 C",
+            ],
             "resolvable_margin_reserved": [0.05, 0.04, 0.02],
         }
     )
@@ -297,29 +334,37 @@ def test_declare_split_is_deterministic_and_stratified() -> None:
 # --------------------------------------------------------------------------
 
 
-def test_stable_seed_is_process_independent() -> None:
-    """Python's hash() is salted per process; seeding with it silently breaks reruns.
+def test_station_year_seed_is_built_from_positions() -> None:
+    """A realization's seed joins the network and station positions, the year and the purpose."""
 
-    This value was computed in a different interpreter session. If it ever
-    changes, the outage realizations in the case table stop being reproducible
-    and every artifact downstream of them becomes unverifiable.
-    """
+    from stream_recoverability.experiments.v17_fitness.paths import (
+        STATION_YEAR_TAGS,
+        network_position,
+        station_year_seed,
+    )
+    from stream_recoverability.seeds import plain_seed
 
-    from stream_recoverability.experiments.v17_fitness.paths import stable_seed
+    stations = ["2005", "1001", "3003"]
+    seed = station_year_seed("arso_drava", "2005", stations, 2015, "leave_one_year_out")
+    assert seed == plain_seed(
+        network_position("arso_drava"), 1, 2015, STATION_YEAR_TAGS["leave_one_year_out"]
+    )
+    assert seed == station_year_seed(
+        "arso_drava", 2005, reversed(stations), 2015, "leave_one_year_out"
+    )
+    assert seed != station_year_seed("arso_drava", "2005", stations, 2015, "sensor")
+    assert seed != station_year_seed(
+        "arso_drava", "1001", stations, 2015, "leave_one_year_out"
+    )
 
-    assert stable_seed("arso_drava", "2005", 2015) == 669662013
-    assert stable_seed("a", "b") != stable_seed("b", "a")
 
-
-def test_case_and_mechanism_builders_do_not_seed_from_builtin_hash() -> None:
+def test_case_and_mechanism_builders_seed_from_station_year_positions() -> None:
     import inspect
 
     from stream_recoverability.experiments.v17_fitness import cases, mechanism
 
     for module in (cases, mechanism):
-        source = inspect.getsource(module)
-        assert "default_rng(abs(hash(" not in source, module.__name__
-        assert "stable_seed(" in source, module.__name__
+        assert "station_year_seed(" in inspect.getsource(module), module.__name__
 
 
 def test_manuscript_headline_numbers_match_the_artifacts() -> None:
@@ -361,8 +406,19 @@ def test_manuscript_headline_numbers_match_the_artifacts() -> None:
         for step in path:
             value = value[step]
         assert abs(quoted[key] - float(value)) < 5e-4, key
-    assert abs(quoted["confirmation_contrast_points"] - actual["confirmation"]["primary"]["contrast_points"]) < 5e-3
-    assert abs(quoted["marginal_coverage"] - actual["confirmation"]["coverage"]["marginal"]) < 5e-4
+    assert (
+        abs(
+            quoted["confirmation_contrast_points"]
+            - actual["confirmation"]["primary"]["contrast_points"]
+        )
+        < 5e-3
+    )
+    assert (
+        abs(
+            quoted["marginal_coverage"] - actual["confirmation"]["coverage"]["marginal"]
+        )
+        < 5e-4
+    )
 
 
 def test_case_table_row_order_is_deterministic() -> None:
@@ -377,10 +433,18 @@ def test_case_table_row_order_is_deterministic() -> None:
 
     import pandas as pd
 
-    path = Path(__file__).resolve().parents[1] / "results" / "v17_fitness" / "step3_cases" / "cases.parquet"
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "v17_fitness"
+        / "step3_cases"
+        / "cases.parquet"
+    )
     if not path.exists():
         pytest.skip("v17 case table not built in this checkout")
-    frame = pd.read_parquet(path, columns=["network_id", "station_id", "year", "arm", "realization_id"])
+    frame = pd.read_parquet(
+        path, columns=["network_id", "station_id", "year", "arm", "realization_id"]
+    )
     key = ["network_id", "station_id", "year", "arm", "realization_id"]
     expected = frame.sort_values(key, kind="mergesort").reset_index(drop=True)
     pd.testing.assert_frame_equal(frame, expected)
@@ -417,7 +481,10 @@ def test_metric_dichotomy_holds_and_is_stable_across_tolerances() -> None:
     for metric, axis in expected.items():
         block = sweep.loc[sweep["metric"].eq(metric)]
         assert not block.empty, metric
-        assert set(block["winning_axis"]) == {axis}, (metric, sorted(set(block["winning_axis"])))
+        assert set(block["winning_axis"]) == {axis}, (
+            metric,
+            sorted(set(block["winning_axis"])),
+        )
         assert len(block) >= 3, f"{metric} was not swept over several tolerances"
 
     # Hiding the warm peak must not help predict the cold extreme.
@@ -441,7 +508,11 @@ def test_manuscript_tables_match_their_artifacts() -> None:
     if not (root / "results" / "v17_fitness" / "step17_metric_generality").exists():
         pytest.skip("v17 artifacts not built in this checkout")
     result = subprocess.run(
-        [sys.executable, str(script)], capture_output=True, text=True, cwd=str(root), check=False
+        [sys.executable, str(script)],
+        capture_output=True,
+        text=True,
+        cwd=str(root),
+        check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
     assert "every table cell in the manuscript matches its artifact" in result.stdout
@@ -464,12 +535,20 @@ def test_seven_day_peak_is_never_below_the_thirty_day_peak() -> None:
 
     import pandas as pd
 
-    path = Path(__file__).resolve().parents[1] / "results" / "v17_fitness" / "step3_cases" / "cases.parquet"
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "v17_fitness"
+        / "step3_cases"
+        / "cases.parquet"
+    )
     if not path.exists():
         pytest.skip("v17 case table not built in this checkout")
     frame = pd.read_parquet(path, columns=["truth_hottest7", "truth_hottest30"])
     violations = (frame["truth_hottest7"] < frame["truth_hottest30"] - 1e-9).sum()
-    assert violations == 0, f"{violations} station-years have a 7-day peak below their 30-day peak"
+    assert violations == 0, (
+        f"{violations} station-years have a 7-day peak below their 30-day peak"
+    )
 
 
 def test_sensor_noise_is_within_the_instrument_range_it_claims() -> None:
@@ -485,7 +564,11 @@ def test_basin_attributes_declare_an_expected_sign_for_every_tested_predictor() 
 
     for name in ("BFI_AVE", "CONTACT", "STOR_NID_2009", "DRAIN_SQKM"):
         assert name in EXPECTED_SIGNS
-        assert EXPECTED_SIGNS[name].split(":")[0] in {"positive", "negative", "none declared"}
+        assert EXPECTED_SIGNS[name].split(":")[0] in {
+            "positive",
+            "negative",
+            "none declared",
+        }
 
 
 def test_gages_join_covers_a_usable_share_of_the_united_states_panel() -> None:
@@ -496,13 +579,23 @@ def test_gages_join_covers_a_usable_share_of_the_united_states_panel() -> None:
     from stream_recoverability.experiments.v17_fitness.basins import match_stations
 
     root = Path(__file__).resolve().parents[1]
-    roster_path = root / "results" / "v17_fitness" / "step1_panel" / "station_roster.csv"
-    archive = root / "data" / "cache" / "regulation_panel_v1" / "basinchar_and_report_sept_2011.zip"
+    roster_path = (
+        root / "results" / "v17_fitness" / "step1_panel" / "station_roster.csv"
+    )
+    archive = (
+        root
+        / "data"
+        / "cache"
+        / "regulation_panel_v1"
+        / "basinchar_and_report_sept_2011.zip"
+    )
     if not roster_path.exists() or not archive.exists():
         pytest.skip("panel or GAGES-II archive not present in this checkout")
     roster = pd.read_csv(roster_path, dtype={"station_id": str})
     roster = roster.loc[roster["eligible_station"]]
     matched = match_stations(roster)
     usgs = int((roster["provider"] == "usgs").sum())
-    assert len(matched) >= 0.6 * usgs, f"only {len(matched)} of {usgs} US stations matched"
+    assert len(matched) >= 0.6 * usgs, (
+        f"only {len(matched)} of {usgs} US stations matched"
+    )
     assert matched["BFI_AVE"].notna().all()

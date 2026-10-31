@@ -27,7 +27,7 @@ redundancy.
 | Route A uncertainty | Every outer simple prediction has a training-network block interval. The summary reports rank, calibration, row coverage, network-equal coverage, simultaneous-network coverage, and width. | Met. |
 | Placement estimand | Selected stations are retained donors and every unretained station is a target. Proposed and oracle selection use the scored gap length, and budgets stop at n-1. | Fixed. |
 | MI/regret independence | Result rows state `synthetic_implementation_only`, `independent_realized_outcomes=false`, and `selection_and_evaluation_share_true_covariance=true`. | Not H3 evidence; implementation benchmark only. |
-| No hashes or locks in v11 | The v11 config, runners, analysis modules, and replaceable outputs contain no hash or lock mechanism. | Met. |
+| No locks in v11 | The v11 config, runners, analysis modules, and replaceable outputs contain no lock mechanism. | Met. |
 
 ## H1 and H2 results
 

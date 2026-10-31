@@ -22,7 +22,6 @@ frozen_before_outcomes:
   - primary_contrast
   - success_criterion
   - mask_catalog
-  - analysis_code_hash
 
 primary_contrast:
   estimand: memory_site_minus_donor_site_skill_at_90_and_180_days

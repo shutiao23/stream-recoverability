@@ -35,21 +35,21 @@
   },
   "manuscripts": {
     "paper/wrr_tr/review_completion_article.pdf": {
-      "sha256": "112258dab30192b75fcb5f809d3a7b752f043d60b720cc997edab4b2c85cb13e",
-      "pages": 39
+      "sha256": "0b9113148612414e8e4f9bdbf17cb5217dea074abc24f2cf2a72f13cd6fe4398",
+      "pages": 40
     },
     "paper/wrr_tr/review_completion_supporting.pdf": {
-      "sha256": "58bcd7f6240c85039a5a8afef914bdb9686bd3384238560cdcd0d42545f47d4b",
-      "pages": 99
+      "sha256": "0d48affc51203c622137e27e24dd30c4b789b130958a24a91241556eb43bb986",
+      "pages": 101
     }
   },
   "package": {
     "canonical": "dist/wrr_process_experiments_20261029.zip",
-    "sha256": "1ee22cabe9a2b5ce1ea300e60f5cdf0244e2921376c3b509883942be4990a256",
-    "bytes": 200590410,
+    "sha256": "25da3d5226b1e4a83197f978543cc79660a95e6eff08fabd7dd9cf483b2910cf",
+    "bytes": 200596909,
     "gitignored": true,
     "delivery_report": "results/wrr_process_experiments_20261029/delivery_check.json",
-    "delivery_report_sha256": "e095601389ba25e0a00e54e0b2ae32253056e23c3a713f15a185180d312ef190",
+    "delivery_report_sha256": "3c148db5a182f2575337ee0698ec6de0c4ced14bd118de2b1e270b139424e4a2",
     "delivery_status": "passed",
     "source_role_offsets_reestimated": true,
     "source_cases": 2370,
@@ -72,7 +72,9 @@
     "trajectory_count_convergence_established": false,
     "keypoints_report_stratified_tail_movement": true,
     "uncalibrated_962_does_not_overwrite_experiment_figures": true,
-    "si_external_recruitment_and_numerical_budget_compressed": true
+    "si_external_recruitment_and_numerical_budget_compressed": true,
+    "weak_control_choice_span_and_seed_20261029_intervals_in_manuscript": true,
+    "uncalibrated_bavaria_upper_count_and_width_increase_reported": true
   },
   "not_executed_or_not_claimed": [
     "Full raw-source reconstruction or new model retraining",
@@ -89,5 +91,5 @@
     "Permanent storage and external publication"
   ],
   "external_publication_performed": false,
-  "created_utc": "2026-10-29T19:29:58.619056+00:00"
+  "created_utc": "2026-10-30T05:22:00.407989+00:00"
 }

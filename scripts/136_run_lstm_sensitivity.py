@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -35,14 +34,6 @@ FIRST_PANELS = ROOT / "results/development_v11/confirmation_daily_qc/networks"
 SECOND = ROOT / "results/development_v11/second_confirmation"
 SECOND_SCORING = SECOND / "scoring"
 DEFAULT_OUTPUT = ROOT / "results/development_v11/reviewer_completion"
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def spearman(frame: pd.DataFrame, left: str, right: str) -> float | None:
@@ -137,7 +128,7 @@ def main() -> None:
     predictions: list[pd.DataFrame] = []
     training_rows: list[dict[str, object]] = []
     failures: list[dict[str, str]] = []
-    panel_hashes: dict[str, str] = {}
+    panel_paths: list[str] = []
     for ordinal, item in enumerate(selected.itertuples(index=False), start=1):
         network = str(item.network_id)
         source = str(item.source_panel)
@@ -268,7 +259,7 @@ def main() -> None:
                     "hit_epoch_limit": bool(history["hit_epoch_limit"]),
                 }
             )
-            panel_hashes[str(panel_path.relative_to(ROOT))] = sha256(panel_path)
+            panel_paths.append(str(panel_path.relative_to(ROOT)))
             print(f"LSTM sensitivity {ordinal}/{len(selected)}: {network}", flush=True)
         except (RuntimeError, ValueError) as error:
             failures.append(
@@ -398,36 +389,26 @@ def main() -> None:
                 network, "xgboost_mae_deg_c", "lstm_mae_deg_c"
             ),
         },
-        "input_sha256": {
-            str((FIRST / "qualified_panel.csv").relative_to(ROOT)): sha256(
-                FIRST / "qualified_panel.csv"
-            ),
-            str(first_placements_path.relative_to(ROOT)): sha256(first_placements_path),
+        "inputs": [
+            str((FIRST / "qualified_panel.csv").relative_to(ROOT)),
+            str(first_placements_path.relative_to(ROOT)),
             str(
                 (args.output / "confirmation_empirical_predictions.csv").relative_to(
                     ROOT
                 )
-            ): sha256(args.output / "confirmation_empirical_predictions.csv"),
-            str((SECOND / "frozen_scoring_roster_v2.csv").relative_to(ROOT)): sha256(
-                SECOND / "frozen_scoring_roster_v2.csv"
             ),
-            str(second_placements_path.relative_to(ROOT)): sha256(
-                second_placements_path
-            ),
-            str((SECOND_SCORING / "simple_predictions.csv").relative_to(ROOT)): sha256(
-                SECOND_SCORING / "simple_predictions.csv"
-            ),
-            str(
-                (SECOND_SCORING / "empirical_predictions.csv").relative_to(ROOT)
-            ): sha256(SECOND_SCORING / "empirical_predictions.csv"),
-            **panel_hashes,
-        },
-        "output_sha256": {
-            prediction_path.name: sha256(prediction_path),
-            training_path.name: sha256(training_path),
-            metrics_path.name: sha256(metrics_path),
-            failures_path.name: sha256(failures_path),
-        },
+            str((SECOND / "frozen_scoring_roster_v2.csv").relative_to(ROOT)),
+            str(second_placements_path.relative_to(ROOT)),
+            str((SECOND_SCORING / "simple_predictions.csv").relative_to(ROOT)),
+            str((SECOND_SCORING / "empirical_predictions.csv").relative_to(ROOT)),
+            *panel_paths,
+        ],
+        "outputs": [
+            prediction_path.name,
+            training_path.name,
+            metrics_path.name,
+            failures_path.name,
+        ],
     }
     if manifest["n_completed_providers"] < 7:
         manifest["status"] = "incomplete_below_seven_provider_floor"

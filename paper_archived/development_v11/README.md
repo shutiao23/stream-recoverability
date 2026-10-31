@@ -31,7 +31,7 @@ simple sufficiency as the positive claim.
   model-roster, conformal, domain-adaptation, and real placement-replay outputs.
 - `../../configs/route_a_second_confirmation_protocol.yaml` and
   `../../configs/route_a_second_confirmation_amendment_v2.yaml`: original plan
-  and internally hash-bound eligibility amendment.
+  and internally frozen eligibility amendment.
 - `../../results/development_v11/second_confirmation/scoring/summary.json`:
   completed 57-network second-confirmation metrics and failed decision
   endpoints.
@@ -95,7 +95,7 @@ Those facts motivate v11; they are not evidence for the target claim.
 - Second-confirmation recruitment reached 242 candidates and 60 networks
   meeting prespecified quality criteria across US, Czech, and Norwegian
   domains. A dated amendment replaces the unavailable validated Canadian
-  stratum and was internally frozen and hash-bound before recovery scoring.
+  stratum and was internally frozen before recovery scoring.
   It has no separate public pre-outcome commit.
 - Second confirmation scored 57 networks after three outcome-independent
   attritions. At directly supported horizons (874 units), empirical transfer
@@ -120,8 +120,7 @@ with `make validate-development-v11-reviewer-completion`. Outputs are
 ordinary replaceable tables and figures under `results/development_v11/`.
 
 The second outcome panel is rebuilt with `make second-confirmation-readiness`
-and `make second-confirmation-score`; the latter rechecks the hash-bound roster
-before scoring.
+and `make second-confirmation-score`; the latter scores the frozen roster.
 The independent process baseline is rebuilt with
 `make independent-air2stream-equivalent`.
 

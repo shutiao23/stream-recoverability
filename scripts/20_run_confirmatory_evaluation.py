@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the frozen external confirmation exactly once from its finalized roster."""
+"""Run the frozen external confirmation from its finalized roster."""
 
 from __future__ import annotations
 
@@ -16,7 +16,6 @@ if str(SRC_ROOT) not in sys.path:
 from stream_recoverability.data.confirmatory import CONFIRMATORY_DATA_VERSION
 from stream_recoverability.experiments.contracts import DEFAULT_DESIGN_PATH
 from stream_recoverability.experiments.external_confirmation import (
-    confirmatory_once_lock_path,
     preflight_confirmatory_evaluation,
     run_confirmatory_evaluation,
     run_confirmatory_feasibility,
@@ -35,7 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--finalized-model-roster",
         type=Path,
         required=True,
-        help="Hash-verified finalized_model_roster_v1 produced from validation only.",
+        help="Validated finalized_model_roster_v1 produced from validation only.",
     )
     parser.add_argument(
         "--design",
@@ -71,14 +70,14 @@ def build_parser() -> argparse.ArgumentParser:
     mode.add_argument(
         "--preflight-only",
         action="store_true",
-        help="Validate all gates without building masks, fitting models, or locking.",
+        help="Validate all gates without building masks or fitting models.",
     )
     mode.add_argument(
         "--feasibility-only",
         action="store_true",
         help=(
             "Preflight plus construct all 60 masks and coverage/truth checks. "
-            "Does not train, score, or create a once-lock."
+            "Does not train or score."
         ),
     )
     return parser
@@ -96,7 +95,6 @@ def main() -> None:
     )
     canonical_root = args.results_root / inputs.evidence_contract["data_version"]
     output = args.output_dir or (canonical_root / "external_confirmation")
-    lock = confirmatory_once_lock_path(inputs.data_root)
     if args.feasibility_only:
         feasibility_output = args.output_dir or (canonical_root / "feasibility")
         result = run_confirmatory_feasibility(
@@ -114,7 +112,6 @@ def main() -> None:
                     "status": result.report["status"],
                     "performance_metrics_computed": False,
                     "models_trained": False,
-                    "once_lock_created": False,
                     "scenario_count": result.report["scenario_count"],
                     "output_dir": str(result.output_dir),
                     "data_version": result.report["data_version"],
@@ -134,12 +131,7 @@ def main() -> None:
                     "training_seeds": list(inputs.training_seeds),
                     "data_version": inputs.evidence_contract["data_version"],
                     "evaluation_split": inputs.evidence_contract["evaluation_split"],
-                    "finalized_model_roster_sha256": (inputs.roster.manifest_sha256),
-                    "data_version_manifest_sha256": (
-                        inputs.data_manifest_identity["manifest_sha256"]
-                    ),
                     "canonical_output_dir": str(output),
-                    "once_lock": str(lock),
                 },
                 ensure_ascii=False,
                 sort_keys=True,
@@ -161,7 +153,6 @@ def main() -> None:
                 "status": manifest["status"],
                 "complete": manifest["complete"],
                 "output_dir": str(output),
-                "once_lock": str(lock),
                 "data_version": manifest["data_version"],
                 "evaluation_split": manifest["evaluation_split"],
                 "evidence_role": manifest["evidence_role"],

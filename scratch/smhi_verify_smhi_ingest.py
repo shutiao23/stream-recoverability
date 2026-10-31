@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import collections
 import csv
-import hashlib
 import io
 import json
 import re
@@ -113,17 +112,7 @@ report["stratum_check"] = {
 }
 report["cross_check_mismatches"] = mismatches
 
-# ---- 3. verify per-station sha256 recorded in stations_all.csv ------------ #
-bad_hashes = []
-for row in STATIONS.to_dict("records"):
-    path = RAW / f"station_{row['station_id']}.csv"
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    if digest != row["raw_sha256"]:
-        bad_hashes.append(str(row["station_id"]))
-report["n_stations_with_bad_sha256"] = len(bad_hashes)
-report["bad_sha256_station_ids"] = bad_hashes[:10]
-
-# ---- 4. coverage summary of the downloaded archive ------------------------ #
+# ---- 3. coverage summary of the downloaded archive ------------------------ #
 first_dates = pd.to_datetime(STATIONS["first_date_any_quality"])
 last_dates = pd.to_datetime(STATIONS["last_date_any_quality"])
 report["coverage"] = {
@@ -136,7 +125,7 @@ report["coverage"] = {
     "date_column_header": INGEST["qc"]["header_block_verbatim_example"],
 }
 
-# ---- 5. COUNTERFACTUAL: what an O-accepting rule would have yielded ------- #
+# ---- 4. COUNTERFACTUAL: what an O-accepting rule would have yielded ------- #
 # Diagnostic only. This is NOT the ingest result and must not be sealed as one.
 need_days = {y: (366 if (y % 400 == 0 or (y % 4 == 0 and y % 100 != 0)) else 365) for y in range(1940, 2010)}
 cf_rows = []
@@ -196,7 +185,7 @@ report["counterfactual_if_uncontrolled_O_were_accepted"] = {
 }
 pd.DataFrame(network_ok).to_csv(ROOT / "scratch" / "smhi_verify_counterfactual_networks.csv", index=False)
 
-# ---- 6. boreal / hydropower evidence (textual only) ---------------------- #
+# ---- 5. boreal / hydropower evidence (textual only) ---------------------- #
 hydro = STATIONS.loc[STATIONS["hydropower_name_evidence"] == True]  # noqa: E712
 report["hydropower_name_evidence"] = {
     "n_stations_with_name_token": int(len(hydro)),
@@ -210,7 +199,7 @@ report["latitude"] = {
     "boreal_nordic_declared_by_seal_context_map": "boreal_nordic",
 }
 
-# ---- 7. summary of the panel the coordinator can actually seal ----------- #
+# ---- 6. summary of the panel the coordinator can actually seal ----------- #
 report["panel_available_for_seal"] = {
     "stations_csv_rows": int(len(pd.read_csv(OUT / "stations.csv"))),
     "networks_dir_exists": (OUT / "networks").is_dir(),

@@ -1,7 +1,7 @@
 # Step 2 protocol — same-info strong baseline (pre-registered)
 
 **Parent:** `PROPOSITION_TABLE.md` claim **C1**  
-**Locked commit baseline:** `53c88cc`  
+**Locked baseline:** the 2026-10-14 review state in `PROPOSITION_TABLE.md`  
 **Do not retune** retention, tolerance, or risk-cap after inspecting reserved / wave-2 nested scores.
 
 ## Estimand
@@ -61,4 +61,4 @@ Single-head `HistGradientBoostingRegressor` (quantile loss at coverage 0.9) pred
 `results/wrr_submission_ready/major_revision_20261014/step2_same_info_ablation/`:
 
 - `frontiers_oof.csv`, `operating_points.csv`, `contrasts_network_ci.json`
-- `learning_curves.csv`, `SUMMARY.md`, `protocol_fingerprint.json`
+- `learning_curves.csv`, `SUMMARY.md`

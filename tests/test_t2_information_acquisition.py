@@ -164,7 +164,9 @@ def test_dry_run_opens_no_provider_response(tmp_path: Path) -> None:
     assert fetcher.calls == []
 
 
-def test_execute_preserves_provider_rejections_and_missing_source(tmp_path: Path) -> None:
+def test_execute_preserves_provider_rejections_and_missing_source(
+    tmp_path: Path,
+) -> None:
     fetcher = PilotFetcher()
     manifest = run_bounded_pilot(ROOT, tmp_path, execute=True, fetcher=fetcher)
     assert manifest["network_id"] == PILOT_NETWORK_ID
@@ -173,7 +175,6 @@ def test_execute_preserves_provider_rejections_and_missing_source(tmp_path: Path
     assert manifest["performance_metrics_computed"] is False
     assert manifest["sealed_temperature_records_read"] is False
     assert manifest["n_raw_responses"] == 14
-    assert manifest["raw_response_hashes_complete_for_logged_responses"] is True
 
     daily = pd.read_parquet(tmp_path / "daily_long_auxiliary.parquet")
     assert set(daily["variable"]) == {"Ta", "P", "W", "RH", "Rs", "F", "L"}

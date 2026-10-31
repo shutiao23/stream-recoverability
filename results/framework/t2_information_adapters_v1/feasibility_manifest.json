@@ -46,7 +46,6 @@
   "local_smoke_grid": {
     "cells": [
       {
-        "adapter_manifest_sha256": "16989f27a2105fd452c68c3a4409dd0f0ad23bdbd56f8e0cf1af9f454915b91b",
         "all_features_have_train_values": true,
         "condition": "B_union_D_union_M",
         "meteorology_lag_days": -1,
@@ -55,7 +54,6 @@
         "n_features": 25
       },
       {
-        "adapter_manifest_sha256": "2f771170e89454e3dd1d7ac4e0983adde4f5487c7a69fa5b4165dfc41250edc0",
         "all_features_have_train_values": true,
         "condition": "B_union_D_union_M",
         "meteorology_lag_days": 0,
@@ -64,7 +62,6 @@
         "n_features": 25
       },
       {
-        "adapter_manifest_sha256": "64133919569804f451fedacf67137a6181cb35b2dda522aabafb2c68448b3ede",
         "all_features_have_train_values": true,
         "condition": "B_union_D_union_M",
         "meteorology_lag_days": 1,
@@ -73,7 +70,6 @@
         "n_features": 25
       },
       {
-        "adapter_manifest_sha256": "f02a7cd16e79b37d557722a0aabb96362eb0fd4809f29763cf4463eea3c8f3bb",
         "all_features_have_train_values": true,
         "condition": "B_union_D_union_M_union_H",
         "meteorology_lag_days": -1,
@@ -82,7 +78,6 @@
         "n_features": 35
       },
       {
-        "adapter_manifest_sha256": "1ebd4ca11a8771a364085883841a9f8194f03ec0fdb27c26c17929ab330304fe",
         "all_features_have_train_values": true,
         "condition": "B_union_D_union_M_union_H",
         "meteorology_lag_days": 0,
@@ -91,7 +86,6 @@
         "n_features": 35
       },
       {
-        "adapter_manifest_sha256": "8dc2602c9c6f7e99c06303658ceecfb1ab650f6d8a5b69fa651170aa8fa509ee",
         "all_features_have_train_values": true,
         "condition": "B_union_D_union_M_union_H",
         "meteorology_lag_days": 1,
@@ -105,7 +99,6 @@
     "fit_period": "2012-01-01/2018-12-31",
     "formal_evidence": false,
     "input_path": "data_versions/external_upper_middle_chattahoochee_v1/daily_long.parquet",
-    "input_sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16",
     "n_cells": 6,
     "n_sites": 5,
     "parquet_filter": "split == train",
@@ -159,7 +152,7 @@
   },
   "reason": "The HUC8 open-role corpus has temperature/QC panels but no provider-audited daily M or H artifacts.",
   "required_unblock_actions": [
-    "materialize station-specific NASA POWER daily M for open roles with raw-response hashes",
+    "materialize station-specific NASA POWER daily M for open roles with retained raw responses",
     "query and materialize USGS 00060/00065 daily availability for open roles",
     "apply the frozen provider QC contract and record per-feature coverage",
     "wire adapter bundles into model-specific B+D+M and B+D+M+H consumers",

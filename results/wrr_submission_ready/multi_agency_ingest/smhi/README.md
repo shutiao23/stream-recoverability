@@ -9,7 +9,7 @@ Written 2026-10-12T10:03:43Z by `scripts/240_multi_agency_smhi_ingest.py`
 - Series: `https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4/station/{station_id}/period/corrected-archive/data.csv` (`corrected-archive`, the only period served for parameter 4).
 - 176 of 176 stations downloaded, 0 failures;
   1063746 parsed rows over 1063746 quality-code-`O` rows.
-- Raw bytes are cached in `raw_cache/` (gitignored) with sha256 per file in
+- Raw bytes are cached in `raw_cache/` (gitignored) and listed in
   `raw_cache_manifest.csv`; `stations_all.csv` carries per-station QC for all 176 stations.
 - Coverage: 1946-04-01 .. 2003-05-05; median station span
   1976-09 .. 1990-10 (87 stations end before

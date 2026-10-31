@@ -77,18 +77,18 @@ def main() -> None:
     manifest = build_workload_manifest(ROOT, networks, inventory, budget)
     manifest_path = args.output / "workload_manifest.json"
     manifest_path.write_text(
-        json.dumps(json_safe(manifest), indent=2, sort_keys=True, allow_nan=False) + "\n",
+        json.dumps(json_safe(manifest), indent=2, sort_keys=True, allow_nan=False)
+        + "\n",
         encoding="utf-8",
     )
     legacy_last_run = args.output / "last_run.json"
     if legacy_last_run.is_file():
         existing_last_run = json.loads(legacy_last_run.read_text(encoding="utf-8"))
-        if existing_last_run.get("runner_contract_version") != manifest[
-            "runner_contract_version"
-        ]:
-            legacy_payload = existing_last_run.get(
-                "legacy_payload", existing_last_run
-            )
+        if (
+            existing_last_run.get("runner_contract_version")
+            != manifest["runner_contract_version"]
+        ):
+            legacy_payload = existing_last_run.get("legacy_payload", existing_last_run)
             legacy_last_run.write_text(
                 json.dumps(
                     {
@@ -110,8 +110,10 @@ def main() -> None:
         tier2_path = args.output / "tier2_sample_lock.json"
         if tier2_path.is_file():
             existing = json.loads(tier2_path.read_text(encoding="utf-8"))
-            if existing.get("sample_sha256") != tier2.get("sample_sha256"):
-                raise RuntimeError("refusing to overwrite a different Tier-2 sample lock")
+            if existing.get("sample") != tier2.get("sample"):
+                raise RuntimeError(
+                    "refusing to overwrite a different Tier-2 sample lock"
+                )
         tier2_path.write_text(
             json.dumps(tier2, indent=2, sort_keys=True, allow_nan=False) + "\n",
             encoding="utf-8",

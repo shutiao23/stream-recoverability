@@ -15,8 +15,8 @@ Two scientific-identity problems remained after v2:
 1. Proposed-model training already reached the 200-epoch cap
    (`hit_epoch_limit=true`). Ranking under that budget can depend on an
    arbitrary ceiling rather than on a completed optimisation.
-2. The validation scenario-ID repair (commit `056cc769` and later) changed the
-   evidence identity of selection artifacts. v2 Stage 1 units cannot be reused
+2. The validation scenario-ID repair changed the evidence identity of
+   selection artifacts. v2 Stage 1 units cannot be reused
    as v3 selection evidence.
 
 v3 is a one-time, pre-result protocol amendment. The epoch cap is not raised
@@ -51,8 +51,7 @@ provider quality is `provider_qc_status=unknown` and must not be written as
 `known_issue_flag=true` on the main version; the three sensitivity versions
 remain the exclusion/shift tests.
 
-v1 versions remain historical. Their hashes are not reused as v3 selection
-evidence.
+v1 versions remain historical. They are not reused as v3 selection evidence.
 
 ## Dual frontier and falsification
 
@@ -69,7 +68,6 @@ propagation.”
 ## What is not claimed
 
 - No development-test or confirmatory performance.
-- `published_v2` directories exist; this freeze does not name their artifact hashes.
 - No operational recoverability boundary (application thresholds remain undeclared).
 - v2 Stage 1/2/3 artifacts are not v3 selection evidence.
 
@@ -77,6 +75,6 @@ propagation.”
 
 1. Point `DEFAULT_DESIGN_PATH` at `configs/design_freeze_v3.yaml`.
 2. Rebuild `published_v2` and the three v2 sensitivities.
-3. Re-run Stage 1 and Stage 2 under the v3 design hash.
+3. Re-run Stage 1 and Stage 2 under the v3 design.
 4. Complete Stage 3, the proposed gate, and `finalized_model_roster_v1` before opening development-test or confirmatory performance.
 5. Do not raise `max_epochs` again.

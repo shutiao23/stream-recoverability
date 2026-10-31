@@ -296,11 +296,13 @@ def write_paper_outputs(deltas: pd.DataFrame, tails: pd.DataFrame, overall: pd.D
         "PRTrajRevisionSeeds": ", ".join(map(str, SEEDS)), "PRTrajRevisionN": "27", "PRTrajRevisionGroups": "2",
         "PRTrajRevisionSwissUpperMedian": f"{swiss.median_abs_delta_q95:.4f}",
         "PRTrajRevisionBavariaUpperMedian": f"{bavaria.median_abs_delta_q95:.4f}",
+        "PRTrajRevisionBavariaUpperExceed": str(int(bavaria.n_q95_exceeds_005)),
         "PRTrajRevisionUpperMax": f"{original.abs_delta_q95.max():.4f}",
         "PRTrajRevisionUpperExceed": str(int(original.q95_exceeds_005.sum())),
         "PRTrajRevisionEitherExceed": str(int(original.either_tail_exceeds_005.sum())),
         "PRTrajRevisionWidthTwenty": f"{original_scores.loc[20].mean_width90:.4f}",
         "PRTrajRevisionWidthFiveHundred": f"{original_scores.loc[500].mean_width90:.4f}",
+        "PRTrajRevisionWidthIncrease": f"{100 * (original_scores.loc[500].mean_width90 / original_scores.loc[20].mean_width90 - 1):.1f}",
         "PRTrajRevisionCoveredTwenty": str(int(original_scores.loc[20].n_covered)),
         "PRTrajRevisionCoveredFiveHundred": str(int(original_scores.loc[500].n_covered)),
     }

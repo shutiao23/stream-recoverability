@@ -2,24 +2,19 @@
   "artifacts": {
     "nldi_cache_index": {
       "n_files": 638,
-      "path": "nldi_cache_index.csv",
-      "sha256": "4fb8faeb7fc63dba71d29a2b70442a2a23222221f3504ba2fe5ef8c0c8418dc5"
+      "path": "nldi_cache_index.csv"
     },
     "pair_attrition": {
-      "path": "pair_attrition.csv",
-      "sha256": "7ddd3c9aa4c879dc67adbd8e1e17358bb3b32591269715daddcf9bba10da5b90"
+      "path": "pair_attrition.csv"
     },
     "pair_plan": {
-      "path": "pair_plan.csv",
-      "sha256": "ce4081e87adf12b44f517ad2cb831f26600e0078f172ac7592f5125d85181aaa"
+      "path": "pair_plan.csv"
     },
     "station_attrition": {
-      "path": "station_attrition.csv",
-      "sha256": "58112f9392bc7b6e9b0e5429eb3ee96ba8713e423208a44ff8d83d3169bea91c"
+      "path": "station_attrition.csv"
     },
     "station_covariates": {
-      "path": "station_covariates.csv",
-      "sha256": "4d61283828de9bc0a69ad4d058b30fb2dcb94a468c8edbaa2b39f164e10ff828"
+      "path": "station_covariates.csv"
     }
   },
   "attrition_reason_counts": {
@@ -77,24 +72,19 @@
   "independent_unit": "regulated_control_network_pair",
   "input_identities": {
     "catalog_v3_split": {
-      "path": "results/framework/public_catalog/catalog_v3_split_table.csv",
-      "sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+      "path": "results/framework/public_catalog/catalog_v3_split_table.csv"
     },
     "design_freeze": {
-      "path": "configs/design_freeze_v9.yaml",
-      "sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244"
+      "path": "configs/design_freeze_v9.yaml"
     },
     "gages_ii_archive": {
-      "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
-      "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e"
+      "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip"
     },
     "station_catalog": {
-      "path": "results/framework/public_catalog/usgs_daily_temperature_series.csv",
-      "sha256": "2a6bfd91a42d52b5896dc729f5a0991cc0504f28f9097433d09859052fd83b9e"
+      "path": "results/framework/public_catalog/usgs_daily_temperature_series.csv"
     },
     "train_only_predictors": {
-      "path": "results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.csv",
-      "sha256": "b99ff64f07ec0bf3be27787f0e8706bbfbfb17e9a2b4f288a59914688d681051"
+      "path": "results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.csv"
     }
   },
   "matching_unit": "target_station",

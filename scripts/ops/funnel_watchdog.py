@@ -2,7 +2,7 @@
 """Keep the validation funnel alive across Cursor shell aborts.
 
 This is an operations helper, not scientific evidence.  Formal claims remain
-gated on completed manifests and a hash-verified roster.
+gated on completed manifests and a finalized validation roster.
 """
 
 from __future__ import annotations
@@ -34,10 +34,7 @@ def _validation_run_root() -> Path:
             ROOT / "data_versions/published_v1/version_manifest.json"
         ),
     )
-    return (
-        ROOT
-        / "results/validation_funnel/published_v1"
-    )
+    return ROOT / "results/validation_funnel/published_v1"
 
 
 RUN = _validation_run_root()
@@ -186,7 +183,10 @@ def ensure_after_roster() -> None:
             "complete",
             "stopped_after_p12",
         }:
-            log("after_roster_idle pipeline=" + str(status.get("steps", {}).get("pipeline")))
+            log(
+                "after_roster_idle pipeline="
+                + str(status.get("steps", {}).get("pipeline"))
+            )
             return
     log("starting after_roster_pipeline")
     env = os.environ.copy()

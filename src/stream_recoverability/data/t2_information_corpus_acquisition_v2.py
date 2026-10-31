@@ -6,14 +6,11 @@ without an API key.  Version 2 uses one legacy NWIS daily-values RDB request per
 network for both F and L, followed by exact station-specific frozen-window
 filtering.  NASA POWER remains station-specific.
 
-The v2 root, schemas, hashes, manifests, and attempts are independent of v1.
+The v2 root, schemas, manifests, and attempts are independent of v1.
 No v1 response or manifest is overwritten or promoted into v2.
 """
 
 from __future__ import annotations
-
-import fcntl
-import hashlib
 import json
 import math
 import os
@@ -29,10 +26,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Self
-
 import numpy as np
 import pandas as pd
-
 from . import confirmatory as provider
 from . import t2_information_corpus_acquisition as v1
 from .t2_information_adapters import (
@@ -70,14 +65,9 @@ DEFAULT_MAX_TRANSIENT_RETRIES = 4
 DEFAULT_RETRY_BACKOFF_INITIAL_SECONDS = 15.0
 DEFAULT_RETRY_BACKOFF_MAX_SECONDS = 240.0
 DEFAULT_HTTP_429_COOLDOWN_SECONDS = 120.0
-MAX_NETWORK_SITE_DAYS_PER_LEGACY_REQUEST = 200_000
+MAX_NETWORK_SITE_DAYS_PER_LEGACY_REQUEST = 200000
 LOCKED_PROVIDER_NONNUMERIC_CODES = ("Ice", "Eqp", "***", "Bkw", "Rat")
-LEGACY_EMPTY_NO_SITES_RDB = (
-    b"#  No sites found matching all criteria\n"
-    b"agency_cd\tsite_no\tdatetime\n"
-    b"5s\t15s\t20d\n"
-    b"\t\t\n"
-)
+LEGACY_EMPTY_NO_SITES_RDB = b"#  No sites found matching all criteria\nagency_cd\tsite_no\tdatetime\n5s\t15s\t20d\n\t\t\n"
 STALE_LOCKED_PROVIDER_NONNUMERIC_CODES = {
     LEGACY_NETWORK_SCHEMA_VERSION: (),
     V2_1_NETWORK_SCHEMA_VERSION: ("Ice",),
@@ -98,30 +88,12 @@ HISTORICAL_PARSER_CONTRACTS: dict[str, str | None] = {
     V2_5_NETWORK_SCHEMA_VERSION: "legacy_nwis_rdb_hydraulics_parser_v2_5",
 }
 ARCHIVE_CONTRACTS = {
-    "v2_1": (
-        "t2_v91_open_role_mh_attempt_archive_v2_1",
-        V2_1_NETWORK_SCHEMA_VERSION,
-    ),
-    "v2_2": (
-        "t2_v91_open_role_mh_attempt_archive_v2_2",
-        V2_2_NETWORK_SCHEMA_VERSION,
-    ),
-    "v2_3": (
-        "t2_v91_open_role_mh_attempt_archive_v2_3",
-        V2_3_NETWORK_SCHEMA_VERSION,
-    ),
-    "v2_4": (
-        "t2_v91_open_role_mh_attempt_archive_v2_4",
-        V2_4_NETWORK_SCHEMA_VERSION,
-    ),
-    "v2_5": (
-        "t2_v91_open_role_mh_attempt_archive_v2_5",
-        V2_5_NETWORK_SCHEMA_VERSION,
-    ),
-    "v2_6": (
-        "t2_v91_open_role_mh_attempt_archive_v2_6",
-        NETWORK_SCHEMA_VERSION,
-    ),
+    "v2_1": ("t2_v91_open_role_mh_attempt_archive_v2_1", V2_1_NETWORK_SCHEMA_VERSION),
+    "v2_2": ("t2_v91_open_role_mh_attempt_archive_v2_2", V2_2_NETWORK_SCHEMA_VERSION),
+    "v2_3": ("t2_v91_open_role_mh_attempt_archive_v2_3", V2_3_NETWORK_SCHEMA_VERSION),
+    "v2_4": ("t2_v91_open_role_mh_attempt_archive_v2_4", V2_4_NETWORK_SCHEMA_VERSION),
+    "v2_5": ("t2_v91_open_role_mh_attempt_archive_v2_5", V2_5_NETWORK_SCHEMA_VERSION),
+    "v2_6": ("t2_v91_open_role_mh_attempt_archive_v2_6", NETWORK_SCHEMA_VERSION),
 }
 
 
@@ -131,61 +103,6 @@ class ProviderCircuitOpen(RuntimeError):
     def __init__(self, message: str, *, audit: Mapping[str, Any]) -> None:
         super().__init__(message)
         self.audit = dict(audit)
-
-
-class TerminalMigrationCompatibilityError(ValueError):
-    """A verified stale terminal cannot be replayed under the current parser."""
-
-
-class RootExecutionLock:
-    """Process-scoped advisory lock preventing concurrent writers to one v2 root."""
-
-    def __init__(self, output: Path) -> None:
-        self.path = output / ".acquisition.lock"
-        self.handle = self.path.open("a+", encoding="utf-8")
-        try:
-            fcntl.flock(self.handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as error:
-            self.handle.seek(0)
-            owner = self.handle.read().strip()
-            self.handle.close()
-            raise RuntimeError(
-                f"another v2 acquisition writer holds {self.path}: {owner}"
-            ) from error
-        owner = {
-            "manifest_schema": "t2_v91_open_role_mh_root_writer_lock_v1",
-            "pid": os.getpid(),
-            "hostname": socket.gethostname(),
-            "acquired_at_utc": datetime.now(timezone.utc).isoformat(),
-        }
-        self.handle.seek(0)
-        self.handle.truncate()
-        self.handle.write(json.dumps(owner, sort_keys=True) + "\n")
-        self.handle.flush()
-        os.fsync(self.handle.fileno())
-        self.released = False
-
-    def release(self) -> None:
-        if self.released:
-            return
-        fcntl.flock(self.handle.fileno(), fcntl.LOCK_UN)
-        self.handle.close()
-        self.released = True
-
-    def assert_owns(self, output: Path) -> None:
-        expected = output.resolve() / ".acquisition.lock"
-        if self.released or self.handle.closed or self.path.resolve() != expected:
-            raise RuntimeError(f"root execution lock does not own {expected}")
-
-    def __enter__(self) -> Self:
-        return self
-
-    def __exit__(self, *_: object) -> None:
-        self.release()
-
-    def __del__(self) -> None:
-        if hasattr(self, "released") and not self.released:
-            self.release()
 
 
 class _RetryableProviderFailure(RuntimeError):
@@ -219,7 +136,6 @@ class LegacyNetworkRequest:
 class V2NetworkPlan:
     base: v1.CorpusNetworkPlan
     legacy_requests: tuple[LegacyNetworkRequest, ...]
-    network_plan_sha256: str
 
     @property
     def network_id(self) -> str:
@@ -237,25 +153,10 @@ class V2NetworkPlan:
 @dataclass(frozen=True)
 class V2CorpusPlan:
     networks: tuple[V2NetworkPlan, ...]
-    split_sha256: str
-    v1_roster_plan_sha256: str
-    plan_sha256: str
 
 
 def _canonical_json(value: Any) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
-
-
-def _sha256_bytes(value: bytes) -> str:
-    return hashlib.sha256(value).hexdigest()
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _relative(path: Path, root: Path) -> str:
@@ -284,11 +185,7 @@ def _write_json_atomic(path: Path, value: Any) -> None:
 
 
 def _artifact(path: Path, root: Path) -> dict[str, Any]:
-    return {
-        "path": _relative(path, root),
-        "sha256": _sha256_file(path),
-        "bytes": path.stat().st_size,
-    }
+    return {"path": _relative(path, root), "bytes": path.stat().st_size}
 
 
 def _legacy_url(site_ids: Sequence[str], start: str, end: str) -> str:
@@ -307,27 +204,21 @@ def _legacy_url(site_ids: Sequence[str], start: str, end: str) -> str:
 
 
 def _legacy_requests(network: v1.CorpusNetworkPlan) -> tuple[LegacyNetworkRequest, ...]:
-    start = min(site.target_start for site in network.sites)
-    end = max(site.target_end for site in network.sites)
+    start = min((site.target_start for site in network.sites))
+    end = max((site.target_end for site in network.sites))
     days = len(pd.date_range(start, end, freq="D"))
     estimated = days * len(network.sites)
     if estimated > MAX_NETWORK_SITE_DAYS_PER_LEGACY_REQUEST:
         raise ValueError(
             f"{network.network_id} exceeds the locked one-request site-day bound: {estimated}"
         )
-    sites = tuple(site.site_id for site in network.sites)
-    identity = {
-        "network_id": network.network_id,
-        "role": network.role,
-        "site_ids": list(sites),
-        "start": start,
-        "end": end,
-        "parameter_codes": list(LEGACY_PARAMETERS),
-        "statistic_code": LEGACY_STATISTIC,
-    }
+    sites = tuple((site.site_id for site in network.sites))
+    request_id = re.sub(
+        "[^A-Za-z0-9_.-]", "_", f"legacy_dv_{network.network_id}_{start}_{end}"
+    )
     return (
         LegacyNetworkRequest(
-            request_id=f"legacy_dv_{_sha256_bytes(_canonical_json(identity).encode())[:20]}",
+            request_id=request_id,
             network_id=network.network_id,
             role=network.role,
             site_ids=sites,
@@ -343,87 +234,28 @@ def _legacy_requests(network: v1.CorpusNetworkPlan) -> tuple[LegacyNetworkReques
 
 def load_v2_corpus_plan(repository_root: str | Path) -> V2CorpusPlan:
     base = v1.load_corpus_plan(repository_root)
-    networks: list[V2NetworkPlan] = []
-    for network in base.networks:
-        requests = _legacy_requests(network)
-        payload = {
-            "transport_version": "legacy_nwis_dv_rdb_network_batch_v2",
-            "parser_contract_version": PARSER_CONTRACT_VERSION,
-            "locked_provider_nonnumeric_codes": list(
-                LOCKED_PROVIDER_NONNUMERIC_CODES
-            ),
-            "base_network_plan_sha256": network.network_plan_sha256,
-            "legacy_requests": [asdict(request) for request in requests],
-            "power_transport": "nasa_power_daily_point_station_specific",
-            "temperature_columns_read": [],
-            "sealed_paths_traversed": False,
-            "performance_metrics_computed": False,
-        }
-        networks.append(
-            V2NetworkPlan(
-                base=network,
-                legacy_requests=requests,
-                network_plan_sha256=_sha256_bytes(_canonical_json(payload).encode()),
-            )
+    networks = tuple(
+        (
+            V2NetworkPlan(base=network, legacy_requests=_legacy_requests(network))
+            for network in base.networks
         )
-    payload = {
-        "manifest_schema": PLAN_SCHEMA_VERSION,
-        "v1_roster_plan_sha256": base.plan_sha256,
-        "split_sha256": base.split_sha256,
-        "n_networks": len(networks),
-        "n_sites": sum(len(network.sites) for network in networks),
-        "n_legacy_usgs_requests": sum(
-            len(network.legacy_requests) for network in networks
-        ),
-        "n_power_requests": sum(len(network.sites) for network in networks),
-        "networks": [
-            {
-                "network_id": network.network_id,
-                "role": network.role,
-                "base_network_plan_sha256": network.base.network_plan_sha256,
-                "network_plan_sha256": network.network_plan_sha256,
-                "legacy_requests": [
-                    asdict(request) for request in network.legacy_requests
-                ],
-            }
-            for network in networks
-        ],
-        "usgs_transport": LEGACY_PROVIDER,
-        "parser_contract_version": PARSER_CONTRACT_VERSION,
-        "locked_provider_nonnumeric_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
-        "legacy_batching_rule": (
-            "one_request_per_network_for_00060_and_00065_when_estimated_site_days_le_200000"
-        ),
-        "v1_ogc_root_read_or_mutated": False,
-        "temperature_columns_read": [],
-        "sealed_paths_traversed": False,
-        "performance_metrics_computed": False,
-    }
-    return V2CorpusPlan(
-        networks=tuple(networks),
-        split_sha256=base.split_sha256,
-        v1_roster_plan_sha256=base.plan_sha256,
-        plan_sha256=_sha256_bytes(_canonical_json(payload).encode()),
     )
+    return V2CorpusPlan(networks=networks)
 
 
 def plan_as_dict(plan: V2CorpusPlan) -> dict[str, Any]:
-    result = {
+    return {
         "manifest_schema": PLAN_SCHEMA_VERSION,
-        "v1_roster_plan_sha256": plan.v1_roster_plan_sha256,
-        "split_sha256": plan.split_sha256,
         "n_networks": len(plan.networks),
-        "n_sites": sum(len(network.sites) for network in plan.networks),
+        "n_sites": sum((len(network.sites) for network in plan.networks)),
         "n_legacy_usgs_requests": sum(
-            len(network.legacy_requests) for network in plan.networks
+            (len(network.legacy_requests) for network in plan.networks)
         ),
-        "n_power_requests": sum(len(network.sites) for network in plan.networks),
+        "n_power_requests": sum((len(network.sites) for network in plan.networks)),
         "networks": [
             {
                 "network_id": network.network_id,
                 "role": network.role,
-                "base_network_plan_sha256": network.base.network_plan_sha256,
-                "network_plan_sha256": network.network_plan_sha256,
                 "legacy_requests": [
                     asdict(request) for request in network.legacy_requests
                 ],
@@ -433,20 +265,12 @@ def plan_as_dict(plan: V2CorpusPlan) -> dict[str, Any]:
         "usgs_transport": LEGACY_PROVIDER,
         "parser_contract_version": PARSER_CONTRACT_VERSION,
         "locked_provider_nonnumeric_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
-        "legacy_batching_rule": (
-            "one_request_per_network_for_00060_and_00065_when_estimated_site_days_le_200000"
-        ),
+        "legacy_batching_rule": "one_request_per_network_for_00060_and_00065_when_estimated_site_days_le_200000",
         "v1_ogc_root_read_or_mutated": False,
         "temperature_columns_read": [],
         "sealed_paths_traversed": False,
         "performance_metrics_computed": False,
-        "plan_sha256": plan.plan_sha256,
     }
-    check = dict(result)
-    check.pop("plan_sha256")
-    if _sha256_bytes(_canonical_json(check).encode()) != plan.plan_sha256:
-        raise AssertionError("v2 corpus plan SHA is not reproducible")
-    return result
 
 
 def select_networks(
@@ -458,14 +282,20 @@ def select_networks(
 ) -> tuple[V2NetworkPlan, ...]:
     modes = int(bool(network_ids)) + int(max_networks is not None) + int(all_networks)
     if modes > 1:
-        raise ValueError("choose only one of network_ids, max_networks, or all_networks")
+        raise ValueError(
+            "choose only one of network_ids, max_networks, or all_networks"
+        )
     roster = {network.network_id: network for network in plan.networks}
     if network_ids:
         requested = set(network_ids)
         missing = requested.difference(roster)
         if missing:
-            raise ValueError(f"requested networks are outside the v2 plan: {sorted(missing)}")
-        return tuple(network for network in plan.networks if network.network_id in requested)
+            raise ValueError(
+                f"requested networks are outside the v2 plan: {sorted(missing)}"
+            )
+        return tuple(
+            (network for network in plan.networks if network.network_id in requested)
+        )
     if max_networks is not None:
         if not 1 <= max_networks <= len(plan.networks):
             raise ValueError("max_networks must be inside the frozen v2 roster")
@@ -493,20 +323,20 @@ def _retry_after(headers: Mapping[str, str]) -> float | None:
 
 def _runtime_transient(error: BaseException) -> tuple[int | None, str] | None:
     message = str(error)
-    match = re.search(r"\bHTTP\s+(\d{3})\b", message, flags=re.IGNORECASE)
+    match = re.search("\\bHTTP\\s+(\\d{3})\\b", message, flags=re.IGNORECASE)
     if match and int(match.group(1)) in RETRYABLE_HTTP_STATUSES:
-        return int(match.group(1)), message
+        return (int(match.group(1)), message)
     normalized = message.lower()
     if (
         "network failure" in normalized
         or "timed out" in normalized
         or "timeout" in normalized
-        or "connection reset" in normalized
-        or "temporarily unavailable" in normalized
+        or ("connection reset" in normalized)
+        or ("temporarily unavailable" in normalized)
     ):
-        return None, message
+        return (None, message)
     if isinstance(error, (TimeoutError, ConnectionError)):
-        return None, message or type(error).__name__
+        return (None, message or type(error).__name__)
     return None
 
 
@@ -580,9 +410,7 @@ class AuditedRateLimitedFetcher:
         status, reason = parsed
         return _RetryableProviderFailure(reason, status=status)
 
-    def __call__(
-        self, url: str, headers: Mapping[str, str]
-    ) -> provider.HTTPResponse:
+    def __call__(self, url: str, headers: Mapping[str, str]) -> provider.HTTPResponse:
         if self._circuit_audit is not None:
             raise ProviderCircuitOpen(
                 "provider circuit is already open; refusing another request",
@@ -606,8 +434,7 @@ class AuditedRateLimitedFetcher:
             assert failure is not None
             exhausted = retry_index >= self.max_transient_retries
             exponential = min(
-                self.backoff_max_seconds,
-                self.backoff_initial_seconds * (2**retry_index),
+                self.backoff_max_seconds, self.backoff_initial_seconds * 2**retry_index
             )
             cooldown = exponential
             if failure.status == 429:
@@ -659,16 +486,13 @@ class AuditedRateLimitedFetcher:
 
 
 def _qualifier_approved(value: str) -> bool:
-    return bool(re.match(r"^A(?:$|:)", value.strip(), flags=re.IGNORECASE))
+    return bool(re.match("^A(?:$|:)", value.strip(), flags=re.IGNORECASE))
 
 
-def scan_legacy_rdb_nonnumeric_codes(
-    paths: Sequence[str | Path],
-) -> Counter[str]:
+def scan_legacy_rdb_nonnumeric_codes(paths: Sequence[str | Path]) -> Counter[str]:
     """Inventory every nonempty nonnumeric F/L value in raw Legacy RDB files."""
-
     counts: Counter[str] = Counter()
-    for raw_path in sorted(Path(path) for path in paths):
+    for raw_path in sorted((Path(path) for path in paths)):
         lines = raw_path.read_bytes().decode("utf-8", errors="strict").splitlines()
         index = 0
         while index < len(lines):
@@ -679,11 +503,11 @@ def scan_legacy_rdb_nonnumeric_codes(
             value_indices = [
                 ordinal
                 for ordinal, column in enumerate(columns)
-                if re.fullmatch(r"[^\t]+_(00060|00065)_00003", column)
+                if re.fullmatch("[^\\t]+_(00060|00065)_00003", column)
             ]
             index += 2
-            while index < len(lines) and not lines[index].startswith(
-                "agency_cd\tsite_no\tdatetime"
+            while index < len(lines) and (
+                not lines[index].startswith("agency_cd\tsite_no\tdatetime")
             ):
                 line = lines[index]
                 index += 1
@@ -691,7 +515,9 @@ def scan_legacy_rdb_nonnumeric_codes(
                     continue
                 values = line.split("\t")
                 if len(values) != len(columns):
-                    raise ValueError(f"raw RDB row width mismatch during scan: {raw_path}")
+                    raise ValueError(
+                        f"raw RDB row width mismatch during scan: {raw_path}"
+                    )
                 for ordinal in value_indices:
                     raw_text = values[ordinal].strip()
                     if not raw_text:
@@ -703,14 +529,9 @@ def scan_legacy_rdb_nonnumeric_codes(
 
 
 def parse_legacy_hydraulics_rdb(
-    payload: bytes,
-    request: LegacyNetworkRequest,
-    *,
-    response_sha256: str,
-    response_artifact: str,
+    payload: bytes, request: LegacyNetworkRequest, *, response_artifact: str
 ) -> pd.DataFrame:
     """Parse network-batched 00060/00065 daily means with strict A-only QC."""
-
     if payload == LEGACY_EMPTY_NO_SITES_RDB:
         return pd.DataFrame()
     lines = payload.decode("utf-8", errors="strict").splitlines()
@@ -725,17 +546,21 @@ def parse_legacy_hydraulics_rdb(
         columns = lines[index].split("\t")
         value_columns: list[tuple[str, str]] = []
         for column in columns:
-            match = re.fullmatch(r"([^\t]+)_(00060|00065)_00003", column)
+            match = re.fullmatch("([^\\t]+)_(00060|00065)_00003", column)
             if match:
                 qualifier = f"{column}_cd"
                 if qualifier not in columns:
-                    raise ValueError(f"legacy RDB value lacks qualifier column: {column}")
+                    raise ValueError(
+                        f"legacy RDB value lacks qualifier column: {column}"
+                    )
                 value_columns.append((column, match.group(2)))
         if not value_columns:
-            raise ValueError("legacy RDB data table has no requested daily-mean F/L column")
+            raise ValueError(
+                "legacy RDB data table has no requested daily-mean F/L column"
+            )
         index += 2
-        while index < len(lines) and not lines[index].startswith(
-            "agency_cd\tsite_no\tdatetime"
+        while index < len(lines) and (
+            not lines[index].startswith("agency_cd\tsite_no\tdatetime")
         ):
             line = lines[index]
             index += 1
@@ -747,7 +572,9 @@ def parse_legacy_hydraulics_rdb(
             record = dict(zip(columns, values, strict=True))
             site_id = str(record["site_no"]).zfill(8)
             if site_id not in requested:
-                raise ValueError(f"legacy response contained unrequested site {site_id}")
+                raise ValueError(
+                    f"legacy response contained unrequested site {site_id}"
+                )
             date = pd.to_datetime(record["datetime"], errors="coerce")
             if pd.isna(date):
                 raise ValueError("legacy RDB contained an invalid daily date")
@@ -778,9 +605,7 @@ def parse_legacy_hydraulics_rdb(
                     approved = _qualifier_approved(qualifier)
                     natural_observed = True
                     estimated = bool(
-                        re.search(
-                            r"(?:^|:)E(?:$|:)", qualifier, flags=re.IGNORECASE
-                        )
+                        re.search("(?:^|:)E(?:$|:)", qualifier, flags=re.IGNORECASE)
                     )
                     converted = (
                         float(raw_value) * spec.conversion_factor
@@ -804,12 +629,12 @@ def parse_legacy_hydraulics_rdb(
                         "raw_name": code,
                         "source": LEGACY_PROVIDER,
                         "raw_text": text,
-                        "source_value_original": (
-                            float(raw_value) if np.isfinite(raw_value) else np.nan
-                        ),
-                        "raw_value": (
-                            float(raw_value) if np.isfinite(raw_value) else np.nan
-                        ),
+                        "source_value_original": float(raw_value)
+                        if np.isfinite(raw_value)
+                        else np.nan,
+                        "raw_value": float(raw_value)
+                        if np.isfinite(raw_value)
+                        else np.nan,
                         "value": converted,
                         "raw_unit": spec.source_unit,
                         "unit": spec.unit,
@@ -828,7 +653,6 @@ def parse_legacy_hydraulics_rdb(
                         "source_latitude": np.nan,
                         "interpretation": spec.interpretation,
                         "quality_basis": "legacy NWIS RDB qualifier prefix A only",
-                        "response_sha256": response_sha256,
                         "response_artifact": response_artifact,
                     }
                 )
@@ -849,14 +673,10 @@ def parse_legacy_network_response(
     network: V2NetworkPlan,
     request: LegacyNetworkRequest,
     *,
-    response_sha256: str,
     response_artifact: str,
 ) -> pd.DataFrame:
     frame = parse_legacy_hydraulics_rdb(
-        payload,
-        request,
-        response_sha256=response_sha256,
-        response_artifact=response_artifact,
+        payload, request, response_artifact=response_artifact
     )
     if frame.empty:
         return frame
@@ -910,19 +730,18 @@ def _fetch_legacy_request(
         "waterservices.usgs.gov",
         "nwis.waterservices.usgs.gov",
     }:
-        raise ValueError(f"legacy NWIS redirected outside its official host: {response.url}")
+        raise ValueError(
+            f"legacy NWIS redirected outside its official host: {response.url}"
+        )
     content_type = (_header_value(response.headers, "Content-Type") or "").lower()
-    if not any(value in content_type for value in ("text/plain", "tab-separated")):
-        raise ValueError(f"legacy NWIS returned unexpected content type {content_type!r}")
+    if not any((value in content_type for value in ("text/plain", "tab-separated"))):
+        raise ValueError(
+            f"legacy NWIS returned unexpected content type {content_type!r}"
+        )
     response_path.write_bytes(response.body)
-    response_sha = _sha256_bytes(response.body)
     response_artifact = str(response_path.relative_to(output))
     frame = parse_legacy_network_response(
-        response.body,
-        network,
-        request,
-        response_sha256=response_sha,
-        response_artifact=response_artifact,
+        response.body, network, request, response_artifact=response_artifact
     )
     record = {
         "provider": LEGACY_PROVIDER,
@@ -934,26 +753,18 @@ def _fetch_legacy_request(
         "response_url": response.url,
         "request_artifact": str(request_path.relative_to(output)),
         "response_artifact": response_artifact,
-        "request_sha256": _sha256_bytes(request_bytes),
-        "response_sha256": response_sha,
         "http_status": response.status,
         "content_type": _header_value(response.headers, "Content-Type"),
         "rows_after_station_window_filter": len(frame),
     }
-    if _sha256_file(request_path) != record["request_sha256"]:
-        raise AssertionError("legacy request identity hash changed")
-    if _sha256_file(response_path) != response_sha:
-        raise AssertionError("legacy raw response hash changed")
-    return frame, record
+    return (frame, record)
 
 
 def _protocol(
-    network: V2NetworkPlan,
-    site: v1.CorpusSitePlan,
+    network: V2NetworkPlan, site: v1.CorpusSitePlan
 ) -> provider.ConfirmatoryProtocol:
     return provider.ConfirmatoryProtocol(
         design_path="configs/design_freeze_v9.yaml",
-        design_sha256="bound_by_failure_closure_and_v2_network_plan_sha256",
         design_version="design_freeze_v9.1_information_corpus_acquisition_v2",
         network=network.network_id,
         site_ids=(site.site_id,),
@@ -978,11 +789,10 @@ def _network_output(root: Path, network: V2NetworkPlan) -> Path:
 def _network_request_plan(
     network: V2NetworkPlan, *, previous_attempt_archive: str | None
 ) -> dict[str, Any]:
-    plan = {
+    return {
         "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
         "network_id": network.network_id,
         "role": network.role,
-        "network_plan_sha256": network.network_plan_sha256,
         "legacy_requests": [asdict(request) for request in network.legacy_requests],
         "power_requests": [
             {
@@ -1001,56 +811,22 @@ def _network_request_plan(
         "sealed_paths_traversed": False,
         "performance_metrics_computed": False,
     }
-    plan["request_plan_sha256"] = _sha256_bytes(_canonical_json(plan).encode())
-    return plan
-
-
-def _network_plan_sha_for_schema(network: V2NetworkPlan, schema: str) -> str:
-    if schema == NETWORK_SCHEMA_VERSION:
-        parser_contract = PARSER_CONTRACT_VERSION
-        locked_codes = LOCKED_PROVIDER_NONNUMERIC_CODES
-    else:
-        if schema not in HISTORICAL_PARSER_CONTRACTS:
-            raise TerminalMigrationCompatibilityError(
-                f"unknown historical network schema: {schema}"
-            )
-        parser_contract = HISTORICAL_PARSER_CONTRACTS[schema]
-        locked_codes = STALE_LOCKED_PROVIDER_NONNUMERIC_CODES[schema]
-    payload: dict[str, Any] = {
-        "transport_version": "legacy_nwis_dv_rdb_network_batch_v2",
-        "base_network_plan_sha256": network.base.network_plan_sha256,
-        "legacy_requests": [asdict(request) for request in network.legacy_requests],
-        "power_transport": "nasa_power_daily_point_station_specific",
-        "temperature_columns_read": [],
-        "sealed_paths_traversed": False,
-        "performance_metrics_computed": False,
-    }
-    if parser_contract is not None:
-        payload["parser_contract_version"] = parser_contract
-        payload["locked_provider_nonnumeric_codes"] = list(locked_codes)
-    return _sha256_bytes(_canonical_json(payload).encode())
 
 
 def _current_children(output: Path) -> list[Path]:
-    return sorted(path for path in output.iterdir() if path.name != "attempts")
+    return sorted((path for path in output.iterdir() if path.name != "attempts"))
 
 
 def _archive_inventory(path: Path) -> list[dict[str, Any]]:
     rows = []
-    for file in sorted(value for value in path.rglob("*") if value.is_file()):
+    for file in sorted((value for value in path.rglob("*") if value.is_file())):
         if file.name in {
             "attempt_archive_manifest.json",
             ".archive_intent.json",
             "terminal_migration_attempt.json",
         }:
             continue
-        rows.append(
-            {
-                "path": str(file.relative_to(path)),
-                "bytes": file.stat().st_size,
-                "sha256": _sha256_file(file),
-            }
-        )
+        rows.append({"path": str(file.relative_to(path)), "bytes": file.stat().st_size})
     return rows
 
 
@@ -1062,7 +838,9 @@ def _archive_reason(output: Path) -> str:
     if manifest.get("status") in TERMINAL_STATUSES:
         if manifest.get("manifest_schema") in STALE_NETWORK_SCHEMA_VERSIONS:
             return "terminal_rebuild_parser_contract_v2_6"
-        raise ValueError("current-contract terminal output must be resumed, never archived")
+        raise ValueError(
+            "current-contract terminal output must be resumed, never archived"
+        )
     return f"nonterminal_manifest_{manifest.get('status', 'unknown')}"
 
 
@@ -1084,7 +862,9 @@ def _complete_attempt_archive(
             or intent.get("role") != network.role
             or int(intent.get("attempt_number", -1)) != number
         ):
-            raise ValueError(f"attempt staging intent does not match {network.network_id}")
+            raise ValueError(
+                f"attempt staging intent does not match {network.network_id}"
+            )
         reason = str(intent.get("archive_reason") or reason)
         started_at = str(intent.get("archive_started_at_utc"))
     else:
@@ -1094,7 +874,6 @@ def _complete_attempt_archive(
             "attempt_number": number,
             "network_id": network.network_id,
             "role": network.role,
-            "network_plan_sha256": network.network_plan_sha256,
             "archive_reason": reason,
             "archive_started_at_utc": started_at,
         }
@@ -1112,13 +891,12 @@ def _complete_attempt_archive(
         "attempt_number": number,
         "network_id": network.network_id,
         "role": network.role,
-        "network_plan_sha256": network.network_plan_sha256,
         "archive_reason": reason,
         "archive_started_at_utc": started_at,
         "archive_completed_at_utc": datetime.now(timezone.utc).isoformat(),
         "recovered_from_in_progress_staging": recovering_staging,
         "n_files": len(inventory),
-        "total_bytes": sum(row["bytes"] for row in inventory),
+        "total_bytes": sum((row["bytes"] for row in inventory)),
         "inventory": inventory,
         "v1_ogc_root_read_or_mutated": False,
     }
@@ -1131,19 +909,18 @@ def _complete_attempt_archive(
 
 def archive_nonterminal_attempt(output: Path, network: V2NetworkPlan) -> Path | None:
     """Complete stale staging or atomically archive every current v2 artifact."""
-
     output.mkdir(parents=True, exist_ok=True)
     attempts = output / "attempts"
     attempts.mkdir(exist_ok=True)
     completed_numbers = [
         int(match.group(1))
         for path in attempts.iterdir()
-        if (match := re.fullmatch(r"attempt_(\d{4})", path.name))
+        if (match := re.fullmatch("attempt_(\\d{4})", path.name))
     ]
     staging_matches = [
         (path, int(match.group(1)))
         for path in attempts.iterdir()
-        if (match := re.fullmatch(r"\.attempt_(\d{4})\.in_progress", path.name))
+        if (match := re.fullmatch("\\.attempt_(\\d{4})\\.in_progress", path.name))
     ]
     if len(staging_matches) > 1:
         raise ValueError("multiple in-progress attempt archives require manual audit")
@@ -1177,12 +954,7 @@ def archive_nonterminal_attempt(output: Path, network: V2NetworkPlan) -> Path | 
         raise FileExistsError(f"attempt archive target already exists: {final}")
     staging.mkdir()
     return _complete_attempt_archive(
-        output,
-        network,
-        staging,
-        final,
-        number=number,
-        reason=reason,
+        output, network, staging, final, number=number, reason=reason
     )
 
 
@@ -1201,7 +973,7 @@ def _validate_terminal(
             manifest.get("network_id") != network.network_id
             or manifest.get("role") != network.role
             or manifest.get("v1_ogc_root_read_or_mutated") is not False
-            or manifest.get("sealed_temperature_records_read") is not False
+            or (manifest.get("sealed_temperature_records_read") is not False)
         ):
             raise ValueError("stale v2 terminal cannot be safely bound to this network")
         return None
@@ -1209,26 +981,25 @@ def _validate_terminal(
         manifest.get("manifest_schema") != NETWORK_SCHEMA_VERSION
         or manifest.get("network_id") != network.network_id
         or manifest.get("role") != network.role
-        or manifest.get("network_plan_sha256") != network.network_plan_sha256
-        or manifest.get("parser_contract_version") != PARSER_CONTRACT_VERSION
-        or manifest.get("v1_ogc_root_read_or_mutated") is not False
-        or manifest.get("sealed_temperature_records_read") is not False
+        or (manifest.get("parser_contract_version") != PARSER_CONTRACT_VERSION)
+        or (manifest.get("v1_ogc_root_read_or_mutated") is not False)
+        or (manifest.get("sealed_temperature_records_read") is not False)
     ):
         raise ValueError("existing v2 manifest does not match the frozen v2 plan")
     if manifest.get("status") not in TERMINAL_STATUSES:
         return None
     for artifact in manifest.get("artifacts", {}).values():
         target = repository_root / artifact["path"]
-        if not target.is_file() or _sha256_file(target) != artifact["sha256"]:
-            raise ValueError(f"v2 resume artifact integrity failure: {target}")
+        if not target.is_file():
+            raise ValueError(f"v2 resume artifact is missing: {target}")
     records = json.loads((output / "raw_request_log.json").read_text())
     for record in records:
         request = output / record["request_artifact"]
-        if not request.is_file() or _sha256_file(request) != record["request_sha256"]:
-            raise ValueError(f"v2 resume raw request integrity failure: {request}")
+        if not request.is_file():
+            raise ValueError(f"v2 resume raw request is missing: {request}")
         target = output / record["response_artifact"]
-        if not target.is_file() or _sha256_file(target) != record["response_sha256"]:
-            raise ValueError(f"v2 resume raw response integrity failure: {target}")
+        if not target.is_file():
+            raise ValueError(f"v2 resume raw response is missing: {target}")
     return manifest
 
 
@@ -1246,11 +1017,9 @@ def _missing_sources(
                     {
                         "site_id": site.site_id,
                         "variable": variable,
-                        "provider": (
-                            "nasa_power_daily_point"
-                            if variable in METEOROLOGY_VARIABLES
-                            else LEGACY_PROVIDER
-                        ),
+                        "provider": "nasa_power_daily_point"
+                        if variable in METEOROLOGY_VARIABLES
+                        else LEGACY_PROVIDER,
                         "status": "source_unavailable_no_rows_in_successful_response",
                         "error_type": None,
                         "error": None,
@@ -1353,9 +1122,6 @@ def _write_network_materialization(
         "acquisition_terminal": True,
         "network_id": network.network_id,
         "role": network.role,
-        "split_sha256": network.base.split_sha256,
-        "network_plan_sha256": network.network_plan_sha256,
-        "base_v1_roster_network_plan_sha256": network.base.network_plan_sha256,
         "parser_contract_version": PARSER_CONTRACT_VERSION,
         "locked_provider_nonnumeric_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
         "n_sites": len(network.sites),
@@ -1363,13 +1129,9 @@ def _write_network_materialization(
         "n_auxiliary_rows": len(daily),
         "n_source_failures_or_unavailable": len(failures),
         "source_failure_status_counts": dict(
-            sorted(Counter(row["status"] for row in failures).items())
+            sorted(Counter((row["status"] for row in failures)).items())
         ),
         "n_raw_responses": len(records),
-        "raw_response_sha256": [record["response_sha256"] for record in records],
-        "raw_response_hashes_complete_for_logged_responses": all(
-            bool(record.get("response_sha256")) for record in records
-        ),
         "provider_request_counts": {
             LEGACY_PROVIDER: len(network.legacy_requests),
             "nasa_power_daily_point": len(network.sites),
@@ -1380,9 +1142,9 @@ def _write_network_materialization(
         },
         "retry_audit": list(retry_audit),
         "previous_attempt_archive": request_plan["previous_attempt_archive"],
-        "provider_free_terminal_migration": (
-            dict(migration_provenance) if migration_provenance is not None else None
-        ),
+        "provider_free_terminal_migration": dict(migration_provenance)
+        if migration_provenance is not None
+        else None,
         "artifacts": artifacts,
         "v1_ogc_root_read_or_mutated": False,
         "temperature_columns_read": [],
@@ -1395,12 +1157,15 @@ def _write_network_materialization(
         "passed": False,
     }
     _write_json(output / "network_manifest.json", manifest)
-    if validate_terminal and _validate_terminal(repository_root, output, network) is None:
+    if (
+        validate_terminal
+        and _validate_terminal(repository_root, output, network) is None
+    ):
         raise AssertionError("v2 network failed to form a terminal resume boundary")
     return manifest
 
 
-def _validated_archive_inventory(
+def _validated_archive_manifest(
     archive: Path, network: V2NetworkPlan
 ) -> dict[str, Any]:
     manifest_path = archive / "attempt_archive_manifest.json"
@@ -1408,35 +1173,23 @@ def _validated_archive_inventory(
         raise ValueError("terminal migration archive lacks its archive manifest")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     reason = str(manifest.get("archive_reason", ""))
-    match = re.fullmatch(r"terminal_rebuild_parser_contract_(v2_[1-6])", reason)
+    match = re.fullmatch("terminal_rebuild_parser_contract_(v2_[1-6])", reason)
     if match is None:
-        raise ValueError("attempt archive is not a known stale terminal rebuild boundary")
-    archive_schema, network_schema = ARCHIVE_CONTRACTS[match.group(1)]
+        raise ValueError(
+            "attempt archive is not a known stale terminal rebuild boundary"
+        )
+    archive_schema, _ = ARCHIVE_CONTRACTS[match.group(1)]
     if (
         manifest.get("manifest_schema") != archive_schema
         or manifest.get("network_id") != network.network_id
         or manifest.get("role") != network.role
-        or manifest.get("network_plan_sha256")
-        != _network_plan_sha_for_schema(network, network_schema)
-        or manifest.get("v1_ogc_root_read_or_mutated") is not False
+        or (manifest.get("v1_ogc_root_read_or_mutated") is not False)
     ):
         raise ValueError("terminal migration archive core differs from its locked plan")
-    expected = manifest.get("inventory")
-    if not isinstance(expected, list):
-        raise TypeError("terminal migration archive inventory is missing")
-    actual = _archive_inventory(archive)
-    if actual != expected:
-        raise ValueError("terminal migration archive inventory or SHA has drifted")
-    if manifest.get("n_files") != len(actual) or manifest.get("total_bytes") != sum(
-        row["bytes"] for row in actual
-    ):
-        raise ValueError("terminal migration archive inventory totals have drifted")
     return manifest
 
 
-def _verify_stale_artifacts(
-    archive: Path, old_manifest: Mapping[str, Any]
-) -> None:
+def _verify_stale_artifacts(archive: Path, old_manifest: Mapping[str, Any]) -> None:
     required = {
         "daily_long_auxiliary": "daily_long_auxiliary.parquet",
         "coverage": "coverage.csv",
@@ -1455,28 +1208,25 @@ def _verify_stale_artifacts(
             raise TypeError(f"stale terminal artifact record is invalid: {name}")
         if Path(str(record.get("path", ""))).name != filename:
             raise ValueError(f"stale terminal artifact path drift: {name}")
-        path = archive / filename
-        if (
-            not path.is_file()
-            or _sha256_file(path) != record.get("sha256")
-            or path.stat().st_size != record.get("bytes")
-        ):
-            raise ValueError(f"stale terminal artifact integrity failure: {name}")
+        if not (archive / filename).is_file():
+            raise ValueError(f"stale terminal artifact is missing: {name}")
+
+
+def _comparable_plan_value(key: str, value: Any) -> str:
+    if key == "legacy_requests" and isinstance(value, list):
+        value = [
+            {field: item for field, item in request.items() if field != "request_id"}
+            if isinstance(request, Mapping)
+            else request
+            for request in value
+        ]
+    return _canonical_json(value)
 
 
 def _validate_stale_request_plan(
-    archive: Path, network: V2NetworkPlan, old_manifest: Mapping[str, Any]
+    archive: Path, network: V2NetworkPlan
 ) -> dict[str, Any]:
     plan = json.loads((archive / "request_plan.json").read_text(encoding="utf-8"))
-    old_schema = str(old_manifest.get("manifest_schema"))
-    historical_plan_sha = _network_plan_sha_for_schema(network, old_schema)
-    checksum = plan.get("request_plan_sha256")
-    unhashed = dict(plan)
-    unhashed.pop("request_plan_sha256", None)
-    if not isinstance(checksum, str) or _sha256_bytes(
-        _canonical_json(unhashed).encode()
-    ) != checksum:
-        raise ValueError("stale terminal request plan SHA is not reproducible")
     expected = _network_request_plan(network, previous_attempt_archive=None)
     structural_keys = (
         "network_id",
@@ -1489,21 +1239,17 @@ def _validate_stale_request_plan(
         "performance_metrics_computed",
     )
     if any(
-        _canonical_json(plan.get(key)) != _canonical_json(expected.get(key))
-        for key in structural_keys
+        (
+            _comparable_plan_value(key, plan.get(key))
+            != _comparable_plan_value(key, expected.get(key))
+            for key in structural_keys
+        )
     ):
-        raise ValueError("stale terminal request plan drifted from the locked provider plan")
-    if (
-        plan.get("manifest_schema") != "t2_v91_open_role_mh_network_request_plan_v2"
-        or plan.get("network_plan_sha256") != historical_plan_sha
-        or old_manifest.get("network_plan_sha256") != historical_plan_sha
-    ):
-        raise ValueError("stale request plan SHA is not its reproducible historical plan")
-    if (
-        old_manifest.get("base_v1_roster_network_plan_sha256")
-        != network.base.network_plan_sha256
-    ):
-        raise ValueError("stale terminal differs from the locked base roster plan")
+        raise ValueError(
+            "stale terminal request plan drifted from the locked provider plan"
+        )
+    if plan.get("manifest_schema") != "t2_v91_open_role_mh_network_request_plan_v2":
+        raise ValueError("stale terminal request plan has an unexpected schema")
     return plan
 
 
@@ -1512,7 +1258,9 @@ def _verified_raw_records(
 ) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
     records = json.loads((archive / "raw_request_log.json").read_text(encoding="utf-8"))
     if not isinstance(records, list) or len(records) != 1 + len(network.sites):
-        raise ValueError("stale terminal raw request log has an unexpected request count")
+        raise ValueError(
+            "stale terminal raw request log has an unexpected request count"
+        )
     by_identity: dict[str, dict[str, Any]] = {}
     expected_power = {
         site.site_id: provider._nasa_power_url(
@@ -1520,49 +1268,48 @@ def _verified_raw_records(
         )
         for site in network.sites
     }
-    expected_legacy = {request.request_id: request for request in network.legacy_requests}
+    expected_legacy = {request.url: request for request in network.legacy_requests}
     for raw_record in records:
         if not isinstance(raw_record, Mapping):
             raise TypeError("stale terminal raw request record is not a mapping")
         record = dict(raw_record)
         request_rel = Path(str(record.get("request_artifact", "")))
         response_rel = Path(str(record.get("response_artifact", "")))
-        if request_rel.is_absolute() or response_rel.is_absolute() or ".." in (
-            *request_rel.parts,
-            *response_rel.parts,
+        if (
+            request_rel.is_absolute()
+            or response_rel.is_absolute()
+            or ".." in (*request_rel.parts, *response_rel.parts)
         ):
             raise ValueError("stale terminal raw artifact escaped its network archive")
         if (
             not request_rel.parts
             or not response_rel.parts
             or request_rel.parts[0] != "raw"
-            or response_rel.parts[0] != "raw"
+            or (response_rel.parts[0] != "raw")
         ):
             raise ValueError("stale terminal raw artifact is outside the raw subtree")
         request_path = archive / request_rel
         response_path = archive / response_rel
-        if not request_path.is_file() or _sha256_file(request_path) != record.get(
-            "request_sha256"
-        ):
-            raise ValueError(f"stale raw request integrity failure: {request_rel}")
-        if not response_path.is_file() or _sha256_file(response_path) != record.get(
-            "response_sha256"
-        ):
-            raise ValueError(f"stale raw response integrity failure: {response_rel}")
+        if not request_path.is_file():
+            raise ValueError(f"stale raw request is missing: {request_rel}")
+        if not response_path.is_file():
+            raise ValueError(f"stale raw response is missing: {response_rel}")
         provider_name = record.get("provider")
         if provider_name == LEGACY_PROVIDER:
-            request_id = request_rel.parent.name
-            expected = expected_legacy.get(request_id)
+            expected = expected_legacy.get(str(record.get("request_url", "")))
             if (
                 expected is None
-                or record.get("request_url") != expected.url
                 or record.get("site_ids") != list(expected.site_ids)
                 or record.get("variables") != list(HYDRAULICS_VARIABLES)
-                or request_path.read_bytes()
-                != _request_identity(expected.url, "text/plain")
+                or (
+                    request_path.read_bytes()
+                    != _request_identity(expected.url, "text/plain")
+                )
             ):
-                raise ValueError("stale legacy raw request differs from the locked plan")
-            identity = f"legacy:{request_id}"
+                raise ValueError(
+                    "stale legacy raw request differs from the locked plan"
+                )
+            identity = f"legacy:{expected.request_id}"
         elif provider_name == "nasa_power":
             site_id = str(record.get("site_id", ""))
             expected_url = expected_power.get(site_id)
@@ -1577,16 +1324,22 @@ def _verified_raw_records(
                 raise ValueError("stale POWER raw request differs from the locked plan")
             identity = f"power:{site_id}"
         else:
-            raise ValueError(f"stale terminal contains an unknown provider: {provider_name}")
+            raise ValueError(
+                f"stale terminal contains an unknown provider: {provider_name}"
+            )
         if identity in by_identity:
-            raise ValueError(f"stale terminal contains duplicate request identity: {identity}")
+            raise ValueError(
+                f"stale terminal contains duplicate request identity: {identity}"
+            )
         by_identity[identity] = record
     expected_identities = {
         *(f"legacy:{request.request_id}" for request in network.legacy_requests),
         *(f"power:{site.site_id}" for site in network.sites),
     }
     if set(by_identity) != expected_identities:
-        raise ValueError("stale terminal request identities do not cover the locked plan")
+        raise ValueError(
+            "stale terminal request identities do not cover the locked plan"
+        )
     expected_raw_files = {
         str(Path(str(record[field])))
         for record in records
@@ -1607,11 +1360,13 @@ def _verified_raw_records(
         actual_raw_files.add(str(path.relative_to(archive)))
     if actual_raw_files != expected_raw_files:
         raise ValueError("stale terminal raw file set differs from its request log")
-    return records, by_identity
+    return (records, by_identity)
 
 
 def _eligible_numeric(frame: pd.DataFrame) -> pd.DataFrame:
-    subset = frame.loc[frame["variable"].isin((*METEOROLOGY_VARIABLES, *HYDRAULICS_VARIABLES))].copy()
+    subset = frame.loc[
+        frame["variable"].isin((*METEOROLOGY_VARIABLES, *HYDRAULICS_VARIABLES))
+    ].copy()
     eligible = (
         subset["natural_observed"].astype(bool)
         & subset["quality_approved"].astype(bool)
@@ -1625,25 +1380,18 @@ def _eligible_numeric(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def _validate_migrated_values(
-    old_daily: pd.DataFrame,
-    new_daily: pd.DataFrame,
-    *,
-    old_codes: Sequence[str],
+    old_daily: pd.DataFrame, new_daily: pd.DataFrame, *, old_codes: Sequence[str]
 ) -> dict[str, Any]:
     old_eligible = _eligible_numeric(old_daily)
     new_eligible = _eligible_numeric(new_daily)
     try:
         pd.testing.assert_frame_equal(
-            old_eligible,
-            new_eligible,
-            check_dtype=False,
-            check_exact=True,
+            old_eligible, new_eligible, check_dtype=False, check_exact=True
         )
     except AssertionError as error:
         raise ValueError(
             "provider-free migration changed eligible numeric M/H keys or values"
         ) from error
-
     keys = ["date", "site_id", "variable"]
     old_keys = old_daily[keys].copy()
     new = new_daily.copy()
@@ -1689,7 +1437,7 @@ def _append_terminal_migration_audit(
     entries = sorted(audit_root.glob("migration_*.json"))
     numbers = []
     for path in entries:
-        match = re.fullmatch(r"migration_(\d{4})\.json", path.name)
+        match = re.fullmatch("migration_(\\d{4})\\.json", path.name)
         if match is None:
             raise RuntimeError(f"unknown terminal migration audit entry: {path}")
         numbers.append(int(match.group(1)))
@@ -1699,12 +1447,9 @@ def _append_terminal_migration_audit(
     record.update(
         {
             "audit_sequence": number,
-            "previous_audit_path": (
-                str(previous.relative_to(output)) if previous is not None else None
-            ),
-            "previous_audit_sha256": (
-                _sha256_file(previous) if previous is not None else None
-            ),
+            "previous_audit_path": str(previous.relative_to(output))
+            if previous is not None
+            else None,
         }
     )
     destination = audit_root / f"migration_{number:04d}.json"
@@ -1712,7 +1457,7 @@ def _append_terminal_migration_audit(
         raise FileExistsError(f"terminal migration audit already exists: {destination}")
     record["audit_path"] = str(destination.relative_to(output))
     _write_json_atomic(destination, record)
-    return record, destination
+    return (record, destination)
 
 
 def _copy_verified_raw_files(
@@ -1733,20 +1478,21 @@ def _copy_verified_raw_files(
         destination = staging / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, destination)
-        if _sha256_file(destination) != _sha256_file(source):
-            raise OSError(f"staged raw copy failed its SHA check: {destination}")
 
 
 def _promote_staged_terminal(staging: Path, output: Path) -> None:
     children = sorted(
-        staging.iterdir(), key=lambda path: (path.name == "network_manifest.json", path.name)
+        staging.iterdir(),
+        key=lambda path: (path.name == "network_manifest.json", path.name),
     )
     if not children or children[-1].name != "network_manifest.json":
         raise RuntimeError("staged terminal lacks its commit manifest")
     for child in children:
         destination = output / child.name
         if destination.exists():
-            raise RuntimeError(f"terminal promotion collided with current output: {destination}")
+            raise RuntimeError(
+                f"terminal promotion collided with current output: {destination}"
+            )
         child.replace(destination)
     staging.rmdir()
 
@@ -1757,16 +1503,12 @@ def _migrate_archived_terminal_without_provider(
     output: Path,
     network: V2NetworkPlan,
     archive: Path,
-    *,
-    root_lock: RootExecutionLock,
 ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
-    """Rebuild a stale terminal from byte-custodied raw responses, or reject it."""
-
+    """Rebuild a stale terminal from its archived raw responses, or reject it."""
     root = Path(repository_root).resolve()
     output_root = Path(output_root).resolve()
     output = output.resolve()
     archive = archive.resolve()
-    root_lock.assert_owns(output_root)
     if archive.parent.parent != output or archive.parent.name != "attempts":
         raise RuntimeError("terminal migration archive is outside its network attempts")
     existing = _current_children(output)
@@ -1786,7 +1528,7 @@ def _migrate_archived_terminal_without_provider(
         "accepted": False,
     }
     try:
-        _validated_archive_inventory(archive, network)
+        _validated_archive_manifest(archive, network)
         old_manifest_path = archive / "network_manifest.json"
         if not old_manifest_path.is_file():
             raise ValueError("stale terminal archive lacks network_manifest.json")
@@ -1796,18 +1538,21 @@ def _migrate_archived_terminal_without_provider(
             old_schema not in STALE_NETWORK_SCHEMA_VERSIONS
             or old_manifest.get("status") not in TERMINAL_STATUSES
             or old_manifest.get("network_id") != network.network_id
-            or old_manifest.get("role") != network.role
-            or old_manifest.get("v1_ogc_root_read_or_mutated") is not False
-            or old_manifest.get("sealed_temperature_records_read") is not False
+            or (old_manifest.get("role") != network.role)
+            or (old_manifest.get("v1_ogc_root_read_or_mutated") is not False)
+            or (old_manifest.get("sealed_temperature_records_read") is not False)
         ):
-            raise ValueError("archived stale terminal is not safely bound to this network")
+            raise ValueError(
+                "archived stale terminal is not safely bound to this network"
+            )
         old_codes = STALE_LOCKED_PROVIDER_NONNUMERIC_CODES[str(old_schema)]
         expected_parser = HISTORICAL_PARSER_CONTRACTS[str(old_schema)]
         declared_codes = old_manifest.get("locked_provider_nonnumeric_codes")
         if old_manifest.get("parser_contract_version") != expected_parser:
             raise ValueError("stale terminal declared a different parser contract")
         if (
-            (expected_parser is None and declared_codes is not None)
+            expected_parser is None
+            and declared_codes is not None
             or (
                 expected_parser is not None
                 and (
@@ -1818,13 +1563,8 @@ def _migrate_archived_terminal_without_provider(
         ):
             raise ValueError("stale terminal declared a different parser code lock")
         _verify_stale_artifacts(archive, old_manifest)
-        old_plan = _validate_stale_request_plan(archive, network, old_manifest)
+        _validate_stale_request_plan(archive, network)
         records, by_identity = _verified_raw_records(archive, network)
-        if old_manifest.get("raw_response_sha256") != [
-            record["response_sha256"] for record in records
-        ]:
-            raise ValueError("stale terminal manifest and raw response log SHAs differ")
-
         daily_frames: list[pd.DataFrame] = []
         for request in network.legacy_requests:
             record = by_identity[f"legacy:{request.request_id}"]
@@ -1833,7 +1573,6 @@ def _migrate_archived_terminal_without_provider(
                 response_path.read_bytes(),
                 network,
                 request,
-                response_sha256=str(record["response_sha256"]),
                 response_artifact=str(record["response_artifact"]),
             )
             daily_frames.append(hydraulics)
@@ -1847,12 +1586,7 @@ def _migrate_archived_terminal_without_provider(
                 site.longitude,
                 site.latitude,
                 provider.strict_json_loads(response_path.read_bytes()),
-                {
-                    "request_sha256": record["request_sha256"],
-                    "response_sha256": record["response_sha256"],
-                    "response_artifact": record["response_artifact"],
-                    "page_number": 1,
-                },
+                {"response_artifact": record["response_artifact"], "page_number": 1},
                 _protocol(network, site),
             )
             daily_frames.append(observations)
@@ -1861,23 +1595,14 @@ def _migrate_archived_terminal_without_provider(
             record["provider_free_terminal_migration_replayed"] = True
         daily = _normalize_daily(daily_frames)
         old_daily = pd.read_parquet(archive / "daily_long_auxiliary.parquet")
-        equality = _validate_migrated_values(
-            old_daily, daily, old_codes=old_codes
-        )
+        equality = _validate_migrated_values(old_daily, daily, old_codes=old_codes)
         audit.update(
             {
                 "accepted": True,
                 "source_manifest_schema": old_schema,
-                "source_network_manifest_sha256": _sha256_file(old_manifest_path),
-                "source_request_plan_sha256": old_plan["request_plan_sha256"],
-                "source_archive_manifest_sha256": _sha256_file(
-                    archive / "attempt_archive_manifest.json"
-                ),
                 "n_verified_request_response_pairs": len(records),
-                "raw_request_and_response_sha256_verified": True,
                 "power_reparsed_from_raw": True,
                 "hydraulics_reparsed_from_raw": True,
-                "archive_core_bound_to_historical_plan": True,
                 "raw_file_set_exact_and_regular": True,
                 **equality,
                 "completed_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -1894,9 +1619,10 @@ def _migrate_archived_terminal_without_provider(
             }
         )
         rejected_audit, _ = _append_terminal_migration_audit(output, audit)
-        return None, rejected_audit
-
-    accepted_audit, accepted_audit_path = _append_terminal_migration_audit(output, audit)
+        return (None, rejected_audit)
+    accepted_audit, accepted_audit_path = _append_terminal_migration_audit(
+        output, audit
+    )
     staging = output / f".terminal_migration_{archive.name}.in_progress"
     try:
         staging.mkdir()
@@ -1921,7 +1647,7 @@ def _migrate_archived_terminal_without_provider(
         _promote_staged_terminal(staging, output)
         if _validate_terminal(root, output, network) is None:
             raise AssertionError("promoted migration did not form a terminal boundary")
-        return manifest, accepted_audit
+        return (manifest, accepted_audit)
     except Exception as error:
         if staging.exists():
             shutil.rmtree(staging)
@@ -1932,7 +1658,6 @@ def _migrate_archived_terminal_without_provider(
             "rejection_reason": str(error),
             "fallback": "none_internal_or_io_failure_fail_closed",
             "prior_accepted_audit_path": str(accepted_audit_path.relative_to(output)),
-            "prior_accepted_audit_sha256": _sha256_file(accepted_audit_path),
             "completed_at_utc": datetime.now(timezone.utc).isoformat(),
         }
         _append_terminal_migration_audit(output, failure)
@@ -1946,28 +1671,16 @@ def acquire_network(
     *,
     fetcher: AuditedRateLimitedFetcher,
     resume: bool = True,
-    root_lock: RootExecutionLock | None = None,
 ) -> tuple[dict[str, Any], bool]:
     root = Path(repository_root).resolve()
     resolved_output_root = Path(output_root).resolve()
-    if root_lock is None:
-        with RootExecutionLock(resolved_output_root) as owned_lock:
-            return acquire_network(
-                root,
-                resolved_output_root,
-                network,
-                fetcher=fetcher,
-                resume=resume,
-                root_lock=owned_lock,
-            )
-    root_lock.assert_owns(resolved_output_root)
     output = _network_output(resolved_output_root, network)
     output.mkdir(parents=True, exist_ok=True)
     terminal = _validate_terminal(root, output, network)
     if terminal is not None:
         if not resume:
             raise FileExistsError(f"terminal v2 network exists: {output}")
-        return terminal, True
+        return (terminal, True)
     archive = archive_nonterminal_attempt(output, network)
     retry_event_start = len(fetcher.events)
     if archive is not None:
@@ -1978,25 +1691,18 @@ def acquire_network(
             "terminal_rebuild_parser_contract_"
         ):
             migrated, _ = _migrate_archived_terminal_without_provider(
-                root,
-                resolved_output_root,
-                output,
-                network,
-                archive,
-                root_lock=root_lock,
+                root, resolved_output_root, output, network, archive
             )
             if migrated is not None:
-                return migrated, False
-
+                return (migrated, False)
     request_plan = _network_request_plan(
         network,
-        previous_attempt_archive=(
-            str(archive.relative_to(output)) if archive is not None else None
-        ),
+        previous_attempt_archive=str(archive.relative_to(output))
+        if archive is not None
+        else None,
     )
     request_plan_path = output / "request_plan.json"
     _write_json(request_plan_path, request_plan)
-
     daily_frames: list[pd.DataFrame] = []
     records: list[dict[str, Any]] = []
     power_metadata_frames: list[pd.DataFrame] = []
@@ -2028,7 +1734,7 @@ def acquire_network(
         power_metadata=power_metadata,
         retry_audit=fetcher.events[retry_event_start:],
     )
-    return manifest, False
+    return (manifest, False)
 
 
 def _global_attrition(
@@ -2042,7 +1748,6 @@ def _global_attrition(
             "network_id": network.network_id,
             "role": network.role,
             "n_sites_planned": len(network.sites),
-            "network_plan_sha256": network.network_plan_sha256,
             "materialization_status": "not_materialized",
             "n_auxiliary_rows": 0,
             "n_source_failures_or_unavailable": 0,
@@ -2078,7 +1783,6 @@ def _global_attrition(
     terminal = frame["materialization_status"].isin(TERMINAL_STATUSES)
     summary = {
         "manifest_schema": "t2_v91_open_role_mh_global_attrition_v2",
-        "plan_sha256": plan.plan_sha256,
         "n_networks_planned": len(frame),
         "n_networks_materialized": int(terminal.sum()),
         "n_networks_remaining": int((~terminal).sum()),
@@ -2097,7 +1801,7 @@ def _global_attrition(
     }
     summary_path = output_root / "global_attrition_summary.json"
     _write_json(summary_path, summary)
-    return csv_path, summary_path, summary
+    return (csv_path, summary_path, summary)
 
 
 def _archive_previous_root_state(output: Path) -> dict[str, Any] | None:
@@ -2110,18 +1814,14 @@ def _archive_previous_root_state(output: Path) -> dict[str, Any] | None:
     existing = [
         int(match.group(1))
         for path in history.iterdir()
-        if (match := re.fullmatch(r"run_(\d{4})\.json", path.name))
+        if (match := re.fullmatch("run_(\\d{4})\\.json", path.name))
     ]
     number = max(existing, default=0) + 1
     destination = history / f"run_{number:04d}.json"
     temporary = history / f".run_{number:04d}.json.partial"
     temporary.write_bytes(payload)
     temporary.replace(destination)
-    return {
-        "path": str(destination.relative_to(output)),
-        "sha256": _sha256_bytes(payload),
-        "bytes": len(payload),
-    }
+    return {"path": str(destination.relative_to(output)), "bytes": len(payload)}
 
 
 def run_v2_corpus_acquisition(
@@ -2155,24 +1855,12 @@ def run_v2_corpus_acquisition(
         all_networks=all_networks,
     )
     if execute:
-        if all_networks:
-            if acknowledge_all_network_count != len(plan.networks):
-                raise ValueError(
-                    f"all-network execution requires acknowledgement {len(plan.networks)}"
-                )
-        else:
-            if not network_ids and max_networks is None:
-                raise ValueError("execution requires explicit bounded selection or --all")
-            if acknowledged_network_count != len(selected):
-                raise ValueError(
-                    f"bounded execution requires acknowledgement {len(selected)}"
-                )
-    root_lock = RootExecutionLock(output) if execute else None
+        if not network_ids and max_networks is None:
+            raise ValueError("execution requires explicit bounded selection or --all")
     plan_path = output / "corpus_request_plan.json"
     _write_json(plan_path, plan_as_dict(plan))
     selected_plan = {
         "manifest_schema": "t2_v91_open_role_mh_selected_run_plan_v2",
-        "corpus_plan_sha256": plan.plan_sha256,
         "selected_network_ids": [network.network_id for network in selected],
         "n_networks_selected": len(selected),
         "execute": execute,
@@ -2187,22 +1875,8 @@ def run_v2_corpus_acquisition(
             "jitter": "none",
             "exhaustion": "global_circuit_break_and_stop_run",
         },
-        "scope_acknowledgement": {
-            "mode": "all" if all_networks else "bounded" if execute else "not_required",
-            "expected": len(selected),
-            "provided": (
-                acknowledge_all_network_count
-                if all_networks
-                else acknowledged_network_count
-                if execute
-                else None
-            ),
-        },
         "v1_ogc_root_read_or_mutated": False,
     }
-    selected_plan["selected_plan_sha256"] = _sha256_bytes(
-        _canonical_json(selected_plan).encode()
-    )
     selected_path = output / "selected_run_plan.json"
     _write_json(selected_path, selected_plan)
     root_state_path = output / "root_execution_manifest.json"
@@ -2217,11 +1891,7 @@ def run_v2_corpus_acquisition(
                 "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_6",
                 "status": "in_progress",
                 "started_at_utc": root_started_at,
-                "corpus_plan_sha256": plan.plan_sha256,
-                "selected_plan_sha256": selected_plan["selected_plan_sha256"],
-                "selected_network_ids": [
-                    network.network_id for network in selected
-                ],
+                "selected_network_ids": [network.network_id for network in selected],
                 "n_networks_selected": len(selected),
                 "previous_root_state": previous_root_state,
                 "v1_ogc_root_read_or_mutated": False,
@@ -2245,12 +1915,7 @@ def run_v2_corpus_acquisition(
         for network in selected:
             try:
                 manifest, resumed = acquire_network(
-                    root,
-                    output,
-                    network,
-                    fetcher=limited,
-                    resume=resume,
-                    root_lock=root_lock,
+                    root, output, network, fetcher=limited, resume=resume
                 )
             except ProviderCircuitOpen as error:
                 stop = {
@@ -2260,7 +1925,7 @@ def run_v2_corpus_acquisition(
                     "circuit": error.audit,
                 }
                 break
-            except Exception as error:  # noqa: BLE001
+            except Exception as error:
                 stop = {
                     "reason": "network_acquisition_error",
                     "network_id": network.network_id,
@@ -2290,14 +1955,14 @@ def run_v2_corpus_acquisition(
         "status": status,
         "execute": execute,
         "dry_run": not execute,
-        "corpus_plan_sha256": plan.plan_sha256,
-        "selected_plan_sha256": selected_plan["selected_plan_sha256"],
         "n_networks_in_frozen_roster": len(plan.networks),
-        "n_sites_in_frozen_roster": sum(len(network.sites) for network in plan.networks),
+        "n_sites_in_frozen_roster": sum(
+            (len(network.sites) for network in plan.networks)
+        ),
         "n_networks_selected": len(selected),
         "n_networks_executed_or_resumed": len(results),
-        "n_networks_executed_now": sum(not row["resumed"] for row in results),
-        "n_networks_resumed": sum(row["resumed"] for row in results),
+        "n_networks_executed_now": sum((not row["resumed"] for row in results)),
+        "n_networks_resumed": sum((row["resumed"] for row in results)),
         "stop": stop,
         "results": results,
         "provider_transport_audit": limited.audit(),
@@ -2326,8 +1991,6 @@ def run_v2_corpus_acquisition(
                 "status": status,
                 "started_at_utc": root_started_at,
                 "completed_at_utc": datetime.now(timezone.utc).isoformat(),
-                "corpus_plan_sha256": plan.plan_sha256,
-                "selected_plan_sha256": selected_plan["selected_plan_sha256"],
                 "n_networks_selected": len(selected),
                 "n_networks_executed_now": manifest["n_networks_executed_now"],
                 "n_networks_resumed": manifest["n_networks_resumed"],
@@ -2340,8 +2003,6 @@ def run_v2_corpus_acquisition(
                 "performance_metrics_computed": False,
             },
         )
-        assert root_lock is not None
-        root_lock.release()
     return manifest
 
 
@@ -2352,7 +2013,6 @@ def compare_v2_to_v1_ogc(
     output_dir: str | Path,
 ) -> dict[str, Any]:
     """Compare approved v2 legacy H against an already successful v1 OGC network."""
-
     root = Path(repository_root).resolve()
     plan = load_v2_corpus_plan(root)
     matches = [network for network in plan.networks if network.network_id == network_id]
@@ -2367,9 +2027,14 @@ def compare_v2_to_v1_ogc(
         / network_id
         / "daily_long_auxiliary.parquet"
     )
-    v2_path = _network_output(Path(v2_output_root).resolve(), network) / "daily_long_auxiliary.parquet"
+    v2_path = (
+        _network_output(Path(v2_output_root).resolve(), network)
+        / "daily_long_auxiliary.parquet"
+    )
     if not v1_path.is_file() or not v2_path.is_file():
-        raise FileNotFoundError("both v1 OGC and v2 legacy network products are required")
+        raise FileNotFoundError(
+            "both v1 OGC and v2 legacy network products are required"
+        )
 
     def eligible(path: Path, source: str) -> pd.DataFrame:
         frame = pd.read_parquet(
@@ -2395,7 +2060,9 @@ def compare_v2_to_v1_ogc(
         return frame[["date", "site_id", "variable", "value"]]
 
     ogc = eligible(v1_path, "usgs_ogc_daily").rename(columns={"value": "ogc_value"})
-    legacy = eligible(v2_path, LEGACY_PROVIDER).rename(columns={"value": "legacy_value"})
+    legacy = eligible(v2_path, LEGACY_PROVIDER).rename(
+        columns={"value": "legacy_value"}
+    )
     comparison = ogc.merge(
         legacy,
         on=["date", "site_id", "variable"],
@@ -2427,12 +2094,12 @@ def compare_v2_to_v1_ogc(
         "n_exact_value_matches": n_exact,
         "n_ogc_rows_missing_from_legacy": n_ogc_missing,
         "n_legacy_rows_not_in_ogc": int(comparison["_merge"].eq("right_only").sum()),
-        "max_absolute_difference": (
-            float(comparison.loc[both, "absolute_difference"].max())
-            if n_overlap
-            else None
-        ),
-        "passed": bool(n_ogc > 0 and n_ogc_missing == 0 and n_exact == n_overlap),
+        "max_absolute_difference": float(
+            comparison.loc[both, "absolute_difference"].max()
+        )
+        if n_overlap
+        else None,
+        "passed": bool(n_ogc > 0 and n_ogc_missing == 0 and (n_exact == n_overlap)),
         "comparison": _artifact(csv_path, root),
         "v1_read_for_transport_regression_only": True,
         "v1_mutated": False,
@@ -2450,7 +2117,6 @@ __all__ = [
     "NETWORK_SCHEMA_VERSION",
     "AuditedRateLimitedFetcher",
     "ProviderCircuitOpen",
-    "RootExecutionLock",
     "V2CorpusPlan",
     "V2NetworkPlan",
     "acquire_network",

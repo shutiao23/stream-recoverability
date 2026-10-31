@@ -31,27 +31,21 @@ class NetworkExecutionCache:
 
     def __init__(self, repo_root: str | Path) -> None:
         self.repo_root = Path(repo_root).resolve()
-        self._panels: dict[tuple[str, str, str], pd.DataFrame] = {}
-        self._climatology: dict[
-            tuple[str, str, int, int], tuple[pd.Series, float]
-        ] = {}
+        self._panels: dict[tuple[str, str], pd.DataFrame] = {}
+        self._climatology: dict[tuple[str, str, int, int], tuple[pd.Series, float]] = {}
         self.panel_cache_hits = 0
         self.panel_cache_misses = 0
         self.climatology_cache_hits = 0
         self.climatology_cache_misses = 0
 
     def panel(self, network: OpenNetwork) -> pd.DataFrame:
-        identity = (
-            network.network_id,
-            network.wide_sha256,
-            network.wide_path,
-        )
+        identity = (network.network_id, network.wide_path)
         cached = self._panels.get(identity)
         if cached is not None:
             self.panel_cache_hits += 1
             return cached
         # read_panel is intentionally the only cache fill path: it enforces
-        # the open-role allowlist and verifies network.wide_sha256 from bytes.
+        # the open-role allowlist.
         loaded = read_panel(self.repo_root, network)
         self._panels[identity] = loaded
         self.panel_cache_misses += 1
@@ -62,7 +56,7 @@ class NetworkExecutionCache:
         if not contract["supported"]:
             return execute_item(self.repo_root, network, item)
         key = (
-            network.wide_sha256,
+            network.network_id,
             item.target_station,
             int(item.start_index),
             int(item.start_index) + int(item.gap_length),
@@ -98,7 +92,7 @@ class StrictFitExecutionCache:
 
     def __init__(self, repo_root: str | Path) -> None:
         self.repo_root = Path(repo_root).resolve()
-        self._panels: dict[tuple[str, str, str], pd.DataFrame] = {}
+        self._panels: dict[tuple[str, str], pd.DataFrame] = {}
         self._fits: dict[FitCacheKey, Any] = {}
         self.panel_cache_hits = 0
         self.panel_cache_misses = 0
@@ -106,7 +100,7 @@ class StrictFitExecutionCache:
         self.fit_cache_misses: Counter[str] = Counter()
 
     def panel(self, network: OpenNetwork) -> pd.DataFrame:
-        identity = (network.network_id, network.wide_sha256, network.wide_path)
+        identity = (network.network_id, network.wide_path)
         cached = self._panels.get(identity)
         if cached is not None:
             self.panel_cache_hits += 1

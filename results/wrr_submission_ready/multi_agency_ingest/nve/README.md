@@ -122,12 +122,12 @@ Reasons are assigned in a fixed precedence order, so they are disjoint and sum t
 | `networks/<network_id>/daily_wide_temperature.csv` | wide daily panel, `date` first, one column per station id, blank where missing |
 | `networks/<network_id>/stations.csv` | the same station table restricted to one network |
 | `stations.csv` | all panel stations with `quality_assurance`, complete-year list, dates, drop counts |
-| `networks_manifest.csv` | per-network counts, date range, file paths and sha256 |
+| `networks_manifest.csv` | per-network counts, date range and file paths |
 | `candidate_stations.csv` | every candidate station with catalog + station metadata and the v17-basin flag |
 | `complete_station_years.csv` | one row per station-year |
 | `qc_ledger.csv` | per-station QC drop counts by reason |
 | `daily_long_qc.parquet` | QC-passing long table (station, date, value, provider flags) |
-| `ingest.json` | retrieval UTC, API filters, counts, caveats, input hashes |
+| `ingest.json` | retrieval UTC, API filters, counts, caveats |
 | `verification.json` | independent re-computation of every headline number |
 | `raw_cache/` | verbatim HydAPI responses (catalogue, station metadata, observation batches) |
 

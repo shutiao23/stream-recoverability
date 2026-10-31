@@ -1,14 +1,11 @@
 {
   "generated_by": "scripts/246_wrr_noise_recompute.py",
   "generated_utc": "2026-10-12T09:56:11Z",
-  "git_head": "5acda75b47afc91ab2bc7b84b54fe323b1465a08",
   "status": "supersedes the published pre-fix artifact",
   "supersedes": "results/wrr_submission_ready/amendments/step22_noise_pre_fix/noise_sensitivity.json",
   "superseded_by": "results/wrr_submission_ready/amendments/step22_noise_post_fix/noise_sensitivity.json",
-  "fix_commit": "a9a7ad99cf",
   "fixed_function": {
     "source": "scripts/202_v17_robustness.py",
-    "sha256": "3c38c20fbd54b03f105726131e8ea3dd8b9db93f3af51cccca9ff5b29afd5926",
     "imported_as": "importlib.import_module('202_v17_robustness') with scripts/ on sys.path",
     "method_locked_to": "certificate_choice"
   },
@@ -217,7 +214,6 @@
   },
   "preserved_pre_fix": {
     "directory": "results/wrr_submission_ready/amendments/step22_noise_pre_fix",
-    "sha256_record": "results/wrr_submission_ready/amendments/step22_noise_pre_fix/sha256.json",
     "files": [
       "noise_sensitivity.json",
       "REPORT.md"

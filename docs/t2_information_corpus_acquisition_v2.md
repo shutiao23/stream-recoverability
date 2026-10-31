@@ -22,7 +22,7 @@ one request plus `parameterCd=00060,00065` and `statCd=00003` filters:
 - https://waterservices.usgs.gov/docs/dv-service/daily-values-service-details/
 
 The v2 correction is therefore a transport change, not a data or estimand
-change. It has independent code, schema, request-plan SHA, raw custody, network
+change. It has independent code, schema, request plan, raw custody, network
 manifests, attempt archives, and output root:
 
 ```text
@@ -47,14 +47,8 @@ full plan contains exactly:
 - 340 station-specific NASA POWER requests for M;
 - 407 provider requests total, sequential and never parallel.
 
-Corpus plan SHA-256:
-
-```text
-cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169
-```
-
-This v2.6 SHA binds the parser contract and locked provider nonnumeric-code
-roster into every network SHA.
+The v2.6 corpus plan includes the parser contract and the locked provider
+nonnumeric-code roster in every network plan.
 
 ## Provider QC and retry safety
 
@@ -95,13 +89,13 @@ roster into every network SHA.
 - Exhausting one request's retry budget opens a global circuit and stops the
   selected run. Broad per-station exception handling cannot continue hammering
   either provider.
-- A complete terminal network is hash-verified and resumed. Before retrying any
+- A complete terminal network is reused on resume. Before retrying any
   v2 directory with a nonterminal manifest or no manifest, every current file is
   moved into `attempts/attempt_XXXX/`; the archive records every relative path,
-  byte count, SHA-256, reason, and total bytes. Nothing is deleted or mixed into
+  byte count, reason, and total bytes. Nothing is deleted or mixed into
   the new attempt.
-- Resume verifies both sides of every exchange: request artifact/SHA and response
-  artifact/SHA. Before the first provider call, an atomic root execution manifest
+- Resume checks both sides of every exchange: the request artifact and the
+  response artifact. Before the first provider call, an atomic root execution manifest
   is written with `status=in_progress`; normal, circuit-break, and conservative
   failure exits atomically replace it with the terminal state. Previous root
   states are retained under `root_run_history/`.
@@ -114,7 +108,7 @@ roster into every network SHA.
 ## Pre-v2.6 terminal migration
 
 Older v2 through v2.5 terminal networks are not edited in place. V2.6 adds the
-exact legal-empty contract and therefore changes every network plan SHA. On resume each
+exact legal-empty contract and therefore changes every network plan. On resume each
 stale terminal is first moved intact into an audited attempt with reason
 `terminal_rebuild_parser_contract_v2_6`, then rebuilt under the v2.6 contract.
 Interrupted directories are archived with reason `interrupted_missing_manifest`.
@@ -162,7 +156,7 @@ Provider-free dry run:
 PYTHONPATH=src python scripts/79_acquire_t2_information_corpus_v2.py
 ```
 
-Reproduce the bounded pilot or integrity-check its resume boundary:
+Reproduce the bounded pilot or check its resume boundary:
 
 ```bash
 PYTHONPATH=src python scripts/79_acquire_t2_information_corpus_v2.py \
@@ -197,5 +191,5 @@ PYTHONPATH=src python scripts/79_acquire_t2_information_corpus_v2.py \
   --http-429-cooldown-seconds 120
 ```
 
-This command resumes only integrity-verified v2 terminal networks. It neither
+This command resumes only complete v2 terminal networks. It neither
 opens nor rewrites the OGC v1 audit root.

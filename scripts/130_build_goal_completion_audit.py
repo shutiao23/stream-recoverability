@@ -44,9 +44,7 @@ def main() -> None:
         for row in summary["empirical_transfer"]
     }
     empirical_supported = empirical[("confirmation", "supported_only")]
-    empirical_all = empirical[
-        ("confirmation", "all_cells_with_network_mean_fallback")
-    ]
+    empirical_all = empirical[("confirmation", "all_cells_with_network_mean_fallback")]
     roster = pd.read_csv(REVIEW / "model_roster_metrics.csv")
     mechanism = pd.read_csv(REVIEW / "mechanism_decomposition.csv")
     replay = pd.read_csv(REVIEW / "placement_replay_curve.csv")
@@ -69,7 +67,8 @@ def main() -> None:
     )
     independent_air2stream = json.loads(
         (
-            ROOT / "results/development_v11/independent_air2stream_equivalent/manifest.json"
+            ROOT
+            / "results/development_v11/independent_air2stream_equivalent/manifest.json"
         ).read_text(encoding="utf-8")
     )
     us_heterogeneity = json.loads(
@@ -132,10 +131,13 @@ def main() -> None:
         "submission_checklist.md",
         "package_manifest.json",
     ]
-    package_present = all(
-        (ROOT / "paper_archived/development_v11" / name).is_file()
-        for name in manuscript_files
-    ) and len(list(REVIEW.glob("figure_*.png"))) == 6
+    package_present = (
+        all(
+            (ROOT / "paper_archived/development_v11" / name).is_file()
+            for name in manuscript_files
+        )
+        and len(list(REVIEW.glob("figure_*.png"))) == 6
+    )
 
     requirements = [
         item(
@@ -233,7 +235,7 @@ def main() -> None:
             "P2b",
             "Finite-sample 5% false-release risk control",
             "experiment_complete_no_nonempty_certified_release",
-            f"{len(risk)} budget-domain-model evaluations; certified fraction max={risk.groupby(['risk_model','domain_group','requested_budget'])['status'].apply(lambda x: x.eq('certified').mean()).max():.3f}",
+            f"{len(risk)} budget-domain-model evaluations; certified fraction max={risk.groupby(['risk_model', 'domain_group', 'requested_budget'])['status'].apply(lambda x: x.eq('certified').mean()).max():.3f}",
             gate=False,
         ),
         item(
@@ -241,7 +243,10 @@ def main() -> None:
             "Second-confirmation candidate floor and 60-network target",
             "achieved",
             f"candidates={readiness['candidate_networks']}; strict-QC arrivals={readiness['qualified_networks_before_scoring']}",
-            gate=bool(readiness["candidate_floor_passed"] and readiness["target_60_networks_arrived"]),
+            gate=bool(
+                readiness["candidate_floor_passed"]
+                and readiness["target_60_networks_arrived"]
+            ),
         ),
         item(
             "P3_domains",
@@ -259,15 +264,13 @@ def main() -> None:
         ),
         item(
             "P3_scoring",
-            "Run independent second confirmation under the canonical hash-bound gate",
+            "Run independent second confirmation under the canonical gate",
             (
                 str(second_result.get("status", "scoring_summary_present"))
                 if second_result is not None
                 else "authorized_not_run"
             ),
-            (
-                second_evidence
-            ),
+            (second_evidence),
             gate=bool(
                 second_result is not None
                 and second_result.get("performance_reporting_authorized", False)
@@ -398,7 +401,15 @@ def main() -> None:
         ]
     )
     OUTPUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(json.dumps({"overall_status": payload["overall_status"], "remaining": payload["remaining_blocking_conditions"]}, indent=2))
+    print(
+        json.dumps(
+            {
+                "overall_status": payload["overall_status"],
+                "remaining": payload["remaining_blocking_conditions"],
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -185,7 +185,7 @@ def choice_opportunity(cases: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]
     return pd.DataFrame(rows), counts
 
 
-def write_tex(summary, decomposition, paired, choices, counts, audit):
+def write_tex(summary, decomposition, paired, choices, counts, audit, slope_quantiles):
     """Independent inputs; the 2026-10-28 review snapshot remains unchanged."""
     def forward(frame):
         return frame.loc[frame.family.eq("crossed") & frame["mode"].eq("forward")]
@@ -207,6 +207,15 @@ def write_tex(summary, decomposition, paired, choices, counts, audit):
                            ("time_balanced", "Balanced"), ("all", "All")]:
         macros[f"PTRTime{prefix}RMSE"] = f"{d.loc[scheme].estimate_rmse:.4f}"
         macros[f"PTRTime{prefix}ChoiceRMSE"] = f"{choice.loc[scheme].estimate_rmse:.4f}"
+        row = p.loc[scheme + " minus warm90"] if scheme != "warm90" else None
+        if row is not None:
+            macros[f"PTRTime{prefix}Low"] = f"{row.cluster_percentile_low:+.4f}"
+            macros[f"PTRTime{prefix}High"] = f"{row.cluster_percentile_high:+.4f}"
+    macros["PTRTimeWarmSpan"] = f"{d.loc['warm90'].span:.3f}"
+    macros["PTRTimeBalancedSpan"] = f"{d.loc['time_balanced'].span:.3f}"
+    macros["PTRTimeMedianSlope"] = f"{slope_quantiles['median']:.3f}"
+    macros["PTRTimeSlopeLower"] = f"{slope_quantiles['q1']:.3f}"
+    macros["PTRTimeSlopeUpper"] = f"{slope_quantiles['q3']:.3f}"
     (PAPER / "process_time_revision_values.tex").write_text(
         "\n".join("\\newcommand{\\" + name + "}{" + str(value) + "}" for name, value in macros.items()) + "\n")
     lines = [r"\begin{table}[t]\centering\small",
@@ -394,7 +403,14 @@ def main() -> int:
                                      year_set_rmse=row["year_set_rmse"]*np.sqrt(n/total),
                                      reconstruction_rmse=row["reconstruction_rmse"]*np.sqrt(n/total)))
     pd.DataFrame(sensitivity_rows).to_csv(OUT / "time_support_zero_mask_sensitivity.csv", index=False)
-    write_tex(summary, decomposition, paired, choices, counts, audit)
+    included = cases.loc[cases.family.eq("crossed") & cases["mode"].eq("forward") & cases.scheme.eq("all"), ["station_key", "replicate"]]
+    slope_rows = trends.loc[trends.family.eq("crossed") & trends["mode"].eq("forward") & trends.retention.eq("all"), ["station_key", "replicate", "truth_slope"]]
+    cohort_slopes = included.merge(slope_rows, on=["station_key", "replicate"], validate="one_to_one").truth_slope
+    if len(cohort_slopes) != 805 or not np.isfinite(cohort_slopes).all():
+        raise RuntimeError("Complete-record slopes are missing for the 805-archive cohort")
+    write_tex(summary, decomposition, paired, choices, counts, audit, {
+        "median": float(cohort_slopes.median()), "q1": float(cohort_slopes.quantile(.25)), "q3": float(cohort_slopes.quantile(.75)),
+    })
     print(summary.to_string(index=False), flush=True)
     (OUT / "time_support_report.json").write_text(
         json.dumps(

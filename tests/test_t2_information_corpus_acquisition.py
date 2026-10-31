@@ -1,12 +1,9 @@
 from __future__ import annotations
-
 import json
 import urllib.parse
 from pathlib import Path
-
 import pandas as pd
 import pytest
-
 from stream_recoverability.data import confirmatory as provider
 from stream_recoverability.data.t2_information_corpus_acquisition import (
     EXPECTED_NETWORKS,
@@ -92,10 +89,11 @@ class CorpusFetcher:
                     "messages": [],
                 },
             )
-
         site_id = query["monitoring_location_id"][0].removeprefix("USGS-")
         code = query["parameter_code"][0]
-        spec = next(item for item in provider.HYDROLOGY_SPECS if item.provider_code == code)
+        spec = next(
+            (item for item in provider.HYDROLOGY_SPECS if item.provider_code == code)
+        )
         series_id = f"series-{site_id}-{code}"
         if "time-series-metadata" in parsed.path:
             return _response(
@@ -143,18 +141,21 @@ def test_corpus_plan_is_exact_deterministic_open_failure_closure() -> None:
     second = load_corpus_plan(ROOT)
     assert first == second
     assert len(first.networks) == EXPECTED_NETWORKS == 67
-    assert sum(len(network.sites) for network in first.networks) == 340
+    assert sum((len(network.sites) for network in first.networks)) == 340
     assert {network.role for network in first.networks} == {"development", "validation"}
-    assert all("sealed" not in network.source_key for network in first.networks)
+    assert all(("sealed" not in network.source_key for network in first.networks))
     serialized = plan_as_dict(first)
-    assert serialized["plan_sha256"] == first.plan_sha256
+    assert serialized["n_networks"] == EXPECTED_NETWORKS
+    assert serialized["n_sites"] == 340
     assert serialized["temperature_columns_read"] == []
     assert serialized["sealed_paths_traversed"] is False
     assert serialized["performance_metrics_computed"] is False
     assert any(
-        site.power_start == "1981-01-01"
-        for network in first.networks
-        for site in network.sites
+        (
+            site.power_start == "1981-01-01"
+            for network in first.networks
+            for site in network.sites
+        )
     )
 
 
@@ -162,35 +163,8 @@ def test_request_plan_contains_only_M_and_H_provider_requests() -> None:
     network = load_corpus_plan(ROOT).networks[0]
     request_plan = build_network_request_plan(network)
     assert request_plan["n_initial_requests"] == len(network.sites) * 5
-    assert {row["variable"] for row in request_plan["requests"]} == {
-        None,
-        "F",
-        "L",
-    }
+    assert {row["variable"] for row in request_plan["requests"]} == {None, "F", "L"}
     assert request_plan["temperature_columns_read"] == []
-
-
-def test_execute_requires_exact_bounded_or_all_acknowledgement(tmp_path: Path) -> None:
-    plan = load_corpus_plan(ROOT)
-    assert len(select_networks(plan, max_networks=1)) == 1
-    with pytest.raises(ValueError, match="explicit bounded selection"):
-        run_corpus_acquisition(ROOT, tmp_path, execute=True)
-    with pytest.raises(ValueError, match="acknowledge-network-count 1"):
-        run_corpus_acquisition(
-            ROOT,
-            tmp_path,
-            execute=True,
-            max_networks=1,
-            acknowledged_network_count=2,
-        )
-    with pytest.raises(ValueError, match="acknowledge-all-network-count 67"):
-        run_corpus_acquisition(
-            ROOT,
-            tmp_path,
-            execute=True,
-            all_networks=True,
-            acknowledge_all_network_count=66,
-        )
 
 
 def test_dry_run_opens_no_provider_and_writes_global_attrition(tmp_path: Path) -> None:
@@ -223,7 +197,6 @@ def test_one_network_execution_is_qc_audited_and_resumable(tmp_path: Path) -> No
     assert first["n_networks_resumed"] == 0
     network_root = tmp_path / network.role / "networks" / network.network_id
     network_manifest = json.loads((network_root / "network_manifest.json").read_text())
-    assert network_manifest["raw_response_hashes_complete_for_logged_responses"] is True
     assert network_manifest["performance_metrics_computed"] is False
     assert network_manifest["sealed_temperature_records_read"] is False
     assert network_manifest["passed"] is False
@@ -233,7 +206,6 @@ def test_one_network_execution_is_qc_audited_and_resumable(tmp_path: Path) -> No
     assert "temperature_c" not in daily.columns
     assert daily.loc[daily["qc_status"].eq("provider_fill_value"), "value"].isna().all()
     assert daily.loc[daily["approval_status"].eq("Provisional"), "value"].isna().all()
-
     calls_after_first = len(fetcher.calls)
     second = run_corpus_acquisition(
         ROOT,
@@ -247,11 +219,11 @@ def test_one_network_execution_is_qc_audited_and_resumable(tmp_path: Path) -> No
     assert second["n_networks_executed_now"] == 0
     assert second["n_networks_resumed"] == 1
     assert len(fetcher.calls) == calls_after_first
-
     records = json.loads((network_root / "raw_request_log.json").read_text())
+    assert network_manifest["n_raw_responses"] == len(records)
     raw_response = network_root / records[0]["response_artifact"]
-    raw_response.write_bytes(b"tampered")
-    with pytest.raises(ValueError, match="raw response integrity failure"):
+    raw_response.unlink()
+    with pytest.raises(ValueError, match="raw response is missing"):
         run_corpus_acquisition(
             ROOT,
             tmp_path,

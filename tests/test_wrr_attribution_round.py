@@ -18,10 +18,23 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261020b"
+ALIGNED = (
+    ROOT
+    / "results"
+    / "wrr_submission_ready"
+    / "major_revision_20261020"
+    / "p0_01_aligned_policy_admission"
+)
 ARCHIVED_MANUSCRIPT = ROOT / "paper_archived" / "wrr_20261020b" / "wrr_manuscript.tex"
-MANUSCRIPT = ARCHIVED_MANUSCRIPT if ARCHIVED_MANUSCRIPT.exists() else ROOT / "paper" / "wrr" / "wrr_manuscript.tex"
+MANUSCRIPT = (
+    ARCHIVED_MANUSCRIPT
+    if ARCHIVED_MANUSCRIPT.exists()
+    else ROOT / "paper" / "wrr" / "wrr_manuscript.tex"
+)
 
-pytestmark = pytest.mark.skipif(not RUN.exists(), reason="run `make wrr-round-20261020b` first")
+pytestmark = pytest.mark.skipif(
+    not RUN.exists(), reason="run `make wrr-round-20261020b` first"
+)
 
 
 def _csv(rel: str) -> pd.DataFrame:
@@ -29,7 +42,9 @@ def _csv(rel: str) -> pd.DataFrame:
 
 
 def test_error_identity_holds_and_false_peak_is_nonnegative():
-    ident = pd.read_csv(RUN / "r2_03_three_windows/identity_check.csv", index_col=0)["value"]
+    ident = pd.read_csv(RUN / "r2_03_three_windows/identity_check.csv", index_col=0)[
+        "value"
+    ]
     assert float(ident["max_abs_identity_residual_C"]) < 1e-9
     assert float(ident["min_false_peak_channel_C"]) > -1e-9
     assert float(ident["share_false_peak_channel_negative_beyond_1e-9"]) == 0.0
@@ -46,12 +61,18 @@ def test_design_audit_describes_the_generator():
     # the manuscript says "no scattered days": every stratified outage is one run
     assert (strat.share_single_run == 1.0).all()
     cross = inv[inv.panel.eq("crossed_mechanism") & inv.arm.eq("stratified")].iloc[0]
-    assert (int(cross.n_cases), int(cross.n_station_years), int(cross.n_networks)) == (1899, 211, 12)
+    assert (int(cross.n_cases), int(cross.n_station_years), int(cross.n_networks)) == (
+        1899,
+        211,
+        12,
+    )
 
 
 def test_crossed_panel_is_paired_within_station_years():
     cells = _csv("r2_01_design_audit/length_by_overlap_cells.csv")
-    crossed = cells[cells.panel.eq("crossed_mechanism") & cells.target_length.isin([30, 60, 90])]
+    crossed = cells[
+        cells.panel.eq("crossed_mechanism") & cells.target_length.isin([30, 60, 90])
+    ]
     assert len(crossed) == 9
     assert (crossed.n_station_years == 211).all()
 
@@ -61,43 +82,83 @@ def test_length_and_support_still_covary_outside_the_crossed_panel():
     pooled = corr[corr.arm.eq("all") & corr.pair.eq("length_vs_true_hidden_share")]
     for panel in ("development", "external"):
         assert pooled[pooled.panel.eq(panel)].pearson.iloc[0] > 0.4
-    crossed = corr[corr.panel.eq("crossed_mechanism") & corr.arm.eq("all") & corr.pair.eq("length_vs_climatological_overlap")]
+    crossed = corr[
+        corr.panel.eq("crossed_mechanism")
+        & corr.arm.eq("all")
+        & corr.pair.eq("length_vs_climatological_overlap")
+    ]
     assert abs(crossed.pearson.iloc[0]) < 0.05
 
 
 def test_real_replay_rests_on_few_independent_gaps():
-    ind = pd.read_csv(RUN / "r2_01_design_audit/real_calendar_independence.csv", index_col=0)["value"]
+    ind = pd.read_csv(
+        RUN / "r2_01_design_audit/real_calendar_independence.csv", index_col=0
+    )["value"]
     assert int(ind["n_groups"]) == 418
     assert int(ind["n_source_incomplete_station_years"]) == 59
     assert int(ind["n_target_station_years"]) == 67
 
 
 def test_ladder_reproduces_the_aligned_fitted_score_bit_for_bit():
-    fp = json.loads((RUN / "r2_02_same_capacity_ablation/protocol_fingerprint.json").read_text())
-    checks = fp["determinism_check"]
+    keys = ["fold_seed", "network_id", "station_id", "year"]
+    checks = {}
+    for panel in ("development", "wave2_confirmation"):
+        aligned = pd.read_parquet(
+            ALIGNED / f"case_level_admissions_{panel}.parquet",
+            columns=keys + ["score_fitted_risk"],
+        )
+        ladder = pd.read_parquet(
+            RUN / f"r2_02_same_capacity_ablation/case_admissions_{panel}.parquet",
+            columns=keys + ["score_generic+support"],
+        )
+        # both tables hold the same cases in the same order for every fold seed
+        assert len(aligned) == len(ladder)
+        assert (
+            aligned[keys].astype(str).to_numpy() == ladder[keys].astype(str).to_numpy()
+        ).all()
+        for seed, block in aligned.groupby("fold_seed"):
+            mine = ladder.loc[block.index, "score_generic+support"].to_numpy(
+                dtype=float
+            )
+            ref = block["score_fitted_risk"].to_numpy(dtype=float)
+            checks[f"{panel}|{seed}"] = bool(
+                np.allclose(ref, mine, atol=1e-9, rtol=0.0)
+            )
     assert len(checks) == 6
-    assert all(item["identical"] for item in checks.values()), checks
+    assert all(checks.values()), checks
 
 
 def test_support_share_adds_nothing_to_a_full_generic_model():
     con = _csv("r2_02_same_capacity_ablation/ablation_contrasts.csv")
-    rows = con[(con.metric == "retention") & con.left.eq("generic+support") & con.right.eq("generic")]
+    rows = con[
+        (con.metric == "retention")
+        & con.left.eq("generic+support")
+        & con.right.eq("generic")
+    ]
     assert len(rows) == 6
     assert (rows.point.abs() < 0.015).all(), rows[["panel", "fold_seed", "point"]]
     ext = rows[rows.panel.eq("wave2_confirmation")]
-    assert ((ext.ci_low < 0) & (ext.ci_high > 0)).all()  # every external interval includes zero
+    assert (
+        (ext.ci_low < 0) & (ext.ci_high > 0)
+    ).all()  # every external interval includes zero
 
 
 def test_generic_model_still_beats_the_transparent_rule():
     con = _csv("r2_02_same_capacity_ablation/ablation_contrasts.csv")
-    rows = con[(con.metric == "retention") & con.left.eq("generic") & con.right.eq("peak_overlap_rule")]
+    rows = con[
+        (con.metric == "retention")
+        & con.left.eq("generic")
+        & con.right.eq("peak_overlap_rule")
+    ]
     assert (rows.ci_low > 0).all()
 
 
 def test_hot_years_are_not_refused_more_than_records_in_general():
     hot = _csv("r2_04_hot_year_null/hot_year_selection_null.csv")
     sel = hot[
-        hot.population.eq("designed") & hot.panel.eq("wave2_confirmation") & hot.hot_c.eq(20.0)
+        hot.population.eq("designed")
+        & hot.panel.eq("wave2_confirmation")
+        & hot.hot_c.eq(20.0)
         & hot.arm.isin(["fitted_risk", "calibrated_bound", "generic"])
     ]
     assert (sel.excess_hot_refusal < 0).all()
@@ -121,10 +182,14 @@ def test_manuscript_no_longer_makes_the_claims_the_audit_refuted():
     assert "scattered at random" not in text
     assert "\\{30, 60, 90, 180\\}" not in text
     assert "vary gap length and hidden support independently" not in text
-    assert "the ordering of the five methods at 90 days is the same as at 30" not in text
+    assert (
+        "the ordering of the five methods at 90 days is the same as at 30" not in text
+    )
     assert "falls to the design value instead of the $+0.45$" not in text
     assert "66.7" not in text
-    abstract = text.split("\\begin{abstract}")[1].split("\\begin{plainlanguagesummary}")[0]
+    abstract = text.split("\\begin{abstract}")[1].split(
+        "\\begin{plainlanguagesummary}"
+    )[0]
     assert "refuse hot years no more often than other records" in abstract
     # the designed-panel refusal must not be attached to the real calendars again
     assert "screening refuses a quarter to a half of the true hot years" not in abstract

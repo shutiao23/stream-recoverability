@@ -22,7 +22,7 @@ Rules honoured (results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md)
   * a network is a provider-native watercourse group with >= 2 stations having
     >= 4 complete calendar years (rule 4);
   * a *complete calendar year* is a year with >= 365 (366 in leap years)
-    QC-passing daily values -- identical to the sealed definition in
+    QC-passing daily values -- identical to the definition in
     ``scripts/244_multi_agency_uk_ea_ingest.py``;
   * ingest + QC only.  **No frozen-screen performance is computed here.**
 
@@ -38,7 +38,6 @@ from __future__ import annotations
 
 import argparse
 import gzip
-import hashlib
 import io
 import json
 import math
@@ -85,7 +84,9 @@ MAX_ATTEMPTS = 7
 #: so requests are serialised with a pause and 429/503 answers back off
 REQUEST_PAUSE_S = 1.0
 RATE_LIMIT_SLEEP_S = 20.0
-USER_AGENT = "stream-recoverability-multi-agency-ingest/1.0 (research; contact: repo owner)"
+USER_AGENT = (
+    "stream-recoverability-multi-agency-ingest/1.0 (research; contact: repo owner)"
+)
 
 # --------------------------------------------------------------------------- #
 # small helpers
@@ -98,10 +99,6 @@ class CreditLimitExceeded(RuntimeError):
 
 def utc_stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def sha256_bytes(payload: bytes) -> str:
-    return hashlib.sha256(payload).hexdigest()
 
 
 def gzip_write(path: Path, payload: bytes) -> None:
@@ -131,7 +128,9 @@ def http_bytes(
 
     last: Exception | None = None
     for attempt in range(1, (attempts or MAX_ATTEMPTS) + 1):
-        request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": accept})
+        request = urllib.request.Request(
+            url, headers={"User-Agent": USER_AGENT, "Accept": accept}
+        )
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 payload = response.read()
@@ -144,7 +143,11 @@ def http_bytes(
                 body = error.read()
             except Exception:  # pragma: no cover - defensive
                 pass
-            if error.code == 429 or b"AuthCreditLimit" in body or b"Credit limit exceeded" in body:
+            if (
+                error.code == 429
+                or b"AuthCreditLimit" in body
+                or b"Credit limit exceeded" in body
+            ):
                 raise CreditLimitExceeded(
                     f"HTTP {error.code} credit limit for {url}: {body[:200].decode('utf-8', errors='replace')}"
                 ) from error
@@ -154,7 +157,9 @@ def http_bytes(
         except (urllib.error.URLError, TimeoutError, ConnectionError) as error:
             last = error
             time.sleep(min(2.0**attempt, 30.0))
-    raise RuntimeError(f"request failed after {attempts or MAX_ATTEMPTS} attempts: {url}") from last
+    raise RuntimeError(
+        f"request failed after {attempts or MAX_ATTEMPTS} attempts: {url}"
+    ) from last
 
 
 def curl_fetch(url: str, *, accept: str, timeout: int) -> tuple[int, bytes]:
@@ -164,12 +169,26 @@ def curl_fetch(url: str, *, accept: str, timeout: int) -> tuple[int, bytes]:
     """
 
     command = [
-        "curl", "-sS", "-L", "--max-time", str(timeout), "-A", USER_AGENT,
-        "-H", f"Accept: {accept}", "-w", "\n%{http_code}", url,
+        "curl",
+        "-sS",
+        "-L",
+        "--max-time",
+        str(timeout),
+        "-A",
+        USER_AGENT,
+        "-H",
+        f"Accept: {accept}",
+        "-w",
+        "\n%{http_code}",
+        url,
     ]
-    completed = subprocess.run(command, capture_output=True, timeout=timeout + 30, check=False)
+    completed = subprocess.run(
+        command, capture_output=True, timeout=timeout + 30, check=False
+    )
     if completed.returncode != 0 and not completed.stdout:
-        raise RuntimeError(f"curl failed ({completed.returncode}): {completed.stderr[:200].decode('utf-8', errors='replace')}")
+        raise RuntimeError(
+            f"curl failed ({completed.returncode}): {completed.stderr[:200].decode('utf-8', errors='replace')}"
+        )
     body, _, status_text = completed.stdout.rpartition(b"\n")
     try:
         status = int(status_text.strip())
@@ -189,7 +208,11 @@ def fetch_with_fallback(
     """Fetch returning (status, body, transport); curl is used when urllib cannot."""
 
     try:
-        return 200, http_bytes(url, accept=accept, timeout=timeout, attempts=attempts), "urllib"
+        return (
+            200,
+            http_bytes(url, accept=accept, timeout=timeout, attempts=attempts),
+            "urllib",
+        )
     except urllib.error.HTTPError as error:
         body = b""
         try:
@@ -218,7 +241,6 @@ def record_probe(
         record.update(
             status=200,
             bytes=len(payload),
-            sha256=sha256_bytes(payload),
             content_type="(via urllib)",
             sample=payload[:400].decode("utf-8", errors="replace"),
             transport="urllib",
@@ -232,12 +254,16 @@ def record_probe(
         record.update(
             status=int(error.code),
             bytes=len(body),
-            sha256=sha256_bytes(body) if body else None,
             content_type=error.headers.get("Content-Type") if error.headers else None,
             sample=body[:400].decode("utf-8", errors="replace"),
             error=str(error),
         )
-    except (urllib.error.URLError, TimeoutError, ConnectionError, RuntimeError) as error:
+    except (
+        urllib.error.URLError,
+        TimeoutError,
+        ConnectionError,
+        RuntimeError,
+    ) as error:
         # some provider TLS stacks (e.g. ceh.cedex.es) fail under Python's OpenSSL:
         # retry with the system curl so the probe still produces provider evidence
         try:
@@ -245,7 +271,6 @@ def record_probe(
             record.update(
                 status=status,
                 bytes=len(body),
-                sha256=sha256_bytes(body),
                 content_type="(via curl)",
                 sample=body[:400].decode("utf-8", errors="replace"),
                 transport="curl",
@@ -265,7 +290,9 @@ def record_probe(
             record["_body"] = body
         else:
             try:
-                record["_body"] = http_bytes(url, accept=accept, timeout=timeout, attempts=1)
+                record["_body"] = http_bytes(
+                    url, accept=accept, timeout=timeout, attempts=1
+                )
             except Exception:  # noqa: BLE001 - the sample already carries evidence
                 record["_body"] = b""
     print(f"  probe {record.get('status')} {record.get('bytes')} {url}", flush=True)
@@ -295,7 +322,7 @@ def slugify(value: str, *, max_length: int = 48) -> str:
 
 
 def complete_years_from_series(series: pd.Series) -> list[int]:
-    """Calendar years with >= 365 (366) QC-passing values (sealed definition)."""
+    """Calendar years with >= 365 (366) QC-passing values (USGS confirmation definition)."""
 
     values = pd.to_numeric(series, errors="coerce")
     years: list[int] = []
@@ -316,7 +343,11 @@ def longest_identical_run(values: pd.Series) -> tuple[int, str | None, str | Non
     start = 0
     array = values.to_numpy(dtype=object)
     for index in range(1, len(array) + 1):
-        if index < len(array) and array[index] == array[start] and not pd.isna(array[index]):
+        if (
+            index < len(array)
+            and array[index] == array[start]
+            and not pd.isna(array[index])
+        ):
             continue
         run = index - start
         if run > best and not pd.isna(array[start]):
@@ -383,7 +414,9 @@ BE_QUALITY_NOTE = (
     "disclaimer states the data are offered for informative, non-commercial use"
 )
 
-BE_DISCLAIMER_URL = "https://www.waterinfo.vlaanderen.be/default.aspx?path=NL/Algemene_Info/Disclaimer"
+BE_DISCLAIMER_URL = (
+    "https://www.waterinfo.vlaanderen.be/default.aspx?path=NL/Algemene_Info/Disclaimer"
+)
 
 
 def watercourse_class(token: str) -> tuple[str, str]:
@@ -401,7 +434,9 @@ def watercourse_class(token: str) -> tuple[str, str]:
     return "river", ""
 
 
-def be_stage_station_catalogue(refresh: bool, record: dict[str, Any], *, offline: bool = False) -> pd.DataFrame:
+def be_stage_station_catalogue(
+    refresh: bool, record: dict[str, Any], *, offline: bool = False
+) -> pd.DataFrame:
     raw = BE_ROOT / "raw_cache"
     raw.mkdir(parents=True, exist_ok=True)
 
@@ -413,17 +448,20 @@ def be_stage_station_catalogue(refresh: bool, record: dict[str, Any], *, offline
         gzip_write(cache, payload)
     record["station_list"] = {
         "url": url,
-        "sha256": sha256_bytes(payload),
         "bytes": len(payload),
         "served_from_cache": not fresh,
     }
     stations = parse_kiwis_table(payload)
-    stations = stations.rename(columns={"station_latitude": "latitude", "station_longitude": "longitude"})
+    stations = stations.rename(
+        columns={"station_latitude": "latitude", "station_longitude": "longitude"}
+    )
     print(f"  station catalogue: {len(stations)} stations", flush=True)
     return stations
 
 
-def be_stage_timeseries_catalogue(refresh: bool, record: dict[str, Any], *, offline: bool = False) -> pd.DataFrame:
+def be_stage_timeseries_catalogue(
+    refresh: bool, record: dict[str, Any], *, offline: bool = False
+) -> pd.DataFrame:
     raw = BE_ROOT / "raw_cache"
     raw.mkdir(parents=True, exist_ok=True)
 
@@ -434,7 +472,9 @@ def be_stage_timeseries_catalogue(refresh: bool, record: dict[str, Any], *, offl
     if fresh:
         gzip_write(all_wt_cache, all_wt_payload)
 
-    daily_url = kiwis_url("getTimeseriesList", station_name="*", ts_name="DagGem", parametertype_name="WT")
+    daily_url = kiwis_url(
+        "getTimeseriesList", station_name="*", ts_name="DagGem", parametertype_name="WT"
+    )
     daily_cache = raw / "timeseries_list_WT_DagGem.json.gz"
     fresh_daily = (refresh or not daily_cache.exists()) and not offline
     daily_payload = http_bytes(daily_url) if fresh_daily else gzip_read(daily_cache)
@@ -444,8 +484,16 @@ def be_stage_timeseries_catalogue(refresh: bool, record: dict[str, Any], *, offl
     all_wt = parse_kiwis_table(all_wt_payload)
     daily = parse_kiwis_table(daily_payload)
     record["timeseries_catalogue"] = {
-        "all_WT": {"url": all_wt_url, "sha256": sha256_bytes(all_wt_payload), "bytes": len(all_wt_payload), "rows": int(len(all_wt))},
-        "WT_DagGem": {"url": daily_url, "sha256": sha256_bytes(daily_payload), "bytes": len(daily_payload), "rows": int(len(daily))},
+        "all_WT": {
+            "url": all_wt_url,
+            "bytes": len(all_wt_payload),
+            "rows": int(len(all_wt)),
+        },
+        "WT_DagGem": {
+            "url": daily_url,
+            "bytes": len(daily_payload),
+            "rows": int(len(daily)),
+        },
     }
     all_wt_daily = all_wt[all_wt["ts_name"] == "DagGem"]
     record["timeseries_catalogue"]["cross_check"] = {
@@ -453,14 +501,23 @@ def be_stage_timeseries_catalogue(refresh: bool, record: dict[str, Any], *, offl
         "all_WT_DagGem_series": int(len(all_wt_daily)),
         "filtered_DagGem_series": int(len(daily)),
         "identical_ts_id_sets": bool(set(all_wt_daily["ts_id"]) == set(daily["ts_id"])),
-        "ts_name_census_all_WT": {str(k): int(v) for k, v in all_wt["ts_name"].value_counts().items()},
+        "ts_name_census_all_WT": {
+            str(k): int(v) for k, v in all_wt["ts_name"].value_counts().items()
+        },
     }
-    print(f"  timeseries catalogue: {len(all_wt)} WT series, {len(daily)} daily-mean series", flush=True)
+    print(
+        f"  timeseries catalogue: {len(all_wt)} WT series, {len(daily)} daily-mean series",
+        flush=True,
+    )
     return daily
 
 
 def be_stage_values(
-    series: pd.DataFrame, refresh: bool, record: dict[str, Any], *, offline: bool = False
+    series: pd.DataFrame,
+    refresh: bool,
+    record: dict[str, Any],
+    *,
+    offline: bool = False,
 ) -> tuple[pd.DataFrame, dict[str, dict[str, Any]]]:
     """Fetch every daily-mean WT series (raw cache) and return long rows + per-series info.
 
@@ -475,9 +532,16 @@ def be_stage_values(
     info: dict[str, dict[str, Any]] = {}
     total = len(series)
     credit_stop: str | None = None
-    for position, row in enumerate(series.sort_values("ts_id").itertuples(index=False), start=1):
+    for position, row in enumerate(
+        series.sort_values("ts_id").itertuples(index=False), start=1
+    ):
         ts_id = str(row.ts_id)
-        url = kiwis_url("getTimeseriesValues", ts_id=ts_id, **{"from": "1990-01-01", "to": end}, metadata="true")
+        url = kiwis_url(
+            "getTimeseriesValues",
+            ts_id=ts_id,
+            **{"from": "1990-01-01", "to": end},
+            metadata="true",
+        )
         cache = cache_dir / f"{ts_id}.json.gz"
         fresh = (refresh or not cache.exists()) and not offline
         if offline and not cache.exists():
@@ -492,7 +556,10 @@ def be_stage_values(
                 payload = http_bytes(url)
             except CreditLimitExceeded as error:
                 credit_stop = str(error)
-                print(f"  CREDIT LIMIT reached at series {position}/{total}; stopping downloads", flush=True)
+                print(
+                    f"  CREDIT LIMIT reached at series {position}/{total}; stopping downloads",
+                    flush=True,
+                )
                 info[ts_id] = {
                     "station_no": row.station_no,
                     "error": f"CreditLimitExceeded: {error}",
@@ -500,7 +567,11 @@ def be_stage_values(
                 }
                 break
             except Exception as error:  # noqa: BLE001 - recorded as a failure
-                info[ts_id] = {"station_no": row.station_no, "error": f"{type(error).__name__}: {error}", "url": url}
+                info[ts_id] = {
+                    "station_no": row.station_no,
+                    "error": f"{type(error).__name__}: {error}",
+                    "url": url,
+                }
                 print(f"  [{position}/{total}] FAILED {ts_id}: {error}", flush=True)
                 continue
             gzip_write(cache, payload)
@@ -521,7 +592,6 @@ def be_stage_values(
             "longitude": entry.get("station_longitude"),
             "rows": int(entry.get("rows") or len(data)),
             "url": url,
-            "raw_sha256": sha256_bytes(payload),
             "raw_bytes": len(payload),
             "served_from_cache": not fresh,
         }
@@ -533,9 +603,18 @@ def be_stage_values(
         frames.append(frame)
         if position % 50 == 0:
             print(f"  [{position}/{total}] series fetched", flush=True)
-    long = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=["ts_id", "station_no", "timestamp", "value"])
+    long = (
+        pd.concat(frames, ignore_index=True)
+        if frames
+        else pd.DataFrame(columns=["ts_id", "station_no", "timestamp", "value"])
+    )
     record["value_requests"] = {
-        "template": kiwis_url("getTimeseriesValues", ts_id="<ts_id>", **{"from": "1990-01-01", "to": end}, metadata="true"),
+        "template": kiwis_url(
+            "getTimeseriesValues",
+            ts_id="<ts_id>",
+            **{"from": "1990-01-01", "to": end},
+            metadata="true",
+        ),
         "end_date_used": end,
         "series_requested": int(total),
         "series_returned_rows": int(len(long)),
@@ -556,7 +635,11 @@ def be_stage_values(
     record["download_failures"] = failures
     record["download_stopped_by_credit_limit"] = credit_stop
     record["series_served_from_cache"] = int(
-        sum(1 for value in info.values() if value.get("served_from_cache") and "error" not in value)
+        sum(
+            1
+            for value in info.values()
+            if value.get("served_from_cache") and "error" not in value
+        )
     )
     return long, info
 
@@ -572,10 +655,16 @@ def be_build_long_qc(long: pd.DataFrame, record: dict[str, Any]) -> pd.DataFrame
 
     record["timestamp_shape"] = {
         "n_rows": int(len(frame)),
-        "local_time_census": {str(k): int(v) for k, v in frame["local_time"].value_counts().items()},
-        "utc_offset_census": {str(k): int(v) for k, v in frame["utc_offset"].value_counts().items()},
+        "local_time_census": {
+            str(k): int(v) for k, v in frame["local_time"].value_counts().items()
+        },
+        "utc_offset_census": {
+            str(k): int(v) for k, v in frame["utc_offset"].value_counts().items()
+        },
         "expected_local_time": EXPECTED_LOCAL_TIME,
-        "n_rows_unexpected_local_time": int((frame["local_time"] != EXPECTED_LOCAL_TIME).sum()),
+        "n_rows_unexpected_local_time": int(
+            (frame["local_time"] != EXPECTED_LOCAL_TIME).sum()
+        ),
     }
 
     n_null = int(frame["value_num"].isna().sum())
@@ -589,7 +678,9 @@ def be_build_long_qc(long: pd.DataFrame, record: dict[str, Any]) -> pd.DataFrame
         duplicate_conflicts = int((grouped > 1).sum())
     dropped = dropped[~duplicate_mask]
 
-    out_of_range = (dropped["value_num"] < VALUE_MIN_C) | (dropped["value_num"] > VALUE_MAX_C)
+    out_of_range = (dropped["value_num"] < VALUE_MIN_C) | (
+        dropped["value_num"] > VALUE_MAX_C
+    )
     n_out_of_range = int(out_of_range.sum())
     kept = dropped[~out_of_range].copy()
 
@@ -623,7 +714,9 @@ def be_build_stations(
     master["latitude"] = pd.to_numeric(master["latitude"], errors="coerce")
     master["longitude"] = pd.to_numeric(master["longitude"], errors="coerce")
     coordinates = master.set_index("station_no")[["latitude", "longitude"]]
-    raw_rows_by_station = long.groupby("station_no").size().to_dict() if not long.empty else {}
+    raw_rows_by_station = (
+        long.groupby("station_no").size().to_dict() if not long.empty else {}
+    )
 
     rows: list[dict[str, Any]] = []
     series_by_station: dict[str, pd.Series] = {}
@@ -636,14 +729,18 @@ def be_build_stations(
             .sort_index()
         )
         series_by_station[str(station_no)] = series
-        dropped_by_station[str(station_no)] = int(raw_rows_by_station.get(station_no, 0) - len(block))
+        dropped_by_station[str(station_no)] = int(
+            raw_rows_by_station.get(station_no, 0) - len(block)
+        )
         years = complete_years_from_series(series)
         ts_ids = sorted(set(block["ts_id"]))
         first_info = info.get(ts_ids[0], {})
         run_length, run_start, run_end = longest_identical_run(series)
         lat = coordinates["latitude"].get(station_no, np.nan)
         lon = coordinates["longitude"].get(station_no, np.nan)
-        if (isinstance(lat, float) and math.isnan(lat)) and first_info.get("latitude") not in (None, ""):
+        if (isinstance(lat, float) and math.isnan(lat)) and first_info.get(
+            "latitude"
+        ) not in (None, ""):
             lat = float(first_info["latitude"])
             lon = float(first_info["longitude"])
         station_name = str(first_info.get("station_name") or "")
@@ -654,15 +751,21 @@ def be_build_stations(
                 "station_id": str(station_no),
                 "station_name": station_name,
                 "kiwis_ts_ids": ";".join(ts_ids),
-                "kiwis_station_id": str(master.loc[master["station_no"] == station_no, "station_id"].iloc[0])
+                "kiwis_station_id": str(
+                    master.loc[master["station_no"] == station_no, "station_id"].iloc[0]
+                )
                 if (master["station_no"] == station_no).any()
                 else "",
                 "river_name": token,
                 "watercourse_key": re.sub(r"[^a-z0-9]+", "", token.lower()),
                 "watercourse_class": klass,
                 "watercourse_class_rule": rule,
-                "latitude": float(lat) if lat is not None and not (isinstance(lat, float) and math.isnan(lat)) else None,
-                "longitude": float(lon) if lon is not None and not (isinstance(lon, float) and math.isnan(lon)) else None,
+                "latitude": float(lat)
+                if lat is not None and not (isinstance(lat, float) and math.isnan(lat))
+                else None,
+                "longitude": float(lon)
+                if lon is not None and not (isinstance(lon, float) and math.isnan(lon))
+                else None,
                 "n_complete_years": len(years),
                 "complete_years": ";".join(str(year) for year in years),
                 "first_date": series.index.min().date().isoformat(),
@@ -675,15 +778,18 @@ def be_build_stations(
                 "values_min_degc": float(series.min()) if len(series) else None,
                 "values_max_degc": float(series.max()) if len(series) else None,
                 "value_exactly_0c_days": int((series == 0).sum()),
-                "raw_sha256": ";".join(info.get(ts, {}).get("raw_sha256", "") for ts in ts_ids),
-                "raw_bytes": int(sum(info.get(ts, {}).get("raw_bytes", 0) for ts in ts_ids)),
+                "raw_bytes": int(
+                    sum(info.get(ts, {}).get("raw_bytes", 0) for ts in ts_ids)
+                ),
             }
         )
 
     return pd.DataFrame(rows), series_by_station
 
 
-def be_day_boundary_qc(refresh: bool, record: dict[str, Any], long_qc: pd.DataFrame) -> pd.DataFrame:
+def be_day_boundary_qc(
+    refresh: bool, record: dict[str, Any], long_qc: pd.DataFrame
+) -> pd.DataFrame:
     """Compare the provider daily mean against the provider 15-minute series.
 
     Evidence only: the panel uses the provider daily statistic unchanged.  The
@@ -699,13 +805,18 @@ def be_day_boundary_qc(refresh: bool, record: dict[str, Any], long_qc: pd.DataFr
     cache_dir.mkdir(parents=True, exist_ok=True)
     rows: list[dict[str, Any]] = []
     daily_by_station = {
-        station: block.set_index(pd.to_datetime(block["date"]))["value_num"].sort_index()
+        station: block.set_index(pd.to_datetime(block["date"]))[
+            "value_num"
+        ].sort_index()
         for station, block in long_qc.groupby("station_no")
     }
     for item in subdaily_list:
         ts_id, station_no = item["ts_id"], item["station_no"]
         url = kiwis_url(
-            "getTimeseriesValues", ts_id=ts_id, **{"from": "2023-06-01", "to": "2023-08-31"}, metadata="true"
+            "getTimeseriesValues",
+            ts_id=ts_id,
+            **{"from": "2023-06-01", "to": "2023-08-31"},
+            metadata="true",
         )
         cache = cache_dir / f"{ts_id}_2023summer.json.gz"
         fresh = refresh or not cache.exists()
@@ -724,18 +835,23 @@ def be_day_boundary_qc(refresh: bool, record: dict[str, Any], long_qc: pd.DataFr
             url=url,
             rows=int(entry.get("rows") or len(data)),
             ts_unitname=entry.get("ts_unitname"),
-            raw_sha256=sha256_bytes(payload),
         )
         if not data:
             continue
         frame = pd.DataFrame(data, columns=["timestamp", "value"])
         frame["date"] = frame["timestamp"].astype(str).str.slice(0, 10)
         frame["value"] = pd.to_numeric(frame["value"], errors="coerce")
-        per_day = frame.dropna(subset=["value"]).groupby("date")["value"].agg(["count", "mean"])
+        per_day = (
+            frame.dropna(subset=["value"])
+            .groupby("date")["value"]
+            .agg(["count", "mean"])
+        )
         daily = daily_by_station.get(station_no)
         if daily is None:
             continue
-        same = pd.DataFrame({"subdaily_mean_same_day": per_day["mean"], "n_subdaily": per_day["count"]})
+        same = pd.DataFrame(
+            {"subdaily_mean_same_day": per_day["mean"], "n_subdaily": per_day["count"]}
+        )
         same.index = pd.to_datetime(same.index)
         same["provider_daily_same_day"] = daily.reindex(same.index)
         previous = daily.copy()
@@ -753,11 +869,25 @@ def be_day_boundary_qc(refresh: bool, record: dict[str, Any], long_qc: pd.DataFr
                 "n_subdaily_per_day_median": float(same["n_subdaily"].median()),
                 "n_subdaily_per_day_max": int(same["n_subdaily"].max()),
                 "n_days_matched_same_day": int(len(both_same)),
-                "median_abs_diff_same_day_degc": float((both_same["subdaily_mean_same_day"] - both_same["provider_daily_same_day"]).abs().median())
+                "median_abs_diff_same_day_degc": float(
+                    (
+                        both_same["subdaily_mean_same_day"]
+                        - both_same["provider_daily_same_day"]
+                    )
+                    .abs()
+                    .median()
+                )
                 if len(both_same)
                 else None,
                 "n_days_matched_previous_day": int(len(both_prev)),
-                "median_abs_diff_previous_day_degc": float((both_prev["subdaily_mean_same_day"] - both_prev["provider_daily_previous_day"]).abs().median())
+                "median_abs_diff_previous_day_degc": float(
+                    (
+                        both_prev["subdaily_mean_same_day"]
+                        - both_prev["provider_daily_previous_day"]
+                    )
+                    .abs()
+                    .median()
+                )
                 if len(both_prev)
                 else None,
             }
@@ -769,13 +899,16 @@ def be_day_boundary_qc(refresh: bool, record: dict[str, Any], long_qc: pd.DataFr
 
 
 def be_write_networks(
-    stations: pd.DataFrame, series_by_station: dict[str, pd.Series], record: dict[str, Any]
+    stations: pd.DataFrame,
+    series_by_station: dict[str, pd.Series],
+    record: dict[str, Any],
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
     networks_dir = BE_ROOT / "networks"
     networks_dir.mkdir(parents=True, exist_ok=True)
 
     eligible = stations[
-        (stations["n_complete_years"] >= MIN_COMPLETE_YEARS) & (stations["watercourse_class"] == "river")
+        (stations["n_complete_years"] >= MIN_COMPLETE_YEARS)
+        & (stations["watercourse_class"] == "river")
     ].copy()
 
     manifest_rows: list[dict[str, Any]] = []
@@ -791,7 +924,9 @@ def be_write_networks(
         emitted.add(network_id)
         river_name = str(group["river_name"].mode().iloc[0])
         members = sorted(group["station_id"].astype(str))
-        wide = pd.DataFrame({station: series_by_station[station] for station in members}).sort_index()
+        wide = pd.DataFrame(
+            {station: series_by_station[station] for station in members}
+        ).sort_index()
         wide = wide.reindex(pd.date_range(wide.index.min(), wide.index.max(), freq="D"))
         wide.index.name = "date"
         wide = wide.reset_index()
@@ -813,7 +948,11 @@ def be_write_networks(
             }
         )
 
-    manifest = pd.DataFrame(manifest_rows).sort_values("network_id") if manifest_rows else pd.DataFrame()
+    manifest = (
+        pd.DataFrame(manifest_rows).sort_values("network_id")
+        if manifest_rows
+        else pd.DataFrame()
+    )
     if not manifest.empty:
         manifest.to_csv(BE_ROOT / "networks_manifest.csv", index=False)
 
@@ -821,29 +960,49 @@ def be_write_networks(
     census_rows: list[dict[str, Any]] = []
     for key, group in stations.groupby("watercourse_key"):
         n_eligible = int(
-            ((group["n_complete_years"] >= MIN_COMPLETE_YEARS) & (group["watercourse_class"] == "river")).sum()
+            (
+                (group["n_complete_years"] >= MIN_COMPLETE_YEARS)
+                & (group["watercourse_class"] == "river")
+            ).sum()
         )
         census_rows.append(
             {
                 "watercourse_key": key,
-                "river_name": str(group["river_name"].mode().iloc[0]) if len(group) else "",
+                "river_name": str(group["river_name"].mode().iloc[0])
+                if len(group)
+                else "",
                 "watercourse_class": ";".join(sorted(set(group["watercourse_class"]))),
                 "n_stations": int(len(group)),
                 "n_stations_ge4_complete_years_river": n_eligible,
-                "emitted_network": bool(len(group) >= MIN_STATIONS_PER_NETWORK and n_eligible >= MIN_STATIONS_PER_NETWORK),
+                "emitted_network": bool(
+                    len(group) >= MIN_STATIONS_PER_NETWORK
+                    and n_eligible >= MIN_STATIONS_PER_NETWORK
+                ),
                 "station_ids": ";".join(sorted(group["station_id"].astype(str))),
                 "max_complete_years": int(group["n_complete_years"].max()),
             }
         )
-    census = pd.DataFrame(census_rows).sort_values(["n_stations", "max_complete_years"], ascending=False)
+    census = pd.DataFrame(census_rows).sort_values(
+        ["n_stations", "max_complete_years"], ascending=False
+    )
     census.to_csv(BE_ROOT / "networks_not_eligible.csv", index=False)
 
     token_census = (
-        stations.groupby(["watercourse_key", "watercourse_class", "watercourse_class_rule", "river_name"])
+        stations.groupby(
+            [
+                "watercourse_key",
+                "watercourse_class",
+                "watercourse_class_rule",
+                "river_name",
+            ]
+        )
         .agg(
             n_stations=("station_id", "size"),
             max_complete_years=("n_complete_years", "max"),
-            n_stations_ge4=("n_complete_years", lambda values: int((values >= MIN_COMPLETE_YEARS).sum())),
+            n_stations_ge4=(
+                "n_complete_years",
+                lambda values: int((values >= MIN_COMPLETE_YEARS).sum()),
+            ),
         )
         .reset_index()
         .sort_values(["watercourse_class", "n_stations"], ascending=[True, False])
@@ -852,13 +1011,24 @@ def be_write_networks(
 
     summary = {
         "stations_with_daily_mean_WT": int(len(stations)),
-        "stations_ge4_complete_years": int((stations["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()),
+        "stations_ge4_complete_years": int(
+            (stations["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()
+        ),
         "stations_ge4_complete_years_river_class": int(len(eligible)),
         "watercourse_groups": int(stations["watercourse_key"].nunique()),
         "networks_emitted": int(len(manifest)),
-        "stations_in_emitted_networks": int(manifest["n_stations"].sum()) if not manifest.empty else 0,
-        "complete_station_years_in_emitted_networks": int(manifest["n_complete_years_total"].sum()) if not manifest.empty else 0,
-        "watercourse_class_census": {str(k): int(v) for k, v in stations["watercourse_class"].value_counts().items()},
+        "stations_in_emitted_networks": int(manifest["n_stations"].sum())
+        if not manifest.empty
+        else 0,
+        "complete_station_years_in_emitted_networks": int(
+            manifest["n_complete_years_total"].sum()
+        )
+        if not manifest.empty
+        else 0,
+        "watercourse_class_census": {
+            str(k): int(v)
+            for k, v in stations["watercourse_class"].value_counts().items()
+        },
     }
     record["networks"] = summary
     return manifest, census, summary
@@ -875,7 +1045,11 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
         "api": {
             "base": KIWIS_BASE,
             "common_params": KIWIS_COMMON,
-            "requests_used": ["getStationList", "getTimeseriesList", "getTimeseriesValues"],
+            "requests_used": [
+                "getStationList",
+                "getTimeseriesList",
+                "getTimeseriesValues",
+            ],
         },
         "licence": {
             "disclaimer_url": BE_DISCLAIMER_URL,
@@ -898,15 +1072,23 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
 
     # one cheap probe records the per-IP credit state at run time (script-generated
     # evidence for the AuthCreditLimit condition that interrupted the first bulk run)
-    quota_probe_id = str(series.sort_values("ts_id").iloc[0]["ts_id"]) if len(series) else ""
+    quota_probe_id = (
+        str(series.sort_values("ts_id").iloc[0]["ts_id"]) if len(series) else ""
+    )
     record["quota_probe"] = record_probe(
-        kiwis_url("getTimeseriesValues", ts_id=quota_probe_id, **{"from": "2024-01-01", "to": "2024-01-02"}),
+        kiwis_url(
+            "getTimeseriesValues",
+            ts_id=quota_probe_id,
+            **{"from": "2024-01-01", "to": "2024-01-02"},
+        ),
         timeout=60,
         keep_body=False,
     )
     long, info = be_stage_values(series, refresh, record, offline=offline)
     long_qc = be_build_long_qc(long, record)
-    stations_table, series_by_station = be_build_stations(long, long_qc, info, stations, record)
+    stations_table, series_by_station = be_build_stations(
+        long, long_qc, info, stations, record
+    )
 
     # unusable series (no rows at all) still deserve a row in the census
     known = set(stations_table["station_id"].astype(str))
@@ -942,38 +1124,62 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
                 "values_min_degc": None,
                 "values_max_degc": None,
                 "value_exactly_0c_days": 0,
-                "raw_sha256": meta.get("raw_sha256", ""),
                 "raw_bytes": int(meta.get("raw_bytes", 0)),
             }
         )
-    all_stations = pd.concat([stations_table, pd.DataFrame(empty_rows)], ignore_index=True) if empty_rows else stations_table
+    all_stations = (
+        pd.concat([stations_table, pd.DataFrame(empty_rows)], ignore_index=True)
+        if empty_rows
+        else stations_table
+    )
     record["stations_without_values"] = int(len(empty_rows))
     record["stations_without_coordinates"] = int(all_stations["latitude"].isna().sum())
 
     # sub-daily series available for the day-boundary QC (same station, ts_name P.15)
-    subdaily_url = kiwis_url("getTimeseriesList", station_name="*", ts_name="P.15", parametertype_name="WT")
+    subdaily_url = kiwis_url(
+        "getTimeseriesList", station_name="*", ts_name="P.15", parametertype_name="WT"
+    )
     subdaily_cache = BE_ROOT / "raw_cache" / "timeseries_list_WT_P15.json.gz"
     fresh = refresh or not subdaily_cache.exists()
     try:
-        subdaily_payload = http_bytes(subdaily_url) if fresh else gzip_read(subdaily_cache)
+        subdaily_payload = (
+            http_bytes(subdaily_url) if fresh else gzip_read(subdaily_cache)
+        )
         if fresh:
             gzip_write(subdaily_cache, subdaily_payload)
         subdaily = parse_kiwis_table(subdaily_payload)
     except Exception as error:  # noqa: BLE001
         record["subdaily_catalogue_error"] = f"{type(error).__name__}: {error}"
         subdaily = pd.DataFrame(columns=["station_no", "ts_id", "ts_name"])
-    subdaily = subdaily[subdaily["station_no"].astype(str).isin(set(all_stations["station_id"].astype(str)))]
+    subdaily = subdaily[
+        subdaily["station_no"]
+        .astype(str)
+        .isin(set(all_stations["station_id"].astype(str)))
+    ]
     subdaily = subdaily.sort_values("station_no")
     record["subdaily_series"] = [
-        {"ts_id": str(row.ts_id), "station_no": str(row.station_no)} for row in subdaily.head(3).itertuples(index=False)
+        {"ts_id": str(row.ts_id), "station_no": str(row.station_no)}
+        for row in subdaily.head(3).itertuples(index=False)
     ]
     boundary = be_day_boundary_qc(refresh, record, long_qc)
-    record["day_boundary_qc"] = boundary.to_dict(orient="records") if not boundary.empty else []
+    record["day_boundary_qc"] = (
+        boundary.to_dict(orient="records") if not boundary.empty else []
+    )
 
-    manifest, census, summary = be_write_networks(all_stations, series_by_station, record)
+    manifest, census, summary = be_write_networks(
+        all_stations, series_by_station, record
+    )
 
-    kept_ids = set(manifest["station_ids"].str.split(";").explode()) if not manifest.empty else set()
-    panel = all_stations[all_stations["station_id"].astype(str).isin(kept_ids)].copy() if kept_ids else all_stations.iloc[0:0].copy()
+    kept_ids = (
+        set(manifest["station_ids"].str.split(";").explode())
+        if not manifest.empty
+        else set()
+    )
+    panel = (
+        all_stations[all_stations["station_id"].astype(str).isin(kept_ids)].copy()
+        if kept_ids
+        else all_stations.iloc[0:0].copy()
+    )
     station_to_network: dict[str, str] = {}
     if not manifest.empty:
         for row in manifest.itertuples(index=False):
@@ -1015,17 +1221,22 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
         "values_min_degc",
         "values_max_degc",
         "value_exactly_0c_days",
-        "raw_sha256",
         "raw_bytes",
     ]
-    panel = panel[station_columns + extra_columns].sort_values(["network_id", "station_id"])
+    panel = panel[station_columns + extra_columns].sort_values(
+        ["network_id", "station_id"]
+    )
     panel.to_csv(BE_ROOT / "stations.csv", index=False)
-    all_stations.sort_values("station_id").to_csv(BE_ROOT / "stations_all.csv", index=False)
+    all_stations.sort_values("station_id").to_csv(
+        BE_ROOT / "stations_all.csv", index=False
+    )
 
     long_qc_out = long_qc[["station_no", "ts_id", "date", "value_num"]].rename(
         columns={"station_no": "station_id", "value_num": "temperature_degc"}
     )
-    long_qc_out.sort_values(["station_id", "date"]).to_csv(BE_ROOT / "daily_long_qc.csv.gz", index=False, compression="gzip")
+    long_qc_out.sort_values(["station_id", "date"]).to_csv(
+        BE_ROOT / "daily_long_qc.csv.gz", index=False, compression="gzip"
+    )
 
     record["final_counts"] = {
         "stations_in_panel": int(len(panel)),
@@ -1044,12 +1255,16 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
             .reset_index()
         )
         year_counts["days_in_year"] = year_counts["year"].map(
-            lambda year: 366 if ((year % 4 == 0 and year % 100 != 0) or year % 400 == 0) else 365
+            lambda year: (
+                366 if ((year % 4 == 0 and year % 100 != 0) or year % 400 == 0) else 365
+            )
         )
-        year_counts["shortfall_days"] = year_counts["days_in_year"] - year_counts["values"]
+        year_counts["shortfall_days"] = (
+            year_counts["days_in_year"] - year_counts["values"]
+        )
         record["complete_year_gap_evidence"] = {
             "note": (
-                "the sealed complete-calendar-year definition needs >= 365 (366) QC-passing values, "
+                "the complete-calendar-year definition needs >= 365 (366) QC-passing values, "
                 "i.e. a gap-free year; these are the shortfalls of the retrieved tranche"
             ),
             "station_years": int(len(year_counts)),
@@ -1063,16 +1278,26 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
             ),
         }
     except Exception as error:  # noqa: BLE001
-        record["complete_year_gap_evidence"] = {"error": f"{type(error).__name__}: {error}"}
+        record["complete_year_gap_evidence"] = {
+            "error": f"{type(error).__name__}: {error}"
+        }
 
-    cached_series = int(sum(1 for value in info.values() if value.get("served_from_cache") and "error" not in value))
+    cached_series = int(
+        sum(
+            1
+            for value in info.values()
+            if value.get("served_from_cache") and "error" not in value
+        )
+    )
     record["retrieval_status"] = {
         "catalogued_daily_mean_WT_series": int(len(series)),
         "series_in_raw_cache": cached_series,
         "series_not_retrieved": int(len(series) - cached_series),
         "stopped_by_credit_limit": record.get("download_stopped_by_credit_limit"),
         "quota_probe_status": (record.get("quota_probe") or {}).get("status"),
-        "quota_probe_sample": ((record.get("quota_probe") or {}).get("sample") or "")[:180],
+        "quota_probe_sample": ((record.get("quota_probe") or {}).get("sample") or "")[
+            :180
+        ],
         "run_mode": "offline (raw cache only)" if offline else "download",
         "resume_command": "python3 scripts/260_multi_agency_be_es_ingest.py --provider be",
         "note": (
@@ -1084,8 +1309,12 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
     }
     record["under_delivery"] = {
         "stations_retrieved": int(len(tranche)),
-        "stations_ge4_complete_years_in_tranche": int((tranche["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()),
-        "max_complete_years_in_tranche": int(tranche["n_complete_years"].max()) if len(tranche) else 0,
+        "stations_ge4_complete_years_in_tranche": int(
+            (tranche["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()
+        ),
+        "max_complete_years_in_tranche": int(tranche["n_complete_years"].max())
+        if len(tranche)
+        else 0,
         "networks_emitted": int(len(manifest)),
         "verdict": (
             "UNDER-DELIVERY in the retrieved tranche: no station of the retrieved Flemish daily-mean "
@@ -1110,7 +1339,9 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
                 "limit was reached, judged with the same complete-calendar-year rule"
             ),
             "n_series": int(len(probe)),
-            "n_series_ge4_complete_years": int((probe["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()),
+            "n_series_ge4_complete_years": int(
+                (probe["n_complete_years"] >= MIN_COMPLETE_YEARS).sum()
+            ),
             "max_complete_years": int(probe["n_complete_years"].max()),
         }
 
@@ -1130,13 +1361,18 @@ def run_be(refresh: bool, *, offline: bool = False) -> dict[str, Any]:
         "Network identity is provider name evidence: KiWIS station_name has the form '<municipality>/<watercourse>', and the network key is the watercourse token lowercased with non-alphanumerics removed (so 'Grote Nete' == 'GroteNete'). Networks are watercourse groups, not catchments.",
         "Waterbody filter is name based: tokens matching dock/harbour/sluice/tidal-inlet/pond/reservoir/dike/WWTP/test/street/soil are classed excluded_non_river and canal/vaart/gracht/leiding tokens are classed 'canal'; neither class enters a river network. networks_not_eligible.csv lists every group with its class so the filter is auditable.",
         "Some catalogue entries are process monitors of the water utilities (WWTP influent/effluent, CSO, spaarbekken, docks) that share the same KiWIS surface as the river network; they are dropped by the class filter, and those without a '<municipality>/<watercourse>' name are classed excluded_no_watercourse_token.",
-        "Complete calendar year == >= 365 (366 leap) QC-passing daily values, the sealed definition used for the UK EA and SMHI providers; because the provider statistic is one value per day this requires a gap-free year.",
+        "Complete calendar year == >= 365 (366 leap) QC-passing daily values, the definition used for the UK EA and SMHI providers; because the provider statistic is one value per day this requires a gap-free year.",
         "No frozen-screen endpoint, retention, model or score is computed by this script (ingest and QC only).",
     ]
     BE_ROOT.mkdir(parents=True, exist_ok=True)
-    (BE_ROOT / "ingest.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (BE_ROOT / "ingest.json").write_text(
+        json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     write_be_readme(record)
-    print(f"  BE networks={summary['networks_emitted']} stations={summary['stations_in_emitted_networks']}", flush=True)
+    print(
+        f"  BE networks={summary['networks_emitted']} stations={summary['stations_in_emitted_networks']}",
+        flush=True,
+    )
     return record
 
 
@@ -1252,7 +1488,6 @@ SAIH_STATION_LABEL_RE = re.compile(r"^(?P<code>\S+)\s*-\s*(?P<label>.+)$")
 SAIH_RIVER_RE = re.compile(r"^r[ií]o\s+(?P<river>.+?)\s+en\s+", re.I)
 
 
-
 def _es_file_links(html: str) -> list[str]:
     links = set()
     for match in re.finditer(r'href="([^"]+)"', html, flags=re.I):
@@ -1263,7 +1498,9 @@ def _es_file_links(html: str) -> list[str]:
 
 
 def run_es_probe(refresh: bool) -> dict[str, Any]:
-    print("== provider B: roea_es (CEDEX Anuario de Aforos) feasibility probe", flush=True)
+    print(
+        "== provider B: roea_es (CEDEX Anuario de Aforos) feasibility probe", flush=True
+    )
     ES_ROOT.mkdir(parents=True, exist_ok=True)
     (ES_ROOT / "raw_cache").mkdir(parents=True, exist_ok=True)
     evidence: dict[str, Any] = {
@@ -1287,14 +1524,21 @@ def run_es_probe(refresh: bool) -> dict[str, Any]:
         demarcaciones_url, accept="text/html", timeout=90, attempts=1
     )
     evidence["demarcaciones_root"] = {
-        "url": demarcaciones_url, "status": status, "bytes": len(demarcaciones_body), "transport": transport
+        "url": demarcaciones_url,
+        "status": status,
+        "bytes": len(demarcaciones_body),
+        "transport": transport,
     }
     if status != 200:
-        raise RuntimeError(f"cannot read the Anuario demarcaciones index: HTTP {status} ({demarcaciones_url})")
+        raise RuntimeError(
+            f"cannot read the Anuario demarcaciones index: HTTP {status} ({demarcaciones_url})"
+        )
     demarcaciones_html = demarcaciones_body.decode("utf-8", errors="replace")
     if "\ufffd" in demarcaciones_html:
         demarcaciones_html = demarcaciones_body.decode("cp1252", errors="replace")
-    (ES_ROOT / "raw_cache" / "demarcaciones.asp.html").write_text(demarcaciones_html, encoding="utf-8")
+    (ES_ROOT / "raw_cache" / "demarcaciones.asp.html").write_text(
+        demarcaciones_html, encoding="utf-8"
+    )
     demarcacion_links = sorted(
         {
             href
@@ -1304,7 +1548,9 @@ def run_es_probe(refresh: bool) -> dict[str, Any]:
     )
     evidence["demarcacion_links"] = demarcacion_links
     for link in demarcacion_links:
-        url = urllib.parse.quote(urllib.parse.urljoin(demarcaciones_url, link), safe=":/?&=%")
+        url = urllib.parse.quote(
+            urllib.parse.urljoin(demarcaciones_url, link), safe=":/?&=%"
+        )
         page = record_probe(url, accept="text/html", timeout=90, keep_body=True)
         page["demarcacion_page"] = link
         body = page.pop("_body", b"")
@@ -1315,7 +1561,9 @@ def run_es_probe(refresh: bool) -> dict[str, Any]:
         if "\ufffd" in html:
             html = body.decode("cp1252", errors="replace")
         name = slugify(Path(link).stem)
-        (ES_ROOT / "raw_cache" / f"listing_{name}.html").write_text(html, encoding="utf-8")
+        (ES_ROOT / "raw_cache" / f"listing_{name}.html").write_text(
+            html, encoding="utf-8"
+        )
         links = _es_file_links(html)
         evidence["file_census_by_demarcacion"][link] = links
         for data_link in links:
@@ -1329,30 +1577,44 @@ def run_es_probe(refresh: bool) -> dict[str, Any]:
         "families the Anuario publishes"
     )
 
-    station_url = "https://ceh-flumen64.cedex.es/anuarioaforos/anuario-2021-2022/EBRO/estaf.csv"
-    discharge_url = "https://ceh-flumen64.cedex.es/anuarioaforos/anuario-2021-2022/EBRO/afliq.csv"
+    station_url = (
+        "https://ceh-flumen64.cedex.es/anuarioaforos/anuario-2021-2022/EBRO/estaf.csv"
+    )
+    discharge_url = (
+        "https://ceh-flumen64.cedex.es/anuarioaforos/anuario-2021-2022/EBRO/afliq.csv"
+    )
     station_path = ES_ROOT / "raw_cache" / "anuario_2021_2022_EBRO_estaf.csv"
     record = record_probe(station_url, timeout=180)
     try:
         if record.get("status") == 200:
             if refresh or not station_path.exists():
-                status, body, transport = fetch_with_fallback(station_url, timeout=180, attempts=1)
+                status, body, transport = fetch_with_fallback(
+                    station_url, timeout=180, attempts=1
+                )
                 record["transport"] = transport
                 record["status"] = status
                 station_path.write_bytes(body)
-            header = station_path.read_text(encoding="latin-1", errors="replace").splitlines()[0]
+            header = station_path.read_text(
+                encoding="latin-1", errors="replace"
+            ).splitlines()[0]
             record["header"] = header
             record["columns"] = header.split(";")
-            record["has_temperature_column"] = any("temp" in column.lower() for column in record["columns"])
+            record["has_temperature_column"] = any(
+                "temp" in column.lower() for column in record["columns"]
+            )
             record["cached_path"] = str(station_path.relative_to(ROOT))
     except Exception as error:  # noqa: BLE001
         record["parse_error"] = f"{type(error).__name__}: {error}"
     evidence["station_catalogue_probe"] = record
 
-    evidence["discharge_file_header_probe"] = es_head_probe(discharge_url, "anuario-2021-2022/EBRO/afliq.csv")
+    evidence["discharge_file_header_probe"] = es_head_probe(
+        discharge_url, "anuario-2021-2022/EBRO/afliq.csv"
+    )
 
     temperature_files = [
-        name for name in file_names if any(token in name.lower() for token in ("temp", "term", "calid"))
+        name
+        for name in file_names
+        if any(token in name.lower() for token in ("temp", "term", "calid"))
     ]
     evidence["temperature_like_files"] = temperature_files
     evidence["verdict"] = "infeasible" if not temperature_files else "needs_review"
@@ -1371,21 +1633,41 @@ def es_head_probe(url: str, label: str, *, n_bytes: int = 600) -> dict[str, Any]
     """Read only the first bytes of a large provider file (header evidence)."""
 
     record: dict[str, Any] = {"url": url, "label": label, "retrieved_utc": utc_stamp()}
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Range": f"bytes=0-{n_bytes - 1}"})
+    request = urllib.request.Request(
+        url, headers={"User-Agent": USER_AGENT, "Range": f"bytes=0-{n_bytes - 1}"}
+    )
     try:
         with urllib.request.urlopen(request, timeout=90) as response:
             head = response.read(n_bytes)
-            record.update(status=int(response.status), content_type=response.headers.get("Content-Type"), transport="urllib")
+            record.update(
+                status=int(response.status),
+                content_type=response.headers.get("Content-Type"),
+                transport="urllib",
+            )
     except Exception as error:  # noqa: BLE001 - fall back to curl's byte range
         record["urllib_error"] = f"{type(error).__name__}: {error}"
         command = [
-            "curl", "-sS", "-L", "--max-time", "90", "-A", USER_AGENT, "-r", f"0-{n_bytes - 1}",
-            "-w", "\n%{http_code}", url,
+            "curl",
+            "-sS",
+            "-L",
+            "--max-time",
+            "90",
+            "-A",
+            USER_AGENT,
+            "-r",
+            f"0-{n_bytes - 1}",
+            "-w",
+            "\n%{http_code}",
+            url,
         ]
-        completed = subprocess.run(command, capture_output=True, timeout=120, check=False)
+        completed = subprocess.run(
+            command, capture_output=True, timeout=120, check=False
+        )
         body, _, status_text = completed.stdout.rpartition(b"\n")
         try:
-            record.update(status=int(status_text.strip()), transport="curl", content_type=None)
+            record.update(
+                status=int(status_text.strip()), transport="curl", content_type=None
+            )
         except ValueError:
             record.update(status=None, transport="curl")
             body = completed.stdout
@@ -1393,7 +1675,10 @@ def es_head_probe(url: str, label: str, *, n_bytes: int = 600) -> dict[str, Any]
     first_line = head.decode("utf-8", errors="replace").splitlines()[0] if head else ""
     record["first_line"] = first_line
     record["n_bytes_read"] = len(head)
-    print(f"  head-probe {record.get('status')} {url} -> {str(record.get('first_line'))[:80]}", flush=True)
+    print(
+        f"  head-probe {record.get('status')} {url} -> {str(record.get('first_line'))[:80]}",
+        flush=True,
+    )
     return record
 
 
@@ -1432,9 +1717,16 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         "generated_utc": utc_stamp(),
         "script": "scripts/260_multi_agency_be_es_ingest.py",
         "command": "python3 scripts/260_multi_agency_be_es_ingest.py --provider es",
-        "api": {"base": SAIH_API, "requests_used": [
-            "getTiposSenal", "getEstaciones", "getSenales", "getPeriodo", "obtenerDatosHistoricos",
-        ]},
+        "api": {
+            "base": SAIH_API,
+            "requests_used": [
+                "getTiposSenal",
+                "getEstaciones",
+                "getSenales",
+                "getPeriodo",
+                "obtenerDatosHistoricos",
+            ],
+        },
         "catalogue": {},
         "series": [],
         "licence": {
@@ -1457,14 +1749,20 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
 
     # ---- catalogue: which consolidated signal types exist, and which stations carry water temperature
     tipos_payload, tipos_url = saih_json("getTiposSenal", tipoConsolidado="diario")
-    (raw / "catalogue_getTiposSenal_diario.json").write_bytes(json.dumps(tipos_payload, ensure_ascii=False, indent=1).encode())
+    (raw / "catalogue_getTiposSenal_diario.json").write_bytes(
+        json.dumps(tipos_payload, ensure_ascii=False, indent=1).encode()
+    )
     record["catalogue"]["signal_types_url"] = tipos_url
-    record["catalogue"]["signal_types"] = {item["id"]: item["text"] for item in tipos_payload}
+    record["catalogue"]["signal_types"] = {
+        item["id"]: item["text"] for item in tipos_payload
+    }
     record["catalogue"]["water_temperature_signal_present"] = any(
         item["id"] == "TEMPA" for item in tipos_payload
     )
 
-    stations_payload, stations_url = saih_json("getEstaciones", tipoConsolidado="diario", tiposSenal="TEMPA")
+    stations_payload, stations_url = saih_json(
+        "getEstaciones", tipoConsolidado="diario", tiposSenal="TEMPA"
+    )
     (raw / "catalogue_getEstaciones_diario_TEMPA.json").write_bytes(
         json.dumps(stations_payload, ensure_ascii=False, indent=1).encode()
     )
@@ -1477,7 +1775,11 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         code = match.group("code") if match else str(item.get("id"))
         label = match.group("label").strip() if match else str(item.get("text", ""))
         river_match = SAIH_RIVER_RE.match(label)
-        kind = "river" if river_match else ("reservoir" if label.lower().startswith("embalse") else "other")
+        kind = (
+            "river"
+            if river_match
+            else ("reservoir" if label.lower().startswith("embalse") else "other")
+        )
         entries.append(
             {
                 "station_id": code,
@@ -1497,7 +1799,10 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
             entry["skipped"] = "not a river station (protocol rule 2)"
             continue
         signals, signals_url = saih_json(
-            "getSenales", tipoConsolidado="diario", tiposSenal="TEMPA", estaciones=entry["station_id"]
+            "getSenales",
+            tipoConsolidado="diario",
+            tiposSenal="TEMPA",
+            estaciones=entry["station_id"],
         )
         entry["signals_url"] = signals_url
         entry["signals"] = signals
@@ -1507,25 +1812,28 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         signal_id = str(signals[0]["id"])
         entry["signal_id"] = signal_id
         entry["signal_text"] = signals[0].get("text")
-        period, period_url = saih_json("getPeriodo", tipoConsolidado="diario", senales=signal_id)
+        period, period_url = saih_json(
+            "getPeriodo", tipoConsolidado="diario", senales=signal_id
+        )
         entry["period_url"] = period_url
         entry["period"] = period
-        download_url = (
-            f"{SAIH_API}/obtenerDatosHistoricos?"
-            + urllib.parse.urlencode(
-                {
-                    "tipoConsolidado": "diario",
-                    "senalesSeleccionadas": signal_id,
-                    "fechaIni": "01/01/2000 00:00",
-                    "fechaFin": f"{period_end} 00:00",
-                    "formato": "csv",
-                }
-            )
+        download_url = f"{SAIH_API}/obtenerDatosHistoricos?" + urllib.parse.urlencode(
+            {
+                "tipoConsolidado": "diario",
+                "senalesSeleccionadas": signal_id,
+                "fechaIni": "01/01/2000 00:00",
+                "fechaFin": f"{period_end} 00:00",
+                "formato": "csv",
+            }
         )
         cache = raw / "daily" / f"{entry['station_id']}_{signal_id}_diario.zip"
         fresh = refresh or not cache.exists()
         try:
-            payload = http_bytes(download_url, accept="application/zip") if fresh else cache.read_bytes()
+            payload = (
+                http_bytes(download_url, accept="application/zip")
+                if fresh
+                else cache.read_bytes()
+            )
         except Exception as error:  # noqa: BLE001
             entry["download_error"] = f"{type(error).__name__}: {error}"
             continue
@@ -1533,7 +1841,6 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
             cache.write_bytes(payload)
         entry["download_url"] = download_url
         entry["raw_zip"] = str(cache.relative_to(ROOT))
-        entry["raw_sha256"] = sha256_bytes(payload)
         entry["raw_bytes"] = len(payload)
         entry["served_from_cache"] = not fresh
         text, entry_name = saih_csv_zip(payload)
@@ -1544,7 +1851,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
             {
                 "station_id": entry["station_id"],
                 "river_name": entry["river_name"],
-                "date": pd.to_datetime(parsed["FECHA_GRUPO"], format="%d/%m/%Y", errors="coerce"),
+                "date": pd.to_datetime(
+                    parsed["FECHA_GRUPO"], format="%d/%m/%Y", errors="coerce"
+                ),
                 "daily_mean_degc": pd.to_numeric(parsed["MEDIA (oC)"], errors="coerce"),
                 "daily_min_degc": pd.to_numeric(parsed["MINIMO (oC)"], errors="coerce"),
                 "daily_max_degc": pd.to_numeric(parsed["MAXIMO (oC)"], errors="coerce"),
@@ -1554,12 +1863,17 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         )
         entry["csv_rows"] = int(len(frame))
         frames.append(frame)
-        print(f"  {entry['station_id']} {entry['river_name']}: {len(frame)} daily rows", flush=True)
+        print(
+            f"  {entry['station_id']} {entry['river_name']}: {len(frame)} daily rows",
+            flush=True,
+        )
 
     long = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     if long.empty:
         record["verdict"] = "infeasible"
-        (ES_ROOT / "ingest.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        (ES_ROOT / "ingest.json").write_text(
+            json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
         return record
 
     # ---- QC (same rule as the Belgian provider)
@@ -1568,7 +1882,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
     duplicate_mask = kept.duplicated(subset=["station_id", "date"], keep="last")
     n_duplicates = int(duplicate_mask.sum())
     kept = kept[~duplicate_mask]
-    out_of_range = (kept["daily_mean_degc"] < VALUE_MIN_C) | (kept["daily_mean_degc"] > VALUE_MAX_C)
+    out_of_range = (kept["daily_mean_degc"] < VALUE_MIN_C) | (
+        kept["daily_mean_degc"] > VALUE_MAX_C
+    )
     n_out_of_range = int(out_of_range.sum())
     kept = kept[~out_of_range].copy()
     kept["day_identity_ok"] = kept.apply(
@@ -1590,7 +1906,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         "dropped_duplicate_date": n_duplicates,
         "dropped_out_of_range": n_out_of_range,
         "rows_kept": int(len(kept)),
-        "min_max_within_day_share": float(kept["day_identity_ok"].mean()) if len(kept) else None,
+        "min_max_within_day_share": float(kept["day_identity_ok"].mean())
+        if len(kept)
+        else None,
     }
 
     # ---- per-station table and complete years
@@ -1608,7 +1926,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
                 "station_label": entry["station_label"],
                 "provider": SAIH_PROVIDER,
                 "river_name": entry["river_name"],
-                "watercourse_key": re.sub(r"[^a-z0-9]+", "", entry["river_name"].lower()),
+                "watercourse_key": re.sub(
+                    r"[^a-z0-9]+", "", entry["river_name"].lower()
+                ),
                 "watercourse_class": "river",
                 "latitude": None,
                 "longitude": None,
@@ -1617,7 +1937,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
                 "first_date": series.index.min().date().isoformat(),
                 "last_date": series.index.max().date().isoformat(),
                 "n_days": int(len(series)),
-                "n_dropped_qc": int(len(long[long["station_id"] == station_id]) - len(series)),
+                "n_dropped_qc": int(
+                    len(long[long["station_id"] == station_id]) - len(series)
+                ),
                 "accepted_quality_codes": "(none published; consolidated daily archive)",
                 "measurement_statistic": SAIH_MEASUREMENT_STATISTIC,
                 "quality_assurance": SAIH_QUALITY_ASSURANCE,
@@ -1629,7 +1951,6 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
                 "values_min_degc": float(series.min()),
                 "values_max_degc": float(series.max()),
                 "value_exactly_0c_days": int((series == 0).sum()),
-                "raw_sha256": entry.get("raw_sha256", ""),
                 "raw_bytes": int(entry.get("raw_bytes", 0)),
             }
         )
@@ -1645,7 +1966,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
             continue
         network_id = f"{SAIH_PROVIDER}_{slugify(key)}"
         members = sorted(group["station_id"].astype(str))
-        wide = pd.DataFrame({station: series_by_station[station] for station in members}).sort_index()
+        wide = pd.DataFrame(
+            {station: series_by_station[station] for station in members}
+        ).sort_index()
         wide = wide.reindex(pd.date_range(wide.index.min(), wide.index.max(), freq="D"))
         wide.index.name = "date"
         wide = wide.reset_index()
@@ -1679,7 +2002,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
     if len(basin_eligible) >= MIN_STATIONS_PER_NETWORK:
         network_id = f"{SAIH_PROVIDER}_ebro_basin"
         members = sorted(basin_eligible["station_id"].astype(str))
-        wide = pd.DataFrame({station: series_by_station[station] for station in members}).sort_index()
+        wide = pd.DataFrame(
+            {station: series_by_station[station] for station in members}
+        ).sort_index()
         wide = wide.reindex(pd.date_range(wide.index.min(), wide.index.max(), freq="D"))
         wide.index.name = "date"
         wide = wide.reset_index()
@@ -1709,32 +2034,65 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
             }
         )
 
-    manifest_frame = pd.DataFrame(manifest).sort_values("network_id") if manifest else pd.DataFrame()
+    manifest_frame = (
+        pd.DataFrame(manifest).sort_values("network_id") if manifest else pd.DataFrame()
+    )
     if not manifest_frame.empty:
         manifest_frame.to_csv(ES_ROOT / "networks_manifest.csv", index=False)
 
     stations_all.to_csv(ES_ROOT / "stations_all.csv", index=False)
-    kept_ids = set(manifest_frame["station_ids"].str.split(";").explode()) if not manifest_frame.empty else set()
+    kept_ids = (
+        set(manifest_frame["station_ids"].str.split(";").explode())
+        if not manifest_frame.empty
+        else set()
+    )
     panel = stations_all[stations_all["station_id"].isin(kept_ids)].copy()
     station_to_network = {}
     if not manifest_frame.empty:
         for row in manifest_frame.itertuples(index=False):
             for station in str(row.station_ids).split(";"):
                 station_to_network.setdefault(station, []).append(str(row.network_id))
-    panel["network_id"] = panel["station_id"].map(lambda value: ";".join(station_to_network.get(value, [])))
+    panel["network_id"] = panel["station_id"].map(
+        lambda value: ";".join(station_to_network.get(value, []))
+    )
     station_columns = [
-        "network_id", "station_id", "provider", "river_name", "latitude", "longitude",
-        "n_complete_years", "complete_years", "first_date", "last_date", "n_days", "n_dropped_qc",
-        "accepted_quality_codes", "measurement_statistic", "quality_assurance",
+        "network_id",
+        "station_id",
+        "provider",
+        "river_name",
+        "latitude",
+        "longitude",
+        "n_complete_years",
+        "complete_years",
+        "first_date",
+        "last_date",
+        "n_days",
+        "n_dropped_qc",
+        "accepted_quality_codes",
+        "measurement_statistic",
+        "quality_assurance",
     ]
     extra_columns = [
-        "station_label", "watercourse_key", "watercourse_class", "signal_id", "available_period",
-        "longest_identical_run_days", "longest_identical_run_start", "longest_identical_run_end",
-        "values_min_degc", "values_max_degc", "value_exactly_0c_days", "raw_sha256", "raw_bytes",
+        "station_label",
+        "watercourse_key",
+        "watercourse_class",
+        "signal_id",
+        "available_period",
+        "longest_identical_run_days",
+        "longest_identical_run_start",
+        "longest_identical_run_end",
+        "values_min_degc",
+        "values_max_degc",
+        "value_exactly_0c_days",
+        "raw_bytes",
     ]
-    panel = panel[station_columns + extra_columns].sort_values(["network_id", "station_id"])
+    panel = panel[station_columns + extra_columns].sort_values(
+        ["network_id", "station_id"]
+    )
     panel.to_csv(ES_ROOT / "stations.csv", index=False)
-    kept.sort_values(["station_id", "date"]).to_csv(ES_ROOT / "daily_long_qc.csv.gz", index=False, compression="gzip")
+    kept.sort_values(["station_id", "date"]).to_csv(
+        ES_ROOT / "daily_long_qc.csv.gz", index=False, compression="gzip"
+    )
 
     record["series"] = entries
     record["stations_in_panel"] = int(len(panel))
@@ -1743,7 +2101,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         "river_stations_with_daily_water_temperature": int(len(stations_all)),
         "river_stations_ge4_complete_years": int(len(eligible)),
         "networks_emitted": int(len(manifest_frame)),
-        "complete_station_years_in_panel": int(panel["n_complete_years"].sum()) if len(panel) else 0,
+        "complete_station_years_in_panel": int(panel["n_complete_years"].sum())
+        if len(panel)
+        else 0,
     }
     record["caveats"] = [
         "Only three SAIH Ebro river stations publish a consolidated daily water-temperature signal (A017 Rio Cinca en Fraga, A027 Rio Ebro en Tortosa, A263 Rio Ebro en Gelsa); a fourth TEMPA station is a reservoir (E104 Embalse de Nagore) and is dropped by protocol rule 2.",
@@ -1754,7 +2114,9 @@ def run_es_saih(refresh: bool) -> dict[str, Any]:
         SAIH_QUALITY_NOTE,
         "No frozen-screen endpoint, retention, model or score is computed by this script (ingest and QC only).",
     ]
-    (ES_ROOT / "ingest.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (ES_ROOT / "ingest.json").write_text(
+        json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     print(
         f"  ES stations={record['final_counts']['river_stations_ge4_complete_years']} "
         f"networks={record['final_counts']['networks_emitted']}",
@@ -1790,7 +2152,7 @@ def write_es_readme(cedex: dict[str, Any], spain: dict[str, Any]) -> None:
         f"- complete station-years in the emitted panel: "
         f"{spain.get('final_counts', {}).get('complete_station_years_in_panel')}",
         "",
-        "## Caveats the coordinator must read before sealing",
+        "## Caveats the coordinator must read before using this panel",
         "",
     ]
     lines += [f"- {caveat}" for caveat in spain.get("caveats", [])]
@@ -1806,20 +2168,29 @@ def write_es_readme(cedex: dict[str, Any], spain: dict[str, Any]) -> None:
     (ES_ROOT / "README.md").write_text("\n".join(lines), encoding="utf-8")
 
 
-
 def write_es_infeasible(evidence: dict[str, Any]) -> None:
     lines: list[str] = []
     add = lines.append
-    add("# ROEA / CEDEX *Anuario de Aforos* (Spain) \u2014 INFEASIBLE for the daily transport panel")
+    add(
+        "# ROEA / CEDEX *Anuario de Aforos* (Spain) \u2014 INFEASIBLE for the daily transport panel"
+    )
     add("")
     add(f"Verdict: **{evidence['verdict']}**. Retrieved {evidence['generated_utc']} by")
     add("`scripts/260_multi_agency_be_es_ingest.py`")
     add("(`python3 scripts/260_multi_agency_be_es_ingest.py --provider es`).")
     add("")
-    add("The transport protocol needs a **daily river water-temperature** series in \u00b0C with a")
-    add("provider statistic (`MULTI_AGENCY_TRANSPORT_PROTOCOL.md` rules 2\u20133). The Spanish")
-    add("national aforo archive publishes **discharge, reservoir, canal, evaporation and")
-    add("water-quality-sampling** tables, but no water-temperature series. No network is emitted;")
+    add(
+        "The transport protocol needs a **daily river water-temperature** series in \u00b0C with a"
+    )
+    add(
+        "provider statistic (`MULTI_AGENCY_TRANSPORT_PROTOCOL.md` rules 2\u20133). The Spanish"
+    )
+    add(
+        "national aforo archive publishes **discharge, reservoir, canal, evaporation and"
+    )
+    add(
+        "water-quality-sampling** tables, but no water-temperature series. No network is emitted;"
+    )
     add("nothing was scored.")
     add("")
     add("## 1. Endpoint probe (HTTP evidence)")
@@ -1832,7 +2203,11 @@ def write_es_infeasible(evidence: dict[str, Any]) -> None:
             continue  # reported separately below with its own transport record
         status = record.get("status")
         if status in (200,) or (isinstance(status, int) and 400 <= status < 500):
-            sample = (record.get("sample") or "").strip().splitlines()[0] if record.get("sample") else ""
+            sample = (
+                (record.get("sample") or "").strip().splitlines()[0]
+                if record.get("sample")
+                else ""
+            )
             note = sample[:80].replace("|", "/")
         else:
             note = str(record.get("error") or "")[:80].replace("|", "/")
@@ -1847,26 +2222,48 @@ def write_es_infeasible(evidence: dict[str, Any]) -> None:
         f"(HTTP {root.get('status')}, {root.get('bytes')} bytes, transport {root.get('transport')})."
     )
     add("")
-    add("No data API is exposed. Under `/anuarioaforos/` the `api/` and `datos/` paths answer 403, and")
-    add("`/roea/` and `/roea/api/estaciones` both return the CHE portal landing page (HTTP 200,")
-    add("byte-identical 4,580-byte soft 404) rather than data. The site serves an ASP/HTML download")
-    add("tree plus per-demarcaci\u00f3n CSV packages. Python's OpenSSL cannot complete the TLS handshake")
-    add("with `ceh.cedex.es` (`SSL: UNEXPECTED_EOF_WHILE_READING`); those probes were repeated with the")
-    add("system `curl`, and the transport column records which client produced each answer.")
+    add(
+        "No data API is exposed. Under `/anuarioaforos/` the `api/` and `datos/` paths answer 403, and"
+    )
+    add(
+        "`/roea/` and `/roea/api/estaciones` both return the CHE portal landing page (HTTP 200,"
+    )
+    add(
+        "byte-identical 4,580-byte soft 404) rather than data. The site serves an ASP/HTML download"
+    )
+    add(
+        "tree plus per-demarcaci\u00f3n CSV packages. Python's OpenSSL cannot complete the TLS handshake"
+    )
+    add(
+        "with `ceh.cedex.es` (`SSL: UNEXPECTED_EOF_WHILE_READING`); those probes were repeated with the"
+    )
+    add(
+        "system `curl`, and the transport column records which client produced each answer."
+    )
     add("")
     add("## 2. Published data files (variable census)")
     add("")
-    add("Distinct file names found on the per-demarcaci\u00f3n download pages (`<DEMARCACION>_csv.asp`):")
+    add(
+        "Distinct file names found on the per-demarcaci\u00f3n download pages (`<DEMARCACION>_csv.asp`):"
+    )
     add("")
     add("| file | demarcaciones publishing it |")
     add("|---|---|")
     for name, count in sorted(evidence["file_name_census"].items()):
         add(f"| `{name}` | {count} |")
     add("")
-    add("File families (Anuario de Aforos 2021-2022 edition): `afliq*` aforos l\u00edquidos")
-    add("(discharge measurements), `mensual_*`/`anual_*`/`estadis_*` monthly/annual statistics,")
-    add("`embalse`/`canal`/`evap` reservoir, canal and evaporation tables, `estaf`/`estev` station")
-    add("catalogues, `gr_cuenca`/`hojas50`/`muni`/`prov` geography. **No temperature table exists.**")
+    add(
+        "File families (Anuario de Aforos 2021-2022 edition): `afliq*` aforos l\u00edquidos"
+    )
+    add(
+        "(discharge measurements), `mensual_*`/`anual_*`/`estadis_*` monthly/annual statistics,"
+    )
+    add(
+        "`embalse`/`canal`/`evap` reservoir, canal and evaporation tables, `estaf`/`estev` station"
+    )
+    add(
+        "catalogues, `gr_cuenca`/`hojas50`/`muni`/`prov` geography. **No temperature table exists.**"
+    )
     add("")
     temperature_like = evidence.get("temperature_like_files") or []
     add(f"File names matching temp/term/calid: `{temperature_like}`")
@@ -1875,7 +2272,9 @@ def write_es_infeasible(evidence: dict[str, Any]) -> None:
     add("")
     station = evidence.get("station_catalogue_probe") or {}
     if station.get("columns"):
-        add(f"`{station_url_label(station)}` (HTTP {station.get('status')}, {station.get('bytes')} bytes):")
+        add(
+            f"`{station_url_label(station)}` (HTTP {station.get('status')}, {station.get('bytes')} bytes):"
+        )
         add("")
         add("```")
         add(str(station.get("header")))
@@ -1887,12 +2286,24 @@ def write_es_infeasible(evidence: dict[str, Any]) -> None:
     add("")
     add("## 4. The Spanish series that do exist (found instead)")
     add("")
-    add("Spanish river water temperature is published by the per-confederaci\u00f3n SAIH telemetry")
-    add("systems, not by CEDEX. The only reachable operator with a **provider daily** water")
-    add("temperature statistic is SAIH Ebro (Confederaci\u00f3n Hidrogr\u00e1fica del Ebro):")
-    add("`https://www.saihebro.com/api/datos-historicos` with `tipoConsolidado=diario`,")
-    add("`tiposSenal=TEMPA` and a daily CSV column `MEDIA (oC)`. Its coverage is small and is")
-    add("reported in this directory's `README.md`, `stations.csv` and `ingest.json` (provider")
+    add(
+        "Spanish river water temperature is published by the per-confederaci\u00f3n SAIH telemetry"
+    )
+    add(
+        "systems, not by CEDEX. The only reachable operator with a **provider daily** water"
+    )
+    add(
+        "temperature statistic is SAIH Ebro (Confederaci\u00f3n Hidrogr\u00e1fica del Ebro):"
+    )
+    add(
+        "`https://www.saihebro.com/api/datos-historicos` with `tipoConsolidado=diario`,"
+    )
+    add(
+        "`tiposSenal=TEMPA` and a daily CSV column `MEDIA (oC)`. Its coverage is small and is"
+    )
+    add(
+        "reported in this directory's `README.md`, `stations.csv` and `ingest.json` (provider"
+    )
     add("column `saih_ebro`). CEDEX/ROEA itself contributes nothing.")
     add("")
     add("## 5. Reproduction")
@@ -1901,7 +2312,9 @@ def write_es_infeasible(evidence: dict[str, Any]) -> None:
     add("python3 scripts/260_multi_agency_be_es_ingest.py --provider es")
     add("```")
     add("")
-    add("Raw evidence: `results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/evidence.json`")
+    add(
+        "Raw evidence: `results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/evidence.json`"
+    )
     add("and the cached listing HTML files in the same directory.")
     add("")
     (ES_ROOT / "INFEASIBLE.md").write_text("\n".join(lines), encoding="utf-8")
@@ -1919,7 +2332,11 @@ def station_url_label(record: dict[str, Any]) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--provider", choices=["be", "es", "both"], default="both")
-    parser.add_argument("--refresh", action="store_true", help="re-download even when a raw cache exists")
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="re-download even when a raw cache exists",
+    )
     parser.add_argument(
         "--report-only",
         action="store_true",
@@ -1933,11 +2350,15 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.report_only:
-        evidence = json.loads((ES_ROOT / "raw_cache" / "evidence.json").read_text(encoding="utf-8"))
+        evidence = json.loads(
+            (ES_ROOT / "raw_cache" / "evidence.json").read_text(encoding="utf-8")
+        )
         spain = json.loads((ES_ROOT / "ingest.json").read_text(encoding="utf-8"))
         write_es_infeasible(evidence)
         write_es_readme(evidence, spain)
-        print("rewrote roea_es/INFEASIBLE.md and roea_es/README.md from the cached evidence")
+        print(
+            "rewrote roea_es/INFEASIBLE.md and roea_es/README.md from the cached evidence"
+        )
         return 0
     if args.provider in ("be", "both"):
         run_be(args.refresh, offline=args.offline)

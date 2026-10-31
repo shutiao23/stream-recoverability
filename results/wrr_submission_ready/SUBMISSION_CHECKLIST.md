@@ -6,12 +6,12 @@
 - [x] Repo-wide prior-access audits: sealed USGS panel corrected
       (`AMENDMENT_prior_access_sealed_panel.md`) and all 291 transport stations
       never used (`prior_access_audit_multi_agency.csv`)
-- [x] Input hashes for 146 study networks (`current_data_manifest.csv`, 0 missing)
+- [x] Input manifest for 146 study networks (`current_data_manifest.csv`, 0 missing)
 - [x] Measurement provenance dictionary and per-network acquisition routes;
       CHMI/RWS/SYKE/ARSO/SMHI stratified, LUBW redistribution restriction recorded
 - [x] Reviewer access route and frozen input bundle
       (`docs/reviews/wrr_input_access_route.md`, `scripts/262`)
-- [x] Run identity / preflight / fail-closed runs / generation hash guard
+- [x] Run identity / preflight / fail-closed runs
 - [x] F02/F03/F11/F12 code fixes recomputed with pre-fix bytes preserved
 - [x] Certificate.predict on real incomplete years, invariance-tested
 - [x] Method freeze (`P0_06_method_freeze.json`)

@@ -60,7 +60,7 @@
     "usgs_confirm_7090",
     "usgs_confirm_9030"
   ],
-  "note": "Merged USGS batch1+2 provisional HUC4 networks with audited complete years. Still need seal hashes + climate diversity check + single unseal score.",
+  "note": "Merged USGS batch1+2 provisional HUC4 networks with audited complete years. Still need the seal + climate diversity check + single unseal score.",
   "ingest_roots": [
     "results/wrr_submission_ready/confirmation_ingest/usgs_batch1",
     "results/wrr_submission_ready/confirmation_ingest/usgs_batch2"

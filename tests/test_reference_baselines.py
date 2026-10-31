@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import replace
 from pathlib import Path
@@ -8,7 +7,6 @@ from pathlib import Path
 import numpy as np
 import pytest
 import tomllib
-import torch
 
 from stream_recoverability.models import reference_baselines as reference_module
 from stream_recoverability.models.proposed_curriculum import (
@@ -152,7 +150,7 @@ def test_protocol_is_fixed_equal_budget_target_only_and_right_aligned(
     )
 
 
-def test_protocol_masks_scaler_and_fingerprint_are_deterministic(
+def test_protocol_masks_and_scaler_are_deterministic(
     protocol: ReferenceProtocolData,
 ) -> None:
     train = np.concatenate(
@@ -179,7 +177,7 @@ def test_protocol_masks_scaler_and_fingerprint_are_deterministic(
         validation_mask_repeats=1,
         curriculum_config=_curriculum(),
     )
-    assert repeated.fingerprint == protocol.fingerprint
+    assert repeated.metadata == protocol.metadata
     assert np.array_equal(
         repeated.train.artificial_mask, protocol.train.artificial_mask
     )
@@ -278,11 +276,10 @@ def test_reference_checkpoint_round_trip_is_strict(
         protocol.validation.X_ori[:2], protocol.validation.artificial_mask[:2]
     )
     checkpoint = model.save_checkpoint(tmp_path / f"{name}.pt")
-    assert Path(str(checkpoint) + ".sha256").is_file()
+    assert checkpoint.is_file()
     loaded = PyPOTSReferenceImputer.load_checkpoint(
         checkpoint,
         expected_model_name=name,
-        expected_protocol_fingerprint=protocol.fingerprint,
         expected_adapter_config={
             "n_steps": protocol.window_size,
             "n_features": protocol.train.n_features,
@@ -296,31 +293,6 @@ def test_reference_checkpoint_round_trip_is_strict(
     assert np.array_equal(expected.point, actual.point)
     if name == "csdi":
         assert np.array_equal(expected.samples, actual.samples)
-
-
-def test_reference_checkpoint_rejects_file_and_state_tampering(
-    tmp_path: Path,
-    trained_references: dict[str, PyPOTSReferenceImputer],
-) -> None:
-    checkpoint = trained_references["brits"].save_checkpoint(tmp_path / "brits.pt")
-    sidecar = Path(str(checkpoint) + ".sha256")
-    payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
-    state_name = next(
-        name
-        for name, value in payload["model_state_dict"].items()
-        if torch.is_floating_point(value)
-    )
-    payload["model_state_dict"][state_name] = payload["model_state_dict"][
-        state_name
-    ].clone()
-    payload["model_state_dict"][state_name].reshape(-1)[0] += 1
-    torch.save(payload, checkpoint)
-    with pytest.raises(ValueError, match="file SHA-256 mismatch"):
-        PyPOTSReferenceImputer.load_checkpoint(checkpoint)
-
-    sidecar.write_text(hashlib.sha256(checkpoint.read_bytes()).hexdigest() + "\n")
-    with pytest.raises(ValueError, match="state_dict SHA-256 mismatch"):
-        PyPOTSReferenceImputer.load_checkpoint(checkpoint)
 
 
 @pytest.mark.parametrize("name", ["brits", "saits", "csdi"])

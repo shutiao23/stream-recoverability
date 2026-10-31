@@ -11,13 +11,13 @@ population.
 
 Read-only with respect to every existing artifact: the panel
 (``results/v18_closure/e2_archive_deployment/``), the gap table
-(``results/v18_closure/e1_outage_seasonality/real_gaps.parquet``) and the sealed
+(``results/v18_closure/e1_outage_seasonality/real_gaps.parquet``) and the P0-07
 confirmation directory are never written. New outputs go to
 ``results/wrr_submission_ready/amendments/outage_causes/``.
 
 Raw provider responses are cached verbatim under that directory's
-``raw_cache/`` with a SHA-256 per file, so every number below is re-derivable
-without touching the network.
+``raw_cache/`` (each file listed with its request URL in ``raw_cache/manifest.csv``),
+so every number below is re-derivable without touching the network.
 
 Usage
 -----
@@ -29,7 +29,6 @@ Usage
 from __future__ import annotations
 
 import argparse
-import hashlib
 import io
 import json
 import re
@@ -51,14 +50,30 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-OUT_DIR = REPO_ROOT / "results" / "wrr_submission_ready" / "amendments" / "outage_causes"
+OUT_DIR = (
+    REPO_ROOT / "results" / "wrr_submission_ready" / "amendments" / "outage_causes"
+)
 RAW_CACHE = OUT_DIR / "raw_cache"
 
-PANEL = REPO_ROOT / "results" / "v18_closure" / "e2_archive_deployment" / "incomplete_years_scored.parquet"
-REAL_GAPS = REPO_ROOT / "results" / "v18_closure" / "e1_outage_seasonality" / "real_gaps.parquet"
+PANEL = (
+    REPO_ROOT
+    / "results"
+    / "v18_closure"
+    / "e2_archive_deployment"
+    / "incomplete_years_scored.parquet"
+)
+REAL_GAPS = (
+    REPO_ROOT
+    / "results"
+    / "v18_closure"
+    / "e1_outage_seasonality"
+    / "real_gaps.parquet"
+)
 
 DV_URL = "https://waterservices.usgs.gov/nwis/dv/"
-TSM_URL = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+TSM_URL = (
+    "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+)
 SITE_URL = "https://waterservices.usgs.gov/nwis/site/"
 PARAMETER_CODE = "00010"
 STATISTIC_CODE = "00003"
@@ -69,14 +84,30 @@ USER_AGENT = (
 
 # Gap length classes follow the classes the manuscript already reports
 # (results/v18_closure/e1_outage_seasonality/start_month_by_length_class.csv).
-LENGTH_CLASSES = [(1, 7, "1-7 d"), (8, 29, "8-29 d"), (30, 89, "30-89 d"), (90, 10**6, "90+ d")]
+LENGTH_CLASSES = [
+    (1, 7, "1-7 d"),
+    (8, 29, "8-29 d"),
+    (30, 89, "30-89 d"),
+    (90, 10**6, "90+ d"),
+]
 LENGTH_LABELS = [label for _, _, label in LENGTH_CLASSES]
 
 # Cause-naming words that NWIS remark vocabularies use. This list is used ONLY
 # to *detect* such codes in what USGS actually returned; nothing here asserts a
 # definition, and any code that is not observed in the retrieval is reported as
 # zero-observed with no meaning attached. See cause_codebook.md.
-REMARK_CODE_WORDS = ("Mnt", "Eqp", "Ice", "Dis", "Ssn", "***", "Rat", "Fld", "Dry", "Bkw")
+REMARK_CODE_WORDS = (
+    "Mnt",
+    "Eqp",
+    "Ice",
+    "Dis",
+    "Ssn",
+    "***",
+    "Rat",
+    "Fld",
+    "Dry",
+    "Bkw",
+)
 
 # The paper's two decision rules that admission is measured against.
 JOHNSON_UNFILLED_DAYS = 49
@@ -85,6 +116,7 @@ MAX_PEAK_HIDDEN_FOR_ADMISSION = 0.10
 
 # --------------------------------------------------------------------------- IO
 
+
 def _http_get(url: str, timeout: int = 180, retries: int = 4) -> str:
     last: Exception | None = None
     for attempt in range(retries):
@@ -92,14 +124,14 @@ def _http_get(url: str, timeout: int = 180, retries: int = 4) -> str:
             request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 return response.read().decode("utf-8", errors="replace")
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as error:  # pragma: no cover
+        except (
+            urllib.error.URLError,
+            urllib.error.HTTPError,
+            TimeoutError,
+        ) as error:  # pragma: no cover
             last = error
             time.sleep(1.5 * (attempt + 1))
     raise RuntimeError(f"failed: {url}: {last}")
-
-
-def _sha256(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 @dataclass
@@ -139,9 +171,10 @@ class Fetcher:
                 "file": name,
                 "url": url,
                 "bytes": len(text.encode("utf-8")),
-                "sha256": _sha256(text),
                 "from_cache": cached,
-                "retrieved_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "retrieved_utc": datetime.now(timezone.utc).strftime(
+                    "%Y-%m-%dT%H:%M:%SZ"
+                ),
             }
         )
         return text
@@ -181,9 +214,13 @@ def parse_rdb_header(text: str) -> dict:
         if stripped == _GRADE_MARKER:
             block = grades
             continue
-        if re.match(r"^#?\s*(TS_ID|Data provided for site|Data for the following)", body):
+        if re.match(
+            r"^#?\s*(TS_ID|Data provided for site|Data for the following)", body
+        ):
             block = None
-        if stripped.startswith("Data for the following") or stripped.startswith("USGS "):
+        if stripped.startswith("Data for the following") or stripped.startswith(
+            "USGS "
+        ):
             if stripped.startswith("USGS "):
                 banner.append(stripped)
         match = re.match(r"^\s{2,}(\S+)\s{2,}(.+)$", body)
@@ -219,11 +256,14 @@ def parse_rdb_records(text: str) -> pd.DataFrame:
     lines = [line for line in text.splitlines() if line and not line.startswith("#")]
     if len(lines) < 3:
         return pd.DataFrame(columns=["date", "ts_id", "value", "code_raw"])
-    frame = pd.read_csv(io.StringIO("\n".join([lines[0], *lines[2:]])), sep="\t", dtype=str)
+    frame = pd.read_csv(
+        io.StringIO("\n".join([lines[0], *lines[2:]])), sep="\t", dtype=str
+    )
     value_columns = [
         column
         for column in frame.columns
-        if column not in ("agency_cd", "site_no", "datetime") and not column.endswith("_cd")
+        if column not in ("agency_cd", "site_no", "datetime")
+        and not column.endswith("_cd")
     ]
     records = []
     for value_column in value_columns:
@@ -231,10 +271,14 @@ def parse_rdb_records(text: str) -> pd.DataFrame:
         code_column = f"{value_column}_cd"
         block = pd.DataFrame(
             {
-                "date": pd.to_datetime(frame["datetime"], errors="coerce").dt.normalize(),
+                "date": pd.to_datetime(
+                    frame["datetime"], errors="coerce"
+                ).dt.normalize(),
                 "ts_id": ts_id,
                 "value": pd.to_numeric(frame[value_column], errors="coerce"),
-                "code_raw": frame[code_column] if code_column in frame.columns else pd.NA,
+                "code_raw": frame[code_column]
+                if code_column in frame.columns
+                else pd.NA,
             }
         )
         records.append(block)
@@ -262,6 +306,7 @@ def split_code(raw: str) -> tuple[str, list[str], list[str]]:
 
 
 # --------------------------------------------------------------- peak windows
+
 
 def usgs_station_jobs() -> dict[str, "object"]:
     """StationJob for every USGS station in the pane, keyed by station id."""
@@ -307,7 +352,10 @@ def station_peak_windows(station_ids: list[str]) -> dict[str, np.ndarray]:
 
 # ------------------------------------------------------------------- fetching
 
-def fetch_station_dv(station_id: str, first_year: int, last_year: int, fetcher: Fetcher) -> str:
+
+def fetch_station_dv(
+    station_id: str, first_year: int, last_year: int, fetcher: Fetcher
+) -> str:
     query = urllib.parse.urlencode(
         {
             "format": "rdb",
@@ -318,10 +366,14 @@ def fetch_station_dv(station_id: str, first_year: int, last_year: int, fetcher: 
             "endDT": f"{last_year}-12-31",
         }
     )
-    return fetcher.get(DV_URL + "?" + query, f"dv_{station_id}_{first_year}_{last_year}.rdb")
+    return fetcher.get(
+        DV_URL + "?" + query, f"dv_{station_id}_{first_year}_{last_year}.rdb"
+    )
 
 
-def fetch_station_dv_all_statistics(station_id: str, first_year: int, last_year: int, fetcher: Fetcher) -> str:
+def fetch_station_dv_all_statistics(
+    station_id: str, first_year: int, last_year: int, fetcher: Fetcher
+) -> str:
     """All 00010 daily statistics, so a missing mean is not mistaken for a missing site."""
 
     query = urllib.parse.urlencode(
@@ -333,7 +385,9 @@ def fetch_station_dv_all_statistics(station_id: str, first_year: int, last_year:
             "endDT": f"{last_year}-12-31",
         }
     )
-    return fetcher.get(DV_URL + "?" + query, f"dvall_{station_id}_{first_year}_{last_year}.rdb")
+    return fetcher.get(
+        DV_URL + "?" + query, f"dvall_{station_id}_{first_year}_{last_year}.rdb"
+    )
 
 
 def fetch_station_series_catalog(station_id: str, fetcher: Fetcher) -> str:
@@ -357,7 +411,9 @@ def parse_series_catalog(text: str) -> list[tuple[date, date, str, str]]:
     if len(lines) < 3:
         return []
     try:
-        frame = pd.read_csv(io.StringIO("\n".join([lines[0], *lines[2:]])), sep="\t", dtype=str)
+        frame = pd.read_csv(
+            io.StringIO("\n".join([lines[0], *lines[2:]])), sep="\t", dtype=str
+        )
     except Exception:  # pragma: no cover
         return []
     if "data_type_cd" not in frame.columns:
@@ -372,7 +428,14 @@ def parse_series_catalog(text: str) -> list[tuple[date, date, str, str]]:
             end = datetime.fromisoformat(str(getattr(row, "end_date"))).date()
         except ValueError:
             continue
-        out.append((begin, end, str(getattr(row, "stat_cd", "")), str(getattr(row, "ts_id", ""))))
+        out.append(
+            (
+                begin,
+                end,
+                str(getattr(row, "stat_cd", "")),
+                str(getattr(row, "ts_id", "")),
+            )
+        )
     return out
 
 
@@ -416,6 +479,7 @@ def parse_series_coverage(text: str) -> list[tuple[date, date, str]]:
 
 
 # ------------------------------------------------------------------ main table
+
 
 def length_class(length: int) -> str:
     for low, high, label in LENGTH_CLASSES:
@@ -493,7 +557,9 @@ def classify_days(
         "n_days": n,
         "n_target_statistic_days": mean_days,
         "n_other_statistic_days": other_stat_days,
-        "other_statistic_day_share": round(other_stat_days / n, 4) if n else float("nan"),
+        "other_statistic_day_share": round(other_stat_days / n, 4)
+        if n
+        else float("nan"),
         "n_provider_record_days": mean_days + other_stat_days,
         "n_inside_declared_coverage_days": inside_mean_coverage_days,
         "n_cause_code_days": cause_code_days,
@@ -502,7 +568,9 @@ def classify_days(
         "other_statistics_seen": ";".join(
             f"{label} (n={count})" for label, count in sorted(other_statistics.items())
         ),
-        "provider_code_mix": ";".join(f"{code}:{count}" for code, count in sorted(code_mix.items())),
+        "provider_code_mix": ";".join(
+            f"{code}:{count}" for code, count in sorted(code_mix.items())
+        ),
     }
 
 
@@ -538,10 +606,15 @@ def build(args: argparse.Namespace) -> dict:
     for (station_id, _), days in year_days.items():
         population_days[station_id] |= days
 
-    print(f"[261] USGS stations: {len(stations)}; gaps in scope: {len(gaps)}", flush=True)
+    print(
+        f"[261] USGS stations: {len(stations)}; gaps in scope: {len(gaps)}", flush=True
+    )
 
     def work(station_id: str) -> dict:
-        first, last = int(spans.loc[station_id, "min"]), int(spans.loc[station_id, "max"])
+        first, last = (
+            int(spans.loc[station_id, "min"]),
+            int(spans.loc[station_id, "max"]),
+        )
         try:
             rdb = fetch_station_dv(station_id, first, last, fetcher)
         except Exception as error:  # pragma: no cover
@@ -570,12 +643,20 @@ def build(args: argparse.Namespace) -> dict:
         ]  # the metadata query already filters to 00010/00003
         # Declared coverage is taken from the series catalog (all statistics), and
         # the target-statistic coverage is the 00003 subset of it.
-        records_by_date: dict[date, list[tuple[str, float | None, str]]] = defaultdict(list)
+        records_by_date: dict[date, list[tuple[str, float | None, str]]] = defaultdict(
+            list
+        )
         for row in records.itertuples(index=False):
-            records_by_date[row.date.date()].append((row.ts_id, row.value, row.code_raw))
-        any_stat_by_date: dict[date, list[tuple[str, float | None, str]]] = defaultdict(list)
+            records_by_date[row.date.date()].append(
+                (row.ts_id, row.value, row.code_raw)
+            )
+        any_stat_by_date: dict[date, list[tuple[str, float | None, str]]] = defaultdict(
+            list
+        )
         for row in all_records.itertuples(index=False):
-            any_stat_by_date[row.date.date()].append((row.ts_id, row.value, row.code_raw))
+            any_stat_by_date[row.date.date()].append(
+                (row.ts_id, row.value, row.code_raw)
+            )
         return {
             "station_id": station_id,
             "header": header,
@@ -677,7 +758,9 @@ def build(args: argparse.Namespace) -> dict:
                 "n_provider_records": int(len(block)),
                 "n_records_with_value": int(block["value"].notna().sum()),
                 **{f"code_{code}": int(count) for code, count in counts.items()},
-                **{f"grade_{grade}": int(count) for grade, count in grade_local.items()},
+                **{
+                    f"grade_{grade}": int(count) for grade, count in grade_local.items()
+                },
             }
         )
 
@@ -685,7 +768,10 @@ def build(args: argparse.Namespace) -> dict:
     windows = station_peak_windows(stations)
     incomplete_lookup = usgs.set_index(["station_id", "year"])
     network_of = (
-        usgs.drop_duplicates("station_id").set_index("station_id")["network_id"].astype(str).to_dict()
+        usgs.drop_duplicates("station_id")
+        .set_index("station_id")["network_id"]
+        .astype(str)
+        .to_dict()
     )
 
     n_gaps_outside_population = 0
@@ -723,7 +809,11 @@ def build(args: argparse.Namespace) -> dict:
             peak_overlap = np.nan
         else:
             peak_set = {int(doy) for doy in peak_doys}
-            hidden_doys = {day.timetuple().tm_yday for day in days if day.timetuple().tm_yday in peak_set}
+            hidden_doys = {
+                day.timetuple().tm_yday
+                for day in days
+                if day.timetuple().tm_yday in peak_set
+            }
             peak_overlap = float(len(hidden_doys) / len(peak_set))
         year = start.year
         try:
@@ -742,7 +832,9 @@ def build(args: argparse.Namespace) -> dict:
                 "peak_overlap": peak_overlap,
                 "overlaps_peak_window": bool(np.nan_to_num(peak_overlap, nan=0.0) > 0),
                 "station_year_admitted_by_length_rule": (
-                    bool(year_row["longest_run"] <= JOHNSON_UNFILLED_DAYS) if year_row is not None else False
+                    bool(year_row["longest_run"] <= JOHNSON_UNFILLED_DAYS)
+                    if year_row is not None
+                    else False
                 ),
                 "station_year_admitted_by_peak_rule": (
                     bool(year_row["peak_overlap"] <= MAX_PEAK_HIDDEN_FOR_ADMISSION)
@@ -754,13 +846,19 @@ def build(args: argparse.Namespace) -> dict:
         )
         for day in days:
             rows = payload["records_by_date"].get(day, [])
-            valued = [row for row in rows if row[1] is not None and not np.isnan(row[1])]
+            valued = [
+                row for row in rows if row[1] is not None and not np.isnan(row[1])
+            ]
             other_rows = payload["any_stat_by_date"].get(day, [])
             other_valued = [
                 row for row in other_rows if row[1] is not None and not np.isnan(row[1])
             ]
-            base_codes = sorted({split_code(row[2])[0] for row in rows if split_code(row[2])[0]})
-            token_codes = sorted({token for row in rows for token in split_code(row[2])[1]})
+            base_codes = sorted(
+                {split_code(row[2])[0] for row in rows if split_code(row[2])[0]}
+            )
+            token_codes = sorted(
+                {token for row in rows for token in split_code(row[2])[1]}
+            )
             grade_codes = sorted({g for row in rows for g in split_code(row[2])[2]})
             covered = any(
                 begin <= day <= end for begin, end, _, _ in payload["mean_coverage"]
@@ -819,7 +917,9 @@ def build(args: argparse.Namespace) -> dict:
     partial = {
         "n_provider_records_all_retrieved": int(sum(code_counts.values())),
         "n_records_graded_incomplete_or_partial_all": int(grade_counts.get("4", 0)),
-        "n_provider_records_in_population": int(observed_frame["n_provider_records"].sum())
+        "n_provider_records_in_population": int(
+            observed_frame["n_provider_records"].sum()
+        )
         if not observed_frame.empty
         else 0,
         "n_records_graded_incomplete_or_partial_in_population": int(
@@ -855,16 +955,30 @@ def build(args: argparse.Namespace) -> dict:
 
     summary = {
         "stations_requested": len(stations),
-        "stations_with_response": int(sum(1 for p in results.values() if "error" not in p)),
+        "stations_with_response": int(
+            sum(1 for p in results.values() if "error" not in p)
+        ),
         "stations_with_series_metadata": int(
-            sum(1 for p in results.values() if "error" not in p and p.get("metadata_mean_span"))
+            sum(
+                1
+                for p in results.values()
+                if "error" not in p and p.get("metadata_mean_span")
+            )
         ),
         "stations_without_declared_coverage": int(
-            sum(1 for p in results.values() if "error" not in p and not p.get("coverage"))
+            sum(
+                1
+                for p in results.values()
+                if "error" not in p and not p.get("coverage")
+            )
         ),
         "metadata_cross_check": cross_check_metadata(results),
         "series_metadata_errors": sorted(
-            {p.get("metadata_error", "") for p in results.values() if p.get("metadata_error")}
+            {
+                p.get("metadata_error", "")
+                for p in results.values()
+                if p.get("metadata_error")
+            }
         )[:5],
         "n_gaps": int(len(gap_frame)),
         "n_missing_days": int(len(day_frame)),
@@ -877,8 +991,12 @@ def build(args: argparse.Namespace) -> dict:
         "grade_definitions": grade_definitions,
         "n_series_metadata_rows": len(series_inventory),
         "n_series_descriptions_rows": int(len(catalog_frames)),
-        "series_descriptions_observed": sorted({row["description"] for row in catalog_frames}),
-        "catalog_statistic_codes": sorted({key.split("|")[0] for key in catalog_statistics}),
+        "series_descriptions_observed": sorted(
+            {row["description"] for row in catalog_frames}
+        ),
+        "catalog_statistic_codes": sorted(
+            {key.split("|")[0] for key in catalog_statistics}
+        ),
         "retrieval_stamps": sorted(retrieval_stamps),
         "subsampled": bool(args.limit),
         "subsample_note": (
@@ -896,13 +1014,29 @@ def build(args: argparse.Namespace) -> dict:
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
 
-    write_codebook(qualification_definitions, grade_definitions, code_counts, grade_counts, summary)
-    write_report(summary, gap_frame, day_frame, cause_mix, peak_table, counterfactual, partial, shares)
-    print(json.dumps({k: v for k, v in summary.items() if k != "retrieval_stamps"}, indent=2)[:4000])
+    write_codebook(
+        qualification_definitions, grade_definitions, code_counts, grade_counts, summary
+    )
+    write_report(
+        summary,
+        gap_frame,
+        day_frame,
+        cause_mix,
+        peak_table,
+        counterfactual,
+        partial,
+        shares,
+    )
+    print(
+        json.dumps(
+            {k: v for k, v in summary.items() if k != "retrieval_stamps"}, indent=2
+        )[:4000]
+    )
     return summary
 
 
 # ------------------------------------------------------------------ reporting
+
 
 def cause_mix_table(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> pd.DataFrame:
     rows = []
@@ -912,7 +1046,10 @@ def cause_mix_table(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> pd.Data
         for observed_class in sorted(set(gap_frame["observed_class"])):
             n_gaps = int((gap_block["observed_class"] == observed_class).sum())
             n_days = int(
-                gap_block.loc[gap_block["observed_class"] == observed_class, "n_days_in_population"].sum()
+                gap_block.loc[
+                    gap_block["observed_class"] == observed_class,
+                    "n_days_in_population",
+                ].sum()
             )
             rows.append(
                 {
@@ -923,7 +1060,10 @@ def cause_mix_table(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> pd.Data
                     "share_pct": round(100 * n_gaps / max(1, len(gap_block)), 3),
                     "n_missing_days": n_days,
                     "share_of_days_pct": round(
-                        100 * n_days / max(1, int(gap_block["n_days_in_population"].sum())), 3
+                        100
+                        * n_days
+                        / max(1, int(gap_block["n_days_in_population"].sum())),
+                        3,
                     ),
                     "n_with_documented_cause_code": int(
                         (gap_block["observed_class"] == "documented_cause_code").sum()
@@ -959,8 +1099,12 @@ def cause_mix_table(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> pd.Data
                     "n": int(len(block)),
                     "share_pct": round(100 * len(block) / max(1, len(day_block)), 3),
                     "n_missing_days": int(len(block)),
-                    "share_of_days_pct": round(100 * len(block) / max(1, len(day_block)), 3),
-                    "n_with_documented_cause_code": int(block["documented_cause"].sum()),
+                    "share_of_days_pct": round(
+                        100 * len(block) / max(1, len(day_block)), 3
+                    ),
+                    "n_with_documented_cause_code": int(
+                        block["documented_cause"].sum()
+                    ),
                 }
             )
         rows.append(
@@ -972,13 +1116,17 @@ def cause_mix_table(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> pd.Data
                 "share_pct": 100.0,
                 "n_missing_days": int(len(day_block)),
                 "share_of_days_pct": 100.0,
-                "n_with_documented_cause_code": int(day_block["documented_cause"].sum()),
+                "n_with_documented_cause_code": int(
+                    day_block["documented_cause"].sum()
+                ),
             }
         )
     return pd.DataFrame(rows)
 
 
-def peak_overlap_by_cause(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> pd.DataFrame:
+def peak_overlap_by_cause(
+    gap_frame: pd.DataFrame, day_frame: pd.DataFrame
+) -> pd.DataFrame:
     rows = []
     for overlaps in (True, False):
         label = "overlaps_peak_window" if overlaps else "no_peak_overlap"
@@ -1028,7 +1176,9 @@ def peak_overlap_by_cause(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> p
                     "n": int(len(block)),
                     "share_pct": round(100 * len(block) / max(1, len(day_block)), 3),
                     "n_missing_days": int(len(block)),
-                    "mean_gap_length_days": round(float(block["gap_length_days"].mean()), 3)
+                    "mean_gap_length_days": round(
+                        float(block["gap_length_days"].mean()), 3
+                    )
                     if len(block)
                     else float("nan"),
                     "mean_peak_overlap": float("nan"),
@@ -1063,19 +1213,31 @@ def admission_counterfactual(
                 by_cause[code] += 1
 
     years_with_documented_maintenance = int(
-        documented.loc[documented["cause_codes"].str.contains("Mnt", na=False)].apply(
-            lambda row: (row["station_id"], pd.Timestamp(row["start_date"]).year), axis=1
-        ).nunique()
+        documented.loc[documented["cause_codes"].str.contains("Mnt", na=False)]
+        .apply(
+            lambda row: (row["station_id"], pd.Timestamp(row["start_date"]).year),
+            axis=1,
+        )
+        .nunique()
     )
     years_with_documented_equipment = int(
-        documented.loc[documented["cause_codes"].str.contains("Eqp", na=False)].apply(
-            lambda row: (row["station_id"], pd.Timestamp(row["start_date"]).year), axis=1
-        ).nunique()
+        documented.loc[documented["cause_codes"].str.contains("Eqp", na=False)]
+        .apply(
+            lambda row: (row["station_id"], pd.Timestamp(row["start_date"]).year),
+            axis=1,
+        )
+        .nunique()
     )
 
-    n_gaps_total = int(len(gap_frame) + int(gap_frame.attrs.get("n_gaps_outside_population", 0)))
-    length_rule_rejected = int((population["longest_run"] > JOHNSON_UNFILLED_DAYS).sum())
-    peak_rule_rejected = int((population["peak_overlap"] > MAX_PEAK_HIDDEN_FOR_ADMISSION).sum())
+    n_gaps_total = int(
+        len(gap_frame) + int(gap_frame.attrs.get("n_gaps_outside_population", 0))
+    )
+    length_rule_rejected = int(
+        (population["longest_run"] > JOHNSON_UNFILLED_DAYS).sum()
+    )
+    peak_rule_rejected = int(
+        (population["peak_overlap"] > MAX_PEAK_HIDDEN_FOR_ADMISSION).sum()
+    )
 
     return {
         "rule_under_test": (
@@ -1115,16 +1277,22 @@ def admission_counterfactual(
             ),
         },
         "documented_partial_aggregation": {
-            "n_provider_records_all_retrieved": partial["n_provider_records_all_retrieved"],
+            "n_provider_records_all_retrieved": partial[
+                "n_provider_records_all_retrieved"
+            ],
             "n_records_graded_incomplete_or_partial": partial[
                 "n_records_graded_incomplete_or_partial_all"
             ],
             "share_pct_of_all_retrieved": partial["share_graded_all_pct"],
-            "n_provider_records_in_population": partial["n_provider_records_in_population"],
+            "n_provider_records_in_population": partial[
+                "n_provider_records_in_population"
+            ],
             "n_records_graded_incomplete_or_partial_in_population": partial[
                 "n_records_graded_incomplete_or_partial_in_population"
             ],
-            "share_pct_of_population_records": partial["share_graded_in_population_pct"],
+            "share_pct_of_population_records": partial[
+                "share_graded_in_population_pct"
+            ],
             "note": (
                 "USGS does document partial data loss per day, but as a grade code on an "
                 "observed day, not as a cause on a missing day"
@@ -1133,10 +1301,16 @@ def admission_counterfactual(
         "peak_window_validation": partial["peak_window_validation"],
         "archive_side_loss_recoverable_without_any_cause_information": {
             "n_gaps_entirely_published_by_provider": int(
-                (gap_frame["observed_class"] == "published_target_statistic_then_dropped").sum()
+                (
+                    gap_frame["observed_class"]
+                    == "published_target_statistic_then_dropped"
+                ).sum()
             ),
             "n_gaps_partly_published_by_provider": int(
-                (gap_frame["observed_class"] == "published_target_statistic_for_part_of_gap").sum()
+                (
+                    gap_frame["observed_class"]
+                    == "published_target_statistic_for_part_of_gap"
+                ).sum()
             ),
             "n_missing_days_published_target_statistic": int(
                 gap_frame.loc[
@@ -1158,9 +1332,7 @@ def admission_counterfactual(
                         ]
                     )
                 ]
-                .assign(
-                    year=lambda frame: pd.to_datetime(frame["start_date"]).dt.year
-                )
+                .assign(year=lambda frame: pd.to_datetime(frame["start_date"]).dt.year)
                 .groupby(["station_id", "year"])
                 .ngroups
             ),
@@ -1178,9 +1350,13 @@ def admission_counterfactual(
                 }
             ),
             "n_missing_days_published_other_statistic_only": int(
-                (gap_frame["observed_class"] == "published_other_statistic_for_most_days").sum()
+                (
+                    gap_frame["observed_class"]
+                    == "published_other_statistic_for_most_days"
+                ).sum()
                 and gap_frame.loc[
-                    gap_frame["observed_class"] == "published_other_statistic_for_most_days",
+                    gap_frame["observed_class"]
+                    == "published_other_statistic_for_most_days",
                     "n_other_statistic_days",
                 ].sum()
             ),
@@ -1203,10 +1379,9 @@ def admission_counterfactual(
     }
 
 
-
-
-def _clustered_share(values: np.ndarray, clusters: np.ndarray, n_boot: int = 2000,
-                     seed: int = 20261012) -> dict:
+def _clustered_share(
+    values: np.ndarray, clusters: np.ndarray, n_boot: int = 2000, seed: int = 20261012
+) -> dict:
     """Share of TRUE in ``values`` with a network-clustered bootstrap interval.
 
     Days and gaps inside one network share a provider, a climate and an
@@ -1217,7 +1392,13 @@ def _clustered_share(values: np.ndarray, clusters: np.ndarray, n_boot: int = 200
     values = np.asarray(values, dtype=bool)
     clusters = np.asarray(clusters, dtype=object)
     if values.size == 0:
-        return {"n": 0, "n_clusters": 0, "share": float("nan"), "lo": float("nan"), "hi": float("nan")}
+        return {
+            "n": 0,
+            "n_clusters": 0,
+            "share": float("nan"),
+            "lo": float("nan"),
+            "hi": float("nan"),
+        }
     unique = np.unique(clusters)
     index = {key: np.flatnonzero(clusters == key) for key in unique}
     rng = np.random.default_rng(seed)
@@ -1241,7 +1422,6 @@ def _zero_upper_bound(n: int) -> float:
     return float(min(1.0, 3.0 / n)) if n > 0 else float("nan")
 
 
-
 def cross_check_metadata(results: dict) -> dict:
     """Coarse agreement between the modern API metadata and the series catalog.
 
@@ -1262,11 +1442,11 @@ def cross_check_metadata(results: dict) -> dict:
             continue
         compared += 1
         start_gap = abs(
-            (
-                date.fromisoformat(metadata[0]) - date.fromisoformat(catalog[0])
-            ).days
+            (date.fromisoformat(metadata[0]) - date.fromisoformat(catalog[0])).days
         )
-        end_gap = abs((date.fromisoformat(metadata[1]) - date.fromisoformat(catalog[1])).days)
+        end_gap = abs(
+            (date.fromisoformat(metadata[1]) - date.fromisoformat(catalog[1])).days
+        )
         worst = max(worst, start_gap, end_gap)
         if start_gap <= 1 and end_gap <= 1:
             agree += 1
@@ -1293,7 +1473,9 @@ def observed_share_report(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> d
     gap_clusters = gap_frame["network_id"].to_numpy(dtype=object)
 
     mean_published = day_frame["provider_value_present"].to_numpy(dtype=bool)
-    any_published = day_frame["provider_any_statistic_value_present"].to_numpy(dtype=bool)
+    any_published = day_frame["provider_any_statistic_value_present"].to_numpy(
+        dtype=bool
+    )
     no_record_inside = (
         day_frame["observed_class"] == "no_provider_record_inside_declared_coverage"
     ).to_numpy(dtype=bool)
@@ -1304,14 +1486,18 @@ def observed_share_report(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> d
         day_frame["observed_class"] == "published_other_statistic_only"
     ).to_numpy(dtype=bool)
     cause_days = day_frame["documented_cause"].to_numpy(dtype=bool)
-    cause_gaps = (gap_frame["observed_class"] == "documented_cause_code").to_numpy(dtype=bool)
+    cause_gaps = (gap_frame["observed_class"] == "documented_cause_code").to_numpy(
+        dtype=bool
+    )
     gap_any_record = gap_frame["n_provider_record_days"].to_numpy(dtype=float) > 0
 
     report = {
         "missing_days_published_target_statistic_then_dropped": _clustered_share(
             mean_published, day_clusters
         ),
-        "missing_days_published_any_00010_statistic": _clustered_share(any_published, day_clusters),
+        "missing_days_published_any_00010_statistic": _clustered_share(
+            any_published, day_clusters
+        ),
         "missing_days_published_other_statistic_only": _clustered_share(
             other_statistic_only, day_clusters
         ),
@@ -1321,8 +1507,12 @@ def observed_share_report(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> d
         "missing_days_no_provider_record_outside_declared_coverage": _clustered_share(
             no_record_outside, day_clusters
         ),
-        "gaps_with_at_least_one_provider_record": _clustered_share(gap_any_record, gap_clusters),
-        "missing_days_with_documented_cause_code": _clustered_share(cause_days, day_clusters),
+        "gaps_with_at_least_one_provider_record": _clustered_share(
+            gap_any_record, gap_clusters
+        ),
+        "missing_days_with_documented_cause_code": _clustered_share(
+            cause_days, day_clusters
+        ),
         "gaps_with_documented_cause_code": _clustered_share(cause_gaps, gap_clusters),
         "interval_definition": (
             "network-clustered bootstrap, 2000 resamples of the network identifier, "
@@ -1335,9 +1525,15 @@ def observed_share_report(gap_frame: pd.DataFrame, day_frame: pd.DataFrame) -> d
     report["zero_cause_upper_bound"] = {
         "observed_cause_bearing_days": int(cause_days.sum()),
         "observed_cause_bearing_gaps": int(cause_gaps.sum()),
-        "day_level_rule_of_three_95_upper_pct": round(100 * _zero_upper_bound(n_days), 5),
-        "gap_level_rule_of_three_95_upper_pct": round(100 * _zero_upper_bound(n_gaps), 5),
-        "network_level_rule_of_three_95_upper_pct": round(100 * _zero_upper_bound(n_networks), 5),
+        "day_level_rule_of_three_95_upper_pct": round(
+            100 * _zero_upper_bound(n_days), 5
+        ),
+        "gap_level_rule_of_three_95_upper_pct": round(
+            100 * _zero_upper_bound(n_gaps), 5
+        ),
+        "network_level_rule_of_three_95_upper_pct": round(
+            100 * _zero_upper_bound(n_networks), 5
+        ),
         "n_days": n_days,
         "n_gaps": n_gaps,
         "n_networks": n_networks,
@@ -1393,7 +1589,11 @@ def peak_window_validation(stations: list[str], usgs: pd.DataFrame) -> dict:
             if not np.isfinite(expected) and block["value"].notna().all():
                 continue
             in_peak = np.isin(block.index.dayofyear.to_numpy(), doys)
-            actual = float(block["value"].isna().to_numpy()[in_peak].mean()) if in_peak.any() else float("nan")
+            actual = (
+                float(block["value"].isna().to_numpy()[in_peak].mean())
+                if in_peak.any()
+                else float("nan")
+            )
             if not (np.isfinite(actual) and np.isfinite(expected)):
                 continue
             checked += 1
@@ -1415,14 +1615,16 @@ def write_codebook(
     grade_counts: Counter,
     summary: dict,
 ) -> None:
-    token_counts: Counter = Counter(summary.get("provider_code_token_counts", dict(code_counts)))
+    token_counts: Counter = Counter(
+        summary.get("provider_code_token_counts", dict(code_counts))
+    )
     lines = [
         "# Observed outage-cause codebook (USGS NWIS daily values, parameter 00010)",
         "",
         "Every definition quoted below is USGS's own text, taken from the response that the",
         "USGS daily-value service generated for this study. The request URL is given so the",
-        "quote can be reproduced; the raw response is cached under `raw_cache/` with a",
-        "SHA-256 in `raw_cache/manifest.csv`.",
+        "quote can be reproduced; the raw response is cached under `raw_cache/` and listed",
+        "with its request URL in `raw_cache/manifest.csv`.",
         "",
         "## What was retrieved",
         "",
@@ -1580,13 +1782,15 @@ def write_codebook(
         "are counted separately and are never attributed to maintenance or equipment failure.",
         "",
         "The `qualifier` field description USGS publishes for the same data through the modern API",
-        "is: \"This field indicates any qualifiers associated with an observation, for instance if a",
-        "sensor may have been impacted by ice or if values were estimated.\" — i.e. it qualifies an",
+        'is: "This field indicates any qualifiers associated with an observation, for instance if a',
+        'sensor may have been impacted by ice or if values were estimated." — i.e. it qualifies an',
         "observation. Source:",
         "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/queryables?f=json",
         "",
     ]
-    (OUT_DIR / "cause_codebook.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (OUT_DIR / "cause_codebook.md").write_text(
+        "\n".join(lines) + "\n", encoding="utf-8"
+    )
 
 
 def write_report(
@@ -1616,13 +1820,18 @@ def write_report(
         )
 
     published_any = shares.get("missing_days_published_any_00010_statistic", {})
-    published_mean = shares.get("missing_days_published_target_statistic_then_dropped", {})
+    published_mean = shares.get(
+        "missing_days_published_target_statistic_then_dropped", {}
+    )
     inside = shares.get("missing_days_no_provider_record_inside_declared_coverage", {})
-    outside = shares.get("missing_days_no_provider_record_outside_declared_coverage", {})
+    outside = shares.get(
+        "missing_days_no_provider_record_outside_declared_coverage", {}
+    )
     bounds = shares.get("zero_cause_upper_bound", {})
     other_labels = Counter()
     for row in gap_frame.loc[
-        gap_frame["observed_class"] == "published_other_statistic_for_most_days", "other_statistics_seen"
+        gap_frame["observed_class"] == "published_other_statistic_for_most_days",
+        "other_statistics_seen",
     ]:
         for chunk in str(row).split(";"):
             if not chunk:
@@ -1647,7 +1856,7 @@ def write_report(
         f"- Classified {n_days:,} missing days inside {n_gaps:,} real interior gaps "
         f"({summary['n_gaps_with_no_day_in_population']:,} further gaps have no day inside the",
         "  incomplete-year population and are excluded).",
-        "- Cached every raw provider response under `raw_cache/` with a SHA-256 in",
+        "- Cached every raw provider response under `raw_cache/`, listed with its request URL in",
         "  `raw_cache/manifest.csv`.",
         "- Search of the provider's own declared coverage needed no cause information at all: the",
         "  peak windows used here were recomputed with the manuscript's own definition and agree",
@@ -1701,13 +1910,48 @@ def write_report(
         "| quantity | n | share | 95% interval |",
         "|---|---:|---:|---:|",
     ]
-    lines.append(share_line("missing_days_published_any_00010_statistic", "missing days *published then dropped* (any 00010 statistic)"))
-    lines.append(share_line("missing_days_published_target_statistic_then_dropped", "missing days published then dropped (target statistic 00003)"))
-    lines.append(share_line("missing_days_published_other_statistic_only", "missing days published only under another 00010 statistic"))
-    lines.append(share_line("missing_days_no_provider_record_inside_declared_coverage", "missing days with **no provider record** inside declared coverage"))
-    lines.append(share_line("missing_days_no_provider_record_outside_declared_coverage", "missing days with no provider record outside declared coverage"))
-    lines.append(share_line("gaps_with_at_least_one_provider_record", "gaps with at least one provider record"))
-    lines.append(share_line("missing_days_with_documented_cause_code", "missing days with a cause-naming code"))
+    lines.append(
+        share_line(
+            "missing_days_published_any_00010_statistic",
+            "missing days *published then dropped* (any 00010 statistic)",
+        )
+    )
+    lines.append(
+        share_line(
+            "missing_days_published_target_statistic_then_dropped",
+            "missing days published then dropped (target statistic 00003)",
+        )
+    )
+    lines.append(
+        share_line(
+            "missing_days_published_other_statistic_only",
+            "missing days published only under another 00010 statistic",
+        )
+    )
+    lines.append(
+        share_line(
+            "missing_days_no_provider_record_inside_declared_coverage",
+            "missing days with **no provider record** inside declared coverage",
+        )
+    )
+    lines.append(
+        share_line(
+            "missing_days_no_provider_record_outside_declared_coverage",
+            "missing days with no provider record outside declared coverage",
+        )
+    )
+    lines.append(
+        share_line(
+            "gaps_with_at_least_one_provider_record",
+            "gaps with at least one provider record",
+        )
+    )
+    lines.append(
+        share_line(
+            "missing_days_with_documented_cause_code",
+            "missing days with a cause-naming code",
+        )
+    )
     lines += [
         "",
         "00010 daily statistics that carry gaps whose target statistic was never published",
@@ -1765,7 +2009,7 @@ def write_report(
         "Where USGS documents these codes: the two RDB header blocks",
         "`# Data-value grade codes included in this output:` and",
         "`# Data-value qualification codes included in this output:`, reproduced in full with the",
-        "request URLs and per-file SHA-256 in `cause_codebook.md` and `raw_cache/manifest.csv`.",
+        "request URLs in `cause_codebook.md` and `raw_cache/manifest.csv`.",
         "USGS retired the legacy NWIS help page that enumerated the wider remark vocabulary",
         "(https://help.waterdata.usgs.gov/code/qual_cd_query) into a client-rendered Code Dictionary",
         "that now covers parameter codes and observed properties only",
@@ -1779,7 +2023,9 @@ def write_report(
     ]
     for observed_class, count in class_counts.items():
         days = int(
-            gap_frame.loc[gap_frame["observed_class"] == observed_class, "n_days_in_population"].sum()
+            gap_frame.loc[
+                gap_frame["observed_class"] == observed_class, "n_days_in_population"
+            ].sum()
         )
         lines.append(
             f"| `{observed_class}` | {count:,} | {100 * count / max(1, n_gaps):.2f}% | "
@@ -1829,9 +2075,13 @@ def write_report(
         )
         dropped = int(
             (block["observed_class"] == "published_target_statistic_then_dropped").sum()
-            + (block["observed_class"] == "published_target_statistic_for_part_of_gap").sum()
+            + (
+                block["observed_class"] == "published_target_statistic_for_part_of_gap"
+            ).sum()
         )
-        other = int((block["observed_class"] == "published_other_statistic_for_most_days").sum())
+        other = int(
+            (block["observed_class"] == "published_other_statistic_for_most_days").sum()
+        )
         lines.append(
             f"| {label} | {len(block):,} | {no_record:,} | {dropped:,} | {other:,} | "
             f"{int((block['observed_class'] == 'documented_cause_code').sum()):,} |"
@@ -1939,7 +2189,9 @@ def write_report(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=0, help="use only the first N USGS stations")
+    parser.add_argument(
+        "--limit", type=int, default=0, help="use only the first N USGS stations"
+    )
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--offline", action="store_true", help="use the raw cache only")
     args = parser.parse_args()

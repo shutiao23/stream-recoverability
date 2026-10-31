@@ -4,7 +4,6 @@
 
 - Protocol seal: `P0_07_NEW_CONFIRMATION_SEAL.json` (`scored: true` after this run)
 - Manifest: `p0_07_wave2_ingest/wave2_inputs_manifest.csv`
-  (sha256 `d4d9227f3b6361da148428049b6a5a731a8a0be8486ec031aab06c64c9da318d`)
 - Prior-access: `wave2_prior_access_summary.json` (`clean: true`; programme-used
   stations excluded at assemble)
 - Floors: 49 networks / 3 providers (usgs, hubeau, uk_ea) / 13 contexts

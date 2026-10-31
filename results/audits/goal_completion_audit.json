@@ -140,7 +140,7 @@
     },
     {
       "id": "P3_scoring",
-      "requirement": "Run independent second confirmation under the canonical hash-bound gate",
+      "requirement": "Run independent second confirmation under the canonical gate",
       "status": "scored_after_readiness_authorization",
       "evidence": "attempted=60; scored=57; attrited=3; simple network Spearman=0.6140782991962667; simple slope=1.0174320563432953; empirical network Spearman=0.715452424163858; empirical slope=0.9502513594290952",
       "completion_satisfied": true,

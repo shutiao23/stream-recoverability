@@ -68,7 +68,6 @@ from __future__ import annotations
 import argparse
 import calendar
 import gzip
-import hashlib
 import json
 import math
 import re
@@ -145,8 +144,15 @@ CANALISED_NAME = re.compile(r"canalis|\bcanal\b|\bbief\b", re.IGNORECASE)
 
 PRIOR_ARTIFACTS = (
     ROOT / "results" / "v17_fitness" / "step1_panel" / "station_roster.csv",
-    ROOT / "results" / "wrr_revision" / "step1_universe" / "trusted_river_complete_years.csv",
-    ROOT / "results" / "wrr_submission_ready" / "prior_access_ledger_reserved_station_years.csv",
+    ROOT
+    / "results"
+    / "wrr_revision"
+    / "step1_universe"
+    / "trusted_river_complete_years.csv",
+    ROOT
+    / "results"
+    / "wrr_submission_ready"
+    / "prior_access_ledger_reserved_station_years.csv",
     ROOT / "results" / "wrr_submission_ready" / "confirmation_inputs_manifest.csv",
 )
 PRIOR_SCAN_DIRS = (
@@ -157,18 +163,6 @@ PRIOR_SCAN_DIRS = (
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 # --------------------------------------------------------------------------- #
@@ -205,7 +199,9 @@ class CachedHub:
         with gzip.open(dest, "rt", encoding="utf-8") as handle:
             return json.loads(handle.read())
 
-    def get(self, url: str, *, kind: str, name: str, refresh: bool = False) -> dict[str, Any]:
+    def get(
+        self, url: str, *, kind: str, name: str, refresh: bool = False
+    ) -> dict[str, Any]:
         cached = None if refresh else self.read(kind, name)
         if cached is not None:
             return cached["document"]
@@ -264,11 +260,18 @@ class CachedHub:
         total = len(requests)
         done = len(results)
         if progress:
-            print(f"    {progress}: {done}/{total} cached, {len(pending)} to fetch", flush=True)
+            print(
+                f"    {progress}: {done}/{total} cached, {len(pending)} to fetch",
+                flush=True,
+            )
         if pending:
             with ThreadPoolExecutor(max_workers=self.workers) as pool:
                 futures = {
-                    pool.submit(self.get, url, kind=kind, name=name, refresh=refresh): (url, kind, name)
+                    pool.submit(self.get, url, kind=kind, name=name, refresh=refresh): (
+                        url,
+                        kind,
+                        name,
+                    )
                     for url, kind, name in pending
                 }
                 for future in futures:
@@ -306,7 +309,6 @@ class CachedHub:
                         "retrieved_utc": None,
                         "n_records": None,
                         "api_count": None,
-                        "payload_sha256": None,
                         "error": str(error),
                     }
                 )
@@ -320,7 +322,6 @@ class CachedHub:
                         "retrieved_utc": None,
                         "n_records": None,
                         "api_count": None,
-                        "payload_sha256": None,
                         "cache_path": str(path.relative_to(ROOT)),
                         "error": "not a scripts/242 cache envelope (ignored)",
                     }
@@ -336,9 +337,6 @@ class CachedHub:
                     "retrieved_utc": envelope.get("retrieved_utc"),
                     "n_records": int(len(data)),
                     "api_count": document.get("count"),
-                    "payload_sha256": sha256_text(
-                        json.dumps(document, sort_keys=True, ensure_ascii=False)
-                    ),
                     "cache_path": str(path.relative_to(ROOT)),
                 }
             )
@@ -356,9 +354,7 @@ def _chronique_url(**params: str) -> str:
 
 
 def span_url(station_id: str, order: str) -> str:
-    return _chronique_url(
-        code_station=str(station_id), size="1", page="1", sort=order
-    )
+    return _chronique_url(code_station=str(station_id), size="1", page="1", sort=order)
 
 
 def qualification_count_url(station_id: str, code: str) -> str:
@@ -398,9 +394,7 @@ def _window_needs_split(document: dict[str, Any]) -> bool:
     data = document.get("data") or []
     count = int(document.get("count") or 0)
     has_next = bool(document.get("next") or document.get("api_next"))
-    return bool(
-        has_next or count > HUBEAU_PAGE_SIZE or len(data) >= HUBEAU_PAGE_SIZE
-    )
+    return bool(has_next or count > HUBEAU_PAGE_SIZE or len(data) >= HUBEAU_PAGE_SIZE)
 
 
 def fetch_window(
@@ -416,16 +410,28 @@ def fetch_window(
     """Dated window fetch with recursive date splitting (no deep paging)."""
 
     if depth > 24:
-        raise RuntimeError(f"Hub'Eau date split exceeded depth for {station_id} {start_ts}-{end_ts}")
+        raise RuntimeError(
+            f"Hub'Eau date split exceeded depth for {station_id} {start_ts}-{end_ts}"
+        )
     start = start_ts.strftime("%Y-%m-%d")
     end = end_ts.strftime("%Y-%m-%d")
     name = f"{station_id}_{code}_{start}_{end}"
-    document = hub.get(window_url(station_id, start, end, code), kind="chronique", name=name)
+    document = hub.get(
+        window_url(station_id, start, end, code), kind="chronique", name=name
+    )
     if _window_needs_split(document) and start_ts != end_ts:
         mid = start_ts + (end_ts - start_ts) // 2
-        left = fetch_window(hub, station_id, start_ts, mid, code, depth=depth + 1, refresh=refresh)
+        left = fetch_window(
+            hub, station_id, start_ts, mid, code, depth=depth + 1, refresh=refresh
+        )
         right = fetch_window(
-            hub, station_id, mid + pd.Timedelta(days=1), end_ts, code, depth=depth + 1, refresh=refresh
+            hub,
+            station_id,
+            mid + pd.Timedelta(days=1),
+            end_ts,
+            code,
+            depth=depth + 1,
+            refresh=refresh,
         )
         return left + right
     if _window_needs_split(document):
@@ -453,7 +459,9 @@ def rows_from_document(document: dict[str, Any]) -> list[dict[str, Any]]:
 # --------------------------------------------------------------------------- #
 # station table and river classification
 # --------------------------------------------------------------------------- #
-def build_station_table(document: dict[str, Any], *, dropped: list[dict[str, Any]]) -> pd.DataFrame:
+def build_station_table(
+    document: dict[str, Any], *, dropped: list[dict[str, Any]]
+) -> pd.DataFrame:
     rows = []
     for item in document.get("data") or []:
         uri = item.get("uri_masse_eau") or ""
@@ -494,7 +502,9 @@ def build_station_table(document: dict[str, Any], *, dropped: list[dict[str, Any
                 "station_id": station_id,
                 "station_name": name,
                 "river_name": river_name,
-                "river_name_source": "libelle_cours_eau" if river else ("libelle_masse_eau" if waterbody else None),
+                "river_name_source": "libelle_cours_eau"
+                if river
+                else ("libelle_masse_eau" if waterbody else None),
                 "code_cours_eau": item.get("code_cours_eau"),
                 "waterbody_name": waterbody or None,
                 "code_masse_eau": item.get("code_masse_eau"),
@@ -514,9 +524,12 @@ def build_station_table(document: dict[str, Any], *, dropped: list[dict[str, Any
                 "localisation": localisation or None,
                 "date_mise_en_service": item.get("date_mise_en_service"),
                 "date_mise_hors_service": item.get("date_mise_hors_service"),
-                "canalised_name_flag": bool(CANALISED_NAME.search(name) or CANALISED_NAME.search(river)),
+                "canalised_name_flag": bool(
+                    CANALISED_NAME.search(name) or CANALISED_NAME.search(river)
+                ),
                 "sea_estuary_mention_in_waterbody_label": bool(
-                    SEA_ESTUARY_MENTION.search(waterbody) or SEA_ESTUARY_MENTION.search(river)
+                    SEA_ESTUARY_MENTION.search(waterbody)
+                    or SEA_ESTUARY_MENTION.search(river)
                 ),
             }
         )
@@ -556,7 +569,9 @@ def slugify(name: str) -> str:
 # --------------------------------------------------------------------------- #
 # daily aggregation and complete years
 # --------------------------------------------------------------------------- #
-def per_day_table(rows: Iterable[dict[str, Any]]) -> tuple[pd.DataFrame, dict[str, Any]]:
+def per_day_table(
+    rows: Iterable[dict[str, Any]],
+) -> tuple[pd.DataFrame, dict[str, Any]]:
     """Reduce one window of instantaneous observations to per-day count and sum.
 
     Keeping the sum (not the mean) makes the reduction exactly composable across
@@ -597,7 +612,9 @@ def per_day_table(rows: Iterable[dict[str, Any]]) -> tuple[pd.DataFrame, dict[st
         "dropped_out_of_range": out_of_range,
         "dropped_unparsable": unparsable,
         "dropped_non_finite": non_finite,
-        "n_time_stamps_present": int(frame["time"].notna().sum()) if "time" in frame.columns else 0,
+        "n_time_stamps_present": int(frame["time"].notna().sum())
+        if "time" in frame.columns
+        else 0,
     }
     return counts, qc
 
@@ -609,7 +626,11 @@ def daily_values(per_day: pd.DataFrame, *, min_obs_per_day: int) -> pd.DataFrame
         return pd.DataFrame(columns=["date", "n_obs", "temperature_c"])
     formed = per_day.loc[per_day["n_obs"] >= int(min_obs_per_day)].copy()
     formed["temperature_c"] = formed["temp_sum"] / formed["n_obs"]
-    return formed[["date", "n_obs", "temperature_c"]].sort_values("date").reset_index(drop=True)
+    return (
+        formed[["date", "n_obs", "temperature_c"]]
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
 
 
 def per_day_qc(per_day: pd.DataFrame, *, min_obs_per_day: int) -> dict[str, Any]:
@@ -647,14 +668,18 @@ def merge_per_day(parts: Sequence[pd.DataFrame]) -> pd.DataFrame:
 
 
 def year_ended(year: int, as_of: pd.Timestamp) -> bool:
-    return pd.Timestamp(year=int(year), month=12, day=31) < pd.Timestamp(as_of).normalize()
+    return (
+        pd.Timestamp(year=int(year), month=12, day=31) < pd.Timestamp(as_of).normalize()
+    )
 
 
 def year_coverage(daily: pd.DataFrame, *, as_of: pd.Timestamp) -> pd.DataFrame:
     """Coverage of every calendar year touched by the daily series."""
 
     if daily.empty:
-        return pd.DataFrame(columns=["year", "expected_days", "observed_days", "year_ended", "complete"])
+        return pd.DataFrame(
+            columns=["year", "expected_days", "observed_days", "year_ended", "complete"]
+        )
     series = daily.set_index("date")["temperature_c"]
     rows = []
     for year, block in series.groupby(series.index.year):
@@ -695,7 +720,11 @@ def _station_ids_in(path: Path) -> set[str]:
     for column in ("station_ids_ge4", "site_ids", "station_ids"):
         if column in frame.columns:
             for value in frame[column].dropna():
-                ids |= {part.strip() for part in re.split(r"[;,]", str(value)) if part.strip()}
+                ids |= {
+                    part.strip()
+                    for part in re.split(r"[;,]", str(value))
+                    if part.strip()
+                }
     return ids
 
 
@@ -736,7 +765,9 @@ def stage_catalog(hub: CachedHub, *, refresh: bool) -> pd.DataFrame:
     dropped: list[dict[str, Any]] = []
     frame = build_station_table(document, dropped=dropped)
     frame.to_csv(RAW / "station_table.csv", index=False)
-    pd.DataFrame(dropped).to_csv(RAW / "stations_dropped_waterbody_filter.csv", index=False)
+    pd.DataFrame(dropped).to_csv(
+        RAW / "stations_dropped_waterbody_filter.csv", index=False
+    )
     n = len(frame)
     n_river = int(frame["in_river_panel"].sum())
     print(
@@ -744,13 +775,17 @@ def stage_catalog(hub: CachedHub, *, refresh: bool) -> pd.DataFrame:
         f"({100.0 * (n - n_river) / max(n, 1):.2f}% dropped on waterbody evidence)",
         flush=True,
     )
-    for reason in sorted({r for row in frame["drop_reasons"] for r in str(row).split(";") if r}):
+    for reason in sorted(
+        {r for row in frame["drop_reasons"] for r in str(row).split(";") if r}
+    ):
         hits = int(frame["drop_reasons"].str.contains(re.escape(reason)).sum())
         print(f"    dropped reason {reason}: {hits}", flush=True)
     return frame
 
 
-def stage_spans(hub: CachedHub, stations: pd.DataFrame, *, refresh: bool) -> pd.DataFrame:
+def stage_spans(
+    hub: CachedHub, stations: pd.DataFrame, *, refresh: bool
+) -> pd.DataFrame:
     requests = []
     for station_id in stations["station_id"]:
         requests.append((span_url(station_id, "asc"), "spans", f"{station_id}_asc"))
@@ -787,7 +822,9 @@ def stage_spans(hub: CachedHub, stations: pd.DataFrame, *, refresh: bool) -> pd.
         last_date = last.get("date_mesure_temp")
         span_days = float("nan")
         if first_date and last_date:
-            span_days = float((pd.Timestamp(last_date) - pd.Timestamp(first_date)).days + 1)
+            span_days = float(
+                (pd.Timestamp(last_date) - pd.Timestamp(first_date)).days + 1
+            )
         rows.append(
             {
                 "station_id": station_id,
@@ -796,7 +833,9 @@ def stage_spans(hub: CachedHub, stations: pd.DataFrame, *, refresh: bool) -> pd.
                 "first_obs_date": first_date,
                 "last_obs_date": last_date,
                 "span_days": span_days,
-                "span_years": span_days / 365.25 if math.isfinite(span_days) else float("nan"),
+                "span_years": span_days / 365.25
+                if math.isfinite(span_days)
+                else float("nan"),
                 "asc_url": span_url(station_id, "asc"),
                 "desc_url": span_url(station_id, "desc"),
             }
@@ -834,7 +873,9 @@ def stage_qualification(
                     f"code_{code}",
                 )
             )
-        documents, _ = hub.get_many(global_requests, refresh=refresh, progress="global qualification counts")
+        documents, _ = hub.get_many(
+            global_requests, refresh=refresh, progress="global qualification counts"
+        )
         for url, _kind, name in global_requests:
             document = documents.get(name) or {}
             global_counts["by_code"][name] = {
@@ -843,30 +884,56 @@ def stage_qualification(
             }
         global_counts["labels"] = {
             "all_codes": "all qualification codes",
-            **{f"code_{c}": f"Sandre code {c} ({CODE_LABELS[c]})" for c in QUALIFICATION_CODES},
+            **{
+                f"code_{c}": f"Sandre code {c} ({CODE_LABELS[c]})"
+                for c in QUALIFICATION_CODES
+            },
         }
 
     requests = []
     for station_id in stations["station_id"]:
         for code in QUALIFICATION_CODES:
             requests.append(
-                (qualification_count_url(station_id, code), "qualification_station", f"{station_id}_code{code}")
+                (
+                    qualification_count_url(station_id, code),
+                    "qualification_station",
+                    f"{station_id}_code{code}",
+                )
             )
-    documents, _ = hub.get_many(requests, refresh=refresh, progress="per-station qualification counts")
+    documents, _ = hub.get_many(
+        requests, refresh=refresh, progress="per-station qualification counts"
+    )
     rows = []
     totals = {c: 0 for c in QUALIFICATION_CODES}
     for station_id in stations["station_id"]:
         counts = {
-            code: int((documents.get(f"{station_id}_code{code}") or {}).get("count") or 0)
+            code: int(
+                (documents.get(f"{station_id}_code{code}") or {}).get("count") or 0
+            )
             for code in QUALIFICATION_CODES
         }
         for code, value in counts.items():
             totals[code] += value
-        rows.append({"station_id": station_id, **{f"count_code_{c}": counts[c] for c in QUALIFICATION_CODES}})
+        rows.append(
+            {
+                "station_id": station_id,
+                **{f"count_code_{c}": counts[c] for c in QUALIFICATION_CODES},
+            }
+        )
     frame = pd.DataFrame(rows)
-    frame["count_codes_sum"] = frame[[f"count_code_{c}" for c in QUALIFICATION_CODES]].sum(axis=1)
+    frame["count_codes_sum"] = frame[
+        [f"count_code_{c}" for c in QUALIFICATION_CODES]
+    ].sum(axis=1)
     frame = frame.merge(
-        spans[["station_id", "n_obs_total", "first_obs_date", "last_obs_date", "span_years"]],
+        spans[
+            [
+                "station_id",
+                "n_obs_total",
+                "first_obs_date",
+                "last_obs_date",
+                "span_years",
+            ]
+        ],
         on="station_id",
         how="left",
     )
@@ -893,7 +960,9 @@ def stage_qualification(
         }
     )
     frame.to_csv(RAW / "qualification_counts.csv", index=False)
-    station_totals = {c: int(frame[f"count_code_{c}"].sum()) for c in QUALIFICATION_CODES}
+    station_totals = {
+        c: int(frame[f"count_code_{c}"].sum()) for c in QUALIFICATION_CODES
+    }
     print(f"  qualification over {len(frame)} audited stations:", flush=True)
     for code in QUALIFICATION_CODES:
         n_stations = int((frame[f"count_code_{code}"] > 0).sum())
@@ -902,13 +971,16 @@ def stage_qualification(
             flush=True,
         )
     n_mismatch = int((~frame["codes_match_total"]).sum())
-    print(f"    stations where sum(codes) != unfiltered total: {n_mismatch}", flush=True)
+    print(
+        f"    stations where sum(codes) != unfiltered total: {n_mismatch}", flush=True
+    )
     summary = {
         "global_api_counts": global_counts,
         "n_stations_audited": int(len(frame)),
         "per_station_totals_over_audited": station_totals,
         "per_station_station_counts": {
-            code: int((frame[f"count_code_{code}"] > 0).sum()) for code in QUALIFICATION_CODES
+            code: int((frame[f"count_code_{code}"] > 0).sum())
+            for code in QUALIFICATION_CODES
         },
         "n_stations_codes_sum_mismatch": n_mismatch,
     }
@@ -953,7 +1025,9 @@ def select_candidates(
         min_stations=MIN_STATIONS_PER_NETWORK,
         exclude_loire=True,
     )
-    rivers_with_two = set(clusters["river"].astype(str)) if not clusters.empty else set()
+    rivers_with_two = (
+        set(clusters["river"].astype(str)) if not clusters.empty else set()
+    )
     loire_ids = set(
         river.loc[
             river["river_name"]
@@ -985,13 +1059,16 @@ def select_candidates(
             on="station_id",
             how="left",
         )
-    frame["is_loire_last_check"] = frame["station_id"].astype(str).isin(loire_ids | blocked)
+    frame["is_loire_last_check"] = (
+        frame["station_id"].astype(str).isin(loire_ids | blocked)
+    )
     codes_per_name = (
         frame.dropna(subset=["code_cours_eau"])
         .groupby("river_key")["code_cours_eau"]
         .nunique()
     )
     ambiguous_names = set(codes_per_name.loc[codes_per_name > 1].index.astype(str))
+
     # Homonyms with missing codes still collide on river_key (F08 Durance).
     # Split by official watercourse code when present; otherwise by a coarse
     # spatial cell so Normandie and PACA stations never share a network.
@@ -1003,10 +1080,13 @@ def select_candidates(
         lat = pd.to_numeric(row.get("latitude"), errors="coerce")
         lon = pd.to_numeric(row.get("longitude"), errors="coerce")
         if pd.notna(lat) and pd.notna(lon):
-            return f"{river}::cell_{int(np.floor(float(lat)))}_{int(np.floor(float(lon)))}"
+            return (
+                f"{river}::cell_{int(np.floor(float(lat)))}_{int(np.floor(float(lon)))}"
+            )
         return f"{river}::unknown"
 
     frame["network_key"] = frame.apply(_network_key, axis=1)
+
     # Also flag same-name groups whose stations span >200 km (haversine approx).
     def _span_km(group: pd.DataFrame) -> float:
         lat = pd.to_numeric(group["latitude"], errors="coerce")
@@ -1021,24 +1101,33 @@ def select_candidates(
         for i in range(len(lat)):
             dlat = lat - lat[i]
             dlon = lon - lon[i]
-            a = np.sin(dlat / 2) ** 2 + np.cos(lat[i]) * np.cos(lat) * np.sin(dlon / 2) ** 2
+            a = (
+                np.sin(dlat / 2) ** 2
+                + np.cos(lat[i]) * np.cos(lat) * np.sin(dlon / 2) ** 2
+            )
             dist = 6371.0 * 2 * np.arcsin(np.minimum(1.0, np.sqrt(a)))
             best = max(best, float(np.nanmax(dist)))
         return best
 
     # Wide same-name groups are split via network_key rather than discarded.
-    span_by_name = {str(key): _span_km(group) for key, group in frame.groupby("river_key")}
+    span_by_name = {
+        str(key): _span_km(group) for key, group in frame.groupby("river_key")
+    }
     frame["name_span_km"] = frame["river_key"].map(span_by_name)
     frame["ambiguous_river_name"] = frame["river_key"].isin(ambiguous_names)
     rivers_with_two = set(
-        frame.groupby("network_key")["station_id"].nunique().loc[lambda s: s >= 2].index.astype(str)
+        frame.groupby("network_key")["station_id"]
+        .nunique()
+        .loc[lambda s: s >= 2]
+        .index.astype(str)
     )
     frame["river_has_two_stations"] = frame["network_key"].isin(rivers_with_two)
-    frame["span_ok"] = (
-        frame["span_screen_ok"].fillna(False).astype(bool)
-        & (frame["span_years"].fillna(0.0) >= float(min_span_years))
+    frame["span_ok"] = frame["span_screen_ok"].fillna(False).astype(bool) & (
+        frame["span_years"].fillna(0.0) >= float(min_span_years)
     )
-    frame["volume_ok"] = frame["n_obs_total"].fillna(0).astype(int) >= int(min_observations)
+    frame["volume_ok"] = frame["n_obs_total"].fillna(0).astype(int) >= int(
+        min_observations
+    )
     possible = (
         frame["span_ok"]
         & frame["volume_ok"]
@@ -1047,8 +1136,8 @@ def select_candidates(
         & ~frame["ambiguous_river_name"]
     )
     if qualification is not None:
-        frame["code1_sufficient"] = (
-            frame["count_code_1"].fillna(0).astype(int) >= int(min_code1_observations)
+        frame["code1_sufficient"] = frame["count_code_1"].fillna(0).astype(int) >= int(
+            min_code1_observations
         )
         frame["download_code"] = np.where(
             frame["code1_sufficient"],
@@ -1067,7 +1156,11 @@ def select_candidates(
             continue
         river_key = str(group["river_key"].iloc[0])
         suffix = str(network_key).split("::", 1)[-1]
-        slug = slugify(river_key) if suffix in {"", "unknown"} else f"{slugify(river_key)}_{slugify(suffix)}"
+        slug = (
+            slugify(river_key)
+            if suffix in {"", "unknown"}
+            else f"{slugify(river_key)}_{slugify(suffix)}"
+        )
         network_rows.append(
             {
                 "network_id": f"{PROVIDER}_{slug}",
@@ -1086,16 +1179,19 @@ def select_candidates(
         ranked = networks.assign(
             _obs=networks["station_ids"].map(
                 lambda value: int(
-                    frame.loc[frame["station_id"].astype(str).isin(str(value).split(";")), "n_obs_total"]
+                    frame.loc[
+                        frame["station_id"].astype(str).isin(str(value).split(";")),
+                        "n_obs_total",
+                    ]
                     .fillna(0)
                     .sum()
                 )
             )
-        ).sort_values(
-            ["n_candidate_stations", "_obs"], ascending=[False, False]
-        )
+        ).sort_values(["n_candidate_stations", "_obs"], ascending=[False, False])
         keep = set(ranked.head(int(max_networks))["network_id"])
-        for item in ranked.loc[~ranked["network_id"].isin(keep)].to_dict(orient="records"):
+        for item in ranked.loc[~ranked["network_id"].isin(keep)].to_dict(
+            orient="records"
+        ):
             capped_networks.append(
                 {
                     "network_id": item["network_id"],
@@ -1106,9 +1202,13 @@ def select_candidates(
                     "station_ids": item["station_ids"],
                 }
             )
-        networks = networks.loc[networks["network_id"].isin(keep)].reset_index(drop=True)
+        networks = networks.loc[networks["network_id"].isin(keep)].reset_index(
+            drop=True
+        )
     candidate_networks = set(networks["network_key"]) if not networks.empty else set()
-    candidates = candidates.loc[candidates["network_key"].isin(candidate_networks)].copy()
+    candidates = candidates.loc[
+        candidates["network_key"].isin(candidate_networks)
+    ].copy()
     if not networks.empty:
         candidates = candidates.merge(
             networks[["network_id", "network_key"]], on="network_key", how="left"
@@ -1116,7 +1216,9 @@ def select_candidates(
     else:
         candidates["network_id"] = pd.Series(dtype=str)
     excluded = []
-    for river_key, group in frame.loc[~frame["candidate"]].groupby("river_key", sort=False):
+    for river_key, group in frame.loc[~frame["candidate"]].groupby(
+        "river_key", sort=False
+    ):
         excluded.append(
             {
                 "river_key": river_key,
@@ -1127,7 +1229,9 @@ def select_candidates(
                 "n_loire_last_check": int(group["is_loire_last_check"].sum()),
                 "river_has_two_stations": bool(group["river_has_two_stations"].iat[0]),
                 "ambiguous_river_name": bool(group["ambiguous_river_name"].iat[0]),
-                "n_distinct_watercourse_codes": int(group["code_cours_eau"].dropna().nunique()),
+                "n_distinct_watercourse_codes": int(
+                    group["code_cours_eau"].dropna().nunique()
+                ),
                 "station_ids": ";".join(sorted(group["station_id"].astype(str))),
             }
         )
@@ -1141,7 +1245,9 @@ def select_candidates(
         }
         missing = sorted(wanted - keep)
         if missing:
-            raise RuntimeError(f"--network-keys not found in the candidate pool: {missing}")
+            raise RuntimeError(
+                f"--network-keys not found in the candidate pool: {missing}"
+            )
         for item in networks.loc[
             ~networks["network_id"].isin(keep) & ~networks["river_key"].isin(keep)
         ].to_dict(orient="records"):
@@ -1158,7 +1264,9 @@ def select_candidates(
             networks["network_id"].isin(keep) | networks["river_key"].isin(keep)
         ].reset_index(drop=True)
         candidate_networks = set(networks["river_key"]) if not networks.empty else set()
-        candidates = candidates.loc[candidates["river_key"].isin(candidate_networks)].copy()
+        candidates = candidates.loc[
+            candidates["river_key"].isin(candidate_networks)
+        ].copy()
     return (
         candidates,
         networks,
@@ -1186,7 +1294,9 @@ def stage_download(
 
     plan = []
     for network_id, group in candidates.groupby("network_id", sort=True):
-        ranked = group.sort_values(["download_code", "n_obs_total"], ascending=[True, False])
+        ranked = group.sort_values(
+            ["download_code", "n_obs_total"], ascending=[True, False]
+        )
         chosen = []
         for code in ("1", "4"):
             block = ranked.loc[ranked["download_code"].eq(code)]
@@ -1286,7 +1396,10 @@ def stage_download(
             "sensitivity": [],
             "qc_row": None,
         }
-        if qc_total["n_obs_downloaded"] != qc_total["n_obs_dropped_qc"] + qc_total["n_obs_accepted"]:
+        if (
+            qc_total["n_obs_downloaded"]
+            != qc_total["n_obs_dropped_qc"] + qc_total["n_obs_accepted"]
+        ):
             raise RuntimeError(f"observation accounting inconsistent for {station_id}")
         if per_day.empty:
             result["failures"].append(
@@ -1313,7 +1426,11 @@ def stage_download(
             **qc_total,
             **per_day_qc(per_day, min_obs_per_day=min_obs_per_day),
             "n_days_in_span": int(
-                len(pd.date_range(per_day["date"].min(), per_day["date"].max(), freq="D"))
+                len(
+                    pd.date_range(
+                        per_day["date"].min(), per_day["date"].max(), freq="D"
+                    )
+                )
             ),
         }
         qc["n_days_zero_obs"] = int(qc["n_days_in_span"] - qc["n_days_with_obs"])
@@ -1337,7 +1454,9 @@ def stage_download(
                 }
             )
         years_complete = complete_years_from_coverage(coverage)
-        result.update({"daily": daily, "coverage": coverage, "sensitivity": sensitivity})
+        result.update(
+            {"daily": daily, "coverage": coverage, "sensitivity": sensitivity}
+        )
         result["qc_row"] = {
             "network_id": network_id,
             "station_id": station_id,
@@ -1348,7 +1467,9 @@ def stage_download(
             "first_obs_date": str(row.first_obs_date),
             "last_obs_date": str(row.last_obs_date),
             "n_years_downloaded": int(len(years) - len(failed_years)),
-            "years_downloaded": ";".join(str(y) for y in years if y not in failed_years),
+            "years_downloaded": ";".join(
+                str(y) for y in years if y not in failed_years
+            ),
             "n_complete_years": len(years_complete),
             "complete_years": ";".join(str(y) for y in years_complete),
             "n_failed_years": int(len(failed_years)),
@@ -1356,11 +1477,17 @@ def stage_download(
         }
         return result
 
-    jobs = [(network_id, row) for network_id, picked in plan for row in picked.itertuples(index=False)]
+    jobs = [
+        (network_id, row)
+        for network_id, picked in plan
+        for row in picked.itertuples(index=False)
+    ]
     results: list[dict[str, Any]] = []
     if download_workers > 1 and len(jobs) > 1:
         with ThreadPoolExecutor(max_workers=int(download_workers)) as pool:
-            futures = [pool.submit(process, network_id, row) for network_id, row in jobs]
+            futures = [
+                pool.submit(process, network_id, row) for network_id, row in jobs
+            ]
             for future in futures:
                 results.append(future.result())
     else:
@@ -1385,12 +1512,17 @@ def stage_download(
         qc_frame.to_csv(RAW / "station_qc.csv", index=False)
     if year_cov:
         coverage_frame = pd.concat(
-            [frame.assign(station_id=station_id) for station_id, frame in year_cov.items()],
+            [
+                frame.assign(station_id=station_id)
+                for station_id, frame in year_cov.items()
+            ],
             ignore_index=True,
         )
         coverage_frame.to_csv(RAW / "station_year_coverage.csv", index=False)
     if sensitivity_rows:
-        pd.DataFrame(sensitivity_rows).to_csv(RAW / "complete_year_sensitivity.csv", index=False)
+        pd.DataFrame(sensitivity_rows).to_csv(
+            RAW / "complete_year_sensitivity.csv", index=False
+        )
     return qc_frame, station_daily, failures
 
 
@@ -1427,11 +1559,13 @@ def write_outputs(
 ) -> dict[str, Any]:
     NETWORKS.mkdir(parents=True, exist_ok=True)
     qc_by_station = (
-        qc_frame.set_index("station_id").to_dict(orient="index") if not qc_frame.empty else {}
+        qc_frame.set_index("station_id").to_dict(orient="index")
+        if not qc_frame.empty
+        else {}
     )
-    planned_station_ids = {
-        str(station_id) for station_id in station_daily
-    } | set(qc_by_station)
+    planned_station_ids = {str(station_id) for station_id in station_daily} | set(
+        qc_by_station
+    )
     prov = stations.set_index("station_id").to_dict(orient="index")
     span_by = spans.set_index("station_id").to_dict(orient="index")
 
@@ -1454,7 +1588,11 @@ def write_outputs(
                     else "downloaded but no daily panel built (see ingest.json failures)"
                 )
                 dropped_stations.append(
-                    {"network_id": network_id, "station_id": station_id, "reason": reason}
+                    {
+                        "network_id": network_id,
+                        "station_id": station_id,
+                        "reason": reason,
+                    }
                 )
                 continue
             if int(qc["n_complete_years"]) < MIN_COMPLETE_YEARS:
@@ -1476,14 +1614,19 @@ def write_outputs(
                     "river_name": str(row.river_name),
                     "reason": f"only {len(kept)} stations with >={MIN_COMPLETE_YEARS} complete years "
                     f"(need {MIN_STATIONS_PER_NETWORK})",
-                    "candidate_station_ids": ";".join(sorted(members["station_id"].astype(str))),
+                    "candidate_station_ids": ";".join(
+                        sorted(members["station_id"].astype(str))
+                    ),
                 }
             )
             continue
         directory = NETWORKS / network_id
         directory.mkdir(parents=True, exist_ok=True)
         wide = pd.DataFrame(
-            {station_id: station_daily[station_id].set_index("date")["temperature_c"] for station_id, _, _ in kept}
+            {
+                station_id: station_daily[station_id].set_index("date")["temperature_c"]
+                for station_id, _, _ in kept
+            }
         )
         wide = wide.sort_index()
         wide.index.name = "date"
@@ -1526,7 +1669,9 @@ def write_outputs(
                     "waterbody_class": meta.get("waterbody_class"),
                     "waterbody_name": meta.get("waterbody_name"),
                     "hubeau_nature_station": meta.get("nature_station"),
-                    "canalised_name_flag": bool(meta.get("canalised_name_flag") or False),
+                    "canalised_name_flag": bool(
+                        meta.get("canalised_name_flag") or False
+                    ),
                     "latitude_deg": meta.get("latitude"),
                     "longitude_deg": meta.get("longitude"),
                     "hubeau_code_cours_eau": meta.get("code_cours_eau"),
@@ -1540,7 +1685,9 @@ def write_outputs(
                     "n_obs_downloaded": int(qc["n_obs_downloaded"]),
                     "n_obs_accepted": int(qc["n_obs_accepted"]),
                     "n_obs_dropped_out_of_range": int(qc["dropped_out_of_range"]),
-                    "n_obs_dropped_unparsable_or_nonfinite": int(qc["dropped_unparsable"])
+                    "n_obs_dropped_unparsable_or_nonfinite": int(
+                        qc["dropped_unparsable"]
+                    )
                     + int(qc["dropped_non_finite"]),
                     "n_days_in_span": int(qc["n_days_in_span"]),
                     "n_days_with_obs": int(qc["n_days_with_obs"]),
@@ -1567,17 +1714,17 @@ def write_outputs(
         network_station.to_csv(directory / "stations.csv", index=False)
         station_rows.extend(network_station_rows)
 
-        digest = sha256_file(wide_path)
         n_station_years = int(network_station["n_complete_years"].sum())
         panel_files.append(
             {
                 "network_id": network_id,
                 "input_path": str(wide_path.relative_to(ROOT)),
-                "sha256": digest,
                 "n_stations": int(len(network_station)),
                 "n_station_years": n_station_years,
                 "station_ids_ge4": ";".join(network_station["station_id"].astype(str)),
-                "quality": ";".join(sorted(set(network_station["quality"].astype(str)))),
+                "quality": ";".join(
+                    sorted(set(network_station["quality"].astype(str)))
+                ),
                 "domain": "transport_external",
             }
         )
@@ -1595,12 +1742,13 @@ def write_outputs(
                 "accepted_quality_codes": ";".join(
                     sorted(set(network_station["accepted_quality_codes"].astype(str)))
                 ),
-                "quality_label": ";".join(sorted(set(network_station["quality"].astype(str)))),
+                "quality_label": ";".join(
+                    sorted(set(network_station["quality"].astype(str)))
+                ),
                 "quality_assurance": ";".join(
                     sorted(set(network_station["quality_assurance"].astype(str)))
                 ),
                 "daily_wide_temperature_csv": f"networks/{network_id}/daily_wide_temperature.csv",
-                "sha256": digest,
                 "panels_include_only_stations_with_ge4_complete_years": True,
             }
         )
@@ -1654,8 +1802,9 @@ def write_outputs(
                     "retrieved_utc": retrieved_utc,
                     "stations": network_station_rows,
                     "n_station_years": n_station_years,
-                    "daily_wide_temperature_csv_sha256": digest,
-                    "quality": ";".join(sorted(set(network_station["quality"].astype(str)))),
+                    "quality": ";".join(
+                        sorted(set(network_station["quality"].astype(str)))
+                    ),
                     "quality_assurance": ";".join(
                         sorted(set(network_station["quality_assurance"].astype(str)))
                     ),
@@ -1673,10 +1822,14 @@ def write_outputs(
 
     stations_provider = pd.DataFrame(station_rows)
     if not stations_provider.empty:
-        stations_provider = stations_provider.sort_values(["network_id", "station_id"]).reset_index(drop=True)
+        stations_provider = stations_provider.sort_values(
+            ["network_id", "station_id"]
+        ).reset_index(drop=True)
     stations_provider.to_csv(OUT_ROOT / "stations.csv", index=False)
     if panel_files:
-        pd.DataFrame(panel_files).to_csv(RAW / "network_inputs_manifest.csv", index=False)
+        pd.DataFrame(panel_files).to_csv(
+            RAW / "network_inputs_manifest.csv", index=False
+        )
         pd.DataFrame(network_rows).to_csv(OUT_ROOT / "networks.csv", index=False)
     pd.DataFrame(networks_dropped).to_csv(
         OUT_ROOT / "networks_excluded_after_download.csv", index=False
@@ -1684,14 +1837,20 @@ def write_outputs(
     pd.DataFrame(dropped_waterbody).to_csv(
         OUT_ROOT / "stations_dropped_waterbody_filter.csv", index=False
     )
-    pd.DataFrame(dropped_stations).to_csv(OUT_ROOT / "stations_below_year_floor.csv", index=False)
+    pd.DataFrame(dropped_stations).to_csv(
+        OUT_ROOT / "stations_below_year_floor.csv", index=False
+    )
     if not request_manifest.empty:
         request_manifest.to_csv(RAW / "url_manifest.csv", index=False)
 
     n_stations_final = int(len(stations_provider))
-    n_station_years = int(stations_provider["n_complete_years"].sum()) if n_stations_final else 0
+    n_station_years = (
+        int(stations_provider["n_complete_years"].sum()) if n_stations_final else 0
+    )
     codes_used = (
-        sorted({str(v) for v in stations_provider["accepted_quality_codes"]}) if n_stations_final else []
+        sorted({str(v) for v in stations_provider["accepted_quality_codes"]})
+        if n_stations_final
+        else []
     )
     assurance = (
         "ALL stations are Sandre code 4 'Non qualifie' (unqualified) - this panel is a "
@@ -1716,7 +1875,8 @@ def write_outputs(
         "screening_only_no_frozen_score": True,
         "api_urls": {
             "station_catalog_template": STATION_API + "?size=20000&page=1",
-            "span_template": HUBEAU_CHRONIQUE + "?code_station=<id>&size=1&page=1&sort=asc|desc",
+            "span_template": HUBEAU_CHRONIQUE
+            + "?code_station=<id>&size=1&page=1&sort=asc|desc",
             "qualification_count_template": HUBEAU_CHRONIQUE
             + "?code_station=<id>&code_qualification=<1|2|3|4>&size=1&page=1",
             "window_template": HUBEAU_CHRONIQUE
@@ -1738,10 +1898,18 @@ def write_outputs(
             "per_station_code_totals_over_audited_rivers": {
                 key: value
                 for key, value in {
-                    "count_code_1": int(qualification["count_code_1"].sum()) if not qualification.empty else 0,
-                    "count_code_2": int(qualification["count_code_2"].sum()) if not qualification.empty else 0,
-                    "count_code_3": int(qualification["count_code_3"].sum()) if not qualification.empty else 0,
-                    "count_code_4": int(qualification["count_code_4"].sum()) if not qualification.empty else 0,
+                    "count_code_1": int(qualification["count_code_1"].sum())
+                    if not qualification.empty
+                    else 0,
+                    "count_code_2": int(qualification["count_code_2"].sum())
+                    if not qualification.empty
+                    else 0,
+                    "count_code_3": int(qualification["count_code_3"].sum())
+                    if not qualification.empty
+                    else 0,
+                    "count_code_4": int(qualification["count_code_4"].sum())
+                    if not qualification.empty
+                    else 0,
                 }.items()
             },
             "n_stations_with_code_1": int((qualification["count_code_1"] > 0).sum())
@@ -1756,7 +1924,9 @@ def write_outputs(
             "n_stations_with_code_4": int((qualification["count_code_4"] > 0).sum())
             if not qualification.empty
             else 0,
-            "n_stations_codes_sum_mismatch": int((~qualification["codes_match_total"]).sum())
+            "n_stations_codes_sum_mismatch": int(
+                (~qualification["codes_match_total"]).sum()
+            )
             if not qualification.empty
             else 0,
             "per_station_table": "raw_cache/qualification_counts.csv",
@@ -1770,7 +1940,9 @@ def write_outputs(
             "catalog_stations": int(len(stations)),
             "river_stations_kept": int(stations["in_river_panel"].sum()),
             "stations_dropped": int((~stations["in_river_panel"]).sum()),
-            "fraction_dropped": float((~stations["in_river_panel"]).mean()) if len(stations) else 0.0,
+            "fraction_dropped": float((~stations["in_river_panel"]).mean())
+            if len(stations)
+            else 0.0,
             "dropped_detail_file": "stations_dropped_waterbody_filter.csv",
             "rule": (
                 "Hub'Eau temperature stations carry DCE water-body metadata. Every station with a "
@@ -1786,13 +1958,17 @@ def write_outputs(
             "retained_although_label_mentions_sea_or_estuary": int(
                 stations["sea_estuary_mention_in_waterbody_label"].sum()
             ),
-            "canalised_name_flagged_but_kept": int(stations["canalised_name_flag"].sum()),
+            "canalised_name_flagged_but_kept": int(
+                stations["canalised_name_flag"].sum()
+            ),
         },
         "network_filter": {
             "grouping": "normalized Hub'Eau river name (libelle_cours_eau) via cluster_hubeau_rivers",
             "min_stations_per_network": MIN_STATIONS_PER_NETWORK,
             "min_complete_years_per_station": MIN_COMPLETE_YEARS,
-            "loire_last_check_excluded_station_ids": sorted(str(v) for v in loire_blocked),
+            "loire_last_check_excluded_station_ids": sorted(
+                str(v) for v in loire_blocked
+            ),
             "n_candidate_networks_before_year_floor": int(len(networks)),
             "n_networks_final": int(len(network_rows)),
             "n_rivers_excluded_before_download": int(len(excluded_networks)),
@@ -1858,7 +2034,9 @@ def write_outputs(
         },
         "emitted_vs_resolved": {
             "resolved_river_stations_in_catalog": int(stations["in_river_panel"].sum()),
-            "resolved_stations_with_span_ge_4y": int(spans["span_years"].fillna(0).ge(4).sum())
+            "resolved_stations_with_span_ge_4y": int(
+                spans["span_years"].fillna(0).ge(4).sum()
+            )
             if "span_years" in spans.columns
             else None,
             "resolved_candidate_stations_before_cap": resolved_stations,
@@ -1880,7 +2058,9 @@ def write_outputs(
                 ),
             },
             "tranche_filter": {
-                "network_keys": [k for k in str(args.network_keys).split(",") if k.strip()],
+                "network_keys": [
+                    k for k in str(args.network_keys).split(",") if k.strip()
+                ],
                 "networks_withheld_from_this_emission": int(len(tranche_dropped)),
                 "file": "raw_cache/networks_withheld_by_tranche_filter.csv",
             },
@@ -1888,7 +2068,8 @@ def write_outputs(
                 sum(
                     1
                     for item in dropped_stations
-                    if "beyond --max-stations-per-network cap" in str(item.get("reason"))
+                    if "beyond --max-stations-per-network cap"
+                    in str(item.get("reason"))
                 )
             ),
             "stations_downloaded": int(len(station_daily)),
@@ -1898,11 +2079,15 @@ def write_outputs(
         },
         "days_below_observation_floor": {
             "min_observations_per_day": int(args.min_obs_per_day),
-            "n_days_in_span": int(stations_provider["n_days_in_span"].sum()) if n_stations_final else 0,
+            "n_days_in_span": int(stations_provider["n_days_in_span"].sum())
+            if n_stations_final
+            else 0,
             "n_days_with_observations": int(stations_provider["n_days_with_obs"].sum())
             if n_stations_final
             else 0,
-            "n_days_with_daily_value": int(stations_provider["n_days_daily_value"].sum())
+            "n_days_with_daily_value": int(
+                stations_provider["n_days_daily_value"].sum()
+            )
             if n_stations_final
             else 0,
             "n_days_zero_observations": int(stations_provider["n_days_zero_obs"].sum())
@@ -1946,7 +2131,9 @@ def write_outputs(
             "protocol_rule": "no station in the panel may appear in the v17/v18 study rosters",
             "sources_scanned": prior_sources,
             "conflicts": prior_conflicts,
-            "n_conflicting_stations_ingested": sum(len(v) for v in prior_conflicts.values()),
+            "n_conflicting_stations_ingested": sum(
+                len(v) for v in prior_conflicts.values()
+            ),
         },
         "ambiguous_river_names": {
             "rule": (
@@ -1954,7 +2141,9 @@ def write_outputs(
                 "cannot certify a single agency river; every station in such a name cluster is "
                 "excluded from the panel rather than guessed into a network"
             ),
-            "n_clusters": int(ambiguous_clusters["river_key"].nunique()) if not ambiguous_clusters.empty else 0,
+            "n_clusters": int(ambiguous_clusters["river_key"].nunique())
+            if not ambiguous_clusters.empty
+            else 0,
             "n_stations_excluded": int(ambiguous_stations),
             "file": "raw_cache/ambiguous_river_name_clusters.csv",
         },
@@ -1988,7 +2177,9 @@ def write_outputs(
         ],
         "failures": failures,
     }
-    (OUT_ROOT / "ingest.json").write_text(json.dumps(ingest, indent=2, ensure_ascii=False) + "\n")
+    (OUT_ROOT / "ingest.json").write_text(
+        json.dumps(ingest, indent=2, ensure_ascii=False) + "\n"
+    )
     print(
         f"  outputs: {len(network_rows)} networks, {n_stations_final} stations, "
         f"{n_station_years} complete station-years",
@@ -2006,7 +2197,9 @@ def module_consistency_check(
 ) -> dict[str, Any]:
     """Compare one cached code-1 year against the shared module's own fetcher."""
 
-    code1 = candidates.loc[candidates["download_code"].eq("1")].sort_values("station_id")
+    code1 = candidates.loc[candidates["download_code"].eq("1")].sort_values(
+        "station_id"
+    )
     if code1.empty:
         return {
             "performed": False,
@@ -2021,12 +2214,19 @@ def module_consistency_check(
         module_rows = hubeau_chronique_rows(station_id, start_ts, end_ts)
     # The comparison is optional provenance; a transport failure must be reported, not hidden.
     except Exception as error:  # noqa: BLE001
-        return {"performed": False, "reason": f"module fetch failed: {type(error).__name__}: {error}"}
+        return {
+            "performed": False,
+            "reason": f"module fetch failed: {type(error).__name__}: {error}",
+        }
     script_rows = fetch_window(hub, station_id, start_ts, end_ts, "1", refresh=False)
 
     def key(item: dict[str, Any]) -> tuple[str, float]:
         date = str(item.get("date") or item.get("date_mesure_temp"))
-        value = item.get("temperature_c") if "temperature_c" in item else item.get("resultat")
+        value = (
+            item.get("temperature_c")
+            if "temperature_c" in item
+            else item.get("resultat")
+        )
         return (date, round(float(value), 6) if value is not None else float("nan"))
 
     same = sorted(map(key, module_rows)) == sorted(map(key, script_rows))
@@ -2047,12 +2247,18 @@ def module_consistency_check(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", default="all", choices=("all", "catalog", "spans", "qualify", "download"))
+    parser.add_argument(
+        "--stage",
+        default="all",
+        choices=("all", "catalog", "spans", "qualify", "download"),
+    )
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--timeout", type=int, default=90)
     parser.add_argument("--retries", type=int, default=6)
     parser.add_argument("--pause", type=float, default=0.0)
-    parser.add_argument("--refresh", action="store_true", help="ignore cached API responses")
+    parser.add_argument(
+        "--refresh", action="store_true", help="ignore cached API responses"
+    )
     parser.add_argument("--min-obs-per-day", type=int, default=4)
     parser.add_argument("--sensitivity-thresholds", default="1,4,24")
     parser.add_argument("--min-span-years", type=float, default=4.0)
@@ -2073,7 +2279,9 @@ def main() -> None:
     parser.add_argument("--download-workers", type=int, default=2)
     parser.add_argument("--outer-retries", type=int, default=3)
     parser.add_argument("--max-years-per-station", type=int, default=0)
-    parser.add_argument("--dry-run", action="store_true", help="stop after candidate selection")
+    parser.add_argument(
+        "--dry-run", action="store_true", help="stop after candidate selection"
+    )
     args = parser.parse_args()
 
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
@@ -2088,7 +2296,11 @@ def main() -> None:
         pause=args.pause,
         outer_retries=args.outer_retries,
     )
-    thresholds = [int(value) for value in str(args.sensitivity_thresholds).split(",") if value.strip()]
+    thresholds = [
+        int(value)
+        for value in str(args.sensitivity_thresholds).split(",")
+        if value.strip()
+    ]
     if int(args.min_obs_per_day) not in thresholds:
         thresholds.append(int(args.min_obs_per_day))
 
@@ -2124,7 +2336,11 @@ def main() -> None:
         min_code1_observations=args.min_code1_observations,
         max_networks=args.max_networks,
     )
-    audit_rivers = set(preliminary_networks["river_key"].astype(str)) if not preliminary_networks.empty else set()
+    audit_rivers = (
+        set(preliminary_networks["river_key"].astype(str))
+        if not preliminary_networks.empty
+        else set()
+    )
     preliminary.to_csv(RAW / "preliminary_candidate_stations.csv", index=False)
     audit_stations = stations.loc[
         stations["in_river_panel"]
@@ -2168,19 +2384,27 @@ def main() -> None:
             "groups (recorded in raw_cache/networks_beyond_cap.csv)",
             flush=True,
         )
-    pd.DataFrame(excluded_rivers).to_csv(RAW / "candidate_rivers_excluded.csv", index=False)
+    pd.DataFrame(excluded_rivers).to_csv(
+        RAW / "candidate_rivers_excluded.csv", index=False
+    )
     pd.DataFrame(capped_networks).to_csv(RAW / "networks_beyond_cap.csv", index=False)
     if capped_pre:
-        pd.DataFrame(capped_pre).to_csv(OUT_ROOT / "networks_beyond_cap.csv", index=False)
-    pd.DataFrame(tranche_dropped).to_csv(RAW / "networks_withheld_by_tranche_filter.csv", index=False)
+        pd.DataFrame(capped_pre).to_csv(
+            OUT_ROOT / "networks_beyond_cap.csv", index=False
+        )
+    pd.DataFrame(tranche_dropped).to_csv(
+        RAW / "networks_withheld_by_tranche_filter.csv", index=False
+    )
     ambiguous_station_count = int(len(ambiguous_frame))
     ambiguous = (
-        ambiguous_frame
-        .groupby("river_key")
+        ambiguous_frame.groupby("river_key")
         .agg(
             n_stations=("station_id", "size"),
             n_candidate_stations=("candidate", "sum"),
-            code_cours_eau=("code_cours_eau", lambda s: ";".join(sorted(set(s.dropna().astype(str))))),
+            code_cours_eau=(
+                "code_cours_eau",
+                lambda s: ";".join(sorted(set(s.dropna().astype(str)))),
+            ),
             river_name=("river_name", lambda s: ";".join(sorted(set(s.astype(str))))),
             station_ids=("station_id", lambda s: ";".join(sorted(s.astype(str)))),
         )
@@ -2219,7 +2443,9 @@ def main() -> None:
     failures = list(hub.failures) + list(failures)
 
     prior_by_source, prior_used = prior_access_ids()
-    ingested_ids = set(qc_frame["station_id"].astype(str)) if not qc_frame.empty else set()
+    ingested_ids = (
+        set(qc_frame["station_id"].astype(str)) if not qc_frame.empty else set()
+    )
     prior_hits = sorted(ingested_ids & prior_used)
     prior_conflicts = {"station_ids": prior_hits} if prior_hits else {}
     if prior_hits:
@@ -2232,7 +2458,9 @@ def main() -> None:
     request_manifest = hub.manifest()
     dropped_file = RAW / "stations_dropped_waterbody_filter.csv"
     dropped_waterbody = (
-        pd.read_csv(dropped_file, dtype=str).to_dict(orient="records") if dropped_file.is_file() else []
+        pd.read_csv(dropped_file, dtype=str).to_dict(orient="records")
+        if dropped_file.is_file()
+        else []
     )
     write_outputs(
         stations=stations,
@@ -2255,7 +2483,9 @@ def main() -> None:
         module_check=module_check,
         capped_networks=capped_networks,
         tranche_dropped=tranche_dropped,
-        resolved_networks=int(networks_all["network_id"].nunique()) if not networks_all.empty else 0,
+        resolved_networks=int(networks_all["network_id"].nunique())
+        if not networks_all.empty
+        else 0,
         resolved_stations=int(len(preliminary_all)),
         pre_cap_networks_dropped=[dict(item) for item in capped_pre],
         ambiguous_clusters=ambiguous,

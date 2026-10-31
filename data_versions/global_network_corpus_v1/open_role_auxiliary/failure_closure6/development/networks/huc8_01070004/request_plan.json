@@ -3,9 +3,7 @@
   "n_initial_requests": 15,
   "n_sites": 3,
   "network_id": "huc8_01070004",
-  "network_plan_sha256": "0757a8fb58d1c860aedf6df742241a82b5b6117edb35d589e1a0176d15862d94",
   "performance_metrics_computed": false,
-  "request_plan_sha256": "de5d2c3d025cea1759b879502d7396b02d50396da4aeb4d3f6c583ddcb173057",
   "requests": [
     {
       "end": "2026-04-12",
@@ -151,6 +149,5 @@
   ],
   "role": "development",
   "sealed_paths_traversed": false,
-  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
   "temperature_columns_read": []
 }

@@ -43,7 +43,7 @@ _spec = importlib.util.spec_from_file_location(
 M330 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(M330)
 
-from stream_recoverability.experiments.v17_fitness.paths import stable_seed  # noqa: E402
+from stream_recoverability.seeds import plain_seed, position_index  # noqa: E402
 
 RUN = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261020"
 ALIGNED = RUN / "p0_01_aligned_policy_admission"
@@ -54,6 +54,14 @@ JITTER_SCALE = {"length_rule": 1.0, "peak_overlap_rule": 1e-3, "fitted_risk": No
 DRAWS = 1000
 EVAL_DRAWS = 4000
 
+#: Random draws use ``plain_seed(tag, panel, fold seed, ...)``: the tag code below,
+#: then panel, event, tie rule and score as their positions in sorted order.
+SEED_TAGS = {"ablate-jitter": 1, "ablate-select": 2, "ablate-eval": 3}
+PANEL_CODES = position_index(M330.PANELS)
+SCORE_CODES = position_index(SCORES)
+EVENT_CODES = position_index(("policy_bad", "certificate_bad"))
+TIE_CODES = position_index(("block", "jitter"))
+
 
 def _jittered(score: np.ndarray, name: str, *, panel: str, seed: int) -> np.ndarray:
     scale = JITTER_SCALE[name]
@@ -61,7 +69,11 @@ def _jittered(score: np.ndarray, name: str, *, panel: str, seed: int) -> np.ndar
         finite = score[np.isfinite(score)]
         spread = float(finite.max() - finite.min()) if finite.size else 1.0
         scale = 1e-9 * max(spread, 1e-12)
-    rng = np.random.default_rng(stable_seed("ablate-jitter", panel, seed, name))
+    rng = np.random.default_rng(
+        plain_seed(
+            SEED_TAGS["ablate-jitter"], PANEL_CODES[panel], seed, SCORE_CODES[name]
+        )
+    )
     return score + rng.random(score.size) * float(scale)
 
 
@@ -102,7 +114,9 @@ def main() -> None:
                                 cal_values = cal_scores[fold][cal_mask]
                                 if tie == "jitter":
                                     cal_values = _jittered(
-                                        np.where(np.isfinite(cal_values), cal_values, np.inf),
+                                        np.where(
+                                            np.isfinite(cal_values), cal_values, np.inf
+                                        ),
                                         name,
                                         panel=panel,
                                         seed=seed,
@@ -115,9 +129,19 @@ def main() -> None:
                                 groups[cal_mask],
                                 risk_cap=0.05,
                                 draws=DRAWS,
-                                seed=stable_seed("ablate-select", panel, seed, event, tie, name, fold),
+                                seed=plain_seed(
+                                    SEED_TAGS["ablate-select"],
+                                    PANEL_CODES[panel],
+                                    seed,
+                                    EVENT_CODES[event],
+                                    TIE_CODES[tie],
+                                    SCORE_CODES[name],
+                                    fold,
+                                ),
                             )
-                            flags[test_mask] = evaluated[test_mask] <= selection["threshold"]
+                            flags[test_mask] = (
+                                evaluated[test_mask] <= selection["threshold"]
+                            )
                         admit[name] = flags
                     summary = M330.clustered_summary(
                         admit,
@@ -125,7 +149,13 @@ def main() -> None:
                         group_index,
                         n_groups,
                         draws=EVAL_DRAWS,
-                        seed=stable_seed("ablate-eval", panel, seed, event, tie),
+                        seed=plain_seed(
+                            SEED_TAGS["ablate-eval"],
+                            PANEL_CODES[panel],
+                            seed,
+                            EVENT_CODES[event],
+                            TIE_CODES[tie],
+                        ),
                     )
                     for name in SCORES:
                         rows.append(
@@ -159,7 +189,9 @@ def main() -> None:
                 block = table[
                     table.panel.eq(panel) & table.event.eq(event) & table.tie.eq(tie)
                 ]
-                pivot = block.pivot_table(index="fold_seed", columns="score", values="retention")
+                pivot = block.pivot_table(
+                    index="fold_seed", columns="score", values="retention"
+                )
                 gap = 100.0 * (pivot["fitted_risk"] - pivot["peak_overlap_rule"])
                 lines.append(
                     f"| {panel} | {event} | {tie} | {pivot['fitted_risk'].mean():.3f} | "
@@ -185,7 +217,11 @@ def main() -> None:
             {
                 "seeds": list(SEEDS),
                 "scores": list(SCORES),
-                "jitter_scale": {"length_rule": 1.0, "peak_overlap_rule": 1e-3, "fitted_risk": "1e-9 x spread"},
+                "jitter_scale": {
+                    "length_rule": 1.0,
+                    "peak_overlap_rule": 1e-3,
+                    "fitted_risk": "1e-9 x spread",
+                },
                 "select_draws": DRAWS,
                 "eval_draws": EVAL_DRAWS,
                 "note": (

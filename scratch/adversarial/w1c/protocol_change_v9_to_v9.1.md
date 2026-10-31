@@ -4,7 +4,7 @@ Date: 2026-08-26
 Status: next-paper freeze **amendment**；不是结果，不是标题许可，不是对 T2 的放宽。  
 Amends: `docs/protocol_change_v8_to_v9.md` + `configs/design_freeze_v9.yaml`  
 Supersedes: 无。v9 的 T2 数字地板、密封规则、never_sealed 清单全部继承。  
-Does not touch: `configs/design_freeze_v4.yaml`、`DEFAULT_DESIGN_PATH`、`EXECUTABLE_DESIGN_VERSION`、金沙江 / Chattahoochee 历史稿、134k-run 历史流水线、全国面板冻结哈希、`recoverability_study_freeze_v1.yaml`、BL-001–BL-015 已冻结表述、`configs/network_catalog_v1.yaml` 作为历史对照目录
+Does not touch: `configs/design_freeze_v4.yaml`、`DEFAULT_DESIGN_PATH`、`EXECUTABLE_DESIGN_VERSION`、金沙江 / Chattahoochee 历史稿、134k-run 历史流水线、全国面板的冻结版本、`recoverability_study_freeze_v1.yaml`、BL-001–BL-015 已冻结表述、`configs/network_catalog_v1.yaml` 作为历史对照目录
 
 这是**下一篇研究冻结的修正案**，不是对 `design_freeze_v4` 的静默改写，也不是把 `design_freeze_v9` 换成一份新的可执行设定。  
 `design_id` 仍是 `design_freeze_v9`。v9.1 只追加 `protocol_amendment: v9.1`。  
@@ -101,7 +101,7 @@ v9 把下一篇的标题论题、Schur 主算子、T2/T3 数字地板和 never_s
    下列 14 个 ID 必须原样出现在 `split_rule.never_sealed_networks`，可追加新 ID，**禁止删除、禁止改 token、禁止用补零 HUC2 重命名来「修好」`*_huc20` / `*_huc31` / `*_huc50`：**  
    `jinsha_upper`，`chattahoochee_upper_middle`，`delaware_river_huc20`，`willamette_river_huc17`，`suwannee_river_huc31`，`yellowstone_river_huc10`，`rio_grande_huc13`，`madison_river_huc10`，`cahaba_river_huc31`，`mckenzie_river_huc17`，`mahoning_river_huc50`，`roanoke_river_huc30`，`santa_fe_river_huc31`，`clearwater_river_huc17`。  
    `loire_mainstem` 与 `swiss_aar_rhine` 仍在 `not_countable_as_public_daily_or_non_na_sealed_until_daily_history_is_public`。没有公开、带日期的日值之前，不得计入 T8，不得计入 ≥10 条北美以外密封。不得用 `river_catalog_summary.csv` 里那行伪造的 14 站八年日值把 Loire 救进密封。  
-   划分：剩余候选按 气候带 × 调控状态 × 网络规模 分层，目标 50/20/30，密封绝对下限 40。种子、分层表、SHA-256 在**第一次新下载之前**落盘（`configs/network_catalog_v3_split.yaml` 或同等文件）。本协议只锁规则与指针；不在 Phase 0 重切 `network_catalog_v1.yaml`。
+   划分：剩余候选按 气候带 × 调控状态 × 网络规模 分层，目标 50/20/30，密封绝对下限 40。种子和分层表在**第一次新下载之前**落盘（`configs/network_catalog_v3_split.yaml` 或同等文件）。本协议只锁规则与指针；不在 Phase 0 重切 `network_catalog_v1.yaml`。
 
 9. **两层恢复模型预算，下载前锁死（P5）。**  
    **第一层（全语料，产生 T2 主 \(y\)）：** climatology，PCHIP/线性，Kalman，donor_regression，XGBoost。全缺口 × 全 placement（每格 ≥20）× 全信息条件。  
@@ -136,7 +136,7 @@ v9 把下一篇的标题论题、Schur 主算子、T2/T3 数字地板和 never_s
 1. 历史 once-lock。`design_freeze_v4`、540-unit 一次打开、train-only 启发式、2018--2020 development-test 可见性标签，全部不动。`DEFAULT_DESIGN_PATH` 仍是 v4。
 2. T2 数字地板。Spearman 0.60、CI 下界 0.40、四基线点估计规则、校准 0.10 / [0.8,1.2]、库存目标 150、网络级 CI 的 100 网地板。6 河没过关不是改这些数的理由。
 3. T3(a)/(b) 决策门槛、T4 自然缺测、T6 SEPlains×BFI、T7 密封一次打开、T8 公开数据优先。
-4. 全国面板冻结哈希。BL-011 的 pooled LOEO AUC 0.407 仍是历史稿的冻结主数字。
+4. 全国面板的冻结版本。BL-011 的 pooled LOEO AUC 0.407 仍是历史稿的冻结主数字。
 5. 金沙江源质量边界 BL-014。
 6. 密封结果仍然未打开。目录阶段只许查站在不在、目录年份够不够，不许用水温给方法打分。
 7. `formal_evidence: false`。没有标题许可。12 河 / 6 河 / 5 河试点数字不是 confirmatory。

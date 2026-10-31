@@ -1,6 +1,6 @@
 # F11 — sensor-noise sensitivity, regenerated under one locked method
 
-The published `results/v17_fitness/step22_robustness/noise_sensitivity.json` was produced before `noise_sensitivity` in `scripts/202_v17_robustness.py` was fixed (commit a9a7ad99cf). In the published version the clean arm used the information-conditioned simple policy while the perturbed certificate arm was evaluated on a different method's error, so part of the published noise effect was a method change. The pre-fix bytes are preserved under `amendments/step22_noise_pre_fix/` (sha256 in `sha256.json`); the numbers below supersede them.
+The published `results/v17_fitness/step22_robustness/noise_sensitivity.json` was produced before `noise_sensitivity` in `scripts/202_v17_robustness.py` was fixed. In the published version the clean arm used the information-conditioned simple policy while the perturbed certificate arm was evaluated on a different method's error, so part of the published noise effect was a method change. The pre-fix bytes are preserved under `amendments/step22_noise_pre_fix/`; the numbers below supersede them.
 
 ## Headline: old versus new, same locked method
 
@@ -113,7 +113,7 @@ Statistics are computed inside each sampled station-year and averaged across ser
 ## What was and was not changed
 
 Read-only: every `results/v17_fitness/**` artifact, the sealed confirmation inputs, `paper/**`.
-New: `scripts/246_wrr_noise_recompute.py`, `src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py`, and this amendment directory. `scripts/202_v17_robustness.py` is imported, never edited; its sha256 is recorded in `summary.json`.
+New: `scripts/246_wrr_noise_recompute.py`, `src/stream_recoverability/experiments/wrr_submission_ready/noise_scenarios.py`, and this amendment directory. `scripts/202_v17_robustness.py` is imported, never edited.
 
 ## Caveats
 

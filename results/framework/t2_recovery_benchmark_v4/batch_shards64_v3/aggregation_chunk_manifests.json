@@ -1,5 +1,4 @@
 {
-  "batch_plan_sha256": "697ea7ec91c2331860dd2393b9a9c8b03bc6ee924626a3a13c06f1461fc98f66",
   "chunk_manifest_paths": [
     "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v3/chunk_0000000_0005000/manifest.json",
     "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v3/chunk_0005000_0010000/manifest.json",
@@ -513,328 +512,196 @@
   "sealed_temperature_records_read": false,
   "source_aggregation_lists": [
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_0/aggregation_chunk_manifests.json",
-      "sha256": "a977363c157aa9d362d81a98ca300606b34941a57b6589ab40c6114901d98eef"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_0/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_1/aggregation_chunk_manifests.json",
-      "sha256": "0fdbebdd18d80804170c355e1102f5ba149c9eeb26c5b2d8abe507ebb3ffe68e"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_1/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_2/aggregation_chunk_manifests.json",
-      "sha256": "0c28f67e6c4913c9c5ba98c27e923d9ca41b523b6a8f3f012e407478e901663d"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_2/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_3/aggregation_chunk_manifests.json",
-      "sha256": "117af9b4b93512176da7c4aad19ca3db194698b5746ee77d97b09407fcc60345"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_3/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_4/aggregation_chunk_manifests.json",
-      "sha256": "512cbfd6d62a8ee95bad54c529e05ab3c13223fc8c72d92609afe3f26ff8b913"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_4/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_5/aggregation_chunk_manifests.json",
-      "sha256": "20628832438d9c33fc4aad995ebe80fc0d5b310ddf83f2b7006a00d845b764d8"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_5/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_6/aggregation_chunk_manifests.json",
-      "sha256": "8d57f17975782371605027cf36abc86cc647d5cfec4995a8770a112f834e570a"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_6/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_7/aggregation_chunk_manifests.json",
-      "sha256": "8450b460b92124747f58204ef99e57d65d90958267905dc574bb91f2c6d05c47"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_7/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_8/aggregation_chunk_manifests.json",
-      "sha256": "51222ad243973ff0d299f831f92dc1a871bfbcb7cbfd9834f3a7e3f918dea35e"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_8/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_9/aggregation_chunk_manifests.json",
-      "sha256": "a8e324ebb79a990f4df5205948dd98c519fcdad3e4d4294498848479456313c3"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_9/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_10/aggregation_chunk_manifests.json",
-      "sha256": "011f7599366eab2ecf272348a58c65b851d0cf44f65a993a8567ecaef64435b3"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_10/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_11/aggregation_chunk_manifests.json",
-      "sha256": "c3ab56b902fba5b6d83033fb68323fdce3d0bdaf8797000a99ea2a83b95c0733"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_11/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_12/aggregation_chunk_manifests.json",
-      "sha256": "c29da8930b69679e108cbc0249051d30762e9321942ec5165c62039c2ca57831"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_12/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_13/aggregation_chunk_manifests.json",
-      "sha256": "11d074ded015696ebe67c943d92251fd7345e682090f13a623491fe1ff0d8412"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_13/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_14/aggregation_chunk_manifests.json",
-      "sha256": "13d925073f73c734848f3b7790d71c0b3d1fdd68897a039a7e0fb80acd25e272"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_14/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_15/aggregation_chunk_manifests.json",
-      "sha256": "b484a1bbb2a678ec5ee09f3fbb09abbdb3b84eafc8bb3f28f870f2555b55da45"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_15/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_16/aggregation_chunk_manifests.json",
-      "sha256": "16f55f7e4ecdb36b3aaf0bca46dac1379d20f9faaac4bf67b89cdbbcbea8ff9a"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_16/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_17/aggregation_chunk_manifests.json",
-      "sha256": "2114eef7cfdb56519188614ba15b9dea43124a92850be8cb5978dadb46a5401b"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_17/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_18/aggregation_chunk_manifests.json",
-      "sha256": "721dd8c21936d8d708028f8c04ebbdfe7cbd8758a91b7f1474aceec7c9d1e738"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_18/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_19/aggregation_chunk_manifests.json",
-      "sha256": "cfbe9ab57944eb5f5a9e4abe42bd4f53da99f9fbaebeef4a28f78fa16a4f8793"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_19/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_20/aggregation_chunk_manifests.json",
-      "sha256": "9b9677cdaea9c67ce5cdc3703faa1d115e8e8373ec2d3ff371278f6438fd948f"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_20/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_21/aggregation_chunk_manifests.json",
-      "sha256": "ff0452a01fe79f16d45117617b2855d5f48a3bdf8ea99fc876a88435ff454ca2"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_21/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_22/aggregation_chunk_manifests.json",
-      "sha256": "ca5a2c0465c315bc010f671bb8b04887cf6f333373a7bb2042187571737ac13c"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_22/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_23/aggregation_chunk_manifests.json",
-      "sha256": "b75d8337746a291f3ea7e6ffcccee6c850edc1e4e9f68d86ff6ec7ec9dd80fed"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_23/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_24/aggregation_chunk_manifests.json",
-      "sha256": "5dca0e41e134ef48216d1705c2821b01668922f34301ab79729a84f1cf96d0ac"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_24/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_25/aggregation_chunk_manifests.json",
-      "sha256": "544e85b129670f9f5b582bebcedd377ab92b6b044447efb50835d0ce50f97962"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_25/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_26/aggregation_chunk_manifests.json",
-      "sha256": "814a76bcfd27953a931ea0c87742477b5aef038eb9baa2269c723804bad98cd3"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_26/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_27/aggregation_chunk_manifests.json",
-      "sha256": "db79f879fb3afc51beed71bd126a428472ed5e0b28ba8257574779f31a734b40"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_27/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_28/aggregation_chunk_manifests.json",
-      "sha256": "e805b240c4a1d2e904ef881a5a2a6a866087c563a19d151a4f5eb90acb8b0862"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_28/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_29/aggregation_chunk_manifests.json",
-      "sha256": "aad37d1f2687dd85ef587a7e2c94267e9e197df716e47fc5458d6c31311eb92e"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_29/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_30/aggregation_chunk_manifests.json",
-      "sha256": "22c68aeb06af9ffd210b2bf390877341df23ac6010bc533d3b91a6d3dd87df79"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_30/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_31/aggregation_chunk_manifests.json",
-      "sha256": "1caca03de414f3354f471f4b08f401c3abaf48bca084ae91aaf95142e404700e"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_31/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_32/aggregation_chunk_manifests.json",
-      "sha256": "9d8999fd27511c71b6663fba5206ff33ddbd8c3eb6a39438fe22ddbd5673e4f6"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_32/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_33/aggregation_chunk_manifests.json",
-      "sha256": "be842192f9e360e263175e564d28afd61b8ef3eb7562d18b75a42606d0cd21ab"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_33/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_34/aggregation_chunk_manifests.json",
-      "sha256": "f97cee6b3336ab6926550bebb349f17b3b2de44bd2ee377e127c0c1f1a50eeb0"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_34/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_35/aggregation_chunk_manifests.json",
-      "sha256": "e3ea7f934f0d85774a4d2b7c833f499709c2136f61dcb12845f44115cb5544dc"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_35/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_36/aggregation_chunk_manifests.json",
-      "sha256": "6b6e64d8d2b174de371e594d80b8c79777fa7aa1126fdf1d569466df36661847"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_36/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_37/aggregation_chunk_manifests.json",
-      "sha256": "630ea49412c633b2bee1abac15a73664520c07846ab5ab861354960c6341e4c0"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_37/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_38/aggregation_chunk_manifests.json",
-      "sha256": "5a6736d7d6099336bb3b2c8e921ec649b16fd1f1e5d702afddadcdba6ff19215"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_38/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_39/aggregation_chunk_manifests.json",
-      "sha256": "962e711c1a637a88f8baeca4d8a0cfb473f4fda72ceb985cf3a38c9a4305828f"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_39/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_40/aggregation_chunk_manifests.json",
-      "sha256": "8dff0becaa1b16d3d97201d0a1ed2a71bedd2196af0133d30aad70c5895b8361"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_40/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_41/aggregation_chunk_manifests.json",
-      "sha256": "93b4c3784c97938185c9c17841cdb1f434b9d9155347fb102cfebdcb191c0677"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_41/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_42/aggregation_chunk_manifests.json",
-      "sha256": "1cc82acb95b63368d70605bcb7109d18457eb894f9a7e81498d6333a0ec5fa71"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_42/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_43/aggregation_chunk_manifests.json",
-      "sha256": "259fea0893f83dbd11471d7f663db6d33d6f80b30eddbddb2f1ff2993b473972"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_43/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_44/aggregation_chunk_manifests.json",
-      "sha256": "8c8ef5edc71dd0e07649ad9bcb1d8522fe58881fe1f751dfe363b158372d8c3f"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_44/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_45/aggregation_chunk_manifests.json",
-      "sha256": "3665b33cfd6298dc2eaf7e895915a334f8897eab60cdcbfdc8cee683ff1257af"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_45/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_46/aggregation_chunk_manifests.json",
-      "sha256": "0902441a2abc82530e836e800b00816c641c4081ffd132938178d37a323f1ab8"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_46/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_47/aggregation_chunk_manifests.json",
-      "sha256": "d6bc35c81530643c946f54f807df06c33dfe4f50dae5cd07a565a3a29d00f79e"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_47/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_48/aggregation_chunk_manifests.json",
-      "sha256": "2408a2c90e5524054cfc5fb5d5a25c9105afcf12bb233c4c451636e86a66142e"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_48/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_49/aggregation_chunk_manifests.json",
-      "sha256": "45d09655b18a339feb55a10cbdcefba2faf392d91ab488eec02bf9cf01b3016a"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_49/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_50/aggregation_chunk_manifests.json",
-      "sha256": "dc6c7d289922d31a2c86d5f3bd99a0fa49b578a8de6a3aeae47e9cdb84122ca3"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_50/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_51/aggregation_chunk_manifests.json",
-      "sha256": "9755b2b2beb60525ec63dd971830ce20eb828e7e9d5224e15d786dedf024f1fa"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_51/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_52/aggregation_chunk_manifests.json",
-      "sha256": "85a0a4936cafcf31ae185d264afa9f3b491cee8b41bc13e6a6b081b2ffae9d5b"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_52/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_53/aggregation_chunk_manifests.json",
-      "sha256": "c51bdbc09be97f3315c146f2fd64fd1e24695e5914e1ecb224fe36c6c50c717f"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_53/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_54/aggregation_chunk_manifests.json",
-      "sha256": "f20226b8dbba73aca2b63e84fd34105f1f2cf83d11f37b95821678113261f969"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_54/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_55/aggregation_chunk_manifests.json",
-      "sha256": "75338e0d0cf6ad638e6f60e69fcdc6843b67e280fb57389dd80c61b23f2dceaf"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_55/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_56/aggregation_chunk_manifests.json",
-      "sha256": "5efa63965b1c09f0a8487d8f572bfb378273ae947cf5bd00b2e4222c0a3c68c7"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_56/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_57/aggregation_chunk_manifests.json",
-      "sha256": "6b97b40e45c0203558d1c9f17a51a4a8719f3ccd9cb232a9bf64bcd4bf07f531"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_57/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_58/aggregation_chunk_manifests.json",
-      "sha256": "4a4c527c61e0787e9c6d869f813643fdb23671e48004f513f53ac76a3ad6ccc3"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_58/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_59/aggregation_chunk_manifests.json",
-      "sha256": "7c98dd8a37a570e35de5f18464c3f711cf1a9d7d1f70e91d1d9c973e4563e0bd"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_59/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_60/aggregation_chunk_manifests.json",
-      "sha256": "1526dcc86842ddc2d6a147351f79d0952f8711eabf25b241f16384e752886df1"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_60/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_61/aggregation_chunk_manifests.json",
-      "sha256": "7df27fe39a0d25b64b4d0b340ac88f9e2e261ae4431c9c83601a90f78cb35462"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_61/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_62/aggregation_chunk_manifests.json",
-      "sha256": "1c0e5bca45bc5e8a98de6bb2813c77571fce83aa26f551c81054709e5957a7a2"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_62/aggregation_chunk_manifests.json"
     },
     {
-      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_63/aggregation_chunk_manifests.json",
-      "sha256": "2e38c20e9dc26fb9264914433e44231693d206e38d8743d1416c64a381046675"
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64_v3/shard_63/aggregation_chunk_manifests.json"
     }
-  ],
-  "source_batch_plan_sha256s": [
-    "6a32d5e20c80e8db646e5f00ec771cae17bc8c9fefb1bcd221420722468b665f",
-    "b288a9a3ff23b2c0937db6661c5799a1ca1c57577634ada843a9c8c2692e6c08",
-    "eb9813942b9e58e4fb4a1c81b83c869bf424c43761dc3b8ec0e3dfa5332b28d2",
-    "1bb0f8435a209f58179b1c15a54150622e5ca9fe2b2036080866d64df47a9029",
-    "26c4e19242641b9f6229be25a78892798e89d3c3e50b0c33b72994367b7e11d8",
-    "45e683af14b2eedf6f2821b527618a9f3c034629de9a864c8f210025c4daa44e",
-    "2022e9b2d25a6d286a540a063627fe6a6ccc75747cb9ff097172b40ba1e3b82d",
-    "438c2c49cd9e62ba3338ac08554fa038992c5bb1abe8a8b6978d689e712b886a",
-    "4b4729025ccfa32e9a650d6e77cc3494659479eed60521b93d2ae69b3cc3a3b0",
-    "3be78bab7eefbd417ace55a92163ca096183c55e4b60f3d651cd017136d712b1",
-    "6e45b2505f8e3cb0479b54c025e7930fd57bfaffb156bf00dcad2c518f5a3ee2",
-    "730895befef17006e1a4c97c424a8712b6aca32e0fa221b49f6b27aef39a9bc1",
-    "e0c3530d5f980b1d917e9797d90c942e31c050305b51eb3ac8f2273afc532966",
-    "75d919c96c3eb4b7b36ecb095f609dc89efea4540ce618f86d4d4efc3719ab2a",
-    "4b29c2b74c7f207a1d6dc3d9842588f1884e98c7d0bc1ea2197aa8cf8f4772ea",
-    "f092ca22256060219507a80a922f91feb7822c3f827d18a852c8dd856cb62ba5",
-    "af16ab4ffc85f9d5e312f765bc87b15bec1dc082a7bd9c522d3a50658a1a5eb9",
-    "86fac9c415ce2de385cf75626b0c51563b0d94be6b7afd78d21b56ce3cb55449",
-    "86a182578cca8d3324dae2d7c726f904b05c5893604d8c37778daa990c0ddd0f",
-    "a05c16d20c495bd331d1f9450e15a067b32399189705e7fb162a93be751bd823",
-    "8afe1dfd9175b1cbbd4fb305c0a7958cf6c08b5c9b6034fd0788fa018d1cd071",
-    "b34d4d8d553a43aaadaacc1da65c55c57afd54f747e2e81700967ab7f66581ed",
-    "4958f7fcd7254a545fac9ee3b449cac9186c969f2a614f695479f21e986b844a",
-    "d26f8c6e661376a1216fdb351f0aa709eba310b70b78eaeabd331d5e537fa6ae",
-    "dbea340c38dc29e338a920a8eadeb67c78a8598d07adb32959a5cfd9e7ed4710",
-    "3937fb7c0f6bb30b1619ddf71ed3fdb6ffaba47ca27d031b0a6c2e7860fb945f",
-    "58e01c77288b51d159e9a9883778c66a24fb1ca7edf2c183210abf9bc2387b91",
-    "4e8e29a5ed8f2eef6ba9e398805eaf898cf82a9437c83f638e9e81702744b816",
-    "e81f6062020f4d909a2cbf6b442eacf00e2f4a28825f0f2dbe226f15fd9e5aee",
-    "9415d4c20abe5b1376a4c4183fe2b628905d5af842b8022b5d1db800bbef4737",
-    "5d67c43355170b36c386c5e9adb0a6ae94922e5e56627ecc8813d7b72e012273",
-    "e9601723b481d1ccfd184121581a360242ad62312476a4ca618ca7b4ef8b95d9",
-    "f40bf8baa005be789e1b91a044aa5afa733df04bd6a7dbcd82dd98eeea493569",
-    "5e50b86b11ecd579704314b14c369fd7d20b4a706d69d56df5b5e4b816d4dada",
-    "bccdcea1d358f8dea0ed0fc60983b35e0272d512a179e01873994095dfd78067",
-    "7602efa79b4742e50a487819f3def7d7291686e9330b7d24a496e277eafae3a1",
-    "12ac1e57682d2cc51763432e48614cbc8de145563bc4b69cf91f62d493056b7a",
-    "631e0c2958f74c0f19df6835d83d85ba42cf0189c256b7e1fcb802d8b844039d",
-    "d7978fcc44bb88ceb49198f3a6da2cca71e94f2ce11f6a9af7e229a4053a69ff",
-    "dc2ee7d8796ab425054c8ba45cdabfa95205357afd8ac2d17614c37982299352",
-    "c1516075edffc7192a205071559c761245572263d594f8a1b760669c3f08437b",
-    "5ffbaf4ea81217e219acca0e43ee29c8d36524d24d9151b2ef464415ed99a0a5",
-    "a6ae44e8665f19ed91b5c8e37b50deffe5f69786725ef2ab2a836f8a02d67307",
-    "4b619b58f946ebe80751ac81977e072b5d3c667d5ed149ebc79a067809d08f57",
-    "9b31c534f401fd70563ebb0af3ef4e774c8cb5477cfa4bb52a7e182588ec0668",
-    "d296f2a150ebc6d587edb7dc5acb264d64b9b947f2b875901efceb52cf2c95e8",
-    "51d077f797e2640e3c09faa107a4e18b523756c6bfb1caf791ec761a8494694e",
-    "d6ce7107a93b2bb51f5558ca553442698042f77c898b1c982c9619657d0aff19",
-    "eea2eb1198177628b70b06ead9a3ef79e425bfa95b13b3a23429c87134c4068f",
-    "5d064fd560563141c6f8bcab8b494029dfd6a2e039ff27512967527e5ed03290",
-    "0f44aa581c63edb014fe94bd7e727a521e6bb09d7e592b706fa201bd7681afbd",
-    "2719ba7592eba9e8b4869c295a062f3cb91cd1499246375c978118742be9055a",
-    "0acf24f9a592f0db67183228e81e0976d3932b4eda8cc6446333dae06292935b",
-    "4014ce9a54237f37c3b279d391b6492111d2619fa7ea28f5f03a1d932d48eff2",
-    "f7e777de4eb18edac581786753cf36ee4af14130c079c221191f57ad5ca0d3eb",
-    "0bb3ae8ded06027a96856c698f77135f1e9d07bd201d8772c21fb03292f518d7",
-    "6eced2ddd1b4b96a6d54da4ca34e590bac6f065d1fef7afd352a2dcb33e07044",
-    "a75e1d20907417888fc3dc6571c6c27973148bc45877ea1eabc2171389c3b7b2",
-    "d005dae5ded21d851897f22cbc62ba7f91013f3b98a917748846b318ce170b40",
-    "2a0677a17f6c58d92d5f80440bd4e7f68e7749aa3dfc7fc4e2243cb64bee43ef",
-    "c07cc121ab4ccc76c38def31fbfa87de9827ffde1a8a3f84849f59304e865c08",
-    "a2229c80b35a50f458c20d9e17367594f004bd8df89744b25ea7091838e40ddb",
-    "c923dd71970dfd6526aea93f637f5615c2309cd7f45645e621be11b2412f7092",
-    "9bf9cf528e267d2c216932290afd38721616abd12316fdf388b279472eaeca90"
-  ],
-  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
-  "workload_manifest_sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
+  ]
 }
