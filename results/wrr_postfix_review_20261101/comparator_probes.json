@@ -1,0 +1,68 @@
+{
+  "probes": {
+    "unchanged": {
+      "status": "passed",
+      "result": {
+        "rows": 10,
+        "keys": [
+          "family",
+          "station_key",
+          "replicate",
+          "scheme"
+        ],
+        "numeric_columns": 14,
+        "label_columns": 6,
+        "finite_pairs": 132,
+        "nan_pairs": 8,
+        "max_finite_difference": 0.0
+      }
+    },
+    "row_order_only": {
+      "status": "passed",
+      "result": {
+        "rows": 10,
+        "keys": [
+          "family",
+          "station_key",
+          "replicate",
+          "scheme"
+        ],
+        "numeric_columns": 14,
+        "label_columns": 6,
+        "finite_pairs": 132,
+        "nan_pairs": 8,
+        "max_finite_difference": 0.0
+      }
+    },
+    "finite_mse_plus_one": {
+      "status": "rejected",
+      "reason": "before.csv exceeds tolerance: 0.9999999999999999"
+    },
+    "label_change": {
+      "status": "rejected",
+      "reason": "before.csv.region label differs"
+    },
+    "finite_to_nan": {
+      "status": "rejected",
+      "reason": "before.csv has an unexpected NaN in after at [(0, 'estimate_error')]"
+    },
+    "structural_nan_to_finite": {
+      "status": "rejected",
+      "reason": "before.csv.estimate_error NaN pattern differs"
+    },
+    "infinity": {
+      "status": "rejected",
+      "reason": "before.csv.estimate_mse contains infinity"
+    },
+    "duplicate_key": {
+      "status": "rejected",
+      "reason": "before.csv has duplicate primary keys in after"
+    },
+    "missing_key": {
+      "status": "rejected",
+      "reason": "before.csv key set or key order differs after alignment"
+    }
+  },
+  "all_expected_outcomes": true,
+  "scope": "Actual new compare_table on temporary copies of real current rows; package and production files unchanged."
+}

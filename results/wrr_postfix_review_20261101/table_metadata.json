@@ -1,0 +1,31 @@
+{
+  "mask_json_types": [
+    "dict"
+  ],
+  "mask_rows": 1623,
+  "example": {
+    "2010": "349:6",
+    "2012": "358:6",
+    "2014": "347:6",
+    "2018": "345:6",
+    "2019": "348:6",
+    "2023": "340:6",
+    "2024": "358:6"
+  },
+  "declared_masks_grain": "one row per archive; masks is a JSON list of masked years",
+  "declared_masks_unit": "years and a JSON year list",
+  "declared_geometry_unit": "errors and RMSE contributions in degrees C per decade; squared terms in squared degrees C per squared decade",
+  "column_coverage": {
+    "retention_family_summary.csv": true,
+    "retention_paired_intervals.csv": true,
+    "retention_choice_counts.csv": true,
+    "retention_geometry_cases.csv": true,
+    "reference_truths.csv": true,
+    "reference_year_sets.csv": true,
+    "estimator_availability.csv": true,
+    "estimator_paired_comparisons.csv": true,
+    "estimator_unavailable_subset.csv": true,
+    "case_designs.csv": true,
+    "annual_predictions_compact.csv": true
+  }
+}

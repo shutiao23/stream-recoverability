@@ -238,7 +238,23 @@
         }
       ],
       "grain": "one row per archive and rule; uniform_exact row is the archive-level mean over every feasible same-count subset",
-      "unit": "errors and RMSE contributions in degrees C per decade; squared terms in squared degrees C per squared decade",
+      "unit": "see per-field units; errors are degrees C per decade and squared terms are (degrees C per decade)^2",
+      "units": {
+        "estimate_error": "degrees C per decade",
+        "year_set_error": "degrees C per decade",
+        "reconstruction_error": "degrees C per decade",
+        "reference_slope": "degrees C per decade",
+        "estimate_mse": "(degrees C per decade)^2",
+        "year_set_mse": "(degrees C per decade)^2",
+        "reconstruction_mse": "(degrees C per decade)^2",
+        "cross_term": "(degrees C per decade)^2",
+        "iid_linear_expected_year_set_mse": "(degrees C per decade)^2",
+        "reference_residual_variance": "degrees C^2",
+        "weight_distance_squared": "decade^-2",
+        "slope_sign_disagreement": "indicator per archive; expected count for uniform_exact",
+        "n_retained": "years",
+        "replicate": "integer index"
+      },
       "source": "derived output"
     },
     "reference_truths.csv": {
@@ -407,8 +423,15 @@
         "masks"
       ],
       "nan_rules": [],
-      "grain": "one row per archive; masks is a JSON list of masked years",
-      "unit": "years and a JSON year list",
+      "grain": "one row per archive",
+      "unit": "n_years is a count; masks is a JSON object mapping each masked year to semicolon-separated start:length segments",
+      "units": {
+        "replicate": "integer index",
+        "n_years": "years"
+      },
+      "field_notes": {
+        "masks": "JSON object. Keys are four-digit years. Each value is 'start:length' or multiple segments separated by ';'. start is a zero-based row position within that year's daily index; length is the number of consecutive daily rows masked. Absent years or empty values mean no mask."
+      },
       "source": "compact replay input derived from saved designs"
     },
     "annual_predictions_compact.csv": {
@@ -446,6 +469,7 @@
     "NaN is allowed only where a nan_rule names the column and matching scheme.",
     "NaN positions must match between the frozen and replayed tables; Inf is never allowed.",
     "Numeric comparisons use rtol=0 and atol=1e-12. Label columns are compared exactly.",
+    "Per-field units are authoritative where present; the table-level unit is only a summary.",
     "reference_truths.csv, case_designs.csv and annual_predictions_compact.csv are compact replay inputs, not newly estimated results."
   ]
 }

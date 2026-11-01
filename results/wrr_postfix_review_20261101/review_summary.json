@@ -1,0 +1,55 @@
+{
+  "created_utc": "2026-11-01T09:17:58.674440+00:00",
+  "head": "4762fbeb7d178b7a322ab75ca1bc481275cf9633",
+  "candidate_sha256": "2b0afcfe2650129f857f5096baa7c8b2cf9dfaeea5d637e5c973a690e468143a",
+  "recommendation": "minor_revision_core_science_and_default_replay_verified",
+  "full_tests": {
+    "tests": 1692,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 1691,
+    "skipped_details": [
+      {
+        "classname": "tests.test_wrr_followup_evidence",
+        "name": "test_evidence_bindings_exclude_their_own_audit_outputs",
+        "message": "Evidence generation has not run"
+      }
+    ],
+    "duration_seconds": 500.863,
+    "release_subset": {
+      "declared_files": 18,
+      "collected": 124,
+      "failed_or_error": 0,
+      "skipped": 0
+    },
+    "exit_code": 0
+  },
+  "strict_replay_maximum": 2.1316282072803006e-14,
+  "package_verification_status": "passed",
+  "remaining_findings": [
+    "external_output_directory_in_compact_mode_raises_ValueError",
+    "full_pytest_acceptance_lacks_exit_count_checks",
+    "mask_schema_description_and_column_units",
+    "constant_vector_one_wrong_PDF_glyph"
+  ],
+  "production_artifacts_unchanged": true,
+  "input_identity_checks": {
+    "paper/wrr_tr/review_completion_article.tex": true,
+    "paper/wrr_tr/review_completion_article.pdf": true,
+    "paper/wrr_tr/review_completion_supporting.tex": true,
+    "paper/wrr_tr/review_completion_supporting.pdf": true,
+    "paper/wrr_tr/stanford_geometry_supporting.tex": true,
+    "scripts/980_final_release.py": true,
+    "scripts/981_stanford_revision.py": true,
+    "scripts/983_verify_extension_replay.py": true,
+    "scripts/revision_table_spec.py": true,
+    "results/wrr_final_revision_20261031/data_manifest.json": true,
+    "results/wrr_final_revision_20261031/scope.json": true,
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv": true,
+    "results/final_release_20261101/acceptance.json": true,
+    "dist/wrr_final_candidate_20261101.zip": true
+  },
+  "tracked_git_diff": "",
+  "broken_report_links": []
+}

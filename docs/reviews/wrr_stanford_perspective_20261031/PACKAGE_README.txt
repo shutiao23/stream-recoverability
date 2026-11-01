@@ -242,3 +242,36 @@ the manifest and acceptance record, not in this README inside the package.
 
 Author names, affiliations, funding, conflicts, legal reviewer access and a
 permanent repository/DOI remain author-supplied submission tasks.
+
+2026-11-01 SECOND POST-REVIEW REVISION (r2)
+
+This candidate supersedes the first 2026-11-01 candidate and the 2026-10-31
+candidate. It closes the remaining local engineering gaps:
+
+- scripts/981_stanford_revision.py now labels compact-input paths without
+  assuming they are under the code root. A test runs the full 8,115-row
+  extension from an outside-root result directory with no original case cache.
+- The full-test summary is generated from real JUnit (scripts/984), binds the
+  JUnit hash, command, interpreter and source-tree hash, and scripts/985
+  composes the local CI-equivalent record. 980 rejects zero-test, nonzero-exit,
+  all-skipped, contradictory-count, stale-JUnit and stale-source summaries.
+- table_spec.json now explains the masks object: year -> semicolon-separated
+  start:length segments, with zero-based row position and consecutive daily-row
+  length. The geometry table has per-field units, including degrees C^2 for the
+  reference residual variance and decade^-2 for the squared weight distance.
+- The SI all-ones vector uses \mathbf{1}; the PDF text is h = alpha 1 + b x_F +
+  epsilon, not the previous missing-glyph form.
+- The abstract adds the 818-archive empirical-calendar contrast (0.114 warm,
+  0.067 all-year; CDF interval includes zero) and remains 247 words.
+
+Current local checks: 1,699 full-suite tests (1,698 passed, 1 skipped),
+131 declared-release tests, ruff 0 findings, package verification, delivery
+check and strict 11-table replay (max finite difference 2.1316e-14). The local
+evidence gates run to inventory_only with --allow-no-go; author/rights blockers
+are not claimed resolved.
+
+The candidate, manifest and acceptance record are named
+dist/wrr_final_candidate_20261101_r2.zip,
+dist/wrr_final_candidate_20261101_r2.manifest.json and
+results/final_release_20261101_r2/acceptance.json. The full package sha256 is in
+the manifest and acceptance record, not in this README inside the package.

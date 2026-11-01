@@ -1,0 +1,22 @@
+{
+  "tests": 1692,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 1,
+  "passed": 1691,
+  "skipped_details": [
+    {
+      "classname": "tests.test_wrr_followup_evidence",
+      "name": "test_evidence_bindings_exclude_their_own_audit_outputs",
+      "message": "Evidence generation has not run"
+    }
+  ],
+  "duration_seconds": 500.863,
+  "release_subset": {
+    "declared_files": 18,
+    "collected": 124,
+    "failed_or_error": 0,
+    "skipped": 0
+  },
+  "exit_code": 0
+}

@@ -79,16 +79,18 @@ These external checks are unregistered unless an actual registration is recorded
 Failed qualification, unavailable predictions and negative results stay in the
 reported denominators. Author and deposit details remain to be supplied.
 
-Current candidate (2026-11-01 corrected revision):
+Current candidate (2026-11-01 second post-review revision):
 
 - [Main manuscript](paper/wrr_tr/review_completion_article.pdf)
 - [Supporting information](paper/wrr_tr/review_completion_supporting.pdf)
-- [Corrected revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_ZH.md)
-- [Post-review audit report](docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md)
-- [Candidate package](dist/wrr_final_candidate_20261101.zip)
-- [Candidate manifest](dist/wrr_final_candidate_20261101.manifest.json)
-- [Current acceptance record](results/final_release_20261101/acceptance.json)
-- [Current extension replay](results/final_release_20261101/extension_replay.json)
+- [Latest revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R2_ZH.md)
+- [Latest post-review report](docs/reviews/wrr_postfix_review_20261101/REVIEW_ZH.md)
+- [Earlier post-review audit](docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md)
+- [Candidate package](dist/wrr_final_candidate_20261101_r2.zip)
+- [Candidate manifest](dist/wrr_final_candidate_20261101_r2.manifest.json)
+- [Current acceptance record](results/final_release_20261101_r2/acceptance.json)
+- [Current extension replay](results/final_release_20261101_r2/extension_replay.json)
+- [Current local CI-equivalent summary](results/final_release_20261101_r2/ci_local_summary.json)
 
 The full candidate sha256 is recorded in the external manifest and acceptance
 record. Because this README is inside the package, it does not embed its own
@@ -96,9 +98,10 @@ package hash. The current candidate is a local release candidate, not a
 completed publication deposit; author metadata, legal reviewer access and a
 permanent archive remain pending.
 
-Historical artifacts (not current evidence for the 2026-11-01 candidate):
+Historical artifacts (not current evidence for the latest candidate):
 
-- [r2 package](dist/wrr_final_candidate_20261031_r2.zip), [r2 manifest](dist/wrr_final_candidate_20261031_r2.manifest.json), [r2 acceptance](results/final_release_20261031_r2/acceptance.json)
+- [First 2026-11-01 candidate](dist/wrr_final_candidate_20261101.zip), [manifest](dist/wrr_final_candidate_20261101.manifest.json), [acceptance](results/final_release_20261101/acceptance.json)
+- [r2 2026-10-31 package](dist/wrr_final_candidate_20261031_r2.zip), [manifest](dist/wrr_final_candidate_20261031_r2.manifest.json), [acceptance](results/final_release_20261031_r2/acceptance.json)
 - [Earlier 2026-10-31 candidate](dist/wrr_final_candidate_20261031.zip), [acceptance](results/final_release_20261031/acceptance.json)
 - [Minor-revision completion report](docs/reviews/wrr_multiview_review_20261031/MINOR_REVISION_COMPLETION_ZH.md)
 - [Previous frozen experiment package](dist/wrr_process_experiments_20261029.zip)

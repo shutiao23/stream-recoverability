@@ -16,9 +16,9 @@ The weights are centered, so $\sum_y w_{A,y}=0$ and $\sum_y w_{A,y}x_{A,y}=1$; t
  S_{\mathrm{set}}=(w_S-w_F)^\top h=(w_S-w_F)^\top e,
  \label{eq:year-set-identity}
 \end{equation}
-where $e=h-\bar h_F\mathbb{1}-\hat b_F x_F$ is the residual from the complete-reference linear fit. The second equality is exact because the weight difference sums to zero and is orthogonal to the complete-reference year vector $x_F$: $w_F^\top x_F=1$ and $w_S^\top x_F=1$. Thus a constant shift and a strictly linear trend cancel: if the annual sequence were exactly linear and recovery introduced no error, every retained subset would give the same slope. The observed year-set error is the inner product of the weight difference with the residual, not with the fitted line.
+where $e=h-\bar h_F\mathbf{1}-\hat b_F x_F$ is the residual from the complete-reference linear fit. The second equality is exact because the weight difference sums to zero and is orthogonal to the complete-reference year vector $x_F$: $w_F^\top x_F=1$ and $w_S^\top x_F=1$. Thus a constant shift and a strictly linear trend cancel: if the annual sequence were exactly linear and recovery introduced no error, every retained subset would give the same slope. The observed year-set error is the inner product of the weight difference with the residual, not with the fitted line.
 
-Under the additional working model $h=\alpha\mathbb{1}+b x_F+\varepsilon$ with $\operatorname{Var}(\varepsilon)=\sigma^2 I$ and a year set fixed independently of $\varepsilon$,
+Under the additional working model $h=\alpha\mathbf{1}+b x_F+\varepsilon$ with $\operatorname{Var}(\varepsilon)=\sigma^2 I$ and a year set fixed independently of $\varepsilon$,
 \begin{equation}
  \operatorname{Var}(S_{\mathrm{set}})
  =\sigma^2\left(\frac{1}{S_{xx,S}}-\frac{1}{S_{xx,F}}\right),

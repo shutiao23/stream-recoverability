@@ -1,0 +1,29 @@
+{
+  "runs": [
+    {
+      "case": "inside_root_first",
+      "exit_code": 0,
+      "stdout_tail": "{\"status\": \"completed\", \"out\": \"custom_outputs\", \"paper\": \"/tmp/wrr_output_portability_8y2fkm46/paper_inside_root_first\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n",
+      "stderr_tail": "",
+      "manifest_outputs": 16,
+      "all_output_hashes_match": true,
+      "requested_paper_directory_used": true
+    },
+    {
+      "case": "inside_root_second",
+      "exit_code": 0,
+      "stdout_tail": "{\"status\": \"completed\", \"out\": \"custom_outputs\", \"paper\": \"/tmp/wrr_output_portability_8y2fkm46/paper_inside_root_second\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n",
+      "stderr_tail": "",
+      "manifest_outputs": 16,
+      "all_output_hashes_match": true,
+      "requested_paper_directory_used": true
+    },
+    {
+      "case": "outside_root",
+      "exit_code": 1,
+      "stdout_tail": "",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/tmp/wrr_output_portability_8y2fkm46/package_code/scripts/981_stanford_revision.py\", line 786, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/tmp/wrr_output_portability_8y2fkm46/package_code/scripts/981_stanford_revision.py\", line 656, in main\n    frame, account, summary, intervals, geometry_audit = retention_geometry(reference, out)\n                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/wrr_output_portability_8y2fkm46/package_code/scripts/981_stanford_revision.py\", line 229, in retention_geometry\n    input_digest.update(str(path.relative_to(ROOT)).encode() + hashlib.sha256(path.read_bytes()).digest())\n                            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/lzq/anaconda3/lib/python3.11/pathlib.py\", line 730, in relative_to\n    raise ValueError(\"{!r} is not in the subpath of {!r}\"\nValueError: '/tmp/wrr_output_portability_8y2fkm46/outside_outputs/case_designs.csv' is not in the subpath of '/tmp/wrr_output_portability_8y2fkm46/package_code' OR one path is relative and the other is absolute.\n"
+    }
+  ],
+  "scope": "Packaged code and compact inputs only; original raw/cache inputs absent; all runs in a temporary directory."
+}

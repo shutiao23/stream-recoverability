@@ -9,6 +9,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import sys
 import zipfile
 
 import pytest
@@ -108,6 +109,8 @@ def write_verification(module, manifest, receipt):
 
 
 def write_tests(module):
+    junit = module.OUT / "targeted_tests.xml"
+    junit.write_text('<testsuite tests="1" failures="0" errors="0" skipped="0"></testsuite>')
     summary = {
         "exit_code": 0,
         "passed": 1,
@@ -117,9 +120,48 @@ def write_tests(module):
         "skipped": 0,
         "scope": "test fixture",
         "files": module.TARGETED_TEST_FILES,
-        "junit": "fixture.xml",
+        "junit": "targeted_tests.xml",
+        "junit_sha256": sha(junit),
+        "command": "pytest fixture",
+        "interpreter": sys.executable,
+        "source_identity": module.release_provenance.source_identity(),
     }
     (module.OUT / "targeted_tests_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    return summary
+
+
+def write_local_ci(module):
+    ruff = module.OUT / "ruff_current.json"
+    ruff.write_text("[]\n")
+    full = module.OUT / "full_pytest.xml"
+    full.write_text('<testsuite tests="1" failures="0" errors="0" skipped="0"></testsuite>')
+    evidence_names = [
+        "evidence_snapshot_inventory.json",
+        "restricted_hosting_audit_inventory.json",
+        "submission_gate_inventory_only.json",
+    ]
+    for name in evidence_names:
+        (module.OUT / name).write_text(json.dumps({"decision": "inventory_only"}) + "\n")
+    identity = module.release_provenance.source_identity()
+    full_summary = {
+        "exit_code": 0, "tests": 1, "passed": 1, "failures": 0, "errors": 0, "skipped": 0,
+        "junit": "full_pytest.xml", "junit_sha256": sha(full),
+        "command": "pytest --junitxml full_pytest.xml", "interpreter": sys.executable,
+        "source_identity": identity,
+    }
+    summary = {
+        "status": "passed",
+        "source_check": {
+            "command": "ruff check --select E4,E7,E9,F src", "exit_code": 0, "findings": 0,
+            "report": "ruff_current.json", "report_sha256": sha(ruff),
+        },
+        "full_pytest": full_summary,
+        "evidence_gates": {
+            "decision": "inventory_only",
+            "outputs": {name: sha(module.OUT / name) for name in evidence_names},
+        },
+    }
+    (module.OUT / "ci_local_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary
 
 
@@ -167,7 +209,7 @@ def fixture(tmp_path, monkeypatch):
     paths["supporting_tex"].write_text("supporting v1\n")
     paths["supporting_pdf"].write_bytes(b"supporting pdf v1")
     paths["key"].write_text("key v1\n")
-    (module.REVIEW / "REVISION_COMPLETION_20261101_ZH.md").write_text("completion\n")
+    (module.REVIEW / "REVISION_COMPLETION_20261101_R2_ZH.md").write_text("completion\n")
     monkeypatch.setattr(module, "pdf_pages", lambda path: 1)
     monkeypatch.setattr(module, "abstract_words", lambda: 100)
     monkeypatch.setattr(module, "key_points", lambda: ["point"])
@@ -184,12 +226,7 @@ def fixture(tmp_path, monkeypatch):
         "max_numeric_difference": 0.0,
         "tolerance": 1e-12,
     }, indent=2) + "\n")
-    (module.OUT / "ci_local_summary.json").write_text(json.dumps({
-        "status": "passed",
-        "source_check": {"exit_code": 0, "findings": 0},
-        "full_pytest": {"failures": 0, "errors": 0},
-        "evidence_gates": {"decision": "inventory_only"},
-    }, indent=2) + "\n")
+    write_local_ci(module)
     return module, paths
 
 
@@ -248,4 +285,66 @@ def test_rebuilt_package_with_old_verification_is_rejected(fixture):
     manifest, _ = build_package(module, paths)
     # The verification report still names the old package hash.
     with pytest.raises(module.ReleaseFailure, match="Verification package hash differs"):
+        module.accept(None)
+
+
+def mutate_ci(module, mutator):
+    path = module.OUT / "ci_local_summary.json"
+    data = json.loads(path.read_text())
+    mutator(data)
+    path.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def test_zero_tests_and_nonzero_ci_exit_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"].update(tests=0, passed=0, exit_code=5)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="exit code"):
+        module.accept(None)
+
+
+def test_all_skipped_ci_summary_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"].update(tests=1, passed=0, skipped=1)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="no executed passing tests"):
+        module.accept(None)
+
+
+def test_contradictory_ci_counts_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"].update(tests=10, passed=100)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="counts are inconsistent"):
+        module.accept(None)
+
+
+def test_ci_junit_hash_mismatch_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"]["junit_sha256"] = "0" * 64
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="JUnit hash differs"):
+        module.accept(None)
+
+
+def test_ci_source_tree_mismatch_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"]["source_identity"]["src_tree_sha256"] = "0" * 64
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="not run on the current source tree"):
+        module.accept(None)
+
+
+def test_targeted_counts_inconsistent_rejected(fixture):
+    module, _ = fixture
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data.update(tests=10, passed=100)
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="counts are inconsistent"):
         module.accept(None)

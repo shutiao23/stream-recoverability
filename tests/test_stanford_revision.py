@@ -331,3 +331,39 @@ def test_scope_sign_quantities_match_summary():
                 assert np.isclose(entry["expected_count"], row.sign_disagreement_expected_count,
                                   rtol=0, atol=1e-12)
                 assert entry["quantity"] == "expected_count"
+
+
+def test_outside_root_compact_replay_integration(tmp_path, monkeypatch):
+    import hashlib
+    import importlib.util
+    import shutil
+    import sys
+
+    spec = importlib.util.spec_from_file_location(
+        "stanford_revision_981_outside_test", ROOT / "scripts/981_stanford_revision.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    out = tmp_path / "outside" / "results"
+    paper = tmp_path / "outside" / "paper"
+    out.mkdir(parents=True)
+    for name in ["reference_truths.csv", "case_designs.csv", "annual_predictions_compact.csv"]:
+        shutil.copy(OUT / name, out / name)
+    fake_base = tmp_path / "empty_whole_archive"
+    fake_base.mkdir()
+    shutil.copy(
+        ROOT / "results/wrr_review_response_20261027/whole_archive/trends.csv",
+        fake_base / "trends.csv",
+    )
+    monkeypatch.setattr(module, "BASE", fake_base)
+    monkeypatch.setattr(module, "REF", tmp_path / "missing-case-cache.parquet")
+    monkeypatch.setattr(sys, "argv", ["981", "--out", str(out), "--paper", str(paper)])
+    assert module.main() == 0
+    manifest = json.loads((out / "data_manifest.json").read_text())
+    assert "data_manifest.json" not in manifest["outputs"]
+    for label, expected in manifest["outputs"].items():
+        path = Path(label)
+        if not path.is_absolute():
+            path = out / label if (out / label).is_file() else ROOT / label
+        assert path.is_file(), label
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, label

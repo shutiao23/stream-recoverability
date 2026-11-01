@@ -208,7 +208,7 @@ def retention_geometry(reference: dict, out: Path) -> tuple[pd.DataFrame, pd.Dat
             case_key = (family, case.station_key, int(case.replicate))
             if design_path.is_file() and prediction_path.is_file():
                 for path in [design_path, prediction_path]:
-                    input_digest.update(str(path.relative_to(ROOT)).encode() + hashlib.sha256(path.read_bytes()).digest())
+                    input_digest.update(relative_label(path).encode() + hashlib.sha256(path.read_bytes()).digest())
                 design = json.loads(design_path.read_text())
                 prediction = pd.read_parquet(prediction_path)
                 design_rows[case_key] = {"family": family, "station_key": case.station_key, "replicate": int(case.replicate),
@@ -226,7 +226,7 @@ def retention_geometry(reference: dict, out: Path) -> tuple[pd.DataFrame, pd.Dat
                 prediction = prediction_compact[case_key]
                 if not compact_digest_done:
                     for path in [design_compact_path, prediction_compact_path]:
-                        input_digest.update(str(path.relative_to(ROOT)).encode() + hashlib.sha256(path.read_bytes()).digest())
+                        input_digest.update(relative_label(path).encode() + hashlib.sha256(path.read_bytes()).digest())
                     compact_digest_done = True
             ref = reference[family, case.station_key]
             years = ref.index.to_numpy(int)

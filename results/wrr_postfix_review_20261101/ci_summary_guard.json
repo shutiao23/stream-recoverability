@@ -1,0 +1,53 @@
+{
+  "probes": [
+    {
+      "case": "valid_nonzero_run",
+      "status": "accepted",
+      "full_pytest": {
+        "tests": 10,
+        "passed": 9,
+        "skipped": 1,
+        "failures": 0,
+        "errors": 0,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "exit_five_no_tests",
+      "status": "accepted",
+      "full_pytest": {
+        "tests": 0,
+        "passed": 0,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "exit_code": 5
+      }
+    },
+    {
+      "case": "all_skipped",
+      "status": "accepted",
+      "full_pytest": {
+        "tests": 10,
+        "passed": 0,
+        "skipped": 10,
+        "failures": 0,
+        "errors": 0,
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "inconsistent_pass_count",
+      "status": "accepted",
+      "full_pytest": {
+        "tests": 10,
+        "passed": 100,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "exit_code": 0
+      }
+    }
+  ],
+  "scope": "Uses the repository's tiny temporary release fixture, with the CI summary additionally included in its ZIP and all package/verification identities synchronized. Evaluates full-pytest summary validation only; does not alter the real candidate or establish that the current real test run failed."
+}

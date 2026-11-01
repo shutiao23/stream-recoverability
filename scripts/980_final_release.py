@@ -28,11 +28,14 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import release_provenance
+
 ROOT = Path(__file__).resolve().parents[1]
 OLD = ROOT / "dist/wrr_process_experiments_20261029.zip"
-DEST = ROOT / "dist/wrr_final_candidate_20261101.zip"
-EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101.manifest.json"
-OUT = ROOT / "results/final_release_20261101"
+DEST = ROOT / "dist/wrr_final_candidate_20261101_r2.zip"
+EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101_r2.manifest.json"
+OUT = ROOT / "results/final_release_20261101_r2"
 REVIEW = ROOT / "docs/reviews/wrr_stanford_perspective_20261031"
 GENERATED = [
     "REVIEW_PACKAGE_README.txt",
@@ -49,9 +52,12 @@ ADDITIONS = [
     "docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md",
     "docs/reviews/wrr_plan_audit_20261101/audit_additional.py",
     "docs/reviews/wrr_revision_review_20261101/REVIEW_ZH.md",
+    "docs/reviews/wrr_postfix_review_20261101/REVIEW_ZH.md",
+    "docs/reviews/wrr_postfix_review_20261101/audit_postfix.py",
     "docs/reviews/wrr_stanford_perspective_20261031/REVIEW_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R2_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/WORK_PLAN_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/diagnostics.py",
     "paper/wrr_tr/stanford_availability_supporting.tex",
@@ -60,15 +66,16 @@ ADDITIONS = [
     "paper/wrr_tr/stanford_geometry_supporting.tex",
     "paper/wrr_tr/stanford_geometry_table.tex",
     "paper/wrr_tr/stanford_revision_values.tex",
-    "results/final_release_20261101/targeted_tests.xml",
-    "results/final_release_20261101/targeted_tests_summary.json",
-    "results/final_release_20261101/ci_local_summary.json",
-    "results/final_release_20261101/evidence_snapshot_inventory.json",
-    "results/final_release_20261101/full_pytest_summary.json",
-    "results/final_release_20261101/restricted_hosting_audit_inventory.json",
-    "results/final_release_20261101/ruff_current.json",
-    "results/final_release_20261101/submission_gate_inventory_only.json",
-    "results/final_release_20261101/workspace_consistency.json",
+    "results/final_release_20261101_r2/targeted_tests.xml",
+    "results/final_release_20261101_r2/targeted_tests_summary.json",
+    "results/final_release_20261101_r2/ci_local_summary.json",
+    "results/final_release_20261101_r2/evidence_snapshot_inventory.json",
+    "results/final_release_20261101_r2/full_pytest.xml",
+    "results/final_release_20261101_r2/full_pytest_summary.json",
+    "results/final_release_20261101_r2/restricted_hosting_audit_inventory.json",
+    "results/final_release_20261101_r2/ruff_current.json",
+    "results/final_release_20261101_r2/submission_gate_inventory_only.json",
+    "results/final_release_20261101_r2/workspace_consistency.json",
     "results/wrr_final_revision_20261031/annual_predictions_compact.csv",
     "results/wrr_final_revision_20261031/case_designs.csv",
     "results/wrr_final_revision_20261031/data_manifest.json",
@@ -95,6 +102,13 @@ ADDITIONS = [
     "results/wrr_revision_review_20261101/published_algebra_counterexample.json",
     "results/wrr_revision_review_20261101/review_scope.json",
     "results/wrr_revision_review_20261101/review_summary.json",
+    "results/wrr_postfix_review_20261101/ci_summary_guard.json",
+    "results/wrr_postfix_review_20261101/comparator_probes.json",
+    "results/wrr_postfix_review_20261101/output_portability.json",
+    "results/wrr_postfix_review_20261101/pdf_readability.json",
+    "results/wrr_postfix_review_20261101/review_summary.json",
+    "results/wrr_postfix_review_20261101/scientific_change_equivalence.json",
+    "results/wrr_postfix_review_20261101/table_metadata.json",
     "results/wrr_stanford_perspective_20261031/point_estimator_availability.csv",
     "results/wrr_stanford_perspective_20261031/point_estimator_paired_comparison.csv",
     "results/wrr_stanford_perspective_20261031/point_estimator_unavailable_subset.csv",
@@ -108,6 +122,9 @@ ADDITIONS = [
     "scripts/981_stanford_revision.py",
     "scripts/982_final_release_tests.py",
     "scripts/983_verify_extension_replay.py",
+    "scripts/release_provenance.py",
+    "scripts/984_full_pytest_summary.py",
+    "scripts/985_build_local_ci_summary.py",
     "scripts/revision_table_spec.py",
     "tests/test_extension_replay_validator.py",
     "tests/test_final_release_freshness.py",
@@ -569,6 +586,54 @@ def git_state() -> dict:
             "note": "The worktree is not commit-identified; the package manifest and acceptance hashes identify this candidate."}
 
 
+def resolve_local_path(label: str, out: Path) -> Path:
+    path = Path(label)
+    if path.is_absolute() and path.is_file():
+        return path
+    if (out / label).is_file():
+        return out / label
+    return ROOT / label
+
+
+def validate_local_ci(local_ci: dict, out: Path) -> dict:
+    require(local_ci.get("status") == "passed", "Local CI-equivalent summary did not pass")
+    source = local_ci.get("source_check", {})
+    require(source.get("exit_code") == 0, "Local source check did not pass")
+    require(source.get("findings") == 0, "Local source check reports findings")
+    require(source.get("report") and source.get("report_sha256"), "Local source-check report is unbound")
+    source_path = resolve_local_path(source["report"], out)
+    require(source_path.is_file() and sha256(source_path) == source["report_sha256"],
+            "Local source-check report hash differs")
+    pytest_summary = local_ci.get("full_pytest", {})
+    for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped"]:
+        value = pytest_summary.get(key)
+        require(isinstance(value, int) and not isinstance(value, bool) and value >= 0,
+                f"Full pytest field is not a non-negative integer: {key}")
+    require(pytest_summary["exit_code"] == 0, "Full pytest exit code is not zero")
+    require(pytest_summary["tests"] > 0 and pytest_summary["passed"] > 0,
+            "Full pytest has no executed passing tests")
+    require(pytest_summary["passed"] == pytest_summary["tests"] - pytest_summary["failures"]
+            - pytest_summary["errors"] - pytest_summary["skipped"],
+            "Full pytest counts are inconsistent")
+    require(pytest_summary.get("command") and pytest_summary.get("interpreter"),
+            "Full pytest command or interpreter is unbound")
+    identity = pytest_summary.get("source_identity", {})
+    current = release_provenance.source_identity()
+    require(identity.get("src_tree_sha256") == current["src_tree_sha256"],
+            "Full pytest was not run on the current source tree")
+    require(pytest_summary.get("junit") and pytest_summary.get("junit_sha256"),
+            "Full pytest JUnit binding is missing")
+    junit_path = resolve_local_path(pytest_summary["junit"], out)
+    require(junit_path.is_file() and sha256(junit_path) == pytest_summary["junit_sha256"],
+            "Full pytest JUnit hash differs")
+    evidence = local_ci.get("evidence_gates", {})
+    require(evidence.get("decision") == "inventory_only", "Evidence-gate decision changed")
+    for name, expected in evidence.get("outputs", {}).items():
+        path = resolve_local_path(name, out)
+        require(path.is_file() and sha256(path) == expected, "Evidence-gate output hash differs: " + name)
+    return pytest_summary
+
+
 def accept(_: argparse.Namespace) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     require(EXTERNAL_MANIFEST.is_file(), "External package manifest is absent")
@@ -600,11 +665,24 @@ def accept(_: argparse.Namespace) -> None:
             "Verification content manifest differs from the external manifest")
     require(verification["member_check"].get("members") == manifest["members"],
             "Verification member count differs from the external manifest")
+    for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped"]:
+        value = tests.get(key)
+        require(isinstance(value, int) and not isinstance(value, bool) and value >= 0,
+                f"Targeted test field is not a non-negative integer: {key}")
     require(tests.get("exit_code") == 0, "Targeted tests exited nonzero")
     require(tests.get("files") == TARGETED_TEST_FILES, "Targeted test list differs from the declared release scope")
-    require(tests.get("failures") == 0 and tests.get("errors") == 0, "Targeted tests did not pass")
-    require(tests.get("passed") == tests.get("tests") - tests.get("skipped"),
+    require(tests.get("tests") > 0 and tests.get("passed") > 0, "Targeted tests have no executed passing tests")
+    require(tests.get("passed") == tests.get("tests") - tests.get("failures")
+            - tests.get("errors") - tests.get("skipped"),
             "Targeted test counts are inconsistent")
+    require(tests.get("junit") and tests.get("junit_sha256"), "Targeted test JUnit binding is missing")
+    targeted_junit = resolve_local_path(tests["junit"], OUT)
+    require(targeted_junit.is_file() and sha256(targeted_junit) == tests["junit_sha256"],
+            "Targeted test JUnit hash differs")
+    require(tests.get("command") and tests.get("interpreter"), "Targeted test command or interpreter is unbound")
+    require(tests.get("source_identity", {}).get("src_tree_sha256")
+            == release_provenance.source_identity()["src_tree_sha256"],
+            "Targeted tests were not run on the current source tree")
     require(delivery.get("status") == "passed", "Extracted-package delivery check did not pass")
     require(delivery.get("archive_sha256") == manifest["package_sha256"], "Delivery-check archive hash differs")
     checks = delivery.get("extracted_package_checks", {})
@@ -619,15 +697,7 @@ def accept(_: argparse.Namespace) -> None:
             "Extension replay denominators differ")
     require(float(replay.get("max_numeric_difference", 1.0)) <= float(replay.get("tolerance", 0.0)),
             "Extension replay exceeds its declared numeric tolerance")
-    require(local_ci.get("status") == "passed", "Local CI-equivalent summary did not pass")
-    require(local_ci.get("source_check", {}).get("exit_code") == 0
-            and local_ci.get("source_check", {}).get("findings") == 0,
-            "Local source check did not pass")
-    require(local_ci.get("full_pytest", {}).get("failures") == 0
-            and local_ci.get("full_pytest", {}).get("errors") == 0,
-            "Full pytest summary is not clean")
-    require(local_ci.get("evidence_gates", {}).get("decision") == "inventory_only",
-            "Evidence-gate decision changed")
+    full_pytest_summary = validate_local_ci(local_ci, OUT)
 
     # Re-establish package/workspace identity at the moment of acceptance. A
     # stale "passed" report is not enough: every packaged scientific file must
@@ -665,14 +735,14 @@ def accept(_: argparse.Namespace) -> None:
         }
     manuscript_report["article"]["abstract_words"] = abstract_words()
     manuscript_report["article"]["key_points"] = key_points()
-    completion = REVIEW / "REVISION_COMPLETION_20261101_ZH.md"
+    completion = REVIEW / "REVISION_COMPLETION_20261101_R2_ZH.md"
     acceptance = {
         "schema_version": "final_candidate_acceptance_v1",
         "status": "complete",
         "complete": True,
         "review_date": "2026-11-01 Asia/Shanghai",
         "created_utc": utc_now(),
-        "revision": "Corrected revision: subset-OLS weight definition, strict 11-table replay comparator, manifest hash order, expected-count typing, forward/offline reference-set scope, table schema, and source-check cleanup; acceptance is bound to the current package and PDFs.",
+        "revision": "Post-fix revision: outside-root compact replay, JUnit-bound full-test summary, per-field units and mask encoding, all-ones glyph correction, and abstract balance; acceptance is bound to the current package, PDFs, JUnit and source tree.",
         "git": git_state(),
         "package": {
             "path": manifest["package"],

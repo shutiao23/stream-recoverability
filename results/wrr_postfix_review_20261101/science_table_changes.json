@@ -1,0 +1,46 @@
+[
+  {
+    "file": "annual_predictions_compact.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "case_designs.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "estimator_availability.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "estimator_paired_comparisons.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "estimator_unavailable_subset.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "reference_truths.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "reference_year_sets.csv",
+    "byte_identical": false
+  },
+  {
+    "file": "retention_choice_counts.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "retention_family_summary.csv",
+    "byte_identical": false
+  },
+  {
+    "file": "retention_geometry_cases.csv",
+    "byte_identical": true
+  },
+  {
+    "file": "retention_paired_intervals.csv",
+    "byte_identical": true
+  }
+]

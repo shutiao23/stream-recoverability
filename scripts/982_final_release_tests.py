@@ -14,9 +14,10 @@ import json
 from pathlib import Path
 import subprocess
 import sys
-import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import release_provenance
 
 
 def load_release_module():
@@ -42,30 +43,38 @@ def main() -> int:
         raise SystemExit("Targeted test file is missing: " + ", ".join(missing))
     command = [sys.executable, "-m", "pytest", "-q", "--junitxml", str(junit), *files]
     process = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
-    summary = {
-        "created_utc": datetime.now(timezone.utc).isoformat(),
-        "exit_code": process.returncode,
-        "scope": "Declared final-release test list; not the full repository test suite",
-        "files": files,
-        "junit": str(junit.relative_to(ROOT)) if junit.is_relative_to(ROOT) else str(junit),
-        "command": " ".join(command),
-        "stdout_tail": process.stdout[-4000:],
-        "stderr_tail": process.stderr[-4000:],
-    }
     if junit.is_file():
-        root = ET.parse(junit).getroot()
-        suites = [root] if root.tag == "testsuite" else list(root.findall("testsuite"))
-        summary.update(
-            tests=sum(int(suite.get("tests", 0)) for suite in suites),
-            failures=sum(int(suite.get("failures", 0)) for suite in suites),
-            errors=sum(int(suite.get("errors", 0)) for suite in suites),
-            skipped=sum(int(suite.get("skipped", 0)) for suite in suites),
+        summary = release_provenance.summary_from_junit(
+            junit,
+            exit_code=process.returncode,
+            command=" ".join(command),
+            scope="Declared final-release test list; not the full repository test suite",
+            files=files,
+            out=out.parent,
         )
-        summary["passed"] = summary["tests"] - summary["failures"] - summary["errors"] - summary["skipped"]
     else:
-        summary.update(tests=0, failures=0, errors=1, skipped=0, passed=0)
-    out.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({key: summary[key] for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped"]}))
+        summary = {
+            "exit_code": process.returncode,
+            "scope": "Declared final-release test list; not the full repository test suite",
+            "files": files,
+            "junit": junit.name,
+            "junit_sha256": None,
+            "command": " ".join(command),
+            "interpreter": sys.executable,
+            "source_identity": release_provenance.source_identity(),
+            "tests": 0,
+            "passed": 0,
+            "failures": 0,
+            "errors": 1,
+            "skipped": 0,
+        }
+    summary["created_utc"] = datetime.now(timezone.utc).isoformat()
+    summary["stdout_tail"] = process.stdout[-4000:]
+    summary["stderr_tail"] = process.stderr[-4000:]
+    if process.returncode == 0:
+        release_provenance.validate_summary(summary, "targeted")
+    out.write_text(json.dumps(summary, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
+    print(json.dumps({key: summary[key] for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped", "junit_sha256"]}))
     return 0 if process.returncode == 0 else 1
 
 
