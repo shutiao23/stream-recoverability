@@ -1,0 +1,31 @@
+{
+  "schema": "stanford_extension_replay_v1",
+  "created_utc": "2026-10-31T18:31:05.479925+00:00",
+  "archive": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/dist/wrr_final_candidate_20261031_r2.zip",
+  "archive_sha256": "7ac1c2e0327afb665ef0c0554e5f81fd9489c7c6478367579785f4e15c1d9feb",
+  "tolerance": 1e-12,
+  "scope": "Extracted-package replay of scripts/981_stanford_revision.py using compact inputs; no model refit and no raw-data reconstruction.",
+  "status": "passed",
+  "archives": 1623,
+  "geometry_rows": 8115,
+  "max_numeric_difference": 3.552713678800501e-15,
+  "numeric_differences": {
+    "retention_family_summary.csv": 1.1102230246251565e-16,
+    "retention_geometry_cases.csv": NaN,
+    "reference_truths.csv": 3.552713678800501e-15,
+    "annual_predictions_compact.csv": 3.552713678800501e-15
+  },
+  "exact_tables": {
+    "retention_choice_counts.csv": true,
+    "reference_year_sets.csv": true,
+    "estimator_availability.csv": true,
+    "estimator_paired_comparisons.csv": true,
+    "estimator_unavailable_subset.csv": true
+  },
+  "generated_tables": {
+    "paper/wrr_tr/stanford_revision_values.tex": true,
+    "paper/wrr_tr/stanford_calendar_table.tex": true,
+    "paper/wrr_tr/stanford_geometry_table.tex": true
+  },
+  "replay_stdout_tail": "{\"status\": \"completed\", \"out\": \"results/wrr_final_revision_20261031\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n"
+}

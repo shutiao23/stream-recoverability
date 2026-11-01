@@ -15,7 +15,7 @@ from typing import Any
 
 import pandas as pd
 
-from stream_recoverability.data.http_json import USER_AGENT, get_json
+from stream_recoverability.data.http_json import get_json
 
 USGS_OGC = "https://api.waterdata.usgs.gov/ogcapi/v0/collections"
 HUBEAU_STATION = "https://hubeau.eaufrance.fr/api/v1/temperature/station"

@@ -138,7 +138,6 @@ def plot_aggregate_figures(
         all_rmse = float(np.sqrt(common["all"].mean()))
         warm_rmse = float(np.sqrt(common["warm90"].mean()))
         n_all = int(pivot["all"].notna().sum())
-        n_warm = int(pivot["warm90"].notna().sum())
         n_common = int(len(common))
         units = rows.drop_duplicates(["station_key", "replicate"])
         stations = int(units.station_key.nunique())

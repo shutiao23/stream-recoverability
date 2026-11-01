@@ -1,0 +1,106 @@
+{
+  "outputs": [
+    {
+      "path": "annual_predictions_compact.csv",
+      "recorded": "baa5947789d067e8792fe82ea5a9b80dbe853a6d197ffc6854526e3eae4a3444",
+      "current": "baa5947789d067e8792fe82ea5a9b80dbe853a6d197ffc6854526e3eae4a3444",
+      "matches": true
+    },
+    {
+      "path": "case_designs.csv",
+      "recorded": "3c998d51104dab5ee78f4fbd26c11ab0ec7f42efba3e39697f85652f450232b4",
+      "current": "3c998d51104dab5ee78f4fbd26c11ab0ec7f42efba3e39697f85652f450232b4",
+      "matches": true
+    },
+    {
+      "path": "reference_truths.csv",
+      "recorded": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402",
+      "current": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402",
+      "matches": true
+    },
+    {
+      "path": "retention_geometry_cases.csv",
+      "recorded": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
+      "current": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
+      "matches": true
+    },
+    {
+      "path": "retention_choice_counts.csv",
+      "recorded": "30b1e89e8047c5d2d62ddd591e893cb3d5251e703c4dadd583f15d325d55e346",
+      "current": "30b1e89e8047c5d2d62ddd591e893cb3d5251e703c4dadd583f15d325d55e346",
+      "matches": true
+    },
+    {
+      "path": "retention_family_summary.csv",
+      "recorded": "87aaaff43951340bbbe9554dcc3e27ec0327c9aa2625ca7929e756239633c992",
+      "current": "87aaaff43951340bbbe9554dcc3e27ec0327c9aa2625ca7929e756239633c992",
+      "matches": true
+    },
+    {
+      "path": "retention_paired_intervals.csv",
+      "recorded": "46cce6af2d557dd0fec6a7b059bf90b2f17a1fd158f6b3b3ce996c38c7a9f231",
+      "current": "46cce6af2d557dd0fec6a7b059bf90b2f17a1fd158f6b3b3ce996c38c7a9f231",
+      "matches": true
+    },
+    {
+      "path": "reference_year_sets.csv",
+      "recorded": "6b157ad0458ce1da7d829f4da7dc696f2d68c6f159cc9d053eed59c1c9b26987",
+      "current": "6b157ad0458ce1da7d829f4da7dc696f2d68c6f159cc9d053eed59c1c9b26987",
+      "matches": true
+    },
+    {
+      "path": "estimator_availability.csv",
+      "recorded": "458be33b00601c97300c960a0b6a475557fcbebf0600adfe4b7ab9425b217883",
+      "current": "458be33b00601c97300c960a0b6a475557fcbebf0600adfe4b7ab9425b217883",
+      "matches": true
+    },
+    {
+      "path": "estimator_paired_comparisons.csv",
+      "recorded": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628",
+      "current": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628",
+      "matches": true
+    },
+    {
+      "path": "estimator_unavailable_subset.csv",
+      "recorded": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de",
+      "current": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de",
+      "matches": true
+    },
+    {
+      "path": "data_manifest.json",
+      "recorded": "73b187ad7ac72b161785869c69d941168d765c6a6ff938a05f4b67a74d4007c1",
+      "current": "2018f59144bc3631d24fa66bf8f94cea04acb3d24de3413c434c99e29ce1932e",
+      "matches": false
+    },
+    {
+      "path": "scope.json",
+      "recorded": "5733ddac90ad40452cefea6aa70b4d38f2f8c881f47c651b2e78f401717c2ee0",
+      "current": "e05646eebf44a08146ee3afcc8cae859960470c777a68b546362d126fc9f6fc2",
+      "matches": false
+    },
+    {
+      "path": "paper/wrr_tr/stanford_revision_values.tex",
+      "recorded": "b839f1b8f5d793dbf10cc59d5ad7d7d887e34a01644fd27eb740d224a2858337",
+      "current": "b839f1b8f5d793dbf10cc59d5ad7d7d887e34a01644fd27eb740d224a2858337",
+      "matches": true
+    },
+    {
+      "path": "paper/wrr_tr/stanford_calendar_table.tex",
+      "recorded": "d06ae810a26fd05d848a7770dec17ffc709486d9198cd73445cd4197af854d7a",
+      "current": "d06ae810a26fd05d848a7770dec17ffc709486d9198cd73445cd4197af854d7a",
+      "matches": true
+    },
+    {
+      "path": "paper/wrr_tr/stanford_geometry_table.tex",
+      "recorded": "1ee0402019aebe68fb09b2e5d2a4510e8cdc029191f2d01b0d673afcd5088697",
+      "current": "1ee0402019aebe68fb09b2e5d2a4510e8cdc029191f2d01b0d673afcd5088697",
+      "matches": true
+    }
+  ],
+  "output_mismatches": [
+    "data_manifest.json",
+    "scope.json"
+  ],
+  "input_mismatches": [],
+  "explanation": "The generator hashes data_manifest.json and scope.json before overwriting them; package-level hashes are a separate check."
+}

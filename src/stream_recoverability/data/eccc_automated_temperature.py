@@ -11,7 +11,6 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
-import numpy as np
 import pandas as pd
 
 DIRECTORY = "/substances/monitor/automated-fresh-water-quality-monitoring-and-surveillance-data/"

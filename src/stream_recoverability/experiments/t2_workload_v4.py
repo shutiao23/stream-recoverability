@@ -13,10 +13,8 @@ verification rather than evidence.
 
 from __future__ import annotations
 
-import filecmp
 import json
 import os
-import tempfile
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, replace

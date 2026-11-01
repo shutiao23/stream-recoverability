@@ -11,7 +11,6 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 LANDING_URL = "https://umweltdaten.lubw.baden-wuerttemberg.de/w/online-messstationen"

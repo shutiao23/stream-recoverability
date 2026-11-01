@@ -3,14 +3,12 @@
 from __future__ import annotations
 
 import csv
-import io
 import json
 import re
 import urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Mapping, Sequence
 
 import pandas as pd
 

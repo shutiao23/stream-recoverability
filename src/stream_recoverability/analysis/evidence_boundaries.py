@@ -9,7 +9,7 @@ summaries that do not treat a defective pooled AUC as a valid estimand.
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from typing import Any
 
 import numpy as np

@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-01 Asia/Shanghai",
+  "head": "734193fe6fbb2a04503929a348500ab95103fd79",
+  "package_sha256": "7ac1c2e0327afb665ef0c0554e5f81fd9489c7c6478367579785f4e15c1d9feb",
+  "recommendation": "minor_revision_not_all_work_packages_closed",
+  "W0": "core passed; forward-scope wording clarification suggested",
+  "W1": "numerical implementation agrees; published subset-weight and Sxx definitions incorrect",
+  "W2": "passed",
+  "W3": "passed",
+  "W4": "package identity and compilation passed; replay comparator and internal manifest need correction",
+  "targeted_tests_passed": 109,
+  "strict_replay_tables": 11,
+  "strict_replay_max_finite_difference": 2.1316282072803006e-14,
+  "production_artifacts_changed": false,
+  "report": "docs/reviews/wrr_revision_review_20261101/REVIEW_ZH.md"
+}

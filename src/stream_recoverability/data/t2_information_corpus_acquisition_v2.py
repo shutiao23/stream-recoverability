@@ -13,10 +13,8 @@ No v1 response or manifest is overwritten or promoted into v2.
 from __future__ import annotations
 import json
 import math
-import os
 import re
 import shutil
-import socket
 import stat
 import time
 import urllib.parse
@@ -25,7 +23,7 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Self
+from typing import Any
 import numpy as np
 import pandas as pd
 from . import confirmatory as provider

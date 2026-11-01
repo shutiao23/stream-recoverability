@@ -207,3 +207,38 @@ results/final_release_20261031_r2/acceptance.json and
 dist/wrr_final_candidate_20261031_r2.manifest.json. The earlier 2026-10-31
 candidate remains a historical frozen archive; its passing record does not
 certify this r2 revision.
+
+2026-11-01 CORRECTED CANDIDATE
+
+This candidate supersedes the r2 package. The r2 package and its acceptance
+record remain historical and are not evidence for this revision.
+
+Corrections relative to r2:
+- The SI now defines subset OLS weights with each set's own centering and Sxx.
+  The previous text truncated full-sample weights; the numerical code already
+  used the correct subset centering, so the scientific tables did not change.
+- scripts/983_verify_extension_replay.py now compares all 11 declared science
+  tables by schema, primary keys, labels, legal NaN positions and finite values.
+  It rejects finite-value changes, label changes, key changes, unexpected NaN
+  and Inf, and it never uses NaN as a passing shortcut.
+- results/wrr_final_revision_20261031/data_manifest.json is written after the
+  scientific tables and scope, does not hash itself, and is checked for current
+  hashes. table_spec.json records primary keys, units, legal missing values and
+  which files are compact replay inputs.
+- The uniform-random sign-disagreement quantity is stored as an expected count,
+  not truncated to an integer. The deterministic 3/5/4/0 values are unchanged.
+- The manuscript now limits Y_i to the forward analyses and states that offline
+  analyses use their corresponding historical complete reference-year sets.
+- The local source check `ruff check --select E4,E7,E9,F src` now passes, the
+  full pytest suite passes, and the declared CI evidence gates run to
+  inventory_only with --allow-no-go. These are local checks, not a remote CI
+  run for this revision.
+
+The candidate package and its manifest/acceptance record are named
+dist/wrr_final_candidate_20261101.zip,
+dist/wrr_final_candidate_20261101.manifest.json and
+results/final_release_20261101/acceptance.json. The full package sha256 is in
+the manifest and acceptance record, not in this README inside the package.
+
+Author names, affiliations, funding, conflicts, legal reviewer access and a
+permanent repository/DOI remain author-supplied submission tasks.

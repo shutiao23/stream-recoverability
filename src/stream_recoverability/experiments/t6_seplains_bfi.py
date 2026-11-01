@@ -124,7 +124,6 @@ def bfi_stratified_memory_direction(frame: pd.DataFrame) -> dict[str, Any]:
     strata: list[dict[str, Any]] = []
     for label, piece in work.groupby("bfi_tertile", observed=True):
         if piece["upstream_major_dam_2009"].nunique() < 2:
-            direction = float("nan")
             auc = float("nan")
         else:
             auc = float(
@@ -133,7 +132,6 @@ def bfi_stratified_memory_direction(frame: pd.DataFrame) -> dict[str, Any]:
                     piece["memory_range_index_per_degC"],
                 )
             )
-            direction = float(auc - 0.5)
         strata.append(
             {
                 "bfi_tertile": str(label),

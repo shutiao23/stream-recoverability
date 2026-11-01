@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "scope": "Independent strict comparison after real package extraction and 981 regeneration; all scientific CSVs keyed and aligned, nonnumeric values and NaN masks compared, only finite numeric differences reduced",
+  "tables": {
+    "retention_geometry_cases.csv": {
+      "rows": 8115,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate",
+        "independence_group",
+        "scheme"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 2.1316282072803006e-14,
+      "structural_nan_cells_matched": 6492
+    },
+    "retention_family_summary.csv": {
+      "rows": 10,
+      "keys": [
+        "family",
+        "scheme"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 1.1102230246251565e-16,
+      "structural_nan_cells_matched": 0
+    },
+    "retention_choice_counts.csv": {
+      "rows": 1623,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate",
+        "independence_group"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 0.0,
+      "structural_nan_cells_matched": 0
+    },
+    "retention_paired_intervals.csv": {
+      "rows": 8,
+      "keys": [
+        "family",
+        "scheme"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 1.1102230246251565e-16,
+      "structural_nan_cells_matched": 0
+    },
+    "reference_truths.csv": {
+      "rows": 1086,
+      "keys": [
+        "family",
+        "station_key",
+        "year"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 3.552713678800501e-15,
+      "structural_nan_cells_matched": 0
+    },
+    "annual_predictions_compact.csv": {
+      "rows": 7517,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate",
+        "year"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 3.552713678800501e-15,
+      "structural_nan_cells_matched": 0
+    },
+    "case_designs.csv": {
+      "rows": 1623,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 0.0,
+      "structural_nan_cells_matched": 0
+    },
+    "reference_year_sets.csv": {
+      "rows": 41,
+      "keys": [
+        "station_key"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 0.0,
+      "structural_nan_cells_matched": 0
+    },
+    "estimator_availability.csv": {
+      "rows": 6,
+      "keys": [
+        "family",
+        "estimator"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 0.0,
+      "structural_nan_cells_matched": 0
+    },
+    "estimator_paired_comparisons.csv": {
+      "rows": 4,
+      "keys": [
+        "family",
+        "comparator"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 0.0,
+      "structural_nan_cells_matched": 0
+    },
+    "estimator_unavailable_subset.csv": {
+      "rows": 2,
+      "keys": [
+        "family"
+      ],
+      "labels_and_missingness_match": true,
+      "maximum_finite_difference": 0.0,
+      "structural_nan_cells_matched": 0
+    }
+  },
+  "maximum_finite_difference": 2.1316282072803006e-14,
+  "tolerance": 1e-12,
+  "production_files_modified": false
+}

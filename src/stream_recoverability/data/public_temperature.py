@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import time
 import urllib.parse
 from pathlib import Path
@@ -168,7 +167,6 @@ def missing_gap_catalog(wide: pd.DataFrame) -> pd.DataFrame:
         missing = wide[site].isna().to_numpy()
         if not missing.any():
             continue
-        starts = []
         length = 0
         start_i = 0
         for index, flag in enumerate(missing):

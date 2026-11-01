@@ -8,8 +8,6 @@ Nothing here turns validation output into formal performance evidence.
 
 from __future__ import annotations
 import json
-import os
-import tempfile
 from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
@@ -209,6 +207,13 @@ def _verify_file_identity(value: object, *, relative_to: Path, context: str) -> 
     if not path.is_file():
         raise FileNotFoundError(f"{context} artifact does not exist: {path}")
     size = value.get("size", value.get("bytes"))
+    if size is not None:
+        if not isinstance(size, int) or size < 0:
+            raise ValueError(f"{context} artifact size is invalid")
+        if path.stat().st_size != size:
+            raise ValueError(
+                f"{context} artifact size mismatch: {path.stat().st_size} != {size}"
+            )
     return path
 
 

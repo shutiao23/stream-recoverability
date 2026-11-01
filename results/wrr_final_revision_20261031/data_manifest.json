@@ -1,11 +1,11 @@
 {
-  "schema": "stanford_revision_data_manifest_v1",
-  "created_utc": "2026-10-31T14:38:38.442076+00:00",
+  "schema": "stanford_revision_data_manifest_v2",
+  "created_utc": "2026-11-01T05:12:29.784334+00:00",
   "inputs": {
     "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925",
     "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
-    "scripts/981_stanford_revision.py": "e9dda3a6175026580a15098300110838c05a2964b2d115ce80eceb99d5d4211b",
-    "scripts/980_final_release.py": "02ee27e2372b007c0d065411a98c1ca6336b11e7a8e4f0d4c24bbc0b034e1b01",
+    "scripts/981_stanford_revision.py": "789cae47343d8c89d5209d71f440f1a8147e26f523061b15ba9577fc6d647547",
+    "scripts/980_final_release.py": "4c26d4dec1a29a73ccc8da6549678b330a8f55a2e432bc754e94e4e519895025",
     "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e"
   },
   "outputs": {
@@ -14,14 +14,14 @@
     "reference_truths.csv": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402",
     "retention_geometry_cases.csv": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
     "retention_choice_counts.csv": "30b1e89e8047c5d2d62ddd591e893cb3d5251e703c4dadd583f15d325d55e346",
-    "retention_family_summary.csv": "87aaaff43951340bbbe9554dcc3e27ec0327c9aa2625ca7929e756239633c992",
+    "retention_family_summary.csv": "02c66126fe6949f6233555cf79017bc5fe3ae4cc462bf39995702c800fbcad35",
     "retention_paired_intervals.csv": "46cce6af2d557dd0fec6a7b059bf90b2f17a1fd158f6b3b3ce996c38c7a9f231",
-    "reference_year_sets.csv": "6b157ad0458ce1da7d829f4da7dc696f2d68c6f159cc9d053eed59c1c9b26987",
+    "reference_year_sets.csv": "d6dfd5834f2f326e1a48858940d37f0783b3ef1a10d3c8111b919fd46745572b",
     "estimator_availability.csv": "458be33b00601c97300c960a0b6a475557fcbebf0600adfe4b7ab9425b217883",
     "estimator_paired_comparisons.csv": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628",
     "estimator_unavailable_subset.csv": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de",
-    "data_manifest.json": "73b187ad7ac72b161785869c69d941168d765c6a6ff938a05f4b67a74d4007c1",
-    "scope.json": "5733ddac90ad40452cefea6aa70b4d38f2f8c881f47c651b2e78f401717c2ee0",
+    "table_spec.json": "0ba19b237aea4a193c6ed72a2684344dec88ade67fb52df2d96810afe453151f",
+    "scope.json": "b5e007eb2392fdcb4f2188812c6dd8745e27f8448abcefec295b565e1fc74ea6",
     "paper/wrr_tr/stanford_revision_values.tex": "b839f1b8f5d793dbf10cc59d5ad7d7d887e34a01644fd27eb740d224a2858337",
     "paper/wrr_tr/stanford_calendar_table.tex": "d06ae810a26fd05d848a7770dec17ffc709486d9198cd73445cd4197af854d7a",
     "paper/wrr_tr/stanford_geometry_table.tex": "1ee0402019aebe68fb09b2e5d2a4510e8cdc029191f2d01b0d673afcd5088697"
@@ -31,7 +31,8 @@
     "paper/wrr_tr/stanford_calendar_table.tex",
     "paper/wrr_tr/stanford_geometry_table.tex"
   ],
-  "reference_fallback": "results/wrr_final_revision_20261031/reference_truths.csv",
+  "table_spec": "table_spec.json",
+  "reference_fallback": "reference_truths.csv",
   "reference_fallback_scope": "Compact station-year H30 values for the 41-station extension; allows replay when the restricted leave-one-year-out case parquet is not packaged.",
   "compact_replay": {
     "files": [
@@ -43,5 +44,6 @@
     "note": "Re-running this script from an extracted package uses the compact CSV inputs. Values can differ at about 1e-14 from decimal roundoff; denominators and scientific conclusions are unchanged."
   },
   "scope": "Saved annual predictions only; no model refit, no new data, no manuscript result was modified.",
-  "reference_fallback_sha256": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402"
+  "reference_fallback_sha256": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402",
+  "table_spec_sha256": "0ba19b237aea4a193c6ed72a2684344dec88ade67fb52df2d96810afe453151f"
 }

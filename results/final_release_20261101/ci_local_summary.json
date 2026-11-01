@@ -1,0 +1,29 @@
+{
+  "schema": "local_ci_equivalent_v1",
+  "created_utc": "2026-11-01T00:00:00Z",
+  "scope": "Local equivalent of the declared CI sequence; not a remote GitHub Actions run for this revision.",
+  "source_check": {
+    "command": "ruff check --select E4,E7,E9,F src",
+    "exit_code": 0,
+    "findings": 0,
+    "report": "results/final_release_20261101/ruff_current.json"
+  },
+  "full_pytest": {
+    "tests": 1692,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 1691,
+    "exit_code": 0
+  },
+  "evidence_gates": {
+    "commands": [
+      "PYTHONPATH=src python scripts/25_build_evidence_snapshot.py --output results/final_release_20261101/evidence_snapshot_inventory.json",
+      "PYTHONPATH=src python scripts/26_audit_restricted_hosting.py --output results/final_release_20261101/restricted_hosting_audit_inventory.json",
+      "PYTHONPATH=src python scripts/27_submission_gate.py --allow-no-go --rights-audit results/final_release_20261101/restricted_hosting_audit_inventory.json --output results/final_release_20261101/submission_gate_inventory_only.json"
+    ],
+    "decision": "inventory_only",
+    "note": "The committed results/audits/submission_gate.json retains the no_go/4-blocker submission state. The inventory_only run is a local gate execution with --allow-no-go, not a claim that author or rights blockers are resolved."
+  },
+  "status": "passed"
+}

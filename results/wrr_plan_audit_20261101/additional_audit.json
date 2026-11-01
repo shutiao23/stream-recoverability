@@ -1,0 +1,87 @@
+{
+  "created_utc": "2026-11-01T03:35:01.330544+00:00",
+  "head": "734193fe6fbb2a04503929a348500ab95103fd79",
+  "reused_evidence_inputs_match": {
+    "paper/wrr_tr/review_completion_article.tex": true,
+    "paper/wrr_tr/stanford_geometry_supporting.tex": true,
+    "scripts/980_final_release.py": true,
+    "scripts/981_stanford_revision.py": true,
+    "scripts/983_verify_extension_replay.py": true,
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv": true,
+    "results/wrr_final_revision_20261031/data_manifest.json": true,
+    "results/wrr_final_revision_20261031/scope.json": true
+  },
+  "candidate_sha256": "7ac1c2e0327afb665ef0c0554e5f81fd9489c7c6478367579785f4e15c1d9feb",
+  "candidate_matches_previous_evidence": true,
+  "sign_expectation_truncation": [
+    {
+      "family": "calendar",
+      "csv_expected_count": 8.24047619047619,
+      "scope_integer_count": 8
+    },
+    {
+      "family": "crossed",
+      "csv_expected_count": 55.35191197691197,
+      "scope_integer_count": 55
+    }
+  ],
+  "arithmetic_test_tolerance_probe": {
+    "test": "test_summaries_recompute_from_cases",
+    "baseline": "passed",
+    "mutation_status": "passed",
+    "in_memory_changes": [
+      {
+        "before": 0.4458836583590302,
+        "after": 0.4458846583590302
+      }
+    ],
+    "declared_atol": 1e-12,
+    "numpy_default_rtol": 1e-05,
+    "strict_atol_rejects": true,
+    "scope": "Single-test in-memory fault injection; not a bypass of the full release pipeline."
+  },
+  "source_check": {
+    "command": "ruff check --select E4,E7,E9,F src",
+    "returncode": 1,
+    "errors": 160,
+    "rule_counts": {
+      "F401": 27,
+      "F841": 8,
+      "E731": 1,
+      "F601": 1,
+      "E702": 78,
+      "E701": 45
+    },
+    "ruff_version": "ruff 0.16.2"
+  },
+  "ci": {
+    "current_commit": {
+      "total_count": 0,
+      "runs": []
+    },
+    "previous_commit": {
+      "total_count": 1,
+      "runs": [
+        {
+          "id": 41208224352,
+          "head_sha": "2986c0b0a3305adf088ace8c6c5f051a112825e2",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "failure",
+          "html_url": "https://github.com/shutiao23/stream-recoverability/actions/runs/41208224352"
+        }
+      ]
+    },
+    "workflow_state": "active",
+    "main_sha": "734193fe6fbb2a04503929a348500ab95103fd79",
+    "writes_performed": false
+  },
+  "readme_entrypoint": {
+    "labels_old_acceptance_current": true,
+    "linked_package_sha256": "b9a1762e99e4a531c303920279fd893aacf1887ed9e6134cf5e5fd55dc13ac5a",
+    "r2_package_sha256": "7ac1c2e0327afb665ef0c0554e5f81fd9489c7c6478367579785f4e15c1d9feb",
+    "old_article_pages": 41,
+    "old_abstract_words": 218
+  },
+  "production_files_changed": false
+}

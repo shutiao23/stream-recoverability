@@ -1,24 +1,31 @@
 \subsection{Algebraic year-set error and an iid working benchmark}
 
-For a fixed station, let $F=Y_i$ be the complete reference-year set and let $S$ be a retained subset that contains every year of $F$ outside the masked years. Write the annual H30 vector as $h$, with entries ordered by year. The ordinary-least-squares slope weights in decade units are
-\[
- w_{F,y}=\frac{x_y}{\sum_{z\in F}x_z^2},\qquad x_y=\frac{y-\bar y_F}{10},
-\]
-and $w_{S,y}=w_{F,y}$ for $y\in S$ and $w_{S,y}=0$ otherwise. The finite-record target is $\beta_F=w_F^\top h$ and the selected-set slope is $\beta_S=w_S^\top h$. Their difference is
+For a fixed station, let $F=Y_i$ be the complete reference-year set and let $S$ be a retained subset that contains every year of $F$ outside the masked years. Write the annual H30 vector as $h$, with entries ordered by year. For each set $A\in\{F,S\}$, define its own centering and slope weights in decade units:
+\begin{equation}
+ x_{A,y}=\frac{y-\bar y_A}{10},\qquad
+ S_{xx,A}=\sum_{z\in A}x_{A,z}^{2},\qquad
+ w_{A,y}=
+ \begin{cases}
+ x_{A,y}/S_{xx,A}, & y\in A,\\
+ 0, & y\notin A.
+ \end{cases}
+ \label{eq:subset-weights}
+\end{equation}
+The weights are centered, so $\sum_y w_{A,y}=0$ and $\sum_y w_{A,y}x_{A,y}=1$; the intercept is not part of the slope weight vector. The finite-record target is $\beta_F=w_F^\top h$ and the selected-set slope is $\beta_S=w_S^\top h$. Their difference is
 \begin{equation}
  S_{\mathrm{set}}=(w_S-w_F)^\top h=(w_S-w_F)^\top e,
  \label{eq:year-set-identity}
 \end{equation}
-where $e=h-\bar h_F\mathbb{1}-\hat b_F x$ is the residual from the complete-reference linear fit. The second equality is exact because the weight difference sums to zero and is orthogonal to the year vector $x$. Thus a constant shift and a strictly linear trend cancel: if the annual sequence were exactly linear and recovery introduced no error, every retained subset would give the same slope. The observed year-set error is the inner product of the weight difference with the residual, not with the fitted line.
+where $e=h-\bar h_F\mathbb{1}-\hat b_F x_F$ is the residual from the complete-reference linear fit. The second equality is exact because the weight difference sums to zero and is orthogonal to the complete-reference year vector $x_F$: $w_F^\top x_F=1$ and $w_S^\top x_F=1$. Thus a constant shift and a strictly linear trend cancel: if the annual sequence were exactly linear and recovery introduced no error, every retained subset would give the same slope. The observed year-set error is the inner product of the weight difference with the residual, not with the fitted line.
 
-Under the additional working model $h=\alpha\mathbb{1}+bx+\varepsilon$ with $\operatorname{Var}(\varepsilon)=\sigma^2 I$ and a year set fixed independently of $\varepsilon$,
+Under the additional working model $h=\alpha\mathbb{1}+b x_F+\varepsilon$ with $\operatorname{Var}(\varepsilon)=\sigma^2 I$ and a year set fixed independently of $\varepsilon$,
 \begin{equation}
  \operatorname{Var}(S_{\mathrm{set}})
  =\sigma^2\left(\frac{1}{S_{xx,S}}-\frac{1}{S_{xx,F}}\right),
- \qquad S_{xx,A}=\sum_{y\in A}x_y^2 .
+ \qquad S_{xx,A}=\sum_{y\in A}x_{A,y}^2 .
  \label{eq:year-set-variance}
 \end{equation}
-This follows from \eqref{eq:year-set-identity} and the orthogonality of the weight difference to the intercept and slope. Within that working model, maximizing $S_{xx,S}$ minimizes this variance term, which is why the $S_{xx}$ rule is an interpretable baseline rather than an arbitrary heuristic.
+This follows from \eqref{eq:year-set-identity} and the exact weight-distance identity $d^\top d=1/S_{xx,S}-1/S_{xx,F}$. Within that working model, maximizing $S_{xx,S}$ minimizes this variance term, which is why the $S_{xx}$ rule is an interpretable baseline rather than an arbitrary heuristic.
 
 Equation~\eqref{eq:year-set-identity} is algebraic. Equation~\eqref{eq:year-set-variance} is a model-based benchmark, not a coverage guarantee for the observed archive. The fitted residual $e$ can contain real interannual variability, curvature, changing observation support and measurement error; it is not all noise. The benchmark also conditions on the fixed year set and does not represent selection that depends on outcomes or on a different error structure. Table~\ref{tab:retention-geometry} compares the observed year-set RMSE with this benchmark. The two are of similar order in both gap families, so the magnitude of the observed effect alone does not identify a unique thermal mechanism or assign a percentage of the error to geometry. The contribution is the measured consequence of screening, selection and recovery in the river archive, not the general least-squares identity.
 

@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-01 Asia/Shanghai",
+  "version": "7ac1c2e0327afb665ef0c0554e5f81fd9489c7c6478367579785f4e15c1d9feb",
+  "inputs_sha256": {
+    "paper/wrr_tr/review_completion_article.tex": "3935aa41ea751b6be264ea342e5e1353a951c76543f18ed57a73fbc2e8d54340",
+    "paper/wrr_tr/stanford_geometry_supporting.tex": "ba1599cc337a9ebe439277de8b7228a65b9b37e5d51a7ca8b0704243fb26c21b",
+    "scripts/980_final_release.py": "02ee27e2372b007c0d065411a98c1ca6336b11e7a8e4f0d4c24bbc0b034e1b01",
+    "scripts/981_stanford_revision.py": "e9dda3a6175026580a15098300110838c05a2964b2d115ce80eceb99d5d4211b",
+    "scripts/983_verify_extension_replay.py": "13a04eff82ac3800bbc512bd039145042502b63934f85ca3b4a382eb45181abc",
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
+    "results/wrr_final_revision_20261031/data_manifest.json": "2018f59144bc3631d24fa66bf8f94cea04acb3d24de3413c434c99e29ce1932e",
+    "results/wrr_final_revision_20261031/scope.json": "e05646eebf44a08146ee3afcc8cae859960470c777a68b546362d126fc9f6fc2"
+  },
+  "production_artifacts_changed": false
+}

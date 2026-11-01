@@ -1,0 +1,16 @@
+{
+  "mode": "baseline",
+  "actual_verifier_status": "passed",
+  "actual_exit_code": 0,
+  "expected_to_reject": false,
+  "mutations": [],
+  "reported_numeric_differences": {
+    "retention_family_summary.csv": 1.1102230246251565e-16,
+    "retention_geometry_cases.csv": "nan",
+    "reference_truths.csv": 3.552713678800501e-15,
+    "annual_predictions_compact.csv": 3.552713678800501e-15
+  },
+  "reported_maximum": 3.552713678800501e-15,
+  "production_files_unchanged": true,
+  "scope": "Only the temporary expected/reference copy is changed; the real candidate, compact inputs and original verification receipts are unchanged. This probes 983 numeric/label comparison, not package identity checks."
+}

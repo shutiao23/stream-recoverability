@@ -30,9 +30,9 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 OLD = ROOT / "dist/wrr_process_experiments_20261029.zip"
-DEST = ROOT / "dist/wrr_final_candidate_20261031_r2.zip"
-EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261031_r2.manifest.json"
-OUT = ROOT / "results/final_release_20261031_r2"
+DEST = ROOT / "dist/wrr_final_candidate_20261101.zip"
+EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101.manifest.json"
+OUT = ROOT / "results/final_release_20261101"
 REVIEW = ROOT / "docs/reviews/wrr_stanford_perspective_20261031"
 GENERATED = [
     "REVIEW_PACKAGE_README.txt",
@@ -46,8 +46,12 @@ ADDITIONS = [
     "docs/reviews/wrr_multiview_review_20261031/PACKAGE_README.txt",
     "docs/reviews/wrr_multiview_review_20261031/POSTING_CHECKLIST.md",
     "docs/reviews/wrr_multiview_review_20261031/SIMULATED_WRR_REVIEW_ZH.md",
+    "docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md",
+    "docs/reviews/wrr_plan_audit_20261101/audit_additional.py",
+    "docs/reviews/wrr_revision_review_20261101/REVIEW_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVIEW_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/WORK_PLAN_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/diagnostics.py",
     "paper/wrr_tr/stanford_availability_supporting.tex",
@@ -56,9 +60,15 @@ ADDITIONS = [
     "paper/wrr_tr/stanford_geometry_supporting.tex",
     "paper/wrr_tr/stanford_geometry_table.tex",
     "paper/wrr_tr/stanford_revision_values.tex",
-    "results/final_release_20261031_r2/targeted_tests.xml",
-    "results/final_release_20261031_r2/targeted_tests_summary.json",
-    "results/final_release_20261031_r2/workspace_consistency.json",
+    "results/final_release_20261101/targeted_tests.xml",
+    "results/final_release_20261101/targeted_tests_summary.json",
+    "results/final_release_20261101/ci_local_summary.json",
+    "results/final_release_20261101/evidence_snapshot_inventory.json",
+    "results/final_release_20261101/full_pytest_summary.json",
+    "results/final_release_20261101/restricted_hosting_audit_inventory.json",
+    "results/final_release_20261101/ruff_current.json",
+    "results/final_release_20261101/submission_gate_inventory_only.json",
+    "results/final_release_20261101/workspace_consistency.json",
     "results/wrr_final_revision_20261031/annual_predictions_compact.csv",
     "results/wrr_final_revision_20261031/case_designs.csv",
     "results/wrr_final_revision_20261031/data_manifest.json",
@@ -67,6 +77,7 @@ ADDITIONS = [
     "results/wrr_final_revision_20261031/estimator_unavailable_subset.csv",
     "results/wrr_final_revision_20261031/reference_truths.csv",
     "results/wrr_final_revision_20261031/reference_year_sets.csv",
+    "results/wrr_final_revision_20261031/table_spec.json",
     "results/wrr_final_revision_20261031/retention_choice_counts.csv",
     "results/wrr_final_revision_20261031/retention_family_summary.csv",
     "results/wrr_final_revision_20261031/retention_geometry_cases.csv",
@@ -76,6 +87,14 @@ ADDITIONS = [
     "results/wrr_multiview_review_20261031/time_primary_recheck.csv",
     "results/wrr_multiview_review_20261031/time_selection_arithmetic.json",
     "results/wrr_multiview_review_20261031/time_station_group_heterogeneity.csv",
+    "results/wrr_plan_audit_20261101/additional_audit.json",
+    "results/wrr_plan_audit_20261101/ruff_current.json",
+    "results/wrr_revision_review_20261101/extension_manifest_audit.json",
+    "results/wrr_revision_review_20261101/independent_full_extension_replay.json",
+    "results/wrr_revision_review_20261101/nan_comparator_counterexample.json",
+    "results/wrr_revision_review_20261101/published_algebra_counterexample.json",
+    "results/wrr_revision_review_20261101/review_scope.json",
+    "results/wrr_revision_review_20261101/review_summary.json",
     "results/wrr_stanford_perspective_20261031/point_estimator_availability.csv",
     "results/wrr_stanford_perspective_20261031/point_estimator_paired_comparison.csv",
     "results/wrr_stanford_perspective_20261031/point_estimator_unavailable_subset.csv",
@@ -89,6 +108,8 @@ ADDITIONS = [
     "scripts/981_stanford_revision.py",
     "scripts/982_final_release_tests.py",
     "scripts/983_verify_extension_replay.py",
+    "scripts/revision_table_spec.py",
+    "tests/test_extension_replay_validator.py",
     "tests/test_final_release_freshness.py",
     "tests/test_stanford_revision.py",
 ]
@@ -108,6 +129,7 @@ TARGETED_TEST_FILES = [
     "tests/test_review_completion_current_evidence.py",
     "tests/test_review_bundle_atomic_write.py",
     "tests/test_process_review_region_water.py",
+    "tests/test_extension_replay_validator.py",
     "tests/test_stanford_revision.py",
     "tests/test_final_release_freshness.py",
 ]
@@ -557,14 +579,17 @@ def accept(_: argparse.Namespace) -> None:
     tests_path = OUT / "targeted_tests_summary.json"
     delivery_path = OUT / "package_delivery_check.json"
     replay_path = OUT / "extension_replay.json"
+    ci_path = OUT / "ci_local_summary.json"
     require(verification_path.is_file(), "Package verification is absent")
     require(tests_path.is_file(), "Targeted test summary is absent")
     require(delivery_path.is_file(), "Extracted-package delivery check is absent")
     require(replay_path.is_file(), "Extension replay record is absent")
+    require(ci_path.is_file(), "Local CI-equivalent summary is absent")
     verification = json.loads(verification_path.read_text())
     tests = json.loads(tests_path.read_text())
     delivery = json.loads(delivery_path.read_text())
     replay = json.loads(replay_path.read_text())
+    local_ci = json.loads(ci_path.read_text())
     require(verification.get("status") == "passed", "Package verification did not pass")
     require(verification.get("package_sha256") == manifest["package_sha256"], "Verification package hash differs")
     require(verification.get("external_manifest_sha256") == sha256(EXTERNAL_MANIFEST),
@@ -594,6 +619,15 @@ def accept(_: argparse.Namespace) -> None:
             "Extension replay denominators differ")
     require(float(replay.get("max_numeric_difference", 1.0)) <= float(replay.get("tolerance", 0.0)),
             "Extension replay exceeds its declared numeric tolerance")
+    require(local_ci.get("status") == "passed", "Local CI-equivalent summary did not pass")
+    require(local_ci.get("source_check", {}).get("exit_code") == 0
+            and local_ci.get("source_check", {}).get("findings") == 0,
+            "Local source check did not pass")
+    require(local_ci.get("full_pytest", {}).get("failures") == 0
+            and local_ci.get("full_pytest", {}).get("errors") == 0,
+            "Full pytest summary is not clean")
+    require(local_ci.get("evidence_gates", {}).get("decision") == "inventory_only",
+            "Evidence-gate decision changed")
 
     # Re-establish package/workspace identity at the moment of acceptance. A
     # stale "passed" report is not enough: every packaged scientific file must
@@ -631,14 +665,14 @@ def accept(_: argparse.Namespace) -> None:
         }
     manuscript_report["article"]["abstract_words"] = abstract_words()
     manuscript_report["article"]["key_points"] = key_points()
-    completion = REVIEW / "REVISION_COMPLETION_ZH.md"
+    completion = REVIEW / "REVISION_COMPLETION_20261101_ZH.md"
     acceptance = {
         "schema_version": "final_candidate_acceptance_v1",
         "status": "complete",
         "complete": True,
-        "review_date": "2026-10-31 Asia/Shanghai",
+        "review_date": "2026-11-01 Asia/Shanghai",
         "created_utc": utc_now(),
-        "revision": "Minor revision: fixed non-contiguous reference-year target, absolute endpoint-change label, algebraic year-set derivation, empirical-calendar extension, and point-estimate accuracy versus availability; acceptance is bound to the current package and PDFs.",
+        "revision": "Corrected revision: subset-OLS weight definition, strict 11-table replay comparator, manifest hash order, expected-count typing, forward/offline reference-set scope, table schema, and source-check cleanup; acceptance is bound to the current package and PDFs.",
         "git": git_state(),
         "package": {
             "path": manifest["package"],
@@ -672,6 +706,11 @@ def accept(_: argparse.Namespace) -> None:
                              "archives": replay["archives"], "geometry_rows": replay["geometry_rows"],
                              "max_numeric_difference": replay["max_numeric_difference"],
                              "tolerance": replay["tolerance"]},
+        "local_ci_equivalent": {"path": str(ci_path.relative_to(ROOT)), "sha256": sha256(ci_path),
+                                "status": local_ci["status"],
+                                "source_check": local_ci["source_check"],
+                                "full_pytest": local_ci["full_pytest"],
+                                "evidence_gate_decision": local_ci["evidence_gates"]["decision"]},
         "scientific_checks": {
             "main_pages": manuscript_report["article"]["pdf_pages"],
             "supporting_pages": manuscript_report["supporting"]["pdf_pages"],
@@ -696,6 +735,7 @@ def accept(_: argparse.Namespace) -> None:
                 "extracted-package transcription and compilation",
                 "frozen-input source-calibration, annual-selection and current-observation replay",
                 "extracted-package replay of the 1,623-archive calendar extension within 1e-12",
+                "local CI-equivalent source check and full pytest summary, recorded separately from the targeted list",
                 f"{tests['tests']} targeted tests from the declared release list",
             ],
             "not_proved": verification["not_tested"],

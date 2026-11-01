@@ -167,7 +167,7 @@ def fixture(tmp_path, monkeypatch):
     paths["supporting_tex"].write_text("supporting v1\n")
     paths["supporting_pdf"].write_bytes(b"supporting pdf v1")
     paths["key"].write_text("key v1\n")
-    (module.REVIEW / "REVISION_COMPLETION_ZH.md").write_text("completion\n")
+    (module.REVIEW / "REVISION_COMPLETION_20261101_ZH.md").write_text("completion\n")
     monkeypatch.setattr(module, "pdf_pages", lambda path: 1)
     monkeypatch.setattr(module, "abstract_words", lambda: 100)
     monkeypatch.setattr(module, "key_points", lambda: ["point"])
@@ -183,6 +183,12 @@ def fixture(tmp_path, monkeypatch):
         "geometry_rows": 8115,
         "max_numeric_difference": 0.0,
         "tolerance": 1e-12,
+    }, indent=2) + "\n")
+    (module.OUT / "ci_local_summary.json").write_text(json.dumps({
+        "status": "passed",
+        "source_check": {"exit_code": 0, "findings": 0},
+        "full_pytest": {"failures": 0, "errors": 0},
+        "evidence_gates": {"decision": "inventory_only"},
     }, indent=2) + "\n")
     return module, paths
 

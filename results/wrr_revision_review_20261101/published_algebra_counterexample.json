@@ -1,0 +1,28 @@
+{
+  "reference_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005
+  ],
+  "retained_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004
+  ],
+  "annual_sequence": "Centered strictly linear annual anomaly; slope 1 C per decade",
+  "full_slope": 1.0,
+  "correct_selected_slope": 0.9999999999999999,
+  "SI_clipped_selected_slope": 0.6428571428571428,
+  "SI_clipped_weight_sum": -1.4285714285714284,
+  "correct_difference_sum": 0.0,
+  "correct_difference_dot_year": -1.6653345369377348e-16,
+  "correct_weight_distance": 4.285714285714285,
+  "correct_variance_coefficient": 4.285714285714284,
+  "SI_full_center_variance_coefficient": 3.174603174603175,
+  "conclusion": "The SI definitions of subset weights and subset Sxx are incorrect; the production code recomputes the subset mean and implements the correct weights."
+}

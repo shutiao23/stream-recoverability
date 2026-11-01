@@ -54,7 +54,8 @@ def parse_catalog(document: bytes | str) -> tuple[Station, ...]:
         if match is None:
             continue
         cells = re.findall(r"<td\b[^>]*>(.*?)</td>", row, flags=re.DOTALL)
-        clean = lambda value: html.unescape(re.sub(r"<[^>]+>", "", value)).strip()
+        def clean(value):
+            return html.unescape(re.sub(r"<[^>]+>", "", value)).strip()
         main_url = match.group(1).split("/messwerte", maxsplit=1)[0]
         stations.append(
             Station(
@@ -164,11 +165,7 @@ def parse_archive(payload: bytes, site_id: str) -> pd.DataFrame:
             if name.lower().endswith(".csv"):
                 frames.append(parse_daily_csv(archive.read(name), site_id))
     populated = [frame for frame in frames if not frame.empty]
-    daily = (
-        pd.concat(populated, ignore_index=True)
-        if populated
-        else frames[0].copy()
-    )
+    daily = pd.concat(populated, ignore_index=True) if populated else frames[0].copy()
     return (
         daily.sort_values("date", kind="mergesort")
         .drop_duplicates("date", keep="last")
@@ -184,9 +181,7 @@ def download_station(
     """Request and download one complete checked daily-temperature archive."""
 
     cookies = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener(
-        urllib.request.HTTPCookieProcessor(cookies)
-    )
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookies))
     page_headers = {"User-Agent": USER_AGENT, "Accept": "text/html"}
     with opener.open(
         urllib.request.Request(station.download_url, headers=page_headers),
@@ -258,7 +253,9 @@ def download_stations(
     output_root: str | Path,
     *,
     workers: int = 6,
-    downloader: Callable[[Station], tuple[pd.DataFrame, dict[str, object]]] = download_station,
+    downloader: Callable[
+        [Station], tuple[pd.DataFrame, dict[str, object]]
+    ] = download_station,
 ) -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:
     """Download stations concurrently and overwrite their ordinary tables."""
 

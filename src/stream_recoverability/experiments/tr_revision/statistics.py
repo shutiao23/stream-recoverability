@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 from scipy.optimize import minimize, minimize_scalar
 from scipy.special import log_ndtr
-from scipy.stats import norm, t
+from scipy.stats import t
 
 
 def ensemble_crps(samples, truth, threshold=None):

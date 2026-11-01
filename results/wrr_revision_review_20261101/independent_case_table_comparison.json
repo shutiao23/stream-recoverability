@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "rows": 8115,
+  "key_unique": true,
+  "keys_and_missingness_match": true,
+  "all_columns_compared": true,
+  "finite_max_difference": 3.730349362740526e-14,
+  "per_column_max_difference": {
+    "estimate_error": 0.0,
+    "year_set_error": 0.0,
+    "reconstruction_error": 0.0,
+    "estimate_mse": 0.0,
+    "year_set_mse": 0.0,
+    "reconstruction_mse": 0.0,
+    "cross_term": 0.0,
+    "weight_distance_squared": 0.0,
+    "iid_linear_expected_year_set_mse": 3.730349362740526e-14,
+    "reference_slope": 0.0,
+    "reference_residual_variance": 0.0,
+    "slope_sign_disagreement": 0.0,
+    "n_retained": 0.0
+  },
+  "scope": "New production output compared with the prior reviewer implementation, using keys, nonnumeric values, explicit NaN masks and finite numeric tolerances."
+}

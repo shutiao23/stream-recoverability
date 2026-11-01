@@ -1,0 +1,9 @@
+{
+  "numeric_nan_cells": 6492,
+  "injected_column": "estimate_mse",
+  "injected_finite_change": 1.0,
+  "legacy_per_table_difference_is_nan": true,
+  "legacy_aggregate_max": 3.552713678800501e-15,
+  "legacy_tolerance_test_passes": true,
+  "conclusion": "The numeric max used in 983 cannot certify the case table when structural NaNs are present."
+}

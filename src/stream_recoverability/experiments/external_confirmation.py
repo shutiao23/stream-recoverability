@@ -1102,7 +1102,6 @@ def run_confirmatory_feasibility(
             "performance_metrics_computed": False,
             "models_trained": False,
             "design_version": inputs.evidence_contract["design_version"],
-            "design_version": inputs.evidence_contract["design_version"],
             "data_version": CONFIRMATORY_DATA_VERSION,
             "scenario_count": 60,
             "mask_seed": EXTERNAL_MASK_SEED,

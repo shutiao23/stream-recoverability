@@ -1,6 +1,7 @@
 {
-  "schema": "stanford_revision_scope_v1",
-  "date": "2026-10-31 Asia/Shanghai",
+  "schema": "stanford_revision_scope_v2",
+  "created_utc": "2026-11-01T05:12:29.779711+00:00",
+  "date": "2026-11-01",
   "exploratory": true,
   "new_models_fit": false,
   "existing_outputs_changed": false,
@@ -33,22 +34,63 @@
     "seed": 20261031,
     "unit": "connected group"
   },
-  "sign_disagreement_counts": {
+  "sign_disagreement": {
     "crossed": {
-      "warm90": 53,
-      "uniform_exact": 55,
-      "cdf_all_years": 51,
-      "sxx_all_years": 42,
-      "all": 16
+      "warm90": {
+        "count": 53,
+        "expected_count": null,
+        "quantity": "count"
+      },
+      "uniform_exact": {
+        "count": null,
+        "expected_count": 55.35191197691197,
+        "quantity": "expected_count"
+      },
+      "cdf_all_years": {
+        "count": 51,
+        "expected_count": null,
+        "quantity": "count"
+      },
+      "sxx_all_years": {
+        "count": 42,
+        "expected_count": null,
+        "quantity": "count"
+      },
+      "all": {
+        "count": 16,
+        "expected_count": null,
+        "quantity": "count"
+      }
     },
     "calendar": {
-      "warm90": 3,
-      "uniform_exact": 8,
-      "cdf_all_years": 5,
-      "sxx_all_years": 4,
-      "all": 0
+      "warm90": {
+        "count": 3,
+        "expected_count": null,
+        "quantity": "count"
+      },
+      "uniform_exact": {
+        "count": null,
+        "expected_count": 8.24047619047619,
+        "quantity": "expected_count"
+      },
+      "cdf_all_years": {
+        "count": 5,
+        "expected_count": null,
+        "quantity": "count"
+      },
+      "sxx_all_years": {
+        "count": 4,
+        "expected_count": null,
+        "quantity": "count"
+      },
+      "all": {
+        "count": 0,
+        "expected_count": null,
+        "quantity": "count"
+      }
     }
   },
+  "table_spec": "table_spec.json",
   "interpretation": [
     "The control-gap and empirical-calendar families are separate cohorts; their differences are not a causal missingness effect.",
     "Empirical calendars are simulated masks on saved predictions, not accuracy validation on genuinely unknown values.",
@@ -68,8 +110,8 @@
   "input_sha256": {
     "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925",
     "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
-    "scripts/981_stanford_revision.py": "e9dda3a6175026580a15098300110838c05a2964b2d115ce80eceb99d5d4211b",
-    "scripts/980_final_release.py": "02ee27e2372b007c0d065411a98c1ca6336b11e7a8e4f0d4c24bbc0b034e1b01",
+    "scripts/981_stanford_revision.py": "789cae47343d8c89d5209d71f440f1a8147e26f523061b15ba9577fc6d647547",
+    "scripts/980_final_release.py": "4c26d4dec1a29a73ccc8da6549678b330a8f55a2e432bc754e94e4e519895025",
     "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e"
   }
 }

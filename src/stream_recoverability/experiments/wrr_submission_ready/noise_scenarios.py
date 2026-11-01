@@ -90,7 +90,6 @@ import pandas as pd
 from stream_recoverability.experiments.v17_fitness.cases import (
     FILL_ESTIMATORS,
     WARM_MONTHS,
-    deseasonalized_correlations,
     station_geometry_pool,
 )
 from stream_recoverability.experiments.v17_fitness.estimators import (
@@ -346,8 +345,6 @@ def build_station_scenarios(
         train_values = target.loc[train_mask].dropna()
         if len(train_values) < 365:
             continue
-
-        correlations = deseasonalized_correlations(target, donors, train_mask)
 
         rng = np.random.default_rng(
             station_year_seed(

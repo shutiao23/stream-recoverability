@@ -8,8 +8,6 @@ is the dynamic ``formal_suite_registry_v1`` consumed by
 
 from __future__ import annotations
 import json
-import os
-import tempfile
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -443,6 +441,13 @@ def _validate_file_identity(identity: object, label: str, run_directory: Path) -
     path = _resolve_artifact_path(path_value, run_directory)
     if not path.is_file():
         raise FileNotFoundError(f"{label} is missing: {path}")
+    if expected_size is not None:
+        if not isinstance(expected_size, int) or expected_size < 0:
+            raise ValueError(f"{label} has an invalid size")
+        if path.stat().st_size != expected_size:
+            raise ValueError(
+                f"{label} size mismatch: expected {expected_size}, got {path.stat().st_size}"
+            )
 
 
 def _validate_checkpoints(

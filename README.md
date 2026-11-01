@@ -79,18 +79,32 @@ These external checks are unregistered unless an actual registration is recorded
 Failed qualification, unavailable predictions and negative results stay in the
 reported denominators. Author and deposit details remain to be supplied.
 
-Current artifacts:
+Current candidate (2026-11-01 corrected revision):
 
 - [Main manuscript](paper/wrr_tr/review_completion_article.pdf)
 - [Supporting information](paper/wrr_tr/review_completion_supporting.pdf)
+- [Corrected revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_ZH.md)
+- [Post-review audit report](docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md)
+- [Candidate package](dist/wrr_final_candidate_20261101.zip)
+- [Candidate manifest](dist/wrr_final_candidate_20261101.manifest.json)
+- [Current acceptance record](results/final_release_20261101/acceptance.json)
+- [Current extension replay](results/final_release_20261101/extension_replay.json)
+
+The full candidate sha256 is recorded in the external manifest and acceptance
+record. Because this README is inside the package, it does not embed its own
+package hash. The current candidate is a local release candidate, not a
+completed publication deposit; author metadata, legal reviewer access and a
+permanent archive remain pending.
+
+Historical artifacts (not current evidence for the 2026-11-01 candidate):
+
+- [r2 package](dist/wrr_final_candidate_20261031_r2.zip), [r2 manifest](dist/wrr_final_candidate_20261031_r2.manifest.json), [r2 acceptance](results/final_release_20261031_r2/acceptance.json)
+- [Earlier 2026-10-31 candidate](dist/wrr_final_candidate_20261031.zip), [acceptance](results/final_release_20261031/acceptance.json)
 - [Minor-revision completion report](docs/reviews/wrr_multiview_review_20261031/MINOR_REVISION_COMPLETION_ZH.md)
-- [Final candidate package](dist/wrr_final_candidate_20261031.zip)
-- [Final candidate manifest](dist/wrr_final_candidate_20261031.manifest.json)
-- [Current acceptance record](results/final_release_20261031/acceptance.json)
-- [Current experiment response](docs/reviews/wrr_process_experiments_20261029/EXPERIMENT_RESPONSE_ZH.md)
-- [Independent source-calibration audit](results/wrr_process_experiments_20261029/source_calibration/independent_audit.json)
 - [Previous frozen experiment package](dist/wrr_process_experiments_20261029.zip)
-- [Current experiment validation](results/wrr_process_experiments_20261029/validation.json)
+- [Experiment response](docs/reviews/wrr_process_experiments_20261029/EXPERIMENT_RESPONSE_ZH.md)
+- [Independent source-calibration audit](results/wrr_process_experiments_20261029/source_calibration/independent_audit.json)
+- [Experiment validation](results/wrr_process_experiments_20261029/validation.json)
 - [Revised review-response results](results/wrr_review_response_20261027/)
 - [Original whole-archive results](results/whole_archive/)
 - [Research completion report](docs/SIMPLE_WORKFLOW_ZH.md)

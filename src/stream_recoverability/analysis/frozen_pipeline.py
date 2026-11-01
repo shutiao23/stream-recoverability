@@ -255,6 +255,11 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
     expected_thresholds = {"T": 0.05, "F": 0.5, "L": 0.005}
     for target, expected in expected_thresholds.items():
         actual = resolve_climatology_denominator_threshold(guard, target)
+        if not np.isclose(actual, expected, rtol=0, atol=1e-12):
+            raise ValueError(
+                f"climatology denominator threshold for {target} changed: "
+                f"{actual} != {expected}"
+            )
     families = tuple(
         (str(value) for value in statistics.get("hypothesis_families", ()))
     )

@@ -12,8 +12,6 @@ import pandas as pd
 from stream_recoverability.analysis.science_record import _annual
 from stream_recoverability.experiments.gap_triage import (
     compare_operator_to_length_only,
-    freeze_triage_thresholds,
-    safe_fill_fraction,
 )
 from stream_recoverability.experiments.public_river_operator_ablation import (
     MIN_TRAIN_COMPLETE_FOR_OPERATOR,
@@ -59,7 +57,6 @@ def ecological_bridge_for_scores(
 ) -> dict[str, Any]:
     """Bias on annual max, amplitude, and 7DADM for declared-safe fills only."""
 
-    thresholds = freeze_triage_thresholds(freeze)
     triage = compare_operator_to_length_only(scores, freeze=freeze)
     operator_threshold = triage["operator"]["threshold"]
     length_threshold = triage["length_only"]["threshold"]
