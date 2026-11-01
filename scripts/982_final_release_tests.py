@@ -72,7 +72,7 @@ def main() -> int:
     summary["stdout_tail"] = process.stdout[-4000:]
     summary["stderr_tail"] = process.stderr[-4000:]
     if process.returncode == 0:
-        release_provenance.validate_summary(summary, "targeted")
+        release_provenance.validate_summary(summary, "targeted", out.parent)
     out.write_text(json.dumps(summary, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
     print(json.dumps({key: summary[key] for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped", "junit_sha256"]}))
     return 0 if process.returncode == 0 else 1

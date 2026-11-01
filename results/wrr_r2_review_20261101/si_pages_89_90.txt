@@ -1,0 +1,110 @@
+                    AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION                           X - 89
+
+a narrower selection margin, and it is not an external accuracy validation on genuinely
+
+unknown gaps. The control-gap and empirical-calendar cohorts are also not exchangeable:
+
+their rows are separate, and subtracting their differences would not identify a causal effect
+
+of a missingness mechanism. Within the calendar family, sign disagreement with the
+
+complete-reference slope is 3/818 under warm-season screening, 5/818 under CDF, 4/818
+
+under Sxx and 0/818 when all supported years are retained. These counts are small and
+
+describe this cohort only. They show that aggregate RMSE and direction agreement are
+
+different criteria, not that any rule is a safe climate-direction classifier.
+
+
+S36.6. Algebraic year-set error and an iid working benchmark
+
+  For a fixed station, let F = Yi be the complete reference-year set and let S be a retained
+
+subset that contains every year of F outside the masked years. Write the annual H30
+
+vector as h, with entries ordered by year. For each set A ∈ {F, S}, define its own centering
+
+and slope weights in decade units:
+                                                                     (
+                 y − ȳA                 X                            xA,y /Sxx,A , y ∈ A,
+          xA,y =         ,     Sxx,A =         x2A,z ,        wA,y =                                (1)
+                   10                    z∈A
+                                                                      0,            y∈/ A.
+                                P                        P
+The weights are centered, so      y wA,y = 0 and             y wA,y xA,y = 1; the intercept is not part
+
+
+of the slope weight vector. The finite-record target is βF = wF⊤ h and the selected-set slope
+
+is βS = wS⊤ h. Their difference is
+
+
+                             Sset = (wS − wF )⊤ h = (wS − wF )⊤ e,                                  (2)
+
+
+where e = h − h̄F 1 − b̂F xF is the residual from the complete-reference linear fit. The
+
+second equality is exact because the weight difference sums to zero and is orthogonal to
+
+the complete-reference year vector xF : wF⊤ xF = 1 and wS⊤ xF = 1. Thus a constant shift
+
+and a strictly linear trend cancel: if the annual sequence were exactly linear and recovery
+
+
+                                     November 1, 2026, 10:26am
+X - 90             AUTHOR INFORMATION PENDING: SUPPORTING INFORMATION
+
+
+introduced no error, every retained subset would give the same slope. The observed
+
+year-set error is the inner product of the weight difference with the residual, not with the
+
+fitted line.
+
+  Under the additional working model h = α1 + bxF + ε with Var(ε) = σ 2 I and a year set
+
+fixed independently of ε,
+                                                              
+                                   2        1            1                       X
+                  Var(Sset ) = σ                   −               ,   Sxx,A =         x2A,y .   (3)
+                                           Sxx,S       Sxx,F                     y∈A
+
+This follows from (2) and the exact weight-distance identity d⊤ d = 1/Sxx,S − 1/Sxx,F .
+
+Within that working model, maximizing Sxx,S minimizes this variance term, which is why
+
+the Sxx rule is an interpretable baseline rather than an arbitrary heuristic.
+
+  Equation (2) is algebraic. Equation (3) is a model-based benchmark, not a coverage
+
+guarantee for the observed archive. The fitted residual e can contain real interannual
+
+variability, curvature, changing observation support and measurement error; it is not
+
+all noise. The benchmark also conditions on the fixed year set and does not represent
+
+selection that depends on outcomes or on a different error structure. Table S68 compares
+
+the observed year-set RMSE with this benchmark. The two are of similar order in both
+
+gap families, so the magnitude of the observed effect alone does not identify a unique
+
+thermal mechanism or assign a percentage of the error to geometry. The contribution is
+
+the measured consequence of screening, selection and recovery in the river archive, not the
+
+general least-squares identity.
+
+
+S36.7. Point-estimate accuracy and availability are different questions
+
+  The paired accuracy table in the main text is restricted to cases where both D2 and the
+
+comparator have a finite forward point estimate under all-year retention. In the controlled-
+
+
+
+
+                                       November 1, 2026, 10:26am
+

@@ -209,7 +209,7 @@ def fixture(tmp_path, monkeypatch):
     paths["supporting_tex"].write_text("supporting v1\n")
     paths["supporting_pdf"].write_bytes(b"supporting pdf v1")
     paths["key"].write_text("key v1\n")
-    (module.REVIEW / "REVISION_COMPLETION_20261101_R2_ZH.md").write_text("completion\n")
+    (module.REVIEW / "REVISION_COMPLETION_20261101_R3_ZH.md").write_text("completion\n")
     monkeypatch.setattr(module, "pdf_pages", lambda path: 1)
     monkeypatch.setattr(module, "abstract_words", lambda: 100)
     monkeypatch.setattr(module, "key_points", lambda: ["point"])
@@ -347,4 +347,52 @@ def test_targeted_counts_inconsistent_rejected(fixture):
     data.update(tests=10, passed=100)
     path.write_text(json.dumps(data, indent=2) + "\n")
     with pytest.raises(module.ReleaseFailure, match="counts are inconsistent"):
+        module.accept(None)
+
+
+def test_full_pytest_failure_count_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"].update(tests=2, passed=1, failures=1, errors=0, skipped=0)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="reports test failures"):
+        module.accept(None)
+
+
+def test_full_pytest_error_count_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"].update(tests=2, passed=1, failures=0, errors=1, skipped=0)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="reports test errors"):
+        module.accept(None)
+
+
+def test_full_pytest_junit_count_mismatch_rejected(fixture):
+    module, _ = fixture
+    def mutate(data):
+        data["full_pytest"].update(tests=999, passed=999, failures=0, errors=0, skipped=0)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="JUnit counts differ"):
+        module.accept(None)
+
+
+def test_full_pytest_failure_xml_with_normal_summary_rejected(fixture):
+    module, _ = fixture
+    full = module.OUT / "full_pytest.xml"
+    full.write_text('<testsuite tests="1" failures="1" errors="0" skipped="0"></testsuite>')
+    def mutate(data):
+        data["full_pytest"]["junit_sha256"] = sha(full)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="JUnit counts differ"):
+        module.accept(None)
+
+
+def test_targeted_failure_count_rejected(fixture):
+    module, _ = fixture
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data.update(tests=2, passed=1, failures=1, errors=0, skipped=0)
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="reports test failures"):
         module.accept(None)

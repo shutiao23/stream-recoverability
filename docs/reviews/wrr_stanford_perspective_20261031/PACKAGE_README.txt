@@ -275,3 +275,29 @@ dist/wrr_final_candidate_20261101_r2.zip,
 dist/wrr_final_candidate_20261101_r2.manifest.json and
 results/final_release_20261101_r2/acceptance.json. The full package sha256 is in
 the manifest and acceptance record, not in this README inside the package.
+
+2026-11-01 THIRD POST-REVIEW REVISION (r3)
+
+This candidate fixes the acceptance regression left by the previous hardening:
+
+- release_provenance.validate_summary() again requires failures == 0 and
+  errors == 0, and now parses the hash-checked JUnit file and compares all five
+  counts with the JSON summary. 980 and 985 reuse this single rule.
+- Negative tests cover positive failure counts, positive error counts, JUnit
+  counts that disagree with the summary, and a failing JUnit paired with a
+  zero-failure summary.
+- The abstract now says explicitly that the CDF selector's paired RMSE-
+  difference interval from warm-season screening includes zero. The abstract
+  remains 249 words.
+
+Current local checks: 1,704 full-suite tests (1,703 passed, 1 skipped, JUnit
+and summary counts agree), 136 declared-release tests, ruff 0 findings, package
+verification, delivery check and strict 11-table replay (max finite difference
+2.1316e-14). The source-identity hash covers src/**/*.py and pyproject.toml;
+scripts and tests are bound separately through the test list and JUnit hash.
+
+The candidate, manifest and acceptance record are named
+dist/wrr_final_candidate_20261101_r3.zip,
+dist/wrr_final_candidate_20261101_r3.manifest.json and
+results/final_release_20261101_r3/acceptance.json. The full package sha256 is in
+the manifest and acceptance record, not in this README inside the package.

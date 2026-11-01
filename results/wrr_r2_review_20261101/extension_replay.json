@@ -1,0 +1,182 @@
+{
+  "schema": "stanford_extension_replay_v2",
+  "created_utc": "2026-11-01T15:55:10.172747+00:00",
+  "archive": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/dist/wrr_final_candidate_20261101_r2.zip",
+  "archive_sha256": "7d1d5b9a7b96f122141551f49684494d331e58105ec3b85ebb0987316469c395",
+  "tolerance": 1e-12,
+  "scope": {
+    "compared_fields": [
+      "exploratory",
+      "new_models_fit",
+      "existing_outputs_changed",
+      "archives",
+      "geometry_rows",
+      "family_counts",
+      "reference_year_sets",
+      "table_spec",
+      "compact_replay",
+      "sign_disagreement"
+    ],
+    "input_hashes_excluded": true
+  },
+  "comparison": "Schema, primary keys, labels, legal NaN positions, finite values and every declared table; JSON has no NaN or Inf.",
+  "status": "passed",
+  "archives": 1623,
+  "geometry_rows": 8115,
+  "max_numeric_difference": 2.1316282072803006e-14,
+  "tables": {
+    "retention_family_summary.csv": {
+      "rows": 10,
+      "keys": [
+        "family",
+        "scheme"
+      ],
+      "numeric_columns": 11,
+      "label_columns": 2,
+      "finite_pairs": 100,
+      "nan_pairs": 10,
+      "max_finite_difference": 1.1102230246251565e-16
+    },
+    "retention_paired_intervals.csv": {
+      "rows": 8,
+      "keys": [
+        "family",
+        "scheme"
+      ],
+      "numeric_columns": 8,
+      "label_columns": 3,
+      "finite_pairs": 64,
+      "nan_pairs": 0,
+      "max_finite_difference": 1.1102230246251565e-16
+    },
+    "retention_choice_counts.csv": {
+      "rows": 1623,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate"
+      ],
+      "numeric_columns": 8,
+      "label_columns": 4,
+      "finite_pairs": 12984,
+      "nan_pairs": 0,
+      "max_finite_difference": 0.0
+    },
+    "retention_geometry_cases.csv": {
+      "rows": 8115,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate",
+        "scheme"
+      ],
+      "numeric_columns": 14,
+      "label_columns": 6,
+      "finite_pairs": 107118,
+      "nan_pairs": 6492,
+      "max_finite_difference": 2.1316282072803006e-14
+    },
+    "reference_truths.csv": {
+      "rows": 1086,
+      "keys": [
+        "family",
+        "station_key",
+        "year"
+      ],
+      "numeric_columns": 2,
+      "label_columns": 2,
+      "finite_pairs": 2172,
+      "nan_pairs": 0,
+      "max_finite_difference": 3.552713678800501e-15
+    },
+    "reference_year_sets.csv": {
+      "rows": 41,
+      "keys": [
+        "station_key"
+      ],
+      "numeric_columns": 4,
+      "label_columns": 3,
+      "finite_pairs": 164,
+      "nan_pairs": 0,
+      "max_finite_difference": 0.0
+    },
+    "estimator_availability.csv": {
+      "rows": 6,
+      "keys": [
+        "family",
+        "estimator"
+      ],
+      "numeric_columns": 3,
+      "label_columns": 2,
+      "finite_pairs": 18,
+      "nan_pairs": 0,
+      "max_finite_difference": 0.0
+    },
+    "estimator_paired_comparisons.csv": {
+      "rows": 4,
+      "keys": [
+        "family",
+        "comparator"
+      ],
+      "numeric_columns": 10,
+      "label_columns": 3,
+      "finite_pairs": 40,
+      "nan_pairs": 0,
+      "max_finite_difference": 0.0
+    },
+    "estimator_unavailable_subset.csv": {
+      "rows": 2,
+      "keys": [
+        "family"
+      ],
+      "numeric_columns": 2,
+      "label_columns": 1,
+      "finite_pairs": 4,
+      "nan_pairs": 0,
+      "max_finite_difference": 0.0
+    },
+    "case_designs.csv": {
+      "rows": 1623,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate"
+      ],
+      "numeric_columns": 2,
+      "label_columns": 3,
+      "finite_pairs": 3246,
+      "nan_pairs": 0,
+      "max_finite_difference": 0.0
+    },
+    "annual_predictions_compact.csv": {
+      "rows": 7517,
+      "keys": [
+        "family",
+        "station_key",
+        "replicate",
+        "year"
+      ],
+      "numeric_columns": 4,
+      "label_columns": 2,
+      "finite_pairs": 30068,
+      "nan_pairs": 0,
+      "max_finite_difference": 3.552713678800501e-15
+    }
+  },
+  "manifests": {
+    "reference": {
+      "outputs": 16,
+      "self_hash_excluded": true
+    },
+    "replay": {
+      "outputs": 16,
+      "self_hash_excluded": true
+    }
+  },
+  "paper_tables": {
+    "stanford_revision_values.tex": true,
+    "stanford_calendar_table.tex": true,
+    "stanford_geometry_table.tex": true
+  },
+  "replay_stdout_tail": "{\"status\": \"completed\", \"out\": \"results/wrr_final_revision_20261031\", \"paper\": \"paper/wrr_tr\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n"
+}

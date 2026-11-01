@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import revision_table_spec
 
-DEST = ROOT / "dist/wrr_final_candidate_20261101_r2.zip"
+DEST = ROOT / "dist/wrr_final_candidate_20261101_r3.zip"
 RELATIVE = Path("results/wrr_final_revision_20261031")
 PAPER_RELATIVE = Path("paper/wrr_tr")
 TABLE_NAMES = list(revision_table_spec.TABLES)
@@ -177,7 +177,7 @@ def main() -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "results/final_release_20261101_r2/extension_replay.json",
+        default=ROOT / "results/final_release_20261101_r3/extension_replay.json",
     )
     args = parser.parse_args()
     archive = args.archive if args.archive.is_absolute() else ROOT / args.archive

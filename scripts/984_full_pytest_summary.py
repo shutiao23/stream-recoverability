@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import release_provenance
 
-DEFAULT_OUT = ROOT / "results/final_release_20261101_r2"
+DEFAULT_OUT = ROOT / "results/final_release_20261101_r3"
 
 
 def main() -> int:
@@ -36,7 +36,7 @@ def main() -> int:
     summary["stdout_tail"] = process.stdout[-4000:]
     summary["stderr_tail"] = process.stderr[-4000:]
     if process.returncode == 0:
-        release_provenance.validate_summary(summary, "full_pytest")
+        release_provenance.validate_summary(summary, "full_pytest", out)
     release_provenance.write_json(out / "full_pytest_summary.json", summary)
     print(json.dumps({
         key: summary[key] for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped", "junit_sha256"]

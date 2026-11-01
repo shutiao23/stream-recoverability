@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import release_provenance
 
-DEFAULT_OUT = ROOT / "results/final_release_20261101_r2"
+DEFAULT_OUT = ROOT / "results/final_release_20261101_r3"
 
 
 def run(command: list[str], out_path: Path | None = None) -> subprocess.CompletedProcess:
@@ -49,7 +49,7 @@ def main() -> int:
     if not full_pytest_path.is_file():
         raise SystemExit("Run scripts/984_full_pytest_summary.py first")
     full_pytest = json.loads(full_pytest_path.read_text())
-    release_provenance.validate_summary(full_pytest, "full_pytest")
+    release_provenance.validate_summary(full_pytest, "full_pytest", out)
     junit_path = out / full_pytest["junit"]
     if not junit_path.is_file():
         raise SystemExit("Full pytest JUnit file is missing")

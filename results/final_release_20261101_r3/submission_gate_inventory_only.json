@@ -1,0 +1,52 @@
+{
+  "decision": "inventory_only",
+  "passed": null,
+  "blockers": [],
+  "explicit_inputs": {
+    "roster": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/validation_funnel/published_v2/finalized_model_roster.json",
+      "exists": true
+    },
+    "primary_registry": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/frozen/published_v2/suite_registry.json",
+      "exists": true
+    },
+    "primary_aggregate_manifest": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/frozen/published_v2/top_manifest.json",
+      "exists": true
+    },
+    "analysis_manifest": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/analysis/analysis_manifest.json",
+      "exists": true
+    },
+    "confirmatory_data_manifest": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
+      "exists": true
+    },
+    "confirmatory_run_manifest": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/confirmatory/external_upper_middle_chattahoochee_v1/external_confirmation/completion_manifest.json",
+      "exists": true
+    },
+    "rights_audit": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/restricted_hosting_audit_inventory.json",
+      "exists": true
+    },
+    "reproduction_report": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/audits/reproduction_report_acceptance_revision.json",
+      "exists": true
+    },
+    "editor_exception_approval": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/metadata/editor_data_exception_approval.json",
+      "exists": true
+    },
+    "author_metadata": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/metadata/submission_author_metadata.json",
+      "exists": true
+    },
+    "reviewer_data_upload": {
+      "path": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/metadata/gems_reviewer_data_upload.json",
+      "exists": true
+    }
+  },
+  "note": "File inventory only; no scientific, administrative or submission approval is inferred."
+}

@@ -1,0 +1,48 @@
+{
+  "full_pytest": {
+    "case_level_counts": {
+      "tests": 1699,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1698
+    },
+    "header_counts": {
+      "tests": 1699,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1698
+    },
+    "summary_counts_match": true,
+    "junit_hash_matches": true,
+    "src_tree_hash_matches": true,
+    "skips": [
+      {
+        "class": "tests.test_wrr_followup_evidence",
+        "name": "test_evidence_bindings_exclude_their_own_audit_outputs",
+        "reason": "Evidence generation has not run"
+      }
+    ]
+  },
+  "targeted_tests": {
+    "case_level_counts": {
+      "tests": 131,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 131
+    },
+    "header_counts": {
+      "tests": 131,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 131
+    },
+    "summary_counts_match": true,
+    "junit_hash_matches": true,
+    "src_tree_hash_matches": true,
+    "skips": []
+  }
+}

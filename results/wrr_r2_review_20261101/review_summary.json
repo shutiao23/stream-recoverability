@@ -1,0 +1,64 @@
+{
+  "created_utc": "2026-11-01T16:04:17.260057+00:00",
+  "head": "a3bddad634b925bed5398d537cb24e54e8a36a21",
+  "candidate_sha256": "7d1d5b9a7b96f122141551f49684494d331e58105ec3b85ebb0987316469c395",
+  "recommendation": "minor_revision_scientific_results_supported_test_acceptance_regression_remains",
+  "newly_executed_tests": {
+    "tests": 131,
+    "passed": 131,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0
+  },
+  "saved_full_junit_audit": {
+    "case_level_counts": {
+      "tests": 1699,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1698
+    },
+    "header_counts": {
+      "tests": 1699,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1698
+    },
+    "summary_counts_match": true,
+    "junit_hash_matches": true,
+    "src_tree_hash_matches": true,
+    "skips": [
+      {
+        "class": "tests.test_wrr_followup_evidence",
+        "name": "test_evidence_bindings_exclude_their_own_audit_outputs",
+        "reason": "Evidence generation has not run"
+      }
+    ]
+  },
+  "strict_replay_maximum": 2.1316282072803006e-14,
+  "all_scientific_csvs_unchanged": true,
+  "remaining_required_software_checks": [
+    "restore_zero_failures_and_errors_for_all_test_evidence",
+    "parse_bound_junit_and_compare_its_counts_with_summary"
+  ],
+  "editorial_note": "Clarify the CDF selector paired RMSE contrast in the abstract.",
+  "production_artifacts_unchanged": true,
+  "identity_checks": {
+    "dist/wrr_final_candidate_20261101_r2.zip": true,
+    "paper/wrr_tr/review_completion_article.tex": true,
+    "paper/wrr_tr/review_completion_article.pdf": true,
+    "paper/wrr_tr/review_completion_supporting.pdf": true,
+    "scripts/980_final_release.py": true,
+    "scripts/981_stanford_revision.py": true,
+    "scripts/982_final_release_tests.py": true,
+    "scripts/983_verify_extension_replay.py": true,
+    "scripts/984_full_pytest_summary.py": true,
+    "scripts/985_build_local_ci_summary.py": true,
+    "scripts/release_provenance.py": true,
+    "results/final_release_20261101_r2/acceptance.json": true
+  },
+  "tracked_diff": "",
+  "broken_report_links": []
+}

@@ -79,18 +79,18 @@ These external checks are unregistered unless an actual registration is recorded
 Failed qualification, unavailable predictions and negative results stay in the
 reported denominators. Author and deposit details remain to be supplied.
 
-Current candidate (2026-11-01 second post-review revision):
+Current candidate (2026-11-01 third post-review revision):
 
 - [Main manuscript](paper/wrr_tr/review_completion_article.pdf)
 - [Supporting information](paper/wrr_tr/review_completion_supporting.pdf)
-- [Latest revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R2_ZH.md)
-- [Latest post-review report](docs/reviews/wrr_postfix_review_20261101/REVIEW_ZH.md)
+- [Latest revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R3_ZH.md)
+- [Latest post-review report](docs/reviews/wrr_r2_review_20261101/REVIEW_ZH.md)
 - [Earlier post-review audit](docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md)
-- [Candidate package](dist/wrr_final_candidate_20261101_r2.zip)
-- [Candidate manifest](dist/wrr_final_candidate_20261101_r2.manifest.json)
-- [Current acceptance record](results/final_release_20261101_r2/acceptance.json)
-- [Current extension replay](results/final_release_20261101_r2/extension_replay.json)
-- [Current local CI-equivalent summary](results/final_release_20261101_r2/ci_local_summary.json)
+- [Candidate package](dist/wrr_final_candidate_20261101_r3.zip)
+- [Candidate manifest](dist/wrr_final_candidate_20261101_r3.manifest.json)
+- [Current acceptance record](results/final_release_20261101_r3/acceptance.json)
+- [Current extension replay](results/final_release_20261101_r3/extension_replay.json)
+- [Current local CI-equivalent summary](results/final_release_20261101_r3/ci_local_summary.json)
 
 The full candidate sha256 is recorded in the external manifest and acceptance
 record. Because this README is inside the package, it does not embed its own
@@ -100,6 +100,7 @@ permanent archive remain pending.
 
 Historical artifacts (not current evidence for the latest candidate):
 
+- [Second 2026-11-01 candidate](dist/wrr_final_candidate_20261101_r2.zip), [manifest](dist/wrr_final_candidate_20261101_r2.manifest.json), [acceptance](results/final_release_20261101_r2/acceptance.json)
 - [First 2026-11-01 candidate](dist/wrr_final_candidate_20261101.zip), [manifest](dist/wrr_final_candidate_20261101.manifest.json), [acceptance](results/final_release_20261101/acceptance.json)
 - [r2 2026-10-31 package](dist/wrr_final_candidate_20261031_r2.zip), [manifest](dist/wrr_final_candidate_20261031_r2.manifest.json), [acceptance](results/final_release_20261031_r2/acceptance.json)
 - [Earlier 2026-10-31 candidate](dist/wrr_final_candidate_20261031.zip), [acceptance](results/final_release_20261031/acceptance.json)

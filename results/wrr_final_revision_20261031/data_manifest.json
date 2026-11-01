@@ -1,11 +1,11 @@
 {
   "schema": "stanford_revision_data_manifest_v2",
-  "created_utc": "2026-11-01T10:38:51.141541+00:00",
+  "created_utc": "2026-11-01T16:56:08.290612+00:00",
   "inputs": {
     "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925",
     "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
     "scripts/981_stanford_revision.py": "fef6ac34b40a276febe394d15dd5d3c9eadf8862db3b041357af12dd1e7cab2f",
-    "scripts/980_final_release.py": "a87f0dee59332a91d47dd7ee02e0e858d1a61edfedb2c72056b71da25142e643",
+    "scripts/980_final_release.py": "5a07dfbe5422a2aa5bf5c31ccf605c1691550cc85d5cbd91d976af4eec0d4cc2",
     "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e"
   },
   "outputs": {
@@ -21,7 +21,7 @@
     "estimator_paired_comparisons.csv": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628",
     "estimator_unavailable_subset.csv": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de",
     "table_spec.json": "6266a04969b4b79594474b554b24608e67855601f5998406db7c8ce2963519f6",
-    "scope.json": "6b925da705699b0ba67476a2833fb384a9a334dc43b44e4ba977d0a57e5a6883",
+    "scope.json": "c8e9f1517b8a77e7c1a46e03ac4fb36aeef88eb69cdbf5a275ff648200472365",
     "paper/wrr_tr/stanford_revision_values.tex": "b839f1b8f5d793dbf10cc59d5ad7d7d887e34a01644fd27eb740d224a2858337",
     "paper/wrr_tr/stanford_calendar_table.tex": "d06ae810a26fd05d848a7770dec17ffc709486d9198cd73445cd4197af854d7a",
     "paper/wrr_tr/stanford_geometry_table.tex": "1ee0402019aebe68fb09b2e5d2a4510e8cdc029191f2d01b0d673afcd5088697"

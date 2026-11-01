@@ -1,0 +1,7 @@
+{
+  "head": "a3bddad634b925bed5398d537cb24e54e8a36a21",
+  "workflow_state": "active",
+  "run_count": 0,
+  "runs": [],
+  "scope": "read-only query; connector commit workflow lookup supports PR-triggered runs only, so push events are queried through gh API"
+}

@@ -1,0 +1,32 @@
+{
+  "runs": [
+    {
+      "case": "inside_root_first",
+      "exit_code": 0,
+      "stdout_tail": "{\"status\": \"completed\", \"out\": \"custom_outputs\", \"paper\": \"/tmp/wrr_output_portability__j4kwr80/paper_inside_root_first\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n",
+      "stderr_tail": "",
+      "manifest_outputs": 16,
+      "all_output_hashes_match": true,
+      "requested_paper_directory_used": true
+    },
+    {
+      "case": "inside_root_second",
+      "exit_code": 0,
+      "stdout_tail": "{\"status\": \"completed\", \"out\": \"custom_outputs\", \"paper\": \"/tmp/wrr_output_portability__j4kwr80/paper_inside_root_second\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n",
+      "stderr_tail": "",
+      "manifest_outputs": 16,
+      "all_output_hashes_match": true,
+      "requested_paper_directory_used": true
+    },
+    {
+      "case": "outside_root",
+      "exit_code": 0,
+      "stdout_tail": "{\"status\": \"completed\", \"out\": \"/tmp/wrr_output_portability__j4kwr80/outside_outputs\", \"paper\": \"/tmp/wrr_output_portability__j4kwr80/paper_outside_root\", \"macros\": 101, \"geometry_rows\": 8115, \"archives\": 1623}\n",
+      "stderr_tail": "",
+      "manifest_outputs": 16,
+      "all_output_hashes_match": true,
+      "requested_paper_directory_used": true
+    }
+  ],
+  "scope": "Packaged code and compact inputs only; original raw/cache inputs absent; all runs in a temporary directory."
+}

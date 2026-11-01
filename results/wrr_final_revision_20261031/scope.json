@@ -1,6 +1,6 @@
 {
   "schema": "stanford_revision_scope_v2",
-  "created_utc": "2026-11-01T10:38:51.136737+00:00",
+  "created_utc": "2026-11-01T16:56:08.285990+00:00",
   "date": "2026-11-01",
   "exploratory": true,
   "new_models_fit": false,
@@ -111,7 +111,7 @@
     "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925",
     "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
     "scripts/981_stanford_revision.py": "fef6ac34b40a276febe394d15dd5d3c9eadf8862db3b041357af12dd1e7cab2f",
-    "scripts/980_final_release.py": "a87f0dee59332a91d47dd7ee02e0e858d1a61edfedb2c72056b71da25142e643",
+    "scripts/980_final_release.py": "5a07dfbe5422a2aa5bf5c31ccf605c1691550cc85d5cbd91d976af4eec0d4cc2",
     "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e"
   }
 }

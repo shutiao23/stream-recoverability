@@ -1,0 +1,18 @@
+{
+  "created_utc": "2026-11-01T15:55:09.809616+00:00",
+  "head": "a3bddad634b925bed5398d537cb24e54e8a36a21",
+  "sha256": {
+    "dist/wrr_final_candidate_20261101_r2.zip": "7d1d5b9a7b96f122141551f49684494d331e58105ec3b85ebb0987316469c395",
+    "paper/wrr_tr/review_completion_article.tex": "9cfb98364b48b05bbd30b9279a1c6af725adb8efd7645f4f06a0b87bea46290d",
+    "paper/wrr_tr/review_completion_article.pdf": "f0c856d99503e7e3d8702d5dc5f03cd3d6a2e00f9d9b2a1d3af6f87cb9501dee",
+    "paper/wrr_tr/review_completion_supporting.pdf": "e2a57281a27a4afa32533acf14a4593c636e90b889e0174453217a5b605d4676",
+    "scripts/980_final_release.py": "a87f0dee59332a91d47dd7ee02e0e858d1a61edfedb2c72056b71da25142e643",
+    "scripts/981_stanford_revision.py": "fef6ac34b40a276febe394d15dd5d3c9eadf8862db3b041357af12dd1e7cab2f",
+    "scripts/982_final_release_tests.py": "a9fe34d5ac2709ef1f165137e6df15fe752bd354fade4fae3392daba91a6e833",
+    "scripts/983_verify_extension_replay.py": "1044e669b39bed35a72f254b3b8542007f0ac7adf3f52a0d2090cd84875a388e",
+    "scripts/984_full_pytest_summary.py": "4071ae9adc07f370e51859b8517ac8fcef01c5d40c1e36420195434046a73fae",
+    "scripts/985_build_local_ci_summary.py": "bdd5600f82a9ab122505054f8b34fefa617a983f389979e1071dfb6b129cbaff",
+    "scripts/release_provenance.py": "5b1a237c3f358a91b503947b049db45c2b6c9496d90810a8b97c956df1231b91",
+    "results/final_release_20261101_r2/acceptance.json": "999711762f222ce86e5c2f72a2909eb300dfc66aa53c94b88aee08def523d32d"
+  }
+}

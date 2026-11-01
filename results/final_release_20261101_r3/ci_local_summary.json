@@ -1,0 +1,49 @@
+{
+  "schema": "local_ci_equivalent_v2",
+  "created_utc": "2026-11-01T16:54:27.050175+00:00",
+  "scope": "Local equivalent of the declared CI sequence; not a remote GitHub Actions run for this revision.",
+  "source_check": {
+    "command": "ruff check --select E4,E7,E9,F src",
+    "exit_code": 0,
+    "findings": 0,
+    "report": "ruff_current.json",
+    "report_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "full_pytest": {
+    "exit_code": 0,
+    "scope": "Full repository pytest suite; Python 3.11 environment",
+    "junit": "full_pytest.xml",
+    "junit_sha256": "e1bb8f42d46a31d3f5dc325d4bf6d4d8e7ebac517377bbb5f26aa39949451aae",
+    "command": "/home/lzq/anaconda3/bin/python -m pytest -q --junitxml /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/full_pytest.xml",
+    "interpreter": "/home/lzq/anaconda3/bin/python",
+    "python_version": "3.11.7",
+    "source_identity": {
+      "git_head": "a3bddad634b925bed5398d537cb24e54e8a36a21",
+      "src_tree_sha256": "b4aa46c30c67d133873a38e1f38cbb69914179290da94a657911dc23341dff99",
+      "pyproject_sha256": "cec5c4818a2e5b73b9e5176dcd953e4f49586454ddb83676fa8267e1f3adc76b"
+    },
+    "tests": 1704,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 1703,
+    "created_utc": "2026-11-01T16:54:15.962336+00:00",
+    "stdout_tail": "overy_roster.py: 198 warnings\ntests/test_regulation_panel.py: 406 warnings\ntests/test_regulation_panel_auc_diagnosis.py: 208 warnings\ntests/test_t6_seplains_bfi.py: 125 warnings\ntests/test_wrr_backup_and_developed_system.py: 304 warnings\ntests/test_wrr_revision.py: 1261 warnings\ntests/test_wrr_submission_ready_p0.py: 909 warnings\ntests/test_wrr_universe.py: 32 warnings\n  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:614: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.\n    if is_sparse(pd_dtype) or not is_extension_array_dtype(pd_dtype):\n\ntests/test_reference_baselines.py::test_reference_extra_pins_exact_pypots_version\n  /home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f7b30b42ca0>\n  \n  Traceback (most recent call last):\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 400, in match_module_callback\n      self._make_module_from_path(filepath)\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 515, in _make_module_from_path\n      module = module_class(filepath, prefix, user_api, internal_api)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 606, in __init__\n      self.version = self.get_version()\n                     ^^^^^^^^^^^^^^^^^^\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 646, in get_version\n      config = get_config().split()\n               ^^^^^^^^^^^^^^^^^^\n  AttributeError: 'NoneType' object has no attribute 'split'\n  \n    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))\n\ntests/test_reference_baselines.py::test_official_cpu_tiny_smoke_and_diagnostics[brits]\ntests/test_reference_baselines.py::test_reference_checkpoint_round_trip_is_strict[csdi]\n  /home/lzq/anaconda3/lib/python3.11/site-packages/pypots/nn/modules/csdi/layers.py:17: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)\n    return nn.TransformerEncoder(encoder_layer, num_layers=layers)\n\ntests/test_wrr_review_completion.py: 12 warnings\n  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)\n    duals[candidate_idx] += step_size_clip\n\ntests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups\ntests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization\n  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: \n      You didn't specify the order of the vec expression. The default order\n      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's\n      default order ('C') in a future version of CVXPY.\n      To suppress this warning, please specify the order explicitly.\n      \n    warnings.warn(vec_order_warning, FutureWarning)\n\ntests/test_wrr_submission_ready_p0.py::test_outage_simulation_preserves_declared_length_across_year_end\n  <frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n- generated xml file: /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/full_pytest.xml -\n",
+    "stderr_tail": ""
+  },
+  "evidence_gates": {
+    "commands": [
+      "PYTHONPATH=src /home/lzq/anaconda3/bin/python scripts/25_build_evidence_snapshot.py --output /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/evidence_snapshot_inventory.json",
+      "PYTHONPATH=src /home/lzq/anaconda3/bin/python scripts/26_audit_restricted_hosting.py --output /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/restricted_hosting_audit_inventory.json",
+      "PYTHONPATH=src /home/lzq/anaconda3/bin/python scripts/27_submission_gate.py --allow-no-go --rights-audit /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/restricted_hosting_audit_inventory.json --output /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r3/submission_gate_inventory_only.json"
+    ],
+    "decision": "inventory_only",
+    "outputs": {
+      "evidence_snapshot_inventory.json": "8a6e988707ad0c80acf8b42a84999ea4741f6fbc1b1e2e553904de6acd9ba619",
+      "restricted_hosting_audit_inventory.json": "9248b04d69fe9a063ff9675d4e6974a22871a83a2bda336d2efef86bf0ef6b0c",
+      "submission_gate_inventory_only.json": "af6cf119852e24047895e81bc1aa120dc73713a4b65ee988e98b9138c12633f6"
+    },
+    "note": "The committed results/audits/submission_gate.json retains the no_go submission state. This inventory_only run is a local --allow-no-go gate execution, not a claim that author or rights blockers are resolved."
+  },
+  "status": "passed"
+}

@@ -79,7 +79,7 @@ def summary_from_junit(
     return summary
 
 
-def validate_summary(summary: dict, label: str) -> None:
+def validate_summary(summary: dict, label: str, out: Path | None = None) -> None:
     required = ["exit_code", "tests", "passed", "failures", "errors", "skipped", "junit", "junit_sha256",
                 "command", "interpreter", "source_identity"]
     missing = [key for key in required if key not in summary]
@@ -93,6 +93,10 @@ def validate_summary(summary: dict, label: str) -> None:
         raise ValueError(f"{label} exit code is not zero")
     if summary["tests"] <= 0 or summary["passed"] <= 0:
         raise ValueError(f"{label} has no executed passing tests")
+    if summary["failures"] != 0:
+        raise ValueError(f"{label} reports test failures")
+    if summary["errors"] != 0:
+        raise ValueError(f"{label} reports test errors")
     expected = summary["tests"] - summary["failures"] - summary["errors"] - summary["skipped"]
     if summary["passed"] != expected:
         raise ValueError(f"{label} counts are inconsistent")
@@ -101,6 +105,17 @@ def validate_summary(summary: dict, label: str) -> None:
         raise ValueError(f"{label} source identity is incomplete")
     if not summary["command"] or not summary["interpreter"]:
         raise ValueError(f"{label} command or interpreter is missing")
+    junit_path = Path(summary["junit"])
+    if not junit_path.is_absolute():
+        junit_path = (out / junit_path) if out is not None else (ROOT / junit_path)
+    if not junit_path.is_file():
+        raise ValueError(f"{label} JUnit file is missing")
+    if sha256_file(junit_path) != summary["junit_sha256"]:
+        raise ValueError(f"{label} JUnit hash differs")
+    from_junit = parse_junit(junit_path)
+    for key in ["tests", "passed", "failures", "errors", "skipped"]:
+        if from_junit[key] != summary[key]:
+            raise ValueError(f"{label} JUnit counts differ at {key}")
 
 
 def write_json(path: Path, payload: dict) -> None:

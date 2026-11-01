@@ -33,9 +33,9 @@ import release_provenance
 
 ROOT = Path(__file__).resolve().parents[1]
 OLD = ROOT / "dist/wrr_process_experiments_20261029.zip"
-DEST = ROOT / "dist/wrr_final_candidate_20261101_r2.zip"
-EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101_r2.manifest.json"
-OUT = ROOT / "results/final_release_20261101_r2"
+DEST = ROOT / "dist/wrr_final_candidate_20261101_r3.zip"
+EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101_r3.manifest.json"
+OUT = ROOT / "results/final_release_20261101_r3"
 REVIEW = ROOT / "docs/reviews/wrr_stanford_perspective_20261031"
 GENERATED = [
     "REVIEW_PACKAGE_README.txt",
@@ -54,10 +54,12 @@ ADDITIONS = [
     "docs/reviews/wrr_revision_review_20261101/REVIEW_ZH.md",
     "docs/reviews/wrr_postfix_review_20261101/REVIEW_ZH.md",
     "docs/reviews/wrr_postfix_review_20261101/audit_postfix.py",
+    "docs/reviews/wrr_r2_review_20261101/REVIEW_ZH.md",
+    "docs/reviews/wrr_r2_review_20261101/audit_gate_r2.py",
     "docs/reviews/wrr_stanford_perspective_20261031/REVIEW_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_ZH.md",
-    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R2_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R3_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/WORK_PLAN_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/diagnostics.py",
     "paper/wrr_tr/stanford_availability_supporting.tex",
@@ -66,16 +68,16 @@ ADDITIONS = [
     "paper/wrr_tr/stanford_geometry_supporting.tex",
     "paper/wrr_tr/stanford_geometry_table.tex",
     "paper/wrr_tr/stanford_revision_values.tex",
-    "results/final_release_20261101_r2/targeted_tests.xml",
-    "results/final_release_20261101_r2/targeted_tests_summary.json",
-    "results/final_release_20261101_r2/ci_local_summary.json",
-    "results/final_release_20261101_r2/evidence_snapshot_inventory.json",
-    "results/final_release_20261101_r2/full_pytest.xml",
-    "results/final_release_20261101_r2/full_pytest_summary.json",
-    "results/final_release_20261101_r2/restricted_hosting_audit_inventory.json",
-    "results/final_release_20261101_r2/ruff_current.json",
-    "results/final_release_20261101_r2/submission_gate_inventory_only.json",
-    "results/final_release_20261101_r2/workspace_consistency.json",
+    "results/final_release_20261101_r3/targeted_tests.xml",
+    "results/final_release_20261101_r3/targeted_tests_summary.json",
+    "results/final_release_20261101_r3/ci_local_summary.json",
+    "results/final_release_20261101_r3/evidence_snapshot_inventory.json",
+    "results/final_release_20261101_r3/full_pytest.xml",
+    "results/final_release_20261101_r3/full_pytest_summary.json",
+    "results/final_release_20261101_r3/restricted_hosting_audit_inventory.json",
+    "results/final_release_20261101_r3/ruff_current.json",
+    "results/final_release_20261101_r3/submission_gate_inventory_only.json",
+    "results/final_release_20261101_r3/workspace_consistency.json",
     "results/wrr_final_revision_20261031/annual_predictions_compact.csv",
     "results/wrr_final_revision_20261031/case_designs.csv",
     "results/wrr_final_revision_20261031/data_manifest.json",
@@ -109,6 +111,14 @@ ADDITIONS = [
     "results/wrr_postfix_review_20261101/review_summary.json",
     "results/wrr_postfix_review_20261101/scientific_change_equivalence.json",
     "results/wrr_postfix_review_20261101/table_metadata.json",
+    "results/wrr_r2_review_20261101/acceptance_probes.json",
+    "results/wrr_r2_review_20261101/output_portability.json",
+    "results/wrr_r2_review_20261101/remote_ci.json",
+    "results/wrr_r2_review_20261101/review_summary.json",
+    "results/wrr_r2_review_20261101/saved_junit_audit.json",
+    "results/wrr_r2_review_20261101/scientific_csv_identity.json",
+    "results/wrr_r2_review_20261101/si_page90.png",
+    "results/wrr_r2_review_20261101/si_pages_89_90.txt",
     "results/wrr_stanford_perspective_20261031/point_estimator_availability.csv",
     "results/wrr_stanford_perspective_20261031/point_estimator_paired_comparison.csv",
     "results/wrr_stanford_perspective_20261031/point_estimator_unavailable_subset.csv",
@@ -605,27 +615,14 @@ def validate_local_ci(local_ci: dict, out: Path) -> dict:
     require(source_path.is_file() and sha256(source_path) == source["report_sha256"],
             "Local source-check report hash differs")
     pytest_summary = local_ci.get("full_pytest", {})
-    for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped"]:
-        value = pytest_summary.get(key)
-        require(isinstance(value, int) and not isinstance(value, bool) and value >= 0,
-                f"Full pytest field is not a non-negative integer: {key}")
-    require(pytest_summary["exit_code"] == 0, "Full pytest exit code is not zero")
-    require(pytest_summary["tests"] > 0 and pytest_summary["passed"] > 0,
-            "Full pytest has no executed passing tests")
-    require(pytest_summary["passed"] == pytest_summary["tests"] - pytest_summary["failures"]
-            - pytest_summary["errors"] - pytest_summary["skipped"],
-            "Full pytest counts are inconsistent")
-    require(pytest_summary.get("command") and pytest_summary.get("interpreter"),
-            "Full pytest command or interpreter is unbound")
+    try:
+        release_provenance.validate_summary(pytest_summary, "full_pytest", out)
+    except ValueError as error:
+        require(False, str(error))
     identity = pytest_summary.get("source_identity", {})
     current = release_provenance.source_identity()
     require(identity.get("src_tree_sha256") == current["src_tree_sha256"],
             "Full pytest was not run on the current source tree")
-    require(pytest_summary.get("junit") and pytest_summary.get("junit_sha256"),
-            "Full pytest JUnit binding is missing")
-    junit_path = resolve_local_path(pytest_summary["junit"], out)
-    require(junit_path.is_file() and sha256(junit_path) == pytest_summary["junit_sha256"],
-            "Full pytest JUnit hash differs")
     evidence = local_ci.get("evidence_gates", {})
     require(evidence.get("decision") == "inventory_only", "Evidence-gate decision changed")
     for name, expected in evidence.get("outputs", {}).items():
@@ -665,21 +662,11 @@ def accept(_: argparse.Namespace) -> None:
             "Verification content manifest differs from the external manifest")
     require(verification["member_check"].get("members") == manifest["members"],
             "Verification member count differs from the external manifest")
-    for key in ["exit_code", "tests", "passed", "failures", "errors", "skipped"]:
-        value = tests.get(key)
-        require(isinstance(value, int) and not isinstance(value, bool) and value >= 0,
-                f"Targeted test field is not a non-negative integer: {key}")
-    require(tests.get("exit_code") == 0, "Targeted tests exited nonzero")
     require(tests.get("files") == TARGETED_TEST_FILES, "Targeted test list differs from the declared release scope")
-    require(tests.get("tests") > 0 and tests.get("passed") > 0, "Targeted tests have no executed passing tests")
-    require(tests.get("passed") == tests.get("tests") - tests.get("failures")
-            - tests.get("errors") - tests.get("skipped"),
-            "Targeted test counts are inconsistent")
-    require(tests.get("junit") and tests.get("junit_sha256"), "Targeted test JUnit binding is missing")
-    targeted_junit = resolve_local_path(tests["junit"], OUT)
-    require(targeted_junit.is_file() and sha256(targeted_junit) == tests["junit_sha256"],
-            "Targeted test JUnit hash differs")
-    require(tests.get("command") and tests.get("interpreter"), "Targeted test command or interpreter is unbound")
+    try:
+        release_provenance.validate_summary(tests, "targeted", OUT)
+    except ValueError as error:
+        require(False, str(error))
     require(tests.get("source_identity", {}).get("src_tree_sha256")
             == release_provenance.source_identity()["src_tree_sha256"],
             "Targeted tests were not run on the current source tree")
@@ -735,7 +722,7 @@ def accept(_: argparse.Namespace) -> None:
         }
     manuscript_report["article"]["abstract_words"] = abstract_words()
     manuscript_report["article"]["key_points"] = key_points()
-    completion = REVIEW / "REVISION_COMPLETION_20261101_R2_ZH.md"
+    completion = REVIEW / "REVISION_COMPLETION_20261101_R3_ZH.md"
     acceptance = {
         "schema_version": "final_candidate_acceptance_v1",
         "status": "complete",
