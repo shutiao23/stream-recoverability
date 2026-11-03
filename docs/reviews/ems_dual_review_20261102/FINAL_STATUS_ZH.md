@@ -388,3 +388,9 @@ Zenodo DOI；A3 流量与 air2stream-8；A5/A6/A8；B4 现代基线；B5 联合�
 本轮推送以一个无 `[skip ci]` 的小提交触发完整 CI（push 事件）；gapbench 独立 job 与 `workflow_dispatch`
 触发器的 workflow 更新已准备好（`.github/workflows/ci.yml`），但当前 OAuth 令牌缺少 `workflow` scope，
 推送 workflow 变更被拒，需作者用具备该权限的凭据推送或通过网页编辑。
+
+### 10.9 CI 修复记录
+
+首次完整 CI 运行（run 41607360524）在收集阶段失败：13 个历史 intake 测试模块在干净检出上缺少
+bs4/openpyxl/pyproj/shapely/tomllib 或本地数据文件。已添加根 conftest 在依赖/数据缺失时忽略这些模块
+（本地全套 1,726 项不变），并以本提交触发完整 CI 复跑。
