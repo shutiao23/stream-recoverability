@@ -21,6 +21,27 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def junit_xml(tests: int, failures: int = 0, errors: int = 0, skipped: int = 0,
+              classname: str = "tests.test_fixture") -> str:
+    cases = []
+    for index in range(tests):
+        if index < failures:
+            outcome = '<failure message="injected"/>'
+        elif index < failures + errors:
+            outcome = '<error message="injected"/>'
+        elif index < failures + errors + skipped:
+            outcome = '<skipped message="injected"/>'
+        else:
+            outcome = ""
+        cases.append(
+            f'<testcase classname="{classname}" name="test_{index}" time="0.001">{outcome}</testcase>'
+        )
+    return (
+        f'<testsuite tests="{tests}" failures="{failures}" errors="{errors}" '
+        f'skipped="{skipped}">' + "".join(cases) + "</testsuite>"
+    )
+
+
 def load_release():
     spec = importlib.util.spec_from_file_location("final_release_980_test", ROOT / "scripts/980_final_release.py")
     module = importlib.util.module_from_spec(spec)
@@ -98,6 +119,13 @@ def write_verification(module, manifest, receipt):
             "conditional_group_intervals_in_methods": True,
             "central_contribution_stated": True,
             "absolute_endpoint_change_label": True,
+            "abstract_numeric_values": True,
+            "archive_level_comparison_counts": True,
+            "extension_bootstrap_seed_disclosed": True,
+            "si_extension_bootstrap_seed_disclosed": True,
+            "archive_level_table_caption": True,
+            "uncertainty_scope_table_caption": True,
+            "review_tables_and_access_matrix_linked": True,
             "fixed_reference_year_set_defined": True,
             "si_geometry_derivation": True,
             "si_calendar_extension": True,
@@ -110,7 +138,7 @@ def write_verification(module, manifest, receipt):
 
 def write_tests(module):
     junit = module.OUT / "targeted_tests.xml"
-    junit.write_text('<testsuite tests="1" failures="0" errors="0" skipped="0"></testsuite>')
+    junit.write_text(junit_xml(1))
     summary = {
         "exit_code": 0,
         "passed": 1,
@@ -134,7 +162,7 @@ def write_local_ci(module):
     ruff = module.OUT / "ruff_current.json"
     ruff.write_text("[]\n")
     full = module.OUT / "full_pytest.xml"
-    full.write_text('<testsuite tests="1" failures="0" errors="0" skipped="0"></testsuite>')
+    full.write_text(junit_xml(1))
     evidence_names = [
         "evidence_snapshot_inventory.json",
         "restricted_hosting_audit_inventory.json",
@@ -209,7 +237,7 @@ def fixture(tmp_path, monkeypatch):
     paths["supporting_tex"].write_text("supporting v1\n")
     paths["supporting_pdf"].write_bytes(b"supporting pdf v1")
     paths["key"].write_text("key v1\n")
-    (module.REVIEW / "REVISION_COMPLETION_20261101_R3_ZH.md").write_text("completion\n")
+    (module.REVIEW / "REVISION_COMPLETION_20261101_R4_ZH.md").write_text("completion\n")
     monkeypatch.setattr(module, "pdf_pages", lambda path: 1)
     monkeypatch.setattr(module, "abstract_words", lambda: 100)
     monkeypatch.setattr(module, "key_points", lambda: ["point"])
@@ -380,7 +408,7 @@ def test_full_pytest_junit_count_mismatch_rejected(fixture):
 def test_full_pytest_failure_xml_with_normal_summary_rejected(fixture):
     module, _ = fixture
     full = module.OUT / "full_pytest.xml"
-    full.write_text('<testsuite tests="1" failures="1" errors="0" skipped="0"></testsuite>')
+    full.write_text(junit_xml(1, failures=1))
     def mutate(data):
         data["full_pytest"]["junit_sha256"] = sha(full)
     mutate_ci(module, mutate)
@@ -395,4 +423,83 @@ def test_targeted_failure_count_rejected(fixture):
     data.update(tests=2, passed=1, failures=1, errors=0, skipped=0)
     path.write_text(json.dumps(data, indent=2) + "\n")
     with pytest.raises(module.ReleaseFailure, match="reports test failures"):
+        module.accept(None)
+
+
+def test_targeted_error_count_rejected(fixture):
+    module, _ = fixture
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data.update(tests=2, passed=1, failures=0, errors=1, skipped=0)
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="reports test errors"):
+        module.accept(None)
+
+
+def test_targeted_junit_count_mismatch_rejected(fixture):
+    module, _ = fixture
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data.update(tests=999, passed=999, failures=0, errors=0, skipped=0)
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="JUnit counts differ"):
+        module.accept(None)
+
+
+def test_targeted_failure_xml_with_normal_summary_rejected(fixture):
+    module, _ = fixture
+    targeted = module.OUT / "targeted_tests.xml"
+    targeted.write_text(junit_xml(2, failures=1))
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data.update(tests=2, passed=2, failures=0, errors=0, skipped=0, junit_sha256=sha(targeted))
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="JUnit counts differ"):
+        module.accept(None)
+
+
+def test_junit_testcase_failure_with_clean_suite_counts_rejected(fixture):
+    module, _ = fixture
+    full = module.OUT / "full_pytest.xml"
+    full.write_text(junit_xml(1, failures=1).replace('failures="1"', 'failures="0"', 1))
+    def mutate(data):
+        data["full_pytest"]["junit_sha256"] = sha(full)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="JUnit counts differ"):
+        module.accept(None)
+
+
+def test_junit_without_testcase_nodes_rejected(fixture):
+    module, _ = fixture
+    full = module.OUT / "full_pytest.xml"
+    full.write_text('<testsuite tests="1" failures="0" errors="0" skipped="0"></testsuite>')
+    def mutate(data):
+        data["full_pytest"]["junit_sha256"] = sha(full)
+    mutate_ci(module, mutate)
+    with pytest.raises(module.ReleaseFailure, match="JUnit counts differ"):
+        module.accept(None)
+
+
+def test_junit_path_outside_result_directory_rejected(fixture):
+    module, _ = fixture
+    fake = module.ROOT / "outside" / "targeted.xml"
+    fake.parent.mkdir()
+    fake.write_text(junit_xml(1))
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data.update(junit=str(fake), junit_sha256=sha(fake))
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="escapes the result directory"):
+        module.accept(None)
+
+
+def test_targeted_junit_missing_declared_file_rejected(fixture):
+    module, _ = fixture
+    declared = ["tests/test_fixture.py", "tests/test_other.py"]
+    module.TARGETED_TEST_FILES = declared
+    path = module.OUT / "targeted_tests_summary.json"
+    data = json.loads(path.read_text())
+    data["files"] = declared
+    path.write_text(json.dumps(data, indent=2) + "\n")
+    with pytest.raises(module.ReleaseFailure, match="does not cover declared test files"):
         module.accept(None)

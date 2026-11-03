@@ -28,8 +28,8 @@ def load_module(name, path):
 def junit(path, status):
     failure, error = int(status == "failure"), int(status == "error")
     suite = ET.Element("testsuite", tests="2", failures=str(failure), errors=str(error), skipped="0")
-    ET.SubElement(suite, "testcase", classname="fixture", name="test_one", time="0.001")
-    case = ET.SubElement(suite, "testcase", classname="fixture", name="test_two", time="0.001")
+    ET.SubElement(suite, "testcase", classname="tests.test_fixture", name="test_one", time="0.001")
+    case = ET.SubElement(suite, "testcase", classname="tests.test_fixture", name="test_two", time="0.001")
     if failure or error:
         ET.SubElement(case, status, message="reviewer injected outcome")
     ET.ElementTree(suite).write(path, encoding="utf-8", xml_declaration=True)

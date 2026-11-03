@@ -1,0 +1,425 @@
+{
+  "probes": [
+    {
+      "case": "baseline",
+      "status": "accepted",
+      "reason": null,
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "full_positive_failure",
+      "status": "rejected",
+      "reason": "full_pytest reports test failures",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "full_positive_error",
+      "status": "rejected",
+      "reason": "full_pytest reports test errors",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "full_summary_xml_count_mismatch",
+      "status": "rejected",
+      "reason": "full_pytest JUnit counts differ at tests",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 999,
+        "passed": 999,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "full_failed_xml_clean_summary",
+      "status": "rejected",
+      "reason": "full_pytest JUnit counts differ at passed",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "targeted_positive_failure",
+      "status": "rejected",
+      "reason": "targeted reports test failures",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "targeted_failed_xml_clean_summary",
+      "status": "rejected",
+      "reason": "targeted JUnit counts differ at passed",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "old_zero_execution",
+      "status": "rejected",
+      "reason": "full_pytest exit code is not zero",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 5,
+        "tests": 0,
+        "passed": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "old_all_skipped",
+      "status": "rejected",
+      "reason": "full_pytest has no executed passing tests",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 2
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "old_inconsistent_counts",
+      "status": "rejected",
+      "reason": "full_pytest counts are inconsistent",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 10,
+        "passed": 100,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "old_wrong_junit_hash",
+      "status": "rejected",
+      "reason": "full_pytest JUnit hash differs",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "case": "old_wrong_source_tree",
+      "status": "rejected",
+      "reason": "Full pytest was not run on the current source tree",
+      "full_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "full_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_junit_counts": {
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "targeted_summary_counts": {
+        "exit_code": 0,
+        "tests": 2,
+        "passed": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "scope": "Actual 980.accept on tiny temporary fixtures; summaries and JUnit are members of the fixture ZIP and package/verification hashes are synchronized. This tests field/content validation; the real candidate and receipts are unchanged, and no current scientific/test result is alleged to be false."
+}

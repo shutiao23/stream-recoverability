@@ -1,0 +1,21 @@
+\begin{table}[p]
+\centering
+\footnotesize
+\caption{Scope of four uncertainty summaries. Annual H30 90\% intervals describe the annual predictive distribution under fixed methods and information. Finite-record slope 95\% intervals propagate that annual distribution and the specified joint construction to the slope. Paired RMSE-difference 95\% group intervals describe comparison variability conditional on the saved annual predictions, the predefined connected groups and the rules compared. Three-source-seed or random-path ranges describe numerical simulation variation at a fixed budget. None establishes a general coverage guarantee, a climate-process confidence interval, or uncertainty from retraining source models and selecting the rule. At 4,096 samples, the nominal 95\% trend intervals remain 87.4--89.9\%, below nominal 95\%, as a saved diagnostic rather than a new experiment.}
+\label{tab:S4}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.35\textwidth}>{\raggedright\arraybackslash}p{0.39\textwidth}}
+\toprule
+Summary & What it describes & What it does not establish \\
+\midrule
+Annual H30 90\% intervals & Annual predictive distribution under fixed methods and information; empirical coverage of the annual target & Not evidence that every region or reconstructor attains 90\%; endpoint comparisons use an arithmetic tolerance. \\
+\addlinespace
+Finite-record slope 95\% intervals & Propagates the annual distribution and the specified joint construction to the slope on the reference-year set & Not a 95\% confidence guarantee for a climate-process true trend, another reference-year set or a complete calendar. \\
+\addlinespace
+Paired RMSE-difference 95\% group intervals & Comparison variability conditional on saved annual predictions, predefined connected groups and the rules compared & Not retraining or rule-selection uncertainty, multiplicity across sensitivities, or new climate samples. \\
+\addlinespace
+Three-source-seed / random-path ranges & Numerical or simulation variation at a stated budget with fixed data and rules & Not a confidence interval across independent hydrological samples; more paths do not establish convergence. \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize Notes: The 87.4--89.9\% range gives the minimum lower and maximum upper bounds of the 4,096-draw coverage intervals across the saved methods and constructions, not point estimates; the corresponding point estimates span 87.5--89.7\%. It is a saved diagnostic for the nominal 95\% trend intervals, not a new experiment or a general coverage guarantee. Source: \path{results/wrr_adversarial_review_20261027/rank_convergence/rank_convergence_summary.csv}.
+\end{table}

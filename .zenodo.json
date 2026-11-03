@@ -1,8 +1,8 @@
 {
-  "title": "Stream-Temperature Gap Recoverability and Monitoring-Network Evaluation",
-  "version": "1.1.0",
+  "title": "gapbench: Leakage-safe benchmarking of gap handling for annual heat extremes and river-temperature trends",
+  "version": "1.2.0",
   "upload_type": "software",
-  "description": "MIT-licensed software for fitting-period artificial-gap stress tests, cross-network loss calibration, conditional-covariance lower bounds, recovery-model sensitivity, conformal diagnostics, and monitoring-placement replay. This deposit is software only. It does not establish reservoir causation or a transferable safe-fill rule. Restricted observations are excluded from the public archive and are not licensed by this record.",
+  "description": "gapbench is an MIT-licensed Python package for leakage-safe benchmarking of gap handling in annual heat-extreme and river-temperature records. It provides joint archive-level gap masks, fitting-period and evaluation separation, annual recovery and trend scoring, calendar-only year selection, slope-error decomposition, group-disjoint splits, and a synthetic quickstart, with an associated EMS case study. This deposit is software only: it does not redistribute observational data or establish reservoir causation. No archival DOI, GitHub release, or v1.2.0 git tag exists yet; the historical v1.0.0 tag is not this version.",
   "creators": [
     {
       "name": "shutiao23"
@@ -11,13 +11,17 @@
   "license": "MIT",
   "access_right": "open",
   "keywords": [
+    "gapbench",
+    "gap handling",
+    "benchmarking",
+    "annual heat extremes",
     "stream temperature",
-    "reservoir regulation",
-    "recoverability",
-    "thermal memory",
-    "monitoring networks",
-    "missing data"
+    "river temperature",
+    "missing data",
+    "leakage-safe evaluation",
+    "environmental software"
   ],
+  "notes": "Version 1.2.0 is marked by GitHub release v1.2.0. No archival DOI has been minted yet; the historical v1.0.0 tag is not this version. Do not treat any DOI as the current release until a Zenodo deposit is recorded. No observational data are licensed by this record; restricted observations are excluded.",
   "related_identifiers": [
     {
       "identifier": "https://github.com/shutiao23/stream-recoverability",

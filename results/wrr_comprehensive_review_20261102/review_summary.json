@@ -1,0 +1,118 @@
+{
+  "created_utc": "2026-11-02T02:36:39.585572+00:00",
+  "review_date_client": "2026-11-02 Asia/Shanghai",
+  "base_head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+  "reviewed_version": "uncommitted r4 worktree and matching ZIP",
+  "candidate_sha256": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+  "recommendation": "minor_revision_in_declared_scientific_scope_submission_access_and_archiving_pending",
+  "newly_executed_tests": {
+    "tests": 143,
+    "passed": 143,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0
+  },
+  "saved_full_junit": {
+    "counts": {
+      "tests": 1711,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1710
+    },
+    "matches": true,
+    "current_source_matches": true,
+    "modules": 289,
+    "skipped": [
+      {
+        "name": "test_evidence_bindings_exclude_their_own_audit_outputs",
+        "message": "Evidence generation has not run"
+      }
+    ]
+  },
+  "regression_probes": {
+    "baseline": "accepted",
+    "full_positive_failure": "rejected",
+    "full_positive_error": "rejected",
+    "full_summary_xml_count_mismatch": "rejected",
+    "full_failed_xml_clean_summary": "rejected",
+    "targeted_positive_failure": "rejected",
+    "targeted_failed_xml_clean_summary": "rejected",
+    "old_zero_execution": "rejected",
+    "old_all_skipped": "rejected",
+    "old_inconsistent_counts": "rejected",
+    "old_wrong_junit_hash": "rejected",
+    "old_wrong_source_tree": "rejected"
+  },
+  "strict_replay_maximum": 2.1316282072803006e-14,
+  "new_archive_level_diagnostic": [
+    {
+      "family": "calendar",
+      "scheme": "all",
+      "subset": "all_archives",
+      "n": 818,
+      "smaller_absolute_error": 231,
+      "larger_absolute_error": 57,
+      "numerically_equal": 530,
+      "median_absolute_error_change": 0.0
+    },
+    {
+      "family": "calendar",
+      "scheme": "all",
+      "subset": "changed_year_set",
+      "n": 288,
+      "smaller_absolute_error": 231,
+      "larger_absolute_error": 57,
+      "numerically_equal": 0,
+      "median_absolute_error_change": -0.05777300505528877
+    },
+    {
+      "family": "crossed",
+      "scheme": "all",
+      "subset": "all_archives",
+      "n": 805,
+      "smaller_absolute_error": 630,
+      "larger_absolute_error": 169,
+      "numerically_equal": 6,
+      "median_absolute_error_change": -0.13948641738511391
+    },
+    {
+      "family": "crossed",
+      "scheme": "all",
+      "subset": "changed_year_set",
+      "n": 800,
+      "smaller_absolute_error": 630,
+      "larger_absolute_error": 169,
+      "numerically_equal": 1,
+      "median_absolute_error_change": -0.14001023688439382
+    }
+  ],
+  "remaining_local_recommendations": [
+    "report_archive_level_benefit_heterogeneity",
+    "state_extension_bootstrap_seed_in_paper",
+    "make_current_candidate_quickstart_unambiguous",
+    "focus_novelty_and_reduce_repeated_history"
+  ],
+  "production_artifacts_unchanged": true,
+  "existing_worktree_edits_preserved": {
+    "README.md": true,
+    "dist/wrr_final_candidate_20261101_r4.zip": true,
+    "docs/reviews/wrr_r2_review_20261101/audit_gate_r2.py": true,
+    "docs/reviews/wrr_stanford_perspective_20261031/PACKAGE_README.txt": true,
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md": true,
+    "paper/wrr_tr/review_completion_article.pdf": true,
+    "paper/wrr_tr/review_completion_article.tex": true,
+    "paper/wrr_tr/review_completion_supporting.pdf": true,
+    "results/final_release_20261101_r4/acceptance.json": true,
+    "results/wrr_final_revision_20261031/data_manifest.json": true,
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv": true,
+    "scripts/980_final_release.py": true,
+    "scripts/983_verify_extension_replay.py": true,
+    "scripts/984_full_pytest_summary.py": true,
+    "scripts/985_build_local_ci_summary.py": true,
+    "scripts/release_provenance.py": true,
+    "tests/test_final_release_freshness.py": true
+  },
+  "broken_report_links": []
+}

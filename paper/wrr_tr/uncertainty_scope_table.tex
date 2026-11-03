@@ -1,0 +1,17 @@
+\begin{table}[p]\centering\footnotesize
+\caption{Scope of four uncertainty summaries. Annual H30 90\% intervals describe the annual predictive distribution under fixed methods and information. Finite-record slope 95\% intervals propagate that annual distribution and the specified joint construction to the slope. Paired RMSE-difference 95\% group intervals describe comparison variability conditional on the saved annual predictions, the predefined connected groups and the rules compared. Three-source-seed or random-path ranges describe numerical simulation variation at a fixed budget. None establishes a general coverage guarantee, a climate-process confidence interval, or uncertainty from retraining source models and selecting the rule. At 4,096 samples, the nominal 95\% trend intervals remain 87.4--89.9\%, below nominal 95\%, as a saved diagnostic rather than a new experiment.}
+\label{tab:uncertainty-scope}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}}
+\toprule
+Summary & What it describes & What it does not establish \\
+\midrule
+Annual H30 90\% intervals & Annual predictive distribution under fixed methods and information; empirical coverage of the annual target & Not evidence that every region or reconstructor attains 90\%; endpoint comparisons use an arithmetic tolerance. \\
+\addlinespace
+Finite-record slope 95\% intervals & Propagates the annual distribution and the specified joint construction to the slope on the reference-year set & Not a 95\% confidence guarantee for a climate-process true trend, another reference-year set or a complete calendar. \\
+\addlinespace
+Paired RMSE-difference 95\% group intervals & Comparison variability conditional on saved annual predictions, predefined connected groups and the rules compared & Not retraining or rule-selection uncertainty, multiplicity across sensitivities, or new climate samples. \\
+\addlinespace
+Three-source-seed / random-path ranges & Numerical or simulation variation at a stated budget with fixed data and rules & Not a confidence interval across independent hydrological samples; more paths do not establish convergence. \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -55,7 +55,7 @@ def test_article_states_exploratory_questions_and_use_case():
     assert "H1:" not in article and "H2:" not in article and "H3:" not in article
     assert "The new experiment completes the source-role step" in article
     keypoints = article.split(r"\keypoints", 1)[1].split(r"\maketitle", 1)[0]
-    assert "extra paths still move those tails" in keypoints
+    assert "extra simulations move the ranges" in keypoints
     for macro in (
         r"\PTRTimeRandomChoiceRMSE", r"\PTRTimeBalancedChoiceRMSE",
         r"\PTRTimeWarmSpan", r"\PTRTimeBalancedSpan",

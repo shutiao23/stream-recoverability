@@ -1,0 +1,355 @@
+{
+  "generated_by": "T4 flow/open-source agent, manual extraction from saved EMS inputs; no model fits, downloads or source edits",
+  "generated_at_utc": "2026-11-02T18:05:00Z",
+  "scope": "Compact diagnostic for the EMS open-source and flow subsections. Associations are descriptive; no causal effect is inferred.",
+  "source_files": {
+    "open_source_values": "paper/wrr_tr/open_source_values.tex",
+    "open_source_supporting": "paper/wrr_tr/open_source_sensitivity_supporting.tex",
+    "zero_flow_conditional_logit": "results/wrr_review_completion_20261024/zero_flow_missingness/conditional_logit_summary.csv",
+    "zero_flow_cohort_counts": "results/wrr_review_completion_20261024/zero_flow_missingness/cohort_counts.csv",
+    "zero_flow_station_proxy": "results/wrr_review_completion_20261024/zero_flow_missingness/zero_flow_station_proxy.csv",
+    "zero_flow_status": "results/wrr_review_completion_20261024/zero_flow_missingness/status.json",
+    "flow_scorecard": "results/wrr_review_completion_20261024/flow_comparators/scorecard.csv",
+    "flow_paired_effects": "results/wrr_review_completion_20261024/flow_comparators/paired_effects.csv",
+    "flow_status": "results/wrr_review_completion_20261024/flow_comparators/status.json",
+    "flow_design": "results/wrr_review_completion_20261024/flow_comparators/design.json",
+    "flow_case_predictions": "results/wrr_review_completion_20261024/flow_comparators/case_predictions.parquet"
+  },
+  "open_source_sensitivity": {
+    "cohort": {
+      "common_pairs": 738,
+      "groups": 17,
+      "factor_cases": 807,
+      "coverage_cases": 820
+    },
+    "trend_rmse_c_per_decade": {
+      "d2_original": 0.16381,
+      "classic_original": 0.14658,
+      "d2_candidate": 0.15806,
+      "classic_candidate": 0.156
+    },
+    "retention_percent_d2": {
+      "original": 93.9,
+      "candidate": 93.7
+    },
+    "coverage_percent_d2": {
+      "original": 88.0,
+      "candidate": 87.6
+    },
+    "interpretation": "Candidate-source refit leaves the substantive conclusions unchanged. It is a candidate open reproducibility route, not a legal clearance; LUBW rights and neighbour-record provenance still require confirmation."
+  },
+  "zero_flow_logistic": {
+    "response": "warm_incomplete: a warm-season-incomplete station-year (hidden-peak condition)",
+    "covariate_units": {
+      "z_air": "within-station standard deviation of summer mean air temperature",
+      "z_flow": "within-station standard deviation of summer mean log flow",
+      "trend": "per decade, (year-2000)/10"
+    },
+    "sample": {
+      "n_station_years": 6479,
+      "n_physical_stations": 336,
+      "n_flow_stations_with_recorded_zero": 21,
+      "n_bootstrap": 400
+    },
+    "cohort_counts": [
+      {
+        "proxy_class": "no_approved_flow",
+        "n_station_year_rows": 1119,
+        "n_physical_stations": 49,
+        "n_independence_groups": 28,
+        "incomplete_fraction": 0.421805183199285
+      },
+      {
+        "proxy_class": "no_zero_in_available_flow",
+        "n_station_year_rows": 4980,
+        "n_physical_stations": 266,
+        "n_independence_groups": 103,
+        "incomplete_fraction": 0.3941767068273092
+      },
+      {
+        "proxy_class": "recorded_zero_flow",
+        "n_station_year_rows": 380,
+        "n_physical_stations": 21,
+        "n_independence_groups": 17,
+        "incomplete_fraction": 0.5026315789473684
+      },
+      {
+        "proxy_class": "at_least30_zero_days",
+        "n_station_year_rows": 264,
+        "n_physical_stations": 16,
+        "n_independence_groups": 14,
+        "incomplete_fraction": 0.5075757575757576
+      },
+      {
+        "proxy_class": "fewer_than30_zero_days",
+        "n_station_year_rows": 5096,
+        "n_physical_stations": 271,
+        "n_independence_groups": 103,
+        "incomplete_fraction": 0.3963893249607535
+      }
+    ],
+    "air_flow_and_trend": {
+      "recorded_zero_flow": {
+        "n": 282,
+        "n_strata": 19,
+        "n_events": 129,
+        "n_physical_stations": 21,
+        "n_independence_groups": 17,
+        "z_flow": {
+          "odds_ratio": 0.5939178070012597,
+          "ci_lower95": 0.4088932638751133,
+          "ci_upper95": 0.8125509777541083,
+          "log_odds": -0.5210143412455389,
+          "model_se": 0.1591677026019349
+        },
+        "z_air": {
+          "odds_ratio": 0.9932319887945116,
+          "ci_lower95": 0.6590581117851767,
+          "ci_upper95": 1.3054394980782609,
+          "log_odds": -0.0067910180591827,
+          "model_se": 0.1558298881191143
+        },
+        "trend": {
+          "odds_ratio": 1.197712402210811,
+          "ci_lower95": 0.5195209574340004,
+          "ci_upper95": 1.8826784427723395,
+          "log_odds": 0.180413405940514,
+          "model_se": 0.237234349124194
+        }
+      },
+      "at_least30_zero_days": {
+        "n": 215,
+        "n_strata": 14,
+        "n_events": 104,
+        "n_physical_stations": 16,
+        "n_independence_groups": 14,
+        "z_flow": {
+          "odds_ratio": 0.4743680496554794,
+          "ci_lower95": 0.2648961793232621,
+          "ci_upper95": 0.6764249338508583,
+          "log_odds": -0.7457717825222302,
+          "model_se": 0.202832896082433
+        },
+        "z_air": {
+          "odds_ratio": 0.8549981561138035,
+          "ci_lower95": 0.5798550879270457,
+          "ci_upper95": 1.274535188274387,
+          "log_odds": -0.156655966639745,
+          "model_se": 0.1907582451373272
+        },
+        "trend": {
+          "odds_ratio": 1.2924313979086874,
+          "ci_lower95": 0.5966522574776836,
+          "ci_upper95": 2.1324852686809703,
+          "log_odds": 0.2565252489385706,
+          "model_se": 0.2748564832530821
+        }
+      },
+      "fewer_than30_zero_days": {
+        "n": 4417,
+        "n_events": 1814,
+        "z_flow": {
+          "odds_ratio": 0.9686703979695408,
+          "ci_lower95": 0.8972742150038026,
+          "ci_upper95": 1.0455546921608068,
+          "log_odds": -0.0318308715285998,
+          "model_se": 0.0409217703749301
+        }
+      }
+    },
+    "air_and_trend_context": {
+      "recorded_zero_flow": {
+        "n": 380,
+        "n_strata": 21,
+        "n_events": 191,
+        "n_physical_stations": 21,
+        "n_independence_groups": 17,
+        "z_air": {
+          "odds_ratio": 1.2078152624518717,
+          "ci_lower95": 0.8823752851953797,
+          "ci_upper95": 1.5643290901706333,
+          "log_odds": 0.1888131593839969,
+          "model_se": 0.1141196349019768
+        },
+        "trend": {
+          "odds_ratio": 0.8158722454153703,
+          "ci_lower95": 0.5181487418837117,
+          "ci_upper95": 1.1934123038270368,
+          "log_odds": -0.2034974982661056,
+          "model_se": 0.1726534316436342
+        }
+      },
+      "at_least30_zero_days": {
+        "n": 264,
+        "n_strata": 16,
+        "n_events": 134,
+        "n_physical_stations": 16,
+        "n_independence_groups": 14,
+        "z_air": {
+          "odds_ratio": 1.2822032129990135,
+          "ci_lower95": 0.8761248311808716,
+          "ci_upper95": 1.8892300387600731,
+          "log_odds": 0.2485798584164325,
+          "model_se": 0.136819057913639
+        },
+        "trend": {
+          "odds_ratio": 0.7934568953140768,
+          "ci_lower95": 0.3686791538989126,
+          "ci_upper95": 1.5333032782023537,
+          "log_odds": -0.2313560627166648,
+          "model_se": 0.2280735128515572
+        }
+      }
+    },
+    "interpretation": "Lower hidden-peak odds is an association in this proxy cohort, not evidence that low flow protects against underestimation. Zero flow is a historical proxy; no recorded zero does not prove perennial flow, and zero flow does not identify intermittent rivers, sensor exposure or dry-bed conditions. Flow-adjusted subsets are smaller, so differences from the air-only model are not a mediation estimate."
+  },
+  "flow_comparators": {
+    "cohort": {
+      "n_sites_total": 255,
+      "n_complete_years": 8999,
+      "n_cases": 134925,
+      "n_sites_paired": 210,
+      "n_region_groups_total": 17,
+      "n_eligible_crossed_all": 80931
+    },
+    "units": {
+      "availability": "fraction of eligible cases",
+      "mae_log": "mean absolute error in log-flow units",
+      "site_fraction_left_not_worse": "fraction of sites"
+    },
+    "difference_note": "Paired MAE differences are represented by left_mae_log and right_mae_log on common cases; no derived subtraction is stored.",
+    "scorecard_crossed_all": [
+      {
+        "estimator": "historical_D2",
+        "n_eligible": 80931,
+        "n_valid": 80931,
+        "availability": 1.0,
+        "mae_log": 0.0499631897596809
+      },
+      {
+        "estimator": "single_donor_log_Ridge",
+        "n_eligible": 80931,
+        "n_valid": 66099,
+        "availability": 0.8167327723616414,
+        "mae_log": 0.0602190797997838
+      },
+      {
+        "estimator": "observed_days",
+        "n_eligible": 80931,
+        "n_valid": 80931,
+        "availability": 1.0,
+        "mae_log": 0.064568451320186
+      },
+      {
+        "estimator": "stochastic_log_AR1_median",
+        "n_eligible": 80931,
+        "n_valid": 66099,
+        "availability": 0.8167327723616414,
+        "mae_log": 0.0716059910278717
+      },
+      {
+        "estimator": "MOVE1_log_anomaly",
+        "n_eligible": 80931,
+        "n_valid": 66099,
+        "availability": 0.8167327723616414,
+        "mae_log": 0.0733789838557751
+      }
+    ],
+    "scorecard_crossed_danger": [
+      {
+        "estimator": "historical_D2",
+        "n_eligible": 41132,
+        "n_valid": 41132,
+        "availability": 1.0,
+        "mae_log": 0.0742998633586893
+      },
+      {
+        "estimator": "single_donor_log_Ridge",
+        "n_eligible": 41132,
+        "n_valid": 33609,
+        "availability": 0.817101040552368,
+        "mae_log": 0.0896047036364053
+      },
+      {
+        "estimator": "stochastic_log_AR1_median",
+        "n_eligible": 41132,
+        "n_valid": 33609,
+        "availability": 0.817101040552368,
+        "mae_log": 0.1038408887373061
+      },
+      {
+        "estimator": "MOVE1_log_anomaly",
+        "n_eligible": 41132,
+        "n_valid": 33609,
+        "availability": 0.817101040552368,
+        "mae_log": 0.1061887439071385
+      }
+    ],
+    "paired_crossed_all": [
+      {
+        "left": "MOVE1_log_anomaly",
+        "right": "single_donor_log_Ridge",
+        "n_common": 66099,
+        "left_mae_log": 0.0733789838557751,
+        "right_mae_log": 0.0602190797997838,
+        "n_sites": 210,
+        "site_fraction_left_not_worse": 0.1523809523809524
+      },
+      {
+        "left": "MOVE1_log_anomaly",
+        "right": "historical_D2",
+        "n_common": 66099,
+        "left_mae_log": 0.0733789838557751,
+        "right_mae_log": 0.0495395390960592,
+        "n_sites": 210,
+        "site_fraction_left_not_worse": 0.1333333333333333
+      },
+      {
+        "left": "stochastic_log_AR1_median",
+        "right": "historical_D2",
+        "n_common": 66099,
+        "left_mae_log": 0.0716059910278717,
+        "right_mae_log": 0.0495395390960592,
+        "n_sites": 210,
+        "site_fraction_left_not_worse": 0.2809523809523809
+      }
+    ],
+    "paired_crossed_danger": [
+      {
+        "left": "MOVE1_log_anomaly",
+        "right": "single_donor_log_Ridge",
+        "n_common": 33609,
+        "left_mae_log": 0.1061887439071385,
+        "right_mae_log": 0.0896047036364053,
+        "n_sites": 210,
+        "site_fraction_left_not_worse": 0.1904761904761904
+      },
+      {
+        "left": "MOVE1_log_anomaly",
+        "right": "historical_D2",
+        "n_common": 33609,
+        "left_mae_log": 0.1061887439071385,
+        "right_mae_log": 0.074512443856975,
+        "n_sites": 210,
+        "site_fraction_left_not_worse": 0.1476190476190476
+      },
+      {
+        "left": "stochastic_log_AR1_median",
+        "right": "historical_D2",
+        "n_common": 33609,
+        "left_mae_log": 0.1038408887373062,
+        "right_mae_log": 0.074512443856975,
+        "n_sites": 210,
+        "site_fraction_left_not_worse": 0.2952380952380952
+      }
+    ],
+    "interpretation": "Donor-dependent flow methods are available on 81.7 percent of crossed/all eligible cases versus 100 percent for historical D2, and they do not lower paired MAE. MOVE.1 and the stochastic bridge are worse than the existing single-donor Ridge and historical D2 baselines. This is an opened positive-flow perennial subset, not a new blind transfer or a 20-seed stability claim."
+  },
+  "limitations": [
+    "Zero flow is a station-level historical proxy, not an intermittent-river or dry-bed classification.",
+    "No 34-station FOEN/GKD daily flow merge was performed.",
+    "air2stream-8 was not retrained with flow.",
+    "No causal mechanism is identified; all flow results are associations.",
+    "Flow-data rights and coverage remain unresolved."
+  ]
+}

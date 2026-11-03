@@ -1,0 +1,33 @@
+{
+  "full_pytest": {
+    "counts": {
+      "tests": 1711,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1710
+    },
+    "matches": true,
+    "current_source_matches": true,
+    "modules": 289,
+    "skipped": [
+      {
+        "name": "test_evidence_bindings_exclude_their_own_audit_outputs",
+        "message": "Evidence generation has not run"
+      }
+    ]
+  },
+  "targeted_tests": {
+    "counts": {
+      "tests": 143,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 143
+    },
+    "matches": true,
+    "current_source_matches": true,
+    "modules": 18,
+    "skipped": []
+  }
+}

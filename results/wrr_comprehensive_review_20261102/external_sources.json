@@ -1,0 +1,30 @@
+{
+  "checked_date": "2026-11-02 Asia/Shanghai",
+  "sources": [
+    {
+      "title": "AGU Review Criteria",
+      "url": "https://www.agu.org/Publications/Reviewers/Review-Criteria",
+      "supports": "Significance, methods, references, presentation, and data/software are distinct review dimensions."
+    },
+    {
+      "title": "AGU Data and Software for Authors",
+      "url": "https://www.agu.org/publications/authors/journals/data-software-for-authors",
+      "supports": "Evidence access at peer review; preservation by publication; restricted-access exceptions require editorial consideration."
+    },
+    {
+      "title": "AGU Plain Language Summaries",
+      "url": "https://www.agu.org/publications/authors/journals/plain-language-summary",
+      "supports": "Abstract fewer than 250 words; accessible PLS and self-standing key points."
+    },
+    {
+      "title": "Johnson et al. 2021 USGS publication record",
+      "url": "https://www.usgs.gov/publications/heed-data-gap-guidelines-using-incomplete-datasets-annual-stream-temperature-analyses",
+      "supports": "Prior incomplete-record work targets annual mean, phase, amplitude, with missingness and imputation experiments."
+    },
+    {
+      "title": "Beaufort et al. 2022 HESS",
+      "url": "https://doi.org/10.5194/hess-26-3477-2022",
+      "supports": "Prior national thermal-peak study uses heterogeneous incomplete records and climate correction; target differs from this finite-record H30 slope."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+\section*{Software and data availability}
+
+\subsection*{Software}
+
+\noindent\textbf{Software name:} \texttt{gapbench}, version 1.2.0.\\
+\textbf{Developers:} [AUTHOR TO CONFIRM].\\
+\textbf{Support:} public issue tracker and documentation in the repository.\\
+\textbf{Year first available:} 2026.\\
+\textbf{Hardware required:} Standard x86-64 workstation or laptop. Measured on one CPU core: the quickstart finishes in 0.13\,s with a peak resident set of 35\,MiB, and the full packaged replay of all 1{,}623 archive-level gap masks (8{,}115 retained-year strategy rows) finishes in 9.7\,s with a peak resident set of 289\,MiB.\\
+\textbf{Software required:} Python $\ge$ 3.10, NumPy $\ge$ 1.24, and pandas $\ge$ 2.0; pytest $\ge$ 8 for the test suite.\\
+\textbf{Program language:} Python.\\
+\textbf{Program size:} 24 files, 1{,}012 lines of Python, 264\,KiB uncompressed (23\,KiB zipped, excluding caches).\\
+\textbf{Availability:} Public repository, \url{https://github.com/shutiao23/stream-recoverability}, with code release v1.2.0 at \url{https://github.com/shutiao23/stream-recoverability/releases/tag/v1.2.0}; archival DOI [PENDING]. Reviewers can access the public repository without credentials.\\
+\textbf{License:} MIT for code.\\
+\textbf{Cost:} Free.\\
+\textbf{30-minute quickstart:} From the repository root, run \texttt{pip install -e gapbench} and then \texttt{python gapbench/examples/quickstart.py}. The example builds a synthetic 20-year daily series with gaps, selects years under calendar-only rules, and decomposes finite-record slope error.
+
+\subsection*{Data}
+
+\textbf{Data sources:} Daily water-temperature records from FOEN (Switzerland), GKD Bayern (Bavaria), and USGS NWIS (United States), together with the additional providers documented in the manuscript; meteorological forcing from NASA POWER. Each provider's terms and attribution requirements apply.
+
+\textbf{Restricted data:} LUBW records are subject to provider restrictions. The reviewer access route is being arranged with the provider and requires editorial and legal confirmation.
+
+\noindent [EDITORIAL/LEGAL CONFIRMATION REQUIRED]
+
+\textbf{Processed data:} Processed annual tables needed to reproduce the figures and trend summaries are included in the public repository. These tables contain derived annual quantities, not the restricted daily observations.
+
+\textbf{Archival identifiers:} DOIs for the archived code release and processed tables are [PENDING].
+
+\textbf{Code versus data rights:} The MIT license applies to the \texttt{gapbench} code. It does not relicense observational data, which remain subject to the terms of FOEN, GKD Bayern, USGS, LUBW, NASA POWER, and other providers. Code availability does not imply redistribution rights for provider data.

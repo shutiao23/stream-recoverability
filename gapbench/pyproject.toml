@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gapbench"
+version = "1.2.0"
+description = "Leakage-safe benchmarking of gap handling for annual heat extremes and river-temperature trends."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gapbench*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

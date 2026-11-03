@@ -1,0 +1,108 @@
+{
+  "schema": "final_candidate_verification_v1",
+  "status": "passed",
+  "created_utc": "2026-11-02T17:07:05.517354+00:00",
+  "package": "dist/wrr_final_candidate_20261101_r4.zip",
+  "package_sha256": "cae27ba49a02f0e6da165868bdf78017245b6e1fe549a899b10f1955b4cb2d9e",
+  "package_bytes": 202074883,
+  "external_manifest": "dist/wrr_final_candidate_20261101_r4.manifest.json",
+  "external_manifest_sha256": "e99f1b8081b58252d2ea92dbea5bda62ae41bee99713b18a98c70b4161b7b76d",
+  "member_check": {
+    "status": "passed",
+    "members": 3428,
+    "workspace_byte_comparisons": 3424,
+    "generated_members": [
+      "CONTENT_MANIFEST.sha256",
+      "RELEASE_RECEIPT.json",
+      "REVIEW_PACKAGE_README.txt",
+      "dependency_inventory.json"
+    ],
+    "manifest_members": 3427,
+    "manifest_sha256": "fe5697e4de9e05843d9b80399285051bafc7be392fd7390e6d2b2e9e603418ca"
+  },
+  "manuscripts": {
+    "article": {
+      "pdf_pages": 44,
+      "pdf_sha256": "ae6357fc9d60261a9ab9661d2db6d0c372cd272c48f8a8195618fbd46a6121da",
+      "pdf_text_matches_rebuild": true,
+      "tex_sha256": "f67476935d15c7d89dc03667675672ace2f66648d497933494cfe276e954a52c"
+    },
+    "supporting": {
+      "pdf_pages": 109,
+      "pdf_sha256": "aa2c729e4baf71539f8097178bb0ba993cd9fc9d0cdc9f790b62257929890cc3",
+      "pdf_text_matches_rebuild": true,
+      "tex_sha256": "7e7c0b1012ad0b74b08f31895424f153c4758036b0dc3ed05154058bd4b3c871"
+    }
+  },
+  "cover_letter": {
+    "path": "paper/wrr_tr/review_completion_cover_letter.txt",
+    "sha256": "f890ca60c5bab59d6ec82ae636149d94312650c06271bfe5c101f800de081416",
+    "title_matches": true,
+    "controlled_gap_scope": true
+  },
+  "scientific_text_checks": {
+    "article_title_current": true,
+    "si_title_and_1981_2025_row": true,
+    "controlled_gap_scope_in_abstract": true,
+    "ratio_interpretation_in_article": true,
+    "station_group_heterogeneity_recomputed": true,
+    "conditional_group_intervals_in_methods": true,
+    "central_contribution_stated": true,
+    "absolute_endpoint_change_label": true,
+    "abstract_numeric_values": true,
+    "fixed_reference_year_set_defined": true,
+    "si_geometry_derivation": true,
+    "si_calendar_extension": true,
+    "archive_level_comparison_counts": true,
+    "extension_bootstrap_seed_disclosed": true,
+    "si_extension_bootstrap_seed_disclosed": true,
+    "archive_level_table_caption": true,
+    "uncertainty_scope_table_caption": true,
+    "review_tables_and_access_matrix_linked": true
+  },
+  "heterogeneity_recomputed": {
+    "station_key": {
+      "n": 41,
+      "all_improves": 41,
+      "cdf_worse": 14,
+      "sxx_worse": 7
+    },
+    "independence_group": {
+      "n": 17,
+      "all_improves": 17,
+      "cdf_worse": 3,
+      "sxx_worse": 2
+    }
+  },
+  "extracted_transcription": {
+    "bc_masks": [
+      288,
+      84,
+      372
+    ],
+    "truckee_cases": 72,
+    "reservoir_cases": 306,
+    "usgs_complete_years": 8,
+    "usgs_four_year_stations": 0,
+    "paired_forward_archives": 736,
+    "paired_forward_years": 3328,
+    "seed_change_max_pp": 0.8152173913043459,
+    "overlap_exact_half": 47,
+    "abstract_words": 245
+  },
+  "extracted_compile": {
+    "review_completion_article.tex": {
+      "pages_text_characters": 129509
+    },
+    "review_completion_supporting.tex": {
+      "pages_text_characters": 225774
+    }
+  },
+  "scope": "Safe extraction, manifest and workspace byte identity, saved-vs-rebuilt PDF text/page identity, and extracted transcription/compile. Latest extracted PDF bytes need not equal saved PDF bytes because PDFs embed build time.",
+  "not_tested": [
+    "clean-environment installation",
+    "raw-provider reconstruction",
+    "model retraining",
+    "cross-climate external confirmation"
+  ]
+}

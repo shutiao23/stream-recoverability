@@ -1,0 +1,102 @@
+{
+  "schema": "final_candidate_verification_v1",
+  "status": "passed",
+  "created_utc": "2026-11-02T02:04:40.045088+00:00",
+  "package": "dist/wrr_final_candidate_20261101_r4.zip",
+  "package_sha256": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+  "package_bytes": 202026702,
+  "external_manifest": "dist/wrr_final_candidate_20261101_r4.manifest.json",
+  "external_manifest_sha256": "0873d5b7109156bb108250be3b3ebed33234d420cae4a415dd4189ef342f47bb",
+  "member_check": {
+    "status": "passed",
+    "members": 3412,
+    "workspace_byte_comparisons": 3408,
+    "generated_members": [
+      "CONTENT_MANIFEST.sha256",
+      "RELEASE_RECEIPT.json",
+      "REVIEW_PACKAGE_README.txt",
+      "dependency_inventory.json"
+    ],
+    "manifest_members": 3411,
+    "manifest_sha256": "12b91604bb3823d88d6a4b94066a3685365d11104dab273658bf6d12aa90184b"
+  },
+  "manuscripts": {
+    "article": {
+      "pdf_pages": 43,
+      "pdf_sha256": "f566dbdac4559680ddaafe6a66cf8f49c8c5015b15b719df758ffea5eb98ca15",
+      "pdf_text_matches_rebuild": true,
+      "tex_sha256": "bdaec8fad38372249f22164046a2024ae743b2edb4147cdad5fcc907bc18781a"
+    },
+    "supporting": {
+      "pdf_pages": 107,
+      "pdf_sha256": "e2a57281a27a4afa32533acf14a4593c636e90b889e0174453217a5b605d4676",
+      "pdf_text_matches_rebuild": true,
+      "tex_sha256": "4e6c2c02fe3e76d83a988f9816b378b97e9a6e3d034af2a9c1e2ae3a2df00590"
+    }
+  },
+  "cover_letter": {
+    "path": "paper/wrr_tr/review_completion_cover_letter.txt",
+    "sha256": "18f5e392862e6e1941c89f25f600142d8a5ef094b39c66e75fe9a2c593c4ed8f",
+    "title_matches": true,
+    "controlled_gap_scope": true
+  },
+  "scientific_text_checks": {
+    "article_title_current": true,
+    "si_title_and_1981_2025_row": true,
+    "controlled_gap_scope_in_abstract": true,
+    "ratio_interpretation_in_article": true,
+    "station_group_heterogeneity_recomputed": true,
+    "conditional_group_intervals_in_methods": true,
+    "central_contribution_stated": true,
+    "absolute_endpoint_change_label": true,
+    "abstract_numeric_values": true,
+    "fixed_reference_year_set_defined": true,
+    "si_geometry_derivation": true,
+    "si_calendar_extension": true
+  },
+  "heterogeneity_recomputed": {
+    "station_key": {
+      "n": 41,
+      "all_improves": 41,
+      "cdf_worse": 14,
+      "sxx_worse": 7
+    },
+    "independence_group": {
+      "n": 17,
+      "all_improves": 17,
+      "cdf_worse": 3,
+      "sxx_worse": 2
+    }
+  },
+  "extracted_transcription": {
+    "bc_masks": [
+      288,
+      84,
+      372
+    ],
+    "truckee_cases": 72,
+    "reservoir_cases": 306,
+    "usgs_complete_years": 8,
+    "usgs_four_year_stations": 0,
+    "paired_forward_archives": 736,
+    "paired_forward_years": 3328,
+    "seed_change_max_pp": 0.8152173913043459,
+    "overlap_exact_half": 47,
+    "abstract_words": 249
+  },
+  "extracted_compile": {
+    "review_completion_article.tex": {
+      "pages_text_characters": 126030
+    },
+    "review_completion_supporting.tex": {
+      "pages_text_characters": 220330
+    }
+  },
+  "scope": "Safe extraction, manifest and workspace byte identity, saved-vs-rebuilt PDF text/page identity, and extracted transcription/compile. Latest extracted PDF bytes need not equal saved PDF bytes because PDFs embed build time.",
+  "not_tested": [
+    "clean-environment installation",
+    "raw-provider reconstruction",
+    "model retraining",
+    "cross-climate external confirmation"
+  ]
+}

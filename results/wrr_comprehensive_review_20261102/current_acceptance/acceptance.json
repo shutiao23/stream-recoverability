@@ -1,0 +1,189 @@
+{
+  "schema_version": "final_candidate_acceptance_v1",
+  "status": "complete",
+  "complete": true,
+  "review_date": "2026-11-01 Asia/Shanghai",
+  "created_utc": "2026-11-02T02:25:50.434571+00:00",
+  "revision": "Post-fix revision: JUnit testcase-level count validation, result-directory binding, full and targeted failure/error gates, and a clarified abstract interval; acceptance is bound to the current package, PDFs, JUnit and source tree.",
+  "git": {
+    "head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+    "worktree": {
+      "entries": 15,
+      "modified": 11,
+      "deleted": 0,
+      "untracked": 4
+    },
+    "note": "The worktree is not commit-identified; the package manifest and acceptance hashes identify this candidate."
+  },
+  "package": {
+    "path": "dist/wrr_final_candidate_20261101_r4.zip",
+    "sha256": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+    "bytes": 202026702,
+    "members": 3412,
+    "content_manifest_sha256": "12b91604bb3823d88d6a4b94066a3685365d11104dab273658bf6d12aa90184b",
+    "release_receipt_sha256": "62ca3d728b7821bef74819d1cdc17ab07329380264c59e1f8d2b2283d580ee2e",
+    "external_manifest": "dist/wrr_final_candidate_20261101_r4.manifest.json",
+    "external_manifest_sha256": "0873d5b7109156bb108250be3b3ebed33234d420cae4a415dd4189ef342f47bb"
+  },
+  "manuscripts": {
+    "article": {
+      "tex": "paper/wrr_tr/review_completion_article.tex",
+      "tex_sha256": "bdaec8fad38372249f22164046a2024ae743b2edb4147cdad5fcc907bc18781a",
+      "pdf": "paper/wrr_tr/review_completion_article.pdf",
+      "pdf_sha256": "f566dbdac4559680ddaafe6a66cf8f49c8c5015b15b719df758ffea5eb98ca15",
+      "pdf_pages": 43,
+      "abstract_words": 249,
+      "key_points": [
+        "Screening incomplete years changes the time support of sustained-heat facts and of finite-record slopes",
+        "Hidden-peak undercoverage concentrates in Bavarian air reconstructions; extra paths still move those tails without identifying the cause",
+        "Calendar-based selection reduced slope error at fixed counts in controlled gaps; recovery of all supported years reduced it further"
+      ]
+    },
+    "supporting": {
+      "tex": "paper/wrr_tr/review_completion_supporting.tex",
+      "tex_sha256": "4e6c2c02fe3e76d83a988f9816b378b97e9a6e3d034af2a9c1e2ae3a2df00590",
+      "pdf": "paper/wrr_tr/review_completion_supporting.pdf",
+      "pdf_sha256": "e2a57281a27a4afa32533acf14a4593c636e90b889e0174453217a5b605d4676",
+      "pdf_pages": 107
+    }
+  },
+  "cover_letter": {
+    "path": "paper/wrr_tr/review_completion_cover_letter.txt",
+    "sha256": "18f5e392862e6e1941c89f25f600142d8a5ef094b39c66e75fe9a2c593c4ed8f",
+    "title_matches": true,
+    "controlled_gap_scope": true
+  },
+  "review_completion_report": {
+    "path": "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md",
+    "sha256": "b12bbec036aaa903f6d122843a51e3aea39edf0af92b431bbc22018873029bc9"
+  },
+  "tests": {
+    "path": "results/wrr_comprehensive_review_20261102/current_acceptance/targeted_tests_summary.json",
+    "sha256": "1f797dae61e56d70ebc7bf9575fdde872cb6cd45166ee7aaa46d231522330a0e",
+    "passed": 143,
+    "tests": 143,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "Declared final-release test list; not the full repository test suite",
+    "junit": "targeted_tests.xml"
+  },
+  "package_verification": {
+    "path": "results/wrr_comprehensive_review_20261102/current_acceptance/package_verification.json",
+    "sha256": "78d332390f32fd6a9723207847dc9f79de1b5adb6c35dfe1f9eb342ecc4797ce",
+    "status": "passed",
+    "package_sha256": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+    "manuscript_pdf_text_matches_rebuild": true,
+    "members": 3412,
+    "abstract_words": 249
+  },
+  "package_delivery_check": {
+    "path": "results/wrr_comprehensive_review_20261102/current_acceptance/package_delivery_check.json",
+    "sha256": "8e7f6a97ac072737faf44b71adfa36baf113f918a67af7c61ccddf209a3cac0a",
+    "status": "passed",
+    "archive_sha256": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+    "scope": "Packaged/workspace byte identity and safe extraction; pre-replay scientific catalog hashes/rows/keys; packaged 930 transcription/PDF compilation, 975 source-calibration frozen replay, 977 annual frozen replay and 967 current observation arithmetic replay",
+    "extracted_check_keys": [
+      "catalog_checked_before_replay_receipts",
+      "catalog_preflight",
+      "current_observation_replay",
+      "frozen_source_dependency_manifest",
+      "frozen_time_dependency_manifest",
+      "isolation",
+      "local_calibration_probe_record",
+      "not_replayed",
+      "receipt_comparison",
+      "scientific_dependencies_unchanged_after_replay",
+      "source_calibration_frozen_replay",
+      "time_support_frozen_replay",
+      "transcription_and_pdf_compile"
+    ]
+  },
+  "extension_replay": {
+    "path": "results/wrr_comprehensive_review_20261102/current_acceptance/extension_replay.json",
+    "sha256": "87e3a2981f2a72559caf44976be11a44a947cbf47c46f98381e8bf2d25154bdd",
+    "status": "passed",
+    "archive_sha256": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+    "archives": 1623,
+    "geometry_rows": 8115,
+    "max_numeric_difference": 2.1316282072803006e-14,
+    "tolerance": 1e-12
+  },
+  "local_ci_equivalent": {
+    "path": "results/wrr_comprehensive_review_20261102/current_acceptance/ci_local_summary.json",
+    "sha256": "aa9f6c04b619c2c761712c9b4fc15920e80c405b35a5e868e35547fc7d275286",
+    "status": "passed",
+    "source_check": {
+      "command": "ruff check --select E4,E7,E9,F src",
+      "exit_code": 0,
+      "findings": 0,
+      "report": "ruff_current.json",
+      "report_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "full_pytest": {
+      "exit_code": 0,
+      "scope": "Full repository pytest suite; Python 3.11 environment",
+      "junit": "full_pytest.xml",
+      "junit_sha256": "b71e69f0bc8940e68c59656fc724ca29263b067d9fb79c89b1ac48d58cb561fb",
+      "command": "/home/lzq/anaconda3/bin/python -m pytest -q --junitxml /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r4/full_pytest.xml",
+      "interpreter": "/home/lzq/anaconda3/bin/python",
+      "python_version": "3.11.7",
+      "source_identity": {
+        "git_head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+        "src_tree_sha256": "b4aa46c30c67d133873a38e1f38cbb69914179290da94a657911dc23341dff99",
+        "pyproject_sha256": "cec5c4818a2e5b73b9e5176dcd953e4f49586454ddb83676fa8267e1f3adc76b"
+      },
+      "tests": 1711,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1710,
+      "created_utc": "2026-11-01T18:16:28.150184+00:00",
+      "stdout_tail": "overy_roster.py: 198 warnings\ntests/test_regulation_panel.py: 406 warnings\ntests/test_regulation_panel_auc_diagnosis.py: 208 warnings\ntests/test_t6_seplains_bfi.py: 125 warnings\ntests/test_wrr_backup_and_developed_system.py: 304 warnings\ntests/test_wrr_revision.py: 1261 warnings\ntests/test_wrr_submission_ready_p0.py: 909 warnings\ntests/test_wrr_universe.py: 32 warnings\n  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:614: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.\n    if is_sparse(pd_dtype) or not is_extension_array_dtype(pd_dtype):\n\ntests/test_reference_baselines.py::test_reference_extra_pins_exact_pypots_version\n  /home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f90f3eac400>\n  \n  Traceback (most recent call last):\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 400, in match_module_callback\n      self._make_module_from_path(filepath)\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 515, in _make_module_from_path\n      module = module_class(filepath, prefix, user_api, internal_api)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 606, in __init__\n      self.version = self.get_version()\n                     ^^^^^^^^^^^^^^^^^^\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 646, in get_version\n      config = get_config().split()\n               ^^^^^^^^^^^^^^^^^^\n  AttributeError: 'NoneType' object has no attribute 'split'\n  \n    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))\n\ntests/test_reference_baselines.py::test_official_cpu_tiny_smoke_and_diagnostics[brits]\ntests/test_reference_baselines.py::test_reference_checkpoint_round_trip_is_strict[csdi]\n  /home/lzq/anaconda3/lib/python3.11/site-packages/pypots/nn/modules/csdi/layers.py:17: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)\n    return nn.TransformerEncoder(encoder_layer, num_layers=layers)\n\ntests/test_wrr_review_completion.py: 12 warnings\n  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)\n    duals[candidate_idx] += step_size_clip\n\ntests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups\ntests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization\n  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: \n      You didn't specify the order of the vec expression. The default order\n      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's\n      default order ('C') in a future version of CVXPY.\n      To suppress this warning, please specify the order explicitly.\n      \n    warnings.warn(vec_order_warning, FutureWarning)\n\ntests/test_wrr_submission_ready_p0.py::test_outage_simulation_preserves_declared_length_across_year_end\n  <frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n- generated xml file: /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r4/full_pytest.xml -\n",
+      "stderr_tail": ""
+    },
+    "evidence_gate_decision": "inventory_only"
+  },
+  "scientific_checks": {
+    "main_pages": 43,
+    "supporting_pages": 107,
+    "abstract_words": 249,
+    "key_points_within_140_chars": true,
+    "si_title_and_1981_2025_row": true,
+    "cover_letter_title_and_scope": true,
+    "controlled_gap_scope_in_abstract": true,
+    "ratio_interpretation_in_article": true,
+    "station_group_heterogeneity_in_discussion": true,
+    "conditional_group_intervals_in_methods": true,
+    "central_contribution_stated": true,
+    "absolute_endpoint_change_label": true,
+    "abstract_numeric_values": true,
+    "fixed_reference_year_set_defined": true,
+    "si_geometry_derivation": true,
+    "si_calendar_extension": true
+  },
+  "coverage": {
+    "proved": [
+      "current source to current PDF text and page identity",
+      "package/workspace byte identity for every non-generated member",
+      "extracted-package transcription and compilation",
+      "frozen-input source-calibration, annual-selection and current-observation replay",
+      "extracted-package replay of the 1,623-archive calendar extension within 1e-12",
+      "local CI-equivalent source check and full pytest summary, recorded separately from the targeted list",
+      "143 targeted tests from the declared release list"
+    ],
+    "not_proved": [
+      "clean-environment installation",
+      "raw-provider reconstruction",
+      "model retraining",
+      "cross-climate external confirmation"
+    ],
+    "replay_scope": "Packaged/workspace byte identity and safe extraction; pre-replay scientific catalog hashes/rows/keys; packaged 930 transcription/PDF compilation, 975 source-calibration frozen replay, 977 annual frozen replay and 967 current observation arithmetic replay"
+  },
+  "pending_author_items": [
+    "author-approved names, order, ORCID, affiliations, funding, CRediT, conflicts and acknowledgments",
+    "legal reviewer access, including LUBW reuse and redistribution",
+    "permanent repository deposit and citable identifier"
+  ],
+  "note": "This acceptance record is local release evidence. It does not impersonate a WRR decision, fill author metadata or establish data rights."
+}

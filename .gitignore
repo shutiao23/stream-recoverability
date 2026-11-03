@@ -373,3 +373,12 @@ private/wrr_usace_reservoir_reference_20261027/
 
 # Provider raw responses and request caches remain local.
 /results/wrr_review_response_20261027/**/raw/
+
+# EMS manuscript LaTeX build artifacts (PDFs are tracked deliverables).
+/paper/ems/*.aux
+/paper/ems/*.log
+/paper/ems/*.blg
+/paper/ems/*.bbl
+/paper/ems/*.fls
+/paper/ems/*.fdb_latexmk
+/paper/ems/*.spl

@@ -1,0 +1,54 @@
+{
+  "schema": "wild_cluster_bootstrap_v1",
+  "created_utc": "2026-11-03T03:51:46.369421+00:00",
+  "draws": 10000,
+  "seed": 20261102,
+  "clusters": 17,
+  "method": "wild cluster bootstrap on the influence function of the RMSE difference; Rademacher and Webb six-point weights; clusters are never resampled",
+  "scope": "frozen per-archive tables only; no refit, no new masks; the group-bootstrap columns reproduce the saved multinomial group intervals for comparison",
+  "rows": 10,
+  "retention_directions": {
+    "calendar/uniform_exact minus warm90": {
+      "group_boot_excludes_zero": false,
+      "wild_rademacher_excludes_zero": true,
+      "wild_webb_excludes_zero": true
+    },
+    "calendar/cdf_all_years minus warm90": {
+      "group_boot_excludes_zero": false,
+      "wild_rademacher_excludes_zero": false,
+      "wild_webb_excludes_zero": false
+    },
+    "calendar/sxx_all_years minus warm90": {
+      "group_boot_excludes_zero": true,
+      "wild_rademacher_excludes_zero": true,
+      "wild_webb_excludes_zero": true
+    },
+    "calendar/all minus warm90": {
+      "group_boot_excludes_zero": true,
+      "wild_rademacher_excludes_zero": true,
+      "wild_webb_excludes_zero": true
+    },
+    "crossed/uniform_exact minus warm90": {
+      "group_boot_excludes_zero": false,
+      "wild_rademacher_excludes_zero": false,
+      "wild_webb_excludes_zero": false
+    },
+    "crossed/cdf_all_years minus warm90": {
+      "group_boot_excludes_zero": true,
+      "wild_rademacher_excludes_zero": true,
+      "wild_webb_excludes_zero": true
+    },
+    "crossed/sxx_all_years minus warm90": {
+      "group_boot_excludes_zero": true,
+      "wild_rademacher_excludes_zero": true,
+      "wild_webb_excludes_zero": true
+    },
+    "crossed/all minus warm90": {
+      "group_boot_excludes_zero": true,
+      "wild_rademacher_excludes_zero": true,
+      "wild_webb_excludes_zero": true
+    }
+  },
+  "mean_width_ratio_wild_over_group": 1.0423267563355356,
+  "median_width_ratio_wild_over_group": 1.0186718171258984
+}

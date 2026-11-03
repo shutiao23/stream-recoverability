@@ -1,0 +1,13 @@
+family,scheme,subset,n,smaller_absolute_error,larger_absolute_error,numerically_equal,median_absolute_error_change
+calendar,cdf_all_years,all_archives,818,144,91,583,0.0
+calendar,cdf_all_years,changed_year_set,235,144,91,0,-0.02557646582364953
+calendar,sxx_all_years,all_archives,818,151,83,584,0.0
+calendar,sxx_all_years,changed_year_set,234,151,83,0,-0.04897521080513853
+calendar,all,all_archives,818,231,57,530,0.0
+calendar,all,changed_year_set,288,231,57,0,-0.05777300505528877
+crossed,cdf_all_years,all_archives,805,197,170,438,0.0
+crossed,cdf_all_years,changed_year_set,367,197,170,0,-0.019576638094566792
+crossed,sxx_all_years,all_archives,805,218,158,429,0.0
+crossed,sxx_all_years,changed_year_set,376,218,158,0,-0.04205223864095427
+crossed,all,all_archives,805,630,169,6,-0.13948641738511391
+crossed,all,changed_year_set,800,630,169,1,-0.14001023688439382

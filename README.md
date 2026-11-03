@@ -20,6 +20,78 @@ the RMSE-to-median ratio, local heterogeneity and conditional group intervals. T
 new package and acceptance record are listed under Current artifacts; the earlier
 ZIP remains a historical frozen candidate.
 
+## Current candidate (r4)
+
+- Package: `dist/wrr_final_candidate_20261101_r4.zip`
+- Package SHA256: recorded in `dist/wrr_final_candidate_20261101_r4.manifest.json`
+  and `results/final_release_20261101_r4/acceptance.json`. It is not embedded
+  here because this README is a package member and rebuilding the archive
+  changes its own bytes and hash.
+- Reviewed Git base: `bef47bf663927cc9726c4ec632ca750a3881d528`
+
+**r4 is uncommitted.** The external manifest and acceptance record identify the
+local r4 archive; the Git base commit alone does not contain all r4 changes. Do
+not treat a clean checkout of that commit, or an older passing package check, as
+r4 acceptance.
+
+Run these commands from the repository root. They write their records into
+`results/final_release_20261101_r4/`.
+
+```bash
+python scripts/980_final_release.py verify
+python scripts/978_process_experiment_delivery.py --archive dist/wrr_final_candidate_20261101_r4.zip --output results/final_release_20261101_r4/package_delivery_check.json
+python scripts/983_verify_extension_replay.py
+python scripts/982_final_release_tests.py
+python scripts/984_full_pytest_summary.py --out results/final_release_20261101_r4
+python scripts/985_build_local_ci_summary.py --out results/final_release_20261101_r4
+python scripts/980_final_release.py accept
+```
+
+`make review-current-candidate` runs verify, delivery, replay and accept in that
+order. Run `make review-current-tests` separately when the targeted/full test
+records need refreshing; acceptance consumes the records already present in the
+result directory.
+
+**Historical commands.** `make review-package-check` and
+`make review-process-experiments-package-check` keep their older defaults
+(`dist/wrr_review_response_candidate.zip` and
+`dist/wrr_process_experiments_20261029.zip`). They are historical checks and
+must not be read as r4 acceptance.
+
+### Software quickstart
+
+The reusable benchmark library is [gapbench](gapbench/README.md): a small,
+leakage-safe package with a public API, a synthetic example, and tests.
+Installation, optional extras, and the Docker workflow are documented in
+[docs/software/INSTALL.md](docs/software/INSTALL.md).
+
+```bash
+pip install -e gapbench
+python gapbench/examples/quickstart.py
+```
+
+Current software version: **1.2.0**, marked by GitHub release
+[`v1.2.0`](https://github.com/shutiao23/stream-recoverability/releases/tag/v1.2.0).
+A Zenodo DOI and reviewer access to restricted data are still pending. The
+historical `v1.0.0` git tag is not an archival record of this version; see
+[docs/software/RELEASE_CHECKLIST.md](docs/software/RELEASE_CHECKLIST.md).
+
+### Reproducibility layers
+
+| Layer | Status |
+|---|---|
+| Saved-table arithmetic and identity | Verified locally |
+| Package compact-input replay | Verified for the extracted r4 package |
+| Frozen-input source/year replay | Verified within the documented frozen-input scope |
+| Full raw-provider retraining | Not proved |
+| Clean-environment installation | Not proved |
+| Independent external confirmation | Not proved |
+| Reviewer access | Pending author and legal action |
+| Permanent repository deposit | Pending author and institutional action |
+
+The actionable submission dossier, including the P0 author, legal-access and
+deposit checklist, is [SUBMISSION_READINESS_ZH.md](docs/reviews/wrr_comprehensive_review_20261102/SUBMISSION_READINESS_ZH.md).
+
 Run `make review-process-experiments` to reproduce the analyses and manuscript,
 then `make review-process-experiments-check` for independent arithmetic and
 adversarial checks. The [data guide](docs/reviews/wrr_process_experiments_20261029/DATA_GUIDE_ZH.md)
@@ -79,27 +151,29 @@ These external checks are unregistered unless an actual registration is recorded
 Failed qualification, unavailable predictions and negative results stay in the
 reported denominators. Author and deposit details remain to be supplied.
 
-Current candidate (2026-11-01 third post-review revision):
+Current candidate (2026-11-01 fourth post-review revision):
 
 - [Main manuscript](paper/wrr_tr/review_completion_article.pdf)
 - [Supporting information](paper/wrr_tr/review_completion_supporting.pdf)
-- [Latest revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R3_ZH.md)
+- [Latest revision completion report](docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md)
 - [Latest post-review report](docs/reviews/wrr_r2_review_20261101/REVIEW_ZH.md)
 - [Earlier post-review audit](docs/reviews/wrr_plan_audit_20261101/REVIEW_AND_PLAN_ZH.md)
-- [Candidate package](dist/wrr_final_candidate_20261101_r3.zip)
-- [Candidate manifest](dist/wrr_final_candidate_20261101_r3.manifest.json)
-- [Current acceptance record](results/final_release_20261101_r3/acceptance.json)
-- [Current extension replay](results/final_release_20261101_r3/extension_replay.json)
-- [Current local CI-equivalent summary](results/final_release_20261101_r3/ci_local_summary.json)
+- [Candidate package](dist/wrr_final_candidate_20261101_r4.zip)
+- [Candidate manifest](dist/wrr_final_candidate_20261101_r4.manifest.json)
+- [Current acceptance record](results/final_release_20261101_r4/acceptance.json)
+- [Current extension replay](results/final_release_20261101_r4/extension_replay.json)
+- [Current local CI-equivalent summary](results/final_release_20261101_r4/ci_local_summary.json)
 
 The full candidate sha256 is recorded in the external manifest and acceptance
 record. Because this README is inside the package, it does not embed its own
-package hash. The current candidate is a local release candidate, not a
-completed publication deposit; author metadata, legal reviewer access and a
-permanent archive remain pending.
+package hash; rebuilding the archive changes that external value, so use the
+manifest and acceptance record for the current archive. The current candidate
+is a local release candidate, not a completed publication deposit; author
+metadata, legal reviewer access and a permanent archive remain pending.
 
 Historical artifacts (not current evidence for the latest candidate):
 
+- [Third 2026-11-01 candidate](dist/wrr_final_candidate_20261101_r3.zip), [manifest](dist/wrr_final_candidate_20261101_r3.manifest.json), [acceptance](results/final_release_20261101_r3/acceptance.json)
 - [Second 2026-11-01 candidate](dist/wrr_final_candidate_20261101_r2.zip), [manifest](dist/wrr_final_candidate_20261101_r2.manifest.json), [acceptance](results/final_release_20261101_r2/acceptance.json)
 - [First 2026-11-01 candidate](dist/wrr_final_candidate_20261101.zip), [manifest](dist/wrr_final_candidate_20261101.manifest.json), [acceptance](results/final_release_20261101/acceptance.json)
 - [r2 2026-10-31 package](dist/wrr_final_candidate_20261031_r2.zip), [manifest](dist/wrr_final_candidate_20261031_r2.manifest.json), [acceptance](results/final_release_20261031_r2/acceptance.json)

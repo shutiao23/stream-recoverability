@@ -1,0 +1,5 @@
+\item Joint whole-archive masking benchmarks year screening against reconstruction
+\item Observed 30-day windows in incomplete years can exceed complete-year records
+\item Under 30--90-day gaps, recovering all years cut H30 trend RMSE from 0.45 to 0.17
+\item Under realistic gap calendars, screening errors stay below the trend's own noise
+\item Open-source gapbench 1.2.0 for leakage-safe splits and calendar-only year selection

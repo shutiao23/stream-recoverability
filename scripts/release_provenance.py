@@ -41,13 +41,34 @@ def source_identity() -> dict:
 
 def parse_junit(path: Path) -> dict:
     root = ET.parse(path).getroot()
-    suites = [root] if root.tag == "testsuite" else list(root.findall("testsuite"))
-    counts = {
+    testcases = list(root.iter("testcase"))
+    counts = {"tests": len(testcases), "failures": 0, "errors": 0, "skipped": 0}
+    for case in testcases:
+        if case.find("failure") is not None:
+            counts["failures"] += 1
+        elif case.find("error") is not None:
+            counts["errors"] += 1
+        elif case.find("skipped") is not None:
+            counts["skipped"] += 1
+    counts["passed"] = counts["tests"] - counts["failures"] - counts["errors"] - counts["skipped"]
+    suites = [suite for suite in root.iter("testsuite") if suite.find("testsuite") is None]
+    declared = {
         key: sum(int(suite.get(key, 0)) for suite in suites)
         for key in ["tests", "failures", "errors", "skipped"]
     }
-    counts["passed"] = counts["tests"] - counts["failures"] - counts["errors"] - counts["skipped"]
+    if declared != {key: counts[key] for key in declared}:
+        raise ValueError("JUnit counts differ: suite totals do not match testcase outcomes")
     return counts
+
+
+def junit_modules(path: Path) -> set[str]:
+    root = ET.parse(path).getroot()
+    modules = set()
+    for case in root.iter("testcase"):
+        classname = case.get("classname", "")
+        if classname:
+            modules.add(".".join(classname.split(".")[:2]))
+    return modules
 
 
 def summary_from_junit(
@@ -106,8 +127,16 @@ def validate_summary(summary: dict, label: str, out: Path | None = None) -> None
     if not summary["command"] or not summary["interpreter"]:
         raise ValueError(f"{label} command or interpreter is missing")
     junit_path = Path(summary["junit"])
-    if not junit_path.is_absolute():
-        junit_path = (out / junit_path) if out is not None else (ROOT / junit_path)
+    if out is not None:
+        out = out.resolve()
+        candidate = junit_path if junit_path.is_absolute() else out / junit_path
+        try:
+            candidate.resolve().relative_to(out)
+        except ValueError:
+            raise ValueError(f"{label} JUnit path escapes the result directory")
+        junit_path = candidate
+    elif not junit_path.is_absolute():
+        junit_path = ROOT / junit_path
     if not junit_path.is_file():
         raise ValueError(f"{label} JUnit file is missing")
     if sha256_file(junit_path) != summary["junit_sha256"]:

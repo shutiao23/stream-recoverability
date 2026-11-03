@@ -1,0 +1,32 @@
+{
+  "reviewed_worktree_head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+  "tracked_uncommitted_files": [
+    "README.md",
+    "docs/reviews/wrr_r2_review_20261101/audit_gate_r2.py",
+    "docs/reviews/wrr_stanford_perspective_20261031/PACKAGE_README.txt",
+    "paper/wrr_tr/review_completion_article.pdf",
+    "paper/wrr_tr/review_completion_article.tex",
+    "scripts/980_final_release.py",
+    "scripts/983_verify_extension_replay.py",
+    "scripts/984_full_pytest_summary.py",
+    "scripts/985_build_local_ci_summary.py",
+    "scripts/release_provenance.py",
+    "tests/test_final_release_freshness.py"
+  ],
+  "default_package_checks": {
+    "make review-process-experiments-package-check": "dist/wrr_process_experiments_20261029.zip",
+    "make review-package-check": "dist/wrr_review_response_candidate.zip",
+    "make review-extension-replay": "dist/wrr_final_candidate_20261101_r4.zip"
+  },
+  "paper_seed_mentions": {
+    "review_completion_article": {
+      "20261031": 0,
+      "2026102969": 3
+    },
+    "review_completion_supporting": {
+      "20261031": 0,
+      "2026102969": 1
+    }
+  },
+  "extension_table_seed": 20261031
+}

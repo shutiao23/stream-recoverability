@@ -1,0 +1,24 @@
+Cover letter
+
+Environmental Modelling & Software
+
+Manuscript title: Discard or reconstruct? A leakage-safe benchmark of gap handling for annual heat extremes and their trends in river-temperature archives
+
+Dear Editor,
+
+We submit the manuscript above for consideration as a research article in Environmental Modelling & Software. The work combines a reusable evaluation method, an open-source software implementation, and an applied case study, which is why we believe it fits the journal's scope.
+
+The methodological contribution is a leakage-safe, joint whole-archive benchmark. Multiyear station records are masked together; hidden values never enter the local fit or the year-selection rule; and screening and reconstruction are scored on the same reference-year set. The design separates year-set error, reconstruction error, and their cross term, so the effect of discarding incomplete years can be compared with the effect of reconstructing them on a common scale.
+
+The applied case study evaluates 41 European and US stations in 17 connected groups, with 805 controlled-gap archives and 818 empirical gap calendars. Under controlled 30-90-day summer gaps, screening incomplete years gave an H30 trend RMSE of 0.446 degrees C per decade, and all-year reconstruction reduced it to 0.170 degrees C per decade. Under empirical gap calendars the corresponding RMSEs were 0.114 and 0.067 degrees C per decade. Both reconstructed values are well below the median classical slope standard error of 0.59 degrees C per decade, so the remaining differences are small relative to the trend's own sampling uncertainty. The paper also identifies where recovery fails: air-only reconstruction without local water information undercovers hidden peaks in regulated Bavarian reaches.
+
+The software contribution is gapbench 1.2.0, an MIT-licensed Python package with six public primitives, 13 tests, a synthetic quickstart, and a Docker smoke environment. It is available in the public repository https://github.com/shutiao23/stream-recoverability. Reviewers can access and run it without credentials. An archival Zenodo DOI is pending.
+
+We state the limitations explicitly. We do not report confirmation at stations withheld from development; a locked new-station test remains external. Access to the restricted LUBW records is still being arranged with the provider and requires editorial and legal confirmation. The flow analysis is diagnostic and associational, not a causal correction. The manuscript also marks unresolved author, funding, CRediT, and legal metadata rather than presenting them as settled.
+
+The manuscript is original, is not under consideration elsewhere, and all authors will approve the final version. Author names, affiliations, funding, CRediT roles, and legal wording are marked [AUTHOR TO CONFIRM] or [EDITORIAL/LEGAL CONFIRMATION REQUIRED] and must be completed before submission.
+
+Sincerely,
+
+[AUTHOR TO CONFIRM]
+[AFFILIATIONS TO CONFIRM]

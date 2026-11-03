@@ -301,3 +301,67 @@ dist/wrr_final_candidate_20261101_r3.zip,
 dist/wrr_final_candidate_20261101_r3.manifest.json and
 results/final_release_20261101_r3/acceptance.json. The full package sha256 is in
 the manifest and acceptance record, not in this README inside the package.
+
+2026-11-01 FOURTH POST-REVIEW REVISION (r4)
+
+This candidate closes the remaining content-level JUnit and abstract-clarity
+gaps in r3:
+
+- parse_junit() now derives tests, failures, errors and skipped counts from
+  testcase outcomes and requires the suite attributes to agree. Suite counts
+  without matching testcase evidence are rejected.
+- validate_summary() binds the hash-checked JUnit path to the result directory;
+  a summary pointing outside that directory is rejected even if its hash and
+  counts match the external file.
+- The targeted JUnit must contain at least one testcase from every file in the
+  declared release list; a summary that merely lists the files is rejected.
+- Regression tests now cover the full and targeted failure/error paths, summary
+  versus JUnit count disagreements, a failing XML paired with a clean summary,
+  a failing testcase hidden behind clean suite counts, a JUnit with no testcase
+  nodes, a JUnit path outside the result directory, and a targeted JUnit that
+  omits a file from the declared release list.
+- The abstract now says the year-distribution selector's paired
+  RMSE-difference interval from warm-season screening includes zero. The
+  abstract is 245 words, and release verification checks its saved-result
+  values 0.170, 0.446, 0.428, 0.402, 0.114, 0.067 and 67.9.
+
+Current local checks: 1,711 full-suite tests (1,710 passed, 1 skipped, JUnit
+and summary counts agree), 143 declared-release tests, ruff 0 findings, package
+verification, delivery check and strict 11-table replay (max finite difference
+2.1316e-14). The source-identity hash covers src/**/*.py and pyproject.toml;
+scripts and tests are bound separately through the test list and JUnit hash.
+
+The candidate, manifest and acceptance record are named
+dist/wrr_final_candidate_20261101_r4.zip,
+dist/wrr_final_candidate_20261101_r4.manifest.json and
+results/final_release_20261101_r4/acceptance.json. The full package sha256 is in
+the manifest and acceptance record, not in this README inside the package.
+
+2026-11-02 COMPREHENSIVE REVIEW RESPONSE
+
+This response adds the 2026-11-02 comprehensive-review materials to the r4
+candidate:
+
+- Archive-level direction counts: controlled gaps 630 smaller / 169 larger /
+  6 numerically equal of 805; empirical calendars 231 / 57 / 530 of 818, and
+  231 improve / 57 worsen among the 288 archives whose year set actually
+  changes. These are descriptive counts on the same saved archives.
+- The extension bootstrap seed is disclosed: original contrasts use
+  2026102969 and the paired extension table uses 20261031; both use 10,000
+  connected-group resamples.
+- A new uncertainty-scope table separates annual H30 intervals, finite-record
+  slope intervals, paired group intervals and the three-seed numerical range.
+- Contribution and coverage prose states the finite-record target, the
+  long-complete sample boundary and the distinction between aggregate RMSE
+  gains and per-archive changes.
+- The repository README now gives the current-candidate command sequence and
+  labels the older package-check defaults as historical.
+- The access dossier is docs/reviews/wrr_comprehensive_review_20261102/
+  SUBMISSION_READINESS_ZH.md, OPEN_RESEARCH_ACCESS_PLAN_ZH.md and
+  CLAIM_EVIDENCE_ACCESS.csv.
+
+The existing verification numbers are unchanged: 143 declared-release tests and
+1,711 full-suite tests (1,710 passed, 1 skipped). Author names, affiliations,
+funding, conflicts, ORCID, CRediT, LUBW legal reviewer access, the restricted
+data exception and a permanent repository/DOI remain pending; no P0 item is
+claimed complete.

@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Zero-flow flow-proxy conditional-logit results. The response is a warm-season-incomplete station-year (the hidden-peak condition). Air and flow covariates are within-station standardized summer means; the model also includes a linear trend per decade. Odds ratios are shown with 95\% confidence intervals.}
+\label{tab:S7}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Cohort & $n$ & Events & Stations & Groups & $z_{\mathrm{air}}$ OR (95\% CI) & $z_{\mathrm{flow}}$ OR (95\% CI) \\
+\midrule
+Recorded zero flow & 282 & 129 & 21 & 17 & 0.993 (0.659--1.305) & 0.594 (0.409--0.813) \\
+At least 30 zero days & 215 & 104 & 16 & 14 & 0.855 (0.580--1.275) & 0.474 (0.265--0.676) \\
+Fewer than 30 zero days & 4,417 & 1,814 & 271 & 103 & 1.024 (0.944--1.122) & 0.969 (0.897--1.046) \\
+No zero in available flow & 4,350 & 1,789 & 266 & 103 & 1.020 (0.937--1.125) & 0.968 (0.895--1.050) \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\footnotesize Notes: The underlying USGS missingness sample contains 6,479 station-years at 336 physical stations; 21 stations in 17 groups recorded at least one zero-flow day and 16 stations in 14 groups recorded at least 30. Confidence intervals use 400 bootstrap draws. Lower hidden-peak odds is an association in this proxy cohort, not evidence that low flow protects against underestimation. Zero flow is a historical proxy; no recorded zero does not prove perennial flow, and a zero does not identify an intermittent river, sensor exposure, or a dry bed. Source: \path{results/wrr_review_completion_20261024/zero_flow_missingness/conditional_logit_summary.csv} and \path{results/wrr_review_completion_20261024/zero_flow_missingness/cohort_counts.csv}.
+\end{table}

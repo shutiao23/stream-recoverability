@@ -1,0 +1,195 @@
+{
+  "schema_version": "final_candidate_acceptance_v1",
+  "status": "complete",
+  "complete": true,
+  "review_date": "2026-11-02 Asia/Shanghai",
+  "created_utc": "2026-11-02T17:09:06.773128+00:00",
+  "revision": "2026-11-02 comprehensive review response: archive-level benefit counts, extension-seed disclosure, uncertainty-scope and access matrices; JUnit testcase-level count validation, result-directory binding, full and targeted failure/error gates, and a clarified abstract interval; acceptance is bound to the current package, PDFs, JUnit and source tree.",
+  "git": {
+    "head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+    "worktree": {
+      "entries": 23,
+      "modified": 17,
+      "deleted": 0,
+      "untracked": 6
+    },
+    "note": "The worktree is not commit-identified; the package manifest and acceptance hashes identify this candidate."
+  },
+  "package": {
+    "path": "dist/wrr_final_candidate_20261101_r4.zip",
+    "sha256": "cae27ba49a02f0e6da165868bdf78017245b6e1fe549a899b10f1955b4cb2d9e",
+    "bytes": 202074883,
+    "members": 3428,
+    "content_manifest_sha256": "fe5697e4de9e05843d9b80399285051bafc7be392fd7390e6d2b2e9e603418ca",
+    "release_receipt_sha256": "284d546fc7406f610d61526d40a979363a7525706cfb1343156735012637a481",
+    "external_manifest": "dist/wrr_final_candidate_20261101_r4.manifest.json",
+    "external_manifest_sha256": "e99f1b8081b58252d2ea92dbea5bda62ae41bee99713b18a98c70b4161b7b76d"
+  },
+  "manuscripts": {
+    "article": {
+      "tex": "paper/wrr_tr/review_completion_article.tex",
+      "tex_sha256": "f67476935d15c7d89dc03667675672ace2f66648d497933494cfe276e954a52c",
+      "pdf": "paper/wrr_tr/review_completion_article.pdf",
+      "pdf_sha256": "ae6357fc9d60261a9ab9661d2db6d0c372cd272c48f8a8195618fbd46a6121da",
+      "pdf_pages": 44,
+      "abstract_words": 245,
+      "key_points": [
+        "Discarding incomplete years changes which hot spells, and which long-term temperature trends, a river record can support",
+        "Hidden hot-spell undercoverage concentrates in Bavarian air-temperature reconstructions; extra simulations move the ranges but not the cause",
+        "Choosing calendar years reduced trend error at fixed year counts in controlled gaps; restoring all supported years reduced it further"
+      ]
+    },
+    "supporting": {
+      "tex": "paper/wrr_tr/review_completion_supporting.tex",
+      "tex_sha256": "7e7c0b1012ad0b74b08f31895424f153c4758036b0dc3ed05154058bd4b3c871",
+      "pdf": "paper/wrr_tr/review_completion_supporting.pdf",
+      "pdf_sha256": "aa2c729e4baf71539f8097178bb0ba993cd9fc9d0cdc9f790b62257929890cc3",
+      "pdf_pages": 109
+    }
+  },
+  "cover_letter": {
+    "path": "paper/wrr_tr/review_completion_cover_letter.txt",
+    "sha256": "f890ca60c5bab59d6ec82ae636149d94312650c06271bfe5c101f800de081416",
+    "title_matches": true,
+    "controlled_gap_scope": true
+  },
+  "review_completion_report": {
+    "path": "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md",
+    "sha256": "31019fb64223184d7d68c2d38be18a64bc66cd57e412fde8f1a7b3d00c13cb75"
+  },
+  "tests": {
+    "path": "results/final_release_20261101_r4/targeted_tests_summary.json",
+    "sha256": "087871fb57e469a95f09e4871072bd31899a967fc68846afb748249e2849f593",
+    "passed": 143,
+    "tests": 143,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "Declared final-release test list; not the full repository test suite",
+    "junit": "targeted_tests.xml"
+  },
+  "package_verification": {
+    "path": "results/final_release_20261101_r4/package_verification.json",
+    "sha256": "3336dc1b892a55b1675a016391eb83abfad95517a7b9e64e5fc974ac3e548d32",
+    "status": "passed",
+    "package_sha256": "cae27ba49a02f0e6da165868bdf78017245b6e1fe549a899b10f1955b4cb2d9e",
+    "manuscript_pdf_text_matches_rebuild": true,
+    "members": 3428,
+    "abstract_words": 245
+  },
+  "package_delivery_check": {
+    "path": "results/final_release_20261101_r4/package_delivery_check.json",
+    "sha256": "e8ab44a3aa509c0557b4a0d7befa45eb6cdb007cdaa1a4750b5ab31369f819c2",
+    "status": "passed",
+    "archive_sha256": "cae27ba49a02f0e6da165868bdf78017245b6e1fe549a899b10f1955b4cb2d9e",
+    "scope": "Packaged/workspace byte identity and safe extraction; pre-replay scientific catalog hashes/rows/keys; packaged 930 transcription/PDF compilation, 975 source-calibration frozen replay, 977 annual frozen replay and 967 current observation arithmetic replay",
+    "extracted_check_keys": [
+      "catalog_checked_before_replay_receipts",
+      "catalog_preflight",
+      "current_observation_replay",
+      "frozen_source_dependency_manifest",
+      "frozen_time_dependency_manifest",
+      "isolation",
+      "local_calibration_probe_record",
+      "not_replayed",
+      "receipt_comparison",
+      "scientific_dependencies_unchanged_after_replay",
+      "source_calibration_frozen_replay",
+      "time_support_frozen_replay",
+      "transcription_and_pdf_compile"
+    ]
+  },
+  "extension_replay": {
+    "path": "results/final_release_20261101_r4/extension_replay.json",
+    "sha256": "5cd8335f70d62819658af18200f4de077fbf432bbe448061a3d03c20f4cf473d",
+    "status": "passed",
+    "archive_sha256": "cae27ba49a02f0e6da165868bdf78017245b6e1fe549a899b10f1955b4cb2d9e",
+    "archives": 1623,
+    "geometry_rows": 8115,
+    "max_numeric_difference": 2.1316282072803006e-14,
+    "tolerance": 1e-12
+  },
+  "local_ci_equivalent": {
+    "path": "results/final_release_20261101_r4/ci_local_summary.json",
+    "sha256": "6cecd63e5b4dca657224bf48410fbb1ec0d416f047a1f8b0e6f46f5383639fdd",
+    "status": "passed",
+    "source_check": {
+      "command": "ruff check --select E4,E7,E9,F src",
+      "exit_code": 0,
+      "findings": 0,
+      "report": "ruff_current.json",
+      "report_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "full_pytest": {
+      "exit_code": 0,
+      "scope": "Full repository pytest suite; Python 3.11 environment",
+      "junit": "full_pytest.xml",
+      "junit_sha256": "9bc70951412daa4b38624657de4c7cced7fbe2a453b37c87e0fce6972beb0543",
+      "command": "/home/lzq/anaconda3/bin/python -m pytest -q --junitxml /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r4/full_pytest.xml",
+      "interpreter": "/home/lzq/anaconda3/bin/python",
+      "python_version": "3.11.7",
+      "source_identity": {
+        "git_head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+        "src_tree_sha256": "b4aa46c30c67d133873a38e1f38cbb69914179290da94a657911dc23341dff99",
+        "pyproject_sha256": "cec5c4818a2e5b73b9e5176dcd953e4f49586454ddb83676fa8267e1f3adc76b"
+      },
+      "tests": 1711,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1710,
+      "created_utc": "2026-11-02T17:06:03.243413+00:00",
+      "stdout_tail": "overy_roster.py: 198 warnings\ntests/test_regulation_panel.py: 406 warnings\ntests/test_regulation_panel_auc_diagnosis.py: 208 warnings\ntests/test_t6_seplains_bfi.py: 125 warnings\ntests/test_wrr_backup_and_developed_system.py: 304 warnings\ntests/test_wrr_revision.py: 1261 warnings\ntests/test_wrr_submission_ready_p0.py: 909 warnings\ntests/test_wrr_universe.py: 32 warnings\n  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:614: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.\n    if is_sparse(pd_dtype) or not is_extension_array_dtype(pd_dtype):\n\ntests/test_reference_baselines.py::test_reference_extra_pins_exact_pypots_version\n  /home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7fd9d12c4860>\n  \n  Traceback (most recent call last):\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 400, in match_module_callback\n      self._make_module_from_path(filepath)\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 515, in _make_module_from_path\n      module = module_class(filepath, prefix, user_api, internal_api)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 606, in __init__\n      self.version = self.get_version()\n                     ^^^^^^^^^^^^^^^^^^\n    File \"/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py\", line 646, in get_version\n      config = get_config().split()\n               ^^^^^^^^^^^^^^^^^^\n  AttributeError: 'NoneType' object has no attribute 'split'\n  \n    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))\n\ntests/test_reference_baselines.py::test_official_cpu_tiny_smoke_and_diagnostics[brits]\ntests/test_reference_baselines.py::test_reference_checkpoint_round_trip_is_strict[csdi]\n  /home/lzq/anaconda3/lib/python3.11/site-packages/pypots/nn/modules/csdi/layers.py:17: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)\n    return nn.TransformerEncoder(encoder_layer, num_layers=layers)\n\ntests/test_wrr_review_completion.py: 12 warnings\n  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)\n    duals[candidate_idx] += step_size_clip\n\ntests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups\ntests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization\n  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: \n      You didn't specify the order of the vec expression. The default order\n      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's\n      default order ('C') in a future version of CVXPY.\n      To suppress this warning, please specify the order explicitly.\n      \n    warnings.warn(vec_order_warning, FutureWarning)\n\ntests/test_wrr_submission_ready_p0.py::test_outage_simulation_preserves_declared_length_across_year_end\n  <frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n- generated xml file: /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r4/full_pytest.xml -\n",
+      "stderr_tail": ""
+    },
+    "evidence_gate_decision": "inventory_only"
+  },
+  "scientific_checks": {
+    "main_pages": 44,
+    "supporting_pages": 109,
+    "abstract_words": 245,
+    "key_points_within_140_chars": true,
+    "si_title_and_1981_2025_row": true,
+    "cover_letter_title_and_scope": true,
+    "controlled_gap_scope_in_abstract": true,
+    "ratio_interpretation_in_article": true,
+    "station_group_heterogeneity_in_discussion": true,
+    "conditional_group_intervals_in_methods": true,
+    "central_contribution_stated": true,
+    "absolute_endpoint_change_label": true,
+    "abstract_numeric_values": true,
+    "archive_level_comparison_counts": true,
+    "extension_bootstrap_seed_disclosed": true,
+    "si_extension_bootstrap_seed_disclosed": true,
+    "archive_level_table_caption": true,
+    "uncertainty_scope_table_caption": true,
+    "review_tables_and_access_matrix_linked": true,
+    "fixed_reference_year_set_defined": true,
+    "si_geometry_derivation": true,
+    "si_calendar_extension": true
+  },
+  "coverage": {
+    "proved": [
+      "current source to current PDF text and page identity",
+      "package/workspace byte identity for every non-generated member",
+      "extracted-package transcription and compilation",
+      "frozen-input source-calibration, annual-selection and current-observation replay",
+      "extracted-package replay of the 1,623-archive calendar extension within 1e-12",
+      "local CI-equivalent source check and full pytest summary, recorded separately from the targeted list",
+      "143 targeted tests from the declared release list"
+    ],
+    "not_proved": [
+      "clean-environment installation",
+      "raw-provider reconstruction",
+      "model retraining",
+      "cross-climate external confirmation"
+    ],
+    "replay_scope": "Packaged/workspace byte identity and safe extraction; pre-replay scientific catalog hashes/rows/keys; packaged 930 transcription/PDF compilation, 975 source-calibration frozen replay, 977 annual frozen replay and 967 current observation arithmetic replay"
+  },
+  "pending_author_items": [
+    "author-approved names, order, ORCID, affiliations, funding, CRediT, conflicts and acknowledgments",
+    "legal reviewer access, including LUBW reuse and redistribution",
+    "permanent repository deposit and citable identifier"
+  ],
+  "note": "This acceptance record is local release evidence. It does not impersonate a WRR decision, fill author metadata or establish data rights."
+}

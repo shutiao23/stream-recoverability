@@ -1,0 +1,89 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{microtype}
+
+\journal{Environmental Modelling \& Software}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\setcounter{secnumdepth}{2}
+
+\begin{document}
+\setlength{\emergencystretch}{3em}
+
+\begin{frontmatter}
+\title{Supporting Information for: Discard or reconstruct? A leakage-safe benchmark of gap handling for annual heat extremes and their trends in river-temperature archives}
+\end{frontmatter}
+
+\noindent This Supporting Information contains eleven tables that document the station roster and trend signal, the archive-level direction counts, the scope of the uncertainty summaries, the H7 refit robustness check, the open-source and flow diagnostics, the definitions, the software release, and the data-access terms. All values are taken from saved result files; no new model fit or data download was performed for these tables.
+
+\section{Station, group, and reference-year summary}
+Table~\ref{tab:S1} summarizes the 41 forward stations by region and connected group. The cohort contains 24 Bavarian stations in eight groups, 10 Swiss stations in two groups, and seven USGS stations in seven groups. The median reference-year set contains 14 complete years (minimum 7, maximum 16), and 24 stations have at least one internal gap year inside their reference span.
+
+\input{si_tables/S1_station_summary}
+
+\section{Full station-level trend metrics}
+Table~\ref{tab:S2} reports the complete-record H30 trend metrics for all 41 forward stations. The OLS slope and its classical standard error are computed on each station's saved reference-year set. The Sen slope is the median of pairwise slopes. The Mann--Kendall $p$-value includes a tie correction in the variance of $S$ and a continuity correction, but no autocorrelation correction. The H30 interannual SD describes the year-to-year variability of the complete-record annual maximum.
+
+\input{si_tables/S2_station_trends}
+
+\section{Archive-level direction counts}
+Table~\ref{tab:S3} gives the within-archive direction of the all-year comparison for both gap families and for the same-count CDF and $S_{xx}$ calendar controls. The all-year rows are the primary comparison. Numerical equality uses an arithmetic $10^{-12}\,^{\circ}$C per decade tolerance and is not practical equivalence. Archives are station/mask combinations, not independent rivers. The uniform-exact calendar control is not tabulated because its archive-level estimate errors are not saved; its cohort RMSE is 0.449 (controlled) and 0.135 (calendar) $^{\circ}$C/10a, with 55 and 8 sign flips.
+
+\input{si_tables/S3_archive_direction}
+
+\section{Scope of the uncertainty summaries}
+Table~\ref{tab:S4} states what each of the four uncertainty summaries describes and what it does not establish. The four summaries are annual H30 90\% intervals, finite-record slope 95\% intervals, paired RMSE-difference 95\% group intervals, and three-source-seed or random-path ranges. None is a general coverage guarantee or a climate-process confidence interval.
+
+\input{si_tables/S4_uncertainty_scope}
+
+\section{H7 refit robustness}
+Table~\ref{tab:S5} reports the H7 refit. The H7 target is the annual maximum of seven consecutive daily means, not the H30 target used in the main analysis. The refit used 20 seeds and 540 outer-region fits. Panel A gives the danger-scope MAE, CRPS, tail CRPS, and 90\% coverage for the four estimators. Panel B gives the direction-stability comparison of D2 relative to calibrated stochastic regression: the median paired MAE reduction is 2.94\% in the crossed family and 4.85\% in the calendar family, and CRPS and tail CRPS improve in 20 of 20 seeds in both families. Panel C gives trend-target missingness-component coverage: D2 multiple imputation has median coverage 81.2\% under MCAR and 80.7\% under the strong-heat scenario, but 4.5\% under the non-air-trend scenario. The near-81\% value therefore describes the MCAR and strong-heat trend scenarios, not the non-air-trend scenario.
+
+\input{si_tables/S5_h7_robustness}
+
+\section{Open-source candidate-provider sensitivity}
+Table~\ref{tab:S6} reports the candidate-provider sensitivity. Replacing the restricted source providers with seven candidate providers changes the crossed/forward D2 trend RMSE from 0.164 to 0.158\,$^{\circ}$C/10a and the classical trend RMSE from 0.147 to 0.156\,$^{\circ}$C/10a over 738 four-way common pairs in 17 groups. D2 retention falls from 93.9\% to 93.7\% on 807 factor cases, and nominal 95\% D2 interval coverage falls from 88.0\% to 87.6\% on 820 coverage cases. The ranking of the two approaches is unchanged. This is a candidate open reproducibility route, not a legal clearance.
+
+\input{si_tables/S6_open_source}
+
+\section{Zero-flow flow-proxy logistic results}
+Table~\ref{tab:S7} reports the station-fixed conditional-logit associations between a warm-season-incomplete station-year and within-station standardized summer air temperature, within-station standardized summer log flow, and a linear trend. The flow-adjusted odds ratios are 0.594 [0.409, 0.813] for the recorded-zero cohort and 0.474 [0.265, 0.676] for the at-least-30-zero-day cohort. The air-temperature odds ratios are 0.993 [0.659, 1.305] and 0.855 [0.580, 1.275]. These are associations in a historical proxy cohort, not causal effects or a missing-at-random test.
+
+\input{si_tables/S7_zero_flow}
+
+\section{Flow-comparator summary}
+Table~\ref{tab:S8} reports availability and mean absolute error for the opened flow-comparator methods. Historical D2 has full availability and the lowest MAE in both scopes. Donor-dependent methods are available on 81.7\% of crossed/all eligible cases and do not lower paired MAE. The paired comparisons use 66,099 common cases in the all scope and 33,609 in the danger scope, covering 210 sites. The full cohort contains 255 sites, 8,999 complete climatic years, 134,925 cases, and 17 HUC2 region groups.
+
+\input{si_tables/S8_flow_comparators}
+
+\section{Definitions and symbols}
+Table~\ref{tab:S9} collects the terms and symbols used in the main text and in this Supporting Information. The decomposition $E=S+R$ is an arithmetic decomposition of the finite-record slope error, not a causal variance decomposition. The observed lower bound $L_y$ is a property of the reported series, not an annual estimate.
+
+\input{si_tables/S9_definitions}
+
+\section{Software and reproducibility}
+Table~\ref{tab:S10} summarizes the \texttt{gapbench} 1.2.0 release. The package exposes six public functions, passes 13 tests, includes a synthetic quickstart, and provides a Docker smoke environment that imports LightGBM and runs the quickstart without restricted observations. The version is consistent across the package metadata and citation file. An archival DOI and a v1.2.0 release tag are pending. The D2 model and the conditional AR(1) bridge remain in the research compendium.
+
+\input{si_tables/S10_software}
+
+\section{Data and access summary}
+Table~\ref{tab:S11} summarizes the data providers and access terms. FOEN, GKD Bayern, USGS NWIS, and NASA POWER are public sources with provider-specific attribution requirements. LUBW observations are restricted; reviewer access remains pending provider agreement and editorial/legal confirmation. The MIT license applies to the \texttt{gapbench} code and does not relicense observational data. Processed annual tables are distributed in the public repository; restricted daily observations are not. Archival DOIs for the code release and processed tables are pending.
+
+\input{si_tables/S11_data_access}
+
+\section{Wild cluster bootstrap sensitivity}
+Table~\ref{tab:S12} adds wild cluster bootstrap intervals for the paired RMSE differences of the main text. The wild procedures reweight the group-level influence function of the RMSE difference with Rademacher or Webb six-point signs and never resample the 17 connected groups, so they probe the same comparisons without the few-cluster resampling approximation. The median wild-to-group width ratio is 1.02. Directions are unchanged where both procedures agree: the calendar CDF interval includes zero under both procedures, the calendar $S_{xx}$ and all-year intervals exclude zero under both, and the controlled-gap D2$-$classic interval excludes zero under both. One comparison is method-dependent: the calendar D2$-$classic interval includes zero under group resampling but excludes zero under both wild procedures, so the common-case classical advantage on the calendar family is not promoted to a stable ranking. These intervals describe comparison variability conditional on the frozen per-archive tables; they are not new climate samples or a coverage guarantee.
+
+\input{si_tables/S12_wild_cluster_bootstrap}
+
+\end{document}

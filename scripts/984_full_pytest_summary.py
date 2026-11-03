@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import release_provenance
 
-DEFAULT_OUT = ROOT / "results/final_release_20261101_r3"
+DEFAULT_OUT = ROOT / "results/final_release_20261101_r4"
 
 
 def main() -> int:

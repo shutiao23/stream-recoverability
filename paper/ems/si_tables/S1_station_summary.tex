@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Station, connected-group, and reference-year summary by region. Complete-record years are the years in each station's saved reference-year set.}
+\label{tab:S1}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Region & Stations & Groups & \shortstack{Median complete-\\record years (range)} & \shortstack{Median first--\\last year} & \shortstack{Median\\span (years)} & \shortstack{Stations with\\internal gaps} \\
+\midrule
+FOEN (Switzerland) & 10 & 2 & 16 (15--16) & 2010--2025 & 16 & 1 \\
+GKD Bayern (Bavaria) & 24 & 8 & 13 (7--16) & 2010--2025 & 15 & 18 \\
+USGS HUC03 & 1 & 1 & 14 (14--14) & 2011--2025 & 15 & 1 \\
+USGS HUC04 & 1 & 1 & 11 (11--11) & 2010--2024 & 15 & 1 \\
+USGS HUC10 & 2 & 2 & 14 (12--16) & 2010--2025 & 16 & 1 \\
+USGS HUC17 & 3 & 3 & 12 (10--14) & 2010--2024 & 14 & 2 \\
+\midrule
+All forward stations & 41 & 17 & 14 (7--16) & 2010--2025 & 15 & 24 \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\footnotesize Notes: A station-year is one station and one calendar year. A connected group links stations by river network or record family and is the cluster unit. The reference-year set contains the complete years available for a station under the design and need not be contiguous. Span is last year minus first year plus one. Internal gaps count stations with at least one missing year inside the reference span. Source: \path{results/wrr_final_revision_20261031/reference_year_sets.csv} and \path{results/wrr_final_revision_20261031/retention_choice_counts.csv}.
+\end{table}

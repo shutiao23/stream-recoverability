@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stream-recoverability"
-version = "0.1.0"
-description = "Reproducible stream-temperature recoverability experiments for the Jinsha River monitoring network."
+version = "1.2.0"
+description = "Leakage-safe benchmarking of gap handling for annual heat extremes and river-temperature trends."
 license = {text = "MIT"}
 requires-python = ">=3.10"
 dependencies = [

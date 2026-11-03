@@ -1,0 +1,42 @@
+{
+  "exit_code": 0,
+  "scope": "Declared final-release test list; not the full repository test suite",
+  "junit": "targeted_tests.xml",
+  "junit_sha256": "d498addb2bb26dced99257067039519434ed140f88a3c026c878598ab6115e82",
+  "command": "/home/lzq/anaconda3/bin/python -m pytest -q --junitxml /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r4/targeted_tests.xml tests/test_wrr_source_trajectory_calibration.py tests/test_independent_calibration_audit.py tests/test_process_time_gap_sensitivity.py tests/test_region_water_adversarial.py tests/test_experiment_data_catalog.py tests/test_process_experiment_delivery.py tests/test_wrr_process_revision.py tests/test_review_manuscript_structure.py tests/test_wrr_adversarial_revision.py tests/test_wrr_process_time_gap_revision.py tests/test_wrr_trajectory_revision.py tests/test_current_observation_replay.py tests/test_review_completion_current_evidence.py tests/test_review_bundle_atomic_write.py tests/test_process_review_region_water.py tests/test_extension_replay_validator.py tests/test_stanford_revision.py tests/test_final_release_freshness.py",
+  "interpreter": "/home/lzq/anaconda3/bin/python",
+  "python_version": "3.11.7",
+  "source_identity": {
+    "git_head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+    "src_tree_sha256": "b4aa46c30c67d133873a38e1f38cbb69914179290da94a657911dc23341dff99",
+    "pyproject_sha256": "cec5c4818a2e5b73b9e5176dcd953e4f49586454ddb83676fa8267e1f3adc76b"
+  },
+  "tests": 143,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 143,
+  "files": [
+    "tests/test_wrr_source_trajectory_calibration.py",
+    "tests/test_independent_calibration_audit.py",
+    "tests/test_process_time_gap_sensitivity.py",
+    "tests/test_region_water_adversarial.py",
+    "tests/test_experiment_data_catalog.py",
+    "tests/test_process_experiment_delivery.py",
+    "tests/test_wrr_process_revision.py",
+    "tests/test_review_manuscript_structure.py",
+    "tests/test_wrr_adversarial_revision.py",
+    "tests/test_wrr_process_time_gap_revision.py",
+    "tests/test_wrr_trajectory_revision.py",
+    "tests/test_current_observation_replay.py",
+    "tests/test_review_completion_current_evidence.py",
+    "tests/test_review_bundle_atomic_write.py",
+    "tests/test_process_review_region_water.py",
+    "tests/test_extension_replay_validator.py",
+    "tests/test_stanford_revision.py",
+    "tests/test_final_release_freshness.py"
+  ],
+  "created_utc": "2026-11-01T18:07:35.848081+00:00",
+  "stdout_tail": "........................................................................ [ 50%]\n.......................................................................  [100%]\n- generated xml file: /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/final_release_20261101_r4/targeted_tests.xml -\n",
+  "stderr_tail": ""
+}

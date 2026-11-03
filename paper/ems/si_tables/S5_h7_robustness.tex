@@ -1,0 +1,49 @@
+\begin{table}[p]
+\centering
+\footnotesize
+\caption{H7 refit robustness. Panel A reports native H7 source refits over 20 seeds and 540 outer-region fits; seven-day peak supports, masks, history summaries, conditional functionals, MOVE augmentation, annual models, and disjoint calibration were recomputed. Panel B reports the direction-stability check for D2 (distribution regression) relative to calibrated stochastic regression. Panel C reports trend-target coverage of the missingness component for the multiple-imputation pipelines. These are H7 results, not the historical H30 endpoint.}
+\label{tab:S5}
+
+\textit{Panel A: H7 danger-scope refit scores (20 seeds).}\par\smallskip
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrrrrr}
+\toprule
+Family & Estimator & Seeds & MAE ($^{\circ}$C) & CRPS ($^{\circ}$C) & Tail CRPS ($^{\circ}$C) & Coverage 90\% \\
+\midrule
+Calendar & Distribution regression (D2) & 20 & 0.494 & 0.365 & 0.065 & 0.874 \\
+Calendar & Functional debiasing & 20 & 0.522 & -- & -- & -- \\
+Calendar & Daily plug-in & 20 & 0.638 & -- & -- & -- \\
+Calendar & Calibrated stochastic & 20 & 0.516 & 0.380 & 0.068 & 0.858 \\
+Crossed & Distribution regression (D2) & 20 & 0.348 & 0.257 & 0.046 & 0.892 \\
+Crossed & Functional debiasing & 20 & 0.375 & -- & -- & -- \\
+Crossed & Daily plug-in & 20 & 0.423 & -- & -- & -- \\
+Crossed & Calibrated stochastic & 20 & 0.360 & 0.265 & 0.048 & 0.893 \\
+\bottomrule
+\end{tabular}}
+
+\par\medskip
+\textit{Panel B: D2 relative to calibrated stochastic regression.}\par\smallskip
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+Family & Comparison & \shortstack{Median paired\\MAE reduction (\%)} & \shortstack{CRPS gain\\positive seeds} & \shortstack{Tail CRPS gain\\positive seeds} \\
+\midrule
+Crossed & D2 vs calibrated stochastic & 2.94 & 20/20 & 20/20 \\
+Calendar & D2 vs calibrated stochastic & 4.85 & 20/20 & 20/20 \\
+\bottomrule
+\end{tabular}}
+
+\par\medskip
+\textit{Panel C: Trend-target missingness-component coverage (median, seed range).}\par\smallskip
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Scenario & D2 multiple imputation & Calibrated stochastic MI & Stochastic regression MI \\
+\midrule
+MCAR & 81.2\% (79.1--86.2) & 78.4\% (75.7--79.7) & 75.6\% (73.9--76.7) \\
+Strong heat & 80.7\% (78.9--87.4) & 78.5\% (75.5--81.3) & 76.0\% (73.8--78.4) \\
+Non-air trend & 4.5\% (3.8--5.6) & 3.9\% (2.9--4.5) & 3.7\% (2.7--4.2) \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\footnotesize Notes: Panel A values are medians over 20 seeds in the dangerous decision-time stratum. Coverage is the empirical coverage of nominal 90\% annual H7 intervals. Panel B ``median paired MAE reduction'' is the median over saved station-level paired relative reductions in MAE for D2 relative to the calibrated stochastic comparator across the 20 seeds; positive CRPS and tail-CRPS gains mean lower D2 scores. Panel C covers the trend target, not the annual H7 target; values are medians with minimum--maximum seed ranges. H7 is a different target and is not used as confirmation of the H30 results. Source: \path{results/wrr_review_completion_20261024/evidence/H7_refit_scorecard_summary.csv}, \path{results/wrr_review_completion_20261024/evidence/H7_refit_direction_stability.csv}, \path{results/wrr_review_completion_20261024/target_windows/h7/full/trends_per_seed.csv}, and \path{results/wrr_review_completion_20261024/target_windows/h7/full/completion.json}.
+\end{table}

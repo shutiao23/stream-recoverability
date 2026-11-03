@@ -33,9 +33,9 @@ import release_provenance
 
 ROOT = Path(__file__).resolve().parents[1]
 OLD = ROOT / "dist/wrr_process_experiments_20261029.zip"
-DEST = ROOT / "dist/wrr_final_candidate_20261101_r3.zip"
-EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101_r3.manifest.json"
-OUT = ROOT / "results/final_release_20261101_r3"
+DEST = ROOT / "dist/wrr_final_candidate_20261101_r4.zip"
+EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261101_r4.manifest.json"
+OUT = ROOT / "results/final_release_20261101_r4"
 REVIEW = ROOT / "docs/reviews/wrr_stanford_perspective_20261031"
 GENERATED = [
     "REVIEW_PACKAGE_README.txt",
@@ -45,6 +45,11 @@ GENERATED = [
 ]
 BASE_EXCLUDE = {"REVIEW_PACKAGE_README.txt", "dependency_inventory.json"}
 ADDITIONS = [
+    "docs/reviews/wrr_comprehensive_review_20261102/REVIEW_ZH.md",
+    "docs/reviews/wrr_comprehensive_review_20261102/diagnose_scope.py",
+    "docs/reviews/wrr_comprehensive_review_20261102/SUBMISSION_READINESS_ZH.md",
+    "docs/reviews/wrr_comprehensive_review_20261102/OPEN_RESEARCH_ACCESS_PLAN_ZH.md",
+    "docs/reviews/wrr_comprehensive_review_20261102/CLAIM_EVIDENCE_ACCESS.csv",
     "docs/reviews/wrr_multiview_review_20261031/MINOR_REVISION_COMPLETION_ZH.md",
     "docs/reviews/wrr_multiview_review_20261031/PACKAGE_README.txt",
     "docs/reviews/wrr_multiview_review_20261031/POSTING_CHECKLIST.md",
@@ -60,24 +65,36 @@ ADDITIONS = [
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R3_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/WORK_PLAN_ZH.md",
     "docs/reviews/wrr_stanford_perspective_20261031/diagnostics.py",
+    "paper/wrr_tr/archive_level_comparisons_table.tex",
+    "paper/wrr_tr/uncertainty_scope_table.tex",
     "paper/wrr_tr/stanford_availability_supporting.tex",
     "paper/wrr_tr/stanford_calendar_supporting.tex",
     "paper/wrr_tr/stanford_calendar_table.tex",
     "paper/wrr_tr/stanford_geometry_supporting.tex",
     "paper/wrr_tr/stanford_geometry_table.tex",
     "paper/wrr_tr/stanford_revision_values.tex",
-    "results/final_release_20261101_r3/targeted_tests.xml",
-    "results/final_release_20261101_r3/targeted_tests_summary.json",
-    "results/final_release_20261101_r3/ci_local_summary.json",
-    "results/final_release_20261101_r3/evidence_snapshot_inventory.json",
-    "results/final_release_20261101_r3/full_pytest.xml",
-    "results/final_release_20261101_r3/full_pytest_summary.json",
-    "results/final_release_20261101_r3/restricted_hosting_audit_inventory.json",
-    "results/final_release_20261101_r3/ruff_current.json",
-    "results/final_release_20261101_r3/submission_gate_inventory_only.json",
-    "results/final_release_20261101_r3/workspace_consistency.json",
+    "results/final_release_20261101_r4/targeted_tests.xml",
+    "results/final_release_20261101_r4/targeted_tests_summary.json",
+    "results/final_release_20261101_r4/ci_local_summary.json",
+    "results/final_release_20261101_r4/evidence_snapshot_inventory.json",
+    "results/final_release_20261101_r4/full_pytest.xml",
+    "results/final_release_20261101_r4/full_pytest_summary.json",
+    "results/final_release_20261101_r4/restricted_hosting_audit_inventory.json",
+    "results/final_release_20261101_r4/ruff_current.json",
+    "results/final_release_20261101_r4/submission_gate_inventory_only.json",
+    "results/final_release_20261101_r4/workspace_consistency.json",
+    "results/wrr_comprehensive_review_20261102/archive_level_comparisons.csv",
+    "results/wrr_comprehensive_review_20261102/bootstrap_seed_sensitivity.csv",
+    "results/wrr_comprehensive_review_20261102/documentation_findings.json",
+    "results/wrr_comprehensive_review_20261102/scope_diagnostics.json",
+    "results/wrr_comprehensive_review_20261102/review_summary.json",
+    "results/wrr_comprehensive_review_20261102/saved_junit_audit.json",
+    "results/wrr_comprehensive_review_20261102/scientific_csv_identity.json",
+    "results/wrr_comprehensive_review_20261102/acceptance_probes.json",
+    "results/wrr_comprehensive_review_20261102/external_sources.json",
     "results/wrr_final_revision_20261031/annual_predictions_compact.csv",
     "results/wrr_final_revision_20261031/case_designs.csv",
     "results/wrr_final_revision_20261031/data_manifest.json",
@@ -290,7 +307,7 @@ def generated_documents(member_paths: list[str]) -> dict[str, bytes]:
     receipt = {
         "schema": "final_candidate_release_receipt_v1",
         "created_utc": utc_now(),
-        "revision": "2026-10-31 minor revision: current sources, both PDFs, SI synchronisation and scoped clarifications",
+        "revision": "2026-11-02 comprehensive review response: archive-level counts, extension-seed disclosure, uncertainty-scope table, access dossier, and release verification",
         "manuscripts": {},
         "abstract_words": abstract_words(),
         "key_points": key_points(),
@@ -331,6 +348,7 @@ def generated_documents(member_paths: list[str]) -> dict[str, bytes]:
 def build(_: argparse.Namespace) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     base = base_members()
+    require(len(ADDITIONS) == len(set(ADDITIONS)), "Duplicate declared additions")
     for relative in ADDITIONS:
         path = ROOT / relative
         require(path.is_file(), "Added package file is missing: " + relative)
@@ -513,6 +531,14 @@ def verify(_: argparse.Namespace) -> None:
         require("time support of finite-record heat slopes" in article_prose, "Article title missing from TeX source")
         absolute_stated = "median absolute 95th-percentile endpoint changes" in article_prose
         require(absolute_stated, "Absolute endpoint-change label missing from the abstract")
+        abstract_numbers = (
+            "slope RMSE 0.170" in article_prose
+            and "versus 0.446 under warm-season screening" in article_prose
+            and "reduce it to 0.428 and 0.402" in article_prose
+            and "warm-season RMSE is 0.114 and all-year 0.067" in article_prose
+            and "Hidden-peak 90\\% coverage is 67.9\\%" in article_prose
+        )
+        require(abstract_numbers, "Abstract numeric claims changed from saved results")
         reference_set_stated = ("specified set of complete reference years" in article_prose
                                 and "fixed, station-specific reference-year set" in article_prose
                                 and "need not be contiguous" in article_prose)
@@ -524,6 +550,33 @@ def verify(_: argparse.Namespace) -> None:
         calendar_stated = ("Empirical-calendar extension and selection opportunity" in supporting_text
                            and "818" in supporting_text)
         require(calendar_stated, "Calendar-family SI extension is missing")
+        archive_table_source = (extracted / "paper/wrr_tr/archive_level_comparisons_table.tex").read_text()
+        uncertainty_table_source = (extracted / "paper/wrr_tr/uncertainty_scope_table.tex").read_text()
+        supporting_source = (extracted / "paper/wrr_tr/review_completion_supporting.tex").read_text()
+        archive_level_counts = (
+            "630 of 805" in article_prose
+            and "231 of 818" in article_prose
+            and "169 and 57" in article_prose
+            and "6 and 530" in article_prose
+            and "288 calendar archives" in article_prose
+            and "231 improve and 57 worsen" in article_prose
+        )
+        require(archive_level_counts, "Archive-level benefit/heterogeneity counts missing from the article")
+        extension_seed_disclosed = ("seed 2026102969" in article_prose
+                                    and "seed 20261031" in article_prose)
+        require(extension_seed_disclosed, "Extension bootstrap seed is not disclosed with the original seed")
+        si_seed_disclosed = "seed 20261031" in supporting_source
+        require(si_seed_disclosed, "Extension bootstrap seed missing from the SI source")
+        archive_table_stated = ("Archive-level direction of the all-year slope-error comparison"
+                                in archive_table_source)
+        require(archive_table_stated, "Archive-level comparison table caption changed")
+        uncertainty_table_stated = ("Scope of four uncertainty summaries"
+                                    in uncertainty_table_source)
+        require(uncertainty_table_stated, "Uncertainty-scope table caption changed")
+        review_tables_linked = ("tab:archive-level" in article_prose
+                                and "tab:uncertainty-scope" in article_prose
+                                and "claim-to-file access matrix" in article_prose)
+        require(review_tables_linked, "Comprehensive-review tables or access matrix are not linked from the article")
 
         cover_text = (extracted / "paper/wrr_tr/review_completion_cover_letter.txt").read_text()
         require("time support of finite-record heat slopes" in cover_text,
@@ -547,9 +600,16 @@ def verify(_: argparse.Namespace) -> None:
             "conditional_group_intervals_in_methods": intervals_conditioned,
             "central_contribution_stated": contribution_stated,
             "absolute_endpoint_change_label": absolute_stated,
+            "abstract_numeric_values": abstract_numbers,
             "fixed_reference_year_set_defined": reference_set_stated,
             "si_geometry_derivation": geometry_stated,
             "si_calendar_extension": calendar_stated,
+            "archive_level_comparison_counts": archive_level_counts,
+            "extension_bootstrap_seed_disclosed": extension_seed_disclosed,
+            "si_extension_bootstrap_seed_disclosed": si_seed_disclosed,
+            "archive_level_table_caption": archive_table_stated,
+            "uncertainty_scope_table_caption": uncertainty_table_stated,
+            "review_tables_and_access_matrix_linked": review_tables_linked,
         }
         require(transcription["abstract_words"] == receipt["abstract_words"],
                 "Receipt abstract word count differs from extracted package")
@@ -667,6 +727,14 @@ def accept(_: argparse.Namespace) -> None:
         release_provenance.validate_summary(tests, "targeted", OUT)
     except ValueError as error:
         require(False, str(error))
+    declared_modules = {".".join(Path(relative).with_suffix("").parts) for relative in TARGETED_TEST_FILES}
+    junit_path = Path(tests["junit"])
+    if not junit_path.is_absolute():
+        junit_path = OUT / junit_path
+    observed_modules = release_provenance.junit_modules(junit_path)
+    missing_modules = sorted(declared_modules - observed_modules)
+    require(not missing_modules,
+            "Targeted JUnit does not cover declared test files: " + ", ".join(missing_modules))
     require(tests.get("source_identity", {}).get("src_tree_sha256")
             == release_provenance.source_identity()["src_tree_sha256"],
             "Targeted tests were not run on the current source tree")
@@ -722,14 +790,16 @@ def accept(_: argparse.Namespace) -> None:
         }
     manuscript_report["article"]["abstract_words"] = abstract_words()
     manuscript_report["article"]["key_points"] = key_points()
-    completion = REVIEW / "REVISION_COMPLETION_20261101_R3_ZH.md"
+    require(all(verification["scientific_text_checks"].values()),
+            "Scientific text checks did not all pass")
+    completion = REVIEW / "REVISION_COMPLETION_20261101_R4_ZH.md"
     acceptance = {
         "schema_version": "final_candidate_acceptance_v1",
         "status": "complete",
         "complete": True,
-        "review_date": "2026-11-01 Asia/Shanghai",
+        "review_date": "2026-11-02 Asia/Shanghai",
         "created_utc": utc_now(),
-        "revision": "Post-fix revision: outside-root compact replay, JUnit-bound full-test summary, per-field units and mask encoding, all-ones glyph correction, and abstract balance; acceptance is bound to the current package, PDFs, JUnit and source tree.",
+        "revision": "2026-11-02 comprehensive review response: archive-level benefit counts, extension-seed disclosure, uncertainty-scope and access matrices; JUnit testcase-level count validation, result-directory binding, full and targeted failure/error gates, and a clarified abstract interval; acceptance is bound to the current package, PDFs, JUnit and source tree.",
         "git": git_state(),
         "package": {
             "path": manifest["package"],
@@ -781,6 +851,13 @@ def accept(_: argparse.Namespace) -> None:
             "conditional_group_intervals_in_methods": verification["scientific_text_checks"]["conditional_group_intervals_in_methods"],
             "central_contribution_stated": verification["scientific_text_checks"]["central_contribution_stated"],
             "absolute_endpoint_change_label": verification["scientific_text_checks"]["absolute_endpoint_change_label"],
+            "abstract_numeric_values": verification["scientific_text_checks"]["abstract_numeric_values"],
+            "archive_level_comparison_counts": verification["scientific_text_checks"]["archive_level_comparison_counts"],
+            "extension_bootstrap_seed_disclosed": verification["scientific_text_checks"]["extension_bootstrap_seed_disclosed"],
+            "si_extension_bootstrap_seed_disclosed": verification["scientific_text_checks"]["si_extension_bootstrap_seed_disclosed"],
+            "archive_level_table_caption": verification["scientific_text_checks"]["archive_level_table_caption"],
+            "uncertainty_scope_table_caption": verification["scientific_text_checks"]["uncertainty_scope_table_caption"],
+            "review_tables_and_access_matrix_linked": verification["scientific_text_checks"]["review_tables_and_access_matrix_linked"],
             "fixed_reference_year_set_defined": verification["scientific_text_checks"]["fixed_reference_year_set_defined"],
             "si_geometry_derivation": verification["scientific_text_checks"]["si_geometry_derivation"],
             "si_calendar_extension": verification["scientific_text_checks"]["si_calendar_extension"],

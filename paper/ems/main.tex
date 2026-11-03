@@ -1,0 +1,50 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{microtype}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{lmodern}
+
+\journal{Environmental Modelling \& Software}
+
+\begin{document}
+
+\begin{frontmatter}
+\input{frontmatter.tex}
+
+\begin{abstract}
+\input{abstract.tex}
+\end{abstract}
+
+\begin{keyword}
+river temperature \sep heat extremes \sep missing data \sep gap handling \sep trend uncertainty \sep open-source software
+\end{keyword}
+
+\begin{highlights}
+\input{highlights.txt}
+\end{highlights}
+\end{frontmatter}
+
+\IfFileExists{body.tex}{%
+  \input{body.tex}%
+}{%
+  \section*{Manuscript body}
+  \noindent\textit{[Manuscript body to be inserted from \texttt{body.tex}.]}
+  \IfFileExists{figures.tex}{\input{figures.tex}}{}
+  \IfFileExists{open_source_flow.tex}{\input{open_source_flow.tex}}{}
+}
+
+\input{declarations.tex}
+\input{software_availability.tex}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references_ems}
+
+\end{document}

@@ -1,0 +1,27 @@
+\begin{table}[p]
+\centering
+\footnotesize
+\caption{Archive-level direction of the all-year slope-error comparison. Counts give archives in which each scheme's absolute finite-record slope error is smaller than, larger than, or numerically equal to warm-season screening; the all-year rows are the primary comparison and the CDF and $S_{xx}$ rows use the same-count controls. Median change is the within-archive absolute-error change in $^{\circ}$C per decade. Numerical equality uses an arithmetic $10^{-12}\,^{\circ}$C per decade tolerance, which is not practical equivalence. The controlled 30--90-day gap and empirical-calendar families are separate cohorts, and archives are station/mask combinations rather than independent rivers; a changed year set means that the selected years differ from those retained under warm-season screening.}
+\label{tab:S3}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrrrrrr}
+\toprule
+Family & Scheme & Subset & $n$ & Smaller abs. error & Larger abs. error & Numerically equal & Median change \\
+\midrule
+Controlled 30--90 day & All years & All archives & 805 & 630 & 169 & 6 & $-0.1395$ \\
+Controlled 30--90 day & All years & Changed year set & 800 & 630 & 169 & 1 & $-0.1400$ \\
+Controlled 30--90 day & CDF & All archives & 805 & 197 & 170 & 438 & 0.0000 \\
+Controlled 30--90 day & CDF & Changed year set & 367 & 197 & 170 & 0 & $-0.0196$ \\
+Controlled 30--90 day & $S_{xx}$ & All archives & 805 & 218 & 158 & 429 & 0.0000 \\
+Controlled 30--90 day & $S_{xx}$ & Changed year set & 376 & 218 & 158 & 0 & $-0.0421$ \\
+\addlinespace
+Empirical calendar & All years & All archives & 818 & 231 & 57 & 530 & 0.0000 \\
+Empirical calendar & All years & Changed year set & 288 & 231 & 57 & 0 & $-0.0578$ \\
+Empirical calendar & CDF & All archives & 818 & 144 & 91 & 583 & 0.0000 \\
+Empirical calendar & CDF & Changed year set & 235 & 144 & 91 & 0 & $-0.0256$ \\
+Empirical calendar & $S_{xx}$ & All archives & 818 & 151 & 83 & 584 & 0.0000 \\
+Empirical calendar & $S_{xx}$ & Changed year set & 234 & 151 & 83 & 0 & $-0.0490$ \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\footnotesize Notes: ``Smaller abs. error'' and ``Larger abs. error'' count archives relative to warm-season screening at the same station and mask. The all-year comparison is the primary row; the CDF and $S_{xx}$ rows are same-count calendar controls. Median change is the median within-archive change in absolute slope error, not a cohort RMSE. The \texttt{uniform\_exact} scheme is not shown as a row because its archive-level estimate errors are not saved for this cohort; its saved cohort RMSE is 0.449 (controlled) and 0.135 (calendar) $^{\circ}$C/10a, with 55 and 8 sign flips. Source: \path{results/wrr_comprehensive_review_20261102/archive_level_comparisons.csv}; the uniform-exact cohort values are from \path{results/ems_revision_20261102/trend_signal.csv}.
+\end{table}

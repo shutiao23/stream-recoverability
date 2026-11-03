@@ -1,0 +1,80 @@
+{
+  "source_tables": "results/wrr_final_revision_20261031",
+  "stations": {
+    "n": 41,
+    "median_years": 14.0,
+    "median_ols_slope_c_per_decade": 0.754,
+    "median_ols_se_c_per_decade": 0.59,
+    "rms_ols_se_c_per_decade": 0.642,
+    "ols_p_below_005": 3,
+    "kendall_p_below_005": 4,
+    "median_abs_ols_minus_sen": 0.102,
+    "median_interannual_h30_sd_c": 1.011
+  },
+  "archives": {
+    "crossed/warm90": {
+      "n": 805,
+      "rmse_c_per_decade": 0.4459,
+      "median_error_over_se": 0.357,
+      "p90_error_over_se": 1.148,
+      "share_error_above_one_se": 0.1342,
+      "sign_flips": 53
+    },
+    "crossed/cdf_all_years": {
+      "n": 805,
+      "rmse_c_per_decade": 0.4284,
+      "median_error_over_se": 0.346,
+      "p90_error_over_se": 1.12,
+      "share_error_above_one_se": 0.1255,
+      "sign_flips": 51
+    },
+    "crossed/sxx_all_years": {
+      "n": 805,
+      "rmse_c_per_decade": 0.4023,
+      "median_error_over_se": 0.315,
+      "p90_error_over_se": 0.997,
+      "share_error_above_one_se": 0.0994,
+      "sign_flips": 42
+    },
+    "crossed/all": {
+      "n": 805,
+      "rmse_c_per_decade": 0.1697,
+      "median_error_over_se": 0.108,
+      "p90_error_over_se": 0.458,
+      "share_error_above_one_se": 0.0075,
+      "sign_flips": 16
+    },
+    "calendar/warm90": {
+      "n": 818,
+      "rmse_c_per_decade": 0.1136,
+      "median_error_over_se": 0.002,
+      "p90_error_over_se": 0.279,
+      "share_error_above_one_se": 0.0024,
+      "sign_flips": 3
+    },
+    "calendar/cdf_all_years": {
+      "n": 818,
+      "rmse_c_per_decade": 0.0984,
+      "median_error_over_se": 0.002,
+      "p90_error_over_se": 0.195,
+      "share_error_above_one_se": 0.0,
+      "sign_flips": 5
+    },
+    "calendar/sxx_all_years": {
+      "n": 818,
+      "rmse_c_per_decade": 0.0859,
+      "median_error_over_se": 0.002,
+      "p90_error_over_se": 0.174,
+      "share_error_above_one_se": 0.0012,
+      "sign_flips": 4
+    },
+    "calendar/all": {
+      "n": 818,
+      "rmse_c_per_decade": 0.0674,
+      "median_error_over_se": 0.0,
+      "p90_error_over_se": 0.095,
+      "share_error_above_one_se": 0.0012,
+      "sign_flips": 0
+    }
+  }
+}

@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Open-source candidate-provider sensitivity on the crossed/forward cohort. The candidate route refits the source models on seven candidate providers with recorded reuse paths while retaining the target masks, daily features, and plug-in baselines. Retention and coverage are D2 quantities.}
+\label{tab:S6}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrr}
+\toprule
+Metric & Original source & Candidate source \\
+\midrule
+D2 trend RMSE ($^{\circ}$C/10a) & 0.164 & 0.158 \\
+Classical trend RMSE ($^{\circ}$C/10a) & 0.147 & 0.156 \\
+D2 retention in the symmetric MSE decomposition (\%) & 93.9 & 93.7 \\
+Nominal 95\% D2 interval coverage (\%) & 88.0 & 87.6 \\
+Common four-way pairs & 738 & 738 \\
+Connected groups & 17 & 17 \\
+Factor cases for retention & 807 & 807 \\
+Coverage cases & 820 & 820 \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\footnotesize Notes: The candidate route leaves the ranking of D2 and the classical comparator unchanged. It is a candidate open reproducibility route, not a legal clearance: LUBW rights and the provenance of neighbor records still require confirmation. Candidate-source tables are descriptive, repetitions are not independent climates, and the filtered inputs remain processed study data rather than provider-native records. Source: \path{results/ems_revision_20261102/flow_diagnostic.json}, extracted from \path{paper/wrr_tr/open_source_values.tex}.
+\end{table}

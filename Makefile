@@ -287,6 +287,30 @@ review-final-tests:
 review-extension-replay:
 	$(PYTHON) scripts/983_verify_extension_replay.py
 
+# Current r4 candidate convenience targets. The historical default targets above
+# are unchanged.
+.PHONY: review-current-verify review-current-delivery review-current-replay review-current-tests review-current-accept review-current-candidate
+review-current-verify:
+	$(PYTHON) scripts/980_final_release.py verify
+
+review-current-delivery:
+	$(PYTHON) scripts/978_process_experiment_delivery.py --archive dist/wrr_final_candidate_20261101_r4.zip --output results/final_release_20261101_r4/package_delivery_check.json
+
+review-current-replay:
+	$(PYTHON) scripts/983_verify_extension_replay.py
+
+review-current-tests:
+	$(PYTHON) scripts/982_final_release_tests.py
+	$(PYTHON) scripts/984_full_pytest_summary.py --out results/final_release_20261101_r4
+	$(PYTHON) scripts/985_build_local_ci_summary.py --out results/final_release_20261101_r4
+
+review-current-accept:
+	$(PYTHON) scripts/980_final_release.py accept
+
+# Tests are optional here because acceptance validates the saved test records;
+# run review-current-tests first when those records are absent or stale.
+review-current-candidate: review-current-verify review-current-delivery review-current-replay review-current-accept
+
 review-figures-from-summaries:
 	$(PYTHON) scripts/552_recreate_aggregate_figures.py
 

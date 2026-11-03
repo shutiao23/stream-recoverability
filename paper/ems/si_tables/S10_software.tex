@@ -1,0 +1,24 @@
+\begin{table}[p]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{0.95}
+\caption{Software and reproducibility summary for \texttt{gapbench} 1.2.0. The released package contains the reusable primitive layer; fitted D2 and AR(1) bridge models remain in the research compendium.}
+\label{tab:S10}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.71\textwidth}}
+\toprule
+Item & Status \\
+\midrule
+Package & \texttt{gapbench} 1.2.0; Python $\ge$ 3.10; NumPy $\ge$ 1.24; pandas $\ge$ 2.0; MIT license for code. \\
+Public API & Six functions exported from the package root: \texttt{observed\_window\_bound}, \texttt{finite\_record\_slope}, \texttt{select\_years}, \texttt{decompose\_slope\_error}, \texttt{group\_splits}, and \texttt{mask\_archive}. \\
+Tests & 13 tests. Clean test command: \texttt{pip install -e "gapbench[test]"} followed by \texttt{python -m pytest -q gapbench/tests}; all 13 pass. \\
+Quickstart & Synthetic 20-year daily series with four gaps. The example measures the best fully observed 30-day window, selects 18 years under both calendar rules while retaining all 16 complete years, and decomposes the slope error. It runs in under one second. \\
+Docker & Python 3.11 slim image; installs the review and development extras, imports LightGBM, and runs the quickstart. The container contains no restricted observations. \\
+Version consistency & \texttt{pyproject.toml}, \texttt{CITATION.cff}, and the preferred citation report version 1.2.0; the consistency check reports PASS with a warning that the historical v1.0.0 git tag does not describe version 1.2.0. \\
+Archival DOI & No Zenodo deposit yet. GitHub release v1.2.0 marks this version; the archival DOI remains pending. \\
+Reviewer access & The public repository requires no credentials. Restricted LUBW observations are not redistributed; their access route remains pending provider agreement and editorial/legal confirmation. \\
+Program size and replay memory & 24 files, 1{,}012 lines of Python, 264\,KiB uncompressed (23\,KiB zipped). Measured on one CPU core: quickstart 0.13\,s wall clock and 35\,MiB peak resident set; full packaged replay of all 1{,}623 archive-level masks (8{,}115 strategy rows) 9.7\,s and 289\,MiB peak resident set. \\
+Research compendium & The D2 quantile model and the conditional AR(1) bridge are not part of \texttt{gapbench}. This separation keeps the published primitives stable while the fitted models depend on restricted data. \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize Notes: The MIT license applies only to original software and project-authored documentation. It does not relicense observational data or upstream provider products. Source: \path{gapbench/pyproject.toml}, \path{CITATION.cff}, \path{Dockerfile}, and the test suite under \path{gapbench/tests}.
+\end{table}

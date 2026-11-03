@@ -1,0 +1,26 @@
+\begin{table}[p]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{0.95}
+\caption{Definitions and symbols used in the main text and this Supporting Information.}
+\label{tab:S9}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.73\textwidth}}
+\toprule
+Term or symbol & Definition \\
+\midrule
+Station-year & One station and one calendar year. \\
+Archive & One station $\times$ one source repetition $\times$ one gap setting or empirical calendar. The controlled-gap cohort contains 805 analyzed archives; the empirical-calendar cohort contains 818. \\
+Connected group & A set of stations linked by the same river network or record family. It is the cluster unit for group-disjoint calibration and resampling. \\
+Reference-year set $Y_i$ & The complete years available for station $i$ under the evaluation design. It need not be contiguous, and years outside it are not imputed as part of the target. The target is the finite-record slope on $Y_i$. \\
+H30 & Annual maximum of the 30-day running mean water temperature in year $y$. It is a sustained-heat summary, not an ecological standard. \\
+H7 & Annual maximum 7-day mean water temperature. It is a different target, used only as a robustness check and not as confirmation of the H30 results. \\
+$L_y$ & Largest fully observed 30-day mean in an incomplete year $y$. It satisfies $\mathrm{H30}_y\ge L_y$ for the reported series and is an observed lower bound, not an annual estimate. \\
+SE & Classical OLS standard error of the finite-record slope on the reference years. It excludes autocorrelation and is a lower bound on the trend's sampling uncertainty. \\
+$S$, $R$, $E$ & With $\beta_F$ the complete-record slope on $Y_i$, $\beta_S$ the complete-record slope on the selected year set, and $\beta_{SE}$ the estimated slope on that set: $S=\beta_S-\beta_F$, $R=\beta_{SE}-\beta_S$, and $E=\beta_{SE}-\beta_F=S+R$. The squared-error identity includes the cross term $2\,\operatorname{mean}(SR)$; the terms are an arithmetic decomposition, not causal variance shares. \\
+Controlled gap & A contiguous 30-, 60-, or 90-day mask applied jointly to every year of an archive, with at least half overlap of the training-period climatological peak. This is a severe stress, not an estimate of outage frequency. \\
+Empirical calendar & A year-specific gap calendar copied from the observed archive. It preserves each year's gap length and seasonal position but not the exact missing days, so it is closer to observed annual longest-gap conditions than the controlled stress. \\
+Warm-season rule & A station-specific 90\% coverage rule requiring coverage in the five consecutive warm months. The 95\% annual-coverage rule is a secondary comparator. \\
+\bottomrule
+\end{tabular}
+\par\smallskip\footnotesize Notes: Definitions follow the main text and this Supporting Information; the 805 controlled-gap and 818 empirical-calendar archive counts are from \path{results/ems_revision_20261102/trend_signal.csv}.
+\end{table}

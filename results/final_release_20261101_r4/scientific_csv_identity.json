@@ -1,0 +1,77 @@
+{
+  "schema": "candidate_scientific_csv_identity_v1",
+  "scope": "Byte hashes of the 11 scientific CSV members across the three 2026-11-01 candidates; no scientific value is recomputed here.",
+  "candidates": {
+    "r2": {
+      "path": "dist/wrr_final_candidate_20261101_r2.zip",
+      "sha256": "7d1d5b9a7b96f122141551f49684494d331e58105ec3b85ebb0987316469c395"
+    },
+    "r3": {
+      "path": "dist/wrr_final_candidate_20261101_r3.zip",
+      "sha256": "18c5659a4d1c8f7db40616bf31cb93924a5a0530f56002893c7dcfd1ca0125d7"
+    },
+    "r4": {
+      "path": "dist/wrr_final_candidate_20261101_r4.zip",
+      "sha256": "cae27ba49a02f0e6da165868bdf78017245b6e1fe549a899b10f1955b4cb2d9e"
+    }
+  },
+  "csv_count": 11,
+  "all_identical": true,
+  "csv": {
+    "results/wrr_final_revision_20261031/annual_predictions_compact.csv": {
+      "r2": "baa5947789d067e8792fe82ea5a9b80dbe853a6d197ffc6854526e3eae4a3444",
+      "r3": "baa5947789d067e8792fe82ea5a9b80dbe853a6d197ffc6854526e3eae4a3444",
+      "r4": "baa5947789d067e8792fe82ea5a9b80dbe853a6d197ffc6854526e3eae4a3444"
+    },
+    "results/wrr_final_revision_20261031/case_designs.csv": {
+      "r2": "3c998d51104dab5ee78f4fbd26c11ab0ec7f42efba3e39697f85652f450232b4",
+      "r3": "3c998d51104dab5ee78f4fbd26c11ab0ec7f42efba3e39697f85652f450232b4",
+      "r4": "3c998d51104dab5ee78f4fbd26c11ab0ec7f42efba3e39697f85652f450232b4"
+    },
+    "results/wrr_final_revision_20261031/estimator_availability.csv": {
+      "r2": "458be33b00601c97300c960a0b6a475557fcbebf0600adfe4b7ab9425b217883",
+      "r3": "458be33b00601c97300c960a0b6a475557fcbebf0600adfe4b7ab9425b217883",
+      "r4": "458be33b00601c97300c960a0b6a475557fcbebf0600adfe4b7ab9425b217883"
+    },
+    "results/wrr_final_revision_20261031/estimator_paired_comparisons.csv": {
+      "r2": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628",
+      "r3": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628",
+      "r4": "ab535938794b6851638371f2308934cdf8aadb96256eb398f8482385aa432628"
+    },
+    "results/wrr_final_revision_20261031/estimator_unavailable_subset.csv": {
+      "r2": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de",
+      "r3": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de",
+      "r4": "e0f6953e3c562c95e7867616103c890e1e4973436dd78b44144979049d5c18de"
+    },
+    "results/wrr_final_revision_20261031/reference_truths.csv": {
+      "r2": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402",
+      "r3": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402",
+      "r4": "d794da286e354825da0c0e30e6a1af834487cebc7783210e6437f0e79b7fc402"
+    },
+    "results/wrr_final_revision_20261031/reference_year_sets.csv": {
+      "r2": "d6dfd5834f2f326e1a48858940d37f0783b3ef1a10d3c8111b919fd46745572b",
+      "r3": "d6dfd5834f2f326e1a48858940d37f0783b3ef1a10d3c8111b919fd46745572b",
+      "r4": "d6dfd5834f2f326e1a48858940d37f0783b3ef1a10d3c8111b919fd46745572b"
+    },
+    "results/wrr_final_revision_20261031/retention_choice_counts.csv": {
+      "r2": "30b1e89e8047c5d2d62ddd591e893cb3d5251e703c4dadd583f15d325d55e346",
+      "r3": "30b1e89e8047c5d2d62ddd591e893cb3d5251e703c4dadd583f15d325d55e346",
+      "r4": "30b1e89e8047c5d2d62ddd591e893cb3d5251e703c4dadd583f15d325d55e346"
+    },
+    "results/wrr_final_revision_20261031/retention_family_summary.csv": {
+      "r2": "02c66126fe6949f6233555cf79017bc5fe3ae4cc462bf39995702c800fbcad35",
+      "r3": "02c66126fe6949f6233555cf79017bc5fe3ae4cc462bf39995702c800fbcad35",
+      "r4": "02c66126fe6949f6233555cf79017bc5fe3ae4cc462bf39995702c800fbcad35"
+    },
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv": {
+      "r2": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
+      "r3": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
+      "r4": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550"
+    },
+    "results/wrr_final_revision_20261031/retention_paired_intervals.csv": {
+      "r2": "46cce6af2d557dd0fec6a7b059bf90b2f17a1fd158f6b3b3ce996c38c7a9f231",
+      "r3": "46cce6af2d557dd0fec6a7b059bf90b2f17a1fd158f6b3b3ce996c38c7a9f231",
+      "r4": "46cce6af2d557dd0fec6a7b059bf90b2f17a1fd158f6b3b3ce996c38c7a9f231"
+    }
+  }
+}

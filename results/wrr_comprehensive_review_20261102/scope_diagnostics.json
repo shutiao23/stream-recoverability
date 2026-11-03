@@ -1,0 +1,249 @@
+{
+  "scope": "Post-hoc reviewer diagnostics on the same saved predictions and same cohorts; no model refit, no new independent evidence.",
+  "absolute_error_tie_tolerance": 1e-12,
+  "tie_tolerance_unit": "degrees C per decade; numerical equality only, not practical equivalence",
+  "bootstrap_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20261031
+  ],
+  "draws_per_seed": 10000,
+  "archive_comparisons": [
+    {
+      "family": "calendar",
+      "scheme": "cdf_all_years",
+      "subset": "all_archives",
+      "n": 818,
+      "smaller_absolute_error": 144,
+      "larger_absolute_error": 91,
+      "numerically_equal": 583,
+      "median_absolute_error_change": 0.0
+    },
+    {
+      "family": "calendar",
+      "scheme": "cdf_all_years",
+      "subset": "changed_year_set",
+      "n": 235,
+      "smaller_absolute_error": 144,
+      "larger_absolute_error": 91,
+      "numerically_equal": 0,
+      "median_absolute_error_change": -0.02557646582364953
+    },
+    {
+      "family": "calendar",
+      "scheme": "sxx_all_years",
+      "subset": "all_archives",
+      "n": 818,
+      "smaller_absolute_error": 151,
+      "larger_absolute_error": 83,
+      "numerically_equal": 584,
+      "median_absolute_error_change": 0.0
+    },
+    {
+      "family": "calendar",
+      "scheme": "sxx_all_years",
+      "subset": "changed_year_set",
+      "n": 234,
+      "smaller_absolute_error": 151,
+      "larger_absolute_error": 83,
+      "numerically_equal": 0,
+      "median_absolute_error_change": -0.04897521080513853
+    },
+    {
+      "family": "calendar",
+      "scheme": "all",
+      "subset": "all_archives",
+      "n": 818,
+      "smaller_absolute_error": 231,
+      "larger_absolute_error": 57,
+      "numerically_equal": 530,
+      "median_absolute_error_change": 0.0
+    },
+    {
+      "family": "calendar",
+      "scheme": "all",
+      "subset": "changed_year_set",
+      "n": 288,
+      "smaller_absolute_error": 231,
+      "larger_absolute_error": 57,
+      "numerically_equal": 0,
+      "median_absolute_error_change": -0.05777300505528877
+    },
+    {
+      "family": "crossed",
+      "scheme": "cdf_all_years",
+      "subset": "all_archives",
+      "n": 805,
+      "smaller_absolute_error": 197,
+      "larger_absolute_error": 170,
+      "numerically_equal": 438,
+      "median_absolute_error_change": 0.0
+    },
+    {
+      "family": "crossed",
+      "scheme": "cdf_all_years",
+      "subset": "changed_year_set",
+      "n": 367,
+      "smaller_absolute_error": 197,
+      "larger_absolute_error": 170,
+      "numerically_equal": 0,
+      "median_absolute_error_change": -0.019576638094566792
+    },
+    {
+      "family": "crossed",
+      "scheme": "sxx_all_years",
+      "subset": "all_archives",
+      "n": 805,
+      "smaller_absolute_error": 218,
+      "larger_absolute_error": 158,
+      "numerically_equal": 429,
+      "median_absolute_error_change": 0.0
+    },
+    {
+      "family": "crossed",
+      "scheme": "sxx_all_years",
+      "subset": "changed_year_set",
+      "n": 376,
+      "smaller_absolute_error": 218,
+      "larger_absolute_error": 158,
+      "numerically_equal": 0,
+      "median_absolute_error_change": -0.04205223864095427
+    },
+    {
+      "family": "crossed",
+      "scheme": "all",
+      "subset": "all_archives",
+      "n": 805,
+      "smaller_absolute_error": 630,
+      "larger_absolute_error": 169,
+      "numerically_equal": 6,
+      "median_absolute_error_change": -0.13948641738511391
+    },
+    {
+      "family": "crossed",
+      "scheme": "all",
+      "subset": "changed_year_set",
+      "n": 800,
+      "smaller_absolute_error": 630,
+      "larger_absolute_error": 169,
+      "numerically_equal": 1,
+      "median_absolute_error_change": -0.14001023688439382
+    }
+  ],
+  "bootstrap_sensitivity": [
+    {
+      "family": "calendar",
+      "scheme": "all",
+      "seed_count": 21,
+      "intervals_containing_zero": 0,
+      "lower_endpoint_min": -0.0715944976551394,
+      "lower_endpoint_max": -0.06971695773023599,
+      "upper_endpoint_min": -0.029693581846298205,
+      "upper_endpoint_max": -0.028642690380704182
+    },
+    {
+      "family": "calendar",
+      "scheme": "cdf_all_years",
+      "seed_count": 21,
+      "intervals_containing_zero": 21,
+      "lower_endpoint_min": -0.045076271952862436,
+      "lower_endpoint_max": -0.04368421389165711,
+      "upper_endpoint_min": 7.889400838554163e-05,
+      "upper_endpoint_max": 0.0005443828187717986
+    },
+    {
+      "family": "calendar",
+      "scheme": "sxx_all_years",
+      "seed_count": 21,
+      "intervals_containing_zero": 0,
+      "lower_endpoint_min": -0.0496551948913327,
+      "lower_endpoint_max": -0.04826633398255367,
+      "upper_endpoint_min": -0.017123092812387757,
+      "upper_endpoint_max": -0.016768323058145726
+    },
+    {
+      "family": "crossed",
+      "scheme": "all",
+      "seed_count": 21,
+      "intervals_containing_zero": 0,
+      "lower_endpoint_min": -0.3575859297197323,
+      "lower_endpoint_max": -0.35403471679017984,
+      "upper_endpoint_min": -0.18513628115698408,
+      "upper_endpoint_max": -0.18236531365615516
+    },
+    {
+      "family": "crossed",
+      "scheme": "cdf_all_years",
+      "seed_count": 21,
+      "intervals_containing_zero": 0,
+      "lower_endpoint_min": -0.027533228219449514,
+      "lower_endpoint_max": -0.02711202371666368,
+      "upper_endpoint_min": -0.005232355440849238,
+      "upper_endpoint_max": -0.004787237626831639
+    },
+    {
+      "family": "crossed",
+      "scheme": "sxx_all_years",
+      "seed_count": 21,
+      "intervals_containing_zero": 0,
+      "lower_endpoint_min": -0.06502948067130107,
+      "lower_endpoint_max": -0.06406138566639527,
+      "upper_endpoint_min": -0.0173826037658678,
+      "upper_endpoint_max": -0.016779147849053492
+    }
+  ],
+  "composition": [
+    {
+      "family": "calendar",
+      "archives": 818,
+      "stations": 41,
+      "groups": 17,
+      "station_counts_by_region": {
+        "foen": 10,
+        "gkd_bayern": 24,
+        "usgs_huc03": 1,
+        "usgs_huc04": 1,
+        "usgs_huc10": 2,
+        "usgs_huc17": 3
+      },
+      "largest_group_archive_share": 0.2200488997555012,
+      "nontrivial_choice_archives": 280,
+      "all_incomplete_already_kept": 530
+    },
+    {
+      "family": "crossed",
+      "archives": 805,
+      "stations": 41,
+      "groups": 17,
+      "station_counts_by_region": {
+        "foen": 10,
+        "gkd_bayern": 24,
+        "usgs_huc03": 1,
+        "usgs_huc04": 1,
+        "usgs_huc10": 2,
+        "usgs_huc17": 3
+      },
+      "largest_group_archive_share": 0.2236024844720497,
+      "nontrivial_choice_archives": 468,
+      "all_incomplete_already_kept": 5
+    }
+  ]
+}

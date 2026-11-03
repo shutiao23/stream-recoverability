@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Opened flow-comparator scorecard for the crossed family. Availability is the fraction of eligible cases with a valid estimate; MAE is mean absolute error in log-flow units computed on each estimator's valid cases. The ``all'' scope contains 80,931 eligible cases and the ``danger'' scope 41,132; paired log-MAE comparisons use 66,099 and 33,609 common cases, respectively.}
+\label{tab:S8}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Estimator & \shortstack{Availability,\\all} & \shortstack{MAE,\\all} & \shortstack{Availability,\\danger} & \shortstack{MAE,\\danger} \\
+\midrule
+Historical D2 & 1.000 & 0.0500 & 1.000 & 0.0743 \\
+Historical multidonor Ridge & 1.000 & 0.0564 & 1.000 & 0.0829 \\
+Single-donor Ridge & 0.817 & 0.0602 & 0.817 & 0.0896 \\
+Observed days & 1.000 & 0.0646 & 1.000 & 0.1004 \\
+Stochastic AR(1) median & 0.817 & 0.0716 & 0.817 & 0.1038 \\
+MOVE.1 & 0.817 & 0.0734 & 0.817 & 0.1062 \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\footnotesize Notes: The tabulated MAE is log-MAE (mean absolute error in log-flow units) on each estimator's valid cases: all eligible cases for historical D2, historical multidonor Ridge, and observed days; the donor-available subset for single-donor Ridge, stochastic AR(1), and MOVE.1 (availability 0.817, i.e., 66,099 of 80,931 eligible cases in the all scope and 33,609 of 41,132 in the danger scope). Paired log-MAE comparisons are restricted to these common cases and cover 210 sites; the main-text paired basis yields D2 MAE 0.0495 (all) and 0.0745 (danger), slightly different from the per-estimator values tabulated here. The full cohort contains 255 sites, 8,999 complete climatic years, 134,925 cases, and 17 HUC2 region groups. The 1.000 availability rows are historical D2, historical multidonor Ridge, and observed days; the donor-dependent rows do not lower paired MAE. The experiment is an opened positive-flow perennial subset, not a new blind transfer or a 20-seed stability claim. Paired differences are stored as left and right MAE on common cases; no derived subtraction is saved. Source: \path{results/wrr_review_completion_20261024/flow_comparators/scorecard.csv} and \path{results/wrr_review_completion_20261024/flow_comparators/paired_effects.csv}; cohort counts are from \path{results/wrr_review_completion_20261024/flow_comparators/status.json} and \path{results/wrr_review_completion_20261024/flow_comparators/design.json}.
+\end{table}

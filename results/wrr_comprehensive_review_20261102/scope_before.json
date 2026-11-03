@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-11-02T02:04:20.544109+00:00",
+  "review_date_client": "2026-11-02 Asia/Shanghai",
+  "head": "bef47bf663927cc9726c4ec632ca750a3881d528",
+  "worktree_status_before": " M README.md\n M docs/reviews/wrr_r2_review_20261101/audit_gate_r2.py\n M docs/reviews/wrr_stanford_perspective_20261031/PACKAGE_README.txt\n M paper/wrr_tr/review_completion_article.pdf\n M paper/wrr_tr/review_completion_article.tex\n M scripts/980_final_release.py\n M scripts/983_verify_extension_replay.py\n M scripts/984_full_pytest_summary.py\n M scripts/985_build_local_ci_summary.py\n M scripts/release_provenance.py\n M tests/test_final_release_freshness.py\n?? docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md\n?? results/final_release_20261101_r4/\n",
+  "sha256": {
+    "README.md": "39f49573efbceb86b78977421b62eb90014d8f217ea3c8fec134dc68daffd862",
+    "dist/wrr_final_candidate_20261101_r4.zip": "be8457dbd4a97e870c60d32dbffeca8f1508a73dee5ab06e4716d2d1e9f7498b",
+    "docs/reviews/wrr_r2_review_20261101/audit_gate_r2.py": "b45337fd813660937b6ca109269498adce4ea0f29e128f8602ede71bfb701837",
+    "docs/reviews/wrr_stanford_perspective_20261031/PACKAGE_README.txt": "344df666b164a4d638bf4dabc57bb69afc88faea7a01f24817922ad597616025",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_20261101_R4_ZH.md": "b12bbec036aaa903f6d122843a51e3aea39edf0af92b431bbc22018873029bc9",
+    "paper/wrr_tr/review_completion_article.pdf": "f566dbdac4559680ddaafe6a66cf8f49c8c5015b15b719df758ffea5eb98ca15",
+    "paper/wrr_tr/review_completion_article.tex": "bdaec8fad38372249f22164046a2024ae743b2edb4147cdad5fcc907bc18781a",
+    "paper/wrr_tr/review_completion_supporting.pdf": "e2a57281a27a4afa32533acf14a4593c636e90b889e0174453217a5b605d4676",
+    "results/final_release_20261101_r4/acceptance.json": "559b9994e428e3373838e25f64d66102293969437118c965c875995c0f0785c9",
+    "results/wrr_final_revision_20261031/data_manifest.json": "0c8ce896f65b409cd40f53b9f9d5ce5de4000cc7e598e9b3c42ba4d62b8a428c",
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv": "2fc7775e131da01875da0c0daf909556a49a6ccd8483fc4389ddd822622e2550",
+    "scripts/980_final_release.py": "ba26cf89dc173dd34192c73e2146db793c61c3489b678abc37bf671ed161d741",
+    "scripts/983_verify_extension_replay.py": "80c2261a127ba76e03343dee328bf3765482f8b88af1e6dd101db245f5d2f916",
+    "scripts/984_full_pytest_summary.py": "536e661f47bad239d3012cd24ac5a26e558029c8f0df33c48a8e3bd14dc1b47a",
+    "scripts/985_build_local_ci_summary.py": "fd2a641831cce3214bba1c3ec729b2421693c2f6ad1c145926d426e1cb2fbec7",
+    "scripts/release_provenance.py": "90ce3f4e421788d9c65f83d22572734bbcca8b254f1c4b76cfe1f50d351ebd7c",
+    "tests/test_final_release_freshness.py": "94956a232cf298b6d804f92ef5ea1585139f70d539da07d184c9433320b13ef2"
+  }
+}
