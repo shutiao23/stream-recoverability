@@ -7,6 +7,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results/wrr_final_revision_20261031"
@@ -333,6 +334,10 @@ def test_scope_sign_quantities_match_summary():
                 assert entry["quantity"] == "expected_count"
 
 
+@pytest.mark.skipif(
+    not (ROOT / "results/wrr_review_response_20261027/whole_archive/trends.csv").is_file(),
+    reason="compact replay inputs are frozen local results not present on a clean checkout",
+)
 def test_outside_root_compact_replay_integration(tmp_path, monkeypatch):
     import hashlib
     import importlib.util
