@@ -382,3 +382,9 @@ PY
 与审计一致：作者/单位/ORCID/基金/CRediT/COI；LUBW 法律与审稿访问（开放源转主分析为候选方案，需重跑主表）；
 Zenodo DOI；A3 流量与 air2stream-8；A5/A6/A8；B4 现代基线；B5 联合模型多重插补；锁定确认；图 7 移 SI 与
 27 例 pathwise 预算重跑（本地可做但属 P1 呈现项，未在本轮完成）。
+
+### 10.8 CI 触发说明
+
+本轮推送以一个无 `[skip ci]` 的小提交触发完整 CI（push 事件）；gapbench 独立 job 与 `workflow_dispatch`
+触发器的 workflow 更新已准备好（`.github/workflows/ci.yml`），但当前 OAuth 令牌缺少 `workflow` scope，
+推送 workflow 变更被拒，需作者用具备该权限的凭据推送或通过网页编辑。
