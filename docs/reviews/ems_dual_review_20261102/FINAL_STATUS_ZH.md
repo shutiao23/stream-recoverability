@@ -394,3 +394,11 @@ Zenodo DOI；A3 流量与 air2stream-8；A5/A6/A8；B4 现代基线；B5 联合�
 首次完整 CI 运行（run 41607360524）在收集阶段失败：13 个历史 intake 测试模块在干净检出上缺少
 bs4/openpyxl/pyproj/shapely/tomllib 或本地数据文件。已添加根 conftest 在依赖/数据缺失时忽略这些模块
 （本地全套 1,726 项不变），并以本提交触发完整 CI 复跑。
+
+### 10.10 CI 第二轮修复
+
+Run 41613829752 显示干净检出上另有 35 个研究包模块因私有数据（data_versions/、data/external/、
+metadata 锚点表、冻结 results）、pdftotext/lightgbm/numba 缺失而失败。conftest 现在在这些私有
+环境探测失败时忽略这些模块（`GAPBENCH_FORCE_SKIP_PRIVATE=1` 本地模拟：1,319 项 0 失败），
+test_stanford_revision 仅对需要冻结输入的集成测试加 skipif（其余 14 项在 CI 继续运行）。
+以本提交触发第三次完整 CI。
