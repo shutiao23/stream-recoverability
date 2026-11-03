@@ -311,3 +311,74 @@ PY
 | CI | 按既定要求，推送前临时禁用；该提交无 workflow run；工作流已恢复 active |
 
 `paper/ems/`、`gapbench/`、`docs/software/`、`tests/test_ar1_bridge_nesting.py`、`tests/test_wild_cluster_bootstrap.py` 与 r4 证据目录现已进入版本库，"永久保存需先提交"这一阻断项的 Git 部分关闭；Zenodo/机构归档仍待作者完成。
+
+## 10. T11 第二轮对抗审计修复（2026-11-03）
+
+对应 [ADVERSARIAL_AUDIT_20261103_ZH.md](ADVERSARIAL_AUDIT_20261103_ZH.md)。审计发现的 11 项中，本地可完成的全部关闭：
+
+### 10.1 统计实现缺陷（两项均修复并有回归测试）
+
+- **wild bootstrap 影响函数未中心化**：修正为 (a-mean a)/(2R_A) - (b-mean b)/(2R_B)，运行时断言均值为 0；
+  重生成全部结果。中位宽度比 1.02→**0.88**；方法依赖对比 1 个→**2 个**（日历 uniform-exact、日历 D2-经典法）。
+  正文 body:57、SI S12 表与说明、`tests/test_wild_cluster_bootstrap.py`（6 项：中心化断言、总体真值覆盖率
+  [0.90,0.99]、三明治尺度宽度 [0.7,1.3]、保存值断言）全部同步。方法表述改为 Kline--Santos 型 score
+  bootstrap（不声称有限样本覆盖保证）。
+- **Hamed--Rao 方差修正写反**：重写为先 Sen 斜率去趋势、秩残差 ACF、仅 5% 显著滞后、Var* = Var(S)·C；
+  与 pyMannKendall 1.4 `hamed_rao_modification_test` 在全部 41 站逐站一致（p<0.05 共 **6/41**，2 站修正因子非正）。
+  `results/ems_revision_20261102/trend_signal.{json,csv}` 重算，新增 `tests/test_slope_signal_audit.py`（4 项）。
+
+### 10.2 方法描述与代码/数据对齐（5 处）
+
+- 掩膜设计如实描述：每年 0.35 概率、7 年 burn-in、2010 前推起点、中位 36% 年份被掩、无全掩档案；
+- 受控缺口季节性如实描述：3,711 段中 23.4% 与 6--8 月不重叠、21.1% 早于第 120 天，"controlled" 指长度而非季节，
+  摘要与正文 "summer gaps" 相应改为 controlled gaps（仅引言动机句保留 summer）；
+- "Mondrian CQR" 改为按难度类分层的分位数经验偏移校准（与 CQR 类似但无有限样本保证，列出四点原因），两处；
+- "counter-based RNG" 改为 `SeedSequence.spawn` + PCG64 的每路径独立流（正文与实现一致，salmon2011 引用删除）；
+- 摘要 "框架由 gapbench 实现" 改为"原语 + 日期感知基准层发布为 gapbench，完整流水线在公开研究包"，
+  CITATION.cff/.zenodo 描述同步（含新增 API）。
+
+### 10.3 稿件内部清理
+
+- 删除主文流量对照表（USGS log-flow 目标，非水温），改为指向 SI S8 的一句话并明确"不同目标变量"；
+- 删除两段重复且未定义的"三输出发布规则"段（保留泄漏分类法/模型卡引用一句并入群组推断段）；
+- 符号统一：所选年集 S→A（w_S→w_A、S_{xx,S}→S_{xx,A}），h 与 e 在正文定义，日水温 Y_{yd}→T_{yd}；
+- 经典法命名统一为 "the stochastic comparator (calibrated stochastic regression)"，首现定义；
+- 正文新增 D2 与经典法"可用性 vs 精度"段（0.147 vs 0.164；82/820、119/820 不可用子集上 D2 RMSE 0.244/0.093），
+  决策表新增对应行；决策表 "summer gap" 行改措辞；
+- Fig.4 caption 定义 offline（1981--2025 全窗掩膜）与 forward（2010 起）模式；
+- Fig.1 以 `paper/ems/figures/fig1_ems.dot/pdf` 重绘，删除 "release tests/release-then-trend" 等 WRR 术语，
+  caption 同步为 0.35 概率设计；
+- 删除 "local review candidate" 与 "no new experiment..." 内部用语。
+
+### 10.4 新指标（P1-2，全部由冻结表复算）
+
+- 总趋势不确定性膨胀 sqrt(1+mean((e/SE)^2))-1：受控族筛选 21.5% vs 重建 3.7%；日历族 1.8% vs 0.5%
+  （摘要、结果、结论、表 trend_signal_cohorts 新增 Infl. 列）；
+- 符号翻转 |t| 分层：受控筛选 43/53、全保留 16/16 发生在 |β|<1 SE 站；|t|≥2 的 3 站零翻转（正文与表 Weak 列）；
+- 日历族限定 288 个"年集确实改变"档案：筛选 RMSE 0.191（中位 0.151 / P90 0.559）vs 全保留 0.112（0.026 / 0.225）；
+- 200 个 FOEN（瑞士）日历档案全部零筛选误差（正文与表注）。
+
+### 10.5 仓库门面与工程
+
+- LICENSE 改为纯 MIT 文本（GitHub 识别），数据范围说明移入 DATA_RIGHTS.md；
+- `metadata/data_rights.csv` 审稿访问路径从 AGU/GEMS 改为 provider/EMS 适用表述；
+- CI：新增 `workflow_dispatch` 触发与独立 gapbench job（Python 3.10--3.13，仅 numpy+pytest）；
+- README 重写为 gapbench/EMS 入口，WRR r4 历史移至 `docs/history/wrr_r4_candidate.md`；
+- gapbench 升级 **1.3.0**：新增 `annual_h30`（日期感知、闰年、L_y、完整性标记）、`generate_gaps`（每年独立流的
+  可复现受控缺口设计）、三条基线（气候态、线性插值、AR(1) 路径桥）、`run_benchmark`；删除未用 pandas 依赖；
+  quickstart 改为按不完整年报告 L_y 与真值对比 + 基线基准；22 项测试全过；CHANGELOG 新增；
+- 软件可用性：开发者联系方式字段补充（占位）；quickstart 描述与实际一致；Docker 措辞移除；
+- 版本元数据五处一致 1.3.0，v1.3.0 tag/release（sdist+wheel 资产）随本轮创建；Zenodo DOI 仍为外部依赖。
+
+### 10.6 AI 披露（政策对齐）
+
+- 声明移到参考文献正上方（software availability 之后、bibliography 之前），并如实扩展：Cursor 共同署名提交、
+  agent 辅助代码、AI 辅助起草待作者改写、无生成图像；
+- Methods 新增 "Use of AI-assisted tools in code development" 段（置于 Verification 小节），说明验证方式
+  （测试规模、独立复算、冻结输入脚本）。
+
+### 10.7 仍未完成（外部/需新数据）
+
+与审计一致：作者/单位/ORCID/基金/CRediT/COI；LUBW 法律与审稿访问（开放源转主分析为候选方案，需重跑主表）；
+Zenodo DOI；A3 流量与 air2stream-8；A5/A6/A8；B4 现代基线；B5 联合模型多重插补；锁定确认；图 7 移 SI 与
+27 例 pathwise 预算重跑（本地可做但属 P1 呈现项，未在本轮完成）。

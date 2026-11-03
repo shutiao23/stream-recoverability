@@ -1,26 +1,6 @@
-This LICENSE file covers original software in this repository (source
-code, scripts, tests, project configuration, and project-authored
-documentation). It does not grant any license in third-party
-observational data, including files under data/raw/, processed and
-versioned tables derived from those files, or upstream products of the
-Swiss Federal Office for the Environment (FOEN), GKD Bayern
-(the Bavarian water data service), the U.S. Geological Survey
-(USGS), NASA POWER, the Baden-Württemberg State Institute for the
-Environment (LUBW), or other providers. Each provider's terms continue
-to govern access, use, and redistribution.
-
-Presence of data files in a public GitHub working tree is a hosting
-fact, not a redistribution license and not a FAIR/open study-data
-release. This repository does not claim that restricted data are
-redistributable. Those files remain restricted as documented in
-DATA_RIGHTS.md and metadata/data_rights.csv. Public-hosting
-remediation (remove restricted columns from the public git tip and
-history) remains a separate wave. Third-party Python dependencies
-retain their own licenses.
-
 MIT License
 
-Copyright (c) 2026 shutiao23
+Copyright (c) 2026 shutiao23 and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

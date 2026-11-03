@@ -1,10 +1,10 @@
 {
   "schema": "wild_cluster_bootstrap_v1",
-  "created_utc": "2026-11-03T03:51:46.369421+00:00",
+  "created_utc": "2026-11-03T07:46:46.046794+00:00",
   "draws": 10000,
   "seed": 20261102,
   "clusters": 17,
-  "method": "wild cluster bootstrap on the influence function of the RMSE difference; Rademacher and Webb six-point weights; clusters are never resampled",
+  "method": "score bootstrap on the centered influence function of the RMSE difference (Kline and Santos 2012); Rademacher and Webb six-point cluster weights; clusters are never resampled; no finite-sample coverage guarantee",
   "scope": "frozen per-archive tables only; no refit, no new masks; the group-bootstrap columns reproduce the saved multinomial group intervals for comparison",
   "rows": 10,
   "retention_directions": {
@@ -49,6 +49,6 @@
       "wild_webb_excludes_zero": true
     }
   },
-  "mean_width_ratio_wild_over_group": 1.0423267563355356,
-  "median_width_ratio_wild_over_group": 1.0186718171258984
+  "mean_width_ratio_wild_over_group": 0.8860524577648545,
+  "median_width_ratio_wild_over_group": 0.8775386309229866
 }

@@ -16,7 +16,7 @@ def test_zenodo_json_matches_title_and_has_no_doi() -> None:
         "gapbench: Leakage-safe benchmarking of gap handling for annual heat "
         "extremes and river-temperature trends"
     )
-    assert payload["version"] == "1.2.0"
+    assert payload["version"] == "1.3.0"
 
 
 def test_citation_cff_doi_remains_unset() -> None:

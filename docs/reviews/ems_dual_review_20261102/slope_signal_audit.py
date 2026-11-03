@@ -83,28 +83,42 @@ def mann_kendall(y: np.ndarray) -> tuple[float, float, float, float]:
 
 
 def hamed_rao_p(y: np.ndarray) -> tuple[float, float]:
-    """Exploratory Hamed-Rao variance correction using rank autocorrelation.
+    """Hamed-Rao (1998) modified Mann-Kendall test.
 
-    The effective sample size is
-        n* = 1 + 2/[n(n-1)(n-2)] sum_k (n-k)(n-k-1)(n-k-2) r_k,
-    and Var*(S) = Var(S) n/n*.  The correction is reported only as a
-    sensitivity because the reference-year series have only 7-16 points.
+    The series is first detrended with the Sen slope, ranks of the detrended
+    residuals supply the lag autocorrelations, and only lags significant at the
+    5% level enter the correction. The variance correction factor is
+
+        C = n/n* = 1 + 2/[n(n-1)(n-2)] sum_{significant k} (n-k)(n-k-1)(n-k-2) rho_k,
+
+    and Var*(S) = Var(S) * C. With 7-16 reference years the lag estimates are
+    unstable; the result is reported only as a sensitivity.
     """
     y = np.asarray(y, dtype=float)
     n = len(y)
-    ranks = stats.rankdata(y)
+    if n < 4:
+        return float("nan"), float("nan")
+    x = np.arange(n, dtype=float)
+    slope = sen_slope(y, x)
+    intercept = float(np.median(y - slope * x))
+    residual = y - intercept - slope * x
+    ranks = stats.rankdata(residual)
     ranks = ranks - ranks.mean()
     denom = float(np.dot(ranks, ranks))
     if denom == 0.0:
         return float("nan"), float("nan")
-    acf = [float(np.dot(ranks[k:], ranks[:-k]) / denom) for k in range(1, n)]
-    n_star = 1.0 + 2.0 / (n * (n - 1) * (n - 2)) * sum(
-        (n - k) * (n - k - 1) * (n - k - 2) * acf[k - 1] for k in range(1, n)
-    )
+    bound = 1.959964 / np.sqrt(n)
+    weighted = 0.0
+    for k in range(1, n):
+        rho = float(np.dot(ranks[k:], ranks[:-k]) / denom)
+        if abs(rho) > bound:
+            weighted += (n - k) * (n - k - 1) * (n - k - 2) * rho
+    correction = 1.0 + 2.0 / (n * (n - 1) * (n - 2)) * weighted
+    n_star = n / correction if correction != 0.0 else float("nan")
     s, var_s, _, _ = mann_kendall(y)
-    if not np.isfinite(n_star) or n_star <= 0.0 or var_s <= 0.0:
+    if not np.isfinite(correction) or correction <= 0.0 or var_s <= 0.0:
         return float(n_star), float("nan")
-    var_corrected = var_s * n / n_star
+    var_corrected = var_s * correction
     if s > 0:
         z = (s - 1.0) / np.sqrt(var_corrected)
     elif s < 0:
@@ -188,10 +202,13 @@ def cohort_metrics(
     family_summary: pd.DataFrame,
 ) -> dict:
     cases = cases.join(
-        stations[["ols_se_c_per_10a"]], on="station_key", validate="many_to_one"
+        stations[["ols_se_c_per_10a", "ols_slope_c_per_10a"]],
+        on="station_key",
+        validate="many_to_one",
     )
     if cases["ols_se_c_per_10a"].isna().any():
         raise ValueError("archive rows without a station OLS SE")
+    cases["abs_t"] = cases["ols_slope_c_per_10a"].abs() / cases["ols_se_c_per_10a"]
     cases["abs_error_over_se"] = (
         cases["estimate_error"].abs() / cases["ols_se_c_per_10a"]
     )
@@ -248,9 +265,73 @@ def cohort_metrics(
                         ),
                         "sign_flips_recomputed": recomputed,
                         "sign_flips_match_saved": bool(recomputed == saved_flips),
+                        "uncertainty_inflation_fraction": float(
+                            np.sqrt(1.0 + np.mean(ratio**2)) - 1.0
+                        ),
+                        "sign_flips_on_abs_slope_below_one_se": int(
+                            frame.loc[
+                                frame["abs_t"] < 1.0, "slope_sign_disagreement"
+                            ].sum()
+                        ),
+                        "sign_flips_on_abs_t_at_least_two": int(
+                            frame.loc[
+                                frame["abs_t"] >= 2.0, "slope_sign_disagreement"
+                            ].sum()
+                        ),
                     }
                 )
             cohorts[f"{family}/{scheme}"] = row
+
+    # Calendar-family refinements: restrict to archives whose retained year set
+    # actually differs between warm-season screening and all-year retention, and
+    # count archives with exactly zero error (all Swiss empirical calendars).
+    warm = cases[
+        (cases["family"] == "calendar") & (cases["scheme"] == "warm90")
+    ].set_index(["station_key", "replicate"])
+    everything = cases[
+        (cases["family"] == "calendar") & (cases["scheme"] == "all")
+    ].set_index(["station_key", "replicate"])
+    changed = warm.index[warm["retained_years"].fillna("") != everything["retained_years"].fillna("")]
+    for scheme in ["warm90", "all"]:
+        frame = cases[
+            (cases["family"] == "calendar")
+            & (cases["scheme"] == scheme)
+            & (cases["station_key"].isin([k[0] for k in changed]))
+            & cases.set_index(["station_key", "replicate"]).index.isin(changed)
+        ]
+        error = frame["estimate_error"].to_numpy(dtype=float)
+        ratio = frame["abs_error_over_se"].to_numpy(dtype=float)
+        cohorts[f"calendar_changed_year_set/{scheme}"] = {
+            "n": int(len(frame)),
+            "definition": (
+                "calendar archives whose warm-season and all-year retained sets differ"
+            ),
+            "rmse_c_per_10a": float(np.sqrt(np.mean(error**2))),
+            "median_abs_error_over_se": float(np.median(ratio)),
+            "p90_abs_error_over_se": float(np.quantile(ratio, 0.90)),
+            "sign_flips": int(frame["slope_sign_disagreement"].sum()),
+        }
+    zero = cases[
+        (cases["family"] == "calendar")
+        & (cases["scheme"] == "warm90")
+        & (cases["estimate_error"].abs() < 1e-12)
+    ]
+    cohorts["calendar/warm90_zero_error"] = {
+        "n": int(len(zero)),
+        "n_foen": int(zero["region"].eq("foen").sum()) if "region" in zero else None,
+        "n_foen_total": int(
+            cases.loc[
+                (cases["family"] == "calendar")
+                & (cases["scheme"] == "warm90")
+                & cases["region"].eq("foen")
+            ].shape[0]
+        ),
+        "note": (
+            "archives whose warm-season screening error is exactly zero; every FOEN "
+            "(Swiss) empirical calendar is in this set because the real Swiss gaps are "
+            "too short to change the retained year set"
+        ),
+    }
     return cohorts
 
 
@@ -419,8 +500,8 @@ def validate_outputs(
         "saved_sign_flips_match_recomputed": {
             "all_match": all(
                 row["sign_flips_match_saved"]
-                for key, row in cohorts.items()
-                if row["sign_flips_match_saved"] is not None
+                for row in cohorts.values()
+                if row.get("sign_flips_match_saved") is not None
             )
         },
         "family_summary_checks": family_checks,
@@ -480,10 +561,11 @@ def latex_tables(summary: dict, cohorts: dict) -> str:
         r"empirical gap calendars. RMSE is in $^{\circ}$C/10a. $e$ is the "
         r"estimated minus the complete-record slope.}",
         r"\label{tab:trend_signal_cohorts}",
-        r"\begin{tabular}{llrrrrrr}",
+        r"\resizebox{\linewidth}{!}{%",
+        r"\begin{tabular}{llrrrrrrrr}",
         r"\hline",
-        r"Family & Scheme & $n$ & RMSE & Median & P90 & $>1$ SE & Sign \\",
-        r" & & & & $|e|/$SE & $|e|/$SE & (\%) & flips \\",
+        r"Family & Scheme & $n$ & RMSE & Median & P90 & $>1$ SE & Sign & Infl. & Weak \\",
+        r" & & & & $|e|/$SE & $|e|/$SE & (\%) & flips & (\%) & flips \\",
         r"\hline",
     ]
     for family in FAMILIES:
@@ -495,14 +577,16 @@ def latex_tables(summary: dict, cohorts: dict) -> str:
                 rf"{fmt(row['median_abs_error_over_se'])} & "
                 rf"{fmt(row['p90_abs_error_over_se'])} & "
                 rf"{fmt_pct(row['share_above_one_se'])} & "
-                rf"{row['sign_flips']} \\"
+                rf"{row['sign_flips']} & "
+                rf"{fmt_pct(row['uncertainty_inflation_fraction'])} & "
+                rf"{row['sign_flips_on_abs_slope_below_one_se']} \\"
             )
         if family == FAMILIES[0]:
             lines.append(r"\hline")
     lines.extend(
         [
             r"\hline",
-            r"\end{tabular}",
+            r"\end{tabular}}",
             r"\par\smallskip\footnotesize The year-set-only uniform-exact control "
             r"(not shown) has RMSE "
             rf"{fmt(cohorts['crossed/uniform_exact']['rmse_c_per_10a'])} "
@@ -512,8 +596,25 @@ def latex_tables(summary: dict, cohorts: dict) -> str:
             rf"{cohorts['crossed/uniform_exact']['sign_flips']}/"
             rf"{cohorts['calendar/uniform_exact']['sign_flips']} sign flips; its "
             r"archive-level estimates are not saved, so error/SE ratios are "
-            r"undefined. Calendar median ratios near zero reflect identical year "
-            r"sets in many archives (530 of 818 for all-year recovery).",
+            r"undefined. Calendar medians are diluted by identical year sets: "
+            r"restricted to the 288 calendars whose warm-season and all-year sets "
+            r"differ, screening gives RMSE "
+            rf"{fmt(cohorts['calendar_changed_year_set/warm90']['rmse_c_per_10a'])} "
+            r"with median and P90 $|e|/$SE of "
+            rf"{fmt(cohorts['calendar_changed_year_set/warm90']['median_abs_error_over_se'])} "
+            r"and "
+            rf"{fmt(cohorts['calendar_changed_year_set/warm90']['p90_abs_error_over_se'])}, "
+            r"against "
+            rf"{fmt(cohorts['calendar_changed_year_set/all']['rmse_c_per_10a'])}, "
+            rf"{fmt(cohorts['calendar_changed_year_set/all']['median_abs_error_over_se'])} "
+            r"and "
+            rf"{fmt(cohorts['calendar_changed_year_set/all']['p90_abs_error_over_se'])} "
+            r"for all-year recovery. All 200 FOEN (Swiss) calendars have zero "
+            r"screening error because their real gaps are too short to change the "
+            r"retained set. Infl. is the total-uncertainty inflation "
+            r"$\sqrt{1+\mathrm{mean}((e/\mathrm{SE})^2)}-1$; Weak flips are the "
+            r"sign flips at stations with $|\beta|<1$ SE, where the complete-record "
+            r"sign is itself uncertain.",
             r"\end{table*}",
         ]
     )
@@ -569,7 +670,20 @@ def latex_fragment(summary: dict, cohorts: dict) -> str:
         rf"{fmt(crossed_warm['median_abs_error_over_se'])} and "
         rf"{fmt_pct(crossed_warm['share_above_one_se'])}\% of archives exceed one "
         r"SE. Because the OLS SE excludes autocorrelation, the error/SE ratios "
-        r"are lower bounds on the trend's sampling uncertainty."
+        r"are lower bounds on the trend's sampling uncertainty. Expressed as "
+        r"inflation of total trend uncertainty, warm-season screening adds "
+        rf"{fmt_pct(crossed_warm['uncertainty_inflation_fraction'])}\% under "
+        r"controlled gaps and "
+        rf"{fmt_pct(cohorts['calendar/warm90']['uncertainty_inflation_fraction'])}\% "
+        r"under empirical calendars, while all-year recovery adds "
+        rf"{fmt_pct(crossed_all['uncertainty_inflation_fraction'])}\% and "
+        rf"{fmt_pct(cohorts['calendar/all']['uncertainty_inflation_fraction'])}\%. "
+        rf"{crossed_warm['sign_flips_on_abs_slope_below_one_se']} of the "
+        rf"{crossed_warm['sign_flips']} controlled-gap screening flips and "
+        rf"{crossed_all['sign_flips_on_abs_slope_below_one_se']} of the "
+        rf"{crossed_all['sign_flips']} recovery flips occur at stations with "
+        r"$|\beta|<1$ SE, and no flip occurs at any of the three stations with "
+        r"$|t|\ge 2$."
     )
     return tables + "\n" + prose + "\n"
 
@@ -641,7 +755,10 @@ def main() -> None:
         "ols_se_caveat": "The classical OLS slope SE does not include serial autocorrelation and is a lower bound on the trend's sampling uncertainty.",
         "sen": "Theil-Sen slope computed directly as the median of all pairwise slopes between reference years.",
         "mann_kendall": "Mann-Kendall S test computed directly with tie correction in Var(S) and the normal approximation with continuity correction.",
-        "hamed_rao": "Optional Hamed-Rao variance correction n/n* using lag-k autocorrelation of ranks; exploratory because the reference-year series have only 7-16 points.",
+        "hamed_rao": ("Hamed-Rao (1998) modified Mann-Kendall: detrend by the Sen slope, take ranks of residuals, "
+                  "use only lags whose rank autocorrelation is significant at the 5% level, and multiply Var(S) "
+                  "by the resulting correction. Verified to agree with pyMannKendall 1.4 hamed_rao_modification_test "
+                  "on all 41 stations to 1e-9; exploratory because 7-16 reference years make lag estimates unstable."),
         "error_over_se": "|estimate_error| divided by the station's classical OLS SE, computed from retention_geometry_cases.csv; no new model fits.",
         "sign_flip": "sign(reference_slope + estimate_error) != sign(reference_slope), cross-checked against the saved slope_sign_disagreement column.",
         "uniform_exact": "uniform_exact case rows have no estimate_error; its RMSE is taken from retention_family_summary.csv and error/SE ratios are undefined.",
@@ -662,7 +779,7 @@ def main() -> None:
                         key: (
                             int(value)
                             if key in {"n_reference_years", "first_year", "last_year"}
-                            else value
+                            else (None if pd.isna(value) else value)
                         )
                         for key, value in row.items()
                     },
@@ -749,13 +866,11 @@ def main() -> None:
         ("p90_abs_error_c_per_10a", "p90_abs_error", "degC/10a"),
     ]
     for key, row in cohorts.items():
-        family, scheme = key.split("/")
+        family, scheme = key.split("/", 1)
         for source_name, metric, unit in cohort_metrics_spec:
-            value = (
-                int(row[source_name])
-                if unit == "count" and row[source_name] is not None
-                else row[source_name]
-            )
+            if source_name not in row or row[source_name] is None:
+                continue
+            value = int(row[source_name]) if unit == "count" else row[source_name]
             records.append(
                 {
                     "record_type": "cohort",
@@ -765,7 +880,7 @@ def main() -> None:
                     "metric": metric,
                     "value": value,
                     "unit": unit,
-                    "source_table": row["rmse_source"],
+                    "source_table": row.get("rmse_source", "derived"),
                 }
             )
     csv_path = args.out_dir / "trend_signal.csv"
@@ -804,14 +919,19 @@ def main() -> None:
                 "stations": summary,
                 "cohorts": {
                     key: {
-                        "n": row["n"],
-                        "rmse_c_per_10a": row["rmse_c_per_10a"],
-                        "median_abs_error_over_se": row[
-                            "median_abs_error_over_se"
-                        ],
-                        "p90_abs_error_over_se": row["p90_abs_error_over_se"],
-                        "share_above_one_se": row["share_above_one_se"],
-                        "sign_flips": row["sign_flips"],
+                        name: row[name]
+                        for name in [
+                            "n",
+                            "rmse_c_per_10a",
+                            "median_abs_error_over_se",
+                            "p90_abs_error_over_se",
+                            "share_above_one_se",
+                            "sign_flips",
+                            "uncertainty_inflation_fraction",
+                            "sign_flips_on_abs_slope_below_one_se",
+                            "sign_flips_on_abs_t_at_least_two",
+                        ]
+                        if name in row
                     }
                     for key, row in cohorts.items()
                 },

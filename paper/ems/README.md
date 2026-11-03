@@ -6,7 +6,7 @@ From this directory:
 
 | File | Role |
 | --- | --- |
-| `main.pdf` | Main article: 37 pages, 7 figures, 4 tables, 52 references |
+| `main.pdf` | Main article: 38 pages, 7 figures, 4 tables, 52 references |
 | `supporting_information.pdf` | Supporting Information: 15 pages, 12 tables (S1--S12) |
 | `cover_letter.txt` | One-page cover letter |
 | `figures/graphical_abstract.pdf` | Graphical abstract |
@@ -96,4 +96,4 @@ complete for their current content, but submission remains gated on them.
 4. Reviewer access to restricted LUBW material (`[PENDING]` provider agreement
    and editorial/legal confirmation).
 5. A locked new-station confirmation that was not part of this study.
-6. Program size and full-replay memory measurement (`[PENDING]`).
+6. Program size and replay cost: measured (library 17 files / 1,654 LOC / 73 KiB; quickstart 0.23 s / 37 MiB; compendium replay 9.7 s / 289 MiB) and recorded in `software_availability.tex` and SI S10.

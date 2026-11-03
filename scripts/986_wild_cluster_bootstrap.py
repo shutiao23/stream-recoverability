@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-"""Wild cluster bootstrap intervals for the paired RMSE comparisons.
+"""Score-bootstrap sensitivity intervals for the paired RMSE comparisons.
 
 The frozen case study resamples 17 connected groups with replacement
 (multinomial group bootstrap). With so few clusters that interval can be
-narrow. This script adds two cluster-robust alternatives that never resample
-clusters: a wild cluster bootstrap built on the influence function of the RMSE
-difference (Rademacher and Webb weights), and a wild interval for the paired
-mean difference of squared errors. Inputs are the frozen per-archive tables;
-nothing is refitted.
+narrow or unstable. This script adds cluster-robust alternatives that never
+resample clusters: a score bootstrap on the linearized RMSE-difference
+statistic (centered influence function reweighted by Rademacher or Webb
+six-point cluster signs, in the sense of Kline and Santos 2012), and a wild
+interval for the paired mean difference of squared errors. Neither carries a
+finite-sample coverage guarantee with 17 unequal clusters; both are reported
+as sensitivity checks against the group-resampling intervals. Inputs are the
+frozen per-archive tables; nothing is refitted.
 """
 from __future__ import annotations
 
@@ -40,15 +43,28 @@ def cluster_shares(labels: pd.Series) -> tuple[np.ndarray, np.ndarray]:
 def wild_influence_interval(mse_a: np.ndarray, mse_b: np.ndarray, labels: np.ndarray,
                             weights: str = "rademacher", seed: int = SEED,
                             draws: int = DRAWS) -> dict:
-    """Wild cluster CI for RMSE_A - RMSE_B via the influence function."""
+    """Score-bootstrap CI for RMSE_A - RMSE_B on the linearized statistic.
+
+    The influence function of sqrt(mean(mse)) at observation i is
+    (mse_i - mean(mse)) / (2 sqrt(mean(mse))), so the influence function of the
+    RMSE difference is exactly mean-zero. Cluster means of this centered
+    influence function are reweighted with Rademacher or Webb signs; clusters
+    are never resampled. This is a score bootstrap on the linearized statistic
+    in the sense of Kline and Santos (2012); with 17 unequal clusters it has no
+    finite-sample coverage guarantee and is reported as a sensitivity check.
+    """
     mse_a = np.asarray(mse_a, float)
     mse_b = np.asarray(mse_b, float)
     if mse_a.shape != mse_b.shape or labels.shape != mse_a.shape:
         raise ValueError("aligned arrays required")
     if not (np.isfinite(mse_a).all() and np.isfinite(mse_b).all()):
         raise ValueError("squared errors must be finite")
-    estimate = float(np.sqrt(mse_a.mean()) - np.sqrt(mse_b.mean()))
-    influence = 0.5 * (mse_a / np.sqrt(mse_a.mean()) - mse_b / np.sqrt(mse_b.mean())) - estimate
+    root_a = float(np.sqrt(mse_a.mean()))
+    root_b = float(np.sqrt(mse_b.mean()))
+    estimate = root_a - root_b
+    influence = (mse_a - mse_a.mean()) / (2 * root_a) - (mse_b - mse_b.mean()) / (2 * root_b)
+    if abs(float(influence.mean())) > 1e-12 * max(1.0, abs(estimate)):
+        raise RuntimeError("influence function is not centered")
     groups, share = cluster_shares(pd.Series(labels))
     contributions = np.array([influence[labels == g].mean() for g in groups])
     rng = np.random.default_rng(seed)
@@ -178,8 +194,9 @@ def main() -> int:
         "draws": DRAWS,
         "seed": SEED,
         "clusters": 17,
-        "method": ("wild cluster bootstrap on the influence function of the RMSE difference; "
-                   "Rademacher and Webb six-point weights; clusters are never resampled"),
+        "method": ("score bootstrap on the centered influence function of the RMSE difference "
+                   "(Kline and Santos 2012); Rademacher and Webb six-point cluster weights; "
+                   "clusters are never resampled; no finite-sample coverage guarantee"),
         "scope": ("frozen per-archive tables only; no refit, no new masks; the group-bootstrap "
                   "columns reproduce the saved multinomial group intervals for comparison"),
         "rows": int(len(frame)),

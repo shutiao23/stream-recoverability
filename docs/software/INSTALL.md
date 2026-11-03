@@ -1,7 +1,7 @@
 # Installation and quickstart
 
 Package: `stream-recoverability` with the standalone `gapbench` library
-Version: `1.2.0`
+Version: `1.3.0`
 Python: 3.10 or newer (3.11 recommended)
 
 This guide covers a clean code-only install. It does not install, license, or
@@ -96,8 +96,8 @@ The Dockerfile installs `.[review,dev]`, includes `gapbench/`, verifies the
 LightGBM import, and runs the gapbench quickstart by default:
 
 ```bash
-docker build -t stream-recoverability:1.2.0 .
-docker run --rm stream-recoverability:1.2.0
+docker build -t stream-recoverability:1.3.0 .
+docker run --rm stream-recoverability:1.3.0
 ```
 
 The container does not include restricted observations. It is a code and
@@ -117,6 +117,6 @@ python scripts/check_version_consistency.py
 ```
 
 The command exits nonzero only for inconsistent version files. A warning that
-the latest git tag `v1.0.0` is historical is expected until a `v1.2.0` tag and an
+the latest git tag `v1.0.0` is historical is expected until a `v1.3.0` tag and an
 archival DOI exist. No GitHub release, Zenodo DOI, or reviewer access is
 currently established; see `docs/software/RELEASE_CHECKLIST.md`.

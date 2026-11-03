@@ -1,62 +1,22 @@
-# Incomplete river-temperature archives
+# gapbench: leakage-safe benchmarking of gap handling for river-temperature records
 
-Recover annual heat statistics and test what incomplete observations support
-about records and trends. The current work separates annual recovery, value
-release, and trend uncertainty. Calibrated classical reconstruction remains a
-full comparator; the experiments do not assume that D2 must win.
+This repository contains **gapbench**, a small MIT-licensed Python library for
+benchmarking how missing data ("gaps") change annual heat extremes
+(H30, the annual maximum of 30-day mean water temperature) and their
+finite-record trends, together with the full research compendium of the
+associated case study (41 European and US stations, 805 controlled-gap and 818
+empirical-calendar archives) and its Environmental Modelling & Software
+manuscript sources under `paper/ems/`.
 
-The [current experiments](docs/reviews/wrr_process_experiments_20261029/EXPERIMENT_RESPONSE_ZH.md)
-complete the original-source recalibration sensitivity and enumerate every
-same-count year subset. Calendar-based choices that include fixed complete years
-improve on the warm-season screen in aggregate; all-year recovery improves further.
-The same-count gains are not uniform across stations and groups. Recalibrating
-2,370 source cases changes endpoints and local comparisons on the fixed 27 targets.
-The data catalog distinguishes source calibration, target scoring, mask repetitions,
-Monte Carlo seeds, historical native20 and nested samples.
+- Library: [gapbench/](gapbench/) (primitives, dated benchmark layer, baselines, tests, quickstart)
+- EMS manuscript: [paper/ems/](paper/ems/) (`main.tex`, `supporting_information.tex`, build instructions in its README)
+- Review trail: [docs/reviews/](docs/reviews/)
+- Historical WRR candidate packages and records: [docs/history/](docs/history/)
 
-The 2026-10-31 minor revision rebuilt both PDFs from the current sources, updated
-the SI title and the 1981--2025 annual-gap row, and clarified controlled-gap scope,
-the RMSE-to-median ratio, local heterogeneity and conditional group intervals. The
-new package and acceptance record are listed under Current artifacts; the earlier
-ZIP remains a historical frozen candidate.
-
-## Current candidate (r4)
-
-- Package: `dist/wrr_final_candidate_20261101_r4.zip`
-- Package SHA256: recorded in `dist/wrr_final_candidate_20261101_r4.manifest.json`
-  and `results/final_release_20261101_r4/acceptance.json`. It is not embedded
-  here because this README is a package member and rebuilding the archive
-  changes its own bytes and hash.
-- Reviewed Git base: `bef47bf663927cc9726c4ec632ca750a3881d528`
-
-**r4 is uncommitted.** The external manifest and acceptance record identify the
-local r4 archive; the Git base commit alone does not contain all r4 changes. Do
-not treat a clean checkout of that commit, or an older passing package check, as
-r4 acceptance.
-
-Run these commands from the repository root. They write their records into
-`results/final_release_20261101_r4/`.
-
-```bash
-python scripts/980_final_release.py verify
-python scripts/978_process_experiment_delivery.py --archive dist/wrr_final_candidate_20261101_r4.zip --output results/final_release_20261101_r4/package_delivery_check.json
-python scripts/983_verify_extension_replay.py
-python scripts/982_final_release_tests.py
-python scripts/984_full_pytest_summary.py --out results/final_release_20261101_r4
-python scripts/985_build_local_ci_summary.py --out results/final_release_20261101_r4
-python scripts/980_final_release.py accept
-```
-
-`make review-current-candidate` runs verify, delivery, replay and accept in that
-order. Run `make review-current-tests` separately when the targeted/full test
-records need refreshing; acceptance consumes the records already present in the
-result directory.
-
-**Historical commands.** `make review-package-check` and
-`make review-process-experiments-package-check` keep their older defaults
-(`dist/wrr_review_response_candidate.zip` and
-`dist/wrr_process_experiments_20261029.zip`). They are historical checks and
-must not be read as r4 acceptance.
+Current software release: [v1.3.0](https://github.com/shutiao23/stream-recoverability/releases/tag/v1.3.0)
+(a code release; the Zenodo DOI is still pending). Software licence: MIT
+([LICENSE](LICENSE)); observational data remain under provider terms
+([DATA_RIGHTS.md](DATA_RIGHTS.md)).
 
 ### Software quickstart
 

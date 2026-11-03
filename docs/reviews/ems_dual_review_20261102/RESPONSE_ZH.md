@@ -285,3 +285,22 @@ T8 只读复核了主文、SI、`gapbench`、元数据和 r4 冻结件。以下�
 5. **不得 overclaim**：开放源模型仍只是 candidate route，不是法律 clearance；H7 是不同目标，不是 H30 确认；区域差异原因仍未识别；当前结果不是锁定确认性检验；无 DOI/tag/release。
 
 在上述 P0 和缺失实验完成前，不应把本稿描述为“已可投稿”或“软件/数据权利已解决”。
+
+
+## 10. T11 状态更正（2026-11-03 第二轮对抗审计后）
+
+第 8-9 节为 T8 时的历史快照。本轮之后的状态更正如下（历史行不改写，以此节为准）：
+
+- **B6 已完成**（本轮修正实现缺陷后完成）：`scripts/986_wild_cluster_bootstrap.py` 现为影响函数中心化的 score bootstrap
+  （Kline--Santos 型，Rademacher 与 Webb 权重），中心化有回归断言，模拟覆盖与三明治尺度有校准测试；结果在
+  `results/ems_revision_20261102/wild_cluster_bootstrap.{csv,json}`，SI 表 S12 与正文数字已同步（中位宽度比 0.88；
+  两个方法依赖对比：日历 uniform-exact 与日历 D2-经典法）。
+- **B8 已完成（本地实测）**：程序规模 17 文件 / 1,654 行 / 73 KiB（28 KiB zip）；quickstart 0.23 s / 37 MiB；
+  研究包 1,623 档案重放 9.7 s / 289 MiB。已写入 software availability 与 SI S10。
+- **v1.2.0 tag/release 已存在**；本轮升级为 **gapbench 1.3.0**（新增日期感知 annual_h30/L_y、缺口生成器、三条基线、
+  run_benchmark，22 项测试），v1.3.0 tag/release 与 sdist/wheel 资产随本轮提交创建。Zenodo DOI 仍未 mint。
+- **T1 Hamed--Rao 已修正**：先 Sen 去趋势、只取 5% 显著滞后、方差乘以修正因子；与 pyMannKendall 1.4 在全部 41 站
+  一致（6/41 站 p<0.05，2 站修正因子非正）；`trend_signal.{json,csv}` 已重算，含不确定性膨胀、|t| 分层翻转与
+  变更年集队列指标。
+- 外部 P0（作者/单位/ORCID/基金/CRediT/COI、LUBW 法律、Zenodo DOI、锁定确认）与 A3/A5/A6/A8/B4/B5 等需新数据或
+  重训练的项目仍为未完成。

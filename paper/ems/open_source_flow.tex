@@ -4,22 +4,6 @@ A practical question for reuse is whether the comparison survives replacement of
 \subsection{Flow proxy diagnostic}
 Flow can modify river thermal response \citep{vanvliet2011}, process models use discharge explicitly \citep{toffolon2015}, and regulated or groundwater-influenced reaches can change interval performance \citep{diaz2025}. Our evidence is diagnostic and associational. In the 336-station, 6,479-station-year USGS missingness sample, 21 stations in 17 groups recorded at least one zero-flow day and 16 stations in 14 groups recorded at least 30. A station-fixed conditional logit related a warm-season-incomplete year (the hidden-peak condition) to within-station standardized summer air temperature, within-station standardized summer log flow and a linear trend (per decade). In the flow-adjusted model, the odds ratio for the flow term is 0.594 [0.409, 0.813] for the recorded-zero cohort (282 station-years, 129 events) and 0.474 [0.265, 0.676] for the at-least-30-zero-day cohort (215 station-years, 104 events). Air temperature is 0.993 [0.659, 1.305] and 0.855 [0.580, 1.275]; the trend term is 1.198 [0.520, 1.883] and 1.292 [0.597, 2.132]. In the large fewer-than-30-zero-day cohort the flow odds ratio is 0.969 [0.897, 1.046]. The lower hidden-peak odds is an association in this proxy cohort, not evidence that low flow protects against underestimation. Zero flow is a historical proxy: no recorded zero does not prove perennial flow, and a zero does not identify an intermittent river, sensor exposure or a dry bed. The flow-adjusted subsets are smaller, so differences from the air-only model are not a mediation estimate.
 
-The opened flow-comparator experiment provides a separate, non-causal check. It contains 255 sites, 8,999 complete climatic years and 134,925 cases; paired comparisons cover 210 sites, while the full 255-site cohort spans 17 HUC2 region groups. Historical D2 and single-donor Ridge baselines are already available. Donor-dependent methods are available on 81.7\% of crossed/all eligible cases versus 100\% for historical D2, and they do not lower paired mean absolute error (MAE; Table~\ref{tab:ems_flow_comparators}). In the danger scope, MOVE.1 has MAE 0.1062, the stochastic bridge 0.1038, single-donor Ridge 0.0896 and historical D2 0.0745. The flow comparators therefore show no accuracy gain here, and their lower availability is material.
-
-\begin{table}[t]
-\centering\footnotesize
-\caption{Paired log-flow MAE in the opened flow-comparator cohort, crossed/all scope (66,099 common cases, 210 sites; the 255-site cohort spans 17 HUC2 region groups). ``Not worse'' is the percentage of sites where the left estimator's MAE does not exceed the right estimator's.}
-\label{tab:ems_flow_comparators}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{lrrr}
-\toprule
-Comparison & Left MAE & Right MAE & Not worse (\%)\\
-\midrule
-MOVE.1 vs single-donor Ridge & 0.0734 & 0.0602 & 15.2\\
-MOVE.1 vs historical D2 & 0.0734 & 0.0495 & 13.3\\
-Stochastic bridge vs historical D2 & 0.0716 & 0.0495 & 28.1\\
-\bottomrule
-\end{tabular}}
-\end{table}
+The opened flow-comparator experiment applies the same benchmark design to a different target variable, USGS streamflow rather than water temperature, and is therefore reported in the Supporting Information (Table~S8) rather than here: its log-flow MAE values must not be read as water-temperature errors. In brief, donor-dependent transfer methods are available on 81.7\% of crossed/all eligible cases versus 100\% for historical D2 and do not lower paired MAE, so the flow comparators show no accuracy gain and their lower availability is material.
 
 The limitations are explicit: the zero-flow class is a station-level proxy; no 34-station FOEN/GKD daily flow merge was performed; air2stream-8 was not retrained with flow; no causal mechanism is identified; and rights and coverage for the required flow data remain unresolved. The comparator experiment is one opened positive-flow perennial subset, not a new blind transfer or a 20-seed stability claim.

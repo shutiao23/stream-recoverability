@@ -1,7 +1,7 @@
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{../wrr_tr/figures/architecture/fig1_evidence_actual.pdf}
-\caption{Evidence layers in the leakage-safe benchmark. Observation-only witnesses test whether an incomplete year contains a fully observed 30-day window above the complete-year record; single-year source cases evaluate annual recovery and release; jointly degraded archives mask every selected target year before any local fit and score finite-record trends. Hidden target days never enter the local fit. Takeaway: separating observation-only, annual and whole-archive evidence keeps evaluation quantities out of fitting and selection.}
+\includegraphics[width=\linewidth]{figures/fig1_ems.pdf}
+\caption{Evidence layers in the leakage-safe benchmark. Observation-only witnesses test whether an incomplete year contains a fully observed 30-day window above the complete-year record; single-year source cases evaluate annual recovery under stated information conditions; jointly degraded archives mask each selected target year independently with probability 0.35 and score finite-record trends. Hidden target days never enter the local fit. Takeaway: separating observation-only, annual and whole-archive evidence keeps evaluation quantities out of fitting and selection.}
 \label{fig:architecture}
 \end{figure}
 
@@ -22,7 +22,7 @@
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{../wrr_tr/figures/simple_research/03_archive_factorial.pdf}
-\caption{Whole-archive trend error and the retention/estimator decomposition. Left: trend RMSE on common station-repetition rows for warm-season screening and all-year recovery under D2, with archive and station/group counts. Right: percentage MSE gain from retention and estimator changes; paired bars use each method's own four-cell count. Takeaway: all-year recovery lowers the absolute slope error in 630 of 805 controlled-gap archives, raises it in 169 and leaves 6 numerically unchanged, so the aggregate gain is not universal.}
+\caption{Whole-archive trend error and the retention/estimator decomposition. Left: trend RMSE on common station-repetition rows for warm-season screening and all-year recovery under D2, with archive and station/group counts. ``Offline bars score the whole 1981--2025 window with masks allowed in any post-burn-in year; ``forward bars, the main analysis, start in 2010. Right: percentage MSE gain from retention and estimator changes; paired bars use each method's own four-cell count. Takeaway: all-year recovery lowers the absolute slope error in 630 of 805 controlled-gap archives, raises it in 169 and leaves 6 numerically unchanged, so the aggregate gain is not universal.}
 \label{fig:trend}
 \end{figure}
 

@@ -5,7 +5,10 @@ handling in annual heat extremes and river-temperature trends**. It distills the
 reusable measurement ideas from a larger stream-recoverability study into a
 dependency-light package: observed-window support, outcome-blind calendar-year
 selection, finite-record OLS trends, slope-error decomposition, group-disjoint
-splits, and a contiguous masking utility.
+splits, and a contiguous masking utility, plus a dated benchmark layer:
+date-aware annual H30 with observed lower bounds, a reproducible controlled-gap
+generator, dependency-free reconstruction baselines, and a benchmark runner
+that scores any user-supplied reconstructor on the same finite-record slope.
 
 The package is deliberately not a copy of the research pipeline. It contains no
 restricted observations, no fitted recovery models, and no dependency on the
@@ -19,7 +22,7 @@ From the repository root:
 pip install -e gapbench
 ```
 
-This installs `gapbench` 1.2.0 with Python >= 3.10, NumPy, and pandas. For tests:
+This installs `gapbench` 1.3.0 with Python >= 3.10 and NumPy (no pandas). For tests:
 
 ```bash
 pip install -e "gapbench[test]"
@@ -42,6 +45,12 @@ python gapbench/examples/quickstart.py
 | `decompose_slope_error(reference_slope, selected_years, annual_truth, annual_estimate)` | `SlopeErrorDecomposition` | Year-set error `S`, reconstruction error `R`, total error `E = S + R`, cross term `2*S*R`, and an identity check. |
 | `group_splits(groups, n_splits=5, seed=0)` | `list[tuple[train, test]]` | Deterministic, group-disjoint train/test folds. |
 | `mask_archive(values, start, length)` | `numpy.ndarray` | Copy of the values with a contiguous `[start, start+length)` segment set to `nan`. |
+| `annual_h30(dates, values, window=30)` | `AnnualH30(years, h30, observed_bound, complete)` | Date-aware annual H30; `observed_bound` is the valid lower bound `L_y` for incomplete years, `h30` is `nan` there; handles leap years and rejects duplicate dates. |
+| `generate_gaps(years, seed, length_days, ...)` | `GapPlan(years, start_days, lengths, mask)` | Reproducible controlled-gap design (per-year probability, burn-in, warm-season start range) with one spawned stream per year, stable under exclusion. |
+| `climatology_fill(dates, values)` | `numpy.ndarray` | Baseline: day-of-year climatology fill from fully observed years. |
+| `linear_interpolation_fill(dates, values)` | `numpy.ndarray` | Baseline: linear interpolation in time. |
+| `ar1_bridge_paths(dates, values, n_paths=20, seed=0)` | `numpy.ndarray` | Pathwise AR(1) residual bridges with per-path spawned streams; path `i` is identical for any `n_paths`. |
+| `run_benchmark(dates, values, gap_plan, reconstructor, ...)` | `BenchmarkResult` | Scores any reconstructor `f(dates, daily_masked, record)`; returns annual errors, reference/estimated slopes and the `S/R/E` decomposition. |
 
 All public objects are exported from `gapbench` and documented in
 `gapbench/core.py`.

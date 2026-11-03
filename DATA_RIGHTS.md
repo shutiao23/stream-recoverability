@@ -490,3 +490,17 @@ responses. The project-specific quality processing and clock assumptions are
 recorded; NASA requests notification on redistribution, which has not been sent.
 The source model, calibration and individual model predictions remain excluded
 and subject to their separate unresolved access conditions.
+
+## Scope of the MIT LICENSE (moved from LICENSE)
+
+The MIT `LICENSE` covers original software only: source code, scripts, tests,
+project configuration and project-authored documentation. It grants no license
+in third-party observational data, including files under `data/raw/`,
+`data/processed/` and `data_versions/`, or upstream products of FOEN, GKD
+Bayern, USGS, NASA POWER, LUBW or other providers; each provider's terms
+continue to govern access, use and redistribution. Presence of data files in a
+public working tree is a hosting fact, not a redistribution licence. Restricted
+paths listed in `metadata/data_rights.csv` were spot-checked on 2026-11-03 and
+were found neither tracked in the public git tip nor present in commit history;
+that spot check does not replace a full provenance audit. Third-party Python
+dependencies retain their own licences.

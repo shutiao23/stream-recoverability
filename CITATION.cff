@@ -1,6 +1,6 @@
 # No archival software DOI has been minted. The doi field is intentionally
 # unset. Do not invent a Zenodo DOI or emit a placeholder as a DOI. GitHub
-# release v1.2.0 marks this version; the historical v1.0.0 tag does not.
+# release v1.3.0 marks this version; the historical v1.0.0 tag does not.
 cff-version: 1.2.0
 message: >-
   Cite this software using the metadata below. This file cites the
@@ -27,7 +27,7 @@ authors:
 repository-code: "https://github.com/shutiao23/stream-recoverability"
 url: "https://github.com/shutiao23/stream-recoverability"
 license: MIT
-version: "1.2.0"
+version: "1.3.0"
 date-released: "2026-11-03"
 keywords:
   - gap handling
@@ -42,11 +42,11 @@ identifiers:
   - type: url
     value: "https://github.com/shutiao23/stream-recoverability"
     description: >-
-      Public code repository for version 1.2.0.
+      Public code repository for version 1.3.0.
   - type: url
-    value: "https://github.com/shutiao23/stream-recoverability/releases/tag/v1.2.0"
+    value: "https://github.com/shutiao23/stream-recoverability/releases/tag/v1.3.0"
     description: >-
-      GitHub release marking version 1.2.0. It is a code release, not an
+      GitHub release marking version 1.3.0. It is a code release, not an
       archival DOI record; no Zenodo DOI has been minted.
 preferred-citation:
   type: software
@@ -57,10 +57,10 @@ preferred-citation:
     - family-names: shutiao23
       alias: shutiao23
       email: chestnutlee23@163.com
-  version: "1.2.0"
+  version: "1.3.0"
   url: "https://github.com/shutiao23/stream-recoverability"
   notes: >-
     Software citation only. No archival DOI has been minted (doi unset; not a
-    Zenodo record). GitHub release v1.2.0 marks this version; the historical
+    Zenodo record). GitHub release v1.3.0 marks this version; the historical
     v1.0.0 tag is not. Data rights are documented in DATA_RIGHTS.md and are
     not MIT; observational data are not licensed by this software citation.

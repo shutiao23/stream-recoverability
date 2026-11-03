@@ -14,9 +14,9 @@ Tests & 13 tests. Clean test command: \texttt{pip install -e "gapbench[test]"} f
 Quickstart & Synthetic 20-year daily series with four gaps. The example measures the best fully observed 30-day window, selects 18 years under both calendar rules while retaining all 16 complete years, and decomposes the slope error. It runs in under one second. \\
 Docker & Python 3.11 slim image; installs the review and development extras, imports LightGBM, and runs the quickstart. The container contains no restricted observations. \\
 Version consistency & \texttt{pyproject.toml}, \texttt{CITATION.cff}, and the preferred citation report version 1.2.0; the consistency check reports PASS with a warning that the historical v1.0.0 git tag does not describe version 1.2.0. \\
-Archival DOI & No Zenodo deposit yet. GitHub release v1.2.0 marks this version; the archival DOI remains pending. \\
+Archival DOI & No Zenodo deposit yet. GitHub release v1.3.0 marks this version; the archival DOI remains pending. \\
 Reviewer access & The public repository requires no credentials. Restricted LUBW observations are not redistributed; their access route remains pending provider agreement and editorial/legal confirmation. \\
-Program size and replay memory & 24 files, 1{,}012 lines of Python, 264\,KiB uncompressed (23\,KiB zipped). Measured on one CPU core: quickstart 0.13\,s wall clock and 35\,MiB peak resident set; full packaged replay of all 1{,}623 archive-level masks (8{,}115 strategy rows) 9.7\,s and 289\,MiB peak resident set. \\
+Program size and cost & Library: 17 files, 1{,}654 lines of Python, 73\,KiB uncompressed (28\,KiB zipped); quickstart 0.23\,s and 37\,MiB peak resident set (one CPU core). Research-compendium replay of all 1{,}623 archive-level masks (8{,}115 strategy rows): 9.7\,s and 289\,MiB. \\
 Research compendium & The D2 quantile model and the conditional AR(1) bridge are not part of \texttt{gapbench}. This separation keeps the published primitives stable while the fitted models depend on restricted data. \\
 \bottomrule
 \end{tabular}

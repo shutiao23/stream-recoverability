@@ -25,24 +25,23 @@ Median H30 interannual SD ($^{\circ}$C) & 1.011 \\
 \caption{Archive-level H30 slope error scaled by the station's classical OLS slope standard error. Controlled: 30--90-day gaps; Calendar: empirical gap calendars. RMSE is in $^{\circ}$C/10a. $e$ is the estimated minus the complete-record slope.}
 \label{tab:trend_signal_cohorts}
 \resizebox{\linewidth}{!}{%
-\begin{tabular}{llrrrrrr}
+\begin{tabular}{llrrrrrrrr}
 \hline
-Family & Scheme & $n$ & RMSE & Median & P90 & $>1$ SE & Sign \\
- & & & & $|e|/$SE & $|e|/$SE & (\%) & flips \\
+Family & Scheme & $n$ & RMSE & Median & P90 & $>1$ SE & Sign & Infl. & Weak \\
+ & & & & $|e|/$SE & $|e|/$SE & (\%) & flips & (\%) & flips \\
 \hline
-Controlled & Warm-season 90\% & 805 & 0.446 & 0.357 & 1.148 & 13.42 & 53 \\
-Controlled & CDF & 805 & 0.428 & 0.346 & 1.120 & 12.55 & 51 \\
-Controlled & $S_{xx}$ & 805 & 0.402 & 0.315 & 0.997 & 9.94 & 42 \\
-Controlled & All years & 805 & 0.170 & 0.108 & 0.458 & 0.75 & 16 \\
+Controlled & Warm-season 90\% & 805 & 0.446 & 0.357 & 1.148 & 13.42 & 53 & 21.49 & 43 \\
+Controlled & CDF & 805 & 0.428 & 0.346 & 1.120 & 12.55 & 51 & 20.27 & 42 \\
+Controlled & $S_{xx}$ & 805 & 0.402 & 0.315 & 0.997 & 9.94 & 42 & 17.93 & 35 \\
+Controlled & All years & 805 & 0.170 & 0.108 & 0.458 & 0.75 & 16 & 3.66 & 16 \\
 \hline
-Calendar & Warm-season 90\% & 818 & 0.114 & 0.002 & 0.279 & 0.24 & 3 \\
-Calendar & CDF & 818 & 0.098 & 0.002 & 0.195 & 0.00 & 5 \\
-Calendar & $S_{xx}$ & 818 & 0.086 & 0.002 & 0.174 & 0.12 & 4 \\
-Calendar & All years & 818 & 0.067 & 0.000 & 0.095 & 0.12 & 0 \\
+Calendar & Warm-season 90\% & 818 & 0.114 & 0.002 & 0.279 & 0.24 & 3 & 1.78 & 3 \\
+Calendar & CDF & 818 & 0.098 & 0.002 & 0.195 & 0.00 & 5 & 1.13 & 5 \\
+Calendar & $S_{xx}$ & 818 & 0.086 & 0.002 & 0.174 & 0.12 & 4 & 0.94 & 4 \\
+Calendar & All years & 818 & 0.067 & 0.000 & 0.095 & 0.12 & 0 & 0.55 & 0 \\
 \hline
 \end{tabular}}
-
-\par\smallskip\footnotesize The year-set-only uniform-exact control (not shown) has RMSE 0.449 (controlled) and 0.135 (calendar) $^{\circ}$C/10a and 55/8 sign flips; its archive-level estimates are not saved, so error/SE ratios are undefined. Calendar median ratios near zero reflect identical year sets in many archives (530 of 818 for all-year recovery).
+\par\smallskip\footnotesize The year-set-only uniform-exact control (not shown) has RMSE 0.449 (controlled) and 0.135 (calendar) $^{\circ}$C/10a and 55/8 sign flips; its archive-level estimates are not saved, so error/SE ratios are undefined. Calendar medians are diluted by identical year sets: restricted to the 288 calendars whose warm-season and all-year sets differ, screening gives RMSE 0.191 with median and P90 $|e|/$SE of 0.151 and 0.559, against 0.112, 0.026 and 0.225 for all-year recovery. All 200 FOEN (Swiss) calendars have zero screening error because their real gaps are too short to change the retained set. Infl. is the total-uncertainty inflation $\sqrt{1+\mathrm{mean}((e/\mathrm{SE})^2)}-1$; Weak flips are the sign flips at stations with $|\beta|<1$ SE, where the complete-record sign is itself uncertain.
 \end{table*}
 
-\noindent\textbf{Interpretation.} The complete-record reference slope is itself weakly constrained: across 41 stations and a median of 14 reference years, the median OLS H30 slope is 0.754 $^{\circ}$C/10a, its median classical SE is 0.590 $^{\circ}$C/10a, and the median interannual H30 SD is 1.011 $^{\circ}$C; only 3 stations have OLS $p<0.05$ and 4 have tie-corrected Mann--Kendall $p<0.05$. Under empirical gap calendars, warm-season screening and all-year reconstruction give RMSEs of 0.114 and 0.067 $^{\circ}$C/10a, both well below the median SE (0.590 $^{\circ}$C/10a); the median $|e|/$SE is 0.002 (P90 0.279) for screening and 0.000 (P90 0.095) for reconstruction, with 3 versus 0 sign flips. Under controlled 30--90-day gaps, reconstruction reduces RMSE from 0.446 to 0.170 $^{\circ}$C/10a, the share of archives exceeding one SE from 13.42\% to 0.75\%, and sign flips from 53 to 16. The 0.446 $^{\circ}$C/10a screening RMSE is 59.1\% of the median reference slope (0.754 $^{\circ}$C/10a), but this is an aggregate error-to-slope ratio, not a per-archive relative underestimate: the median per-archive $|e|/$SE is 0.357 and 13.42\% of archives exceed one SE. Because the OLS SE excludes autocorrelation, the error/SE ratios are lower bounds on the trend's sampling uncertainty.
+\noindent\textbf{Interpretation.} The complete-record reference slope is itself weakly constrained: across 41 stations and a median of 14 reference years, the median OLS H30 slope is 0.754 $^{\circ}$C/10a, its median classical SE is 0.590 $^{\circ}$C/10a, and the median interannual H30 SD is 1.011 $^{\circ}$C; only 3 stations have OLS $p<0.05$ and 4 have tie-corrected Mann--Kendall $p<0.05$. Under empirical gap calendars, warm-season screening and all-year reconstruction give RMSEs of 0.114 and 0.067 $^{\circ}$C/10a, both well below the median SE (0.590 $^{\circ}$C/10a); the median $|e|/$SE is 0.002 (P90 0.279) for screening and 0.000 (P90 0.095) for reconstruction, with 3 versus 0 sign flips. Under controlled 30--90-day gaps, reconstruction reduces RMSE from 0.446 to 0.170 $^{\circ}$C/10a, the share of archives exceeding one SE from 13.42\% to 0.75\%, and sign flips from 53 to 16. The 0.446 $^{\circ}$C/10a screening RMSE is 59.1\% of the median reference slope (0.754 $^{\circ}$C/10a), but this is an aggregate error-to-slope ratio, not a per-archive relative underestimate: the median per-archive $|e|/$SE is 0.357 and 13.42\% of archives exceed one SE. Because the OLS SE excludes autocorrelation, the error/SE ratios are lower bounds on the trend's sampling uncertainty. Expressed as inflation of total trend uncertainty, warm-season screening adds 21.49\% under controlled gaps and 1.78\% under empirical calendars, while all-year recovery adds 3.66\% and 0.55\%. 43 of the 53 controlled-gap screening flips and 16 of the 16 recovery flips occur at stations with $|\beta|<1$ SE, and no flip occurs at any of the three stations with $|t|\ge 2$.

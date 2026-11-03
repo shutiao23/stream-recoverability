@@ -2,18 +2,18 @@
 
 \subsection*{Software}
 
-\noindent\textbf{Software name:} \texttt{gapbench}, version 1.2.0.\\
+\noindent\textbf{Software name:} \texttt{gapbench}, version 1.3.0.\\
 \textbf{Developers:} [AUTHOR TO CONFIRM].\\
-\textbf{Support:} public issue tracker and documentation in the repository.\\
+\textbf{Contact:} [corresponding author to be completed before submission; issue tracker in the repository].\\
 \textbf{Year first available:} 2026.\\
-\textbf{Hardware required:} Standard x86-64 workstation or laptop. Measured on one CPU core: the quickstart finishes in 0.13\,s with a peak resident set of 35\,MiB, and the full packaged replay of all 1{,}623 archive-level gap masks (8{,}115 retained-year strategy rows) finishes in 9.7\,s with a peak resident set of 289\,MiB.\\
-\textbf{Software required:} Python $\ge$ 3.10, NumPy $\ge$ 1.24, and pandas $\ge$ 2.0; pytest $\ge$ 8 for the test suite.\\
+\textbf{Hardware required:} Standard x86-64 workstation or laptop. Measured on one CPU core: the library quickstart finishes in 0.23\,s with a peak resident set of 37\,MiB; the research-compendium replay of all 1{,}623 archive-level gap masks (8{,}115 retained-year strategy rows, NumPy/pandas) takes 9.7\,s with 289\,MiB.\\
+\textbf{Software required:} Python $\ge$ 3.10 and NumPy $\ge$ 1.24 for the library (pandas only in the research compendium); pytest $\ge$ 8 for the test suite.\\
 \textbf{Program language:} Python.\\
-\textbf{Program size:} 24 files, 1{,}012 lines of Python, 264\,KiB uncompressed (23\,KiB zipped, excluding caches).\\
-\textbf{Availability:} Public repository, \url{https://github.com/shutiao23/stream-recoverability}, with code release v1.2.0 at \url{https://github.com/shutiao23/stream-recoverability/releases/tag/v1.2.0}; archival DOI [PENDING]. Reviewers can access the public repository without credentials.\\
+\textbf{Program size:} 17 files, 1{,}654 lines of Python, 73\,KiB uncompressed (28\,KiB zipped, excluding caches).\\
+\textbf{Availability:} Public repository, \url{https://github.com/shutiao23/stream-recoverability}, with code release v1.3.0 at \url{https://github.com/shutiao23/stream-recoverability/releases/tag/v1.3.0}; archival DOI [PENDING]. Reviewers can access the public repository without credentials.\\
 \textbf{License:} MIT for code.\\
 \textbf{Cost:} Free.\\
-\textbf{30-minute quickstart:} From the repository root, run \texttt{pip install -e gapbench} and then \texttt{python gapbench/examples/quickstart.py}. The example builds a synthetic 20-year daily series with gaps, selects years under calendar-only rules, and decomposes finite-record slope error.
+\textbf{30-minute quickstart:} From the repository root, run \texttt{pip install -e gapbench} and then \texttt{python gapbench/examples/quickstart.py}. The example builds a dated synthetic 20-year daily series, degrades it with a reproducible gap design, reports the observed lower bound $L_y$ of every incomplete year against its true H30, and scores a climatology baseline with the $S/R/E$ decomposition.
 
 \subsection*{Data}
 
