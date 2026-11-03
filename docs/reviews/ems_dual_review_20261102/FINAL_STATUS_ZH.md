@@ -297,3 +297,17 @@ PY
 ### 8.6 仍未完成（与 3.1/3.2 相同）
 
 作者/单位/ORCID/基金/CRediT/COI；LUBW 法律与审稿访问；Zenodo DOI；A3/B4/B5/A5/A6/A8 与锁定确认。这些不是本地代码可替代的，状态保持不变。
+
+## 9. v1.2.0 发布证据（2026-11-03）
+
+| 对象 | 值 |
+|---|---|
+| 提交 | `e72970b52d`（`feat(ems): add EMS submission package, gapbench 1.2.0 and wild cluster bootstrap`），已推送 `origin/main` |
+| 标注 tag | `v1.2.0`，指向 `e72970b52d`，已推送 |
+| GitHub release | https://github.com/shutiao23/stream-recoverability/releases/tag/v1.2.0 |
+| Release 资产 | `gapbench-1.2.0.zip`，SHA-256 `29752080915f3a536797a596528cccc82621bbfccd2c53457bcd70c078178e87`（23,831 bytes，剔除 `__pycache__`/`*.pyc`/egg-info） |
+| 版本检查 | `scripts/check_version_consistency.py` → `PASS: latest git tag v1.2.0 matches package version`；唯一 INFO 为 DOI 未设置（属实） |
+| Zenodo DOI | 仍未 mint，属外部依赖；`CITATION.cff` 的 `doi` 保持未设置 |
+| CI | 按既定要求，推送前临时禁用；该提交无 workflow run；工作流已恢复 active |
+
+`paper/ems/`、`gapbench/`、`docs/software/`、`tests/test_ar1_bridge_nesting.py`、`tests/test_wild_cluster_bootstrap.py` 与 r4 证据目录现已进入版本库，"永久保存需先提交"这一阻断项的 Git 部分关闭；Zenodo/机构归档仍待作者完成。
